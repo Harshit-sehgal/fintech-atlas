@@ -35,7 +35,7 @@ Backend-heavy goals are deferred per [ADR-001](../adr/001-defer-backend-capabili
 | R8 | Deployment process is repeatable and supports verified rollback | Open (docs exist; drill not done) |
 | R9 | Jurisdiction-specific legal review before launch | Open |
 | R10 | E2E journey with registration | 🔴 Deferred (ADR-001) |
-| R11 | v1 journey: calculator → persist → export/share → return | 🟢 Personal finance + fee tools support save/share/CSV; remittance/matchmaker parity remains |
+| R11 | v1 journey: calculator → persist → export/share → return | 🟢 Fee/remittance/matchmaker tools support save/share/CSV; e2e covers matchmaker flow + bookmarks persistence |
 
 ---
 
@@ -105,8 +105,8 @@ Do not implement without revisiting [ADR-001](../adr/001-defer-backend-capabilit
 |----|-----|
 | W3–W4 | E2E + security/Lighthouse workflows present locally — merge to `origin/main` + enable GitHub settings |
 | W7 | Dual lockfiles resolved (npm only) — ensure `pnpm-*` stay deleted |
-| E1–E4 | No CD, previews, verified rollback/restore |
-| E7 | No structured-data validation in CI |
+| E1–E4 | No CD, previews, verified rollback/restore | 🟡 CD added (`.github/workflows/deploy.yml` → GitHub Pages); previews + verified rollback drill remain |
+| E7 | No structured-data validation in CI | 🟢 Done — `scripts/check-structured-data.mjs` runs in `postbuild`; 158 JSON-LD blocks validated |
 | E11 | Audit triage policy thin |
 | E15 | ESLint pinned to v9 until eslint-config-next supports 10 |
 | E17 | Secret scanning needs GitHub repo settings |

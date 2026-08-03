@@ -106,4 +106,58 @@ test.describe("critical flows", () => {
       page.getByRole("link", { name: /Visit Stripe/ }).first(),
     ).toBeVisible();
   });
+
+  test("matchmaker quiz flows through all steps and shows results", async ({
+    page,
+  }) => {
+    await page.goto("/tools/matchmaker/");
+    // Answer the four questions in sequence by clicking the first option of each.
+    for (const label of [
+      "Online Business / SaaS",
+      "Lowest Possible Fees",
+      "No — Domestic Focus Only",
+      "Early Stage / Individual",
+    ]) {
+      await page.getByRole("button", { name: label }).click();
+    }
+    // Results surface a shortlist heading.
+    await expect(
+      page.getByRole("heading", { name: "Suggested starting points" }),
+    ).toBeVisible();
+    // Each recommended company exposes a partner CTA.
+    await expect(
+      page.getByRole("link", { name: /Visit .+/ }).first(),
+    ).toBeVisible();
+  });
+
+  test("bookmarks persist a company across pages", async ({ page }) => {
+    await page.goto("/companies/stripe/");
+    // Toggle the bookmark on (☆ Save → ★ Saved).
+    await page.getByRole("button", { name: /☆ Save/ }).click();
+    await expect(page.getByRole("button", { name: /★ Saved/ })).toBeVisible();
+
+    // Navigate to the bookmarks page — Stripe should be listed there.
+    await page.goto("/bookmarks/");
+    await expect(page.getByText("Stripe", { exact: false }).first()).toBeVisible();
+    await expect(
+      page.getByText(/No saved items yet/i),
+    ).toHaveCount(0);
+  });
+
+  test("affiliate disclosure page renders and links from the footer", async ({
+    page,
+  }) => {
+    // Footer exposes the Affiliate Disclosure link (compliance requirement).
+    await page.goto("/");
+    await expect(
+      page.getByRole("link", { name: "Affiliate Disclosure" }),
+    ).toBeVisible();
+
+    // The page itself loads with an accessible disclosure.
+    await page.goto("/affiliate-disclosure/");
+    await expect(
+      page.getByRole("heading", { level: 1, name: /Affiliate Disclosure/i }),
+    ).toBeVisible();
+    await expect(page.getByText(/affiliate links/i).first()).toBeVisible();
+  });
 });

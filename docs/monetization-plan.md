@@ -126,10 +126,14 @@ Grow from ~0 to ≥10k sessions/mo of commercial-intent traffic within 6–12 mo
   script loaded, stores intent locally until a provider is wired, then submits
   to `NEXT_PUBLIC_NEWSLETTER_FORM_ACTION` (Buttondown/ConvertKit/Mailchimp) with
   one env change. No cookies, no tracking pixels, clear unsubscribe language.
-- **[DONE]** 6 SEO articles now ship in `src/data/articles.ts` (Stripe vs Adyen,
-  Wise vs Revolut, Stripe vs PayPal, Affirm vs Klarna, Best neobanks), each with
+- **[SCAFFOLD DONE → LIVE]** 8 SEO articles now ship in `src/data/articles.ts`
+  (Stripe vs Adyen, Wise vs Revolut, Stripe vs PayPal, Affirm vs Klarna, Best
+  neobanks, Coinbase vs Robinhood, Best gateway for small business), each with
   Article JSON-LD, related-profile internal links, and commercial CTAs —
-  sitemap grew to 72 URLs. Add more by appending to the catalog.
+  sitemap grew to 75 URLs. Add more by appending to the catalog.
+- **[DONE] Affiliate Disclosure page** — `/affiliate-disclosure` (FTC-style,
+  matches the About FAQ reference), linked from the footer, indexable in the
+  sitemap, covered by e2e.
 - **Remaining (needs you):** choose a newsletter provider and set
   `NEXT_PUBLIC_NEWSLETTER_FORM_ACTION`; commission/author more articles; build
   a real send cadence.

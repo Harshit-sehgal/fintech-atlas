@@ -49,6 +49,14 @@ export const sourceReferencesBySlug: Partial<Record<string, SourceReference[]>> 
       sourceType: "official-documentation",
       supports: ["company-profile", "products", "pricing", "customers"],
     },
+    {
+      id: "filing",
+      publisher: "Adyen",
+      title: "Adyen annual report — financial disclosures",
+      accessedAt: PROVENANCE_ACCESSED_AT,
+      sourceType: "company-report",
+      supports: ["employees", "valuation"],
+    },
   ],
   paypal: [
     {
@@ -79,6 +87,14 @@ export const sourceReferencesBySlug: Partial<Record<string, SourceReference[]>> 
       sourceType: "official-documentation",
       supports: ["company-profile", "pricing", "products", "customers"],
     },
+    {
+      id: "company-report",
+      publisher: "Square (Block)",
+      title: "Square (Block) quarterly report — financial disclosures",
+      accessedAt: PROVENANCE_ACCESSED_AT,
+      sourceType: "company-report",
+      supports: ["employees", "valuation"],
+    },
   ],
   wise: [
     {
@@ -89,6 +105,14 @@ export const sourceReferencesBySlug: Partial<Record<string, SourceReference[]>> 
       accessedAt: PROVENANCE_ACCESSED_AT,
       sourceType: "official-documentation",
       supports: ["company-profile", "pricing", "products", "customers"],
+    },
+    {
+      id: "filing",
+      publisher: "Wise",
+      title: "Wise annual report — financial disclosures",
+      accessedAt: PROVENANCE_ACCESSED_AT,
+      sourceType: "company-report",
+      supports: ["employees", "valuation"],
     },
   ],
   revolut: [
@@ -167,6 +191,14 @@ export const sourceReferencesBySlug: Partial<Record<string, SourceReference[]>> 
       sourceType: "official-documentation",
       supports: ["company-profile", "products", "pricing", "customers"],
     },
+    {
+      id: "filing",
+      publisher: "MoneyGram",
+      title: "MoneyGram SEC filing — financial disclosures",
+      accessedAt: PROVENANCE_ACCESSED_AT,
+      sourceType: "regulatory-filing",
+      supports: ["employees", "valuation"],
+    },
   ],
   chime: [
     {
@@ -211,6 +243,14 @@ export const sourceReferencesBySlug: Partial<Record<string, SourceReference[]>> 
       sourceType: "official-documentation",
       supports: ["company-profile", "products", "pricing", "customers"],
     },
+    {
+      id: "filing",
+      publisher: "Robinhood",
+      title: "Robinhood SEC filing — financial disclosures",
+      accessedAt: PROVENANCE_ACCESSED_AT,
+      sourceType: "regulatory-filing",
+      supports: ["employees", "valuation"],
+    },
   ],
   sofi: [
     {
@@ -222,6 +262,14 @@ export const sourceReferencesBySlug: Partial<Record<string, SourceReference[]>> 
       sourceType: "official-documentation",
       supports: ["company-profile", "products", "pricing", "customers"],
     },
+    {
+      id: "filing",
+      publisher: "SoFi",
+      title: "SoFi SEC filing — financial disclosures",
+      accessedAt: PROVENANCE_ACCESSED_AT,
+      sourceType: "regulatory-filing",
+      supports: ["employees", "valuation"],
+    },
   ],
   affirm: [
     {
@@ -232,6 +280,14 @@ export const sourceReferencesBySlug: Partial<Record<string, SourceReference[]>> 
       accessedAt: PROVENANCE_ACCESSED_AT,
       sourceType: "official-documentation",
       supports: ["company-profile", "products", "pricing", "customers"],
+    },
+    {
+      id: "filing",
+      publisher: "Affirm",
+      title: "Affirm SEC filing — financial disclosures",
+      accessedAt: PROVENANCE_ACCESSED_AT,
+      sourceType: "regulatory-filing",
+      supports: ["employees", "valuation"],
     },
   ],
   klarna: [
@@ -353,6 +409,14 @@ export const sourceReferencesBySlug: Partial<Record<string, SourceReference[]>> 
       accessedAt: PROVENANCE_ACCESSED_AT,
       sourceType: "official-documentation",
       supports: ["company-profile", "products", "pricing", "customers"],
+    },
+    {
+      id: "filing",
+      publisher: "Coinbase",
+      title: "Coinbase SEC filing — financial disclosures",
+      accessedAt: PROVENANCE_ACCESSED_AT,
+      sourceType: "regulatory-filing",
+      supports: ["employees", "valuation"],
     },
   ],
   "google-pay": [

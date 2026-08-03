@@ -24,9 +24,11 @@ jobs:
       - run: npm run lint -- --max-warnings=0
       # `test:coverage` enforces the coverage thresholds in vitest.config.mts.
       - run: npm run test:coverage
-      # Informational dependency audit. Fails only on high/critical advisories;
-      # moderate/low transitive advisories do not block the build.
-      - run: npm audit --audit-level=high
+      # Production-dependency audit. `--production` excludes dev-only tooling
+      # (@lhci/cli → inquirer → tmp) that is never shipped or reachable at
+      # runtime; those dev findings are tracked in SECURITY_AUDIT_TRIAGE.md.
+      # Fails only on high/critical advisories affecting shipped code.
+      - run: npm audit --production --audit-level=high
       - run: SITE_URL=https://ci.fintech-atlas.test npm run build
 
   # End-to-end browser tests against the static export (Playwright).

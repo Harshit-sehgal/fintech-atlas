@@ -24,6 +24,7 @@ const aboutLinks = [
   { href: "/about", label: "Methodology & Sources" },
   { href: "/about#faq", label: "Frequently Asked Questions" },
   { href: "/about#disclaimer", label: "Educational Disclaimer" },
+  { href: "/affiliate-disclosure", label: "Affiliate Disclosure" },
   { href: "/privacy", label: "Privacy Notice" },
   { href: "/terms", label: "Terms of Use" },
   {

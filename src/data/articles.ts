@@ -345,6 +345,132 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "coinbase-vs-robinhood-crypto-investing",
+    title: "Coinbase vs Robinhood: buying crypto and stocks",
+    description:
+      "A practical comparison of Coinbase and Robinhood for retail investors — trading fees, crypto selection, regulation, and who each fits best.",
+    publishedAt: "2026-08-03",
+    updatedAt: "2026-08-03",
+    category: "Investing",
+    relatedCompanySlugs: ["coinbase", "robinhood", "sofi"],
+    ctas: [
+      { slug: "coinbase", label: "Visit Coinbase", placement: "compare-vs" },
+      { slug: "robinhood", label: "Visit Robinhood", placement: "compare-vs" },
+    ],
+    body: [
+      {
+        type: "p",
+        text: "Coinbase and Robinhood both let retail investors buy crypto, but they come at it from opposite directions. Coinbase is a dedicated crypto exchange and regulated US custodian. Robinhood is a brokerage that added crypto alongside commission-free stocks and ETFs. Which one you pick depends on whether you want deep crypto functionality or an all-in-one investing app.",
+      },
+      { type: "h2", text: "Trading fees & model at a glance" },
+      {
+        type: "table",
+        headers: ["Factor", "Coinbase", "Robinhood"],
+        rows: [
+          ["Crypto selection", "200+ assets", "Smaller, curated set"],
+          ["Retail fee (illustrative)", "~1-3% (Advanced ~0.5% taker)", "Commission-free (spread applies)"],
+          ["Regulation", "Top US-regulated custodian", "US brokerage (FINRA/SIPC)"],
+          ["Broader investing", "Crypto focus", "Stocks, ETFs, options, crypto"],
+        ],
+      },
+      { type: "h2", text: "Choose Coinbase when" },
+      {
+        type: "ul",
+        items: [
+          "You want the widest selection of crypto and an easy fiat on-ramp.",
+          "A regulated, insured custodian matters to you for larger amounts.",
+          "You use advanced trading features or self-custody wallets (Coinbase Wallet).",
+          "You prefer a dedicated crypto product with institutional-grade security.",
+        ],
+      },
+      { type: "h2", text: "Choose Robinhood when" },
+      {
+        type: "ul",
+        items: [
+          "You want stocks, ETFs, options, and crypto in one place.",
+          "A simple, mobile-first interface matters more than crypto depth.",
+          "You trade frequently and value commission-free stock/ETF trades.",
+          "You're starting out and want a beginner-friendly on-ramp.",
+        ],
+      },
+      {
+        type: "p",
+        text: "The honest trade-off: Coinbase tends to be more expensive for small, frequent retail crypto trades but offers far more depth and regulated custody; Robinhood is cheaper and simpler to start but has a narrower crypto selection and thinner self-custody story. Fees shown are illustrative snapshots — check live rates before trading.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: this is educational, not investment advice. Crypto is volatile and may not be suitable for all investors.",
+      },
+    ],
+  },
+  {
+    slug: "best-payment-gateway-small-business",
+    title: "Best payment gateway for a small business: Stripe, Square, or PayPal",
+    description:
+      "A small-business buyer's guide to the three most common US gateways — Square vs Stripe vs PayPal across setup, fees, in-person, and online needs.",
+    publishedAt: "2026-08-03",
+    updatedAt: "2026-08-03",
+    category: "Payments",
+    relatedCompanySlugs: ["square", "stripe", "paypal", "adyen"],
+    ctas: [
+      { slug: "square", label: "Visit Square", placement: "compare-vs" },
+      { slug: "stripe", label: "Visit Stripe", placement: "compare-vs" },
+      { slug: "paypal", label: "Visit PayPal", placement: "compare-vs" },
+    ],
+    body: [
+      {
+        type: "p",
+        text: "Most small businesses boil down to one of three payment gateways. Square is the plug-and-play choice for in-person and retail. Stripe is the developer favorite for online and platform-led businesses. PayPal is the trusted hosted checkout that converts hesitant buyers. Here's how to pick between them.",
+      },
+      { type: "h2", text: "The three at a glance" },
+      {
+        type: "table",
+        headers: ["Factor", "Square", "Stripe", "PayPal"],
+        rows: [
+          ["Setup", "Very easy, pure POS", "API-first, dev-friendly", "Easy hosted checkout"],
+          ["Standard online rate (illustrative)", "2.9% + $0.30", "2.9% + $0.30", "3.49% + $0.49"],
+          ["In-person card rate", "2.6% + $0.10", "2.7% + $0.05", "2.29% + $0.09"],
+          ["Best for", "Retail / in-person", "Online / platform / SaaS", "Consumer trust + checkout"],
+        ],
+      },
+      { type: "h2", text: "When Square wins" },
+      {
+        type: "ul",
+        items: [
+          "You sell in person — card readers, POS terminals, and a free register app.",
+          "You want fast setup with no contracts and transparent pricing.",
+          "You run a coffee shop, salon, food truck, or retail store.",
+        ],
+      },
+      { type: "h2", text: "When Stripe wins" },
+      {
+        type: "ul",
+        items: [
+          "You have (or are) a developer and want to own the checkout.",
+          "You need subscriptions, billing, or marketplace payouts (Connect).",
+          "You're a SaaS product or platform processing significant online volume.",
+        ],
+      },
+      { type: "h2", text: "When PayPal wins" },
+      {
+        type: "ul",
+        items: [
+          "Buyer familiarity and conversion at checkout are your top priority.",
+          "You want the PayPal button without custom integration work.",
+          "You sell into markets where PayPal is the expected payment method.",
+        ],
+      },
+      {
+        type: "p",
+        text: "There's no single 'best' — the right pick depends on whether your revenue is in-person or online and how much you want to customize. Many businesses run Square for the counter and Stripe (or PayPal) for the website. Run your own monthly revenue, order size, and international mix through our free Fee Calculator to compare the dollar cost for your exact numbers.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: rates above are illustrative published assumptions from the catalog vintage, not quotes. Volume discounts and enterprise pricing vary — verify current terms before deciding.",
+      },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {

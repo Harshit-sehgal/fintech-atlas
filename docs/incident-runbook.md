@@ -61,6 +61,11 @@ for each production environment.
 - [ ] Keyboard skip links and command palette work.
 - [ ] Calculator and remittance disclaimers are visible.
 - [ ] Company profile source-status section renders.
+- [ ] Partner CTAs resolve and commercial links carry `rel="sponsored"`.
+- [ ] Article pages render with JSON-LD and related-profile links.
+- [ ] Newsletter opt-in renders in the footer (no console errors).
 - [ ] No console errors on representative routes.
-- [ ] Security headers and canonical URLs are present.
+- [ ] Security headers (`_headers`) and canonical URLs are present.
+- [ ] `sitemap.xml` and `robots.txt` are present and correct.
+- [ ] Structured-data validation passes (`scripts/check-structured-data.mjs`).
 - [ ] The incident is documented and a follow-up issue is assigned.
