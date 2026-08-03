@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import MatchmakerQuizPageClient from "./matchmaker-client";
-import { SITE_URL } from "@/lib/site-config";
+import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
 
 const description =
@@ -10,12 +10,12 @@ const description =
 export const metadata: Metadata = {
   title: "FinTech Matchmaker Quiz",
   description,
-  alternates: { canonical: "/tools/matchmaker" },
+  alternates: { canonical: canonicalUrl("/tools/matchmaker") },
   openGraph: {
     ...openGraphImage,
     title: "FinTech Matchmaker Quiz — FinTech Atlas",
     description,
-    url: `${SITE_URL}/tools/matchmaker`,
+    url: canonicalUrl("/tools/matchmaker"),
   },
 };
 

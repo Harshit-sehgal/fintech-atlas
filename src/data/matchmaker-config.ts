@@ -79,7 +79,10 @@ export const SCORE_WEIGHTS: Record<
       nubank: 3,
     },
     all_in_one: {
-      // Default - no specific weights, evenly considers all
+      square: 4,
+      paypal: 3,
+      wise: 3,
+      chime: 2,
     },
   },
   globalNeed: {
@@ -89,15 +92,21 @@ export const SCORE_WEIGHTS: Record<
       adyen: 3,
     },
     low: {
-      // Default - no specific weights
+      chime: 3,
+      wise: 3,
+      square: 2,
     },
   },
   scale: {
     early: {
-      // Default - no specific weights
+      square: 3,
+      wise: 3,
+      stripe: 2,
     },
     growing: {
-      // Default - no specific weights
+      stripe: 4,
+      brex: 3,
+      gusto: 3,
     },
     enterprise: {
       adyen: 5,

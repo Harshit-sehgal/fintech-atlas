@@ -5,13 +5,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
-import { useToast } from "@/lib/toast-context";
 import { DATA_AS_OF } from "@/lib/site-config";
 
 const faqs = [
   {
     q: "Is FinTech Atlas affiliated with any of the companies listed?",
-    a: "No. FinTech Atlas is an independent educational guide. We do not accept sponsored placements, paid reviews, or affiliate commissions. All reviews and ratings are synthesized from objective market research and user aggregators."
+    a: "No. FinTech Atlas is an independent educational guide. We do not accept sponsored placements, paid reviews, or affiliate commissions. Editorial ratings are presented as sentiment summaries, not as a statistically weighted review aggregate."
   },
   {
     q: "How accurate is the fee pricing data?",
@@ -19,27 +18,16 @@ const faqs = [
   },
   {
     q: "Can I suggest a new FinTech company to be added?",
-    a: "Yes! Use the feedback form below to suggest company profiles, tools, or glossary terms you'd like to see included."
+    a: "The static demo does not currently accept submissions. Use the project's issue tracker or contact channel when one is available."
   },
   {
     q: "How do your interactive calculators work?",
-    a: "Our Fee Estimator and FX Remittance tools use actual published formulas (e.g. Stripe 2.9%+$0.30, Wise mid-market rate + 0.43% fee, PayPal 3.49%+$0.49). They simulate total monthly or transfer costs dynamically based on your inputs. Pricing reflects published standard rates as of " + DATA_AS_OF + "."
+    a: "Our Fee Estimator and FX Remittance tools use illustrative published-rate assumptions (for example, Stripe 2.9%+$0.30 and a Wise-style percentage fee). They simulate costs dynamically based on your inputs, but do not provide route-specific or contractual quotes. Pricing assumptions are labeled with the catalog period " + DATA_AS_OF + "."
   }
 ];
 
 export function AboutClient() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [feedback, setFeedback] = useState("");
-  const [email, setEmail] = useState("");
-  const { showToast } = useToast();
-
-  const handleFeedbackSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!feedback.trim()) return;
-    showToast("Thanks for your suggestion! Note: feedback is stored locally only — this is a static demo.", "info");
-    setFeedback("");
-    setEmail("");
-  };
 
   return (
     <div className="relative mx-auto max-w-4xl px-5 py-20 md:py-28">
@@ -75,8 +63,8 @@ export function AboutClient() {
                 "apiscout.dev — Payment API benchmarks",
                 "neobanks.guide — Neobank features & FDIC data",
                 "comparepsp.com — Foreign Exchange fee models",
-                "Verified review aggregators (Trustpilot, App Store, G2)",
-                "Reddit & Hacker News community feedback",
+                "Review platforms such as Trustpilot, App Store, and G2 (where referenced)",
+                "Community discussions used as editorial context, where referenced",
               ].map((src) => (
                 <li key={src} className="flex items-center gap-2 surface rounded-lg border border-[var(--border-color)] p-3 hover:border-[var(--accent)]/30 transition-colors">
                   <span className="text-success-text font-bold">✓</span>
@@ -164,47 +152,13 @@ export function AboutClient() {
         </section>
       </Reveal>
 
-      {/* Feedback Form */}
+      {/* Feedback status */}
       <Reveal delay={0.25}>
         <section className="surface mt-16 rounded-2xl border border-[var(--border-color)] p-6 sm:p-8">
           <h2 className="text-lg font-bold text-[var(--foreground)]">Have Feedback or Suggestions?</h2>
-          <p className="mt-1 text-xs text-[var(--muted-text)]">
-            We are constantly improving FinTech Atlas. Let us know if you noticed an outdated fee, missing company, or feature idea!
+          <p className="mt-1 text-xs leading-relaxed text-[var(--muted-text)]">
+            Feedback submission is not connected in this static demo, so no message or email is sent. Please use the project&apos;s issue tracker or contact channel when one is available.
           </p>
-
-          <form onSubmit={handleFeedbackSubmit} className="mt-6 space-y-4">
-            <div className="grid gap-3 sm:grid-cols-2">
-              <div>
-                <label htmlFor="email-input" className="block text-xs font-semibold text-[var(--muted-text)] mb-1">Your Email (Optional)</label>
-                <input
-                  id="email-input"
-                  type="email"
-                  placeholder="you@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--background)] px-3 py-2 text-xs outline-none transition-colors focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/40"
-                  autoComplete="email"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="feedback-input" className="block text-xs font-semibold text-[var(--muted-text)] mb-1">Feedback / Suggestion *</label>
-              <textarea
-                id="feedback-input"
-                required
-                rows={3}
-                placeholder="What company or feature should we add next?"
-                value={feedback}
-                onChange={(e) => setFeedback(e.target.value)}
-                className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--background)] p-3 text-xs outline-none transition-colors focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/40"
-              />
-            </div>
-
-            <button type="submit" className="btn-primary text-xs">
-              Submit Feedback
-            </button>
-          </form>
         </section>
       </Reveal>
 

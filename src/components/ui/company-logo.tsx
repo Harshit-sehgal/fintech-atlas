@@ -652,7 +652,28 @@ export const logoShapes: Record<string, Logo> = {
   },
 };
 
-export function CompanyLogo({ slug, size = 48 }: { slug: string; size?: number }) {
+/**
+ * A single accessible image semantic per logo:
+ * - Non-decorative: outer span is `role="img"` labelled with the company name;
+ *   the inner <img>/SVG is `aria-hidden` (no nested/redundant names).
+ * - decorative (e.g. a logo used purely as a visual accent): the whole mark is
+ *   `aria-hidden` and not announced.
+ */
+export function CompanyLogo({
+  slug,
+  name,
+  size = 48,
+  decorative = false,
+}: {
+  slug: string;
+  name?: string;
+  size?: number;
+  decorative?: boolean;
+}) {
+  const imgLabel = `${name ?? slug} logo`;
+  const hiddenAria = decorative
+    ? { "aria-hidden": true as const }
+    : { role: "img" as const, "aria-label": imgLabel };
   // ── Tier 1: real official mark (downloaded from simple-icons) ──
   const real = REAL_LOGOS[slug];
   if (real) {
@@ -672,8 +693,7 @@ export function CompanyLogo({ slug, size = 48 }: { slug: string; size?: number }
     return (
       <span
         className="inline-flex items-center justify-center rounded-xl overflow-hidden shrink-0 transition-transform duration-300 group-hover:scale-105"
-        role="img"
-        aria-label={`${slug} logo`}
+        {...hiddenAria}
         style={{
           width: size,
           height: size,
@@ -684,7 +704,8 @@ export function CompanyLogo({ slug, size = 48 }: { slug: string; size?: number }
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={`/logos/${slug}.svg`}
-          alt={`${slug} logo`}
+          alt=""
+          aria-hidden="true"
           width={size - pad * 2}
           height={size - pad * 2}
           loading="lazy"
@@ -713,6 +734,7 @@ export function CompanyLogo({ slug, size = 48 }: { slug: string; size?: number }
     return (
       <span
         className="inline-flex items-center justify-center rounded-xl bg-[var(--surface-raised)] font-mono font-bold uppercase tracking-wider text-[var(--foreground)] border border-[var(--border-color)]"
+        {...hiddenAria}
         style={{ width: size, height: size, fontSize: Math.max(10, size * 0.32) }}
       >
         {monogram}
@@ -738,8 +760,7 @@ export function CompanyLogo({ slug, size = 48 }: { slug: string; size?: number }
   return (
     <span
       className="inline-flex items-center justify-center rounded-xl overflow-hidden shrink-0 transition-transform duration-300 group-hover:scale-105"
-      role="img"
-      aria-label={`${slug} logo`}
+      {...hiddenAria}
       style={{
         width: size,
         height: size,

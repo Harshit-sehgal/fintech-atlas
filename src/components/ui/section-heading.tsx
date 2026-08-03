@@ -19,8 +19,7 @@ export function SectionHeading({ eyebrow, title, description, align = "left", he
     <div className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
       {eyebrow && (
         <Reveal>
-          <p className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">
-            <span className="inline-block h-px w-6 bg-[var(--accent)]/50" />
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
             {eyebrow}
           </p>
         </Reveal>

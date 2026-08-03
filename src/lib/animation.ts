@@ -10,6 +10,9 @@
  * removed after a grep audit confirmed zero consumers.
  */
 export const animationPresets = {
+  easing: {
+    editorial: [0.22, 1, 0.36, 1] as const,
+  },
   transition: {
     // For motion components
     springDefault: { type: "spring" as const, stiffness: 380, damping: 30 },
@@ -17,5 +20,6 @@ export const animationPresets = {
     layout: { duration: 0.32, ease: [0.22, 1, 0.36, 1] as const },
     layoutFast: { duration: 0.22, ease: [0.22, 1, 0.36, 1] as const },
     layoutEaseInOut: { duration: 0.25, ease: "easeInOut" as const },
+    reveal: { duration: 0.48, ease: [0.22, 1, 0.36, 1] as const },
   },
 };

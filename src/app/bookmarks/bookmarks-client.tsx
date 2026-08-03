@@ -104,7 +104,7 @@ export default function BookmarksPageClient() {
                     <div>
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex items-center gap-3">
-                          <CompanyLogo slug={c.slug} size={40} />
+                          <CompanyLogo slug={c.slug} name={c.name} size={40} />
                           <div>
                             <h3 className="font-bold text-base text-[var(--foreground)]">{c.name}</h3>
                             <p className="text-xs text-[var(--muted-text)] font-mono">{formatValuationShort(c.valuation)}</p>

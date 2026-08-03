@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { companies, type Company, type Category } from "@/data";
+import type { Company, Category } from "@/data";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { CategoryIcon } from "@/components/ui/category-icon";
 import { Reveal } from "@/components/ui/reveal";
@@ -61,9 +61,14 @@ function SectionHeader({ eyebrow, title }: { eyebrow: string; title: string }) {
 export function CompanyPageClient({
   company: c,
   relatedCategories,
+  adjacent,
 }: {
   company: Company;
   relatedCategories: Category[];
+  adjacent: {
+    previous: { slug: string; name: string } | null;
+    next: { slug: string; name: string } | null;
+  };
 }) {
   const { isBookmarked, toggleBookmark } = useBookmarks();
   const { showToast } = useToast();
@@ -89,78 +94,62 @@ export function CompanyPageClient({
 
   // Focus management for review modal accessibility
   const previousElementRef = useRef<HTMLElement | null>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
-  // Handle focus trapping and escape key for review modal
+  // Handle focus trapping and escape key for review modal.
   useEffect(() => {
     if (!reviewModalOpen) return;
 
-    // Save the currently focused element
     previousElementRef.current = document.activeElement as HTMLElement;
 
-    // Focus the first input (rating stars) when modal opens
-    const handleFocus = () => {
-      const ratingButton = document.querySelector('button[aria-label="1 star"]') as HTMLButtonElement | null;
-      if (ratingButton) {
-        ratingButton.focus();
-      }
+    const focusFirst = () => {
+      const dialog = dialogRef.current;
+      if (dialog) getFocusableElementsInDialog(dialog)[0]?.focus();
     };
+    const animationFrame = requestAnimationFrame(focusFirst);
 
-    // Request animation frame to ensure DOM is updated
-    requestAnimationFrame(handleFocus);
-
-    // Trap focus inside the modal and handle escape key
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         e.preventDefault();
         setReviewModalOpen(false);
-      } else if (e.key === "Tab") {
-        // Trap focus within the modal
-        const focusableElements = getFocusableElementsInDialog();
-        if (focusableElements.length === 0) {
-          e.preventDefault();
-          return;
-        }
+        return;
+      }
+      if (e.key !== "Tab") return;
 
-        const first = focusableElements[0];
-        const last = focusableElements[focusableElements.length - 1];
+      const dialog = dialogRef.current;
+      const focusableElements = dialog ? getFocusableElementsInDialog(dialog) : [];
+      if (focusableElements.length === 0) {
+        e.preventDefault();
+        return;
+      }
 
-        if (e.shiftKey) { // Shift + Tab
-          if (document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else { // Tab
-          if (document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
-        }
+      const first = focusableElements[0];
+      const last = focusableElements[focusableElements.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
       }
     };
 
-    const handleFocusOut = (e: FocusEvent) => {
-      // If focus is leaving the modal, bring it back to the first focusable element
-      const dialog = e.currentTarget as HTMLElement;
-      if (!dialog.contains(e.relatedTarget as Node)) {
-        e.preventDefault();
-        const focusableElements = getFocusableElementsInDialog();
-        if (focusableElements.length > 0) {
-          focusableElements[0].focus();
-        }
+    const handleFocusIn = (e: FocusEvent) => {
+      const dialog = dialogRef.current;
+      const target = e.target;
+      if (dialog && target instanceof Node && !dialog.contains(target)) {
+        focusFirst();
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("focusout", handleFocusOut);
+    window.addEventListener("focusin", handleFocusIn);
 
     return () => {
+      cancelAnimationFrame(animationFrame);
       window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("focusout", handleFocusOut);
-
-      // Return focus to the element that triggered the modal
-      if (previousElementRef.current) {
-        previousElementRef.current.focus();
-      }
+      window.removeEventListener("focusin", handleFocusIn);
+      previousElementRef.current?.focus();
     };
   }, [reviewModalOpen]);
 
@@ -240,7 +229,7 @@ export function CompanyPageClient({
 
       author: newAuthor.trim(),
 
-      role: newRole.trim() || "Verified User",
+      role: newRole.trim() || "Local note",
 
       text: newText.trim(),
 
@@ -276,49 +265,22 @@ export function CompanyPageClient({
 
     setNewText("");
 
-    setFormErrors({
-
-      author: "",
-
-      text: ""
-
-    });
-
-    showToast("Thank you! Your review has been published.", "success");
+    setFormErrors({ author: "", text: "" });
+    showToast("Private note saved to this browser.", "success");
 
   };
 
-  // Performance metrics — illustrative benchmarks (not independently audited).
-  // Scores are heuristically derived from a mix of public documentation, user-review
-  // aggregator sentiment, and known product breadth. Treat them as directional
-  // comparisons and read the full profile for specifics.
-  const slugStr = c.slug as string;
-
-  const metrics: { label: string; score: number }[] = [
-    {
-      label: "Developer Experience / API",
-      score: slugStr === "stripe" || slugStr === "plaid" ? 96 : 85,
-    },
-    {
-      label: "Pricing Transparency",
-      score: slugStr === "wise" || slugStr === "chime" ? 95 : 78,
-    },
-    {
-      label: "Global Reach",
-      score:
-        slugStr === "stripe" ||
-        slugStr === "wise" ||
-        slugStr === "revolut" ||
-        slugStr === "adyen"
-          ? 94
-          : 82,
-    },
-    { label: "Reliability & Uptime", score: 92 },
-    {
-      label: "Customer Support",
-      score: c.userReviews.rating >= 4.5 ? 90 : 75,
-    },
+  // Keep this section qualitative: the repository does not contain a
+  // reproducible benchmark dataset for numerical performance scores.
+  const assessment: { label: string; value: string }[] = [
+    { label: "Developer Experience / API", value: "Not independently assessed" },
+    { label: "Pricing Transparency", value: "Not independently assessed" },
+    { label: "Global Reach", value: "Not independently assessed" },
+    { label: "Reliability & Uptime", value: "Not independently assessed" },
+    { label: "Customer Support", value: "Editorial sentiment only" },
   ];
+
+  const ratingRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
   return (
     <div
@@ -363,20 +325,15 @@ export function CompanyPageClient({
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className="relative flex flex-col md:flex-row items-start gap-6 pt-2"
       >
-        <div
-          className="pointer-events-none absolute -top-6 left-0 h-48 w-48 rounded-full blur-[80px] -z-10"
-          style={{ background: c.accent, opacity: 0.15 }}
-        />
         <div className="relative group">
-          <div className="absolute inset-0 blur-xl bg-[var(--accent)] opacity-20 group-hover:opacity-30 transition-opacity duration-500 rounded-2xl" />
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10">
-            <CompanyLogo slug={c.slug} size={80} />
+          <div className="relative flex items-center justify-center rounded-2xl border border-[var(--border-color)] bg-[var(--card)] shadow-[var(--shadow-sm)] p-6">
+            <CompanyLogo slug={c.slug} name={c.name} size={80} />
           </div>
         </div>
         <div className="flex-1">
           <div className="flex flex-wrap items-center gap-2 mb-2">
             <span className="eyebrow text-[10px] py-0.5 px-2 rounded-full bg-[var(--accent)]/10 text-[var(--accent)] border border-[var(--accent)]/20">
-              Verified Profile
+              Company profile
             </span>
             <span className="text-[10px] font-mono text-[var(--muted-text)]">
               Founded {c.founded} · {formatHeadquartersCity(c.headquarters)}
@@ -452,27 +409,16 @@ export function CompanyPageClient({
       {/* Performance Scorecard */}
       <Reveal delay={0.18}>
         <section className="mt-12">
-          <SectionHeader eyebrow="Benchmark" title="Performance Index" />
+          <SectionHeader eyebrow="Editorial context" title="Qualitative assessment" />
           <div className="rounded-2xl border border-[var(--border-color)] p-6 space-y-4 surface">
-            {metrics.map((m) => (
-              <div key={m.label} className="space-y-1.5">
-                <div className="flex justify-between text-xs font-bold">
-                  <span className="text-[var(--foreground)]">{m.label}</span>
-                  <span className="font-mono text-[var(--accent)]">{m.score}/100</span>
-                </div>
-                <div className="h-2 w-full rounded-full bg-[var(--border-color)] overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${m.score}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                    className="h-full rounded-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-strong)]"
-                  />
-                </div>
+            {assessment.map((item) => (
+              <div key={item.label} className="flex items-start justify-between gap-4 border-b border-[var(--border-color)] pb-3 last:border-0 last:pb-0">
+                <span className="text-sm font-semibold text-[var(--foreground)]">{item.label}</span>
+                <span className="text-right text-sm font-medium text-[var(--accent)]">{item.value}</span>
               </div>
             ))}
-            <p className="text-[11px] text-[var(--muted-text)] pt-1 border-t border-[var(--border-color)]">
-              Illustrative benchmarks — not independently audited. See the full profile below for details.
+            <p className="border-t border-[var(--border-color)] pt-3 text-[11px] text-[var(--muted-text)]">
+              Qualitative editorial context based on the profile evidence shown on this page. It is not a measured benchmark, independently audited score, or procurement advice.
             </p>
           </div>
         </section>
@@ -498,6 +444,53 @@ export function CompanyPageClient({
             >
               <span>⚡ Calculate your estimated fees on our Fee Estimator →</span>
             </Link>
+          </div>
+        </section>
+      </Reveal>
+
+      {/* Sources and effective dates */}
+      <Reveal delay={0.24}>
+        <section className="mt-12">
+          <SectionHeader eyebrow="Traceability" title="Sources & effective dates" />
+          <div className="rounded-2xl border border-[var(--border-color)] p-6 surface">
+            <p className="text-xs leading-relaxed text-[var(--muted-text)]">
+              These references identify the material used for the profile. A source label without a linked document is a research lead, not independently auditable evidence; verify volatile facts directly before relying on them.
+            </p>
+            <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+              {(c.sourceReferences?.length
+                ? c.sourceReferences.map((source) => ({
+                    key: source.id,
+                    label: source.title,
+                    publisher: source.publisher,
+                    url: source.url,
+                    accessedAt: source.accessedAt,
+                    effectiveAt: source.effectiveAt,
+                  }))
+                : c.sources.map((source) => ({
+                    key: source,
+                    label: source,
+                    publisher: "Reference label",
+                    url: undefined,
+                    accessedAt: undefined,
+                    effectiveAt: undefined,
+                  }))
+              ).map((source) => (
+                <li key={source.key} className="rounded-lg border border-[var(--border-color)] p-3 text-xs">
+                  {source.url ? (
+                    <a href={source.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--accent)] hover:underline">
+                      {source.label} ↗
+                    </a>
+                  ) : (
+                    <span className="font-semibold text-[var(--foreground)]">{source.label}</span>
+                  )}
+                  <span className="mt-1 block text-[var(--muted-text)]">
+                    {source.publisher}
+                    {source.accessedAt ? ` · accessed ${source.accessedAt}` : " · access date not recorded"}
+                    {source.effectiveAt ? ` · effective ${source.effectiveAt}` : ""}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
       </Reveal>
@@ -543,12 +536,12 @@ export function CompanyPageClient({
       <Reveal delay={0.3}>
         <section className="mt-12">
           <div className="flex items-end justify-between">
-            <SectionHeader eyebrow="Community" title="User Feedback & Rating" />
+            <SectionHeader eyebrow="On-device notes" title="Editorial rating & private notes" />
             <button
               onClick={() => setReviewModalOpen(true)}
               className="btn-primary text-xs px-3.5 py-1.5 shrink-0"
             >
-              + Submit Review
+              + Add private note
             </button>
           </div>
 
@@ -557,8 +550,12 @@ export function CompanyPageClient({
               <span className="rounded-lg bg-[var(--success)]/20 px-3 py-1 text-lg font-bold font-mono text-success-text border border-[var(--success)]/20 tabular-nums">
                 ★ <CountUp target={c.userReviews.rating} decimals={2} duration={1.1} /> / 5.0
               </span>
-              <p className="text-xs text-[var(--muted-text)]">Aggregated from verified market data & community feedback</p>
+              <p className="text-xs text-[var(--muted-text)]">Editorial sentiment summary. Notes below are saved only in this browser and are not added to this rating.</p>
             </div>
+            <p className="mt-3 text-[11px] leading-relaxed text-[var(--muted-text)]">
+              {c.userReviews.methodology ?? "Editorially synthesized from the reference labels below; this is not a statistically weighted review aggregate."}
+              {c.userReviews.asOf ? ` Reviewed ${c.userReviews.asOf}.` : ""}
+            </p>
 
             <p className="mt-4 text-sm leading-relaxed text-[var(--foreground)]">{c.userReviews.summary}</p>
 
@@ -579,13 +576,11 @@ export function CompanyPageClient({
                   ))}
                 </ul>
               </div>
-            </div>
-
-            {/* Submitted Community Reviews */}
+            </div>              {/* Notes saved in this browser */}
             {userReviews.length > 0 && (
               <div className="mt-6 pt-6 border-t border-[var(--border-color)] space-y-3">
                 <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--foreground)]">
-                  Community Reviews ({userReviews.length})
+                  Notes saved on this device ({userReviews.length})
                 </h3>
                 {userReviews.map((rev) => (
                   <div key={rev.id} className="rounded-lg border border-[var(--border-color)] p-4 surface space-y-1">
@@ -643,31 +638,26 @@ export function CompanyPageClient({
       {/* Next / Previous Nav */}
       <Reveal delay={0.5}>
         <div className="mt-16 flex justify-between border-t border-[var(--border-color)] pt-6 text-sm font-semibold">
-          {(() => {
-            const { next, prev } = getAdjacent(c);
-            return (
-              <>
-                <span>
-                  {prev ? (
-                    <Link href={`/companies/${prev.slug}`} className="text-[var(--accent)] hover:underline">
-                      ← {prev.name}
-                    </Link>
-                  ) : (
-                    <span className="text-[var(--muted-text)]">First Profile</span>
-                  )}
-                </span>
-                <span>
-                  {next ? (
-                    <Link href={`/companies/${next.slug}`} className="text-[var(--accent)] hover:underline">
-                      {next.name} →
-                    </Link>
-                  ) : (
-                    <span className="text-[var(--muted-text)]">Last Profile</span>
-                  )}
-                </span>
-              </>
-            );
-          })()}
+          <>
+            <span>
+              {adjacent.previous ? (
+                <Link href={`/companies/${adjacent.previous.slug}`} className="text-[var(--accent)] hover:underline">
+                  ← {adjacent.previous.name}
+                </Link>
+              ) : (
+                <span className="text-[var(--muted-text)]">First Profile</span>
+              )}
+            </span>
+            <span>
+              {adjacent.next ? (
+                <Link href={`/companies/${adjacent.next.slug}`} className="text-[var(--accent)] hover:underline">
+                  {adjacent.next.name} →
+                </Link>
+              ) : (
+                <span className="text-[var(--muted-text)]">Last Profile</span>
+              )}
+            </span>
+          </>
         </div>
       </Reveal>
 
@@ -689,26 +679,46 @@ export function CompanyPageClient({
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
+              ref={dialogRef}
               role="dialog"
               aria-modal="true"
               aria-labelledby="review-modal-title"
               className="relative z-10 w-full max-w-lg overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--background)] p-6 shadow-2xl space-y-4"
             >
               <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-3">
-                <h3 id="review-modal-title" className="text-lg font-bold">Write a Review for {c.name}</h3>
+                <h3 id="review-modal-title" className="text-lg font-bold">Add a private note for {c.name}</h3>
                 <button onClick={() => setReviewModalOpen(false)} className="text-xs text-[var(--muted-text)] hover:text-[var(--foreground)] focus-visible:text-[var(--foreground)] focus-visible:outline-none focus-visible:ring-[var(--ring)] rounded p-1" aria-label="Close review modal">✕</button>
               </div>
 
               <form onSubmit={handleSubmitReview} className="space-y-4">
                 <div>
                   <span className="block text-xs font-semibold text-[var(--muted-text)] mb-1">Rating (1 to 5 Stars)</span>
-                  <div role="radiogroup" aria-label="Rating" className="flex gap-2 text-xl">
+                  <div
+                    role="radiogroup"
+                    aria-label="Rating"
+                    className="flex gap-2 text-xl"
+                    onKeyDown={(e) => {
+                      // Roving-tabindex keyboard support: arrows/Home/End move
+                      // the selected radio and the DOM focus together.
+                      let next = newRating;
+                      if (e.key === "ArrowRight" || e.key === "ArrowDown") next = Math.min(5, newRating + 1);
+                      else if (e.key === "ArrowLeft" || e.key === "ArrowUp") next = Math.max(1, newRating - 1);
+                      else if (e.key === "Home") next = 1;
+                      else if (e.key === "End") next = 5;
+                      else return;
+                      e.preventDefault();
+                      setNewRating(next);
+                      ratingRefs.current[next - 1]?.focus();
+                    }}
+                  >
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
                         type="button"
                         role="radio"
-                        aria-checked={star <= newRating}
+                        aria-checked={star === newRating}
+                        tabIndex={star === newRating ? 0 : -1}
                         key={star}
+                        ref={(element) => { ratingRefs.current[star - 1] = element; }}
                         onClick={() => setNewRating(star)}
                         className={`rounded p-1 ${star <= newRating ? "text-warning-text" : "text-[var(--border-strong)]"} focus-visible:outline-none focus-visible:ring-[var(--ring)]`}
                         aria-label={`${star} star${star > 1 ? "s" : ""}`}
@@ -763,12 +773,12 @@ export function CompanyPageClient({
                 </div>
 
                 <div>
-                  <label htmlFor="review-input-feedback" className="block text-xs font-semibold text-[var(--muted-text)] mb-1">Your Experience / Feedback *</label>
+                  <label htmlFor="review-input-feedback" className="block text-xs font-semibold text-[var(--muted-text)] mb-1">Your private note *</label>
                   <textarea
                     id="review-input-feedback"
                     required
                     rows={3}
-                    placeholder="Share what you like or dislike about this service..."
+                    placeholder="Save a note about your experience on this device..."
                     value={newText}
                     onChange={(e) => setNewText(e.target.value)}
                     className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 p-3 text-xs outline-none"
@@ -794,7 +804,7 @@ export function CompanyPageClient({
                     type="submit"
                     className="btn-primary text-xs px-4 py-2"
                   >
-                    Submit Review
+                    Save private note
                   </button>
                 </div>
               </form>
@@ -804,12 +814,4 @@ export function CompanyPageClient({
       </AnimatePresence>
     </div>
   );
-}
-
-function getAdjacent(c: Company): { prev?: Company; next?: Company } {
-  const idx = companies.indexOf(c);
-  return {
-    prev: companies[idx - 1],
-    next: companies[idx + 1],
-  };
 }

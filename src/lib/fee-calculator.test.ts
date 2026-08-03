@@ -11,6 +11,7 @@ describe("Fee Calculator Logic", () => {
     {
       slug: "stripe",
       name: "Stripe",
+      pricingModel: "published-flat-rate",
       logo: "#635BFF",
       note: "Best for SaaS",
       online: {
@@ -27,6 +28,7 @@ describe("Fee Calculator Logic", () => {
     {
       slug: "adyen",
       name: "Adyen",
+      pricingModel: "custom-contract",
       logo: "#0ABF53",
       note: "Blended",
       online: {
@@ -71,8 +73,67 @@ describe("Fee Calculator Logic", () => {
 
     it("calculates online+in-person model correctly", () => {
       const cost = computeProviderCost(mockConfigs[0], inputs); // Stripe
-      // Breakdown verification happens in cost test below
-      expect(cost).toBeGreaterThan(0);
+      // Breakdown: domestic online 630 + international online 120 + in-person 140.
+      expect(cost).toBeCloseTo(890.0);
+    });
+
+    // Exact-value scenario tests (regression guard: the fixed fee must NOT be
+    // double-counted as domFixed + intlFixed on international transactions).
+    // Stripe: domPct 2.9% + domFixed $0.30 | intlSurcharge +2.5% | intlFixed $0.30
+    describe("exact international fixed-fee semantics", () => {
+      it("calculates a fully international online transaction (no double-count)", () => {
+        const cost = computeProviderCost(mockConfigs[0], {
+          monthlyRevenue: 100,
+          avgOrderValue: 100, // 1 transaction
+          intlPercent: 100,
+          inPersonPercent: 0,
+        });
+        // 100 * (0.029 + 0.025) + 1 * 0.30 = 5.40 + 0.30 = 5.70
+        expect(cost).toBeCloseTo(5.70);
+      });
+
+      it("calculates a fully domestic online transaction", () => {
+        const cost = computeProviderCost(mockConfigs[0], {
+          monthlyRevenue: 100,
+          avgOrderValue: 100,
+          intlPercent: 0,
+          inPersonPercent: 0,
+        });
+        // 100 * 0.029 + 1 * 0.30 = 2.90 + 0.30 = 3.20
+        expect(cost).toBeCloseTo(3.20);
+      });
+
+      it("calculates a fully in-person transaction", () => {
+        const cost = computeProviderCost(mockConfigs[0], {
+          monthlyRevenue: 100,
+          avgOrderValue: 100,
+          intlPercent: 0,
+          inPersonPercent: 100,
+        });
+        // 100 * 0.027 + 1 * 0.05 = 2.70 + 0.05 = 2.75
+        expect(cost).toBeCloseTo(2.75);
+      });
+
+      it("handles zero revenue", () => {
+        const cost = computeProviderCost(mockConfigs[0], {
+          monthlyRevenue: 0,
+          avgOrderValue: 50,
+          intlPercent: 100,
+          inPersonPercent: 0,
+        });
+        expect(cost).toBe(0);
+      });
+
+      it("handles a very low average order value", () => {
+        const cost = computeProviderCost(mockConfigs[0], {
+          monthlyRevenue: 100,
+          avgOrderValue: 1, // 100 transactions
+          intlPercent: 100,
+          inPersonPercent: 0,
+        });
+        // 100 * 0.054 + 100 * 0.30 = 5.40 + 30.00 = 35.40
+        expect(cost).toBeCloseTo(35.40);
+      });
     });
 
     it("ignores inPerson when inPersonPercent is 0", () => {
@@ -99,6 +160,7 @@ describe("Fee Calculator Logic", () => {
       const cheapBlended: ProviderFeeConfig = {
         slug: "cheap",
         name: "Cheap",
+        pricingModel: "estimated",
         logo: "#000000",
         note: "Cheap",
         online: {
@@ -116,6 +178,7 @@ describe("Fee Calculator Logic", () => {
       const expensive: ProviderFeeConfig = {
         slug: "expensive",
         name: "Expensive",
+        pricingModel: "published-flat-rate",
         logo: "#000000",
         note: "Expensive",
         online: {

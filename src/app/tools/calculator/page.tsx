@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import FeeCalculatorPageClient from "./calculator-client";
-import { SITE_URL } from "@/lib/site-config";
+import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
 
 const description =
@@ -10,12 +10,12 @@ const description =
 export const metadata: Metadata = {
   title: "Payment Gateway Fee Calculator",
   description,
-  alternates: { canonical: "/tools/calculator" },
+  alternates: { canonical: canonicalUrl("/tools/calculator") },
   openGraph: {
     ...openGraphImage,
     title: "Payment Gateway Fee Calculator — FinTech Atlas",
     description,
-    url: `${SITE_URL}/tools/calculator`,
+    url: canonicalUrl("/tools/calculator"),
   },
 };
 

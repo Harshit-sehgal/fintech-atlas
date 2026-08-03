@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { categories, companies } from "@/data";
-import { SITE_URL } from "@/lib/site-config";
+import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { CategoryIcon } from "@/components/ui/category-icon";
@@ -14,12 +14,12 @@ const description =
 export const metadata: Metadata = {
   title: "All FinTech Categories",
   description,
-  alternates: { canonical: "/categories" },
+  alternates: { canonical: canonicalUrl("/categories") },
   openGraph: {
     ...openGraphImage,
     title: "All FinTech Categories — FinTech Atlas",
     description,
-    url: `${SITE_URL}/categories`,
+    url: canonicalUrl("/categories"),
   },
 };
 

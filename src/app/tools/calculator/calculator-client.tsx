@@ -37,7 +37,9 @@ export default function FeeCalculatorPageClient() {
   };
 
   const providers = computeProviderCosts(PROVIDER_FEE_CONFIGS, inputs);
-  const lowestCost = providers[0];
+  const comparableProviders = providers.filter((provider) => provider.pricingModel === "published-flat-rate");
+  const lowestCost = comparableProviders[0] ?? providers[0];
+  const maxCost = Math.max(...providers.map((provider) => provider.cost));
 
   return (
     <div className="relative mx-auto max-w-6xl px-5 py-20 md:py-28">
@@ -127,6 +129,10 @@ export default function FeeCalculatorPageClient() {
             />
           </div>
 
+          <p className="-mt-3 text-[11px] leading-relaxed text-[var(--muted-text)]">
+            Simplified model: international adjustments apply to online transactions only; the independent POS slider does not add a separate cross-border surcharge.
+          </p>
+
           {/* In-Person vs Online */}
           <div>
             <div className="flex justify-between text-sm mb-2">
@@ -176,7 +182,7 @@ export default function FeeCalculatorPageClient() {
                 <div>
                   <span className="eyebrow text-[var(--muted-text)]">Recommendation</span>
                   <h3 className="mt-1 text-lg font-bold text-[var(--foreground)]">
-                    {lowestCost.name} is estimated lowest cost
+                    {lowestCost.name} has the lowest estimate among comparable published rates
                   </h3>
                 </div>
                 <div className="rounded-xl bg-[var(--success)]/10 border border-[var(--success)]/30 px-4 py-2 text-right">
@@ -194,20 +200,24 @@ export default function FeeCalculatorPageClient() {
                     ? ((p.cost / monthlyRevenue) * 100).toFixed(2)
                     : "0.00";
                   const isBest = p.slug === lowestCost.slug;
-                  const maxCost = Math.max(...providers.map((x) => x.cost));
                   const barWidth = maxCost > 0 ? (p.cost / maxCost) * 100 : 0;
 
                   return (
                     <div key={p.slug} className="space-y-1.5">
                       <div className="flex items-center justify-between text-sm">
                         <div className="flex items-center gap-2.5">
-                          <CompanyLogo slug={p.slug} size={24} />
+                          <CompanyLogo slug={p.slug} name={p.name} size={24} />
                           <Link href={`/companies/${p.slug}`} className="font-bold text-[var(--foreground)] hover:text-[var(--accent)] transition-colors">
                             {p.name}
                           </Link>
                           {isBest && (
                             <span className="rounded bg-[var(--success)]/20 border border-[var(--success)]/30 px-2 py-0.5 text-[10px] font-bold text-success-text">
-                              Lowest Fee
+                              Lowest comparable estimate
+                            </span>
+                          )}
+                          {p.pricingModel !== "published-flat-rate" && (
+                            <span className="rounded bg-[var(--warning)]/10 border border-[var(--warning)]/30 px-2 py-0.5 text-[10px] font-semibold text-warning-text">
+                              {p.pricingModel === "custom-contract" ? "Custom contract" : "Illustrative estimate"}
                             </span>
                           )}
                         </div>
@@ -237,7 +247,7 @@ export default function FeeCalculatorPageClient() {
 
           {/* Important context notice */}
           <div className="surface rounded-xl border border-[var(--border-color)] p-4 text-xs leading-relaxed text-[var(--muted-text)]">
-            <strong className="text-[var(--foreground)]">Note on estimates:</strong> Standard published card-not-present rates are used (Stripe 2.9%+$0.30, PayPal 3.49%+$0.49, Square 2.9%+$0.30). Adyen is modeled as a blended total-volume estimate, so the online/in-person and international mix controls do not change its result. Once you cross $80k+/month in processing, custom enterprise volume pricing and interchange++ billing can significantly lower these numbers.
+            <strong className="text-[var(--foreground)]">How to read this:</strong> Stripe, PayPal, and Square use the published flat-rate assumptions shown above. Adyen is a custom-contract provider represented by an illustrative blended estimate, so it is shown for context but not used for the comparable-rate recommendation. Actual pricing varies by region, payment method, volume, and contract; verify current terms before making a decision.
           </div>
         </div>
       </div>

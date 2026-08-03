@@ -13,6 +13,10 @@ export interface CurrencyOption {
   name: string;
   /** Mid-market rate: 1 USD → this many units of `code`. */
   rate: number;
+  /** Source label for this static snapshot. */
+  source: string;
+  /** Source URL or documentation reference. */
+  sourceUrl: string;
 }
 
 export interface RemittanceProviderConfig {
@@ -35,15 +39,26 @@ export interface RemittanceProviderConfig {
   highlight: string;
 }
 
+/**
+ * ISO timestamp of the exchange-rate snapshot used by CURRENCIES. Update this
+ * every time you refresh the rates. The UI surfaces it and flags stale data,
+ * and `isRateSnapshotStale()` lets CI/build fail if it drifts too old.
+ */
+export const RATES_AS_OF = "2026-08-01T00:00:00.000Z";
+export const RATES_SOURCE = "Static reference snapshot — replace with a live provider before production";
+
+/** Maximum age (days) before the rates snapshot is flagged as stale. */
+export const MAX_RATE_AGE_DAYS = 7;
+
 /** Available recipient currencies */
 export const CURRENCIES: CurrencyOption[] = [
-  { code: "EUR", symbol: "€", name: "Euro", rate: 0.92 },
-  { code: "GBP", symbol: "£", name: "British Pound", rate: 0.79 },
-  { code: "INR", symbol: "₹", name: "Indian Rupee", rate: 83.50 },
-  { code: "CAD", symbol: "CA$", name: "Canadian Dollar", rate: 1.36 },
-  { code: "AUD", symbol: "A$", name: "Australian Dollar", rate: 1.52 },
-  { code: "BRL", symbol: "R$", name: "Brazilian Real", rate: 5.45 },
-  { code: "JPY", symbol: "¥", name: "Japanese Yen", rate: 157.20 },
+  { code: "EUR", symbol: "€", name: "Euro", rate: 0.92, source: RATES_SOURCE, sourceUrl: "" },
+  { code: "GBP", symbol: "£", name: "British Pound", rate: 0.79, source: RATES_SOURCE, sourceUrl: "" },
+  { code: "INR", symbol: "₹", name: "Indian Rupee", rate: 83.50, source: RATES_SOURCE, sourceUrl: "" },
+  { code: "CAD", symbol: "CA$", name: "Canadian Dollar", rate: 1.36, source: RATES_SOURCE, sourceUrl: "" },
+  { code: "AUD", symbol: "A$", name: "Australian Dollar", rate: 1.52, source: RATES_SOURCE, sourceUrl: "" },
+  { code: "BRL", symbol: "R$", name: "Brazilian Real", rate: 5.45, source: RATES_SOURCE, sourceUrl: "" },
+  { code: "JPY", symbol: "¥", name: "Japanese Yen", rate: 157.20, source: RATES_SOURCE, sourceUrl: "" },
 ];
 
 /** Default currency selector value */
@@ -86,12 +101,14 @@ export const REMITTANCE_PROVIDERS: RemittanceProviderConfig[] = [
   },
   {
     slug: "bank",
-    name: "Traditional Bank",
+    name: "Illustrative Bank Wire",
     feeModel: "fixed",
     feePct: 0,        // No percentage fee
     feeFixed: 35.00,  // $35.00 fixed fee
     fxMargin: 4.5,    // 4.5% FX markup
     speed: "2 to 5 Days",
-    highlight: "Heavy wire fees & high exchange markup",
+    // Hypothetical high-cost example — not any specific bank or route. Present
+    // as a comparison baseline, not a sourced quote.
+    highlight: "Hypothetical high-cost wire example, not a specific bank",
   },
 ];

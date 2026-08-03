@@ -49,6 +49,16 @@ function makeSlugValidator(companies: Company[]) {
  * @param companies the full company list, used to validate every slug
  * @returns the ordered list of validated slugs (capped at {@link MAX_COMPARE})
  */
+/**
+ * Validate and de-duplicate a split slug list, dropping unknown/empty slugs
+ * and capping the result at {@link MAX_COMPARE}. `new Set` preserves the first
+ * occurrence's order while removing duplicates (e.g. `stripe,stripe,stripe`
+ * becomes `["stripe"]`).
+ */
+function normalizeSlugs(slugs: string[], isValid: (s: string) => boolean): string[] {
+  return [...new Set(slugs.map((s) => s.trim()).filter((s) => s.length > 0).filter(isValid))].slice(0, MAX_COMPARE);
+}
+
 export function parseCompareSlugs(
   params: SearchParamSource,
   companies: Company[],
@@ -60,10 +70,7 @@ export function parseCompareSlugs(
 
   const compParam = params.get("companies");
   if (compParam) {
-    return compParam
-      .split(",")
-      .filter(isValid)
-      .slice(0, MAX_COMPARE);
+    return normalizeSlugs(compParam.split(","), isValid);
   }
 
   // Legacy two-param shape (?a=&b=). Validate against the company list just
@@ -71,10 +78,7 @@ export function parseCompareSlugs(
   const paramA = params.get("a");
   const paramB = params.get("b");
   if (paramA || paramB) {
-    return [paramA, paramB]
-      .filter((s): s is string => Boolean(s))
-      .filter(isValid)
-      .slice(0, MAX_COMPARE);
+    return normalizeSlugs([paramA, paramB].filter((s): s is string => Boolean(s)), isValid);
   }
 
   return [...DEFAULT_COMPARE_SLUGS];

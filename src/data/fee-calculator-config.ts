@@ -7,9 +7,19 @@
  * its public schedule.
  */
 
+export type PricingModel =
+  | "published-flat-rate"
+  | "estimated"
+  | "custom-contract"
+  | "interchange-plus";
+
 export interface ProviderFeeConfig {
   slug: string;
   name: string;
+  /** How directly this estimate maps to a provider's public pricing. */
+  pricingModel: PricingModel;
+  /** Assumptions that materially limit comparability. */
+  estimateAssumptions?: string[];
   /**
    * Bar-chart fill colour for this provider. Must stay visible against the
    * `--border-color` track in BOTH light and dark themes — the calculator's
@@ -26,9 +36,13 @@ export interface ProviderFeeConfig {
     domPct: number;
     /** Domestic per-transaction fixed fee in dollars. */
     domFixed: number;
-    /** International surcharge percentage added on top of domPct. */
+    /** International surcharge percentage ADDED ON TOP of domPct (e.g. 0.025 = +2.5%). */
     intlSurcharge: number;
-    /** International per-transaction fixed fee in dollars. */
+    /**
+     * FULL international per-transaction fixed fee in dollars (e.g. Stripe $0.30).
+     * This is the total international fixed fee — NOT a surcharge to add on top
+     * of `domFixed`. The calculator uses it on its own for international txns.
+     */
     intlFixed: number;
   };
   /** In-person / POS rates. */
@@ -61,6 +75,7 @@ export const PROVIDER_FEE_CONFIGS: ProviderFeeConfig[] = [
   {
     slug: "stripe",
     name: "Stripe",
+    pricingModel: "published-flat-rate",
     logo: "#635BFF",
     note: "Best for SaaS, developer API & custom checkout",
     online: {
@@ -77,6 +92,7 @@ export const PROVIDER_FEE_CONFIGS: ProviderFeeConfig[] = [
   {
     slug: "paypal",
     name: "PayPal",
+    pricingModel: "published-flat-rate",
     logo: "#009CDE",
     note: "Higher rates, but high brand trust for buyers",
     online: {
@@ -93,6 +109,7 @@ export const PROVIDER_FEE_CONFIGS: ProviderFeeConfig[] = [
   {
     slug: "square",
     name: "Square",
+    pricingModel: "published-flat-rate",
     logo: "#71717A",
     note: "Great all-in-one for omnichannel & retail POS",
     online: {
@@ -109,8 +126,14 @@ export const PROVIDER_FEE_CONFIGS: ProviderFeeConfig[] = [
   {
     slug: "adyen",
     name: "Adyen",
+    pricingModel: "custom-contract",
+    estimateAssumptions: [
+      "Illustrative blended processing estimate",
+      "Actual pricing depends on payment method, region, interchange, and contract",
+      "Not directly comparable to published flat-rate providers",
+    ],
     logo: "#0ABF53",
-    note: "Blended estimate uses total volume; mix does not change this model",
+    note: "Custom-contract pricing; illustrative blended estimate only",
     online: {
       domPct: 0,
       domFixed: 0,

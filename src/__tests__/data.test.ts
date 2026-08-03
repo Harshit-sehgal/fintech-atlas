@@ -392,8 +392,7 @@ describe("Data Integrity", () => {
     // Next.js shallowly replaces the inherited root `openGraph` object when a
     // page sets its own — it does NOT merge the page's `title`/`description`
     // into the inherited `og:title`/`og:description`. So a route `page.tsx`
-    // that exports `title`+`description` but no `openGraph` renders with the
-    // *homepage's* og:title/og:url on its social card (verified pre-iter-12:
+    // that exports `title`+`description` but no `openGraph` renders with the      // *homepage's* og:title/og:url on its social card (observed before the page-level metadata fix:
     // every per-company/category page showed "FinTech Atlas — Understand the
     // companies reshaping finance" with og:url="/"). Each route page must
     // therefore own an `openGraph` block with its own title/description/url.
@@ -426,6 +425,10 @@ describe("Data Integrity", () => {
         // to the page, not the homepage.
         if (!/openGraph\s*:/.test(body)) {
           offenders.push(`${page}: missing openGraph block (renders homepage OG card)`);
+        } else if (page.endsWith("not-found.tsx")) {
+          // 404 responses are explicitly noindex and intentionally omit OG URL
+          // and canonical metadata, so they cannot be mistaken for a content page.
+          continue;
         } else if (!/url\s*:/.test(body)) {
           offenders.push(`${page}: openGraph block has no url: (og:url falls back to homepage)`);
         }
@@ -539,39 +542,11 @@ describe("Data Integrity", () => {
         stdio: ["pipe", "pipe", "pipe"],
       }).toString();
 
-      // Find every `url:` template-literal that targets a company page
-      // (contains "/companies/" + the slug substitution). Each must end with
-      // a `/` immediately before the closing backtick — i.e. the trailing
-      // slash that matches the canonical form. The offender form ends with
-      // `${company.slug}` followed by the backtick (no slash after the slug).
-      const offenders: string[] = [];
-      const urlMatches = [...src.matchAll(/url:\s*`[^`]*`/g)];
-      for (const m of urlMatches) {
-        const literal = m[0];
-        if (!literal.includes("/companies/")) continue;
-        // Trailing-slash form: literal ends with `${company.slug}/`.
-        // The simplest robust test: does a `/` immediately precede the
-        // closing backtick?
-        if (!/\/`$/.test(literal)) {
-          offenders.push(`ItemList url without trailing slash: ${literal.trim()}`);
-        }
-      }
-
-      // Sanity: require at least one ItemList url literal (test setup)
-      const hasItemListUrl = [...src.matchAll(/url:\s*`[^`]*\/companies\/[^`]*`/g)];
-      expect(
-        hasItemListUrl.length,
-        "StructuredData.tsx: expected at least one ItemList `url:` literal " +
-          "containing /companies/ — did the URL literal pattern change?"
-      ).toBeGreaterThan(0);
-
-      expect(
-        offenders,
-        `Structured-data ItemList URLs without a trailing slash found. ` +
-          `Google requires ListItem url to match the canonical URL form; this ` +
-          `site uses trailingSlash:true so canonical ends with "/":\n` +
-          offenders.join("\n")
-      ).toEqual([]);
+      // The ItemList delegates route formatting to the shared helper. This is
+      // intentionally source-level: the schema is a module constant and is not
+      // rendered in this unit-test environment.
+      expect(src).toContain("canonicalUrl(`/companies/${company.slug}`)");
+      expect(src).not.toMatch(/url:\s*`[^`]*\/companies\/\$\{company\.slug\}`/);
     });
   });
 });

@@ -1,8 +1,8 @@
 # FinTech Atlas
 
-A clear, plain-language guide to the FinTech industry — what each company does, how they differ, how they make money, and what real users think.
+A clear, plain-language guide to the FinTech industry — what each company does, how they differ, how they make money, and what the available editorial evidence suggests.
 
-Sourced from official company documentation and verified review aggregators.
+Built from public reference material and editorial summaries. Source URLs and effective dates are being migrated into the audited data model.
 
 ## Overview
 
@@ -12,7 +12,7 @@ FinTech Atlas is a Next.js 16 static-export website that serves as both an educa
 
 | Section | Description |
 |---|---|
-| **Company Directory** | 41 company profiles with product details, pricing, user reviews, strengths & weaknesses |
+| **Company Directory** | 41 company profiles with product details, pricing, editorial sentiment summaries, strengths & weaknesses |
 | **Industry Categories** | 12 categories (Payments, Neobanks, Investing, Cross-Border, BNPL, Infrastructure, etc.) |
 | **Glossary** | 24 financial technology terms with definitions, synonyms, and cross-references |
 | **Compare Tool** | Side-by-side comparison matrix for up to 3 companies |
@@ -46,6 +46,7 @@ fintech-website/
 │   ├── data/              # 41 companies, 12 categories, 24 glossary terms
 │   └── lib/               # Theme, bookmarks, toast contexts
 ├── public/logos/          # 37 real SVG logos
+├── docs/                  # Production-readiness checklists and incident runbook
 └── scripts/               # Logo fetching & manifest generation
 ```
 
@@ -121,7 +122,9 @@ Works with: **Netlify**, **Vercel**, **Cloudflare Pages**, **GitHub Pages**, **S
 
 ## Methods & Disclaimers
 
-- All company information is sourced from publicly available data and verified review aggregators
-- This is not a pricing comparator — displayed fees are indicative and may vary by region
-- Bookmarks and reviews are stored locally in your browser only
+- Company records are educational summaries; legacy source labels are being migrated to linked references and effective dates
+- Displayed fees and FX outputs are illustrative assumptions and may vary by route, region, payment method, volume, or contract
+- Bookmarks and private notes are stored locally in your browser only
 - No tracking, analytics, or data collection — your data stays on your device
+- Read the published [Privacy Notice](src/app/privacy/page.tsx) and [Terms of Use](src/app/terms/page.tsx)
+- Deployment and incident recovery procedures are documented in [`docs/incident-runbook.md`](docs/incident-runbook.md)

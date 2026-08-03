@@ -27,9 +27,9 @@ export const organizationSchema = {
   "@id": ORGANIZATION_ID,
   name: "FinTech Atlas",
   url: SITE_URL,
-  logo: `${SITE_URL}/og-image.png`,
+  logo: `${SITE_URL}/apple-touch-icon.png`,
   description:
-    "A clear, plain-language guide to the FinTech industry: what each company does, how they differ, how they make money, and what real users think.",
+    "A clear, plain-language guide to the FinTech industry: what each company does, how they differ, how they make money, and what the available editorial evidence suggests.",
 } as const;
 
 /**

@@ -6,11 +6,26 @@ export function normalizeSiteUrl(value: string): string {
 }
 
 /** Canonical public URL of the site — used for SEO metadata, structured data, and sitemap. */
-export const SITE_URL: string = normalizeSiteUrl(
+const configuredSiteUrl = normalizeSiteUrl(
   process.env.SITE_URL ||
     process.env.NEXT_PUBLIC_SITE_URL ||
     "https://fintech-atlas.example.com",
 );
+
+// Fail loudly in production if the canonical URL was never configured, rather
+// than silently shipping metadata/sitemap/OpenGraph that point at the example
+// placeholder domain (defensive: site-config is imported at build time, where
+// NODE_ENV is "production").
+if (
+  process.env.NODE_ENV === "production" &&
+  configuredSiteUrl.includes("example.com")
+) {
+  throw new Error(
+    "SITE_URL must be configured for production — refusing to build with the example.com placeholder. Set SITE_URL (or NEXT_PUBLIC_SITE_URL) in your environment.",
+  );
+}
+
+export const SITE_URL: string = configuredSiteUrl;
 
 /**
  * Human-readable vintage label for the catalog data (e.g. "Q3 2026", "mid-2026").

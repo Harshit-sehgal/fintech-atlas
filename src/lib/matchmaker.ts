@@ -69,6 +69,7 @@ export function getTopRecommendations(
   limit = 3
 ): Company[] {
   return computeMatchScores(quizState, companies)
+    .filter((item) => item.score > 0)
     .slice(0, limit)
     .map((item) => item.company);
 }

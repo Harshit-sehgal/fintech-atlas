@@ -2,13 +2,21 @@
   "name": "fintech-website",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "npm@11.5.1",
+  "engines": {
+    "node": ">=20 <21"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "node scripts/generate-sitemap.mjs",
+    "prebuild": "node scripts/check-rate-snapshot.mjs",
+    "postbuild": "node scripts/generate-sitemap.mjs && node scripts/generate-security-headers.mjs && node scripts/check-performance-budget.mjs",
     "logos:fetch": "tsx scripts/fetch-logos.ts",
-    "start": "next start",
+    "start": "npx --yes serve out",
+    "preview": "npx --yes serve out",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "typecheck:scripts": "tsc -p tsconfig.scripts.json",
     "test": "vitest run",
     "test:watch": "vitest"
   },
@@ -35,6 +43,7 @@
     "eslint": "^9",
     "eslint-config-next": "^16.2.12",
     "tsx": "^4.23.5",
+    "serve": "^14.2.4",
     "jsdom": "^29.1.1",
     "tailwindcss": "^4",
     "typescript": "^5",

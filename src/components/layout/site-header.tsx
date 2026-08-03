@@ -2,12 +2,20 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useBookmarks } from "@/lib/bookmarks-context";
-import { CommandPalette } from "@/components/ui/command-palette";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { animationPresets as animation } from "@/lib/animation";
+
+// Lazy-load the command palette so its heavy data import (the full companies /
+// categories / glossary catalogue) is NOT shipped on every page's initial
+// bundle — it's fetched only when the user opens search (⌘K / Ctrl+K).
+const CommandPalette = dynamic(
+  () => import("@/components/ui/command-palette").then((m) => m.CommandPalette),
+  { ssr: false },
+);
 
 const nav = [
   { href: "/", label: "Home" },
@@ -26,6 +34,7 @@ export function SiteHeader() {
   const [cmdOpen, setCmdOpen] = useState(false);
   const { bookmarks, glossaryBookmarks } = useBookmarks();
   const [scrolled, setScrolled] = useState(false);
+  const [isMac, setIsMac] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -34,13 +43,40 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Global Ctrl+K shortcut — opens (or toggles) the command palette
+  // regardless of which element currently has focus.
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        setCmdOpen((v) => !v);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  // Platform-aware shortcut label (macOS uses ⌘K, elsewhere Ctrl+K). Must be set
+  // after mount: reading navigator during SSR would produce inconsistent HTML
+  // (hydration mismatch), so a one-time post-mount update is the correct
+  // pattern for this browser-only, imperative value.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsMac(
+      typeof navigator !== "undefined" &&
+        /Mac|iPhone|iPad/.test(navigator.platform ?? ""),
+    );
+  }, []);
+
   const totalSaved = bookmarks.length + glossaryBookmarks.length;
 
   return (
     <>
       <header
         className={`sticky top-0 z-40 glass border-b transition-colors duration-300 ${
-          scrolled ? "border-[var(--border-strong)] shadow-[0_1px_30px_var(--accent-glow)]" : "border-[var(--border-color)]"
+          scrolled
+            ? "border-[var(--border-color)] shadow-[0_1px_0_rgba(0,0,0,0.03)]"
+            : "border-[var(--border-color)]"
         }`}
       >
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
@@ -99,7 +135,7 @@ export function SiteHeader() {
               </svg>
               <span className="hidden sm:inline">Search...</span>
               <kbd className="hidden font-mono text-[10px] opacity-70 sm:inline-block bg-[var(--border-color)] px-1.5 py-0.5 rounded">
-                ⌘K
+                {isMac ? "⌘K" : "Ctrl K"}
               </kbd>
             </button>
 

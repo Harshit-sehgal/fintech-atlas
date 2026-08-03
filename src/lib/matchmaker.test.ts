@@ -105,8 +105,7 @@ describe("matchmaker scoring logic", () => {
       expect(chimeScore).toBe(3);   // 0 (userType) + 3 (priority)
     });
 
-    it("ignores empty weight objects (intentional fallthrough)", () => {
-      // priority: all_in_one has empty weights in SCORE_WEIGHTS
+    it("scores previously unweighted answers", () => {
       const state = {
         userType: "",
         priority: "all_in_one",
@@ -115,10 +114,32 @@ describe("matchmaker scoring logic", () => {
       };
 
       const scores = computeMatchScores(state, testCompanies);
-      // All scores should be 0 since all_in_one has no weights
-      scores.forEach(({ score }) => {
-        expect(score).toBe(0);
-      });
+      expect(scores.find((item) => item.company.slug === "square")?.score).toBe(4);
+      expect(scores.find((item) => item.company.slug === "paypal")?.score).toBe(3);
+    });
+
+    it("does not return arbitrary zero-score recommendations", () => {
+      const state = {
+        userType: "",
+        priority: "",
+        globalNeed: "",
+        scale: "",
+      };
+
+      expect(getTopRecommendations(state, testCompanies)).toEqual([]);
+    });
+
+    it("keeps the score matrix meaningful for every selectable answer", () => {
+      const states = [
+        { userType: "", priority: "all_in_one", globalNeed: "", scale: "" },
+        { userType: "", priority: "", globalNeed: "low", scale: "" },
+        { userType: "", priority: "", globalNeed: "", scale: "early" },
+        { userType: "", priority: "", globalNeed: "", scale: "growing" },
+      ];
+
+      for (const state of states) {
+        expect(computeMatchScores(state, testCompanies).some(({ score }) => score > 0)).toBe(true);
+      }
     });
 
     it("handles unknown company slugs in weights gracefully", () => {
@@ -170,10 +191,7 @@ describe("matchmaker scoring logic", () => {
       };
 
       const top3 = getTopRecommendations(state, testCompanies, 3);
-      // All scores are 0, so we should get empty array (or could return all with 0)
-      // Based on our implementation, we return companies sorted by score (all 0)
-      // Let's check what we actually get
-      expect(top3.length).toBeGreaterThan(0); // Should return some companies
+      expect(top3).toEqual([]);
     });
 
     it("defaults to limit of 3", () => {

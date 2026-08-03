@@ -5,7 +5,7 @@ import { SITE_URL } from "@/lib/site-config";
 import { openGraphImage } from "@/lib/shared-metadata";
 
 const description =
-  "A clear, plain-language guide to the FinTech industry: what each company does, how they differ, how they make money, and what real users think. Sourced from official companies and verified review aggregators.";
+  "A clear, plain-language guide to the FinTech industry: what each company does, how they differ, how they make money, and what the available editorial evidence suggests.";
 
 export const metadata: Metadata = {
   title: "Understand the companies reshaping finance",

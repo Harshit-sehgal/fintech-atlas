@@ -6,6 +6,7 @@ import {
   ORGANIZATION_ID,
 } from "./schemas";
 import { SITE_URL } from "@/lib/site-config";
+import { itemListSchema } from "./StructuredData";
 
 describe("JSON-LD shared schemas", () => {
   it("organizationSchema pins stable @id so other schemas can reference it", () => {
@@ -27,12 +28,20 @@ describe("JSON-LD shared schemas", () => {
     // site URL is the bare origin. `logo` and `description` are required so
     // Search Console accepts the entity.
     expect(organizationSchema.url).toBe(SITE_URL);
-    expect(organizationSchema.logo).toBe(`${SITE_URL}/og-image.png`);
+    expect(organizationSchema.logo).toBe(`${SITE_URL}/apple-touch-icon.png`);
     expect(organizationSchema.description).toBeTruthy();
   });
 
   it("websiteSchema omits SearchAction (site has no /search endpoint — server-side search would 404)", () => {
     expect(websiteSchema).not.toHaveProperty("potentialAction");
+  });
+
+  it("directory ItemList URLs use the shared trailing-slash canonical helper", () => {
+    const items = itemListSchema.itemListElement;
+    expect(items.length).toBeGreaterThan(0);
+    for (const item of items) {
+      expect(item.url).toMatch(new RegExp(`^${SITE_URL}/companies/[^/]+/$`));
+    }
   });
 
   describe("sanitiseJsonLd — XSS guard", () => {

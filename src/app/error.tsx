@@ -33,13 +33,8 @@ export default function RootError({
 
   return (
     <div className="relative mx-auto flex min-h-[60vh] max-w-2xl flex-col items-center justify-center px-5 py-24 text-center">
-      {/* Ambient glow */}
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--danger)] opacity-[0.06] blur-[100px]" />
-      </div>
-
-      <p className="mono-accent mb-4 text-sm font-mono text-[var(--muted-text)]">
-        $ atlas — error: render failed
+      <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--danger-text)]">
+        Something went wrong
       </p>
 
       <h1 className="text-5xl font-bold tracking-tight gradient-text">

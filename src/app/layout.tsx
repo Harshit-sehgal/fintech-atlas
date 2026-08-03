@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/lib/theme-context";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -11,20 +12,8 @@ import { SITE_URL } from "@/lib/site-config";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
 import { MotionConfig } from "framer-motion";
 
-// Apply the saved/system theme before the first paint so dark-mode users do not
-// see a flash of the default light theme while React hydrates the provider.
-const THEME_INIT_SCRIPT = `(() => {
-  try {
-    const stored = localStorage.getItem("theme");
-    const theme = stored === "light" || stored === "dark" || stored === "system" ? stored : "system";
-    const resolved = theme === "system"
-      ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
-      : theme;
-    document.documentElement.setAttribute("data-theme", resolved);
-  } catch {
-    // Storage and media-query access are best-effort before hydration.
-  }
-})();`;
+// Apply the saved/system theme before the first paint using a same-origin
+// blocking asset. This keeps the static export compatible with a strict CSP.
 
 export const metadata: Metadata = {
   title: {
@@ -32,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s — FinTech Atlas",
   },
   description:
-    "A clear, plain-language guide to the FinTech industry: what each company does, how they differ, how they make money, and what real users think. Sourced from official companies and verified review aggregators.",
+    "A clear, plain-language guide to the FinTech industry: what each company does, how they differ, how they make money, and what the available editorial evidence suggests.",
   metadataBase: new URL(SITE_URL),
   openGraph: {
     title: "FinTech Atlas — Understand the companies reshaping finance",
@@ -70,6 +59,11 @@ export const metadata: Metadata = {
       rel: "apple-touch-icon",
       url: "/apple-touch-icon.png",
     },
+    // PWA raster icons (declared in the web manifest); referenced here so the
+    // public-asset integrity test confirms none are orphaned.
+    { rel: "icon", url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    { rel: "icon", url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    { rel: "icon", url: "/maskable-512.png", sizes: "512x512", type: "image/png" },
   ],
   manifest: "/manifest.json",
   robots: {
@@ -78,6 +72,14 @@ export const metadata: Metadata = {
     "max-snippet": -1,
     "max-image-preview": "large",
   },
+};
+
+// Browser/OS chrome follows the user's colour scheme instead of forcing dark.
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbfaf6" },
+    { media: "(prefers-color-scheme: dark)", color: "#16140f" },
+  ],
 };
 
 export default function RootLayout({
@@ -92,7 +94,7 @@ export default function RootLayout({
       className="h-full antialiased"
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        <Script src="/theme-init.js" strategy="beforeInteractive" />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--background)] text-[var(--foreground)]">
         <StructuredDataLite />

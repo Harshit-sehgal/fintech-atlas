@@ -4,6 +4,7 @@
  */
 
 import type { RemittanceProviderConfig, CurrencyOption } from "@/data/remittance-config";
+import { MAX_RATE_AGE_DAYS, RATES_AS_OF } from "@/data/remittance-config";
 
 export interface RemittanceInputs {
   /** Amount being sent in USD. */
@@ -89,4 +90,23 @@ export function computeProviderPayouts(
   return configs
     .map((config) => computeProviderPayout(config, inputs))
     .sort((a, b) => b.netPayout - a.netPayout);
+}
+
+/**
+ * True when the hardcoded exchange-rate snapshot is older than
+ * {@link MAX_RATE_AGE_DAYS}. Lets the UI warn (and CI/build fail) rather than
+ * presenting stale rates as if they were current.
+ */
+export function isRateSnapshotStale(now: number = Date.now()): boolean {
+  const snapshot = Date.parse(RATES_AS_OF);
+  if (Number.isNaN(snapshot)) return true;
+  return now - snapshot > MAX_RATE_AGE_DAYS * 24 * 60 * 60 * 1000;
+}
+
+/** Human-readable label for the rate snapshot date. */
+export function ratesAsOfLabel(): string {
+  const d = new Date(RATES_AS_OF);
+  return Number.isNaN(d.getTime())
+    ? RATES_AS_OF
+    : d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
 }

@@ -10,8 +10,22 @@ import type { RemittanceProviderConfig, CurrencyOption } from "@/data/remittance
 
 describe("Remittance Calculator Logic", () => {
   const mockCurrencies: CurrencyOption[] = [
-    { code: "EUR", symbol: "€", name: "Euro", rate: 0.92 },
-    { code: "GBP", symbol: "£", name: "British Pound", rate: 0.79 },
+    {
+      code: "EUR",
+      symbol: "€",
+      name: "Euro",
+      rate: 0.92,
+      source: "Test snapshot",
+      sourceUrl: "https://example.test/rates",
+    },
+    {
+      code: "GBP",
+      symbol: "£",
+      name: "British Pound",
+      rate: 0.79,
+      source: "Test snapshot",
+      sourceUrl: "https://example.test/rates",
+    },
   ];
 
   const mockConfigs: RemittanceProviderConfig[] = [

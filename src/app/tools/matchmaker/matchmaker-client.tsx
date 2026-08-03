@@ -7,8 +7,8 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { companies } from "@/data";
+import { getContrastingText } from "@/lib/color";
 import {
-  getTopRecommendations,
   computeMatchScores,
   QuizState,
 } from "@/lib/matchmaker";
@@ -33,17 +33,14 @@ export default function MatchmakerQuizPageClient() {
     setStep(1);
   };
 
-  const results = step > 4
-    ? getTopRecommendations(quizState, companies, 3)
+  const scoredResults = step > 4
+    ? computeMatchScores(quizState, companies)
+    : [];
+  const topScore = scoredResults[0]?.score ?? 0;
+  const results = topScore > 0
+    ? scoredResults.slice(0, 3).map(({ company }) => company)
     : [];
 
-  // The "no strong match" notice fires when the user lands on results with
-  // a top score of zero — i.e. every answered question hit an empty-weight
-  // option (all_in_one / low / early / growing). We surface these picks as
-  // generic starting points rather than strong recommendations.
-  const topScore = step > 4
-    ? computeMatchScores(quizState, companies)[0]?.score ?? 0
-    : 0;
 
   return (
     <div className="relative mx-auto max-w-4xl px-5 py-20 md:py-28">
@@ -59,7 +56,7 @@ export default function MatchmakerQuizPageClient() {
         headingLevel={1}
         eyebrow="Interactive Recommendation"
         title="FinTech Matchmaker Quiz"
-        description="Answer 4 quick questions to find the ideal fintech services tailored to your exact needs."
+        description="Answer 4 high-level questions to get an initial shortlist you can research further. This is an educational recommendation, not financial or procurement advice."
       />
 
       <div className="mt-10">
@@ -123,8 +120,8 @@ export default function MatchmakerQuizPageClient() {
               <div className="surface rounded-2xl border border-[var(--border-color)] p-8">
                 <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-4">
                   <div>
-                    <span className="eyebrow text-[var(--accent)]">Your Custom Match</span>
-                    <h2 className="mt-1 text-2xl font-bold text-[var(--foreground)]">Top Recommended FinTech Platforms</h2>
+                    <span className="eyebrow text-[var(--accent)]">Initial Shortlist</span>
+                    <h2 className="mt-1 text-2xl font-bold text-[var(--foreground)]">Suggested starting points</h2>
                   </div>
                   <button
                     onClick={restart}
@@ -135,9 +132,9 @@ export default function MatchmakerQuizPageClient() {
                 </div>
 
                 <div className="mt-8 space-y-4 reveal-stagger">
-                  {topScore === 0 && results.length > 0 && (
+                  {topScore === 0 && (
                     <div className="rounded-xl border border-[var(--warning)]/30 bg-[var(--warning)]/10 px-4 py-3 text-xs leading-relaxed text-[var(--foreground)]">
-                      Your answers did not point to a specific platform — the picks below are general starting points, not strong matches. Try adjusting your priorities and retaking the quiz for a more tailored result.
+                      There is not enough evidence to rank companies from these answers. Try changing a preference for a more specific shortlist.
                     </div>
                   )}
                   {results.map((c, idx) => (
@@ -149,12 +146,12 @@ export default function MatchmakerQuizPageClient() {
                       <div className="flex items-center gap-4">
                         <span
                           className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-bold"
-                          style={{ background: c.accent, color: "#fff" }}
+                          style={{ background: c.accent, color: getContrastingText(c.accent) }}
                         >
                           #{idx + 1}
                         </span>
                         <div className="group-hover:scale-105 transition-transform duration-300">
-                          <CompanyLogo slug={c.slug} size={48} />
+                          <CompanyLogo slug={c.slug} name={c.name} size={48} />
                         </div>
                         <div>
                           <h3 className="text-lg font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">{c.name}</h3>

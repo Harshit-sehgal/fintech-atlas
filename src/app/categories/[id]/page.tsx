@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import { getCategoryBySlug, categories, getCompaniesByCategory, glossary, categoryGlossaryMap } from "@/data";
-import { SITE_URL } from "@/lib/site-config";
+import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
 import { formatValuationShort } from "@/lib/format-company";
 import { CategoryIcon } from "@/components/ui/category-icon";
@@ -29,12 +29,12 @@ export async function generateMetadata({
   return {
     title: `${cat.name} — FinTech Category Guide`,
     description: cat.short,
-    alternates: { canonical: `/categories/${cat.slug}/` },
+    alternates: { canonical: canonicalUrl(`/categories/${cat.slug}`) },
     openGraph: {
       ...openGraphImage,
       title: `${cat.name} — FinTech Category Guide`,
       description: cat.short,
-      url: `${SITE_URL}/categories/${cat.slug}/`,
+      url: canonicalUrl(`/categories/${cat.slug}`),
     },
   };
 }
@@ -59,14 +59,14 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
 
       {/* Category Header */}
       <Reveal>
-        <div className="flex items-center gap-2 text-xs text-[var(--muted-text)] font-mono mb-6">
+        <div className="flex items-center gap-2 text-xs text-[var(--muted-text)] mb-6">
           <Link href="/categories" className="hover:text-[var(--foreground)] transition-colors">Categories</Link>
           <span className="text-[var(--muted-dim)]">/</span>
           <span className="text-[var(--foreground)] font-medium">{cat.name}</span>
         </div>
 
         <div
-          className="relative overflow-hidden rounded-2xl border border-[var(--border-color)] bg-gradient-to-br from-[var(--subtle-bg)]/60 to-transparent p-7 ambient-border"
+          className="relative overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-7"
           style={{ ["--accent"]: cat.accent } as CSSProperties}
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative z-10">
@@ -75,7 +75,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
                 <CategoryIcon icon={cat.icon} color={cat.accent} size={40} />
               </div>
               <div>
-                <span className="eyebrow">Category · {companyList.length} companies</span>
+                <span className="eyebrow">Category guide</span>
                 <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--foreground)]">{cat.name}</h1>
                 <p className="mt-1 text-base text-[var(--muted-text)]">{cat.short}</p>
               </div>
@@ -87,7 +87,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
                 className="btn-primary shrink-0"
                 title="Side-by-side comparison of the top 3 companies in this category"
               >
-                Compare Top 3 →
+                Compare Top 3
               </Link>
             )}
           </div>
@@ -124,14 +124,14 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3">
                         <div className="group-hover:scale-105 transition-transform duration-300">
-                          <CompanyLogo slug={c.slug} size={40} />
+                          <CompanyLogo slug={c.slug} name={c.name} size={40} />
                         </div>
                         <div>
                           <h3 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">{c.name}</h3>
-                          <p className="text-xs text-[var(--muted-text)] font-mono">{formatValuationShort(c.valuation)}</p>
+                          <p className="text-xs text-[var(--muted-text)]">{formatValuationShort(c.valuation)}</p>
                         </div>
                       </div>
-                      <span className="shrink-0 rounded-lg bg-[var(--success)]/10 px-2.5 py-1 text-xs font-mono font-bold text-success-text border border-[var(--success)]/20">
+                      <span className="shrink-0 rounded-lg bg-[var(--success)]/10 px-2.5 py-1 text-xs font-semibold text-success-text border border-[var(--success)]/20">
                         ★ {c.userReviews.rating}
                       </span>
                     </div>
@@ -157,7 +157,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
       {relatedGlossary.length > 0 && (
         <Reveal delay={0.2}>
           <section className="mt-12">
-            <h2 className="eyebrow !text-[var(--muted-text)] !tracking-widest border-b border-[var(--border-color)] pb-3 text-xl font-bold tracking-tight text-[var(--foreground)]">
+            <h2 className="border-b border-[var(--border-color)] pb-3 text-xl font-semibold tracking-tight text-[var(--foreground)]">
               Key Domain Terminology
             </h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-2 reveal-stagger">

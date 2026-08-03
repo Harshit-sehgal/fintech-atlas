@@ -64,9 +64,9 @@ export function LogoMarquee({ logos, speed = 40 }: LogoMarqueeProps) {
             className="group flex shrink-0 items-center gap-3 rounded-xl border border-transparent px-3 py-2 transition-colors hover:border-[var(--border-color)] hover:bg-[var(--subtle-bg)]/60 hover-lift"
           >
             <div className="opacity-80 group-hover:opacity-100 transition-opacity">
-              <CompanyLogo slug={l.slug} size={32} />
+              <CompanyLogo slug={l.slug} name={l.name} size={32} />
             </div>
-            <span className="text-xs font-semibold text-[var(--muted-text)] group-hover:text-[var(--foreground)] transition-colors font-mono tracking-wide">
+            <span className="text-xs font-medium text-[var(--muted-text)] group-hover:text-[var(--foreground)] transition-colors">
               {l.name}
             </span>
           </Link>

@@ -6,7 +6,6 @@ import { useMemo } from "react";
 import { companies, categories, glossary, getCompaniesByCategory } from "@/data";
 import { DATA_AS_OF } from "@/lib/site-config";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { CategoryIcon } from "@/components/ui/category-icon";
 import { Reveal } from "@/components/ui/reveal";
@@ -46,14 +45,14 @@ export default function HomePageClient() {
         <div className="mx-auto max-w-6xl px-5">
           <Reveal>
             <div className="mb-6 flex items-center justify-between">
-              <p className="eyebrow">
-                {companies.length}+ Brands · Updated {DATA_AS_OF}
+              <p className="text-xs font-medium uppercase tracking-wider text-[var(--muted-text)]">
+                {companies.length} companies · Updated {DATA_AS_OF}
               </p>
               <Link
                 href="/companies"
-                className="hidden text-xs font-semibold text-[var(--accent)] hover:underline decoration-[var(--accent)]/50 underline-offset-4 sm:inline"
+                className="hidden text-xs font-semibold text-[var(--accent)] hover:underline underline-offset-4 sm:inline"
               >
-                View all {companies.length} →
+                View all {companies.length}
               </Link>
             </div>
           </Reveal>
@@ -61,70 +60,34 @@ export default function HomePageClient() {
         <LogoMarquee logos={marqueeLogos} />
       </section>
 
-      {/* Verification ticker — data freshness & source coverage strip */}
-      <section className="relative border-b border-[var(--border-color)] bg-[var(--subtle-bg)] py-6 overflow-hidden">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-3 px-5 text-[11px] font-mono text-[var(--muted-text)]">
-          <div className="flex items-center gap-2">
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-success">
-              <span className="absolute inset-0 rounded-full bg-success animate-ping opacity-60" />
-            </span>
-            <span className="uppercase tracking-wider text-[var(--foreground)]">Verified</span>
-            <span>{companies.length} brand profiles</span>
-          </div>
-          <span className="hidden sm:inline text-[var(--border-strong)]">/</span>
-          <div className="flex items-center gap-2">
-            <span className="text-success-text">▴</span>
-            <span><strong className="text-[var(--foreground)] tabular-nums">{categories.length}</strong> industry categories</span>
-          </div>
-          <span className="hidden sm:inline text-[var(--border-strong)]">/</span>
-          <div className="flex items-center gap-2">
-            <span className="text-success-text">▴</span>
-            <span><strong className="text-[var(--foreground)] tabular-nums">{glossary.length}+</strong> glossary terms decoded</span>
-          </div>
-          <span className="hidden sm:inline text-[var(--border-strong)]">/</span>
-          <div className="flex items-center gap-2">
-            <span className="text-warning-text">●</span>
-            <span>Data refreshed <strong className="text-[var(--foreground)]">{DATA_AS_OF}</strong></span>
-          </div>
-          <span className="hidden sm:inline text-[var(--border-strong)]">/</span>
-          <div className="flex items-center gap-2">
-            <span className="text-success-text">✓</span>
-            <span>12 independent sources cross-checked</span>
-          </div>
-        </div>
-      </section>
-
       {/* Interactive Tools Teaser */}
-      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 overflow-hidden">
-        <GridBackdrop fullBleed className="opacity-40" />
+      <section className="mx-auto max-w-6xl px-5 py-16 md:py-24">
         <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-[var(--border-color)] bg-gradient-to-br from-[var(--accent)]/10 via-[var(--accent-strong)]/5 to-emerald-500/10 p-8 md:p-12 shadow-2xl ambient-border">
-            {/* Inner glow */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-[var(--accent)]/5 via-transparent to-emerald-500/5 pointer-events-none" />
-
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
+          <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-8 md:p-12">
+            <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
               <div className="max-w-xl space-y-3">
-                <span className="inline-flex items-center gap-2 rounded-full bg-[var(--accent)]/15 border border-[var(--accent)]/25 px-3 py-1 text-xs font-mono font-bold text-[var(--accent)]">
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
-                  00 · Interactive Decision Suite
-                </span>
-                <h2 className="text-2xl font-bold tracking-tight md:text-3xl text-[var(--foreground)]">
-                  Calculate Real Costs &amp; Compare Services
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
+                  Interactive decision suite
+                </p>
+                <h2 className="text-2xl font-semibold leading-tight text-[var(--foreground)] md:text-3xl">
+                  Calculate real costs &amp; compare services
                 </h2>
-                <p className="text-sm text-[var(--muted-text)] leading-relaxed max-w-lg">
-                  Estimate payment processing fees, calculate cross-border FX transfer markups, or take our interactive matchmaker quiz to find your ideal fintech stack.
+                <p className="text-sm leading-relaxed text-[var(--muted-text)]">
+                  Estimate payment processing fees, explore illustrative
+                  cross-border FX scenarios, or take the matchmaker quiz to
+                  build an initial fintech shortlist.
                 </p>
               </div>
 
               <div className="flex flex-wrap gap-3">
                 <Link href="/tools/calculator" className="btn-primary text-xs">
-                  Fee Estimator →
+                  Fee Estimator
                 </Link>
                 <Link href="/tools/remittance" className="btn-ghost text-xs">
-                  Cross-Border FX →
+                  Cross-Border FX
                 </Link>
                 <Link href="/tools/matchmaker" className="btn-ghost text-xs">
-                  Matchmaker Quiz →
+                  Matchmaker Quiz
                 </Link>
               </div>
             </div>
@@ -135,7 +98,7 @@ export default function HomePageClient() {
       {/* What is FinTech */}
       <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
         <SectionHeading
-          eyebrow="01 · The Big Picture"
+          eyebrow="The Big Picture"
           title="What is FinTech?"
           description="'FinTech' — short for Financial Technology — is the broad name for software-powered financial services. It covers everything from the app you use to pay a friend (Venmo) to the API that charges a credit card on a website (Stripe) to the digital-only bank in your pocket (Chime, Revolut, Nubank)."
         />
@@ -187,7 +150,7 @@ export default function HomePageClient() {
       {/* Categories */}
       <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
         <SectionHeading
-          eyebrow="02 · Navigate by Domain"
+          eyebrow="Navigate by Domain"
           title="Industry Categories"
           description="FinTech spans many specialized domains. Each category addresses a distinct problem in global finance."
         />
@@ -209,8 +172,8 @@ export default function HomePageClient() {
                   {(() => {
                     const count = getCompaniesByCategory(cat.slug).length;
                     return count > 0 ? (
-                      <p className="mt-3 text-xs font-semibold text-[var(--accent)] font-mono">
-                        {count} compan{count === 1 ? "y" : "ies"} →
+                      <p className="mt-3 text-xs font-medium text-[var(--muted-text)]">
+                        {count} compan{count === 1 ? "y" : "ies"}
                       </p>
                     ) : null;
                   })()}
@@ -224,9 +187,9 @@ export default function HomePageClient() {
       {/* Featured companies */}
       <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
         <SectionHeading
-          eyebrow="03 · Key Players"
+          eyebrow="Key Players"
           title="Featured Companies"
-          description="Each profile breaks down product lines, fee structures, strengths, weaknesses, and verified user ratings."
+          description="Each profile breaks down product lines, fee structures, strengths, weaknesses, and editorial sentiment summaries."
         />
         <Reveal delay={0.1}>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 reveal-stagger">
@@ -241,14 +204,14 @@ export default function HomePageClient() {
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
                       <div className="shrink-0 group-hover:scale-105 transition-transform duration-300">
-                        <CompanyLogo slug={c.slug} size={40} />
+                        <CompanyLogo slug={c.slug} name={c.name} size={40} />
                       </div>
                       <div className="min-w-0">
                         <h3 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">{c.name}</h3>
-                        <p className="mt-0.5 truncate text-xs text-[var(--muted-text)] font-mono">{formatValuationShort(c.valuation)}</p>
+                        <p className="mt-0.5 truncate text-xs text-[var(--muted-text)]">{formatValuationShort(c.valuation)}</p>
                       </div>
                     </div>
-                    <span className="shrink-0 rounded-lg bg-[var(--success)]/10 px-2.5 py-1 text-xs font-mono font-bold text-success-text border border-[var(--success)]/20">
+                    <span className="shrink-0 rounded-lg bg-[var(--success)]/10 px-2.5 py-1 text-xs font-semibold text-success-text border border-[var(--success)]/20">
                       ★ {c.userReviews.rating}
                     </span>
                   </div>
@@ -271,7 +234,7 @@ export default function HomePageClient() {
         <Reveal delay={0.15}>
           <div className="mt-8 text-center">
             <Link href="/companies" className="btn-ghost text-xs">
-              View all {companies.length} companies →
+              View all {companies.length} companies
             </Link>
           </div>
         </Reveal>
@@ -280,7 +243,7 @@ export default function HomePageClient() {
       {/* Glossary teaser */}
       <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
         <SectionHeading
-          eyebrow="04 · Jargon Decoder"
+          eyebrow="Jargon Decoder"
           title="Glossary &amp; Terms"
           description="Every term explained simply. Hover or click to decode financial jargon."
         />
@@ -294,7 +257,6 @@ export default function HomePageClient() {
               >
                 <div className="font-bold flex items-center justify-between">
                   <span className="group-hover:text-[var(--accent)] transition-colors">{g.term}</span>
-                  <span className="text-[10px] font-mono text-[var(--muted-text)] opacity-0 group-hover:opacity-100 transition-opacity">→</span>
                 </div>
                 <span className="text-[var(--muted-text)] text-[11px] truncate">{g.short}</span>
               </Link>
@@ -304,35 +266,33 @@ export default function HomePageClient() {
         <Reveal delay={0.15}>
           <div className="mt-6 text-center">
             <Link href="/glossary" className="btn-ghost text-xs">
-              Browse all {glossary.length} terms →
+              Browse all {glossary.length} terms
             </Link>
           </div>
         </Reveal>
       </section>
 
       {/* Compare CTA */}
-      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)] overflow-hidden">
-        <GridBackdrop fullBleed />
-        <div className="rounded-3xl border border-[var(--border-color)] bg-[var(--subtle-bg)]/40 p-8 text-center md:p-14 shadow-xl relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-[var(--accent)]/5 to-transparent pointer-events-none" />
-          <div className="relative z-10">
+      <section className="mx-auto max-w-6xl px-5 py-16 md:py-24">
+        <div className="rounded-3xl border border-[var(--border-color)] bg-[var(--card)] p-8 text-center md:p-14">
+          <div>
             <Reveal>
-              <p className="mb-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--accent)] font-mono">
-                <span className="inline-block h-px w-6 bg-[var(--accent)]/50" />
-                05 · Side-by-Side
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
+                Side-by-Side
               </p>
-              <h2 className="text-2xl font-bold tracking-tight md:text-4xl text-[var(--foreground)]">
+              <h2 className="text-2xl font-semibold tracking-tight md:text-4xl text-[var(--foreground)]">
                 Compare Side-by-Side
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-[var(--muted-text)]">
-                Select up to 3 companies to see how they stack up across pricing, ratings, core features, strengths, and weaknesses — all in one view.
+                Select up to 3 companies to see how they stack up across pricing,
+                ratings, core features, strengths, and weaknesses — all in one view.
               </p>
             </Reveal>
             <Reveal delay={0.15}>
               <Link href="/compare" className="btn-primary mt-7">
-                Open Comparison Matrix →
+                Open Comparison Matrix
               </Link>
             </Reveal>
           </div>

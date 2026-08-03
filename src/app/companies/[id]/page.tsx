@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getCompanyBySlug, companies, categories } from "@/data";
-import { SITE_URL } from "@/lib/site-config";
+import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
 import { CompanyPageClient } from "./client";
 
@@ -24,12 +24,12 @@ export async function generateMetadata({
   return {
     title: `${c.name} — ${c.tagline}`,
     description: c.oneLiner,
-    alternates: { canonical: `/companies/${c.slug}/` },
+    alternates: { canonical: canonicalUrl(`/companies/${c.slug}`) },
     openGraph: {
       ...openGraphImage,
       title: `${c.name} — ${c.tagline}`,
       description: c.oneLiner,
-      url: `${SITE_URL}/companies/${c.slug}/`,
+      url: canonicalUrl(`/companies/${c.slug}`),
     },
   };
 }
@@ -42,10 +42,17 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
   const relatedCategories = categories.filter((cat) =>
     company.categories.includes(cat.slug)
   );
+  const companyIndex = companies.findIndex((item) => item.slug === company.slug);
+  const previousCompany = companies[companyIndex - 1];
+  const nextCompany = companies[companyIndex + 1];
+  const adjacent = {
+    previous: previousCompany ? { slug: previousCompany.slug, name: previousCompany.name } : null,
+    next: nextCompany ? { slug: nextCompany.slug, name: nextCompany.name } : null,
+  };
 
   return (
     <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading profile…</div>}>
-      <CompanyPageClient company={company} relatedCategories={relatedCategories} />
+      <CompanyPageClient company={company} relatedCategories={relatedCategories} adjacent={adjacent} />
     </Suspense>
   );
 }

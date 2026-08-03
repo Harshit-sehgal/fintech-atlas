@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { GlossaryClient } from "./client";
-import { SITE_URL } from "@/lib/site-config";
+import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
 
 const description =
@@ -10,12 +10,12 @@ const description =
 export const metadata: Metadata = {
   title: "FinTech Glossary & Terminology",
   description,
-  alternates: { canonical: "/glossary" },
+  alternates: { canonical: canonicalUrl("/glossary") },
   openGraph: {
     ...openGraphImage,
     title: "FinTech Glossary & Terminology — FinTech Atlas",
     description,
-    url: `${SITE_URL}/glossary`,
+    url: canonicalUrl("/glossary"),
   },
 };
 

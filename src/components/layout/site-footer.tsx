@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { companies } from "@/data";
-import { GridBackdrop } from "@/components/ui/grid-backdrop";
+import { DATA_AS_OF } from "@/lib/site-config";
 
 const exploreLinks = [
   { href: "/companies", label: "Companies Directory" },
@@ -21,20 +21,14 @@ const aboutLinks = [
   { href: "/about", label: "Methodology & Sources" },
   { href: "/about#faq", label: "Frequently Asked Questions" },
   { href: "/about#disclaimer", label: "Educational Disclaimer" },
+  { href: "/privacy", label: "Privacy Notice" },
+  { href: "/terms", label: "Terms of Use" },
 ];
 
 export function SiteFooter() {
   return (
     <footer id="footer" className="relative mt-24 border-t border-[var(--border-color)] bg-[var(--subtle-bg)]/50 overflow-hidden">
-      {/* Gradient hairline along the top */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--accent)]/40 to-transparent"
-      />
-      {/* Faint grid backdrop */}
-      <GridBackdrop fullBleed variant="subtle" />
-
-      <div className="relative mx-auto max-w-6xl px-5 py-14">
+      <div className="mx-auto max-w-6xl px-5 py-14">
         <div className="grid gap-10 md:grid-cols-4">
           {/* Brand block */}
           <div className="md:col-span-1 space-y-4">
@@ -48,16 +42,13 @@ export function SiteFooter() {
             </Link>
             <p className="max-w-sm text-xs leading-relaxed text-[var(--muted-text)]">
               A plain-language guide to the companies, products, and terms reshaping financial services.
-              Sourced from official data & verified reviews.
+              Built from public reference material and editorial summaries.
             </p>
 
-            {/* Status badge */}
-            <div className="surface inline-flex items-center gap-2 rounded-full border border-[var(--border-color)] px-3 py-1 text-[10px] font-mono text-[var(--muted-text)]">
-              <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-[var(--term-green)]">
-                <span className="absolute inset-0 rounded-full bg-[var(--term-green)] animate-ping opacity-60" />
-              </span>
-              <span>Catalog live · {companies.length} brands</span>
-            </div>
+            {/* Small, quiet source note (no fake "live" status dot) */}
+            <p className="text-[11px] text-[var(--muted-text)]">
+              {companies.length} companies profiled · Updated {DATA_AS_OF}.
+            </p>
           </div>
 
           {/* Explore */}
@@ -74,7 +65,7 @@ export function SiteFooter() {
         <div className="mt-12 flex flex-col gap-3 border-t border-[var(--border-color)] pt-6 text-xs text-[var(--muted-text)] sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} FinTech Atlas. Educational directory & decision suite.</p>
           <p>
-            Data compiled from official sources & review aggregators. See{" "}
+            Data compiled from public reference labels and editorial research. See{" "}
             <Link className="text-[var(--foreground)] underline decoration-[var(--accent)]/40 underline-offset-4 hover:decoration-[var(--accent)]" href="/about">
               /about
             </Link>

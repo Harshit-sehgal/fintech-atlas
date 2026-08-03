@@ -34,8 +34,8 @@ describe("parseCompareSlugs()", () => {
     expect(parseCompareSlugs(p, companies)).toEqual([]);
   });
 
-  it("filters empty segments from ?companies=", () => {
-    const p = new URLSearchParams("companies=stripe,,adyen");
+  it("filters empty segments and de-duplicates ?companies=", () => {
+    const p = new URLSearchParams("companies=stripe,,stripe, adyen");
     expect(parseCompareSlugs(p, companies)).toEqual(["stripe", "adyen"]);
   });
 
@@ -46,6 +46,16 @@ describe("parseCompareSlugs()", () => {
     // bare `?companies` with no value means "just the key, no actual selection."
     const p = new URLSearchParams("companies");
     expect(parseCompareSlugs(p, companies)).toEqual([]);
+  });
+
+  it("deduplicates repeated slugs in ?companies= (fix: stripe,stripe,stripe)", () => {
+    const p = new URLSearchParams("companies=stripe,stripe,stripe");
+    expect(parseCompareSlugs(p, companies)).toEqual(["stripe"]);
+  });
+
+  it("deduplicates mixed duplicate ?companies= (order preserved)", () => {
+    const p = new URLSearchParams("companies=stripe,paypal,stripe,adyen,paypal");
+    expect(parseCompareSlugs(p, companies)).toEqual(["stripe", "paypal", "adyen"]);
   });
 
   describe("legacy ?a= / ?b= param shape", () => {
@@ -62,6 +72,11 @@ describe("parseCompareSlugs()", () => {
     it("validates ?a= slugs against the company list (regression: unvalidated path)", () => {
       const p = new URLSearchParams("a=fakeSlug&b=adyen");
       expect(parseCompareSlugs(p, companies)).toEqual(["adyen"]);
+    });
+
+    it("deduplicates the legacy path", () => {
+      const p = new URLSearchParams("a=stripe&b=stripe");
+      expect(parseCompareSlugs(p, companies)).toEqual(["stripe"]);
     });
 
     it("caps the legacy path at MAX_COMPARE", () => {

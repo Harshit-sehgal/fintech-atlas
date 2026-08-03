@@ -29,6 +29,8 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
 
   // Focus management for accessibility
   const previousElementRef = useRef<HTMLElement | null>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (open) {
@@ -36,10 +38,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
       previousElementRef.current = document.activeElement as HTMLElement;
 
       // Focus the input when modal opens
-      const input = document.querySelector('input[role="combobox"]') as HTMLInputElement | null;
-      if (input) {
-        input.focus();
-      }
+      inputRef.current?.focus();
 
       // Trap focus inside the modal
       const handleKeyDown = (e: KeyboardEvent) => {
@@ -50,7 +49,8 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
           onClose();
         } else if (e.key === "Tab") {
           // Trap focus within the modal
-          const focusableElements = getFocusableElementsInDialog();
+          const dialog = dialogRef.current;
+          const focusableElements = dialog ? getFocusableElementsInDialog(dialog) : [];
           if (focusableElements.length === 0) {
             e.preventDefault();
             return;
@@ -73,24 +73,20 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
         }
       };
 
-      const handleFocusOut = (e: FocusEvent) => {
-        // If focus is leaving the modal, bring it back to the first focusable
-        const dialog = e.currentTarget as HTMLElement;
-        if (!dialog.contains(e.relatedTarget as Node)) {
-          e.preventDefault();
-          const focusableElements = getFocusableElementsInDialog();
-          if (focusableElements.length > 0) {
-            focusableElements[0].focus();
-          }
+      const handleFocusIn = (e: FocusEvent) => {
+        const dialog = dialogRef.current;
+        const target = e.target;
+        if (dialog && target instanceof Node && !dialog.contains(target)) {
+          getFocusableElementsInDialog(dialog)[0]?.focus();
         }
       };
 
       window.addEventListener("keydown", handleKeyDown);
-      window.addEventListener("focusout", handleFocusOut);
+      window.addEventListener("focusin", handleFocusIn);
 
       return () => {
         window.removeEventListener("keydown", handleKeyDown);
-        window.removeEventListener("focusout", handleFocusOut);
+        window.removeEventListener("focusin", handleFocusIn);
 
         // Return focus to the element that triggered the modal
         if (previousElementRef.current) {
@@ -144,7 +140,14 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
       (c) =>
         c.name.toLowerCase().includes(cleanQuery) ||
         c.tagline.toLowerCase().includes(cleanQuery) ||
-        c.categories.some((cat) => cat.toLowerCase().includes(cleanQuery))
+        c.oneLiner.toLowerCase().includes(cleanQuery) ||
+        c.founders.some((founder) => founder.toLowerCase().includes(cleanQuery)) ||
+        c.categories.some((cat) => cat.toLowerCase().includes(cleanQuery)) ||
+        c.whatTheyOffer.some(
+          (offer) =>
+            offer.name.toLowerCase().includes(cleanQuery) ||
+            offer.description.toLowerCase().includes(cleanQuery),
+        )
     );
   }, [cleanQuery]); // companies is imported constant, safe to omit
 
@@ -182,11 +185,19 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
     );
   }, [cleanQuery, tools]); // tools is memoized above, so include it
 
+  // Keep the empty palette useful without rendering the entire catalogue. When
+  // searching, cap each group so keyboard navigation remains quick and the
+  // first results stay predictable for this small editorial catalogue.
+  const visibleTools = filteredTools.slice(0, cleanQuery ? 20 : 4);
+  const visibleCompanies = filteredCompanies.slice(0, cleanQuery ? 20 : 4);
+  const visibleCategories = filteredCategories.slice(0, cleanQuery ? 20 : 2);
+  const visibleGlossary = filteredGlossary.slice(0, cleanQuery ? 20 : 2);
+
   const items = [
-    ...filteredTools.map((t) => ({ type: "tool" as const, item: t, id: `tool-${t.path}` })),
-    ...filteredCompanies.map((c) => ({ type: "company" as const, item: c, id: `company-${c.slug}` })),
-    ...filteredCategories.map((cat) => ({ type: "category" as const, item: cat, id: `cat-${cat.slug}` })),
-    ...filteredGlossary.map((g) => ({ type: "glossary" as const, item: g, id: `glossary-${g.slug}` })),
+    ...visibleTools.map((t) => ({ type: "tool" as const, item: t, id: `tool-${t.path}` })),
+    ...visibleCompanies.map((c) => ({ type: "company" as const, item: c, id: `company-${c.slug}` })),
+    ...visibleCategories.map((cat) => ({ type: "category" as const, item: cat, id: `cat-${cat.slug}` })),
+    ...visibleGlossary.map((g) => ({ type: "glossary" as const, item: g, id: `glossary-${g.slug}` })),
   ];
 
   if (!open) return null;
@@ -210,6 +221,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: -10 }}
           transition={{ duration: 0.2 }}
+          ref={dialogRef}
           role="dialog"
           aria-modal="true"
           aria-label="Search"
@@ -221,12 +233,14 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             <input
+              ref={inputRef}
               type="search"
               autoFocus
               role="combobox"
               aria-controls="command-palette-listbox"
-              aria-expanded={items.length > 0}
+              aria-expanded={open}
               aria-autocomplete="list"
+              aria-activedescendant={items[selectedIndex] ? `command-option-${items[selectedIndex].id}` : undefined}
               placeholder="Search companies, categories, glossary terms, or tools... (Esc to close)"
               value={query}
               onChange={(e) => handleQueryChange(e.target.value)}
@@ -251,6 +265,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
                   return (
                     <button
                       key={entry.id}
+                      id={`command-option-${entry.id}`}
                       ref={(el) => { itemRefs.current[idx] = el; }}
                       onClick={() => handleSelect(idx)}
                       onMouseEnter={() => setSelectedIndex(idx)}
@@ -270,7 +285,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
                           </span>
                         )}
                         {entry.type === "company" && (
-                          <CompanyLogo slug={entry.item.slug} size={28} />
+                          <CompanyLogo slug={entry.item.slug} name={entry.item.name} size={28} />
                         )}
                         {entry.type === "category" && (
                           <CategoryIcon icon={entry.item.icon} color={entry.item.accent} size={28} />

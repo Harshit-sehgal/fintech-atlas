@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -11,13 +11,17 @@ import { CURRENCIES, DEFAULT_CURRENCY, DEFAULT_SEND_AMOUNT, REMITTANCE_PROVIDERS
 import {
   computeProviderPayouts,
   RemittanceInputs,
+  isRateSnapshotStale,
+  ratesAsOfLabel,
 } from "@/lib/remittance";
+import { MAX_RATE_AGE_DAYS } from "@/data/remittance-config";
 import { animationPresets as animation } from "@/lib/animation";
 
 export default function RemittanceCalculatorPageClient() {
   const [sendAmount, setSendAmount] = useState<number>(DEFAULT_SEND_AMOUNT);
   const [currencyCode, setCurrencyCode] = useState<string>(DEFAULT_CURRENCY);
   const [focusedIndex, setFocusedIndex] = useState<number>(0);
+  const currencyRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
   const targetCurr = CURRENCIES.find((c) => c.code === currencyCode) || CURRENCIES[0];
 
@@ -94,6 +98,7 @@ export default function RemittanceCalculatorPageClient() {
                 return (
                   <button
                     key={c.code}
+                    ref={(element) => { currencyRefs.current[index] = element; }}
                     role="radio"
                     aria-checked={active}
                     tabIndex={isFocused ? 0 : -1}
@@ -108,19 +113,23 @@ export default function RemittanceCalculatorPageClient() {
                         const nextIndex = (focusedIndex + 1) % CURRENCIES.length;
                         setFocusedIndex(nextIndex);
                         setCurrencyCode(CURRENCIES[nextIndex].code);
+                        currencyRefs.current[nextIndex]?.focus();
                       } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
                         e.preventDefault();
                         const prevIndex = (focusedIndex - 1 + CURRENCIES.length) % CURRENCIES.length;
                         setFocusedIndex(prevIndex);
                         setCurrencyCode(CURRENCIES[prevIndex].code);
+                        currencyRefs.current[prevIndex]?.focus();
                       } else if (e.key === 'Home') {
                         e.preventDefault();
                         setFocusedIndex(0);
                         setCurrencyCode(CURRENCIES[0].code);
+                        currencyRefs.current[0]?.focus();
                       } else if (e.key === 'End') {
                         e.preventDefault();
                         setFocusedIndex(CURRENCIES.length - 1);
                         setCurrencyCode(CURRENCIES[CURRENCIES.length - 1].code);
+                        currencyRefs.current[CURRENCIES.length - 1]?.focus();
                       } else if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
                         setCurrencyCode(c.code);
@@ -156,7 +165,7 @@ export default function RemittanceCalculatorPageClient() {
               1 USD = {targetCurr.rate} {targetCurr.code}
             </div>
             <p className="text-[11px] text-[var(--muted-text)]">
-              The fair exchange rate quoted on financial markets (Google, Bloomberg, Wise).
+              A reference snapshot for this illustrative model; it is not a live quote.
             </p>
           </div>
         </div>
@@ -169,11 +178,11 @@ export default function RemittanceCalculatorPageClient() {
                 <div>
                   <span className="eyebrow text-[var(--muted-text)]">Maximum Received</span>
                   <h3 className="mt-1 text-lg font-bold text-[var(--foreground)]">
-                    {bestProvider.name} delivers the most money
+                    {bestProvider.name} leads in this illustrative model
                   </h3>
                 </div>
                 <div className="rounded-xl bg-[var(--success)]/10 border border-[var(--success)]/30 px-4 py-2 text-right">
-                  <div className="text-xs text-success-text">Save up to</div>
+                  <div className="text-xs text-success-text">Illustrative difference</div>
                   <div className="text-lg font-bold font-mono text-success-text">
                     {targetCurr.symbol}{Math.round(savings).toLocaleString()} {targetCurr.code}
                   </div>
@@ -203,11 +212,11 @@ export default function RemittanceCalculatorPageClient() {
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <div>
                           <div className="flex items-center gap-2.5">
-                            {p.slug !== "bank" && <CompanyLogo slug={p.slug} size={24} />}
+                            {p.slug !== "bank" && <CompanyLogo slug={p.slug} name={p.name} size={24} />}
                             <span className="font-bold text-base text-[var(--foreground)]">{p.name}</span>
                             {isBest && (
                               <span className="rounded bg-[var(--success)]/20 border border-[var(--success)]/30 px-2 py-0.5 text-[10px] font-bold text-success-text">
-                                Highest Payout
+                                Highest illustrative payout
                               </span>
                             )}
                           </div>
@@ -256,7 +265,12 @@ export default function RemittanceCalculatorPageClient() {
 
           {/* Note on estimates — referenced by the SectionHeading description ("see note below") */}
           <div className="surface rounded-xl border border-[var(--border-color)] p-4 text-xs leading-relaxed text-[var(--muted-text)]">
-            <strong className="text-[var(--foreground)]">Note on estimates:</strong> Exchange rates are mid-market reference snapshots, not live quotes, and will drift over time. Provider fee models reflect publicly listed standard pricing as of Q3 2026. Traditional banks often quote an undisclosed FX markup baked into the exchange rate rather than charging a separate fee — that spread can be larger than the markup shown here. For large transfers, negotiate the rate with your bank or use Wise&apos;s mid-market rate as a benchmark.
+            <strong className="text-[var(--foreground)]">Illustrative model:</strong> This tool uses reference FX snapshots and simplified example fee models, not route-specific live quotes. Actual payouts depend on sending and receiving countries, currency pair, funding method, payout method, amount, account tier, and current market conditions. The difference shown is only between the example models displayed here; verify a provider&apos;s current quote before sending money.
+            <div className={isRateSnapshotStale() ? "mt-2 rounded bg-[var(--warning)]/10 border border-[var(--warning)]/30 px-3 py-2 text-warning-text" : "mt-2 font-mono text-[var(--muted-text)]"}>
+              {isRateSnapshotStale()
+                ? `⚠ Rates snapshot (${ratesAsOfLabel()}) is older than ${MAX_RATE_AGE_DAYS} days — treat as illustrative only.`
+                : `Rates retrieved ${ratesAsOfLabel()} (reference snapshot, not a live quote).`}
+            </div>
           </div>
         </div>
       </div>

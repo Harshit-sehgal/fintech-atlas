@@ -8,6 +8,7 @@ import {
   STORAGE_EVENT,
   parseStoredList,
 } from "@/lib/storage";
+import { toggleListValue } from "@/lib/list-utils";
 
 interface BookmarksContextType {
   bookmarks: string[];
@@ -18,14 +19,9 @@ interface BookmarksContextType {
   isGlossaryBookmarked: (slug: string) => boolean;
 }
 
-const BookmarksContext = createContext<BookmarksContextType>({
-  bookmarks: [],
-  toggleBookmark: () => {},
-  isBookmarked: () => false,
-  glossaryBookmarks: [],
-  toggleGlossaryBookmark: () => {},
-  isGlossaryBookmarked: () => false,
-});
+// Undefined so a component accidentally rendered outside the provider fails
+// loudly (a useful dev error) instead of silently no-op'ing.
+const BookmarksContext = createContext<BookmarksContextType | undefined>(undefined);
 
 function readStorage(key: string): string {
   if (typeof window === "undefined") return "";
@@ -71,7 +67,7 @@ function useStoredList(key: string): [string[], (slug: string) => void] {
   const values = parseStoredList(rawValue);
   const toggle = (slug: string) => {
     const current = parseStoredList(readStorage(key));
-    writeStorage(key, current.includes(slug) ? current.filter((item) => item !== slug) : [...current, slug]);
+    writeStorage(key, toggleListValue(current, slug));
   };
 
   return [values, toggle];
@@ -106,6 +102,10 @@ export function BookmarksProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function useBookmarks() {
-  return useContext(BookmarksContext);
+export function useBookmarks(): BookmarksContextType {
+  const context = useContext(BookmarksContext);
+  if (!context) {
+    throw new Error("useBookmarks must be used inside a BookmarksProvider");
+  }
+  return context;
 }

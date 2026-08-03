@@ -22,8 +22,8 @@ export default function CategoryError({
   }, [error]);
   return (
     <div className="relative mx-auto flex min-h-[60vh] max-w-2xl flex-col items-center justify-center px-5 py-24 text-center">
-      <p className="mb-3 text-sm font-mono text-[var(--muted-text)]">
-        $ atlas open --category: failed
+      <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--danger-text)]">
+        Category error
       </p>
       <h1 className="text-4xl font-bold tracking-tight gradient-text">
         Category failed to load

@@ -31,7 +31,7 @@ type GridBackdropProps = {
 const OPACITY: Record<NonNullable<GridBackdropProps["variant"]>, string> = {
   subtle: "opacity-20",
   hero: "opacity-30",
-  bold: "opacity-70",
+  bold: "opacity-45",
 };
 
 export function GridBackdrop({

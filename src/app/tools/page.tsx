@@ -3,21 +3,21 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
-import { SITE_URL } from "@/lib/site-config";
+import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
 
 const description =
-  "Calculate payment gateway processing costs, compare cross-border FX rates, or find the ideal fintech stack with our interactive tools.";
+  "Estimate payment gateway processing costs, compare reference FX scenarios, or build an initial fintech shortlist with our interactive tools.";
 
 export const metadata: Metadata = {
   title: "Interactive FinTech Tools",
   description,
-  alternates: { canonical: "/tools" },
+  alternates: { canonical: canonicalUrl("/tools") },
   openGraph: {
     ...openGraphImage,
     title: "Interactive FinTech Tools — FinTech Atlas",
     description,
-    url: `${SITE_URL}/tools`,
+    url: canonicalUrl("/tools"),
   },
 };
 
@@ -37,8 +37,8 @@ const toolsList = [
     icon: "🌍",
     name: "Cross-Border FX & Transfer Estimator",
     badge: "FX Tool",
-    description: "See exactly how much money your recipient gets when transferring USD to EUR, GBP, INR, CAD, or BRL using Wise, Revolut, PayPal, or traditional banks.",
-    features: ["Real mid-market FX markup comparison", "Hidden bank markup exposure", "Transfer speed comparison", "Recipient net payout"],
+    description: "Estimate recipient payouts for USD transfers to common currencies using simplified Wise, Revolut, PayPal, or hypothetical bank-wire scenarios.",
+    features: ["Reference FX comparison", "Markup visibility", "Transfer speed comparison", "Recipient net payout estimate"],
   },
   {
     id: "matchmaker",
@@ -46,7 +46,7 @@ const toolsList = [
     icon: "🎯",
     name: "FinTech Matchmaker Quiz",
     badge: "Interactive Quiz",
-    description: "Answer a few questions about your business, scale, or personal finance needs to get an instant tailored recommendation of top FinTech platforms.",
+    description: "Answer a few questions about your business, scale, or personal finance needs to get an initial shortlist of FinTech platforms.",
     features: ["4-step recommendation flow", "SaaS, E-commerce, Freelance, & Personal tracks", "Pros & cons breakdown", "Direct profile links"],
   },
 ];

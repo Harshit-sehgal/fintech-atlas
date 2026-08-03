@@ -43,12 +43,13 @@ const routes = collectIndexFiles(outDir)
   .filter(Boolean)
   .sort((a, b) => a.localeCompare(b));
 
-// Assign priority by depth: homepage highest, tools/major sections medium,
-// individual detail pages lower. This helps search engines allocate crawl budget.
+// Assign priority by path depth: homepage highest, major sections medium,
+// individual detail pages lower. Computed from path *segments* (not slash
+// count), so `/companies/` (1 segment) is treated as a top-level section.
 function priorityForRoute(route) {
   if (route === "/") return "1.0";
-  const depth = (route.match(/\//g) || []).length;
-  if (depth <= 1) return "0.8";
+  const depth = route.split("/").filter(Boolean).length;
+  if (depth === 1) return "0.8";
   if (depth === 2) return "0.6";
   return "0.5";
 }
@@ -59,10 +60,10 @@ ${routes
     .map((route) => {
       const loc = xmlEscape(`${siteUrl}${route}`);
       const priority = priorityForRoute(route);
-      // Stale-while-revalidate over the subsequent 30 days. Google crawlers use
-      // lastmod as a crawl‑scheduling signal even on static pages.
-      const lastmod = new Date().toISOString().split("T")[0];
-      return `  <url><loc>${loc}</loc><lastmod>${lastmod}</lastmod><priority>${priority}</priority></url>`;
+      // lastmod intentionally omitted: this is a static export and every page
+      // is regenerated on every build, so a build-date lastmod would falsely
+      // mark every page as modified. Search engines don't require it.
+      return `  <url><loc>${loc}</loc><priority>${priority}</priority></url>`;
     })
     .join("\n")}
 </urlset>

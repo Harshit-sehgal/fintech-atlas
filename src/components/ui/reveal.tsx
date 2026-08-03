@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
+import { animationPresets as animation } from "@/lib/animation";
 
 type RevealProps = {
   children: ReactNode;
@@ -23,7 +24,7 @@ export function Reveal({ children, delay = 0, y = 16, className, as = "div" }: R
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px 0px" }}
-      transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ ...animation.transition.reveal, delay }}
     >
       {children}
     </MotionTag>

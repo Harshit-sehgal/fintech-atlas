@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import ComparePageClient from "./compare-client";
-import { SITE_URL } from "@/lib/site-config";
+import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
 
 const description =
-  "Benchmark FinTech companies across pricing, user rating, strengths, weaknesses, and notable customers. Select up to 3 companies or use our preset battle cards.";
+  "Compare FinTech companies across pricing, editorial sentiment, strengths, weaknesses, and notable customers. Values may have different dates and methodologies; use the matrix as an orientation tool.";
 
 export const metadata: Metadata = {
   title: "Compare FinTech Companies Side-by-Side",
   description,
-  alternates: { canonical: "/compare" },
+  alternates: { canonical: canonicalUrl("/compare") },
   openGraph: {
     ...openGraphImage,
     title: "Compare FinTech Companies Side-by-Side — FinTech Atlas",
     description,
-    url: `${SITE_URL}/compare`,
+    url: canonicalUrl("/compare"),
   },
 };
 

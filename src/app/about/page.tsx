@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { AboutClient } from "./client";
-import { SITE_URL } from "@/lib/site-config";
+import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
 
 const description =
@@ -10,12 +10,12 @@ const description =
 export const metadata: Metadata = {
   title: "About & Methodology",
   description,
-  alternates: { canonical: "/about" },
+  alternates: { canonical: canonicalUrl("/about") },
   openGraph: {
     ...openGraphImage,
     title: "About & Methodology — FinTech Atlas",
     description,
-    url: `${SITE_URL}/about`,
+    url: canonicalUrl("/about"),
   },
 };
 

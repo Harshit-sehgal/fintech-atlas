@@ -40,12 +40,14 @@ describe("Remittance Config", () => {
     expect(CURRENCIES.length).toBeGreaterThan(0);
   });
 
-  it("every currency has required fields", () => {
+  it("every currency has required fields and an explicit snapshot source", () => {
     for (const c of CURRENCIES) {
       expect(c.code).toBeTruthy();
       expect(c.symbol).toBeTruthy();
       expect(c.name).toBeTruthy();
       expect(c.rate).toBeGreaterThan(0);
+      expect(c.source).toBeTruthy();
+      expect(typeof c.sourceUrl).toBe("string");
     }
   });
 
@@ -133,6 +135,12 @@ describe("Site Config", () => {
 
   it("SITE_URL is a valid URL", () => {
     expect(() => new URL(SITE_URL)).not.toThrow();
+  });
+
+  it("requires a bounded rate snapshot age", async () => {
+    const config = await import("@/data/remittance-config");
+    expect(config.MAX_RATE_AGE_DAYS).toBeGreaterThan(0);
+    expect(Number.isNaN(Date.parse(config.RATES_AS_OF))).toBe(false);
   });
 
   it("normalizes configured URLs to one canonical origin", () => {

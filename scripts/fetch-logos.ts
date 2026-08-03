@@ -16,7 +16,7 @@ import { writeFileSync, mkdirSync, existsSync, readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { REAL_LOGO_SLUGS, LOGO_MANIFEST } from "./logos-manifest.ts";
+import { REAL_LOGO_SLUGS, LOGO_MANIFEST } from "./logos-manifest";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const LOGOS_DIR = join(__dirname, "..", "public", "logos");

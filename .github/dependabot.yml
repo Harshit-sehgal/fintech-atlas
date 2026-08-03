@@ -1,0 +1,19 @@
+# Keep dependencies secure. See https://docs.github.com/en/code-security/dependabot
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Security advisories are always raised regardless of versioning strategy.
+    versioning-strategy: increase
+    open-pull-requests-limit: 10
+    groups:
+      next:
+        patterns: ["next", "eslint-config-next"]
+      react:
+        patterns: ["react", "react-dom", "@types/react", "@types/react-dom"]
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"

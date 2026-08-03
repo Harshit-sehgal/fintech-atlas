@@ -13,12 +13,7 @@ import { animationPresets as animation } from "@/lib/animation";
 import { parseCompareSlugs } from "@/lib/compare";
 import { formatHeadquartersCity } from "@/lib/format-company";
 
-const PRESETS = [
-  { name: "Stripe vs Adyen (Payments Enterprise)", slugs: ["stripe", "adyen"] },
-  { name: "Wise vs Revolut (Cross-Border & FX)", slugs: ["wise", "revolut"] },
-  { name: "Chime vs Nubank (Consumer Neobanks)", slugs: ["chime", "nubank"] },
-  { name: "Stripe vs PayPal vs Square (Merchant Stack)", slugs: ["stripe", "paypal", "square"] },
-];
+import { PRESETS } from "@/data/compare-presets";
 
 function CompareContent() {
   const searchParams = useSearchParams();
@@ -61,26 +56,21 @@ function CompareContent() {
     }
   };
 
-  const selectedCompanies = useMemo(
-    () =>
-      selectedSlugs
-        .map((s) => companies.find((c) => (c.slug as string) === s))
-        .filter((c): c is Company => c !== undefined),
-    // `companies` in deps is an intentional tradeoff: React Compiler/ESLint
-    // treats it as an outer-scope constant that shouldn't be in the array,
-    // but Next.js's React 19 Compiler infers it as mutable and requires it.
-    // The 1 warning is accepted — the module-level constant never changes.
-    [selectedSlugs, companies],
-  );
+  // With only 41 companies, resolving the selected companies is cheap enough
+  // to do on every render — avoids a useMemo whose deps tripped the compiler
+  // (removed the previously "accepted" lint warning).
+  const selectedCompanies: Company[] = selectedSlugs
+    .map((s) => companies.find((c) => (c.slug as string) === s))
+    .filter((c): c is Company => c !== undefined);
 
   const rows = useMemo(
     () => [
       { label: "Tagline", fn: (c: Company) => c.tagline },
       { label: "Founded & HQ", fn: (c: Company) => `${c.founded} — ${formatHeadquartersCity(c.headquarters)}` },
-      { label: "Employees", fn: (c: Company) => c.employees },
-      { label: "Valuation", fn: (c: Company) => c.valuation },
+      { label: "Employees (reported)", fn: (c: Company) => c.employees },
+      { label: "Valuation / market value", fn: (c: Company) => c.valuation },
       { label: "Pricing Model", fn: (c: Company) => c.pricing.model },
-      { label: "User Rating", fn: (c: Company) => `${c.userReviews.rating} / 5.0` },
+      { label: "Editorial sentiment", fn: (c: Company) => `${c.userReviews.rating} / 5.0` },
       { label: "Primary Advantage", fn: (c: Company) => c.strengths?.[0] ?? "None listed" },
       { label: "Key Tradeoff", fn: (c: Company) => c.weaknesses?.[0] ?? "None listed" },
       { label: "Notable Customers", fn: (c: Company) => c.whoUses.slice(0, 4).join(", ") },
@@ -103,7 +93,7 @@ function CompareContent() {
         headingLevel={1}
         eyebrow="Side-by-Side Analysis"
         title="Compare FinTech Companies"
-        description="Select up to 3 companies or choose a preset benchmark comparison."
+        description="Select up to 3 companies or choose a preset comparison. Values have different dates and methodologies, so use this as an orientation tool rather than a like-for-like benchmark."
       />
 
       {/* Preset Quick Benchmark Buttons */}
@@ -161,7 +151,7 @@ function CompareContent() {
                   />
                 )}
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <CompanyLogo slug={c.slug} size={28} />
+                  <CompanyLogo slug={c.slug} name={c.name} size={28} />
                   <span className="text-xs truncate text-[var(--foreground)]">{c.name}</span>
                 </div>
                 <motion.span
@@ -194,7 +184,7 @@ function CompareContent() {
           >
             {/* Header controls inside table */}
             <div className="flex items-center justify-between border-b border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-6 py-3 text-xs text-[var(--muted-text)]">
-              <span>Benchmark Matrix</span>
+              <span>Orientation Matrix</span>
               <button
                 onClick={shareLink}
                 className="flex items-center gap-1.5 btn-ghost text-xs px-3 py-1"
@@ -225,7 +215,7 @@ function CompareContent() {
                         >
                           <div className="flex items-center justify-between gap-2">
                             <div className="flex items-center gap-2.5 min-w-0">
-                              <CompanyLogo slug={c.slug} size={32} />
+                              <CompanyLogo slug={c.slug} name={c.name} size={32} />
                               <div className="min-w-0">
                                 <div className="font-bold text-base text-[var(--foreground)] truncate">{c.name}</div>
                                 <div className="text-[11px] font-normal text-[var(--muted-text)] truncate">

@@ -46,12 +46,14 @@ export function transactionCount(monthlyRevenue: number, avgOrderValue: number):
  *    separately and summed.
  */
 export function computeProviderCost(config: ProviderFeeConfig, inputs: FeeInputs): number {
-  const { monthlyRevenue, avgOrderValue, intlPercent, inPersonPercent } = inputs;
-  const txCount = transactionCount(monthlyRevenue, avgOrderValue);
+  const { monthlyRevenue, avgOrderValue } = inputs;
+  const intlPercent = Math.min(100, Math.max(0, inputs.intlPercent));
+  const inPersonPercent = Math.min(100, Math.max(0, inputs.inPersonPercent));
+  const txCount = transactionCount(Math.max(0, monthlyRevenue), avgOrderValue);
 
   if (config.blended) {
     const { pct, fixed } = config.blended;
-    return monthlyRevenue * pct + txCount * fixed;
+    return Math.max(0, monthlyRevenue) * pct + txCount * fixed;
   }
 
   const { online, inPerson = { pct: 0, fixed: 0 } } = config;
@@ -66,13 +68,16 @@ export function computeProviderCost(config: ProviderFeeConfig, inputs: FeeInputs
   const domOnlineTx = (txCount * (100 - intlPercent) / 100) * ((100 - inPersonPercent) / 100);
   const domOnlineCost = domOnlinePct * online.domPct + domOnlineTx * online.domFixed;
 
-  // International online — domestic rate + international surcharge on both
-  // the percentage and per-transaction fixed fees.
+  // International online — domestic percentage rate + international surcharge
+  // *percentage*, and the full international FIXED fee per transaction.
+  // NOTE: `online.intlFixed` is the TOTAL international per-transaction fixed
+  // fee (e.g. $0.30 for Stripe) — it is NOT a surcharge added on top of
+  // `domFixed`. Adding `domFixed` here would double-count the fixed fee.
   const intlOnlinePct = (intlRevenue * (100 - inPersonPercent)) / 100;
   const intlOnlineTx = (txCount * (intlPercent / 100) * ((100 - inPersonPercent) / 100));
   const intlOnlineCost =
     intlOnlinePct * (online.domPct + online.intlSurcharge) +
-    intlOnlineTx * (online.domFixed + online.intlFixed);
+    intlOnlineTx * online.intlFixed;
 
   // In-person / POS — straightforward percentage + fixed on the in-person slice.
   const inPersonPct = (monthlyRevenue * inPersonPercent) / 100;
