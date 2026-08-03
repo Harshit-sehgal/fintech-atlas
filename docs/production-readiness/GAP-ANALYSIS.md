@@ -17,7 +17,7 @@
 | Local-only bookmarks + ⌘K command palette | `src/lib/bookmarks-context.tsx`, `command-palette.tsx` |
 | SEO (metadata, canonical, OG, JSON-LD, sitemap, robots) | `src/app/layout.tsx`, `src/components/SEO/*`, `scripts/generate-sitemap.mjs` |
 | Accessibility (skip links, focus ring, reduced-motion, contrast tokens) | `src/app/layout.tsx`, `globals.css`, `heading-hierarchy.test.ts` |
-| Automated tests (Vitest, 153 passing) | `src/__tests__/*`, `src/{lib,data}/**/*.test.ts` |
+| Automated tests (Vitest, 186 passing) | `src/__tests__/*`, `src/{lib,data}/**/*.test.ts` |
 | Static build + sitemap postbuild | `package.json`, `next.config.ts` |
 
 ---
@@ -37,10 +37,10 @@
 | 09 | Security | Small static surface, no secrets in repo | Host-level HTTPS/headers, CSP, rate limiting (n/a client-side), audit | 🟡 Mostly a hosting + policy concern; no app-level DB/data to protect |
 | 10 | Performance | Static export (no DB, no server) | Set CWV budgets, image optimization, caching headers | 🟢 Measure against budget; enable image optimization where sensible |
 | 11 | Observability | None (privacy-by-design) | Analytics/error tracking/monitoring/alerts | 🟡 Add zero/low-footprint monitoring + document the privacy decision |
-| 12 | Deployment | `npm run build` + tests, sitemap script | No CI config, no preview envs, no rollback/backup doc | 🟡 Static host deploys simply; add CI + runbook |
+| 12 | Deployment | Build/tests, CI workflow, sitemap, security headers, performance/rate gates, and incident runbook | No hosted preview environment or verified provider restoration drill | 🟡 Finish host setup and recovery evidence |
 | 13 | Product Analytics | None (README: "no tracking") | Event tracking, funnels, retention | 🟡 Conscious privacy decision must be revisited if analytics are wanted |
 | 14 | Accessibility | Largely implemented | Automated scan (axe) + manual keyboard pass | 🟢 Add scan + manual audit; fix findings |
-| 15 | Documentation | Single README | This folder, runbook, contribution guide, legal pages | 🟡 Mostly writing work |
+| 15 | Documentation | README, contribution/security policy, production checklists, legal routes, incident runbook | Provider-specific operations and jurisdictional legal review | 🟡 Finish release-specific documentation |
 
 ---
 

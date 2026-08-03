@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/legal/legal-page";
 import { canonicalUrl } from "@/lib/canonical-url";
+import { LEGAL_EFFECTIVE_DATE } from "@/lib/legal-config";
+import { openGraphImage } from "@/lib/shared-metadata";
 
 const description =
   "Terms for using FinTech Atlas as an educational directory and illustrative decision-tool site.";
@@ -9,6 +11,12 @@ export const metadata: Metadata = {
   title: "Terms of Use",
   description,
   alternates: { canonical: canonicalUrl("/terms") },
+  openGraph: {
+    ...openGraphImage,
+    title: "Terms of Use — FinTech Atlas",
+    description,
+    url: canonicalUrl("/terms"),
+  },
 };
 
 export default function TermsPage() {
@@ -17,7 +25,7 @@ export default function TermsPage() {
       eyebrow="Legal & usage"
       title="Terms of Use"
       description="These terms describe the permitted and intended use of FinTech Atlas in its current static, educational form."
-      effectiveDate="August 3, 2026"
+      effectiveDate={LEGAL_EFFECTIVE_DATE}
     >
       <section>
         <h2 className="text-xl font-semibold text-[var(--foreground)]">Educational information only</h2>

@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
+import { metadata as privacyMetadata } from "@/app/privacy/page";
+import { metadata as termsMetadata } from "@/app/terms/page";
 
 const root = process.cwd();
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
@@ -88,6 +90,18 @@ describe("Static deployment contracts", () => {
     expect(read("src/components/layout/site-footer.tsx")).toContain('href: "/privacy"');
     expect(read("src/components/layout/site-footer.tsx")).toContain('href: "/terms"');
     expect(existsSync(resolve(root, "docs/incident-runbook.md"))).toBe(true);
+    expect(read("src/app/privacy/page.tsx")).toContain("openGraph:");
+    expect(read("src/app/terms/page.tsx")).toContain("openGraph:");
+    expect(privacyMetadata.openGraph).toMatchObject({
+      title: "Privacy Notice — FinTech Atlas",
+      url: expect.stringContaining("/privacy/"),
+      images: expect.arrayContaining([expect.objectContaining({ url: expect.stringContaining("/og-image.png") })]),
+    });
+    expect(termsMetadata.openGraph).toMatchObject({
+      title: "Terms of Use — FinTech Atlas",
+      url: expect.stringContaining("/terms/"),
+      images: expect.arrayContaining([expect.objectContaining({ url: expect.stringContaining("/og-image.png") })]),
+    });
   });
 
   it("generates robots.txt from the same SITE_URL as the sitemap", () => {

@@ -14,7 +14,7 @@ const baseCompany: Company = {
       accessedAt: "2026-08-03",
       effectiveAt: "2026-07-31",
       sourceType: "official-documentation",
-      supports: ["employeesSourced"],
+      supports: ["employees"],
     },
   ],
   employeesSourced: {
@@ -35,6 +35,7 @@ describe("company provenance", () => {
       sourceReferences: [
         {
           ...baseCompany.sourceReferences![0],
+          supports: ["unknown-field"],
           url: "not-a-url",
           accessedAt: "August 3, 2026",
           effectiveAt: "2026-99-99",
@@ -50,6 +51,7 @@ describe("company provenance", () => {
       "sourceReferences[0].accessedAt must be an ISO date",
       "sourceReferences[0].effectiveAt must be an ISO date when provided",
       "sourceReferences[0].url must be an absolute http(s) URL when provided",
+      "sourceReferences[0].supports contains unknown field: unknown-field",
       "employeesSourced references unknown source id: missing-source",
     ]);
   });

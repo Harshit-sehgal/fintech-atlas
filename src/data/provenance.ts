@@ -1,6 +1,23 @@
 import type { Company, SourceReference } from "./types";
 
-const ISO_DATE = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z)?$/;
+/** Field identifiers accepted by SourceReference.supports. Extend this list as
+ * structured catalog fields are migrated; unknown identifiers are rejected so
+ * evidence cannot silently point at a misspelled field. */
+export const PROVENANCE_FIELDS = new Set([
+  "company-profile",
+  "founders",
+  "employees",
+  "valuation",
+  "pricing",
+  "products",
+  "customers",
+  "strengths",
+  "weaknesses",
+  "editorial-sentiment",
+  "rating-methodology",
+]);
+
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d{3})?(?:Z|[+-]\d{2}:\d{2}))?$/;
 
 function validDate(value: string | undefined): boolean {
   return Boolean(value && ISO_DATE.test(value) && !Number.isNaN(Date.parse(value)));
@@ -19,7 +36,14 @@ function validateSource(source: SourceReference, index: number): string[] {
   if (source.url && !/^https?:\/\/[^\s]+$/.test(source.url)) {
     issues.push(`${prefix}.url must be an absolute http(s) URL when provided`);
   }
-  if (source.supports.length === 0) issues.push(`${prefix}.supports must name at least one field`);
+  if (source.supports.length === 0 || source.supports.some((field) => !field.trim())) {
+    issues.push(`${prefix}.supports must name at least one non-empty field`);
+  }
+  for (const field of source.supports) {
+    if (field.trim() && !PROVENANCE_FIELDS.has(field)) {
+      issues.push(`${prefix}.supports contains unknown field: ${field}`);
+    }
+  }
   return issues;
 }
 

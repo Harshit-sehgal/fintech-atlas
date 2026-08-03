@@ -126,5 +126,5 @@ Works with: **Netlify**, **Vercel**, **Cloudflare Pages**, **GitHub Pages**, **S
 - Displayed fees and FX outputs are illustrative assumptions and may vary by route, region, payment method, volume, or contract
 - Bookmarks and private notes are stored locally in your browser only
 - No tracking, analytics, or data collection — your data stays on your device
-- Read the published [Privacy Notice](src/app/privacy/page.tsx) and [Terms of Use](src/app/terms/page.tsx)
+- Read the published [Privacy Notice](./src/app/privacy/page.tsx) and [Terms of Use](./src/app/terms/page.tsx)
 - Deployment and incident recovery procedures are documented in [`docs/incident-runbook.md`](docs/incident-runbook.md)

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/legal/legal-page";
 import { canonicalUrl } from "@/lib/canonical-url";
+import { LEGAL_EFFECTIVE_DATE } from "@/lib/legal-config";
+import { openGraphImage } from "@/lib/shared-metadata";
 
 const description =
   "How FinTech Atlas handles browser storage, static hosting logs, external links, and privacy.";
@@ -9,6 +11,12 @@ export const metadata: Metadata = {
   title: "Privacy Notice",
   description,
   alternates: { canonical: canonicalUrl("/privacy") },
+  openGraph: {
+    ...openGraphImage,
+    title: "Privacy Notice — FinTech Atlas",
+    description,
+    url: canonicalUrl("/privacy"),
+  },
 };
 
 export default function PrivacyPage() {
@@ -17,7 +25,7 @@ export default function PrivacyPage() {
       eyebrow="Legal & privacy"
       title="Privacy Notice"
       description="FinTech Atlas is a static educational site. This notice explains what the site does and does not collect in its current architecture."
-      effectiveDate="August 3, 2026"
+      effectiveDate={LEGAL_EFFECTIVE_DATE}
     >
       <section>
         <h2 className="text-xl font-semibold text-[var(--foreground)]">What we collect</h2>
@@ -29,7 +37,7 @@ export default function PrivacyPage() {
       <section>
         <h2 className="text-xl font-semibold text-[var(--foreground)]">Data stored in your browser</h2>
         <p className="mt-3">
-          Bookmarks, private notes, theme preferences, and similar interactive state are stored in your browser&apos;s local storage when you use those features. This data is not transmitted to FinTech Atlas by the application. You can remove it through the site&apos;s controls or your browser&apos;s site-data settings.
+          Bookmarks, private notes, theme preferences, and similar interactive state are stored in your browser&apos;s local storage when you use those features. The current application does not send this local state to a FinTech Atlas server. You can remove it through the site&apos;s controls or your browser&apos;s site-data settings.
         </p>
       </section>
 
@@ -48,7 +56,7 @@ export default function PrivacyPage() {
       </section>
 
       <p className="border-l-2 border-[var(--accent)] pl-4 text-xs">
-        This is an informational privacy notice for the current static demo, not a substitute for jurisdiction-specific legal advice.
+        This is an informational privacy notice for the current static demo and should receive jurisdiction-specific legal review before production launch.
       </p>
     </LegalPage>
   );
