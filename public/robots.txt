@@ -1,0 +1,5 @@
+# The production robots.txt is generated during `npm run build` from SITE_URL.
+# This source fallback keeps local/static previews crawlable without claiming a
+# production host or sitemap URL.
+User-agent: *
+Allow: /

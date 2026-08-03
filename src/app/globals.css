@@ -1,0 +1,520 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --color-accent: var(--accent);
+  --color-subtle: var(--surface);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  /* WCAG-AA-safe text shades. The base --success/--warning/--danger tokens are
+     tuned for fills, borders, and low-opacity tints/badges; used directly as
+     text on the light surface they fall to ~2:1 contrast (fail). These -text
+     twins are the darker per-theme shade to use wherever the colour is *text*
+     or a small semantically-coloured glyph/icon. Maps to text-success-text etc.
+     (Tailwind v4 @theme inline derives the utility names from the var suffix.) */
+  --color-success-text: var(--success-text);
+  --color-warning-text: var(--warning-text);
+  --color-danger-text: var(--danger-text);
+
+  /* Radius scale */
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+
+  /* Elevation (subtle, dark-tuned) */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / .4);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / .35);
+  --shadow-lg: 0 12px 32px rgb(0 0 0 / .45);
+
+  /* Motion (single source of truth) */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-base: 200ms;
+  --dur-slow: 360ms;
+
+  /* Focus ring */
+  --ring: 0 0 0 2px var(--background), 0 0 0 4px var(--accent);
+}
+
+/* ── Manual theme: defaults to system, overridable via [data-theme] ── */
+:root {
+  color-scheme: dark;
+  --background: #08080a;
+  --foreground: #e8e8ed;
+
+  /* Aliases — --fg is consumed by ::selection; --bg / --subtle-bg-raised
+     were removed (no consumers). layout.tsx uses var(--background) directly. */
+  --fg: var(--foreground);
+
+  /* Layered surfaces */
+  --surface: #0f0f14;
+  --surface-raised: #15151c;
+  --subtle-bg: var(--surface);
+
+  /* Borders */
+  --border: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --border-color: var(--border);
+
+  /* Text hierarchy */
+  --fg-dim: #c4c4cc;
+  --muted: #7a7a85;
+  --muted-dim: #52525b;
+  --muted-text: var(--muted);
+
+  /* Accent */
+  --accent: #818cf8;
+  --accent-strong: #a5b4fc;
+  --accent-glow: rgba(129, 140, 248, 0.15);
+
+  /* Semantic colors */
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --danger: #f87171;
+  /* Text-grade twins — same 400 shades already pass AA (>5:1) on the dark
+     surface, so the -text twin equals the base here. Kept distinct so light
+     theme can darken without touching the dark fills/tints. */
+  --success-text: var(--success);
+  --warning-text: var(--warning);
+  --danger-text: var(--danger);
+
+  /* Glass surface */
+  --glass-bg: rgba(10, 10, 18, 0.72);
+  --glass-blur: 16px;
+
+  /* Skeleton placeholder & error-fallback card backgrounds.
+     Used across all loading.tsx skeletons and the ErrorBoundary card;
+     previously undefined, which rendered skeletons invisible. */
+  --muted-bg: var(--surface);
+  --card: var(--surface-raised);
+
+  /* Terminal colors */
+  --term-green: #4ade80;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --background: #fafafa;
+  --foreground: #17171b;
+  --fg: var(--foreground);
+  --surface: #f4f4f5;
+  --surface-raised: #eaeaec;
+  --subtle-bg: var(--surface);
+  --border: rgba(0, 0, 0, 0.07);
+  --border-strong: rgba(0, 0, 0, 0.12);
+  --border-color: var(--border);
+  --fg-dim: #3f3f46;
+  --muted: #71717a;
+  --muted-dim: #a1a1aa;
+  --muted-text: var(--muted);
+  --accent: #6366f1;
+  --accent-strong: #4f46e5;
+  --accent-glow: rgba(99, 102, 241, 0.1);
+
+  /* Semantic colors */
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  /* Text-grade twins — the 500-shade bases above fall to ~2:1 contrast as text
+     on the light surface (WCAG AA needs 4.5:1 normal / 3:1 large). The 700-shade
+     green/red and amber pass AA. Used wherever the colour is text or a small
+     glyph/icon; the base tokens stay at 500 for fills/tints/glows. */
+  --success-text: #15803d;
+  --warning-text: #b45309;
+  --danger-text: #b91c1c;
+
+  --glass-bg: rgba(250, 250, 250, 0.72);
+  --glass-blur: 16px;
+
+  /* Skeleton placeholder & error-fallback card backgrounds (light theme). */
+  --muted-bg: var(--surface);
+  --card: var(--surface-raised);
+
+  /* Terminal green — light-mode twin of the dark-theme #4ade80.
+     Matches --success above for the green-vibe sections in hero/footer. */
+  --term-green: #22c55e;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
+}
+
+/* Respect users who prefer reduced motion: disable all animations. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Scroll-driven page reveal ── */
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+/* Page-entry animation — respect reduced-motion preference. SPA navigations
+   do re-trigger this, but Next.js Layout/Page boundaries already prevent the
+   full <main> from re-mounting on sub-route transitions. */
+@media (prefers-reduced-motion: no-preference) {
+  main { animation: page-in 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+}
+
+/* ── Keyframes for the refined professional motion vocabulary ── */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50%      { opacity: 0.55; transform: scale(1.04); }
+}
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes border-flow {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* Skeleton loader shimmer keyframe (used by <Skeleton> component) */
+@keyframes skeleton-loading {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Surface primitives ── */
+.surface {
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.surface-raised {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+}
+.hairline-b {
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Button system (consistent CTAs across the site) ── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.625rem;
+  background: var(--foreground);
+  color: var(--background);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.625rem 1.25rem;
+  transition: transform 0.2s var(--ease-out-expo),
+              box-shadow 0.2s var(--ease-out-expo),
+              opacity 0.2s ease;
+  will-change: transform;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 30px var(--accent-glow);
+}
+.btn-primary:active { transform: translateY(0); }
+.btn-primary:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgb(255 255 255 / .25) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform var(--dur-slow) var(--ease-out-expo);
+}
+.btn-primary:hover::after { transform: translateX(100%); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.625rem;
+  background: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: 0.625rem 1.25rem;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s var(--ease-out-expo);
+}
+.btn-ghost:hover {
+  border-color: var(--border-strong);
+  background: var(--subtle-bg);
+  transform: translateY(-1px);
+}
+.btn-ghost:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s var(--ease-out-expo);
+}
+.btn-icon:hover {
+  border-color: var(--border-strong);
+  background: var(--subtle-bg);
+  transform: translateY(-1px);
+}
+.btn-icon:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+/* ── Eyebrow label (mono, uppercase, accent dash) — uniform across sections ── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 1.5rem;
+  height: 1px;
+  background: color-mix(in oklab, var(--accent) 50%, transparent);
+}
+
+/* ── Grid backdrop (faint dotted grid, radially faded) — Linear/Vercel-style ── */
+.grid-bg {
+  background-image:
+    radial-gradient(circle at 50% 40%, transparent 0, var(--background) 70%),
+    linear-gradient(to right, color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px);
+  background-size: 100% 100%, 44px 44px, 44px 44px;
+  background-position: center;
+}
+
+/* ── Reveal stagger (up to 24 children) for cascading card grids ──
+   Children past 24 animate in immediately so the cascade never feels stalled. */
+.reveal-stagger > * {
+  opacity: 0;
+  animation: stagger-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.reveal-stagger > *:nth-child(1)  { animation-delay: 0ms; }
+.reveal-stagger > *:nth-child(2)  { animation-delay: 40ms; }
+.reveal-stagger > *:nth-child(3)  { animation-delay: 80ms; }
+.reveal-stagger > *:nth-child(4)  { animation-delay: 120ms; }
+.reveal-stagger > *:nth-child(5)  { animation-delay: 160ms; }
+.reveal-stagger > *:nth-child(6)  { animation-delay: 200ms; }
+.reveal-stagger > *:nth-child(7)  { animation-delay: 240ms; }
+.reveal-stagger > *:nth-child(8)  { animation-delay: 280ms; }
+.reveal-stagger > *:nth-child(9)  { animation-delay: 320ms; }
+.reveal-stagger > *:nth-child(10) { animation-delay: 360ms; }
+.reveal-stagger > *:nth-child(11) { animation-delay: 400ms; }
+.reveal-stagger > *:nth-child(12) { animation-delay: 440ms; }
+.reveal-stagger > *:nth-child(13) { animation-delay: 480ms; }
+.reveal-stagger > *:nth-child(14) { animation-delay: 520ms; }
+.reveal-stagger > *:nth-child(15) { animation-delay: 560ms; }
+.reveal-stagger > *:nth-child(16) { animation-delay: 600ms; }
+.reveal-stagger > *:nth-child(17) { animation-delay: 640ms; }
+.reveal-stagger > *:nth-child(18) { animation-delay: 680ms; }
+.reveal-stagger > *:nth-child(19) { animation-delay: 720ms; }
+.reveal-stagger > *:nth-child(20) { animation-delay: 760ms; }
+.reveal-stagger > *:nth-child(21) { animation-delay: 800ms; }
+.reveal-stagger > *:nth-child(22) { animation-delay: 840ms; }
+.reveal-stagger > *:nth-child(23) { animation-delay: 880ms; }
+.reveal-stagger > *:nth-child(24) { animation-delay: 920ms; }
+.reveal-stagger > *:nth-child(n + 25) { animation-delay: 0ms; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--muted-dim); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* ── Gradient text utility ── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Glass surface ── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+/* ── Terminal-style mono accent ── */
+.mono-accent {
+  font-family: var(--font-mono);
+  color: var(--term-green);
+  font-size: 0.8125rem;
+}
+
+
+/* ── Card hover glow (more dramatic) ── */
+.card-glow {
+  transition: transform 0.3s var(--ease-out-expo),
+              border-color 0.3s var(--ease-out-expo),
+              box-shadow 0.3s var(--ease-out-expo);
+}
+.card-glow:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 0 40px var(--accent-glow), 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Dot separator (terminal style) ── */
+.dot-sep {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--muted-dim);
+  margin: 0 8px;
+  vertical-align: middle;
+}
+
+/* ── Pulse for live-indicator feel ── */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.live-pulse {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+/* ── Selection ── */
+::selection {
+  background: var(--accent-glow);
+  color: var(--fg);
+}
+
+/* ── Smooth gradient-animated border (ambient glow) ── */
+@keyframes border-rotate {
+  from { --border-angle: 0deg; }
+  to   { --border-angle: 360deg; }
+}
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.ambient-border {
+  position: relative;
+  overflow: hidden;
+}
+.ambient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--border-angle, 0deg),
+    transparent 0%,
+    var(--accent) 20%,
+    var(--accent-strong) 50%,
+    var(--accent) 80%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: border-rotate 6s linear infinite;
+  pointer-events: none;
+}
+
+/* ── Number counter animation utility ── */
+@keyframes stagger-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Marquee edge-fade mask ──
+   Soft horizontal fade on both edges so logos dissolve in/out instead of
+   popping. Uses the standard mask-image syntax (Webkit prefix for Safari). */
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+}
+
+/* ── Universal focus ring token ── */
+:where(.btn-primary, .btn-ghost, .btn-icon):focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+/* ── Micro-interactions ── */
+/* Magnetic-ish hover lift */
+.hover-lift { transition: transform var(--dur-base) var(--ease-out-expo),
+                          box-shadow var(--dur-base) var(--ease-out-expo); }
+.hover-lift:hover { transform: translateY(-2px); }
+
+/* ── Accessibility: high-contrast & forced-colors ── */
+@media (prefers-contrast: more) {
+  :root {
+    --border: rgba(255,255,255,0.18);
+    --border-strong: rgba(255,255,255,0.32);
+    --muted: #a1a1aa;
+  }
+}
+@media (forced-colors: active) {
+  :root { --accent: ButtonText; --accent-glow: transparent; }
+  .card-glow, .ambient-border { box-shadow: none; border-color: ButtonText; }
+}
+
+/* ── Theme-switch crossfade (added to html, not body, to avoid layout shift) ── */
+html { transition: background-color var(--dur-base) var(--ease-out-expo); }
