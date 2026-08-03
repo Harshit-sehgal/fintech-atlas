@@ -471,6 +471,175 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "wise-vs-payoneer-business-payouts",
+    title: "Wise vs Payoneer: getting paid and paying out as a freelancer or business",
+    description:
+      "A comparison of Wise and Payoneer for cross-border payments — receiving client money, holding balances, and paying out suppliers as a freelancer or small business.",
+    publishedAt: "2026-08-03",
+    updatedAt: "2026-08-03",
+    category: "Cross-Border",
+    relatedCompanySlugs: ["wise", "payoneer", "revolut", "paypal"],
+    ctas: [
+      { slug: "wise", label: "Open Wise", placement: "compare-vs" },
+      { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
+    ],
+    body: [
+      {
+        type: "p",
+        text: "Freelancers and small businesses dealing with international clients often land on two names: Wise and Payoneer. Both move money across borders, but they serve slightly different workflows. The short version: Wise shines for transparent, low-cost transfers using the real mid-market rate; Payoneer is built around getting paid by platforms and marketplaces around the world.",
+      },
+      { type: "h2", text: "The two at a glance" },
+      {
+        type: "table",
+        headers: ["Factor", "Wise", "Payoneer"],
+        rows: [
+          ["FX rate", "Real mid-market, no markup", "Fixed spread that can be higher"],
+          ["Getting paid", "Local bank details (multi-currency)", "Marketplace/payment rails + receiving accounts"],
+          ["Fee model", "Upfront fee per transfer", "Loading/conversion fees, some account fees"],
+          ["Best for", "Cheap, transparent transfers", "Platforms/clients who pay via Payoneer"],
+        ],
+      },
+      { type: "h2", text: "Choose Wise when" },
+      {
+        type: "ul",
+        items: [
+          "You want the real exchange rate and a transparent upfront fee.",
+          "You hold balances and pay out suppliers in multiple currencies.",
+          "You value local bank details for receiving in common currencies.",
+        ],
+      },
+      { type: "h2", text: "Choose Payoneer when" },
+      {
+        type: "ul",
+        items: [
+          "Your clients or freelance marketplaces pay you through Payoneer.",
+          "You need a single receiving account across many global platforms.",
+          "You want a service purpose-built around marketplace payouts.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Many freelancers end up using both. The honest trade-off: Wise is usually the cheaper, more transparent choice for sending money once you have it; Payoneer's value is how it collects payments from platforms that route through it. Compare the exact fee on your own route before choosing.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: fees and FX spreads are illustrative from the catalog vintage, not live quotes. Cross-border rates vary by route, currency, and account tier.",
+      },
+    ],
+  },
+  {
+    slug: "how-to-send-money-abroad-cheap",
+    title: "How to send money abroad cheaply: a plain-language guide",
+    description:
+      "An evergreen guide to avoiding hidden FX markups when sending money internationally — what mid-market rate means, what to compare, and which providers to run numbers on.",
+    publishedAt: "2026-08-03",
+    updatedAt: "2026-08-03",
+    category: "Cross-Border",
+    relatedCompanySlugs: ["wise", "revolut", "paypal", "moneygram"],
+    ctas: [
+      { slug: "wise", label: "Compare rates with Wise", placement: "compare-vs" },
+      { slug: "revolut", label: "Compare rates with Revolut", placement: "compare-vs" },
+    ],
+    body: [
+      {
+        type: "p",
+        text: "Banks often advertise low or zero 'transfer fees' but make their money on the exchange-rate markup — the difference between the rate you see and the real market rate. This guide explains how to see the true cost of an international transfer and compare providers fairly.",
+      },
+      { type: "h2", text: "Understand the real cost: rate markup + fee" },
+      {
+        type: "p",
+        text: "The total cost of sending money abroad is two parts: the upfront fee and the exchange-rate markup. Some providers hide the markup by giving you a worse rate than the mid-market rate. The only way to compare fairly is to look at what the recipient actually receives for your exact amount.",
+      },
+      { type: "h2", text: "What to compare, in order" },
+      {
+        type: "ul",
+        items: [
+          "The exchange rate offered vs. the current mid-market rate (the markup).",
+          "The upfront transfer fee, shown before you confirm.",
+          "Any receiving-side fees the recipient might incur.",
+          "Transfer speed — faster isn't always free.",
+          "The final amount delivered to the recipient for your send amount.",
+        ],
+      },
+      { type: "h2", text: "Which types of providers win" },
+      {
+        type: "ul",
+        items: [
+          "FX specialists (e.g. Wise) tend to use the real mid-market rate with a transparent upfront fee.",
+          "Superapp neobanks (e.g. Revolut) offer free FX up to a monthly limit, then a markup.",
+          "Traditional banks and card-based services often charge a percentage markup instead of/alongside a fee.",
+          "Instant remittance services can be convenient but pricier per transfer.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Run your exact send amount and target currency through our free Cross-Border FX Estimator — it shows the upfront fee, FX markup, and estimated recipient payout for a bank wire, a specialist service, a superapp, and a card-based provider side by side.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: rates change daily and vary by route, amount, funding method, and tier. This is educational guidance, not a live quote or financial advice.",
+      },
+    ],
+  },
+  {
+    slug: "square-vs-stripe-retail-and-online",
+    title: "Square vs Stripe: in-person retail vs online platforms",
+    description:
+      "The honest Square vs Stripe comparison for businesses that sell in person, online, or both — setup, rates, hardware, and which one fits your store.",
+    publishedAt: "2026-08-03",
+    updatedAt: "2026-08-03",
+    category: "Payments",
+    relatedCompanySlugs: ["square", "stripe", "paypal", "adyen"],
+    ctas: [
+      { slug: "square", label: "Visit Square", placement: "compare-vs" },
+      { slug: "stripe", label: "Visit Stripe", placement: "compare-vs" },
+    ],
+    body: [
+      {
+        type: "p",
+        text: "Square and Stripe are both excellent payment platforms, but they were built for different storefronts. Square is the natural fit for in-person and retail. Stripe is the platform choice for online, subscription, and developer-led businesses. The honest answer is that 'which is better' depends entirely on where you sell.",
+      },
+      { type: "h2", text: "Rates & positioning at a glance" },
+      {
+        type: "table",
+        headers: ["Factor", "Square", "Stripe"],
+        rows: [
+          ["In-person card rate (illustrative)", "2.6% + $0.10", "2.7% + $0.05"],
+          ["Online card rate (illustrative)", "2.9% + $0.30", "2.9% + $0.30"],
+          ["POS hardware", "Readers, terminals, free register app", "Terminals via partners"],
+          ["Developer/platform", "Simple emailable payment links", "Best-in-class API (Connect, subscriptions)"],
+          ["Best for", "Retail, cafés, salons, pop-ups", "SaaS, platforms, online stores"],
+        ],
+      },
+      { type: "h2", text: "Pick Square for in-person and simplicity" },
+      {
+        type: "ul",
+        items: [
+          "You run a physical store, café, food truck, or salon.",
+          "You want card readers and a free POS app up and running fast.",
+          "You prefer transparent, no-contract, pay-as-you-go pricing.",
+        ],
+      },
+      { type: "h2", text: "Pick Stripe for online and flexibility" },
+      {
+        type: "ul",
+        items: [
+          "You’re a SaaS, subscription, or platform business.",
+          "You want full control of the checkout and a developer-friendly API.",
+          "You need billing, invoicing, marketplace payouts, or custom payment flows.",
+        ],
+      },
+      {
+        type: "p",
+        text: "If you sell both in person and online, many businesses run Square at the counter and Stripe on the website — it’s normal to mix them. Run your exact monthly volume, order size, and in-person split through our free Fee Calculator to compare the real dollar cost for your store.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: rates above are illustrative published assumptions from the catalog vintage, not quotes; hardware and add-on pricing vary.",
+      },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {

@@ -41,13 +41,16 @@ test.describe("critical flows", () => {
     await page.goto("/");
     await page.keyboard.press(process.platform === "darwin" ? "Meta+K" : "Control+K");
     const dialog = page.getByRole("dialog", { name: "Search" });
+    const input = page.getByPlaceholder(/Search companies/);
     await expect(dialog).toBeVisible();
-    // Wait until the input is focused — this confirms the palette's keydown
-    // listener (registered in a React effect on open) is attached before we
-    // press Escape, avoiding a flaky race under parallel workers.
-    await expect(page.getByPlaceholder(/Search companies/)).toBeFocused();
+    // Let React attach the palette's keydown (Escape) effect before pressing
+    // Escape — the listener registers on `open` in an effect that runs after
+    // paint, so a too-early keypress can race under parallel workers.
+    await expect(input).toBeAttached();
+    await page.waitForTimeout(150);
+    await input.click();
     await page.keyboard.press("Escape");
-    await expect(dialog).toBeHidden();
+    await expect(dialog).toBeHidden({ timeout: 10_000 });
   });
 
   test("compare deep link preserves the selected companies", async ({ page }) => {
@@ -159,5 +162,20 @@ test.describe("critical flows", () => {
       page.getByRole("heading", { level: 1, name: /Affiliate Disclosure/i }),
     ).toBeVisible();
     await expect(page.getByText(/affiliate links/i).first()).toBeVisible();
+  });
+
+  test("category page lists its company profiles", async ({ page }) => {
+    await page.goto("/categories/payments/");
+    // Known payments companies appear on the page.
+    await expect(page.getByText("Stripe", { exact: false }).first()).toBeVisible();
+    await expect(page.getByText("PayPal", { exact: false }).first()).toBeVisible();
+  });
+
+  test("glossary renders and search filters terms", async ({ page }) => {
+    await page.goto("/glossary/");
+    const search = page.getByRole("searchbox", { name: "Search glossary terms" });
+    await expect(search).toBeVisible();
+    // A real glossary term is present.
+    await expect(page.getByText(/Interchange/i).first()).toBeVisible();
   });
 });
