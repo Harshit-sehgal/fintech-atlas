@@ -10,15 +10,19 @@ import { DATA_AS_OF } from "@/lib/site-config";
 const faqs = [
   {
     q: "Is FinTech Atlas affiliated with any of the companies listed?",
-    a: "No. FinTech Atlas is an independent educational guide. We do not accept sponsored placements, paid reviews, or affiliate commissions. Editorial ratings are presented as sentiment summaries, not as a statistically weighted review aggregate."
+    a: "FinTech Atlas is an independent educational guide: editorial ratings, pricing comparisons, and profiles are written without payment from the companies listed, and are never sold in exchange for favorable coverage. To keep the site free, some outbound links are affiliate links (disclosed on the relevant pages, including on this site's Affiliate Disclosure), and we may accept sponsored placements that are always clearly labeled as such. Independent editorial content is kept separate from any commercial inventory."
+  },
+  {
+    q: "How is FinTech Atlas funded?",
+    a: "We may earn a commission when you make a purchase or sign up through affiliate links to listed companies — at no extra cost to you. We may also run clearly-labeled sponsored placements. Our editorial methodology, ratings, and fee comparisons are independent of these arrangements; a commercial relationship never buys a rating, a ranking, or an editorial claim."
+  },
+  {
+    q: "Where is your affiliate disclosure?",
+    a: "Affiliate links and sponsored placements are disclosed in three places: this About page, our Privacy Notice, and a per-page disclosure notice shown beneath any commercial partner link (including on company profiles). Links that may earn us a commission use the HTML rel=\"sponsored\" attribute."
   },
   {
     q: "How accurate is the fee pricing data?",
     a: `Pricing data is updated regularly based on published standard rates (${DATA_AS_OF}). Keep in mind that high-volume merchants often receive custom interchange++ rates or negotiated tier discounts.`
-  },
-  {
-    q: "Can I suggest a new FinTech company to be added?",
-    a: "The static demo does not currently accept submissions. Use the project's issue tracker or contact channel when one is available."
   },
   {
     q: "How do your interactive calculators work?",
@@ -157,8 +161,18 @@ export function AboutClient() {
         <section className="surface mt-16 rounded-2xl border border-[var(--border-color)] p-6 sm:p-8">
           <h2 className="text-lg font-bold text-[var(--foreground)]">Have Feedback or Suggestions?</h2>
           <p className="mt-1 text-xs leading-relaxed text-[var(--muted-text)]">
-            Feedback submission is not connected in this static demo, so no message or email is sent. Please use the project&apos;s issue tracker or contact channel when one is available.
+            This is a static demo with no in-app contact form. Please open a GitHub issue for product
+            feedback, or use private vulnerability reporting for security concerns (see{" "}
+            <code className="text-[var(--foreground)]">SECURITY.md</code>).
           </p>
+          <a
+            href="https://github.com/Harshit-sehgal/fintech-atlas/issues/new/choose"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary mt-4 inline-flex text-sm"
+          >
+            Open a GitHub issue
+          </a>
         </section>
       </Reveal>
 

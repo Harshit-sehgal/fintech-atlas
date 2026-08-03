@@ -8,6 +8,7 @@ import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { BookmarksProvider } from "@/lib/bookmarks-context";
 import { ToastProvider } from "@/lib/toast-context";
 import StructuredDataLite from "@/components/SEO/StructuredDataLite";
+import { AnalyticsScript } from "@/components/SEO/AnalyticsScript";
 import { SITE_URL } from "@/lib/site-config";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
 import { MotionConfig } from "framer-motion";
@@ -95,6 +96,7 @@ export default function RootLayout({
     >
       <head>
         <Script src="/theme-init.js" strategy="beforeInteractive" />
+        <AnalyticsScript />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--background)] text-[var(--foreground)]">
         <StructuredDataLite />

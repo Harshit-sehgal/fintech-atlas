@@ -7,228 +7,96 @@ import {
 import type { Company } from "@/data";
 import { companies } from "@/data";
 
-// Helper to find a company by slug
-function findCompanyBySlug(slug: string): Company | undefined {
-  return companies.find((c) => c.slug === slug);
-}
-
-// Helper to find a company by slug or throw
 function getCompanyBySlug(slug: string): Company {
-  const company = findCompanyBySlug(slug);
-  if (!company) {
-    throw new Error(`Company not found: ${slug}`);
-  }
+  const company = companies.find((c) => c.slug === slug);
+  if (!company) throw new Error(`Company not found: ${slug}`);
   return company;
 }
 
-describe("matchmaker scoring logic", () => {
-  const testCompanies: Company[] = [
-    getCompanyBySlug("stripe"),
-    getCompanyBySlug("paypal"),
-    getCompanyBySlug("square"),
-    getCompanyBySlug("wise"),
-    getCompanyBySlug("revolut"),
-    getCompanyBySlug("chime"),
-    getCompanyBySlug("robinhood"),
-    getCompanyBySlug("brex"),
-    getCompanyBySlug("gusto"),
-    getCompanyBySlug("adyen"),
-    getCompanyBySlug("plaid"),
-    getCompanyBySlug("nubank"),
-  ];
+const testCompanies: Company[] = [
+  "stripe", "paypal", "square", "wise", "revolut", "chime",
+  "robinhood", "brex", "gusto", "adyen", "plaid", "nubank",
+].map(getCompanyBySlug);
 
-  describe("computeMatchScores()", () => {
-    it("returns zero scores when no questions answered", () => {
-      const emptyState = {
-        userType: "",
-        priority: "",
-        globalNeed: "",
-        scale: "",
-      };
-      const scores = computeMatchScores(emptyState, testCompanies);
-      scores.forEach(({ score }) => {
-        expect(score).toBe(0);
-      });
-    });
+const emptyState = { userType: "", priority: "", globalNeed: "", scale: "" };
 
-    it("applies weights correctly for single dimension", () => {
-      const state = {
-        userType: "startup",
-        priority: "",
-        globalNeed: "",
-        scale: "",
-      };
+function score(state: typeof emptyState, slug: string): number {
+  return computeMatchScores(state, testCompanies).find((s) => s.company.slug === slug)?.score ?? 0;
+}
 
-      const scores = computeMatchScores(state, testCompanies);
-
-      // Find scores for companies mentioned in startup userType weights
-      const brexScore = scores.find(s => s.company.slug === "brex")?.score || 0;
-      const gustoScore = scores.find(s => s.company.slug === "gusto")?.score || 0;
-      const stripeScore = scores.find(s => s.company.slug === "stripe")?.score || 0;
-      const revolutScore = scores.find(s => s.company.slug === "revolut")?.score || 0;
-
-      expect(brexScore).toBe(4); // from startup.userType
-      expect(gustoScore).toBe(3);    // from startup.userType
-      expect(stripeScore).toBe(2);  // from startup.userType
-      expect(revolutScore).toBe(2); // from startup.userType
-
-      // Companies not mentioned should have 0
-      const paypalScore = scores.find(s => s.company.slug === "paypal")?.score || 0;
-      expect(paypalScore).toBe(0);
-    });
-
-    it("accumulates scores across multiple dimensions", () => {
-      // userType: startup -> brex(4), gusto(3), stripe(2), revolut(2)
-      // priority: low_fee -> wise(4), chime(3), brex(3)
-      // Combined: brex should be 4+3=7, gusto=3, stripe=2, revolut=2, wise=4, chime=3
-      const state = {
-        userType: "startup",
-        priority: "low_fee",
-        globalNeed: "",
-        scale: "",
-      };
-
-      const scores = computeMatchScores(state, testCompanies);
-
-      const brexScore = scores.find(s => s.company.slug === "brex")?.score || 0;
-      const gustoScore = scores.find(s => s.company.slug === "gusto")?.score || 0;
-      const stripeScore = scores.find(s => s.company.slug === "stripe")?.score || 0;
-      const revolutScore = scores.find(s => s.company.slug === "revolut")?.score || 0;
-      const wiseScore = scores.find(s => s.company.slug === "wise")?.score || 0;
-      const chimeScore = scores.find(s => s.company.slug === "chime")?.score || 0;
-
-      expect(brexScore).toBe(7); // 4 (userType) + 3 (priority)
-      expect(gustoScore).toBe(3);    // 3 (userType) + 0 (priority)
-      expect(stripeScore).toBe(2);  // 2 (userType) + 0 (priority)
-      expect(revolutScore).toBe(2); // 2 (userType) + 0 (priority)
-      expect(wiseScore).toBe(4);    // 0 (userType) + 4 (priority)
-      expect(chimeScore).toBe(3);   // 0 (userType) + 3 (priority)
-    });
-
-    it("scores previously unweighted answers", () => {
-      const state = {
-        userType: "",
-        priority: "all_in_one",
-        globalNeed: "",
-        scale: "",
-      };
-
-      const scores = computeMatchScores(state, testCompanies);
-      expect(scores.find((item) => item.company.slug === "square")?.score).toBe(4);
-      expect(scores.find((item) => item.company.slug === "paypal")?.score).toBe(3);
-    });
-
-    it("does not return arbitrary zero-score recommendations", () => {
-      const state = {
-        userType: "",
-        priority: "",
-        globalNeed: "",
-        scale: "",
-      };
-
-      expect(getTopRecommendations(state, testCompanies)).toEqual([]);
-    });
-
-    it("keeps the score matrix meaningful for every selectable answer", () => {
-      const states = [
-        { userType: "", priority: "all_in_one", globalNeed: "", scale: "" },
-        { userType: "", priority: "", globalNeed: "low", scale: "" },
-        { userType: "", priority: "", globalNeed: "", scale: "early" },
-        { userType: "", priority: "", globalNeed: "", scale: "growing" },
-      ];
-
-      for (const state of states) {
-        expect(computeMatchScores(state, testCompanies).some(({ score }) => score > 0)).toBe(true);
-      }
-    });
-
-    it("handles unknown company slugs in weights gracefully", () => {
-      // This test would require modifying SCORE_WEIGHTS, which we won't do in tests
-      // Instead we verify our implementation checks if company exists
-      const state = {
-        userType: "startup",
-        priority: "",
-        globalNeed: "",
-        scale: "",
-      };
-
-      // Should not throw even if weights referenced a non-existent company
-      // (Our implementation checks scores[slug] !== undefined before updating)
-      expect(() => computeMatchScores(state, testCompanies)).not.toThrow();
-    });
+describe("matchmaker capability scoring", () => {
+  it("returns zero scores when no questions answered", () => {
+    for (const { score: s } of computeMatchScores(emptyState, testCompanies)) {
+      expect(s).toBe(0);
+    }
   });
 
-  describe("getTopRecommendations()", () => {
-    it("returns top 3 companies by score", () => {
-      // brex(4) + brex(3) = 7 (highest from startup + low_fee)
-      // wise(4) = 4
-      // chime(3) = 3
-      // gusto(3) = 3
-      // stripe(2) = 2
-      // revolut(2) = 2
-      const state = {
-        userType: "startup",
-        priority: "low_fee",
-        globalNeed: "",
-        scale: "",
-      };
-
-      const top3 = getTopRecommendations(state, testCompanies, 3);
-
-      expect(top3.length).toBe(3);
-      expect(top3[0].slug).toBe("brex"); // 7 points
-      // Second place could be wise or chime/gusto (all 3-4 points)
-      const secondSlugs = [top3[1].slug];
-      expect(["wise", "chime", "gusto"]).toContain(secondSlugs[0]);
-    });
-
-    it("returns fewer than requested if fewer companies have scores", () => {
-      const state = {
-        userType: "",
-        priority: "",
-        globalNeed: "",
-        scale: "",
-      };
-
-      const top3 = getTopRecommendations(state, testCompanies, 3);
-      expect(top3).toEqual([]);
-    });
-
-    it("defaults to limit of 3", () => {
-      const state = {
-        userType: "startup",
-        priority: "low_fee",
-        globalNeed: "",
-        scale: "",
-      };
-
-      const top3 = getTopRecommendations(state, testCompanies);
-      expect(top3.length).toBe(3);
-    });
+  it("scores companies whose capabilities satisfy a single dimension", () => {
+    const state = { userType: "personal", priority: "", globalNeed: "", scale: "" };
+    // personal => customerTypes:personal(4), useCases:banking(3), investing(2)
+    expect(score(state, "revolut")).toBe(9); // personal+banking+investing
+    expect(score(state, "nubank")).toBe(9);
+    expect(score(state, "chime")).toBe(7);
+    expect(score(state, "robinhood")).toBe(6);
+    expect(score(state, "stripe")).toBe(0); // no personal/banking/investing
+    expect(score(state, "plaid")).toBe(0);
   });
 
-  describe("getScoreBreakdown()", () => {
-    it("provides detailed breakdown of score contributions", () => {
-      const state = {
-        userType: "startup",
-        priority: "low_fee",
-        globalNeed: "",
-        scale: "",
-      };
+  it("scores developer-API answers against api capabilities", () => {
+    const state = { userType: "", priority: "api", globalNeed: "", scale: "" };
+    expect(score(state, "stripe")).toBe(8); // developer-apis(5) + api(3)
+    expect(score(state, "plaid")).toBe(8);
+    expect(score(state, "adyen")).toBe(8);
+    expect(score(state, "square")).toBe(0);
+  });
 
-      const breakdown = getScoreBreakdown(state, testCompanies);
+  it("accumulates points across multiple dimensions", () => {
+    const state = { userType: "startup", priority: "low_fee", globalNeed: "", scale: "" };
+    // startup => startup(4), banking(3), payroll(2); low_fee => low-fee(5), no-fees(4)
+    expect(score(state, "revolut")).toBe(12); // startup+banking+low-fee
+    expect(score(state, "chime")).toBe(12); // banking+low-fee+no-fees
+    expect(score(state, "brex")).toBe(7); // startup+banking (no low-fee)
+    expect(score(state, "gusto")).toBe(6); // startup+payroll
+  });
 
-      const brexBreakdown = breakdown.brex;
-      expect(brexBreakdown).toBeDefined();
-      expect(brexBreakdown.score).toBe(7);
-      expect(brexBreakdown.breakdown.userType).toBe(4);
-      expect(brexBreakdown.breakdown.priority).toBe(3);
+  it("keeps every selectable answer meaningful (some company scores)", () => {
+    const states = [
+      { userType: "", priority: "all_in_one", globalNeed: "", scale: "" },
+      { userType: "", priority: "", globalNeed: "low", scale: "" },
+      { userType: "", priority: "", globalNeed: "", scale: "early" },
+      { userType: "", priority: "", globalNeed: "", scale: "growing" },
+    ];
+    for (const state of states) {
+      expect(computeMatchScores(state, testCompanies).some(({ score: s }) => s > 0)).toBe(true);
+    }
+  });
 
-      const wiseBreakdown = breakdown.wise;
-      expect(wiseBreakdown).toBeDefined();
-      expect(wiseBreakdown.score).toBe(4);
-      expect(wiseBreakdown.breakdown.userType).toBeUndefined(); // Not in startup weights
-      expect(wiseBreakdown.breakdown.priority).toBe(4);
-    });
+  it("does not throw for unknown company slugs", () => {
+    const state = { userType: "startup", priority: "", globalNeed: "", scale: "" };
+    expect(() => computeMatchScores(state, testCompanies)).not.toThrow();
+  });
+});
+
+describe("getTopRecommendations()", () => {
+  it("returns the top-scoring companies in order", () => {
+    const state = { userType: "personal", priority: "", globalNeed: "", scale: "" };
+    const top = getTopRecommendations(state, testCompanies, 3);
+    // scores: revolut 9, nubank 9, chime 7, robinhood 6, ...
+    expect(top.map((c) => c.slug)).toEqual(["revolut", "nubank", "chime"]);
+  });
+
+  it("returns fewer than requested when few companies score", () => {
+    expect(getTopRecommendations(emptyState, testCompanies, 3)).toEqual([]);
+  });
+});
+
+describe("getScoreBreakdown()", () => {
+  it("attributes points to the contributing question", () => {
+    const state = { userType: "personal", priority: "", globalNeed: "", scale: "" };
+    const breakdown = getScoreBreakdown(state, testCompanies);
+    expect(breakdown.revolut.score).toBe(9);
+    expect(breakdown.revolut.breakdown.userType).toBe(9);
+    expect(breakdown.plaid.score).toBe(0);
+    expect(breakdown.plaid.breakdown.userType).toBeUndefined();
   });
 });

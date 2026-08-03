@@ -18,10 +18,10 @@ export default defineConfig({
       // (financial calculations and interaction helpers). Prioritise verifying
       // those over chasing broad coverage for its own sake.
       thresholds: {
-        statements: 70,
-        branches: 60,
-        functions: 70,
-        lines: 70,
+        statements: 80,
+        branches: 75,
+        functions: 80,
+        lines: 80,
       },
     },
   },

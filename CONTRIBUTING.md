@@ -21,11 +21,19 @@ npm run typecheck  # tsc --noEmit
 npm run typecheck:scripts
 npm run lint -- --max-warnings=0
 npm run build      # requires SITE_URL in production
+npm run test:e2e:install  # once per machine
+npm run test:e2e          # Playwright against the static export (run after build)
 ```
+
+**Package manager:** use **npm** (`package-lock.json`). Do not commit `pnpm-lock.yaml`.
 
 **SITE_URL note:** production builds intentionally fail when `SITE_URL` is
 missing or is the `example.com` placeholder. Set `SITE_URL` (or
 `NEXT_PUBLIC_SITE_URL`) in your environment.
+
+**Optional env vars** (see `.env.example`):
+- `NEXT_PUBLIC_ANALYTICS_DOMAIN` — cookieless Plausible-compatible analytics
+- `NEXT_PUBLIC_WAITLIST_ENDPOINT` — third-party waitlist form endpoint
 
 ## Making a change
 

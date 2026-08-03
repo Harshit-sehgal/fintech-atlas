@@ -33,3 +33,19 @@ export const SITE_URL: string = configuredSiteUrl;
  * underlying company/glossary data is refreshed.
  */
 export const DATA_AS_OF: string = "Q3 2026";
+
+/**
+ * Optional third-party form endpoint for the Pro / partner waitlist
+ * (Formspree, Getform, Buttondown, etc.). When unset, the waitlist UI
+ * explains how to configure it instead of silently failing.
+ */
+export const WAITLIST_ENDPOINT: string | undefined =
+  process.env.NEXT_PUBLIC_WAITLIST_ENDPOINT?.trim() || undefined;
+
+/**
+ * Optional cookieless analytics domain (e.g. Plausible site id).
+ * When set, `AnalyticsScript` in the root layout loads Plausible.
+ * See Privacy Notice for visitor-facing disclosure.
+ */
+export const ANALYTICS_DOMAIN: string | undefined =
+  process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN?.trim() || undefined;

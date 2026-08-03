@@ -5,6 +5,7 @@ import { getFocusableElementsInDialog } from "@/lib/focus-trap";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { companies, categories, glossary } from "@/data";
+import { fuzzyRank } from "@/lib/fuzzy";
 import { CompanyLogo } from "./company-logo";
 import { CategoryIcon } from "./category-icon";
 
@@ -136,54 +137,47 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
   // filtered arrays — every item matches, so we can directly map the raw lists.
   const filteredCompanies = useMemo(() => {
     if (cleanQuery === "") return companies;
-    return companies.filter(
-      (c) =>
-        c.name.toLowerCase().includes(cleanQuery) ||
-        c.tagline.toLowerCase().includes(cleanQuery) ||
-        c.oneLiner.toLowerCase().includes(cleanQuery) ||
-        c.founders.some((founder) => founder.toLowerCase().includes(cleanQuery)) ||
-        c.categories.some((cat) => cat.toLowerCase().includes(cleanQuery)) ||
-        c.whatTheyOffer.some(
-          (offer) =>
-            offer.name.toLowerCase().includes(cleanQuery) ||
-            offer.description.toLowerCase().includes(cleanQuery),
-        )
+    return fuzzyRank(
+      companies,
+      cleanQuery,
+      (c) => [
+        c.name,
+        c.tagline,
+        c.oneLiner,
+        ...c.founders,
+        ...c.categories,
+        ...c.whatTheyOffer.flatMap((o) => [o.name, o.description]),
+      ],
     );
-  }, [cleanQuery]); // companies is imported constant, safe to omit
+  }, [cleanQuery]);
 
   const filteredCategories = useMemo(() => {
     if (cleanQuery === "") return categories;
-    return categories.filter(
-      (cat) =>
-        cat.name.toLowerCase().includes(cleanQuery) ||
-        cat.short.toLowerCase().includes(cleanQuery)
-    );
-  }, [cleanQuery]); // categories is imported constant
+    return fuzzyRank(categories, cleanQuery, (cat) => [cat.name, cat.short]);
+  }, [cleanQuery]);
 
   const filteredGlossary = useMemo(() => {
     if (cleanQuery === "") return glossary;
-    return glossary.filter(
-      (g) =>
-        g.term.toLowerCase().includes(cleanQuery) ||
-        g.short.toLowerCase().includes(cleanQuery) ||
-        ("full" in g && g.full && g.full.toLowerCase().includes(cleanQuery))
-    );
-  }, [cleanQuery]); // glossary is imported constant
+    return fuzzyRank(glossary, cleanQuery, (g) => [
+      g.term,
+      g.short,
+      "full" in g && g.full ? g.full : "",
+    ]);
+  }, [cleanQuery]);
 
   const tools = useMemo(() => [
+    { name: "Personal Finance Calculators", path: "/tools/calculators", desc: "SIP, SWP, EMI, CAGR, retirement, FIRE, net worth & emergency fund" },
     { name: "Payment Gateway Fee Estimator", path: "/tools/calculator", desc: "Compare processing costs across Stripe, PayPal, Square & Adyen" },
     { name: "Cross-Border Remittance Calculator", path: "/tools/remittance", desc: "Compare FX & transfer fees for international money transfers" },
     { name: "FinTech Matchmaker Quiz", path: "/tools/matchmaker", desc: "Find the best financial tool suited for your business or personal needs" },
     { name: "Side-by-Side Comparison", path: "/compare", desc: "Compare companies side-by-side" },
     { name: "Saved Bookmarks", path: "/bookmarks", desc: "View your bookmarked companies and glossary terms" },
-  ], []); // constant array, no deps
+  ], []);
 
   const filteredTools = useMemo(() => {
     if (cleanQuery === "") return tools;
-    return tools.filter(
-      (t) => t.name.toLowerCase().includes(cleanQuery) || t.desc.toLowerCase().includes(cleanQuery)
-    );
-  }, [cleanQuery, tools]); // tools is memoized above, so include it
+    return fuzzyRank(tools, cleanQuery, (t) => [t.name, t.desc]);
+  }, [cleanQuery, tools]);
 
   // Keep the empty palette useful without rendering the entire catalogue. When
   // searching, cap each group so keyboard navigation remains quick and the

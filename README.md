@@ -45,7 +45,7 @@ fintech-website/
 │   │   └── ui/            # Reusable UI components
 │   ├── data/              # 41 companies, 12 categories, 24 glossary terms
 │   └── lib/               # Theme, bookmarks, toast contexts
-├── public/logos/          # 37 real SVG logos
+├── public/logos/          # Official SVG logos for the catalog
 ├── docs/                  # Production-readiness checklists and incident runbook
 └── scripts/               # Logo fetching & manifest generation
 ```
@@ -102,7 +102,11 @@ real SVGs and regenerate `src/data/logos-index.ts`.
 
 | Variable | Required | Default | Description |
 |---|---|---|---|
-| `SITE_URL` | No | `https://fintech-atlas.example.com` | Canonical site URL for sitemap and SEO. **Set this to your production URL** before deploying, or the sitemap/robots will point at the placeholder. |
+| `SITE_URL` | No* | `https://fintech-atlas.example.com` | Canonical site URL for sitemap and SEO. **Required for production builds** (placeholder is rejected). |
+| `NEXT_PUBLIC_ANALYTICS_DOMAIN` | No | unset | Optional cookieless Plausible-compatible analytics site id. When unset, no analytics script loads. |
+| `NEXT_PUBLIC_WAITLIST_ENDPOINT` | No | unset | Optional third-party form endpoint for a Pro/partner waitlist. When unset, waitlist UI stays hidden. |
+
+\* Development may use the placeholder; production builds refuse `example.com`.
 
 Copy `.env.example` to `.env.local` and adjust as needed. The template is committed so fresh checkouts have a documented starting point.
 
@@ -125,6 +129,9 @@ Works with: **Netlify**, **Vercel**, **Cloudflare Pages**, **GitHub Pages**, **S
 - Company records are educational summaries; legacy source labels are being migrated to linked references and effective dates
 - Displayed fees and FX outputs are illustrative assumptions and may vary by route, region, payment method, volume, or contract
 - Bookmarks and private notes are stored locally in your browser only
-- No tracking, analytics, or data collection — your data stays on your device
+- No accounts or server-side data collection — interactive state stays on your device
+- Optional cookieless analytics may be enabled by the site operator (`NEXT_PUBLIC_ANALYTICS_DOMAIN`); disabled by default
 - Read the published [Privacy Notice](./src/app/privacy/page.tsx) and [Terms of Use](./src/app/terms/page.tsx)
 - Deployment and incident recovery procedures are documented in [`docs/incident-runbook.md`](docs/incident-runbook.md)
+- Provider-specific static hosting notes: [`docs/deployment-providers.md`](docs/deployment-providers.md)
+- Architecture decisions (deferred backend goals): [`docs/adr/`](docs/adr/)

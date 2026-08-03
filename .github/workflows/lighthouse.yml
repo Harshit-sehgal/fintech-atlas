@@ -1,0 +1,32 @@
+# Lighthouse CI — runs performance/accessibility/SEO audits against the static
+# export and enforces budgets. Results are uploaded to a temporary public
+# storage bucket that LHCI provisions.
+name: "Lighthouse CI"
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  lhci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      # Provision a real Chrome for Lighthouse to drive.
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+        id: chrome
+      - run: npm ci
+      - run: SITE_URL=https://ci.fintech-atlas.test npm run build
+      - name: Run Lighthouse CI
+        run: npm run lhci
+        env:
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}

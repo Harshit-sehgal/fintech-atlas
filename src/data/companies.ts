@@ -1,5 +1,6 @@
 import { Company } from "./types";
 import { valuationAmountUsdBySlug } from "./financial-values";
+import { sourceReferencesBySlug } from "./provenance-records";
 
 const baseCompanies: Company[] = [
   {
@@ -1195,4 +1196,8 @@ export const companies: Company[] = baseCompanies.map((company) => ({
   ...company,
   valuationAmountUsd:
     company.valuationAmountUsd ?? valuationAmountUsdBySlug[company.slug],
+  // Attach structured provenance where a migration record exists; companies
+  // without one keep their legacy string `sources` labels (allowed).
+  sourceReferences:
+    company.sourceReferences ?? sourceReferencesBySlug[company.slug],
 }));

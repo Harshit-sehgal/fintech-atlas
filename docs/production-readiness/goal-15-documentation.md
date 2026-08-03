@@ -5,9 +5,9 @@
 **Objective:** API docs, architecture, schema, deployment, contribution, incident runbook.
 
 ## Requirements
-- [ ] API documentation (currently none — no public API; document as N/A once decided)
+- [x] API documentation (currently none — no public API; documented as N/A)
 - [x] Architecture overview (README "Architecture" section)
-- [ ] Database schema (no database — document as N/A)
+- [x] Database schema (no database — documented as N/A)
 - [x] Deployment guide (README "Deploy" section)
 - [x] Contribution guide
 - [x] Incident runbook

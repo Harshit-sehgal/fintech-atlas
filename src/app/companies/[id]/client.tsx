@@ -17,8 +17,10 @@ import {
   createReviewId,
   REVIEW_EVENT,
 } from "@/lib/reviews";
-import { formatValuationShort, formatHeadquartersCity } from "@/lib/format-company";
+import { formatValuationForStats, formatHeadquartersCity } from "@/lib/format-company";
 import { getFocusableElementsInDialog } from "@/lib/focus-trap";
+import { resolvePartnerCta, partnerRel, COMMERCIAL_DISCLOSURE } from "@/lib/partners";
+import { trackCtaClick } from "@/lib/analytics";
 
 function readReviews(slug: string): string {
   if (typeof window === "undefined") return "";
@@ -73,6 +75,11 @@ export function CompanyPageClient({
   const { isBookmarked, toggleBookmark } = useBookmarks();
   const { showToast } = useToast();
   const bookmarked = isBookmarked(c.slug);
+
+  // Commercial partner CTA resolved server-agnostic; fallback is the official
+  // website when no partner row exists. `isCommercial` drives rel="sponsored"
+  // and the earnings disclosure.
+  const cta = resolvePartnerCta(c.slug, "company-profile");
 
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
   const subscribeToReviews = useCallback(
@@ -345,6 +352,38 @@ export function CompanyPageClient({
           <p className="mt-2 text-lg text-[var(--muted-text)] max-w-2xl leading-relaxed">
             {c.tagline}
           </p>
+
+          {/* Partner CTA — commercial link with disclosure when enrolled */}
+          {cta && (
+            <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">
+              <a
+                href={cta.href}
+                target="_blank"
+                rel={partnerRel(cta.isCommercial)}
+                onClick={() =>
+                  trackCtaClick({
+                    companySlug: c.slug,
+                    placement: "company-profile",
+                    relationship: cta.relationship,
+                    trackingId: cta.trackingId,
+                  })
+                }
+                className="btn-primary inline-flex items-center gap-2 text-sm px-5 py-2.5"
+              >
+                {cta.label} ↗
+              </a>
+              {cta.sponsored && cta.sponsoredLabel && (
+                <span className="rounded-full border border-[var(--border-color)] bg-[var(--accent)]/10 px-2.5 py-1 text-[10px] font-mono uppercase tracking-wide text-[var(--accent)]">
+                  {cta.sponsoredLabel}
+                </span>
+              )}
+            </div>
+          )}
+          {cta?.isCommercial && (
+            <p className="mt-3 max-w-2xl text-[11px] leading-relaxed text-[var(--muted-text)]">
+              {COMMERCIAL_DISCLOSURE}
+            </p>
+          )}
         </div>
       </motion.div>
 
@@ -361,7 +400,7 @@ export function CompanyPageClient({
           {[
             { label: "Founded", value: String(c.founded) },
             { label: "Employees", value: c.employees },
-            { label: "Valuation", value: formatValuationShort(c.valuation) },
+            { label: "Valuation", value: formatValuationForStats(c) },
             { label: "Official Website", isLink: true, href: `https://${c.website}`, value: c.website },
           ].map(({ label, value, isLink, href }) => (
             <div key={label}>

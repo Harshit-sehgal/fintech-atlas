@@ -18,6 +18,27 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm run typecheck:scripts
+      # Provenance migration gates: fail on any *invalid* migrated record
+      # (low coverage is informational, not a failure).
+      - run: npm run check:provenance
       - run: npm run lint -- --max-warnings=0
-      - run: npm test
+      # `test:coverage` enforces the coverage thresholds in vitest.config.mts.
+      - run: npm run test:coverage
+      # Informational dependency audit. Fails only on high/critical advisories;
+      # moderate/low transitive advisories do not block the build.
+      - run: npm audit --audit-level=high
       - run: SITE_URL=https://ci.fintech-atlas.test npm run build
+
+  # End-to-end browser tests against the static export (Playwright).
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: SITE_URL=https://ci.fintech-atlas.test npm run build
+      - run: npm run test:e2e

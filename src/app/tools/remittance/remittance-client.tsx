@@ -16,6 +16,7 @@ import {
 } from "@/lib/remittance";
 import { MAX_RATE_AGE_DAYS } from "@/data/remittance-config";
 import { animationPresets as animation } from "@/lib/animation";
+import { PartnerCta } from "@/components/ui/partner-cta";
 
 export default function RemittanceCalculatorPageClient() {
   const [sendAmount, setSendAmount] = useState<number>(DEFAULT_SEND_AMOUNT);
@@ -255,6 +256,16 @@ export default function RemittanceCalculatorPageClient() {
                         <span>Upfront Fee: <strong className="text-[var(--foreground)] font-mono">${p.fee.toFixed(2)}</strong></span>
                         <span>Exchange Markup: <strong className={p.fxMargin > 0 ? "text-warning-text font-mono" : "text-success-text font-mono"}>{p.fxMargin}%</strong></span>
                         <span>Rate: <strong className="text-[var(--foreground)] font-mono">{p.rate.toFixed(4)}</strong></span>
+                      </div>
+
+                      {/* Commercial CTA; renders nothing for the non-company "bank" baseline */}
+                      <div className="mt-3 flex justify-end">
+                        <PartnerCta
+                          slug={p.slug}
+                          placement="remittance"
+                          label={`Open ${p.name}`}
+                          variant="compact"
+                        />
                       </div>
                     </div>
                   );

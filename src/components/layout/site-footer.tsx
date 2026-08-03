@@ -1,17 +1,20 @@
 import Link from "next/link";
 import { companies } from "@/data";
 import { DATA_AS_OF } from "@/lib/site-config";
+import { NewsletterOptIn } from "@/components/ui/newsletter-opt-in";
 
 const exploreLinks = [
   { href: "/companies", label: "Companies Directory" },
   { href: "/categories", label: "Industry Categories" },
   { href: "/compare", label: "Side-by-Side Comparison" },
   { href: "/glossary", label: "FinTech Glossary" },
+  { href: "/articles", label: "Guides & Comparisons" },
   { href: "/bookmarks", label: "Saved Bookmarks" },
 ];
 
 const toolsLinks = [
   { href: "/tools", label: "Tools Overview" },
+  { href: "/tools/calculators", label: "Personal Finance Calculators" },
   { href: "/tools/calculator", label: "Fee Estimator" },
   { href: "/tools/remittance", label: "Cross-Border FX Tool" },
   { href: "/tools/matchmaker", label: "Matchmaker Quiz" },
@@ -23,6 +26,10 @@ const aboutLinks = [
   { href: "/about#disclaimer", label: "Educational Disclaimer" },
   { href: "/privacy", label: "Privacy Notice" },
   { href: "/terms", label: "Terms of Use" },
+  {
+    href: "https://github.com/Harshit-sehgal/fintech-atlas/issues/new/choose",
+    label: "Feedback & Issues",
+  },
 ];
 
 export function SiteFooter() {
@@ -49,6 +56,17 @@ export function SiteFooter() {
             <p className="text-[11px] text-[var(--muted-text)]">
               {companies.length} companies profiled · Updated {DATA_AS_OF}.
             </p>
+
+            {/* Newsletter opt-in (Phase 3 — audience capture) */}
+            <div className="mt-2">
+              <p className="text-xs font-bold text-[var(--foreground)]">
+                Get the FinTech money-moves newsletter
+              </p>
+              <p className="mt-1 text-[11px] text-[var(--muted-text)]">
+                Occasional, plain-language guides and fee comparisons. No spam.
+              </p>
+              <NewsletterOptIn />
+            </div>
           </div>
 
           {/* Explore */}
@@ -88,22 +106,41 @@ function FooterColumn({
     <div>
       <h3 className="eyebrow mb-3">{title}</h3>
       <ul className="space-y-2.5 text-xs">
-        {links.map((l) => (
-          <li key={l.href}>
-            <Link
-              className="inline-flex items-center gap-1.5 text-[var(--foreground)]/85 transition-colors hover:text-[var(--accent)] group"
-              href={l.href}
-            >
-              <span>{l.label}</span>
-              <span
-                aria-hidden
-                className="opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 text-[var(--accent)]"
-              >
-                →
-              </span>
-            </Link>
-          </li>
-        ))}
+        {links.map((l) => {
+          const external = l.href.startsWith("http");
+          const className =
+            "inline-flex items-center gap-1.5 text-[var(--foreground)]/85 transition-colors hover:text-[var(--accent)] group";
+          return (
+            <li key={l.href}>
+              {external ? (
+                <a
+                  className={className}
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>{l.label}</span>
+                  <span
+                    aria-hidden
+                    className="opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 text-[var(--accent)]"
+                  >
+                    →
+                  </span>
+                </a>
+              ) : (
+                <Link className={className} href={l.href}>
+                  <span>{l.label}</span>
+                  <span
+                    aria-hidden
+                    className="opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 text-[var(--accent)]"
+                  >
+                    →
+                  </span>
+                </Link>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

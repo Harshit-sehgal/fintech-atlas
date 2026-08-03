@@ -26,8 +26,10 @@
   no SQL — so SQLi and most CSRF surfaces are structurally absent. `npm audit`
   should be run/triaged; secrets are already kept out of source (`.env.example`
   is committed, real envs are git-ignored).
-- **Actionable gaps:** HTTPS and security headers (CSP, HSTS, X-Content-Type-
+- **Current position:** HTTPS and security headers (CSP, HSTS, X-Content-Type-
   Options, Referrer-Policy) are configured at the **hosting layer**, not in the
-  app — document them for the host (Netlify/Vercel/Cloudflare headers), and add
-  a `security.txt`. Cookies are client-only today, so secure-cookie controls are
-  N/A until Goals 01/05/06 add a backend.
+  app — document them for the host (Netlify/Vercel/Cloudflare headers). The
+  generated `_headers` artifact includes HSTS, and
+  `public/.well-known/security.txt` provides the private GitHub reporting path.
+  Cookies are client-only today, so secure-cookie controls are N/A until
+  Goals 01/05/06 add a backend.

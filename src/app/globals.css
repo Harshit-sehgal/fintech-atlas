@@ -457,3 +457,30 @@ html { transition: background-color var(--dur-base) var(--ease-out-expo); }
 
 /* Use tabular numerals for financial figures without forcing a monospace face. */
 .tabular-nums { font-variant-numeric: tabular-nums; }
+
+/* ── Print: keep tools / compare readable on paper ── */
+@media print {
+  .print\:hidden,
+  header,
+  footer,
+  #scroll-progress,
+  [data-scroll-progress],
+  .sr-only {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  a[href]::after {
+    content: none !important;
+  }
+
+  .surface,
+  .card-glow {
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+}

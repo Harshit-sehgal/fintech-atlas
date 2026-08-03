@@ -14,6 +14,7 @@ import {
   QuizState,
 } from "@/lib/matchmaker";
 import { QUESTIONS, type MatchmakerQuestion } from "@/data/matchmaker-config";
+import { PartnerCta } from "@/components/ui/partner-cta";
 
 export default function MatchmakerQuizPageClient() {
   const [step, setStep] = useState(1);
@@ -206,6 +207,12 @@ export default function MatchmakerQuizPageClient() {
                             >
                               Compare top {results.length > 1 ? results.length : ""} →
                             </Link>
+                            <PartnerCta
+                              slug={c.slug}
+                              placement="matchmaker"
+                              label={`Visit ${c.name}`}
+                              variant="compact"
+                            />
                           </div>
                         </div>
 

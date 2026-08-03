@@ -12,6 +12,7 @@ import {
   glossary,
   categoryGlossaryMap,
 } from "@/data";
+import { validateCompanyProvenance } from "@/data/provenance";
 
 describe("Data Access Helpers", () => {
   describe("getCompanyBySlug", () => {
@@ -118,6 +119,15 @@ describe("Data Integrity", () => {
         if (isSubsidiary) {
           expect(c.valuationAmountUsd, `${c.slug} is a subsidiary and should have no independent valuation`).toBeUndefined();
         }
+      }
+    });
+
+    it("every company has valid structured provenance when provided", () => {
+      for (const company of companies) {
+        expect(
+          validateCompanyProvenance(company),
+          `${company.slug} has invalid structured provenance`,
+        ).toEqual([]);
       }
     });
 
@@ -289,7 +299,8 @@ describe("Data Integrity", () => {
       // Public files that are intentionally unreferenced (consumed only by
       // browser convention, not by source-code import) are allowlisted.
       const ALLOW_UNREFERENCED = new Set([
-        "robots.txt",    // consumed by crawlers, not source code
+        "robots.txt",                 // consumed by crawlers, not source code
+        ".well-known/security.txt",   // consumed by security researchers/hosts
       ]);
 
       const IGNORE_BUILD_ARTIFACTS = new Set([

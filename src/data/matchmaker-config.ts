@@ -215,3 +215,93 @@ export const QUESTIONS: MatchmakerQuestion[] = [
     ],
   },
 ];
+
+/**
+ * Capability-based scoring (audit #30). Each selectable answer is mapped to a
+ * set of capability requirements; a company scores points for each requirement
+ * its capabilities satisfy. This generalises the old slug→points matrix so any
+ * company described in COMPANY_CAPABILITIES can be recommended, and new
+ * companies are scored automatically from their capabilities.
+ */
+export type CapabilityDimension = "useCases" | "customerTypes" | "channels" | "features";
+
+export interface CapabilityRequirement {
+  dimension: CapabilityDimension;
+  value: string;
+  points: number;
+}
+
+export const ANSWER_CAPABILITIES: Record<
+  keyof QuizState,
+  Record<string, CapabilityRequirement[]>
+> = {
+  userType: {
+    saas: [
+      { dimension: "customerTypes", value: "saas", points: 4 },
+      { dimension: "useCases", value: "payments", points: 3 },
+      { dimension: "features", value: "developer-apis", points: 3 },
+    ],
+    ecommerce: [
+      { dimension: "useCases", value: "payments", points: 4 },
+      { dimension: "customerTypes", value: "ecommerce", points: 3 },
+      { dimension: "features", value: "multi-currency", points: 3 },
+    ],
+    retail: [
+      { dimension: "useCases", value: "pos", points: 4 },
+      { dimension: "channels", value: "in-person", points: 3 },
+      { dimension: "features", value: "hardware", points: 2 },
+    ],
+    startup: [
+      { dimension: "customerTypes", value: "startup", points: 4 },
+      { dimension: "useCases", value: "banking", points: 3 },
+      { dimension: "useCases", value: "payroll", points: 2 },
+    ],
+    personal: [
+      { dimension: "customerTypes", value: "personal", points: 4 },
+      { dimension: "useCases", value: "banking", points: 3 },
+      { dimension: "useCases", value: "investing", points: 2 },
+    ],
+  },
+  priority: {
+    api: [
+      { dimension: "features", value: "developer-apis", points: 5 },
+      { dimension: "channels", value: "api", points: 3 },
+    ],
+    low_fee: [
+      { dimension: "features", value: "low-fee", points: 5 },
+      { dimension: "features", value: "no-fees", points: 4 },
+    ],
+    trust: [{ dimension: "features", value: "trust", points: 5 }],
+    all_in_one: [
+      { dimension: "features", value: "all-in-one", points: 5 },
+      { dimension: "features", value: "no-code", points: 3 },
+    ],
+  },
+  globalNeed: {
+    high: [
+      { dimension: "features", value: "multi-currency", points: 4 },
+      { dimension: "features", value: "international", points: 4 },
+    ],
+    low: [
+      { dimension: "features", value: "no-fees", points: 3 },
+      { dimension: "features", value: "low-fee", points: 2 },
+    ],
+  },
+  scale: {
+    early: [
+      { dimension: "customerTypes", value: "startup", points: 3 },
+      { dimension: "features", value: "no-code", points: 3 },
+      { dimension: "useCases", value: "banking", points: 3 },
+    ],
+    growing: [
+      { dimension: "customerTypes", value: "startup", points: 3 },
+      { dimension: "features", value: "all-in-one", points: 4 },
+      { dimension: "features", value: "developer-apis", points: 2 },
+    ],
+    enterprise: [
+      { dimension: "customerTypes", value: "enterprise", points: 5 },
+      { dimension: "features", value: "high-volume", points: 4 },
+      { dimension: "features", value: "compliance", points: 3 },
+    ],
+  },
+};

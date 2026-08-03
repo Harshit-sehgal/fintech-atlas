@@ -23,6 +23,15 @@ export const metadata: Metadata = {
 
 const toolsList = [
   {
+    id: "calculators",
+    href: "/tools/calculators",
+    icon: "🧮",
+    name: "Personal Finance Calculators",
+    badge: "Calculator Suite",
+    description: "Project SIP and SWP growth, estimate EMIs, inflation, retirement corpus, FIRE number, emergency fund, and net worth.",
+    features: ["SIP, SWP & CAGR", "EMI & loan costs", "Retirement & FIRE planning", "Net worth & emergency fund"],
+  },
+  {
     id: "calculator",
     href: "/tools/calculator",
     icon: "💳",
@@ -53,6 +62,7 @@ const toolsList = [
 
 // Per-tool accent colors used to tint each tool's ambient glow + hover ring
 const TOOL_ACCENTS: Record<string, string> = {
+  calculators: "#8b5cf6", // violet
   calculator: "#6366f1", // indigo
   remittance: "#10b981", // emerald
   matchmaker: "#f59e0b", // amber
@@ -70,7 +80,7 @@ export default function ToolsPage() {
         description="Data-driven tools to help you calculate real costs, compare exchange rates, and choose the right fintech services."
       />
 
-      <div className="mt-12 grid gap-6 md:grid-cols-3 reveal-stagger">
+      <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4 reveal-stagger">
         {toolsList.map((tool) => {
           const accent = TOOL_ACCENTS[tool.id] ?? "#6366f1";
           return (

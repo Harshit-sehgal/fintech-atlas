@@ -10,6 +10,7 @@ const description =
 export const metadata: Metadata = {
   title: "Saved Items & Bookmarks",
   description,
+  robots: { index: false, follow: false },
   alternates: { canonical: canonicalUrl("/bookmarks") },
   openGraph: {
     ...openGraphImage,

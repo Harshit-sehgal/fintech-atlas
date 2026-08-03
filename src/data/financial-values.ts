@@ -48,3 +48,65 @@ export const valuationAmountUsdBySlug: Record<string, number> = {
   starling: 3_200_000_000,
   relay: 360_000_000,
 };
+
+/**
+ * Editorial classification of each company's valuation concept (audit #9).
+ * The UI uses this to label values truthfully instead of treating a private
+ * funding-round valuation and a public market capitalisation as the same
+ * number.
+ *
+ *  - "public-market-cap"  → publicly traded; value is a market capitalisation.
+ *  - "private-valuation"  → not publicly listed; value is an (illustrative)
+ *                           funding-round / private valuation.
+ *  - "not-disclosed"      → subsidiary/product of a parent or an acquired unit;
+ *                           no independently comparable valuation.
+ */
+export const financialValueTypeBySlug: Record<
+  string,
+  "public-market-cap" | "private-valuation" | "not-disclosed"
+> = {
+  // Publicly traded — value is a market capitalisation.
+  adp: "public-market-cap",
+  adyen: "public-market-cap",
+  affirm: "public-market-cap",
+  afterpay: "public-market-cap",
+  coinbase: "public-market-cap",
+  moneygram: "public-market-cap",
+  nubank: "public-market-cap",
+  paychex: "public-market-cap",
+  payoneer: "public-market-cap",
+  paypal: "public-market-cap",
+  paytm: "public-market-cap",
+  robinhood: "public-market-cap",
+  sofi: "public-market-cap",
+  square: "public-market-cap",
+  wise: "public-market-cap",
+  // Private — value is an illustrative private/funding valuation.
+  binance: "private-valuation",
+  brex: "private-valuation",
+  bunq: "private-valuation",
+  chime: "private-valuation",
+  circle: "private-valuation",
+  gusto: "private-valuation",
+  klarna: "private-valuation",
+  monzo: "private-valuation",
+  n26: "private-valuation",
+  okx: "private-valuation",
+  phonepe: "private-valuation",
+  picpay: "private-valuation",
+  plaid: "private-valuation",
+  razorpay: "private-valuation",
+  relay: "private-valuation",
+  revolut: "private-valuation",
+  starling: "private-valuation",
+  stripe: "private-valuation",
+  // Subsidiaries / products / acquired units — not independently comparable.
+  "apple-pay": "not-disclosed",
+  braintree: "not-disclosed",
+  "cash-app": "not-disclosed",
+  "google-pay": "not-disclosed",
+  "mastercard-send": "not-disclosed",
+  "mercado-pago": "not-disclosed",
+  venmo: "not-disclosed",
+  "visa-direct": "not-disclosed",
+};

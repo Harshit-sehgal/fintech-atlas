@@ -8,7 +8,7 @@ const siteUrl = (
   "https://fintech-atlas.example.com"
 ).trim().replace(/\/+$/, "");
 
-const excludedRoutes = new Set(["404", "_not-found"]);
+const excludedRoutes = new Set(["404", "_not-found", "bookmarks"]);
 
 function collectIndexFiles(directory) {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -30,6 +30,8 @@ function xmlEscape(value) {
 if (!fs.existsSync(outDir)) {
   throw new Error(`Static export directory not found: ${outDir}`);
 }
+
+const buildLastmod = new Date().toISOString().slice(0, 10);
 
 const routes = collectIndexFiles(outDir)
   .map((file) => {
@@ -60,10 +62,8 @@ ${routes
     .map((route) => {
       const loc = xmlEscape(`${siteUrl}${route}`);
       const priority = priorityForRoute(route);
-      // lastmod intentionally omitted: this is a static export and every page
-      // is regenerated on every build, so a build-date lastmod would falsely
-      // mark every page as modified. Search engines don't require it.
-      return `  <url><loc>${loc}</loc><priority>${priority}</priority></url>`;
+      // lastmod is the build date: every static page is regenerated each build.
+      return `  <url><loc>${loc}</loc><lastmod>${buildLastmod}</lastmod><priority>${priority}</priority></url>`;
     })
     .join("\n")}
 </urlset>
@@ -81,6 +81,7 @@ fs.writeFileSync(path.join(outDir, "sitemap.xml"), sitemapIndex);
 const robots = `# Allow all public pages to be crawled.
 User-agent: *
 Allow: /
+Disallow: /bookmarks/
 
 Host: ${siteUrl}
 Sitemap: ${siteUrl}/sitemap.xml

@@ -1,72 +1,73 @@
 /**
- * Pure matchmaker recommendation logic, extracted from the matchmaker client
- * component so the scoring algorithm is unit-testable without rendering React.
+ * Pure matchmaker recommendation logic (capability-based, audit #30).
+ *
+ * Each quiz answer maps to capability requirements (ANSWER_CAPABILITIES); a
+ * company scores points for every requirement its capabilities satisfy
+ * (COMPANY_CAPABILITIES). Because scoring is data-driven per capability, ANY
+ * company described in the capabilities module can be recommended — adding a
+ * company no longer requires hand-editing a slug→points matrix.
  */
 
 import type { Company } from "@/data";
+import type { CompanyCapabilities } from "@/data/types";
 import {
-  SCORE_WEIGHTS,
+  ANSWER_CAPABILITIES,
   QuizState,
+  CapabilityRequirement,
 } from "@/data/matchmaker-config";
+import { COMPANY_CAPABILITIES } from "@/data/company-capabilities";
 
 export type { QuizState };
 
-/**
- * Compute scores for all companies based on quiz answers.
- *
- * @param quizState - The user's answers (userType, priority, globalNeed, scale)
- * @param companies - Array of all companies to score
- * @returns Array of companies with their computed scores, sorted descending
- */
-export function computeMatchScores(
-  quizState: QuizState,
-  companies: Company[]
-): { company: Company; score: number }[] {
-  const scores: Record<string, number> = {};
+export function capabilityMatches(
+  caps: CompanyCapabilities,
+  req: CapabilityRequirement,
+): boolean {
+  return caps[req.dimension].includes(req.value);
+}
 
-  // Initialize all companies with 0 score
-  companies.forEach((company) => {
-    scores[company.slug] = 0;
-  });
-
-  // Apply weights for each answered question
-  Object.keys(quizState).forEach((key) => {
-    const qKey = key as keyof QuizState;
+/** Flatten the selected answers' capability requirements. */
+export function requirementsFor(quizState: QuizState): CapabilityRequirement[] {
+  const requirements: CapabilityRequirement[] = [];
+  (Object.keys(quizState) as (keyof QuizState)[]).forEach((qKey) => {
     const value = quizState[qKey];
-    if (value && SCORE_WEIGHTS[qKey]?.[value]) {
-      Object.entries(SCORE_WEIGHTS[qKey][value]).forEach(
-        ([slug, points]) => {
-          if (scores[slug] !== undefined) {
-            scores[slug] = (scores[slug] || 0) + points;
-          }
-        }
-      );
-    }
+    if (!value) return;
+    const list = ANSWER_CAPABILITIES[qKey]?.[value] ?? [];
+    requirements.push(...list);
   });
-
-  // Convert to array and sort by score descending
-  const scoredCompanies = companies
-    .map((company) => ({
-      company,
-      score: scores[company.slug] || 0,
-    }))
-    .sort((a, b) => b.score - a.score);
-
-  return scoredCompanies;
+  return requirements;
 }
 
 /**
- * Get top N company recommendations based on quiz answers.
- *
- * @param quizState - The user's answers
- * @param companies - Array of all companies
- * @param limit - Number of top recommendations to return (default: 3)
- * @returns Array of top company recommendations
+ * Score every company by how many capability requirements its capabilities
+ * satisfy, sorted descending. Companies without a capabilities entry score 0.
+ */
+export function computeMatchScores(
+  quizState: QuizState,
+  companies: Company[],
+): { company: Company; score: number }[] {
+  const requirements = requirementsFor(quizState);
+  return companies
+    .map((company) => {
+      const caps = COMPANY_CAPABILITIES[company.slug];
+      const score = caps
+        ? requirements.reduce(
+            (sum, req) => sum + (capabilityMatches(caps, req) ? req.points : 0),
+            0,
+          )
+        : 0;
+      return { company, score };
+    })
+    .sort((a, b) => b.score - a.score);
+}
+
+/**
+ * Get top N recommended companies (only those that actually scored above 0).
  */
 export function getTopRecommendations(
   quizState: QuizState,
   companies: Company[],
-  limit = 3
+  limit = 3,
 ): Company[] {
   return computeMatchScores(quizState, companies)
     .filter((item) => item.score > 0)
@@ -75,53 +76,32 @@ export function getTopRecommendations(
 }
 
 /**
- * Get the score breakdown for debugging/transparency.
- *
- * @param quizState - The user's answers
- * @param companies - Array of all companies
- * @returns Object mapping company slugs to their scores and contributing factors
+ * Per-company score and per-question contribution, used by the UI to explain
+ * why a company matched (audit #31).
  */
 export function getScoreBreakdown(
   quizState: QuizState,
-  companies: Company[]
+  companies: Company[],
 ): Record<string, { score: number; breakdown: Record<string, number> }> {
-  const scores: Record<string, number> = {};
-  const breakdown: Record<string, Record<string, number>> = {};
-
-  // Initialize
-  companies.forEach((company) => {
-    scores[company.slug] = 0;
-    breakdown[company.slug] = {};
-  });
-
-  // Track contributions by question
-  Object.keys(quizState).forEach((key) => {
-    const qKey = key as keyof QuizState;
-    const value = quizState[qKey];
-    if (value && SCORE_WEIGHTS[qKey]?.[value]) {
-      Object.entries(SCORE_WEIGHTS[qKey][value]).forEach(
-        ([slug, points]) => {
-          if (scores[slug] !== undefined) {
-            scores[slug] = (scores[slug] || 0) + points;
-            // Track contribution from this question
-            if (!breakdown[slug][qKey]) {
-              breakdown[slug][qKey] = 0;
-            }
-            breakdown[slug][qKey] += points;
-          }
-        }
-      );
-    }
-  });
-
-  // Convert to final format
   const result: Record<string, { score: number; breakdown: Record<string, number> }> = {};
   companies.forEach((company) => {
-    result[company.slug] = {
-      score: scores[company.slug] || 0,
-      breakdown: breakdown[company.slug] || {},
-    };
+    const caps = COMPANY_CAPABILITIES[company.slug];
+    const breakdown: Record<string, number> = {};
+    let score = 0;
+    if (caps) {
+      (Object.keys(quizState) as (keyof QuizState)[]).forEach((qKey) => {
+        const value = quizState[qKey];
+        if (!value) return;
+        const list = ANSWER_CAPABILITIES[qKey]?.[value] ?? [];
+        const pts = list.reduce(
+          (sum, req) => sum + (capabilityMatches(caps, req) ? req.points : 0),
+          0,
+        );
+        if (pts > 0) breakdown[qKey] = pts;
+        score += pts;
+      });
+    }
+    result[company.slug] = { score, breakdown };
   });
-
   return result;
 }

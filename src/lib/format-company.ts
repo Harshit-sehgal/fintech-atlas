@@ -7,6 +7,7 @@
  */
 
 import type { Company } from "@/data/types";
+import { financialValueTypeBySlug } from "@/data/financial-values";
 
 /**
  * Return the short form of a valuation string.
@@ -26,6 +27,39 @@ export function formatValuationShort(valuation: string): string {
  */
 export function getValuationAmountUsd(company: Company): number | null {
   return company.valuationAmountUsd ?? null;
+}
+
+type FinancialValueType =
+  | "public-market-cap"
+  | "private-valuation"
+  | "not-disclosed";
+
+/** Editorial classification of what the displayed valuation number represents. */
+export function getFinancialValueType(company: Company): FinancialValueType | null {
+  return financialValueTypeBySlug[company.slug] ?? null;
+}
+
+/** Human label for the valuation concept, or `null` when unclassified. */
+export function financialValueTypeLabel(company: Company): string | null {
+  switch (getFinancialValueType(company)) {
+    case "private-valuation":
+      return "Private valuation";
+    case "public-market-cap":
+      return "Market capitalisation";
+    case "not-disclosed":
+      return "Not publicly disclosed";
+    default:
+      return null;
+  }
+}
+
+/**
+ * Short valuation string with its concept appended, e.g.
+ * `"65B · Private valuation"` or `"N/A · Not publicly disclosed"`.
+ */
+export function formatValuationForStats(company: Company): string {
+  const label = financialValueTypeLabel(company);
+  return label ? `${formatValuationShort(company.valuation)} · ${label}` : formatValuationShort(company.valuation);
 }
 
 /**

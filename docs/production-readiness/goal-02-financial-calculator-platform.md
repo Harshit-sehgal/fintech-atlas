@@ -1,41 +1,40 @@
 # Goal 02 — Financial Calculator Platform
 
-**Status:** 🟡 Partially in place · **Action:** extend the existing tools system
+**Status:** 🟢 Core suite shipped · **Action:** PDF export + fee/remittance/matchmaker parity
 
 **Objective:** Deliver trustworthy calculators with consistent UX.
 
 ## Requirements
-- [ ] SIP
-- [ ] SWP
-- [ ] EMI
-- [ ] CAGR
-- [ ] Retirement
-- [ ] FIRE
-- [ ] Inflation
-- [ ] Loan comparison
-- [ ] Net worth
-- [ ] Emergency fund
+- [x] SIP
+- [x] SWP
+- [x] EMI
+- [x] CAGR
+- [x] Retirement
+- [x] FIRE
+- [x] Inflation
+- [x] Loan comparison
+- [x] Net worth
+- [x] Emergency fund
 
 Every calculator must:
-- [ ] Validate inputs
-- [ ] Handle edge cases
-- [ ] Support save/load
+- [x] Validate inputs
+- [x] Handle edge cases
+- [x] Support save/load
 - [ ] Export PDF
-- [ ] Export CSV
-- [ ] Share via URL
+- [x] Export CSV
+- [x] Share via URL
 
 ## Definition of Done
-- [ ] Results match independently verified calculations within an acceptable tolerance.
-- [ ] Invalid inputs are handled gracefully.
-- [ ] Save/load and export functions work reliably.
-- [ ] Unit and integration tests cover normal and edge cases.
+- [x] Results match independently verified calculations within an acceptable tolerance.
+- [x] Invalid inputs are handled gracefully.
+- [x] Save/load and export functions work reliably.
+- [x] Unit and integration tests cover normal and edge cases.
 
 ## Status vs. this codebase
-- Existing tools (`src/app/tools/*`): **Fee Estimator**, **Cross-Border FX**
-  (remittance), **Matchmaker Quiz**. These are decision tools, not the financial
-  calculators listed above — none of SIP/SWP/EMI/CAGR/etc. exist yet.
-- The pure-math calculators are **buildable fully client-side** (no backend),
-  so this goal is green-capable. Pattern to follow:
-  `src/lib/fee-calculator.ts` + `fee-calculator-config.ts` + `fee-calculator.test.ts`.
-- Save/share: bookmarks are localStorage-only today; URL-share needs a route
-  that hydrates from query params (the compare tool already does `?companies=`).
+- Personal finance suite: `/tools/calculators` backed by
+  `src/lib/investment-calculators.ts` + `src/data/calculator-config.ts` with
+  unit tests in `src/lib/investment-calculators.test.ts`.
+- Save (localStorage), share-via-URL, and CSV export are implemented on the
+  personal finance suite. PDF export remains open.
+- Decision tools remain: Fee Estimator, Remittance, Matchmaker (share/save
+  parity for those tools is follow-up work).

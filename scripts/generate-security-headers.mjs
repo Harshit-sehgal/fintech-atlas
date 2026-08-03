@@ -26,17 +26,44 @@ for (const file of htmlFiles) {
   }
 }
 
+const analyticsDomain = (
+  process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN || ""
+).trim();
+
+// Newsletter provider form endpoint (Phase 3). When set, its origin must be
+// permitted for both connect-src (fetch POST) and form-action (native submit)
+// or the CSP will block the subscription request.
+const newsletterAction = (
+  process.env.NEXT_PUBLIC_NEWSLETTER_FORM_ACTION || ""
+).trim();
+let newsletterOrigin = "";
+if (newsletterAction) {
+  try {
+    newsletterOrigin = new URL(newsletterAction).origin;
+  } catch {
+    // Malformed action URL — leave CSP unchanged so a bad env value can't
+    // silently widen the policy; the fetch will fail loudly instead.
+  }
+}
+
+const scriptSrcExtras = analyticsDomain ? "https://plausible.io" : "";
+const connectSrcExtras = [
+  analyticsDomain ? "https://plausible.io" : "",
+  newsletterOrigin,
+].filter(Boolean).join(" ");
+const formActionExtras = newsletterOrigin || "";
+
 const csp = [
   "default-src 'self'",
   "base-uri 'self'",
   "object-src 'none'",
   "frame-ancestors 'none'",
-  `script-src 'self' ${[...hashes].sort().join(" ")}`,
+  `script-src 'self' ${[...hashes].sort().join(" ")}${scriptSrcExtras ? ` ${scriptSrcExtras}` : ""}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self' data:",
-  "connect-src 'self'",
-  "form-action 'self'",
+  `connect-src 'self'${connectSrcExtras ? ` ${connectSrcExtras}` : ""}`,
+  `form-action 'self'${formActionExtras ? ` ${formActionExtras}` : ""}`,
   "upgrade-insecure-requests",
 ].join("; ");
 
@@ -45,6 +72,7 @@ const headers = `# Generated from the static export by scripts/generate-security
 
 /*
   Content-Security-Policy: ${csp}
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()

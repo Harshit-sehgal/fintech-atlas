@@ -5,7 +5,7 @@
 **Objective:** Company profiles and market/fund data with search and statements.
 
 ## Requirements
-- [ ] Company profiles
+- [x] Company profiles
 - [ ] ETF data
 - [ ] Mutual fund data
 - [ ] Search

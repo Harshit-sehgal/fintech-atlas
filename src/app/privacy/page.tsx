@@ -28,9 +28,38 @@ export default function PrivacyPage() {
       effectiveDate={LEGAL_EFFECTIVE_DATE}
     >
       <section>
+        <h2 className="text-xl font-semibold text-[var(--foreground)]">Affiliate links and sponsored placements</h2>
+        <p className="mt-3">
+          Some outbound links on this site are affiliate links. If you follow one and make a
+          purchase or sign up, FinTech Atlas may earn a commission at no extra cost to you.
+          Sponsored placements, when present, are always labeled (for example with a
+          &ldquo;Featured partner&rdquo; badge). Affiliate and sponsored relationships are disclosed
+          to keep independent editorial content separate from commercial inventory. We do not collect
+          your data in connection with these links; the partner receives only the fact that a visitor
+          arrived from this site, according to their own privacy practices.
+        </p>
+        <p className="mt-3">
+          Where analytics is enabled (you can opt out at the site level), we may count outbound link
+          clicks to measure which resources are useful. This uses no cookies, no fingerprinting, and
+          no personal data — see &ldquo;Analytics&rdquo; below.
+        </p>
+      </section>
+
+      <section>
+        <h2 className="text-xl font-semibold text-[var(--foreground)]">Analytics</h2>
+        <p className="mt-3">
+          The site may use a privacy-friendly analytics service (for example, Plausible or Fathom)
+          that aggregates page views and outbound-click counts without cookies, fingerprinting, or
+          storing personal data. Analytics is disabled by default unless the site operator enables it,
+          and can be switched off by the visitor. We do not use advertising networks, tracking pixels,
+          or cross-site trackers.
+        </p>
+      </section>
+
+      <section>
         <h2 className="text-xl font-semibold text-[var(--foreground)]">What we collect</h2>
         <p className="mt-3">
-          The application does not provide accounts, ask for sensitive financial information, or operate a server-side database. It does not currently include advertising, analytics, tracking pixels, or a contact-submission backend.
+          The application does not provide accounts, ask for sensitive financial information, or operate a server-side database. It does not use advertising networks, tracking pixels, or a contact-submission backend.
         </p>
       </section>
 
@@ -51,7 +80,16 @@ export default function PrivacyPage() {
       <section>
         <h2 className="text-xl font-semibold text-[var(--foreground)]">Changes and contact</h2>
         <p className="mt-3">
-          This notice will be updated if the architecture changes—for example, if accounts, analytics, forms, or third-party services are introduced. Until a dedicated contact channel is published, security issues should be reported through the repository&apos;s private vulnerability-reporting mechanism described in <code className="text-[var(--foreground)]">SECURITY.md</code>.
+          This notice will be updated if the architecture changes—for example, if accounts, forms, or additional third-party services are introduced. Product feedback:{" "}
+          <a
+            href="https://github.com/Harshit-sehgal/fintech-atlas/issues/new/choose"
+            className="text-[var(--accent)] hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub Issues
+          </a>
+          . Security issues should be reported through the repository&apos;s private vulnerability-reporting mechanism described in <code className="text-[var(--foreground)]">SECURITY.md</code>.
         </p>
       </section>
 

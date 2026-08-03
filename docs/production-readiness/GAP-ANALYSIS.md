@@ -13,11 +13,11 @@
 | Capability | Where |
 |---|---|
 | Company directory (41 companies, 12 categories, 24-term glossary) | `src/data/*`, `/companies`, `/categories`, `/glossary` |
-| Interactive tools (fee estimator, FX remittance, matchmaker quiz) | `src/app/tools/*` |
+| Interactive tools (fee estimator, FX remittance, matchmaker quiz, personal finance calculators) | `src/app/tools/*` |
 | Local-only bookmarks + ⌘K command palette | `src/lib/bookmarks-context.tsx`, `command-palette.tsx` |
 | SEO (metadata, canonical, OG, JSON-LD, sitemap, robots) | `src/app/layout.tsx`, `src/components/SEO/*`, `scripts/generate-sitemap.mjs` |
 | Accessibility (skip links, focus ring, reduced-motion, contrast tokens) | `src/app/layout.tsx`, `globals.css`, `heading-hierarchy.test.ts` |
-| Automated tests (Vitest, 186 passing) | `src/__tests__/*`, `src/{lib,data}/**/*.test.ts` |
+| Automated tests (Vitest, 214 passing) | `src/__tests__/*`, `src/{lib,data}/**/*.test.ts` |
 | Static build + sitemap postbuild | `package.json`, `next.config.ts` |
 
 ---
@@ -27,7 +27,7 @@
 | # | Goal | Current state | Gap | Feasibility on static site |
 |---|---|---|---|---|
 | 01 | Identity & User Mgmt | None | Auth, sessions, 2FA, email | 🔴 Backend + identity provider required |
-| 02 | Financial Calculators | 3 decision tools | SIP/SWP/EMI/CAGR/retirement/FIRE/inflation/loan/net-worth/emergency + save/export/share | 🟡 Buildable client-side (JS) — no backend needed; shareable URLs need a codec/route |
+| 02 | Financial Calculators | Personal finance suite + 3 decision tools | PDF export; share/save parity on fee/remittance/matchmaker | 🟢 Mostly green on static site |
 | 03 | AI Assistant | None | Model API, chat, grounding, rate limiting | 🔴 Model service + API + safety layer |
 | 04 | Market Data | Static profiles only | Live ETF/fund/statement/ratio/dividend/earnings data, APIs | 🔴 Data feeds + refresh pipeline (or curated static pay-for-stale, which violates DoD's "stale clearly indicated") |
 | 05 | Portfolio Tracker | Bookmarks only | Persisted holdings/transactions, perf, benchmarks | 🔴 Persistence + backend |

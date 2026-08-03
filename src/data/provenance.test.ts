@@ -56,9 +56,12 @@ describe("company provenance", () => {
     ]);
   });
 
-  it("allows legacy source labels while migration is in progress", () => {
-    const legacy = companies.find((company) => !company.sourceReferences?.length);
-    expect(legacy).toBeDefined();
-    expect(validateCompanyProvenance(legacy!)).toEqual([]);
+  it("all companies carry structured provenance that validates", () => {
+    // The migration to structured `sourceReferences` is complete — every
+    // company must now have at least one source and pass validation.
+    for (const company of companies) {
+      expect(company.sourceReferences?.length ?? 0, company.slug).toBeGreaterThan(0);
+      expect(validateCompanyProvenance(company), company.slug).toEqual([]);
+    }
   });
 });

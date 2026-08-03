@@ -8,8 +8,7 @@ passwords, no accounts, and no server-side data; the attack surface is small.
 Please do **not** open a public issue for security problems. Report privately so
 issues can be triaged before disclosure.
 
-- **Email:** (maintainers to add)
-- **GitHub:** use the repository's "Report a vulnerability" (Security tab)
+- **GitHub private reporting:** https://github.com/Harshit-sehgal/fintech-atlas/security/advisories/new
 
 Include, if possible:
 

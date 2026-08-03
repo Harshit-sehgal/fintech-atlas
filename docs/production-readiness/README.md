@@ -6,6 +6,10 @@
 >
 > **Start here:** read the [Gap Analysis](GAP-ANALYSIS.md) first — it maps every
 > goal to the current static architecture and recommends a sequencing order.
+> For the full actionable inventory (product, data, CI, WIP, contradictions),
+> see [Issues & Gaps](ISSUES-AND-GAPS.md). Backend deferrals:
+> [ADR-001](../adr/001-defer-backend-capabilities.md).
+> Hosting notes: [deployment-providers.md](../deployment-providers.md).
 >
 > Track progress with the checkboxes below. Keep this folder under version
 > control so status changes are reviewable like any other code change. Mirror
@@ -31,7 +35,7 @@
 | 06 | [Personal Finance](goal-06-personal-finance.md) | 🔴 Requires account persistence | — |
 | 07 | [Search](goal-07-search.md) | 🟡 ⌘K palette exists; no typo-tolerance full search | Add search path |
 | 08 | [SEO](goal-08-seo.md) | 🟢 Largely implemented | Verify + harden |
-| 09 | [Security](goal-09-security.md) | 🟢/🟡 Static surface is small; host headers + audit remain | Measure & decide |
+| 09 | [Security](goal-09-security.md) | 🟢/🟡 Static surface; disclosure + generated headers present; host audit remains | Verify host + audit |
 | 10 | [Performance](goal-10-performance.md) | 🟢 Static export is naturally fast; budget CWV | Measure & budget |
 | 11 | [Observability](goal-11-observability.md) | 🟡 No analytics/monitoring (current: deliberate privacy choice) | Decide & add |
 | 12 | [Deployment](goal-12-deployment.md) | 🟡 Build + tests + CI + runbook; preview/provider drill remain | Finish host setup |

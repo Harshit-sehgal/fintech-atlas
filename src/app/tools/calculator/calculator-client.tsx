@@ -1,12 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { CompanyLogo } from "@/components/ui/company-logo";
+import { useToast } from "@/lib/toast-context";
+import {
+  downloadCsv,
+  encodeToolParams,
+  loadToolState,
+  readNumericParams,
+  saveToolState,
+  shareOrCopy,
+} from "@/lib/share";
 import {
   DEFAULT_MONTHLY_REVENUE,
   DEFAULT_AVG_ORDER_VALUE,
@@ -18,8 +27,24 @@ import {
   computeProviderCosts,
   FeeInputs,
 } from "@/lib/fee-calculator";
+import { PartnerCta } from "@/components/ui/partner-cta";
+
+type FeeState = {
+  monthlyRevenue: number;
+  avgOrderValue: number;
+  intlPercent: number;
+  inPersonPercent: number;
+};
+
+const FEE_KEYS = [
+  "monthlyRevenue",
+  "avgOrderValue",
+  "intlPercent",
+  "inPersonPercent",
+] as const;
 
 export default function FeeCalculatorPageClient() {
+  const { showToast } = useToast();
   const [monthlyRevenue, setMonthlyRevenue] =
     useState<number>(DEFAULT_MONTHLY_REVENUE);
   const [avgOrderValue, setAvgOrderValue] =
@@ -28,6 +53,25 @@ export default function FeeCalculatorPageClient() {
     useState<number>(DEFAULT_INTL_PERCENT);
   const [inPersonPercent, setInPersonPercent] =
     useState<number>(DEFAULT_IN_PERSON_PERCENT);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    const fromUrl = readNumericParams(window.location.search, "fee_", [...FEE_KEYS]);
+    const saved = loadToolState<FeeState>("fee_calculator");
+    const source = Object.keys(fromUrl).length > 0 ? fromUrl : saved;
+    // Defer to a macrotask so restore runs after paint and satisfies
+    // react-hooks/set-state-in-effect (client-only URL/localStorage hydrate).
+    const id = window.setTimeout(() => {
+      if (source) {
+        if (typeof source.monthlyRevenue === "number") setMonthlyRevenue(source.monthlyRevenue);
+        if (typeof source.avgOrderValue === "number") setAvgOrderValue(source.avgOrderValue);
+        if (typeof source.intlPercent === "number") setIntlPercent(source.intlPercent);
+        if (typeof source.inPersonPercent === "number") setInPersonPercent(source.inPersonPercent);
+      }
+      setHydrated(true);
+    }, 0);
+    return () => window.clearTimeout(id);
+  }, []);
 
   const inputs: FeeInputs = {
     monthlyRevenue,
@@ -40,6 +84,46 @@ export default function FeeCalculatorPageClient() {
   const comparableProviders = providers.filter((provider) => provider.pricingModel === "published-flat-rate");
   const lowestCost = comparableProviders[0] ?? providers[0];
   const maxCost = Math.max(...providers.map((provider) => provider.cost));
+
+  const currentState: FeeState = {
+    monthlyRevenue,
+    avgOrderValue,
+    intlPercent,
+    inPersonPercent,
+  };
+
+  const handleShare = async () => {
+    const params = encodeToolParams("fee_", currentState);
+    const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState(null, "", url);
+    const result = await shareOrCopy({
+      title: "Payment Gateway Fee Calculator — FinTech Atlas",
+      url,
+    });
+    if (result === "shared") showToast("Shared fee estimate link", "success");
+    else if (result === "copied") showToast("Fee estimate link copied", "success");
+    else showToast("Could not share or copy the link", "error");
+  };
+
+  const handleSave = () => {
+    const ok = saveToolState("fee_calculator", currentState);
+    showToast(
+      ok ? "Saved on this device" : "Could not save (storage blocked or full)",
+      ok ? "success" : "error",
+    );
+  };
+
+  const handleExportCsv = () => {
+    downloadCsv("fintech-atlas-fee-calculator.csv", [
+      ["Field", "Value"],
+      ["Monthly revenue", String(monthlyRevenue)],
+      ["Average order value", String(avgOrderValue)],
+      ["International %", String(intlPercent)],
+      ["In-person %", String(inPersonPercent)],
+      ...providers.map((p) => [p.name, String(Math.round(p.cost))]),
+    ]);
+    showToast("CSV downloaded", "success");
+  };
 
   return (
     <div className="relative mx-auto max-w-6xl px-5 py-20 md:py-28">
@@ -57,6 +141,18 @@ export default function FeeCalculatorPageClient() {
         title="Payment Gateway Fee Calculator"
         description="Adjust your monthly revenue, order size, and sales mix to estimate transaction fees across leading payment providers."
       />
+
+      <div className="mt-4 flex flex-wrap gap-2 print:hidden">
+        <button type="button" onClick={handleShare} className="btn-ghost text-xs px-3 py-1.5" disabled={!hydrated}>
+          Share link
+        </button>
+        <button type="button" onClick={handleSave} className="btn-ghost text-xs px-3 py-1.5" disabled={!hydrated}>
+          Save locally
+        </button>
+        <button type="button" onClick={handleExportCsv} className="btn-ghost text-xs px-3 py-1.5">
+          Export CSV
+        </button>
+      </div>
 
       <div className="mt-10 grid gap-8 lg:grid-cols-12">
         {/* Input Controls */}
@@ -238,6 +334,14 @@ export default function FeeCalculatorPageClient() {
                         />
                       </div>
                       <p className="text-[11px] text-[var(--muted-text)]">{p.note}</p>
+                      <div className="mt-2">
+                        <PartnerCta
+                          slug={p.slug}
+                          placement="fee-calculator"
+                          label={`Visit ${p.name}`}
+                          variant="compact"
+                        />
+                      </div>
                     </div>
                   );
                 })}

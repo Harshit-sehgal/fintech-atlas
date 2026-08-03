@@ -61,6 +61,10 @@ export default function TermsPage() {
           The site is provided on an “as is” and “as available” basis. We may correct content, change features, or remove pages without notice. Nothing in these terms limits rights that cannot lawfully be limited in your jurisdiction.
         </p>
       </section>
+
+      <p className="border-l-2 border-[var(--accent)] pl-4 text-xs">
+        This is an informational terms notice for the current static demo and should receive jurisdiction-specific legal review before production launch.
+      </p>
     </LegalPage>
   );
 }

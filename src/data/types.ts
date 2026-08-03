@@ -130,3 +130,49 @@ export interface GlossaryTerm {
   full?: string;
   related: string[];
 }
+
+/**
+ * Machine-readable capabilities used by the matchmaker so ANY company can be
+ * scored (audit #30). Quiz answers express capability requirements; a company
+ * scores when its capabilities satisfy them. Kept separate from the manual
+ * slug→points matrix so adding a company is safe and automatic.
+ */
+export interface CompanyCapabilities {
+  /** High-level problems/solutions the product addresses. */
+  useCases: string[];
+  /** Who it serves. */
+  customerTypes: string[];
+  /** How it is delivered / reached. */
+  channels: string[];
+  /** Differentiating product traits. */
+  features: string[];
+}
+
+/** Commercial relationship for outbound partner CTAs (affiliate / sponsored inventory). */
+export type PartnerRelationship = "affiliate" | "sponsored" | "none";
+
+/**
+ * Per-company monetization config, kept separate from editorial company records
+ * so ratings and narrative stay independent of commercial status.
+ */
+export interface PartnerOffer {
+  companySlug: string;
+  /**
+   * Outbound URL used by Partner CTAs.
+   * Use a real affiliate/partner URL once enrolled; otherwise the official site.
+   */
+  ctaUrl: string;
+  /** Button label, e.g. "Visit Stripe" or "Open Wise". */
+  ctaLabel: string;
+  relationship: PartnerRelationship;
+  /** When true, company may appear in Featured Partner inventory. */
+  sponsored?: boolean;
+  /** Badge copy when sponsored, e.g. "Featured partner". */
+  sponsoredLabel?: string;
+  /** Stable id for analytics / partner networks. */
+  trackingId?: string;
+  /** Sort weight for featured rails (lower = earlier). */
+  priority?: number;
+  /** Optional notes for operators (not shown in UI). */
+  notes?: string;
+}

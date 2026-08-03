@@ -13,6 +13,7 @@
  * downloads real marks for the brands we verified are available.
  */
 import { writeFileSync, mkdirSync, existsSync, readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -22,6 +23,55 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const LOGOS_DIR = join(__dirname, "..", "public", "logos");
 const SRC_DATA_DIR = join(__dirname, "..", "src", "data");
 const CDN = "https://cdn.simpleicons.org";
+
+/** Hard cap on a single downloaded SVG so a bad response can't bloat the repo. */
+const MAX_SVG_BYTES = 64 * 1024; // 64 KB
+/** Per-request timeout so a hung CDN doesn't stall the whole run. */
+const FETCH_TIMEOUT_MS = 10_000;
+/** Manifest of sha256 checksums for the sanitized SVG we last wrote. */
+const CHECKSUM_MANIFEST = join(LOGOS_DIR, "checksums.json");
+
+/** slug -> sha256 of the last written sanitized SVG (loaded from manifest). */
+const checksums: Record<string, string> = {};
+
+function loadChecksums(): void {
+  if (!existsSync(CHECKSUM_MANIFEST)) return;
+  try {
+    Object.assign(checksums, JSON.parse(readFileSync(CHECKSUM_MANIFEST, "utf8")));
+  } catch {
+    // A corrupt manifest is non-fatal; we simply rebuild it this run.
+  }
+}
+
+function saveChecksums(): void {
+  writeFileSync(CHECKSUM_MANIFEST, `${JSON.stringify(checksums, null, 2)}\n`);
+}
+
+function sha256(value: string): string {
+  return createHash("sha256").update(value).digest("hex");
+}
+
+/**
+ * Removes executable / external content from a downloaded SVG so we never ship
+ * a mark that could run scripts or reference external resources:
+ *  - strips any <script>...</script> blocks,
+ *  - strips event-handler attributes (onclick, onload, …),
+ *  - strips javascript: hrefs and external http(s) hrefs/xlink:hrefs while
+ *    preserving internal fragment references (e.g. url(#gradient)).
+ */
+function sanitizeSvg(svg: string): string {
+  let out = svg.replace(/<script[\s\S]*?<\/script>/gi, "");
+  out = out.replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "");
+  out = out.replace(
+    /\s(?:xlink:)?href\s*=\s*("javascript:[^"]*"|'javascript:[^']*')/gi,
+    ' href=""',
+  );
+  out = out.replace(
+    /\s(?:xlink:)?href\s*=\s*("[^#"][^"]*"|'[^#'][^']*')/gi,
+    ' href=""',
+  );
+  return out;
+}
 
 /** Relative luminance of a #rrggbb / #rgb color (0–1). */
 function luminance(hex: string): number {
@@ -98,22 +148,40 @@ ${entries.join(",\n")},
   writeFileSync(join(SRC_DATA_DIR, "logos-index.ts"), ts);
 }
 
-async function fetchOne(fintech: string, si: string): Promise<{ fintech: string; ok: boolean; bytes: number; reason?: string }> {
+async function fetchOne(
+  fintech: string,
+  si: string,
+): Promise<{ fintech: string; ok: boolean; bytes: number; reason?: string; changed?: boolean }> {
   const url = `${CDN}/${si}`;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   try {
-    const res = await fetch(url, { redirect: "follow" });
+    const res = await fetch(url, { redirect: "follow", signal: controller.signal });
     if (!res.ok) return { fintech, ok: false, bytes: 0, reason: `HTTP ${res.status}` };
-    const svg = await res.text();
-    if (!svg.trim().startsWith("<svg")) return { fintech, ok: false, bytes: 0, reason: "not an SVG" };
+    const raw = await res.text();
+    if (!raw.trim().startsWith("<svg")) return { fintech, ok: false, bytes: 0, reason: "not an SVG" };
+    if (Buffer.byteLength(raw) > MAX_SVG_BYTES) {
+      return { fintech, ok: false, bytes: 0, reason: `exceeds ${MAX_SVG_BYTES / 1024}KB cap` };
+    }
+    const svg = sanitizeSvg(raw);
+    const hash = sha256(svg);
+    // Fail when an icon we've already pinned changes (upstream moved/blinked),
+    // so the change is reviewed instead of silently landing.
+    const previous = checksums[fintech];
+    const changed = Boolean(previous && previous !== hash);
     writeFileSync(join(LOGOS_DIR, `${fintech}.svg`), svg);
-    return { fintech, ok: true, bytes: Buffer.byteLength(svg) };
+    checksums[fintech] = hash;
+    return { fintech, ok: true, bytes: Buffer.byteLength(svg), changed };
   } catch (err) {
     return { fintech, ok: false, bytes: 0, reason: String(err) };
+  } finally {
+    clearTimeout(timer);
   }
 }
 
 async function main() {
   if (!existsSync(LOGOS_DIR)) mkdirSync(LOGOS_DIR, { recursive: true });
+  loadChecksums();
 
   console.log(`\nFetching ${REAL_LOGO_SLUGS.length} official brand logos → public/logos/\n`);
 
@@ -127,19 +195,31 @@ async function main() {
       const { fintech, si } = REAL_LOGO_SLUGS[i];
       const r = await fetchOne(fintech, si);
       results.push(r);
-      console.log(`  ${r.ok ? "✓" : "✗"} ${fintech.padEnd(20)} ${r.ok ? `(${r.bytes}b)` : r.reason ?? ""}`);
+      const flag = r.changed ? "⚠  SHA CHANGE" : r.ok ? `(${r.bytes}b)` : (r.reason ?? "");
+      console.log(`  ${r.ok ? "✓" : "✗"} ${fintech.padEnd(20)} ${flag}`);
     }
   }
   await Promise.all(Array.from({ length: concurrency }, () => worker()));
 
   const ok = results.filter((r) => r.ok);
   const bad = results.filter((r) => !r.ok);
+  const changed = results.filter((r) => r.changed);
   writeAvailableLogosIndex(new Set(ok.map((r) => r.fintech)));
+  saveChecksums();
   console.log(`\nDone. ${ok.length}/${results.length} logos downloaded to public/logos/.`);
   console.log(`Wrote src/data/logos-index.ts (index of ${ok.length} real-logo brand tiles).`);
+  console.log(`Wrote checksum manifest: ${CHECKSUM_MANIFEST}`);
   if (bad.length) {
-    console.log(`Failed (${bad.length}): ${bad.map((b) => b.fintech).join(", ")}`);
-    console.log("These will use the inline-SVG fallback in CompanyLogo.");
+    console.log(`Skipped/failed (${bad.length}): ${bad.map((b) => b.fintech).join(", ")} (will use inline fallback)`);
+  }
+  if (changed.length) {
+    // Fail loudly so a silently-changed upstream icon is reviewed rather than
+    // landing in the repo unnoticed.
+    console.error(
+      `\n[error] Icon checksums changed for: ${changed.map((c) => c.fintech).join(", ")}.\n` +
+        `Upstream marks moved or changed. Review the diff, then re-run logos:fetch to pin the new checksums.`,
+    );
+    process.exit(1);
   }
   console.log("");
 }

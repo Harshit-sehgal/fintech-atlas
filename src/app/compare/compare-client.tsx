@@ -11,9 +11,10 @@ import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { useToast } from "@/lib/toast-context";
 import { animationPresets as animation } from "@/lib/animation";
 import { parseCompareSlugs } from "@/lib/compare";
-import { formatHeadquartersCity } from "@/lib/format-company";
+import { formatHeadquartersCity, formatValuationForStats } from "@/lib/format-company";
 
 import { PRESETS } from "@/data/compare-presets";
+import { PartnerCta } from "@/components/ui/partner-cta";
 
 function CompareContent() {
   const searchParams = useSearchParams();
@@ -68,7 +69,7 @@ function CompareContent() {
       { label: "Tagline", fn: (c: Company) => c.tagline },
       { label: "Founded & HQ", fn: (c: Company) => `${c.founded} — ${formatHeadquartersCity(c.headquarters)}` },
       { label: "Employees (reported)", fn: (c: Company) => c.employees },
-      { label: "Valuation / market value", fn: (c: Company) => c.valuation },
+      { label: "Valuation / market value", fn: (c: Company) => formatValuationForStats(c) },
       { label: "Pricing Model", fn: (c: Company) => c.pricing.model },
       { label: "Editorial sentiment", fn: (c: Company) => `${c.userReviews.rating} / 5.0` },
       { label: "Primary Advantage", fn: (c: Company) => c.strengths?.[0] ?? "None listed" },
@@ -220,6 +221,15 @@ function CompareContent() {
                                 <div className="font-bold text-base text-[var(--foreground)] truncate">{c.name}</div>
                                 <div className="text-[11px] font-normal text-[var(--muted-text)] truncate">
                                   {c.categories.join(", ")}
+                                </div>
+                                <div className="mt-1.5">
+                                  <PartnerCta
+                                    slug={c.slug}
+                                    placement="compare"
+                                    label={`Visit ${c.name}`}
+                                    variant="link"
+                                    className="text-[11px]"
+                                  />
                                 </div>
                               </div>
                             </div>

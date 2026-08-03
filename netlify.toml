@@ -1,0 +1,15 @@
+# Netlify deployment config — zero-config static hosting.
+# `npm run build` emits the self-contained static export to `out/`, and the
+# postbuild step generates `out/_headers` (CSP, HSTS, etc.) which Netlify
+# serves automatically. `out/404.html` is served for unknown routes with a 404.
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "20"
+  # Set SITE_URL to your production origin so the sitemap, canonical URLs, and
+  # JSON-LD point at the right domain. Override in the Netlify UI for prod.
+  SITE_URL = "https://fintech-atlas.example.com"
+
+# Netlify serves _headers from the publish dir; no custom [[headers]] needed.
