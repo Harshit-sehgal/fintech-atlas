@@ -1,6 +1,7 @@
 import { Company } from "./types";
+import { valuationAmountUsdBySlug } from "./financial-values";
 
-export const companies: Company[] = [
+const baseCompanies: Company[] = [
   {
     slug: "stripe",
     name: "Stripe",
@@ -1183,3 +1184,15 @@ export const companies: Company[] = [
     sources: ["Visa Annual Report 2023", "Finextra", "PYMNTS.com", "American Banker"],
   },
 ];
+
+/**
+ * Attach the structured numeric valuation (used for sorting) to each company,
+ * falling back to the curated table in financial-values.ts. Companies without a
+ * comparable valuation keep `valuationAmountUsd` undefined so the directory
+ * sorts them after companies with a known value.
+ */
+export const companies: Company[] = baseCompanies.map((company) => ({
+  ...company,
+  valuationAmountUsd:
+    company.valuationAmountUsd ?? valuationAmountUsdBySlug[company.slug],
+}));

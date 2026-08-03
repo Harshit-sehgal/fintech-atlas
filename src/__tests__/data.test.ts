@@ -97,6 +97,30 @@ describe("Data Integrity", () => {
       }
     });
 
+    it("stores a numeric valuation amount for every comparable valuation and none for subsidiaries", () => {
+      for (const c of companies) {
+        const display = c.valuation;
+        const looksComparable =
+          /^\$\s*[\d,.]+\s*(T|B|M)\b/i.test(display);
+        const isSubsidiary =
+          /N\/A|part of|Part of|Acquired by/i.test(display);
+
+        if (c.valuationAmountUsd !== undefined) {
+          expect(c.valuationAmountUsd).toBeGreaterThan(0);
+        }
+
+        // A clean numeric valuation must have a stored amount so the directory
+        // can sort by number rather than parsing display text (audit #37).
+        if (looksComparable) {
+          expect(c.valuationAmountUsd, `${c.slug} should store a numeric valuation`).toBeGreaterThan(0);
+        }
+        // Subsidiaries/products of a parent are intentionally not comparable.
+        if (isSubsidiary) {
+          expect(c.valuationAmountUsd, `${c.slug} is a subsidiary and should have no independent valuation`).toBeUndefined();
+        }
+      }
+    });
+
     it("every company references only valid category slugs", () => {
       const categorySlugs = new Set(categories.map((cat) => cat.slug));
       for (const c of companies) {

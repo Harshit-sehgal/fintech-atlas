@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { formatValuationShort, formatHeadquartersCity } from "./format-company";
+import { formatValuationShort, formatHeadquartersCity, getValuationAmountUsd } from "./format-company";
+import { getCompanyBySlug } from "@/data";
 
 describe("formatValuationShort", () => {
   it("returns the part before the first left-paren", () => {
@@ -30,5 +31,23 @@ describe("formatHeadquartersCity", () => {
 
   it("returns the whole string when there is no comma", () => {
     expect(formatHeadquartersCity("Singapore")).toBe("Singapore");
+  });
+});
+
+describe("getValuationAmountUsd", () => {
+  it("returns the structured numeric valuation for a company with one", () => {
+    const stripe = getCompanyBySlug("stripe");
+    expect(stripe).toBeDefined();
+    expect(getValuationAmountUsd(stripe!)).toBe(65_000_000_000);
+  });
+
+  it("returns null for a subsidiary/product without an own valuation", () => {
+    const venmo = getCompanyBySlug("venmo");
+    expect(venmo).toBeDefined();
+    expect(getValuationAmountUsd(venmo!)).toBeNull();
+  });
+
+  it("returns null for an unknown/missing company", () => {
+    expect(getValuationAmountUsd({} as never)).toBeNull();
   });
 });

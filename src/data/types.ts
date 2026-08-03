@@ -43,12 +43,16 @@ export type CompanyFinancialValue =
   | {
       type: "private-valuation";
       display: string;
+      /** Numeric amount in whole US dollars, used for sorting/comparison. */
+      amountUsd?: number;
       asOf?: string;
       sourceIds: string[];
     }
   | {
       type: "public-market-cap";
       display: string;
+      /** Numeric amount in whole US dollars, used for sorting/comparison. */
+      amountUsd?: number;
       asOf?: string;
       sourceIds: string[];
     }
@@ -91,6 +95,14 @@ export interface Company {
   weaknesses: string[];
   userReviews: CompanyUserReviews;
   sources: string[];
+  /**
+   * Structured numeric valuation (whole US dollars) used for numeric sorting.
+   * Kept separate from the human-readable `valuation` display string so the
+   * directory never has to parse display text at runtime (audit #37). Undefined
+   * when the company has no independently comparable valuation (e.g. a
+   * subsidiary/product of a parent), in which case it sorts after known values.
+   */
+  valuationAmountUsd?: number;
   /** Optional structured metadata for records migrated to the audited schema. */
   sourceReferences?: SourceReference[];
   employeesSourced?: SourcedValue<string>;

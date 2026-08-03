@@ -8,7 +8,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { useBookmarks } from "@/lib/bookmarks-context";
 import { useToast } from "@/lib/toast-context";
-import { formatValuationShort, formatHeadquartersCity } from "@/lib/format-company";
+import { formatValuationShort, formatHeadquartersCity, getValuationAmountUsd } from "@/lib/format-company";
 import { animationPresets as animation } from "@/lib/animation";
 
 type SortOption = "name" | "rating" | "valuation" | "founded";
@@ -34,14 +34,6 @@ export function CompaniesClient() {
     return counts;
   }, []);
 
-  const parseValuation = (valStr: string): number | null => {
-    const match = valStr.match(/\$\s*([\d,.]+)\s*(T|B|M)\b/i);
-    if (!match) return null;
-    const amount = Number(match[1].replaceAll(",", ""));
-    const multiplier = { T: 1_000_000, B: 1_000, M: 1 }[match[2].toUpperCase() as "T" | "B" | "M"];
-    return Number.isFinite(amount) ? amount * multiplier : null;
-  };
-
   // Create a map for O(1) category lookup by slug instead of using .find()
   const categoriesMap = useMemo(() => {
     const map = new Map<string, Category>();
@@ -52,10 +44,12 @@ export function CompaniesClient() {
   }, []);
 
   const filteredCompanies = useMemo(() => {
-    // Precompute valuation numbers once to avoid calling parseValuation twice per comparison in sort
+    // Precompute valuation numbers once to avoid repeated lookups when sorting.
+    // Valuation uses the structured numeric `valuationAmountUsd` (audit #37)
+    // rather than parsing the human-readable `valuation` display string.
     const companiesWithVal = companies.map(c => ({
       ...c,
-      valuationNum: parseValuation(c.valuation)
+      valuationNum: getValuationAmountUsd(c)
     }));
 
     // Filter and sort using precomputed values

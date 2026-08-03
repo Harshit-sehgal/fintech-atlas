@@ -6,6 +6,8 @@
  * source of truth handles all display transformations.
  */
 
+import type { Company } from "@/data/types";
+
 /**
  * Return the short form of a valuation string.
  *
@@ -14,6 +16,16 @@
  */
 export function formatValuationShort(valuation: string): string {
   return valuation.split("(")[0].trim();
+}
+
+/**
+ * Return the structured numeric valuation in US dollars for sorting, or `null`
+ * when the company has no comparable value (subsidiary / product / acquired
+ * unit). The directory sorts by this number instead of parsing the display
+ * string at runtime (audit #37).
+ */
+export function getValuationAmountUsd(company: Company): number | null {
+  return company.valuationAmountUsd ?? null;
 }
 
 /**

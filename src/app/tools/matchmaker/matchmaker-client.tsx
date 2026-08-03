@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
+import { useMemo, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -10,9 +10,10 @@ import { companies } from "@/data";
 import { getContrastingText } from "@/lib/color";
 import {
   computeMatchScores,
+  getScoreBreakdown,
   QuizState,
 } from "@/lib/matchmaker";
-import { QUESTIONS } from "@/data/matchmaker-config";
+import { QUESTIONS, type MatchmakerQuestion } from "@/data/matchmaker-config";
 
 export default function MatchmakerQuizPageClient() {
   const [step, setStep] = useState(1);
@@ -40,6 +41,23 @@ export default function MatchmakerQuizPageClient() {
   const results = topScore > 0
     ? scoredResults.slice(0, 3).map(({ company }) => company)
     : [];
+
+  // Human-readable question/option labels so the score breakdown can be
+  // surfaced as plain-language "why it matched" reasons (audit #31).
+  const questionMeta = useMemo(() => {
+    const byId = new Map<string, MatchmakerQuestion>(QUESTIONS.map((q) => [q.id, q]));
+    return {
+      title: (qId: string) => byId.get(qId)?.title ?? qId,
+      optionTitle: (qId: string, optionId: string) =>
+        byId.get(qId)?.options.find((o) => o.id === optionId)?.title ?? optionId,
+    };
+  }, []);
+
+  // Per-company score breakdown keyed by question; used to explain the
+  // shortlist instead of presenting it as a black box.
+  const scoreBreakdown = step > 4
+    ? getScoreBreakdown(quizState, companies)
+    : {};
 
 
   return (
@@ -137,44 +155,82 @@ export default function MatchmakerQuizPageClient() {
                       There is not enough evidence to rank companies from these answers. Try changing a preference for a more specific shortlist.
                     </div>
                   )}
-                  {results.map((c, idx) => (
-                    <div
-                      key={c.slug}
-                      style={{ ["--accent"]: c.accent } as CSSProperties}
-                      className="group flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-xl border border-[var(--border-color)] p-5 surface card-glow"
-                    >
-                      <div className="flex items-center gap-4">
-                        <span
-                          className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-bold"
-                          style={{ background: c.accent, color: getContrastingText(c.accent) }}
-                        >
-                          #{idx + 1}
-                        </span>
-                        <div className="group-hover:scale-105 transition-transform duration-300">
-                          <CompanyLogo slug={c.slug} name={c.name} size={48} />
-                        </div>
-                        <div>
-                          <h3 className="text-lg font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">{c.name}</h3>
-                          <p className="text-xs text-[var(--muted-text)]">{c.tagline}</p>
-                        </div>
-                      </div>
+                  {results.map((c, idx) => {
+                    const bd = scoreBreakdown[c.slug];
+                    const reasons = bd
+                      ? Object.entries(bd.breakdown)
+                          .filter(([, pts]) => pts > 0)
+                          .map(([qId, pts]) => ({
+                            key: qId,
+                            question: questionMeta.title(qId),
+                            option: questionMeta.optionTitle(
+                              qId,
+                              quizState[qId as keyof QuizState],
+                            ),
+                            points: pts,
+                          }))
+                      : [];
+                    return (
+                      <div
+                        key={c.slug}
+                        style={{ ["--accent"]: c.accent } as CSSProperties}
+                        className="group flex flex-col gap-4 rounded-xl border border-[var(--border-color)] p-5 surface card-glow"
+                      >
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full">
+                          <div className="flex items-center gap-4">
+                            <span
+                              className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-bold"
+                              style={{ background: c.accent, color: getContrastingText(c.accent) }}
+                            >
+                              #{idx + 1}
+                            </span>
+                            <div className="group-hover:scale-105 transition-transform duration-300">
+                              <CompanyLogo slug={c.slug} name={c.name} size={48} />
+                            </div>
+                            <div>
+                              <h3 className="text-lg font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">{c.name}</h3>
+                              <p className="text-xs text-[var(--muted-text)]">{c.tagline}</p>
+                            </div>
+                          </div>
 
-                      <div className="flex items-center gap-3">
-                        <Link
-                          href={`/companies/${c.slug}`}
-                          className="btn-primary text-xs"
-                        >
-                          View Profile →
-                        </Link>
-                        <Link
-                          href={`/compare?companies=${results.map((r) => r.slug).join(",")}`}
-                          className="btn-ghost text-xs"
-                        >
-                          Compare top {results.length > 1 ? results.length : ""} →
-                        </Link>
+                          <div className="flex items-center gap-3">
+                            <Link
+                              href={`/companies/${c.slug}`}
+                              className="btn-primary text-xs"
+                            >
+                              View Profile →
+                            </Link>
+                            <Link
+                              href={`/compare?companies=${results.map((r) => r.slug).join(",")}`}
+                              className="btn-ghost text-xs"
+                            >
+                              Compare top {results.length > 1 ? results.length : ""} →
+                            </Link>
+                          </div>
+                        </div>
+
+                        {reasons.length > 0 && (
+                          <div className="border-t border-[var(--border-color)] pt-3">
+                            <div className="text-[10px] font-mono uppercase tracking-wider text-[var(--muted-text)]">
+                              Why it matched · {bd!.score} pts
+                            </div>
+                            <div className="mt-2 flex flex-wrap gap-1.5">
+                              {reasons.map((r) => (
+                                <span
+                                  key={r.key}
+                                  title={r.question}
+                                  className="rounded-full border border-[var(--border-color)] bg-[var(--subtle-bg)] px-2.5 py-1 text-[11px] text-[var(--muted-text)]"
+                                >
+                                  <span className="font-medium text-[var(--foreground)]">{r.option}</span>
+                                  <span className="ml-1">+{r.points}</span>
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </motion.div>
