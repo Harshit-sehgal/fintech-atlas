@@ -38,6 +38,13 @@ export async function shareOrCopy(opts: {
   return ok ? "copied" : "failed";
 }
 
+/** Open the browser print dialog so the user can choose “Save as PDF”. */
+export function printToPdf(): boolean {
+  if (typeof window === "undefined" || typeof window.print !== "function") return false;
+  window.print();
+  return true;
+}
+
 /** Download a UTF-8 CSV file in the browser. */
 export function downloadCsv(filename: string, rows: string[][]): void {
   const escape = (cell: string) => {

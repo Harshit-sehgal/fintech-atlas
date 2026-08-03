@@ -27,6 +27,12 @@ describe("fuzzyRank", () => {
     expect(ranked[0]?.name).toBe("Stripe");
     expect(ranked.some((i) => i.name === "Adyen")).toBe(false);
   });
+
+  it("deduplicates repeated item references while preserving score order", () => {
+    const stripe = { name: "Stripe" };
+    const ranked = fuzzyRank([stripe, stripe, { name: "Square" }], "stripe", (i) => [i.name]);
+    expect(ranked).toEqual([stripe]);
+  });
 });
 
 describe("fuzzyMatchAny", () => {

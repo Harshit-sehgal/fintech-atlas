@@ -103,8 +103,8 @@ export interface Company {
    * subsidiary/product of a parent), in which case it sorts after known values.
    */
   valuationAmountUsd?: number;
-  /** Optional structured metadata for records migrated to the audited schema. */
-  sourceReferences?: SourceReference[];
+  /** Structured evidence required for every published catalog record. */
+  sourceReferences: SourceReference[];
   employeesSourced?: SourcedValue<string>;
   financialValue?: CompanyFinancialValue;
 }

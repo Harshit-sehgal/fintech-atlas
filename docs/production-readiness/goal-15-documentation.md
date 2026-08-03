@@ -1,6 +1,6 @@
 # Goal 15 — Documentation
 
-**Status:** 🟡 README + contribution, security, legal, and incident docs · **Action:** finish provider-specific operations docs
+**Status:** 🟡 README + contribution, security, legal, incident, feed, and offline docs · **Action:** finish provider-specific operations docs
 
 **Objective:** API docs, architecture, schema, deployment, contribution, incident runbook.
 
@@ -19,7 +19,9 @@
 
 ## Status vs. this codebase
 - The README is solid (setup, build, deploy, env vars, disclaimers). This
-  `docs/production-readiness/` folder adds goal checklists + gap analysis.
+  `docs/production-readiness/` folder adds goal checklists + gap analysis. The
+  generated RSS feed and static offline fallback are documented by the build
+  artifact checks.
 - `CONTRIBUTING.md`, `SECURITY.md`, the static `/privacy` and `/terms` pages,
   and [`docs/incident-runbook.md`](../incident-runbook.md) now document the
   current architecture and operational boundaries.

@@ -29,7 +29,7 @@ found **no committed secrets** (all matches were false positives: comments,
 content text, config definitions). No `.env*` files are committed
 (`.env.example` only), and `deploy.yml` uses environment-only `id-token`.
 
-### 3. Content-Security-Policy — PASS (verified live)
+### 3. Content-Security-Policy — PASS (artifact-verified; live host pending)
 `out/_headers` ships a strict CSP: `default-src 'self'`, hashed inline scripts,
 `object-src 'none'`, `frame-ancestors 'none'`, `base-uri 'self'`, `form-action
 'self'`. Verified that:
@@ -62,4 +62,6 @@ content text, config definitions). No `.env*` files are committed
 
 Security review performed on the static export, 2026-08-03. All production
 findings addressable in-code are resolved; residual items are professional or
-host-level and documented above.
+host-level and documented above. The generated artifact is checked by
+`npm run check:artifact`; run `DEPLOY_URL=... npm run check:deployment` after
+publishing to verify the real host applies these headers.

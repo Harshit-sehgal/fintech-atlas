@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import { companies, categories } from "@/data";
+import { companies, categories, glossary } from "@/data";
 import { DATA_AS_OF } from "@/lib/site-config";
 import { CountUp } from "@/components/ui/count-up";
 import { CompanyLogo } from "@/components/ui/company-logo";
@@ -15,10 +15,10 @@ import { formatValuationShort } from "@/lib/format-company";
  * goal is an editorial, human reference driven by live data.
  */
 const HERO_PROFILE_SLUGS = [
+  "razorpay",
   "stripe",
   "revolut",
-  "coinbase",
-  "klarna",
+  "phonepe",
   "wise",
   "robinhood",
 ];
@@ -58,7 +58,7 @@ export function HomeHero() {
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="mb-6 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]"
         >
-          FinTech Atlas · A plain-language field guide
+          FinTech Atlas · India payment decisions, compared
         </motion.p>
 
         <motion.h1
@@ -67,8 +67,8 @@ export function HomeHero() {
           transition={{ duration: 0.55, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
           className="text-balance text-4xl font-semibold leading-[1.08] tracking-tight text-[var(--foreground)] sm:text-5xl md:text-6xl"
         >
-          Understand the companies{" "}
-          <em className="font-serif italic text-[var(--accent)]">reshaping</em> finance
+          Compare payment gateways &{" "}
+          <em className="font-serif italic text-[var(--accent)]">international</em> payments for India
         </motion.h1>
 
         <motion.p
@@ -77,9 +77,9 @@ export function HomeHero() {
           transition={{ duration: 0.55, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           className="mx-auto mt-6 max-w-xl text-pretty text-base leading-relaxed text-[var(--muted-text)] sm:text-lg"
         >
-          What each of the {companies.length} companies here does, how they make
-          money, how they differ, and what the editorial evidence suggests. No
-          jargon without an explanation.
+          Calculate real fees, settlement amounts and provider differences
+          before choosing — {companies.length} company profiles, no jargon
+          without an explanation.
         </motion.p>
 
         <motion.div
@@ -88,8 +88,8 @@ export function HomeHero() {
           transition={{ duration: 0.55, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
           className="mt-9 flex flex-wrap items-center justify-center gap-3 text-sm"
         >
-          <Link href="/companies" className="btn-primary">Browse companies</Link>
-          <Link href="/compare" className="btn-ghost">Compare side-by-side</Link>
+          <Link href="/compare" className="btn-primary">Compare payment gateways</Link>
+          <Link href="/tools/calculator" className="btn-ghost">Calculate gateway fees</Link>
         </motion.div>
       </div>
 
@@ -104,7 +104,7 @@ export function HomeHero() {
           {[
             { value: companies.length, label: "Company profiles" },
             { value: categories.length, label: "Industry categories" },
-            { value: 24, label: "Glossary terms" },
+            { value: glossary.length, label: "Glossary terms" },
             { value: 0, label: "Data as of" },
           ].map(({ value, label }) => (
             <div key={label} className="px-3 py-6 text-center">

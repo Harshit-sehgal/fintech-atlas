@@ -2,7 +2,7 @@
 
 > Open gaps only (fixed items removed). Complements
 > [GAP-ANALYSIS.md](./GAP-ANALYSIS.md) and the per-goal checklists.
-> Last refreshed: **2026-08-03**.
+> Last refreshed: **2026-08-04**. Repository-level static-v1 work is current through the India-focus pass (fee calculator INR mode + GST, Razorpay vs Stripe article/preset, homepage repositioning) and PWA browser verification.
 
 **Architecture context:** fully static Next.js 16 export (`output: "export"`) —
 no server, database, auth, or live third-party data feeds.
@@ -57,9 +57,9 @@ Do not implement without revisiting [ADR-001](../adr/001-defer-backend-capabilit
 
 | Gap | Status |
 |-----|--------|
-| PDF export for calculators | Open |
-| Share / save / CSV parity on remittance + matchmaker | Open |
-| Typo-tolerant search beyond current fuzzy scoring | Ongoing polish |
+| PDF export for calculators | 🟢 Implemented via browser print dialog |
+| Share / save / CSV parity on remittance + matchmaker | 🟢 Implemented; verify in browser/E2E |
+| Typo-tolerant search beyond current fuzzy scoring | 🟢 Implemented for current static catalog; market-data scope deferred |
 | Stocks / ETFs / funds / articles search content | 🔴 Deferred with Goal 04/07 content |
 | Production `SITE_URL` set on real host | Operator action |
 | Indexability / CWV / structured-data verification on live URLs | Open |
@@ -78,10 +78,10 @@ Do not implement without revisiting [ADR-001](../adr/001-defer-backend-capabilit
 |----|-----|
 | A4–A5 | Partner / monetization helpers exist but are unused; all relationships `"none"` |
 | A6 | Waitlist endpoint stub — no UI until `NEXT_PUBLIC_WAITLIST_ENDPOINT` + product decision |
-| A10 | `docs/monetization/PARTNER-PLAYBOOK.md` missing |
+| A10 | Affiliate playbook exists; enrollment, legal review, and live-link verification remain operator tasks |
 | A11 | No i18n (`lang="en"` only) |
-| A12 | No RSS / changelog feed |
-| A13 | PWA: manifest only — no service worker / offline |
+| A12 | No changelog feed (RSS feed now covers published articles) |
+
 | A14 | `"private": true` vs MIT LICENSE intent |
 
 ---
@@ -90,12 +90,12 @@ Do not implement without revisiting [ADR-001](../adr/001-defer-backend-capabilit
 
 | ID | Gap |
 |----|-----|
-| D1–D3 | Provenance migration incomplete (legacy `sources` strings; no structured `sourceReferences` on catalog) |
-| D4 | Logos missing: `affirm`, `chime`, `plaid`, `sofi` |
-| D5–D7 | Manual FX / fee / `DATA_AS_OF` / editorial refresh |
+| D1–D3 | Structured provenance is present for all 41 companies; legacy labels still require source-by-source re-verification |
+| D4 | Logo asset coverage and branded fallback treatment still need an operator/content pass for any missing real marks |
+| D5–D7 | Manual FX / fee / `DATA_AS_OF` / editorial refresh; fee calculator now isolates USD/INR and applies configured India GST, but source freshness remains manual |
 | D8 | Possible editorial quality issues in company copy |
 | D9 | Illustrative fee/FX assumptions — freshness risk |
-| D10 | On-device notes still review-shaped UX |
+| D10 | On-device newsletter intent and private notes remain local-only UX by design |
 
 ---
 
@@ -105,14 +105,14 @@ Do not implement without revisiting [ADR-001](../adr/001-defer-backend-capabilit
 |----|-----|
 | W3–W4 | E2E + security/Lighthouse workflows present locally — merge to `origin/main` + enable GitHub settings |
 | W7 | Dual lockfiles resolved (npm only) — ensure `pnpm-*` stay deleted |
-| E1–E4 | No CD, previews, verified rollback/restore | 🟡 CD added (`.github/workflows/deploy.yml` → GitHub Pages); previews + verified rollback drill remain |
-| E7 | No structured-data validation in CI | 🟢 Done — `scripts/check-structured-data.mjs` runs in `postbuild`; 158 JSON-LD blocks validated |
+| E1–E4 | CD and artifact restore verification are implemented; hosted previews and provider-specific rollback drill remain |
+| E7 | No structured-data validation in CI | 🟢 Done — `scripts/check-structured-data.mjs` runs in `postbuild` and validates emitted JSON-LD |
 | E11 | Audit triage policy thin |
 | E15 | ESLint pinned to v9 until eslint-config-next supports 10 |
 | E17 | Secret scanning needs GitHub repo settings |
-| E18 | Incident runbook recovery checklist unchecked |
+| E18 | Incident runbook recovery checklist remains an operator execution checklist; executable artifact/deployment checks are now documented |
 | S5 | Glossary hash deep links are not separate sitemap URLs (by design for static anchors) |
-| S9–S10 | `next/image` unused; Framer Motion bundle budget watch |
+| S9–S10 | `next/image` remains unused (catalog marks are SVG/fallback); Framer Motion bundle budget watch |
 | S13 | Mirror high-priority gaps into GitHub Issues |
 
 ---
@@ -127,7 +127,17 @@ Do not implement without revisiting [ADR-001](../adr/001-defer-backend-capabilit
 
 ---
 
-## 8. How to maintain
+## 8. Local implementation boundary
+
+The repository-level implementation pass is complete for the currently chosen
+static architecture. The following remain intentionally open because they need
+operator access, external review, or a new architecture decision: production
+`SITE_URL` and host verification, GitHub settings, live CWV/indexability checks,
+manual keyboard/screen-reader audit, penetration testing, affiliate/newsletter
+provider enrollment, jurisdiction-specific legal review, rollback drills, and
+all backend-heavy goals listed in ADR-001.
+
+## 9. How to maintain
 
 - Delete rows when closed; do not keep a closed backlog here.
 - Backend ambitions require a new ADR superseding ADR-001.

@@ -11,6 +11,7 @@ import { useToast } from "@/lib/toast-context";
 import {
   downloadCsv,
   encodeToolParams,
+  printToPdf,
   loadToolState,
   readNumericParams,
   saveToolState,
@@ -21,11 +22,13 @@ import {
   DEFAULT_AVG_ORDER_VALUE,
   DEFAULT_INTL_PERCENT,
   DEFAULT_IN_PERSON_PERCENT,
+  DEFAULT_FEE_CURRENCY,
   PROVIDER_FEE_CONFIGS,
 } from "@/data/fee-calculator-config";
+import type { FeeCurrency } from "@/data/fee-calculator-config";
 import {
   computeProviderCosts,
-  FeeInputs,
+  type FeeInputs,
 } from "@/lib/fee-calculator";
 import { PartnerCta } from "@/components/ui/partner-cta";
 
@@ -34,6 +37,7 @@ type FeeState = {
   avgOrderValue: number;
   intlPercent: number;
   inPersonPercent: number;
+  currency: FeeCurrency;
 };
 
 const FEE_KEYS = [
@@ -42,6 +46,43 @@ const FEE_KEYS = [
   "intlPercent",
   "inPersonPercent",
 ] as const;
+
+function isValidFeeState(value: unknown): value is FeeState {
+  if (!value || typeof value !== "object") return false;
+  const state = value as Partial<FeeState>;
+  return (
+    typeof state.monthlyRevenue === "number" && Number.isFinite(state.monthlyRevenue) && state.monthlyRevenue >= 1_000 && state.monthlyRevenue <= 500_000 &&
+    typeof state.avgOrderValue === "number" && Number.isFinite(state.avgOrderValue) && state.avgOrderValue >= 5 && state.avgOrderValue <= 500 &&
+    typeof state.intlPercent === "number" && Number.isFinite(state.intlPercent) && state.intlPercent >= 0 && state.intlPercent <= 100 &&
+    typeof state.inPersonPercent === "number" && Number.isFinite(state.inPersonPercent) && state.inPersonPercent >= 0 && state.inPersonPercent <= 100 &&
+    (state.currency === "USD" || state.currency === "INR")
+  );
+}
+
+function readFeeCurrency(search: string, saved: unknown): FeeCurrency {
+  const fromUrl = new URLSearchParams(search).get("fee_currency");
+  if (fromUrl === "USD" || fromUrl === "INR") return fromUrl;
+  const savedCurrency = (saved as Partial<FeeState> | null)?.currency;
+  return savedCurrency === "USD" || savedCurrency === "INR"
+    ? savedCurrency
+    : DEFAULT_FEE_CURRENCY;
+}
+
+function readFeeState(search: string, saved: unknown): FeeState | null {
+  const currency = readFeeCurrency(search, saved);
+  const fromUrl = readNumericParams(search, "fee_", [...FEE_KEYS]);
+  const urlState = { ...fromUrl, currency } as Partial<FeeState>;
+  if (isValidFeeState(urlState)) return urlState;
+  if (!isValidFeeState(saved)) return null;
+  return { ...(saved as FeeState), currency };
+}
+
+/** Round to whole units and format in the active currency's grouping (₹ lakhs vs $ commas). */
+function formatFeeMoney(value: number, currency: FeeCurrency): string {
+  const symbol = currency === "INR" ? "₹" : "$";
+  const locale = currency === "INR" ? "en-IN" : "en-US";
+  return `${symbol}${Math.round(value).toLocaleString(locale)}`;
+}
 
 export default function FeeCalculatorPageClient() {
   const { showToast } = useToast();
@@ -53,12 +94,12 @@ export default function FeeCalculatorPageClient() {
     useState<number>(DEFAULT_INTL_PERCENT);
   const [inPersonPercent, setInPersonPercent] =
     useState<number>(DEFAULT_IN_PERSON_PERCENT);
+  const [currency, setCurrency] = useState<FeeCurrency>(DEFAULT_FEE_CURRENCY);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    const fromUrl = readNumericParams(window.location.search, "fee_", [...FEE_KEYS]);
-    const saved = loadToolState<FeeState>("fee_calculator");
-    const source = Object.keys(fromUrl).length > 0 ? fromUrl : saved;
+    const saved = loadToolState<unknown>("fee_calculator");
+    const source = readFeeState(window.location.search, saved);
     // Defer to a macrotask so restore runs after paint and satisfies
     // react-hooks/set-state-in-effect (client-only URL/localStorage hydrate).
     const id = window.setTimeout(() => {
@@ -68,6 +109,7 @@ export default function FeeCalculatorPageClient() {
         if (typeof source.intlPercent === "number") setIntlPercent(source.intlPercent);
         if (typeof source.inPersonPercent === "number") setInPersonPercent(source.inPersonPercent);
       }
+      setCurrency(readFeeCurrency(window.location.search, saved));
       setHydrated(true);
     }, 0);
     return () => window.clearTimeout(id);
@@ -78,9 +120,10 @@ export default function FeeCalculatorPageClient() {
     avgOrderValue,
     intlPercent,
     inPersonPercent,
+    currency,
   };
-
   const providers = computeProviderCosts(PROVIDER_FEE_CONFIGS, inputs);
+
   const comparableProviders = providers.filter((provider) => provider.pricingModel === "published-flat-rate");
   const lowestCost = comparableProviders[0] ?? providers[0];
   const maxCost = Math.max(...providers.map((provider) => provider.cost));
@@ -90,6 +133,7 @@ export default function FeeCalculatorPageClient() {
     avgOrderValue,
     intlPercent,
     inPersonPercent,
+    currency,
   };
 
   const handleShare = async () => {
@@ -113,14 +157,19 @@ export default function FeeCalculatorPageClient() {
     );
   };
 
+  const handlePrintPdf = () => {
+    if (printToPdf()) showToast("Print dialog opened — choose Save as PDF", "success");
+  };
+
   const handleExportCsv = () => {
     downloadCsv("fintech-atlas-fee-calculator.csv", [
       ["Field", "Value"],
+      ["Currency", currency],
       ["Monthly revenue", String(monthlyRevenue)],
       ["Average order value", String(avgOrderValue)],
       ["International %", String(intlPercent)],
       ["In-person %", String(inPersonPercent)],
-      ...providers.map((p) => [p.name, String(Math.round(p.cost))]),
+      ...providers.map((p) => [p.name, `${p.currency === "INR" ? "₹" : "$"}${String(Math.round(p.cost))}`]),
     ]);
     showToast("CSV downloaded", "success");
   };
@@ -152,6 +201,9 @@ export default function FeeCalculatorPageClient() {
         <button type="button" onClick={handleExportCsv} className="btn-ghost text-xs px-3 py-1.5">
           Export CSV
         </button>
+        <button type="button" onClick={handlePrintPdf} className="btn-ghost text-xs px-3 py-1.5">
+          Save as PDF
+        </button>
       </div>
 
       <div className="mt-10 grid gap-8 lg:grid-cols-12">
@@ -161,11 +213,42 @@ export default function FeeCalculatorPageClient() {
             Business Parameters
           </h2>
 
+          {/* Currency / Region toggle */}
+          <div>
+            <div className="flex justify-between text-sm mb-2">
+              <span className="font-medium text-[var(--muted-text)]" id="fee-currency-label">Currency / Region</span>
+            </div>
+            <div role="radiogroup" aria-labelledby="fee-currency-label" className="grid grid-cols-2 gap-2">
+              {(["USD", "INR"] as const).map((c) => {
+                const active = currency === c;
+                return (
+                  <button
+                    key={c}
+                    type="button"
+                    role="radio"
+                    aria-checked={active}
+                    onClick={() => setCurrency(c)}
+                    className={`rounded-lg border px-3 py-2 text-xs font-semibold transition-colors ${
+                      active
+                        ? "border-[var(--accent)] bg-[var(--accent)]/10 text-[var(--foreground)]"
+                        : "border-[var(--border-color)] text-[var(--muted-text)] hover:border-[var(--foreground)]"
+                    }`}
+                  >
+                    {c === "USD" ? "USD — US providers" : "INR — India providers"}
+                  </button>
+                );
+              })}
+            </div>
+            <p className="mt-2 text-[11px] leading-relaxed text-[var(--muted-text)]">
+              Amounts are in the selected currency. India schedules add the published 18% GST on top of the platform fee.
+            </p>
+          </div>
+
           {/* Monthly Revenue */}
           <div>
             <div className="flex justify-between text-sm mb-2">
               <label htmlFor="slider-monthly-revenue" className="font-medium text-[var(--muted-text)]">Monthly Processing Volume</label>
-              <span className="font-mono font-bold text-[var(--foreground)]">${monthlyRevenue.toLocaleString()}</span>
+              <span className="font-mono font-bold text-[var(--foreground)]">{formatFeeMoney(monthlyRevenue, currency)}</span>
             </div>
             <input
               id="slider-monthly-revenue"
@@ -178,9 +261,9 @@ export default function FeeCalculatorPageClient() {
               className="w-full accent-[var(--accent)] cursor-pointer"
             />
             <div className="flex justify-between text-[11px] text-[var(--muted-text)] mt-1 font-mono">
-              <span>$1k</span>
-              <span>$250k</span>
-              <span>$500k</span>
+              <span>{currency === "INR" ? "₹" : "$"}1k</span>
+              <span>{currency === "INR" ? "₹" : "$"}250k</span>
+              <span>{currency === "INR" ? "₹" : "$"}500k</span>
             </div>
           </div>
 
@@ -188,7 +271,7 @@ export default function FeeCalculatorPageClient() {
           <div>
             <div className="flex justify-between text-sm mb-2">
               <label htmlFor="slider-aov" className="font-medium text-[var(--muted-text)]">Average Order Value (AOV)</label>
-              <span className="font-mono font-bold text-[var(--foreground)]">${avgOrderValue}</span>
+              <span className="font-mono font-bold text-[var(--foreground)]">{formatFeeMoney(avgOrderValue, currency)}</span>
             </div>
             <input
               id="slider-aov"
@@ -201,9 +284,9 @@ export default function FeeCalculatorPageClient() {
               className="w-full accent-[var(--accent)] cursor-pointer"
             />
             <div className="flex justify-between text-[11px] text-[var(--muted-text)] mt-1 font-mono">
-              <span>$5 (Micropayments)</span>
-              <span>$50</span>
-              <span>$500</span>
+              <span>{currency === "INR" ? "₹" : "$"}5 (Micropayments)</span>
+              <span>{currency === "INR" ? "₹" : "$"}50</span>
+              <span>{currency === "INR" ? "₹" : "$"}500</span>
             </div>
           </div>
 
@@ -258,13 +341,13 @@ export default function FeeCalculatorPageClient() {
             <div className="flex justify-between text-[var(--muted-text)]">
               <span>Domestic Volume:</span>
               <span className="font-mono font-semibold text-[var(--foreground)]">{
-                (monthlyRevenue * (1 - intlPercent / 100)).toLocaleString()
+                formatFeeMoney(monthlyRevenue * (1 - intlPercent / 100), currency)
               }</span>
             </div>
             <div className="flex justify-between text-[var(--muted-text)]">
               <span>International Volume:</span>
               <span className="font-mono font-semibold text-[var(--foreground)]">{
-                (monthlyRevenue * (intlPercent / 100)).toLocaleString()
+                formatFeeMoney(monthlyRevenue * (intlPercent / 100), currency)
               }</span>
             </div>
           </div>
@@ -284,7 +367,7 @@ export default function FeeCalculatorPageClient() {
                 <div className="rounded-xl bg-[var(--success)]/10 border border-[var(--success)]/30 px-4 py-2 text-right">
                   <div className="text-xs text-success-text">Lowest Est. Monthly Cost</div>
                   <div className="text-xl font-bold font-mono text-success-text">
-                    ${Math.round(lowestCost.cost).toLocaleString()}
+                    {formatFeeMoney(lowestCost.cost, currency)}
                   </div>
                 </div>
               </div>
@@ -299,7 +382,7 @@ export default function FeeCalculatorPageClient() {
                   const barWidth = maxCost > 0 ? (p.cost / maxCost) * 100 : 0;
 
                   return (
-                    <div key={p.slug} className="space-y-1.5">
+                    <div key={`${p.currency}-${p.slug}`} className="space-y-1.5">
                       <div className="flex items-center justify-between text-sm">
                         <div className="flex items-center gap-2.5">
                           <CompanyLogo slug={p.slug} name={p.name} size={24} />
@@ -319,7 +402,7 @@ export default function FeeCalculatorPageClient() {
                         </div>
                         <div className="flex items-center gap-3 font-mono text-xs">
                           <span className="text-[var(--muted-text)]">Effective {effectiveRate}%</span>
-                          <span className="font-bold text-[var(--foreground)]">${Math.round(p.cost).toLocaleString()}/mo</span>
+                          <span className="font-bold text-[var(--foreground)]">{formatFeeMoney(p.cost, currency)}/mo</span>
                         </div>
                       </div>
 
@@ -351,7 +434,7 @@ export default function FeeCalculatorPageClient() {
 
           {/* Important context notice */}
           <div className="surface rounded-xl border border-[var(--border-color)] p-4 text-xs leading-relaxed text-[var(--muted-text)]">
-            <strong className="text-[var(--foreground)]">How to read this:</strong> Stripe, PayPal, and Square use the published flat-rate assumptions shown above. Adyen is a custom-contract provider represented by an illustrative blended estimate, so it is shown for context but not used for the comparable-rate recommendation. Actual pricing varies by region, payment method, volume, and contract; verify current terms before making a decision.
+            <strong className="text-[var(--foreground)]">How to read this:</strong> Stripe, PayPal, and Square use the published flat-rate assumptions shown above. Adyen is a custom-contract provider represented by an illustrative blended estimate, so it is shown for context but not used for the comparable-rate recommendation. In India mode, Razorpay and Stripe (India) use their published domestic rates with 18% GST added on top. Actual pricing varies by region, payment method, volume, and contract; verify current terms before making a decision.
           </div>
         </div>
       </div>

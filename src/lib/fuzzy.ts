@@ -65,12 +65,19 @@ export function fuzzyRank<T>(
   const q = query.trim();
   if (!q) return items;
 
+  const seen = new Set<T>();
   return items
-    .map((item) => ({
+    .map((item, index) => ({
       item,
+      index,
       score: Math.max(...fields(item).map((f) => fuzzyScore(f, q))),
     }))
     .filter((row) => row.score >= minScore)
-    .sort((a, b) => b.score - a.score)
+    .sort((a, b) => b.score - a.score || a.index - b.index)
+    .filter((row) => {
+      if (seen.has(row.item)) return false;
+      seen.add(row.item);
+      return true;
+    })
     .map((row) => row.item);
 }

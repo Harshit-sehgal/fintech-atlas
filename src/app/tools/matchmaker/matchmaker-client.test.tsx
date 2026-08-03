@@ -4,11 +4,16 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/vitest";
 import "@/test/mocks";
 import MatchmakerQuizPageClient from "./matchmaker-client";
+import { ToastProvider } from "@/lib/toast-context";
 
 describe("MatchmakerQuizPageClient (interaction)", () => {
   it("walks through the four questions and surfaces scored results with reasons", async () => {
     const user = userEvent.setup();
-    render(<MatchmakerQuizPageClient />);
+    render(
+      <ToastProvider>
+        <MatchmakerQuizPageClient />
+      </ToastProvider>,
+    );
 
     // Question 1 — user type
     await user.click(screen.getByRole("button", { name: /Online Business \/ SaaS/ }));
@@ -27,7 +32,11 @@ describe("MatchmakerQuizPageClient (interaction)", () => {
   });
 
   it("shows the educational-not-advice disclaimer", () => {
-    render(<MatchmakerQuizPageClient />);
+    render(
+      <ToastProvider>
+        <MatchmakerQuizPageClient />
+      </ToastProvider>,
+    );
     expect(
       screen.getByText(/educational recommendation, not financial or procurement advice/i),
     ).toBeInTheDocument();

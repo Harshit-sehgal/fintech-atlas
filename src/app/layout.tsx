@@ -9,9 +9,10 @@ import { BookmarksProvider } from "@/lib/bookmarks-context";
 import { ToastProvider } from "@/lib/toast-context";
 import StructuredDataLite from "@/components/SEO/StructuredDataLite";
 import { AnalyticsScript } from "@/components/SEO/AnalyticsScript";
-import { SITE_URL } from "@/lib/site-config";
+import { assetPath, SITE_URL } from "@/lib/site-config";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
 import { MotionConfig } from "framer-motion";
+import { ServiceWorkerRegister } from "@/components/ui/service-worker-register";
 
 // Apply the saved/system theme before the first paint using a same-origin
 // blocking asset. This keeps the static export compatible with a strict CSP.
@@ -53,20 +54,20 @@ export const metadata: Metadata = {
   icons: [
     {
       rel: "icon",
-      url: "/globe.svg",
+      url: assetPath("/globe.svg"),
     },
     {
       // iOS Safari requires a raster, square icon for home screens.
       rel: "apple-touch-icon",
-      url: "/apple-touch-icon.png",
+      url: assetPath("/apple-touch-icon.png"),
     },
     // PWA raster icons (declared in the web manifest); referenced here so the
     // public-asset integrity test confirms none are orphaned.
-    { rel: "icon", url: "/icon-192.png", sizes: "192x192", type: "image/png" },
-    { rel: "icon", url: "/icon-512.png", sizes: "512x512", type: "image/png" },
-    { rel: "icon", url: "/maskable-512.png", sizes: "512x512", type: "image/png" },
+    { rel: "icon", url: assetPath("/icon-192.png"), sizes: "192x192", type: "image/png" },
+    { rel: "icon", url: assetPath("/icon-512.png"), sizes: "512x512", type: "image/png" },
+    { rel: "icon", url: assetPath("/maskable-512.png"), sizes: "512x512", type: "image/png" },
   ],
-  manifest: "/manifest.json",
+  manifest: assetPath("/manifest.json"),
   robots: {
     index: true,
     follow: true,
@@ -95,11 +96,12 @@ export default function RootLayout({
       className="h-full antialiased"
     >
       <head>
-        <Script src="/theme-init.js" strategy="beforeInteractive" />
+        <Script src={assetPath("/theme-init.js")} strategy="beforeInteractive" />
         <AnalyticsScript />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--background)] text-[var(--foreground)]">
         <StructuredDataLite />
+        <ServiceWorkerRegister />
         <a
           href="#main-content"
           className="sr-only focus:fixed focus:w-auto focus:h-auto focus:[clip:auto] focus:m-0 focus:px-4 focus:py-2 focus:top-4 focus:left-4 focus:z-50 focus:rounded-lg focus:bg-[var(--accent)] focus:text-white focus:font-semibold focus:outline-none"

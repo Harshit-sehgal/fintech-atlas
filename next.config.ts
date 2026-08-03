@@ -4,6 +4,9 @@ const nextConfig: NextConfig = {
   // everything under public/, incl. public/logos/*.svg). Hosted as plain
   // static files (e.g. python -m http.server out).
   output: "export",
+  // GitHub Pages project sites build with NEXT_PUBLIC_BASE_PATH=/repo; root
+  // deployments leave it unset. Next applies this to internal links/assets.
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || "",
   // Keep Turbopack rooted at this app even when a parent directory contains
   // another package-lock.json. This makes builds deterministic in monorepos
   // and removes the workspace-root inference warning.

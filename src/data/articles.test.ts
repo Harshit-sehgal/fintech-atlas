@@ -1,8 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { articles } from "./articles";
+import { articles, getArticleBySlug } from "./articles";
 import { companies } from "./companies";
 
 describe("articles catalog", () => {
+  it("resolves known and unknown slugs", () => {
+    expect(getArticleBySlug(articles[0].slug)).toBe(articles[0]);
+    expect(getArticleBySlug("does-not-exist")).toBeUndefined();
+  });
+
   it("has unique slugs", () => {
     const slugs = articles.map((a) => a.slug);
     expect(new Set(slugs).size).toBe(slugs.length);

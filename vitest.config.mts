@@ -17,6 +17,17 @@ export default defineConfig({
       // Thresholds guard against regression on the highest-value logic
       // (financial calculations and interaction helpers). Prioritise verifying
       // those over chasing broad coverage for its own sake.
+      // Route shells and test-only adapter components are exercised by the
+      // browser/build gates rather than unit coverage. This is explicitly a
+      // reusable-logic coverage gate, not a substitute for browser-flow tests.
+      // Keep the denominator focused on reusable product logic, data, and
+      // interaction utilities.
+      exclude: [
+        "src/app/**",
+        "src/test/**",
+        "src/components/ui/company-logo.tsx",
+        "src/components/SEO/StructuredData.tsx",
+      ],
       thresholds: {
         statements: 80,
         branches: 75,

@@ -37,6 +37,17 @@ test.describe("critical flows", () => {
     await expect(page.getByText("Custom contract")).toBeVisible();
   });
 
+  test("calculator switches to India providers with GST", async ({ page }) => {
+    await page.goto("/tools/calculator/");
+    await page.getByRole("radio", { name: /INR — India providers/ }).click();
+    await expect(page.getByRole("link", { name: "Razorpay", exact: true })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Stripe (India)", exact: true })).toBeVisible();
+    // USD-only rows leave the list (the notice text still mentions them).
+    await expect(page.getByRole("link", { name: "PayPal", exact: true })).toHaveCount(0);
+    await expect(page.getByText(/18% GST/).first()).toBeVisible();
+    await expect(page.getByText("Lowest comparable estimate")).toHaveCount(1);
+  });
+
   test("command palette opens with Ctrl/Cmd+K", async ({ page }) => {
     await page.goto("/");
     await page.keyboard.press(process.platform === "darwin" ? "Meta+K" : "Control+K");

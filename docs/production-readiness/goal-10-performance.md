@@ -9,7 +9,7 @@
 - [ ] Image optimization
 - [ ] Lazy loading
 - [ ] Caching
-- [ ] Database indexing (N/A — no database; mark as such)
+- [x] Database indexing (N/A — no database)
 
 ## Definition of Done
 - [ ] LCP, INP, and CLS meet the target budgets on representative pages.
@@ -18,8 +18,10 @@
 
 ## Status vs. this codebase
 - Static HTML/CSS with no server round-trips and no DB is inherently fast and
-  cheap to scale; the TipTap/NoDB architecture keeps LCP/CLS trivial to hit.
-- Actionable: set explicit budgets, use responsive images +
-  `next/image`-style optimization where large assets appear (logos are SVGs
-  today), and confirm caching headers at the host. `framer-motion` + static
-  content is light; audit bundle size if INP is a concern.
+  cheap to scale; the static architecture keeps LCP/CLS straightforward to
+  measure. The postbuild JavaScript budget is currently enforced at 450 KB
+  compressed (see `scripts/check-performance-budget.mjs`).
+- Asset strategy: catalog marks are small SVGs or inline fallbacks, so `next/image`
+  is not currently a meaningful optimization. Confirm cache headers at the host,
+  measure LCP/INP/CLS on representative live URLs, and audit the Framer Motion
+  bundle if INP becomes a concern.

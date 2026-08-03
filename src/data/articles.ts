@@ -640,6 +640,97 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "razorpay-vs-stripe-payments-india",
+    title: "Razorpay vs Stripe (India): fees & platform differences",
+    description:
+      "Razorpay and Stripe India both charge a flat 2% on domestic payments plus 18% GST. A plain-language comparison of the two leading India gateways — fees, settlement, and who each best fits.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Payments",
+    relatedCompanySlugs: ["razorpay", "stripe"],
+    ctas: [
+      { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
+      { slug: "stripe", label: "Visit Stripe", placement: "compare-vs" },
+    ],
+    body: [
+      {
+        type: "p",
+        text: "For an India-registered business, the gateway decision almost always comes down to Razorpay vs Stripe. Both are self-serve platforms with published, flat-rate pricing — and since Stripe entered the Indian market, their headline numbers have converged: 2% on domestic payments, no fixed per-transaction fee. The differences are in the details: which payment methods each supports natively, settlement timelines, and developer experience. This guide compares them for the Indian market specifically.",
+      },
+      {
+        type: "h2",
+        text: "Fee structure at a glance",
+      },
+      {
+        type: "table",
+        headers: ["Factor", "Razorpay", "Stripe (India)"],
+        rows: [
+          [
+            "Pricing model",
+            "Published flat rate",
+            "Published flat rate (Standard)",
+          ],
+          [
+            "Domestic online rate",
+            "2% on all domestic instruments (cards, UPI, netbanking, wallets)",
+            "2% on India-issued cards",
+          ],
+          [
+            "International cards",
+            "Up to 3%",
+            "3% on cards issued outside India",
+          ],
+          [
+            "Fixed per-transaction fee",
+            "None",
+            "None",
+          ],
+          [
+            "GST",
+            "18% added on top of the platform fee",
+            "18% added on top of the platform fee",
+          ],
+          [
+            "Setup / AMC / refund fees",
+            "₹0",
+            "None",
+          ],
+          ["Best fit", "Indian startups & D2C with UPI-heavy checkouts", "Platforms, SaaS & global-first businesses"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Both rates are quoted exclusive of GST: an 18% GST on the platform fee takes the all-in domestic cost to 2.36%. Neither charges a fixed per-transaction fee on the standard plan, which keeps small-ticket UPI and card payments economical. Razorpay’s flat 2% also covers UPI and netbanking, while Stripe India prices cards specifically — so a UPI-heavy checkout can end up cheaper on Razorpay in practice.",
+      },
+      {
+        type: "h2",
+        text: "Key differences to weigh",
+      },
+      {
+        type: "ul",
+        items: [
+          "Settlement: Razorpay offers T+1 with instant settlement options; Stripe India standard payouts follow a similar T+1 cadence, so compare the fine print for your bank.",
+          "Payment methods: Razorpay was built for India — UPI, netbanking, and wallets are first-class; Stripe India focuses on card rails and international reach.",
+          "Global infrastructure: Stripe shines when you also sell internationally, with local acquiring and multi-currency payout rails.",
+          "Developer experience: both have strong APIs; Stripe’s docs are famously deep, while Razorpay’s local docs and support are tuned to Indian compliance.",
+          "Enterprise features: Stripe Billing, Connect, and marketplace payouts are mature; Razorpay’s Route and payment links cover most Indian use cases out of the box.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Run your own numbers",
+      },
+      {
+        type: "p",
+        text: "Your monthly fee depends on volume, average order value, and international mix — and GST changes the picture at every volume level. Use our free Payment Gateway Fee Calculator and switch to the INR — India providers view to compare Razorpay and Stripe (India) on your own numbers.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: rates above are published India schedules from the catalog vintage (Razorpay pricing page and Stripe India pricing), not quotes — verify current terms before deciding.",
+      },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {

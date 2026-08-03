@@ -11,6 +11,7 @@ describe("Fee Calculator Logic", () => {
     {
       slug: "stripe",
       name: "Stripe",
+      currency: "USD",
       pricingModel: "published-flat-rate",
       logo: "#635BFF",
       note: "Best for SaaS",
@@ -20,34 +21,34 @@ describe("Fee Calculator Logic", () => {
         intlSurcharge: 0.025,
         intlFixed: 0.3,
       },
-      inPerson: {
-        pct: 0.027,
-        fixed: 0.05,
-      },
+      inPerson: { pct: 0.027, fixed: 0.05 },
     },
     {
       slug: "adyen",
       name: "Adyen",
+      currency: "USD",
       pricingModel: "custom-contract",
       logo: "#0ABF53",
       note: "Blended",
-      online: {
-        domPct: 0,
-        domFixed: 0,
-        intlSurcharge: 0,
-        intlFixed: 0,
-      },
-      blended: {
-        pct: 0.0195,
-        fixed: 0.13,
-      },
+      online: { domPct: 0, domFixed: 0, intlSurcharge: 0, intlFixed: 0 },
+      blended: { pct: 0.0195, fixed: 0.13 },
+    },
+    {
+      slug: "razorpay",
+      name: "Razorpay",
+      currency: "INR",
+      gstPercent: 18,
+      pricingModel: "published-flat-rate",
+      logo: "#3395FF",
+      note: "India",
+      online: { domPct: 0.02, domFixed: 0, intlSurcharge: 0.01, intlFixed: 0 },
     },
   ];
 
   describe("transactionCount()", () => {
     it("returns rounded volume ÷ AOV", () => {
       expect(transactionCount(25000, 50)).toBe(500);
-      expect(transactionCount(10000, 33)).toBe(303); // 10000/33 = 303.03...
+      expect(transactionCount(10000, 33)).toBe(303);
       expect(transactionCount(1000, 1000)).toBe(1);
     });
 
@@ -63,136 +64,129 @@ describe("Fee Calculator Logic", () => {
       avgOrderValue: 50,
       intlPercent: 10,
       inPersonPercent: 20,
+      currency: "USD" as const,
     };
 
     it("calculates blended model correctly", () => {
-      const cost = computeProviderCost(mockConfigs[1], inputs); // Adyen blended
-      // Expected: 25000 * 0.0195 + 500 * 0.13 = 487.5 + 65 = 552.5
-      expect(cost).toBeCloseTo(552.5);
+      expect(computeProviderCost(mockConfigs[1], inputs)).toBeCloseTo(552.5);
     });
 
     it("calculates online+in-person model correctly", () => {
-      const cost = computeProviderCost(mockConfigs[0], inputs); // Stripe
-      // Breakdown: domestic online 630 + international online 120 + in-person 140.
-      expect(cost).toBeCloseTo(890.0);
+      expect(computeProviderCost(mockConfigs[0], inputs)).toBeCloseTo(890.0);
     });
 
-    // Exact-value scenario tests (regression guard: the fixed fee must NOT be
-    // double-counted as domFixed + intlFixed on international transactions).
-    // Stripe: domPct 2.9% + domFixed $0.30 | intlSurcharge +2.5% | intlFixed $0.30
+    it("rejects a direct cross-currency calculation", () => {
+      expect(() => computeProviderCost(mockConfigs[2], inputs)).toThrow(/Cannot calculate a INR provider with USD inputs/);
+    });
+
+    it("applies GST on top of an India platform fee", () => {
+      const cost = computeProviderCost(mockConfigs[2], {
+        monthlyRevenue: 100,
+        avgOrderValue: 100,
+        intlPercent: 0,
+        inPersonPercent: 0,
+        currency: "INR",
+      });
+      expect(cost).toBeCloseTo(2.36);
+    });
+
     describe("exact international fixed-fee semantics", () => {
-      it("calculates a fully international online transaction (no double-count)", () => {
-        const cost = computeProviderCost(mockConfigs[0], {
+      it("calculates a fully international online transaction without double-counting", () => {
+        expect(computeProviderCost(mockConfigs[0], {
           monthlyRevenue: 100,
-          avgOrderValue: 100, // 1 transaction
+          avgOrderValue: 100,
           intlPercent: 100,
           inPersonPercent: 0,
-        });
-        // 100 * (0.029 + 0.025) + 1 * 0.30 = 5.40 + 0.30 = 5.70
-        expect(cost).toBeCloseTo(5.70);
+          currency: "USD",
+        })).toBeCloseTo(5.70);
       });
 
       it("calculates a fully domestic online transaction", () => {
-        const cost = computeProviderCost(mockConfigs[0], {
+        expect(computeProviderCost(mockConfigs[0], {
           monthlyRevenue: 100,
           avgOrderValue: 100,
           intlPercent: 0,
           inPersonPercent: 0,
-        });
-        // 100 * 0.029 + 1 * 0.30 = 2.90 + 0.30 = 3.20
-        expect(cost).toBeCloseTo(3.20);
+          currency: "USD",
+        })).toBeCloseTo(3.20);
       });
 
       it("calculates a fully in-person transaction", () => {
-        const cost = computeProviderCost(mockConfigs[0], {
+        expect(computeProviderCost(mockConfigs[0], {
           monthlyRevenue: 100,
           avgOrderValue: 100,
           intlPercent: 0,
           inPersonPercent: 100,
-        });
-        // 100 * 0.027 + 1 * 0.05 = 2.70 + 0.05 = 2.75
-        expect(cost).toBeCloseTo(2.75);
+          currency: "USD",
+        })).toBeCloseTo(2.75);
       });
 
       it("handles zero revenue", () => {
-        const cost = computeProviderCost(mockConfigs[0], {
+        expect(computeProviderCost(mockConfigs[0], {
           monthlyRevenue: 0,
           avgOrderValue: 50,
           intlPercent: 100,
           inPersonPercent: 0,
-        });
-        expect(cost).toBe(0);
+          currency: "USD",
+        })).toBe(0);
       });
 
       it("handles a very low average order value", () => {
-        const cost = computeProviderCost(mockConfigs[0], {
+        expect(computeProviderCost(mockConfigs[0], {
           monthlyRevenue: 100,
-          avgOrderValue: 1, // 100 transactions
+          avgOrderValue: 1,
           intlPercent: 100,
           inPersonPercent: 0,
-        });
-        // 100 * 0.054 + 100 * 0.30 = 5.40 + 30.00 = 35.40
-        expect(cost).toBeCloseTo(35.40);
+          currency: "USD",
+        })).toBeCloseTo(35.40);
       });
     });
 
-    it("ignores inPerson when inPersonPercent is 0", () => {
+    it("changes when in-person share changes", () => {
       const noInPerson = { ...inputs, inPersonPercent: 0 };
       const withInPerson = { ...inputs, inPersonPercent: 20 };
-      const costNoInPerson = computeProviderCost(mockConfigs[0], noInPerson);
-      const costWithInPerson = computeProviderCost(mockConfigs[0], withInPerson);
-
-      // With 20% in-person, cost should be different (usually lower due to different rates)
-      expect(costNoInPerson).not.toBeCloseTo(costWithInPerson);
+      expect(computeProviderCost(mockConfigs[0], noInPerson)).not.toBeCloseTo(
+        computeProviderCost(mockConfigs[0], withInPerson),
+      );
     });
   });
 
   describe("computeProviderCosts()", () => {
-    const inputs = {
-      monthlyRevenue: 10000,
-      avgOrderValue: 100,
-      intlPercent: 0,
-      inPersonPercent: 0,
-    };
-
-    it("sorts providers by cost ascending", () => {
-      // For simplicity, let's make Adyen much cheaper than Stripe in this scenario
-      const cheapBlended: ProviderFeeConfig = {
-        slug: "cheap",
-        name: "Cheap",
+    it("filters to the selected currency and sorts by cost", () => {
+      const cheapUsd: ProviderFeeConfig = {
+        slug: "cheap-usd",
+        name: "Cheap USD",
+        currency: "USD",
         pricingModel: "estimated",
         logo: "#000000",
         note: "Cheap",
-        online: {
-          domPct: 0,
-          domFixed: 0,
-          intlSurcharge: 0,
-          intlFixed: 0,
-        },
-        blended: {
-          pct: 0.01, // 1%
-          fixed: 0.05,
-        },
+        online: { domPct: 0, domFixed: 0, intlSurcharge: 0, intlFixed: 0 },
+        blended: { pct: 0.01, fixed: 0.05 },
       };
-
-      const expensive: ProviderFeeConfig = {
-        slug: "expensive",
-        name: "Expensive",
+      const expensiveUsd: ProviderFeeConfig = {
+        slug: "expensive-usd",
+        name: "Expensive USD",
+        currency: "USD",
         pricingModel: "published-flat-rate",
         logo: "#000000",
         note: "Expensive",
-        online: {
-          domPct: 0.1, // 10%
-          domFixed: 1.0,
-          intlSurcharge: 0,
-          intlFixed: 0,
-        },
+        online: { domPct: 0.1, domFixed: 1, intlSurcharge: 0, intlFixed: 0 },
         inPerson: { pct: 0, fixed: 0 },
       };
 
-      const costs = computeProviderCosts([expensive, cheapBlended], inputs);
-      expect(costs[0].slug).toBe("cheap"); // Should be first (cheapest)
-      expect(costs[1].slug).toBe("expensive"); // Should be second
+      const costs = computeProviderCosts(
+        [...mockConfigs, expensiveUsd, cheapUsd],
+        {
+          monthlyRevenue: 10000,
+          avgOrderValue: 100,
+          intlPercent: 0,
+          inPersonPercent: 0,
+          currency: "USD",
+        },
+      );
+      expect(costs.every((provider) => provider.currency === "USD")).toBe(true);
+      expect(costs[0].slug).toBe("cheap-usd");
+      expect(costs.at(-1)?.slug).toBe("expensive-usd");
     });
   });
 });

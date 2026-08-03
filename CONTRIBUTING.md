@@ -34,6 +34,8 @@ missing or is the `example.com` placeholder. Set `SITE_URL` (or
 **Optional env vars** (see `.env.example`):
 - `NEXT_PUBLIC_ANALYTICS_DOMAIN` — cookieless Plausible-compatible analytics
 - `NEXT_PUBLIC_WAITLIST_ENDPOINT` — third-party waitlist form endpoint
+- `NEXT_PUBLIC_NEWSLETTER_FORM_ACTION` — optional newsletter provider endpoint
+- `NEXT_PUBLIC_BASE_PATH` — optional GitHub Pages project-site prefix
 
 ## Making a change
 

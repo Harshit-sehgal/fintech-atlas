@@ -30,12 +30,18 @@ jobs:
       - run: npm ci
       - name: Build static export
         # Set SITE_URL to your Pages URL (or override it for a custom domain).
-        run: SITE_URL=https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }} npm run build
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        env:
+          SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+        run: npm run build
+      - name: Archive deploy artifact for rollback
+        uses: actions/upload-artifact@v4
         with:
+          name: fintech-atlas-deploy-${{ github.sha }}
           path: out
-
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 30
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -43,6 +49,29 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Download verified deploy artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: fintech-atlas-deploy-${{ github.sha }}
+          path: out
+      - name: Prepare Pages artifact from verified export
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # Optional live verification. Set DEPLOY_URL in repository/environment
+  # variables only after a real HTTPS origin is available. The job is skipped
+  # when unset so a placeholder cannot create false confidence.
+  verify-live:
+    needs: deploy
+    if: ${{ vars.DEPLOY_URL != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: DEPLOY_URL='${{ vars.DEPLOY_URL }}' npm run check:deployment

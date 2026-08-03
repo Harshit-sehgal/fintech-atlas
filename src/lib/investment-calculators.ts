@@ -57,7 +57,7 @@ export interface SwpResult {
   totalWithdrawn: number | null;
   /** Months until the corpus is exhausted, or null if it never runs out. */
   monthsUntilDepleted: number | null;
-  /** Human-readable lifetime (e.g. "24.3 years") or "indefinitely". */
+  /** Human-readable lifetime (e.g. "24.3 years") or an assumption-qualified indefinite label. */
   lifetimeLabel: string;
 }
 
@@ -76,7 +76,11 @@ export function computeSwp(
   const i = monthlyRate(annualReturnPercent);
 
   if (i > 0 && monthlyWithdrawal <= corpus * i) {
-    return { totalWithdrawn: null, monthsUntilDepleted: null, lifetimeLabel: "Indefinitely (withdrawals below expected return)" };
+    return {
+      totalWithdrawn: null,
+      monthsUntilDepleted: null,
+      lifetimeLabel: "Indefinite under this fixed-return assumption",
+    };
   }
 
   const months =
@@ -165,7 +169,9 @@ export function computeRetirement(
   annualInflationPercent: number,
   yearsToRetirement: number,
   retirementYears: number,
-  annualReturnPercent: number,
+  accumulationReturnPercent: number,
+  retirementReturnPercent = accumulationReturnPercent,
+  currentSavings = 0,
 ): RetirementResult | null {
   if (currentMonthlyExpense <= 0 || yearsToRetirement < 0 || retirementYears <= 0) return null;
 
@@ -175,14 +181,19 @@ export function computeRetirement(
   const realReturnPercent =
     annualInflationPercent >= 100
       ? 0
-      : ((1 + annualReturnPercent / 100) / (1 + annualInflationPercent / 100) - 1) * 100;
+      : ((1 + retirementReturnPercent / 100) / (1 + annualInflationPercent / 100) - 1) * 100;
   const real = realReturnPercent / 100;
 
   const corpusNeeded = real > 0
     ? annualExpenseAtRetirement * ((1 - Math.pow(1 + real, -retirementYears)) / real)
     : annualExpenseAtRetirement * retirementYears;
 
-  const contribution = requiredSip(corpusNeeded, annualReturnPercent, yearsToRetirement);
+  const contribution = requiredSip(
+    corpusNeeded,
+    accumulationReturnPercent,
+    yearsToRetirement,
+    currentSavings,
+  );
   return {
     annualExpenseAtRetirement,
     corpusNeeded,
@@ -191,18 +202,25 @@ export function computeRetirement(
   };
 }
 
-/** Monthly contribution (start-of-month SIP) needed to reach a target corpus. */
+/**
+ * Monthly contribution (start-of-month SIP) needed to reach a target corpus,
+ * after allowing for an optional existing lump-sum balance.
+ */
 export function requiredSip(
   targetCorpus: number,
   annualReturnPercent: number,
   years: number,
+  currentSavings = 0,
 ): number {
   if (targetCorpus <= 0) return 0;
-  if (years <= 0) return targetCorpus;
+  if (years <= 0) return Math.max(0, targetCorpus - clampNonNegative(currentSavings));
   const months = Math.round(years * 12);
   const i = monthlyRate(annualReturnPercent);
-  if (i <= 0) return targetCorpus / months;
-  return targetCorpus / (((Math.pow(1 + i, months) - 1) / i) * (1 + i));
+  const existing = clampNonNegative(currentSavings) * Math.pow(1 + i, months);
+  const remaining = Math.max(0, targetCorpus - existing);
+  if (remaining === 0) return 0;
+  if (i <= 0) return remaining / months;
+  return remaining / (((Math.pow(1 + i, months) - 1) / i) * (1 + i));
 }
 
 export interface FireResult {
@@ -218,7 +236,8 @@ export interface FireResult {
  * FIRE (Financial Independence, Retire Early) number and time-to-FI.
  *
  *   FIRE number = annual expenses / safe withdrawal rate
- *   Years to FI  = ln((T + C/i) / (A + C/i)) / ln(1+i)
+ *   Months to FI = ln((T + C/i) / (A + C/i)) / ln(1+i)
+ *   Years to FI  = Months to FI / 12
  */
 export function computeFire(
   annualExpenses: number,
@@ -237,11 +256,11 @@ export function computeFire(
   let alreadyReached = assets >= fireNumber;
   if (!alreadyReached && fireNumber > assets) {
     if (i > 0 && contribution > 0) {
-      yearsToFi = Math.log((fireNumber + contribution / i) / (assets + contribution / i)) / Math.log(1 + i);
+      yearsToFi = Math.log((fireNumber + contribution / i) / (assets + contribution / i)) / Math.log(1 + i) / 12;
     } else if (i > 0 && contribution === 0) {
-      yearsToFi = assets > 0 ? Math.log(fireNumber / assets) / Math.log(1 + i) : Infinity;
+      yearsToFi = assets > 0 ? Math.log(fireNumber / assets) / Math.log(1 + i) / 12 : Infinity;
     } else if (contribution > 0) {
-      yearsToFi = (fireNumber - assets) / contribution;
+      yearsToFi = (fireNumber - assets) / (contribution * 12);
     } else {
       yearsToFi = Infinity;
     }

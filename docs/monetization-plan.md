@@ -27,7 +27,7 @@ to keep editorial content independent and commercial inventory loudly disclosed.
 - [x] Migrate all 41 companies from legacy `sources: string[]` to structured
       `sourceReferences[]` with `publisher`, `accessedAt`, `effectiveAt`,
       `sourceType`, and `supports`. **Coverage: 41/41 (100%).** Track with
-      `scripts/check-provenance.mjs` (`npm run check:provenance`).
+      `scripts/check-provenance.ts` (`npm run check:provenance`).
 - [ ] **Re-verify** each migrated reference (currently official-site + aggregator
       labels structured from the legacy `sources`); add fresh $/fee/employee/valuation
       figures with `effectiveAt` as they are re-checked.

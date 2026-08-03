@@ -28,19 +28,19 @@
 | # | Goal | Status summary | Checklist |
 |---|---|---|---|
 | 01 | [Identity & User Management](goal-01-identity-user-management.md) | 🔴 Static site has no accounts | Per-user state only (bookmarks) |
-| 02 | [Financial Calculator Platform](goal-02-financial-calculator-platform.md) | 🟡 3 tools exist; spec's calculators mostly absent | Extend tools |
+| 02 | [Financial Calculator Platform](goal-02-financial-calculator-platform.md) | 🟢 Core calculators + save/share/CSV/print-to-PDF parity | Maintain and verify |
 | 03 | [AI Financial Assistant](goal-03-ai-financial-assistant.md) | 🔴 Requires model service + API | Grounding/refusal to design |
 | 04 | [Market Data Platform](goal-04-market-data-platform.md) | 🟡 Static company profiles; no live market data | Data build + refresh |
 | 05 | [Portfolio Tracker](goal-05-portfolio-tracker.md) | 🔴 Requires account persistence | — |
 | 06 | [Personal Finance](goal-06-personal-finance.md) | 🔴 Requires account persistence | — |
-| 07 | [Search](goal-07-search.md) | 🟡 ⌘K palette exists; no typo-tolerance full search | Add search path |
+| 07 | [Search](goal-07-search.md) | 🟢 Client-side catalog search with fuzzy ranking | Market-data search deferred |
 | 08 | [SEO](goal-08-seo.md) | 🟢 Largely implemented | Verify + harden |
 | 09 | [Security](goal-09-security.md) | 🟢/🟡 Static surface; disclosure + generated headers present; host audit remains | Verify host + audit |
 | 10 | [Performance](goal-10-performance.md) | 🟢 Static export is naturally fast; budget CWV | Measure & budget |
 | 11 | [Observability](goal-11-observability.md) | 🟡 No analytics/monitoring (current: deliberate privacy choice) | Decide & add |
 | 12 | [Deployment](goal-12-deployment.md) | 🟡 Build + tests + CI + runbook; preview/provider drill remain | Finish host setup |
 | 13 | [Product Analytics](goal-13-product-analytics.md) | 🟡 No tracking by design (`README`) | Decide & add |
-| 14 | [Accessibility](goal-14-accessibility.md) | 🟢 Largely implemented | Add automated scan |
+| 14 | [Accessibility](goal-14-accessibility.md) | 🟢 Automated gate + code-level review | Manual audit remains |
 | 15 | [Documentation](goal-15-documentation.md) | 🟡 README + contribution, legal, security, and incident docs | Finish provider/legal review |
 
 ## Release Criteria (Production Ready)

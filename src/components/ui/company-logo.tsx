@@ -15,6 +15,7 @@
  */
 
 import { REAL_LOGOS } from "@/data/logos-index";
+import { assetPath } from "@/lib/site-config";
 
 export type Logo = { color: string; bg?: string; svg: string };
 
@@ -703,7 +704,7 @@ export function CompanyLogo({
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={`/logos/${slug}.svg`}
+          src={assetPath(`/logos/${slug}.svg`)}
           alt=""
           aria-hidden="true"
           width={size - pad * 2}

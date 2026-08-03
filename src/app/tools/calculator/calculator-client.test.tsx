@@ -48,4 +48,15 @@ describe("FeeCalculatorPageClient (interaction)", () => {
     expect(notice).toHaveTextContent(/Adyen is a custom-contract provider/);
     expect(notice).toHaveTextContent(/not used for the comparable-rate recommendation/);
   });
+
+  it("switches to India providers and rupee formatting", () => {
+    renderFeeCalculator();
+    fireEvent.click(screen.getByRole("radio", { name: /INR — India providers/i }));
+
+    expect(screen.getByText("Razorpay")).toBeInTheDocument();
+    expect(screen.getByText("Stripe (India)")).toBeInTheDocument();
+    expect(screen.queryByText("PayPal")).not.toBeInTheDocument();
+    expect(screen.getAllByText(/₹/).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/18% GST/).length).toBeGreaterThan(0);
+  });
 });

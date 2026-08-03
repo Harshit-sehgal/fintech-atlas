@@ -2,7 +2,9 @@ import { Company } from "./types";
 import { valuationAmountUsdBySlug } from "./financial-values";
 import { sourceReferencesBySlug } from "./provenance-records";
 
-const baseCompanies: Company[] = [
+type BaseCompany = Omit<Company, "sourceReferences">;
+
+const baseCompanies: BaseCompany[] = [
   {
     slug: "stripe",
     name: "Stripe",
@@ -166,14 +168,14 @@ const baseCompanies: Company[] = [
     whoUses: ["Frequent travelers and digital nomads", "Ex-pat students", "Investors getting started", "Teens and young adults (Junior plan users)"],
     pricing: { model: "Freemium with premium tiers", online: "Free tier €0 standard; Plus $3.99/mo; Premium $9.99/mo; Metal $16.99/mo", notes: "Monthly fair-use limit for FX on free tier. Crypto including crypto trading involves extra exchange fees." },
     strengths: ["Superb multi-currency features", "Free tier covers basic banking with pooled FX", "Built-in stock and crypto trading", "Strong focus on analyzing and budgeting"],
-    weaknesses: ["Customer service heavily varies between free tier and premium", "Crypto spreads are substantial", "Regulatory infractions occasionally slow onboarding", "Account admins can lock due to automated compliances checks"],
-    userReviews: { rating: 4.3, summary: "Well-loved by frequent travellers and those wanting a convenient all-in-one app; heavy FX above free limit and occasional compliance freezes frustrate.", pros: ["Excellent multi-currency, AT withdrawing capability", "Real-time spend tracking and analytics", "Broad product set in a single app", "Good premium tier value"], cons: ["Free tier monthly cut off limit", "Poorer customer service response on free tier", "Crypto and traded spreads can be costly", "Occasional account freezes during KYC processes"] },
+    weaknesses: ["Customer service quality varies between free and premium tiers", "Crypto spreads can be substantial", "Regulatory requirements can occasionally slow onboarding", "Accounts may be temporarily restricted during automated compliance checks"],
+    userReviews: { rating: 4.3, summary: "Well-loved by frequent travellers and people seeking a convenient all-in-one app; FX charges above the free limit and occasional compliance checks can frustrate.", pros: ["Excellent multi-currency and ATM features", "Real-time spend tracking and analytics", "Broad product set in a single app", "Good premium-tier value"], cons: ["Monthly free-tier FX limits", "Slower customer-service response on the free tier", "Crypto and trading spreads can be costly", "Occasional account restrictions during KYC processes"] },
     sources: ["Official website", "Bloomberg", "Forbes", "Crunchbase"],
   },
   {
     slug: "brex",
     name: "Brex",
-    tagline: "Financial software shaping the next\'s story.",
+    tagline: "Financial software for the next generation of businesses.",
     founded: 2017,
     founders: ["Henrique Dubugras", "Pedro Franceschi"],
     headquarters: "San Francisco, CA",
@@ -193,7 +195,7 @@ const baseCompanies: Company[] = [
     ],
     whoUses: ["Startup founders and CFOs", "Growing technology firms needing corporate cards fast", "Finance teams who want a single spend management dashboard", "Mid-market and enterprise companies"],
     pricing: { model: "Free baseline tier", online: "Essentially free cards with cash rewards; premium tier has $199/month", notes: "No annual fee for almost 95 % of clients. Points-based rewards available." },
-    strengths: ["Absol magic requires no personal guarantee", "Instant-ish card issuing and onboarding", "Built for startups — works with Series A to IPO", "Full USD corporate banking"],
+    strengths: ["No personal guarantee required", "Fast card issuing and onboarding", "Built for startups — works with Series A to IPO", "Full USD corporate banking"],
     weaknesses: ["Reward points not as competitive for very large enterprises", "Integrations focused on US ecosystem", "Less appropriate for tiny or single-person business segments", "No credit consumer product (business only)"],
     userReviews: { rating: 4.2, summary: "Startup teams love the quick approval and no personal guarantee. Larger firms may see greater value in other options.", pros: ["No personal guarantee needed", "Fast application for VC-backed companies", "Great web and mobile dashboard", "Includes business banking accounts"], cons: ["Little or no small sole proprietor coverage", "Some reward program costs are complex", "Most valuable only at moderate-scale companies", "International customer service speed"] },
     sources: ["Crunchbase", "Forbes", "TechCrunch"],
@@ -212,7 +214,7 @@ const baseCompanies: Company[] = [
     logo: "gusto",
     accent: "#6B9ECD",
     oneLiner: "Payroll and total-compensation automation for small to mid-sized businesses.",
-    whatIsIt: "Gusto pays employees tax calculations, health benefits administration, 401(k), and HR compliance to a single integrated platform for small and medium businesses.",
+    whatIsIt: "Gusto combines payroll, tax calculations, health benefits administration, 401(k) plans, and HR compliance in a single integrated platform for small and medium businesses.",
     whatTheyOffer: [
       { name: "Payroll", description: "Automated payroll with auto federal, state, and local tax filings and direct deposit to bank." },
       { name: "Benefits Administration", description: "Integrated health, pension, and LinkedIn life benefits with automatic employer contribution tracking." },
@@ -273,13 +275,13 @@ const baseCompanies: Company[] = [
       { name: "Digital Credit Card", description: "No annual fee purple card with a mobile-first approval decision." },
       { name: "NuConta", description: "Free digital account across Brazil, Mexico, and now Colombia." },
       { name: "Personal Loans", description: "Consignado (secured) and unsecured lending with no branch visits." },
-      { name: "Insurance & Rewards", description: "Digital insurance bundling micro~segments with cash-back rewards." },
+      { name: "Insurance & Rewards", description: "Digital insurance and rewards features with cash-back options." },
     ],
     whoUses: ["Millions of Brazilians and Latin Americans", "Unbanked and underbanked populations", "Young adults and first-time credit earners"],
     pricing: { model: "Free basic tier", notes: "Credit card has zero annual fee; some premium services include fixed monthly" },
-    strengths: ["Massive mobile user base: 100M+ customers", "Able to reach the previously unbanked", "Usability and simple mobile app is full UX out", "Minimal operational footprint (no branches)"],
+    strengths: ["Massive mobile user base: 100M+ customers", "Able to reach previously unbanked customers", "Simple and intuitive mobile app", "Minimal operational footprint with no branches"],
     weaknesses: ["Dependent on Brazilian regulatory stability", "Less diversified product set outside Brazil", "Macro currency risks due to Real-denominated balance sheet", "Strong customer support challenge for huge user base"],
-    userReviews: { rating: 4.3, summary: "Transformed Latin American digital banking — friendly purple card, simple app, zero fees; some complain about credit approvals being opaque.", pros: ["Zero annual fee credit card", "Very intuitive mobile-only interface", "Opens banking access for the unbanked", "Fast and modern digital-first experience"], cons: ["Limited to Brazil/Mexico/Colombia", "Credit decision box — no way to optimize", "Limited phone support for a mass user base", "Few customer reward options in basic tier"] },
+    userReviews: { rating: 4.3, summary: "Transformed Latin American digital banking — friendly purple card, simple app, zero fees; some complain about credit approvals being opaque.", pros: ["Zero annual fee credit card", "Very intuitive mobile-only interface", "Opens banking access for the unbanked", "Fast and modern digital-first experience"], cons: ["Limited to Brazil, Mexico, and Colombia", "Credit decisions can be difficult to understand", "Limited phone support for a mass user base", "Few customer reward options in the basic tier"] },
     sources: ["Bloomberg", "Wall Street Journal", "Forbes", "Crunchbase"],
   },
   {
@@ -305,9 +307,9 @@ const baseCompanies: Company[] = [
     ],
     whoUses: ["Young adults turning away from traditional bank fees", "Low-to-moderate-income consumers", "People who want fee-free overdraft", "Anyone seeking a simple bank"],
     pricing: { model: "Free monthly", notes: "Generates revenue from interchange fees picked from debit card swipes." },
-    strengths: ["All-no monthly fee or overdraft cost", "Early pay-day by up to 2 days", "Simple sign up: no physical footprint entry", "User-friendly and clean app"],
-    weaknesses: ["Customer service by-pure chat", "Limited to US as a Visa Debit card", "Not a full bank product (check, joint are absent)", "Account closure for non-compliance"],
-    userReviews: { rating: 4.2, summary: "Easy and fee-free for everyday banking; users complain if SpotMe limit is too low or any formal of sanctions cause instant.close.", pros: ["Direct deposit and fee-free checking overlay", "SpotMe; fee-free up to $200 based on deposits", "Early payment increases monthly cash flows", "Simple and clean app design"], cons: ["Limited (chat customer support only)", "No physical branch possible (digital only)", "SpotMe limit hard to increase.", "No joint or business accounts"] },
+    strengths: ["No monthly fee or overdraft cost", "Early direct-deposit access by up to two days", "Simple signup without a branch visit", "User-friendly and clean app"],
+    weaknesses: ["Customer service is primarily chat-based", "Limited to the US and issued as a Visa debit card", "Not a full bank product, with limited check and joint-account features", "Accounts may be closed for compliance reasons"],
+    userReviews: { rating: 4.2, summary: "Easy and fee-free for everyday banking; users can become frustrated when SpotMe limits are low or compliance reviews restrict an account.", pros: ["Direct deposit and fee-free checking", "SpotMe fee-free overdraft up to the eligible limit", "Early direct-deposit access", "Simple and clean app design"], cons: ["Customer support is primarily chat-based", "No physical branches", "SpotMe limits may be difficult to increase", "No joint or business accounts"] },
     sources: ["Crunchbase", "World Banking digest", "NerdWallet"],
   },
   {
@@ -316,7 +318,7 @@ const baseCompanies: Company[] = [
     oneLiner: "Commission-free investing in stocks, ETFs, options, and crypto on a mobile-first platform.",
     whatIsIt: "Robinhood is an investing platform best known for pioneering zero-commission stock and ETF trading in the US via a simple mobile and web app.",
     whatTheyOffer: [{ name: "Equities & ETFs", description: "Commission-free stock and ETF trading including fractional shares." }],
-    whoUses: ["Retail traders and first-time investors", "People aged 18 to 35", "Crypto traders", "Causal long-term investors"],
+    whoUses: ["Retail traders and first-time investors", "People aged 18 to 35", "Crypto traders", "Casual long-term investors"],
     pricing: { model: "Free service", notes: "Earns from payment for order flow, Robinhood Gold $5/month" },
     strengths: ["Zero commission on stocks, ETFs, and cryptocurrency", "Clean and simple beginner startup", "Massive young user base growing", "Cash management alternative (Robinhood debit card)"],
     weaknesses: ["Business model driven PFOF hurts execution price", "Gamification and risk of excessive trading", "Limited customer service in high-volume trading situations", "No mutual funds or long-term planning tools"],
@@ -334,10 +336,10 @@ const baseCompanies: Company[] = [
       { name: "Pay Later", description: "Receive your order before paying in 30 days, no fees." },
       { name: "Shopping App", description: "Price drop alerts and cashback across partner stores." },
     ],
-    whoUses: ["Online fashion and lifestyle shoppers", "Shona and millennial consumers", "Price-conscious and deal-seeking buyers", "Majority Gen Cost NZ pair"],
+    whoUses: ["Online fashion and lifestyle shoppers", "Gen Z and millennial consumers", "Price-conscious and deal-seeking buyers", "Shoppers who prefer installment payments"],
     pricing: { model: "Interest-free for consumers", monthly: "Merchant pays 3$ to 6% of transaction", notes: "Late payment fees of up to $15 after grace can apply" },
-    strengths: ["Generosity payment flexibility  Pay-in-4, Pay in 30, or Store instalments)", "Large integrated merchant network covering top brands", "Powerful price comparison shopping app", "Brand and trust strong in Europe and expanding US"],
-    weaknesses: ["Can encourage impulsive overspending", "Underregulated fee charges (with the risk of some big and debated drops)", "Some merchants drop Klarna because of high fee", "SW us commercial practice employees blending"],
+    strengths: ["Flexible payment options including Pay in 4 and Pay in 30", "Large integrated merchant network covering top brands", "Powerful price-comparison shopping app", "Strong brand recognition in Europe and an expanding US presence"],
+    weaknesses: ["Can encourage impulsive overspending", "Late fees may apply when scheduled payments are missed", "Some merchants consider the fees high", "Availability and terms vary by market"],
     userReviews: { rating: 4.1, summary: "Shoppers appreciate the flexibility; overspending risk is a concern.", pros: ["No interest for on-time repayment plans", "Large retailer network", "Seamless checkout integration", "Price comparison built in"], cons: ["Can encourage overspending", "Late fees if payment schedule is missed", "Not universally available", "Underwriting is still evolving"] },
     sources: ["TechCrunch", "Business Insider"],
   },
@@ -345,7 +347,7 @@ const baseCompanies: Company[] = [
     slug: "afterpay", name: "Afterpay", tagline: "BNPL, simplified.", founded: 2014,
     founders: ["Nick Molnar", "Anthony Eisen"], headquarters: "Sydney, Australia", employees: "1700+", valuation: "$29B", website: "afterpay.com", categories: ["bnpl"], logo: "afterpay", accent: "#B2FCE4",
     oneLiner: "Buy now, pay later — split purchases over four interest-free installment payments.", whatIsIt: "Afterpay is a BNPL pioneer that lets consumers split retail purchases into 4 installment periods, zero-interest; the merchant gets paid in full at the time of sale, and Afterpay collects from the consumer.",
-    whatTheyOffer: [{ name: "Pay-in-4", description: "Split any approved purchase into 4 equal interest-free installments paid every 2 weeks by the consumer, agent settled." }, { name: "Merchant Solutions", description: "Afterpay plug into a checkout flow as a payment part to increase a merchant's conversion and average order value" }],
+    whatTheyOffer: [{ name: "Pay-in-4", description: "Split an approved purchase into four equal interest-free installments paid every two weeks." }, { name: "Merchant Solutions", description: "Integrate Afterpay into checkout to support conversion and average order value." }],
     whoUses: ["Fashion and lifestyle shoppers", "Millennials and Gen Z shoppers wanting to try before fully paying", "Merchants wanting a lift in average order value"],
     pricing: { model: "For consumers: free and no interest for current payments", notes: "Merchant pays 3-6% of transaction value. Late fees may apply if payments are missed after grace period." },
     strengths: ["Simple four-installment model", "Widespread fashion merchant adoption", "Easy mobile app on-the-fly purchase", "Boost average order value for merchants"],
@@ -356,8 +358,8 @@ const baseCompanies: Company[] = [
   {
     slug: "monzo", name: "Monzo", tagline: "Your bank in a pocket.", founded: 2015,
     founders: ["Tom Blomfield", "Jonas Huckestein", "Gary Dolman", "Paul Rippon"], headquarters: "London, UK", employees: "2500+", valuation: "$4.5B", website: "monzo.com", categories: ["neobanks"], logo: "monzo", accent: "#DE5A67",
-    oneLiner: "Mobile-only UK bank with real-time spending alerts and budgeting tools.", whatIsIt: "Monzo is a full UK-licensed digital challenger bank, famous for its hot coral debit card, instant transaction notifications, saving pots, and fee-free overseas spending.",
-    whatTheyOffer: [{ name: "Hot Coral Account", description: "A mobile proxy bank current account with instant push notifications for every spend and salary." }, { name: "Saving Pots", description: "Dedicated, ring-fenced accounts for bills, personal spending, and saving goals." }, { name: "Plus & Premium", description: "Two subscription tiers adding travel insurance, credit score, and advanced analytics." }],
+    oneLiner: "Mobile-only UK bank with real-time spending alerts and budgeting tools.", whatIsIt: "Monzo is a full UK-licensed digital challenger bank, known for its coral debit card, instant transaction notifications, savings pots, and fee-free overseas spending.",
+    whatTheyOffer: [{ name: "Hot Coral Account", description: "A mobile current account with instant push notifications for spending and salary payments." }, { name: "Saving Pots", description: "Dedicated, ring-fenced accounts for bills, personal spending, and saving goals." }, { name: "Plus & Premium", description: "Two subscription tiers adding travel insurance, credit score, and advanced analytics." }],
     whoUses: ["Young urban professionals (18-38)", "UK residents wanting on-the-fly banking", "Freelancers tracking irregular expenses", "International travelers wanting fee-free debit abroad"],
     pricing: { model: "Free basic; Plus at £5/month; Premium £15/month" },
     strengths: ["Strong real-time transaction alerts", "Great bill splitting and shared tabs", "Fee-free spending abroad", "Fast, fully digital onboarding"],
@@ -368,8 +370,8 @@ const baseCompanies: Company[] = [
   {
     slug: "n26", name: "N26", tagline: "Banking with no hidden fees.", founded: 2013,
     founders: ["Valentin Stalf", "Maximilian Tayenthal"], headquarters: "Berlin, Germany", employees: "2400+", valuation: "$9B", website: "n26.com", categories: ["neobanks"], logo: "n26", accent: "#00C4B4",
-    oneLiner: "Germany's first fully digital eurozone bank with simple free and premium accounts.", whatIsIt: "N26 is a Berlin-based digital bank offering local IBAN accounts with at least 100% deposit protection, Mastercard debit, real-time activity notification, and a ultra-clean mobile interface for any resolve.",
-    whatTheyOffer: [{ name: "Euro IBAN account", description: "Full-featured German e-money current account with direct deposits, SEPA, and debt card usage." }, { name: "Spaces", description: "Installment sub-accounts to segregate bill money, savings, and cash allocations." }],
+    oneLiner: "Germany's first fully digital eurozone bank with simple free and premium accounts.", whatIsIt: "N26 is a Berlin-based digital bank offering local IBAN accounts, Mastercard debit cards, real-time transaction notifications, and a clean mobile interface.",
+    whatTheyOffer: [{ name: "Euro IBAN account", description: "Full-featured German current account with direct deposits, SEPA transfers, and debit-card access." }, { name: "Spaces", description: "Installment sub-accounts to segregate bill money, savings, and cash allocations." }],
     whoUses: ["European citizens seeking eurozone simplicity", "Frequent travel in € regions", "Expats needing quick easy IBAN", "Self-employed individual for freelancers"],
     pricing: { model: "Free basic; €5/month Plus; €15/month Metal" },
     strengths: ["Elegant ultra-clean design with intuitive interface", "Real-time push notification on each transaction", "SEPA instant transfers", "Flexible savings Spaces with goal tracking"],
@@ -419,7 +421,7 @@ const baseCompanies: Company[] = [
     logo: "apple-pay",
     accent: "#000000",
     oneLiner: "Contactless digital wallet payment method built into Apple devices for in-store, online, and P2P transactions.",
-    whatIsIt: "Apple Pay is a mobile payment and digital wallet service by Apple enabling contactless NFC payments in retail, in-app made by, and online transfers through Apple devices, with biometric security via Face ID or Touch ID.",
+    whatIsIt: "Apple Pay is a mobile payment and digital wallet service by Apple that enables contactless NFC payments in stores, in apps, and online through Apple devices, with biometric security via Face ID or Touch ID.",
     whatTheyOffer: [
       { name: "In-Store NFC Payments", description: "Contactless payments using iPhone or Apple Watch NFC at millions of merchant terminals." },
       { name: "Online & In-App Checkout", description: "One-tap payment in apps and on Safari using Apple Pay stored debit or credit." },
@@ -1030,7 +1032,7 @@ const baseCompanies: Company[] = [
     whatIsIt: "Starling Bank is a United Kingdom-based challenger bank that operates exclusively through mobile applications, offering personal current accounts, business accounts, and loans without physical branch infrastructure.",
     whatTheyOffer: [
       { name: "Personal Account", description: "Fee-free current account with FSCS protection, savings spaces, and overseas spending without fees." },
-      { name: "Business Account", description: "Business current account with accounting integrations, invoicing, and team_access controls." },
+      { name: "Business Account", description: "Business current account with accounting integrations, invoicing, and team access controls." },
       { name: "Personal Loans", description: "Competitive-rate personal loans up to £50,000 with quick application process." },
       { name: "Banking as a Service", description: "White-label banking solutions for brands wanting to offer financial services under their own name." },
     ],
@@ -1192,12 +1194,15 @@ const baseCompanies: Company[] = [
  * comparable valuation keep `valuationAmountUsd` undefined so the directory
  * sorts them after companies with a known value.
  */
-export const companies: Company[] = baseCompanies.map((company) => ({
-  ...company,
-  valuationAmountUsd:
-    company.valuationAmountUsd ?? valuationAmountUsdBySlug[company.slug],
-  // Attach structured provenance where a migration record exists; companies
-  // without one keep their legacy string `sources` labels (allowed).
-  sourceReferences:
-    company.sourceReferences ?? sourceReferencesBySlug[company.slug],
-}));
+export const companies: Company[] = baseCompanies.map((company) => {
+  const sourceReferences = sourceReferencesBySlug[company.slug];
+  if (!sourceReferences?.length) {
+    throw new Error(`Missing structured provenance for company: ${company.slug}`);
+  }
+  return {
+    ...company,
+    valuationAmountUsd:
+      company.valuationAmountUsd ?? valuationAmountUsdBySlug[company.slug],
+    sourceReferences,
+  };
+});

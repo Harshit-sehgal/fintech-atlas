@@ -19,9 +19,10 @@
 - [ ] Structured data validates.
 
 ## Status vs. this codebase
-- **Mostly implemented:** per-route metadata + OG in `src/app/layout.tsx` and
+- **Implemented in-repo:** per-route metadata + OG in `src/app/layout.tsx` and
   page files; JSON-LD in `src/components/SEO/`; canonical via `SITE_URL`;
-  `scripts/generate-sitemap.mjs` (64 URLs + robots) runs on every build.
-- DoD actions required: validate schemas (e.g. Rich Results Test), audit for
-  duplicate/short metadata, and measure CWV on live URLs once `SITE_URL` is set
-  to the real production domain (currently a placeholder).
+  `scripts/generate-sitemap.mjs` runs on every build; emitted JSON-LD is checked
+  by `scripts/check-structured-data.mjs`.
+- Remaining DoD actions are external verification: validate schemas with a rich
+  results validator, audit live indexability and duplicate metadata, and measure
+  CWV after `SITE_URL` is set to the real production domain.

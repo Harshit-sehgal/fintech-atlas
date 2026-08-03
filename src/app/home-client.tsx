@@ -100,7 +100,7 @@ export default function HomePageClient() {
         <SectionHeading
           eyebrow="The Big Picture"
           title="What is FinTech?"
-          description="'FinTech' — short for Financial Technology — is the broad name for software-powered financial services. It covers everything from the app you use to pay a friend (Venmo) to the API that charges a credit card on a website (Stripe) to the digital-only bank in your pocket (Chime, Revolut, Nubank)."
+          description="'FinTech' — short for Financial Technology — is software-powered financial services: the app you use to pay a friend, the API that charges a card on a website, the digital-only bank in your pocket. In India it means UPI instant payments, QR-first checkouts, and gateways like Razorpay moving hundreds of millions of transactions every month."
         />
         <Reveal delay={0.1}>
           <div className="mt-10 grid gap-5 md:grid-cols-3 reveal-stagger">

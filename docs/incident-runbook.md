@@ -9,8 +9,15 @@ application server, accounts, database, or production secrets.
 2. Run the CI checks: typecheck, script typecheck, lint with zero warnings, tests,
    and the production build.
 3. Confirm the build gates pass: rate-snapshot freshness, sitemap generation,
-   security-header generation, and the compressed-JavaScript budget.
-4. Preserve the commit SHA and generated `out/` artifact used for deployment.
+   security-header generation, compressed-JavaScript budget, structured data,
+   and `npm run check:artifact`.
+4. Preserve the commit SHA and generated `out/` artifact used for deployment;
+   CI also downloads and rechecks the retained artifact before release. Confirm
+   `feed.xml`, `sw.js`, and `offline.html` are present when offline enhancement
+   is part of the release.
+5. After deployment, run `DEPLOY_URL=https://your.production.domain npm run check:deployment`
+   to verify representative routes, `robots.txt`, `sitemap.xml`, `security.txt`,
+   and host-applied security headers.
 
 ## Incident triage
 
@@ -53,7 +60,9 @@ application server, accounts, database, or production secrets.
 For this site, the repository history and retained static build artifacts are
 the backup mechanism. There is no application database to restore. The hosting
 provider's artifact-retention and rollback capabilities must still be confirmed
-for each production environment.
+for each production environment. The artifact gate is local and deterministic;
+the deployment check requires the real deployed URL and must not be run against a
+placeholder domain.
 
 ## Recovery verification checklist
 
@@ -66,6 +75,7 @@ for each production environment.
 - [ ] Newsletter opt-in renders in the footer (no console errors).
 - [ ] No console errors on representative routes.
 - [ ] Security headers (`_headers`) and canonical URLs are present.
-- [ ] `sitemap.xml` and `robots.txt` are present and correct.
+- [ ] `sitemap.xml`, `robots.txt`, and `feed.xml` are present and correct.
+- [ ] `sw.js` and `offline.html` are present when offline enhancement is enabled.
 - [ ] Structured-data validation passes (`scripts/check-structured-data.mjs`).
 - [ ] The incident is documented and a follow-up issue is assigned.

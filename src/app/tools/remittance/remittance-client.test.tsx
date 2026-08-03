@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { ToastProvider } from "@/lib/toast-context";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 import "@/test/mocks";
@@ -6,7 +7,11 @@ import RemittanceCalculatorPageClient from "./remittance-client";
 
 describe("RemittanceCalculatorPageClient (interaction)", () => {
   it("moves currency radio focus with left/right arrow keys", () => {
-    render(<RemittanceCalculatorPageClient />);
+    render(
+      <ToastProvider>
+        <RemittanceCalculatorPageClient />
+      </ToastProvider>,
+    );
     const radios = screen.getAllByRole("radio");
     expect(radios.length).toBeGreaterThan(1);
 
@@ -23,7 +28,11 @@ describe("RemittanceCalculatorPageClient (interaction)", () => {
   });
 
   it("clamps Home/End navigation to the first and last currency", () => {
-    render(<RemittanceCalculatorPageClient />);
+    render(
+      <ToastProvider>
+        <RemittanceCalculatorPageClient />
+      </ToastProvider>,
+    );
     const radios = screen.getAllByRole("radio");
     const last = radios.length - 1;
 

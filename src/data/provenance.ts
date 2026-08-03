@@ -48,12 +48,11 @@ function validateSource(source: SourceReference, index: number): string[] {
 }
 
 /**
- * Validate only the optional structured evidence fields. Legacy string labels
- * remain supported until the catalog receives a source-research migration.
+ * Validate the structured evidence fields attached to a published company.
  */
 export function validateCompanyProvenance(company: Company): string[] {
   const issues: string[] = [];
-  const references = company.sourceReferences ?? [];
+  const references = company.sourceReferences;
   const referenceIds = new Set<string>();
 
   references.forEach((source, index) => {

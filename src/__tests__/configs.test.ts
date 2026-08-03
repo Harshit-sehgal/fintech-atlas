@@ -8,7 +8,7 @@ import {
 } from "@/data/fee-calculator-config";
 import { CURRENCIES, REMITTANCE_PROVIDERS, DEFAULT_CURRENCY, DEFAULT_SEND_AMOUNT } from "@/data/remittance-config";
 import { QUESTIONS, SCORE_WEIGHTS } from "@/data/matchmaker-config";
-import { SITE_URL, normalizeSiteUrl } from "@/lib/site-config";
+import { SITE_URL, assetPath, normalizeSiteUrl } from "@/lib/site-config";
 
 describe("Fee Calculator Config", () => {
   it("has fee providers defined", () => {
@@ -19,10 +19,19 @@ describe("Fee Calculator Config", () => {
     for (const p of PROVIDER_FEE_CONFIGS) {
       expect(p.slug).toBeTruthy();
       expect(p.name).toBeTruthy();
+      expect(["USD", "INR"]).toContain(p.currency);
       expect(typeof p.online.domPct).toBe("number");
       expect(typeof p.online.domFixed).toBe("number");
+      expect(typeof p.online.intlSurcharge).toBe("number");
+      expect(typeof p.online.intlFixed).toBe("number");
       expect(p.online.domPct).toBeGreaterThanOrEqual(0);
       expect(p.online.domFixed).toBeGreaterThanOrEqual(0);
+      expect(p.online.intlSurcharge).toBeGreaterThanOrEqual(0);
+      expect(p.online.intlFixed).toBeGreaterThanOrEqual(0);
+      if (p.gstPercent !== undefined) {
+        expect(p.gstPercent).toBeGreaterThanOrEqual(0);
+        expect(p.gstPercent).toBeLessThanOrEqual(100);
+      }
     }
   });
 
@@ -128,6 +137,11 @@ describe("Matchmaker Config", () => {
 });
 
 describe("Site Config", () => {
+  it("builds root-relative public asset paths by default", () => {
+    expect(assetPath("/manifest.json")).toBe("/manifest.json");
+    expect(assetPath("logos/stripe.svg")).toBe("/logos/stripe.svg");
+  });
+
   it("SITE_URL is a valid string", () => {
     expect(typeof SITE_URL).toBe("string");
     expect(SITE_URL.length).toBeGreaterThan(0);

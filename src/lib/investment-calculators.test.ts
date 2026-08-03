@@ -51,7 +51,7 @@ describe("computeSwp", () => {
     // $120k corpus at 12%/yr earns ~$1,200/mo — a $1,000/mo withdrawal is safe.
     const r = computeSwp(120_000, 1000, 12);
     expect(r!.monthsUntilDepleted).toBeNull();
-    expect(r!.lifetimeLabel).toMatch(/Indefinitely/);
+    expect(r!.lifetimeLabel).toMatch(/Indefinite under this fixed-return assumption/);
   });
 
   it("returns null for invalid inputs", () => {
@@ -112,6 +112,11 @@ describe("requiredSip", () => {
     expect(requiredSip(120_000, 0, 1)).toBeCloseTo(10_000, 0);
   });
 
+  it("accounts for existing savings before calculating contributions", () => {
+    expect(requiredSip(120_000, 0, 1, 20_000)).toBeCloseTo(8_333.33, 1);
+    expect(requiredSip(50_000, 8, 0, 60_000)).toBe(0);
+  });
+
   it("requires the full corpus when time is zero", () => {
     expect(requiredSip(50_000, 8, 0)).toBe(50_000);
   });
@@ -119,11 +124,14 @@ describe("requiredSip", () => {
 
 describe("computeRetirement", () => {
   it("builds an inflation-adjusted corpus larger than raw expenses", () => {
-    const r = computeRetirement(2000, 6, 25, 30, 8);
+    const r = computeRetirement(2000, 6, 25, 30, 8, 6, 20_000);
     expect(r).not.toBeNull();
     expect(r!.annualExpenseAtRetirement).toBeGreaterThan(24_000);
     expect(r!.corpusNeeded).toBeGreaterThan(r!.annualExpenseAtRetirement);
     expect(r!.requiredMonthlyContribution).toBeGreaterThan(0);
+
+    const withoutSavings = computeRetirement(2000, 6, 25, 30, 8, 6, 0)!;
+    expect(r!.requiredMonthlyContribution).toBeLessThan(withoutSavings.requiredMonthlyContribution);
   });
 
   it("returns null for invalid inputs", () => {
@@ -138,6 +146,7 @@ describe("computeFire", () => {
     expect(r).not.toBeNull();
     expect(r!.fireNumber).toBe(1_000_000);
     expect(r!.yearsToFi).toBeGreaterThan(0);
+    expect(r!.yearsToFi).toBeLessThan(50);
     expect(r!.alreadyReached).toBe(false);
   });
 

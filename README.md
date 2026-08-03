@@ -105,6 +105,8 @@ real SVGs and regenerate `src/data/logos-index.ts`.
 | `SITE_URL` | No* | `https://fintech-atlas.example.com` | Canonical site URL for sitemap and SEO. **Required for production builds** (placeholder is rejected). |
 | `NEXT_PUBLIC_ANALYTICS_DOMAIN` | No | unset | Optional cookieless Plausible-compatible analytics site id. When unset, no analytics script loads. |
 | `NEXT_PUBLIC_WAITLIST_ENDPOINT` | No | unset | Optional third-party form endpoint for a Pro/partner waitlist. When unset, waitlist UI stays hidden. |
+| `NEXT_PUBLIC_NEWSLETTER_FORM_ACTION` | No | unset | Optional newsletter provider form endpoint. When unset, email intent stays on-device and nothing is sent. |
+| `NEXT_PUBLIC_BASE_PATH` | No | unset | Optional GitHub Pages project-site prefix such as `/fintech-atlas`; omit for root/custom-domain hosting. |
 
 \* Development may use the placeholder; production builds refuse `example.com`.
 
@@ -133,5 +135,6 @@ Works with: **Netlify**, **Vercel**, **Cloudflare Pages**, **GitHub Pages**, **S
 - Optional cookieless analytics may be enabled by the site operator (`NEXT_PUBLIC_ANALYTICS_DOMAIN`); disabled by default
 - Read the published [Privacy Notice](./src/app/privacy/page.tsx) and [Terms of Use](./src/app/terms/page.tsx)
 - Deployment and incident recovery procedures are documented in [`docs/incident-runbook.md`](docs/incident-runbook.md)
+- The static build also emits `feed.xml` for article subscribers and a small production-only service worker with an offline fallback
 - Provider-specific static hosting notes: [`docs/deployment-providers.md`](docs/deployment-providers.md)
 - Architecture decisions (deferred backend goals): [`docs/adr/`](docs/adr/)

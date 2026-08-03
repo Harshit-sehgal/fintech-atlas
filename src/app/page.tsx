@@ -5,17 +5,17 @@ import { SITE_URL } from "@/lib/site-config";
 import { openGraphImage } from "@/lib/shared-metadata";
 
 const description =
-  "A clear, plain-language guide to the FinTech industry: what each company does, how they differ, how they make money, and what the available editorial evidence suggests.";
+  "Compare Razorpay, Stripe, Cashfree, Wise, Payoneer and other payment services. Calculate fees, settlement amounts and provider differences for India.";
 
 export const metadata: Metadata = {
-  title: "Understand the companies reshaping finance",
+  title: "Payment Gateway & International Payment Comparisons India",
   description,
   alternates: { canonical: "/" },
   // Page-level openGraph keeps og:title in sync with <title> (the title template
   // appends " — FinTech Atlas") and pins og:url to the homepage.
   openGraph: {
     ...openGraphImage,
-    title: "Understand the companies reshaping finance — FinTech Atlas",
+    title: "Payment Gateway & International Payment Comparisons India — FinTech Atlas",
     description,
     url: SITE_URL,
   },

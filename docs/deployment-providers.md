@@ -16,9 +16,23 @@ host works. Apply the generated `out/_headers` (CSP, HSTS, etc.) and serve
 
 ## Required build environment
 
+Root deployment:
+
 ```bash
 SITE_URL=https://your.production.domain npm run build
 ```
+
+GitHub Pages project-site deployment (if you do not use a custom domain):
+
+```bash
+SITE_URL=https://YOUR_OWNER.github.io/REPOSITORY \\
+NEXT_PUBLIC_BASE_PATH=/REPOSITORY \\
+npm run build
+```
+
+The project-site base path is applied to Next.js routing and public assets;
+`SITE_URL` must still be the publicly reachable canonical origin plus path.
+A custom domain at the root remains the simpler SEO and operational choice.
 
 Optional:
 
@@ -27,8 +41,23 @@ NEXT_PUBLIC_ANALYTICS_DOMAIN=your.plausible.site.id
 NEXT_PUBLIC_WAITLIST_ENDPOINT=https://formspree.io/f/...
 ```
 
+## Verification
+
+The build runs a deterministic artifact gate. After publishing to a real host,
+run the deployed-site smoke check against that exact origin:
+
+```bash
+DEPLOY_URL=https://your.production.domain npm run check:deployment
+```
+
+It checks representative routes, HTTP status, the sitemap/robots relationship,
+`feed.xml`, `sw.js`, `offline.html`, `security.txt`, and the required host security headers. HTTPS is required by
+default. Project-site paths such as `https://user.github.io/repository` are
+supported. Do not substitute the CI placeholder URL; the check is intended for
+a real deployed origin.
+
 ## Rollback
 
 Keep the previous `out/` artifact (CI artifact retention or object-storage
-versioning). Redeploy the prior artifact to roll back. See
-[`docs/incident-runbook.md`](../incident-runbook.md).
+versioning). Redeploy the prior artifact to roll back, then rerun the deployment
+smoke check. See [`docs/incident-runbook.md`](../incident-runbook.md).

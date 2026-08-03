@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -17,12 +17,69 @@ import {
 import { MAX_RATE_AGE_DAYS } from "@/data/remittance-config";
 import { animationPresets as animation } from "@/lib/animation";
 import { PartnerCta } from "@/components/ui/partner-cta";
+import {
+  downloadCsv,
+  encodeToolParams,
+  loadToolState,
+  printToPdf,
+  saveToolState,
+  shareOrCopy,
+} from "@/lib/share";
+import { useToast } from "@/lib/toast-context";
+
+type RemittanceState = {
+  sendAmount: number;
+  currencyCode: string;
+};
+
+const MIN_SEND_AMOUNT = 100;
+const MAX_SEND_AMOUNT = 20_000;
+
+function isValidRemittanceState(value: unknown): value is RemittanceState {
+  if (!value || typeof value !== "object") return false;
+  const state = value as Partial<RemittanceState>;
+  return (
+    typeof state.sendAmount === "number" &&
+    Number.isFinite(state.sendAmount) &&
+    state.sendAmount >= MIN_SEND_AMOUNT &&
+    state.sendAmount <= MAX_SEND_AMOUNT &&
+    typeof state.currencyCode === "string" &&
+    CURRENCIES.some((currency) => currency.code === state.currencyCode)
+  );
+}
+
+function readRemittanceState(params: URLSearchParams, saved: unknown): RemittanceState | null {
+  const urlState = {
+    sendAmount: Number(params.get("remittance_sendAmount")),
+    currencyCode: params.get("remittance_currencyCode"),
+  };
+  if (isValidRemittanceState(urlState)) return urlState;
+  return isValidRemittanceState(saved) ? saved : null;
+}
 
 export default function RemittanceCalculatorPageClient() {
+  const { showToast } = useToast();
   const [sendAmount, setSendAmount] = useState<number>(DEFAULT_SEND_AMOUNT);
   const [currencyCode, setCurrencyCode] = useState<string>(DEFAULT_CURRENCY);
   const [focusedIndex, setFocusedIndex] = useState<number>(0);
+  const [hydrated, setHydrated] = useState(false);
   const currencyRefs = useRef<Array<HTMLButtonElement | null>>([]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const saved = loadToolState<unknown>("remittance");
+    const source = readRemittanceState(params, saved);
+
+    const id = window.setTimeout(() => {
+      if (source) {
+        setSendAmount(source.sendAmount);
+        setCurrencyCode(source.currencyCode);
+        setFocusedIndex(Math.max(0, CURRENCIES.findIndex((c) => c.code === source.currencyCode)));
+      }
+      setHydrated(true);
+    }, 0);
+    return () => window.clearTimeout(id);
+  }, []);
 
   const targetCurr = CURRENCIES.find((c) => c.code === currencyCode) || CURRENCIES[0];
 
@@ -35,6 +92,44 @@ export default function RemittanceCalculatorPageClient() {
   const bestProvider = providers[0];
   const worstProvider = providers[providers.length - 1];
   const savings = bestProvider.netPayout - worstProvider.netPayout;
+  const currentState: RemittanceState = { sendAmount, currencyCode };
+
+  const handleShare = async () => {
+    const params = encodeToolParams("remittance_", currentState);
+    const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState(null, "", url);
+    const result = await shareOrCopy({
+      title: "Cross-Border Money Transfer Calculator — FinTech Atlas",
+      url,
+    });
+    showToast(
+      result === "shared" ? "Shared transfer estimate" : result === "copied" ? "Transfer estimate link copied" : "Could not share or copy the link",
+      result === "failed" ? "error" : "success",
+    );
+  };
+
+  const handleSave = () => {
+    const ok = saveToolState("remittance", currentState);
+    showToast(ok ? "Saved on this device" : "Could not save (storage blocked or full)", ok ? "success" : "error");
+  };
+
+  const handleExportCsv = () => {
+    downloadCsv("fintech-atlas-remittance.csv", [
+      ["Field", "Value"],
+      ["Send amount (USD)", String(sendAmount)],
+      ["Recipient currency", targetCurr.code],
+      ["Reference rate", String(targetCurr.rate)],
+      ...providers.map((provider) => [
+        provider.name,
+        `${provider.netPayout.toFixed(2)} ${targetCurr.code}`,
+      ]),
+    ]);
+    showToast("CSV downloaded", "success");
+  };
+
+  const handlePrintPdf = () => {
+    if (printToPdf()) showToast("Print dialog opened — choose Save as PDF", "success");
+  };
 
   return (
     <div className="relative mx-auto max-w-6xl px-5 py-20 md:py-28">
@@ -52,6 +147,13 @@ export default function RemittanceCalculatorPageClient() {
         title="Cross-Border Money Transfer Calculator"
         description="See hidden exchange markups and upfront transfer fees to maximize money received abroad. Rates are reference snapshots (see note below), not live quotes."
       />
+
+      <div className="mt-4 flex flex-wrap gap-2 print:hidden">
+        <button type="button" onClick={handleShare} className="btn-ghost text-xs px-3 py-1.5" disabled={!hydrated}>Share link</button>
+        <button type="button" onClick={handleSave} className="btn-ghost text-xs px-3 py-1.5" disabled={!hydrated}>Save locally</button>
+        <button type="button" onClick={handleExportCsv} className="btn-ghost text-xs px-3 py-1.5">Export CSV</button>
+        <button type="button" onClick={handlePrintPdf} className="btn-ghost text-xs px-3 py-1.5">Save as PDF</button>
+      </div>
 
       <div className="mt-10 grid gap-8 lg:grid-cols-12">
         {/* Controls */}

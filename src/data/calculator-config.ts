@@ -203,7 +203,9 @@ const CALCULATORS: CalculatorDefinition[] = [
       { key: "annualInflation", label: "Expected Inflation", kind: "percent", min: 0, max: 15, step: 0.5, default: 6 },
       { key: "yearsToRetirement", label: "Years Until Retirement", kind: "years", min: 0, max: 50, step: 1, default: 25 },
       { key: "retirementYears", label: "Years in Retirement", kind: "years", min: 10, max: 50, step: 1, default: 30 },
-      { key: "annualReturn", label: "Expected Return During Retirement", kind: "percent", min: 0, max: 15, step: 0.5, default: 8 },
+      { key: "currentSavings", label: "Current Retirement Savings", kind: "currency", min: 0, max: 5000000, step: 5000, default: 0 },
+      { key: "accumulationReturn", label: "Expected Return Before Retirement", kind: "percent", min: 0, max: 15, step: 0.5, default: 8 },
+      { key: "retirementReturn", label: "Expected Return During Retirement", kind: "percent", min: 0, max: 15, step: 0.5, default: 6 },
     ],
     compute: (v) => {
       const r = computeRetirement(
@@ -211,7 +213,9 @@ const CALCULATORS: CalculatorDefinition[] = [
         v.annualInflation,
         v.yearsToRetirement,
         v.retirementYears,
-        v.annualReturn,
+        v.accumulationReturn,
+        v.retirementReturn,
+        v.currentSavings,
       );
       if (!r) return [{ label: "Adjust inputs", value: "Enter positive expenses and retirement years.", kind: "warning" }];
       return [
@@ -224,7 +228,7 @@ const CALCULATORS: CalculatorDefinition[] = [
   {
     id: "fire",
     name: "FIRE Number Calculator",
-    tagline: "The corpus that makes your annual expenses work-free — and how long it takes.",
+    tagline: "Estimate your FIRE target and the time to reach it under fixed-return assumptions.",
     icon: "🔥",
     inputs: [
       { key: "annualExpenses", label: "Annual Expenses", kind: "currency", min: 10000, max: 1000000, step: 5000, default: 60000 },

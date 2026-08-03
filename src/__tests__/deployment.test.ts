@@ -51,19 +51,19 @@ describe("Static deployment contracts", () => {
       icons?: Array<{ src?: string; sizes?: string; type?: string; purpose?: string }>;
     };
     expect(manifest.icons).toContainEqual({
-      src: "/icon-192.png",
+      src: "./icon-192.png",
       sizes: "192x192",
       type: "image/png",
       purpose: "any",
     });
     expect(manifest.icons).toContainEqual({
-      src: "/icon-512.png",
+      src: "./icon-512.png",
       sizes: "512x512",
       type: "image/png",
       purpose: "any",
     });
     expect(manifest.icons).toContainEqual({
-      src: "/maskable-512.png",
+      src: "./maskable-512.png",
       sizes: "512x512",
       type: "image/png",
       purpose: "maskable",
@@ -79,7 +79,7 @@ describe("Static deployment contracts", () => {
     expect(headers).toContain("Content-Security-Policy:");
     expect(headers).toContain("script-src 'self'");
     expect(headers).not.toContain("script-src 'self' 'unsafe-inline'");
-    expect(read("src/app/layout.tsx")).toContain('src="/theme-init.js"');
+    expect(read("src/app/layout.tsx")).toContain('assetPath("/theme-init.js")');
     expect(read("src/app/layout.tsx")).toContain('strategy="beforeInteractive"');
     expect(existsSync(resolve(root, "public/theme-init.js"))).toBe(true);
   });
@@ -109,5 +109,42 @@ describe("Static deployment contracts", () => {
     expect(script).toContain("fs.writeFileSync(path.join(outDir, \"robots.txt\"), robots)");
     expect(script).toContain(".trim().replace(/\\/+$/, \"\")");
     expect(script).toContain("Sitemap: ${siteUrl}/sitemap.xml");
+  });
+
+  it("defines local artifact and deployed-site verification gates", () => {
+    const packageJson = JSON.parse(read("package.json")) as {
+      scripts?: Record<string, string>;
+    };
+    expect(packageJson.scripts?.["check:artifact"]).toBe("node scripts/check-static-artifact.mjs");
+    expect(packageJson.scripts?.["check:deployment"]).toBe("node scripts/check-deployment.mjs");
+    expect(read("package.json")).toContain("node scripts/check-static-artifact.mjs");
+    expect(read("scripts/check-deployment.mjs")).toContain("content-security-policy");
+    expect(read("scripts/check-deployment.mjs")).toContain("/.well-known/security.txt");
+    expect(read("scripts/check-static-artifact.mjs")).toContain("Contact or Policy");
+    expect(read("scripts/check-static-artifact.mjs")).toContain("feed.xml");
+    expect(read("scripts/check-static-artifact.mjs")).toContain("offline.html");
+    expect(read("scripts/check-deployment.mjs")).toContain("DEPLOY_URL must use HTTPS");
+    expect(read("scripts/check-deployment.mjs")).toContain("const basePath");
+    expect(read(".github/workflows/ci.yml")).toContain("actions/download-artifact@v4");
+    expect(read(".github/workflows/deploy.yml")).toContain("verify-live:");
+  });
+
+  it("ships the static feed and offline enhancement", () => {
+    expect(read("package.json")).toContain("tsx scripts/generate-rss.ts");
+    expect(existsSync(resolve(root, "scripts/generate-rss.ts"))).toBe(true);
+    expect(existsSync(resolve(root, "public/sw.js"))).toBe(true);
+    expect(existsSync(resolve(root, "public/offline.html"))).toBe(true);
+    expect(read("src/app/layout.tsx")).toContain("ServiceWorkerRegister");
+    const serviceWorker = read("public/sw.js");
+    expect(serviceWorker).toMatch(/const CACHE_NAME = ["'][^"']+-v\d+["']/);
+    expect(serviceWorker).toContain('new URL("offline.html", SCOPE)');
+    expect(serviceWorker).toContain("requestUrl.search === \"\"");
+    expect(read("public/manifest.json")).toContain('"scope": "./"');
+  });
+
+  it("keeps the recovery and deployment docs linked to executable checks", () => {
+    expect(read("docs/incident-runbook.md")).toContain("npm run check:artifact");
+    expect(read("docs/incident-runbook.md")).toContain("npm run check:deployment");
+    expect(read("docs/deployment-providers.md")).toContain("DEPLOY_URL=");
   });
 });

@@ -30,6 +30,27 @@ jobs:
       # Fails only on high/critical advisories affecting shipped code.
       - run: npm audit --production --audit-level=high
       - run: SITE_URL=https://ci.fintech-atlas.test npm run build
+      - name: Archive verified static artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fintech-atlas-static-${{ github.sha }}
+          path: out
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 14
+
+  artifact-restore:
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: fintech-atlas-static-${{ github.sha }}
+          path: out
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: ARTIFACT_DIR=out npm run check:artifact
 
   # End-to-end browser tests against the static export (Playwright).
   e2e:

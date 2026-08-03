@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -15,8 +15,42 @@ import {
 } from "@/lib/matchmaker";
 import { QUESTIONS, type MatchmakerQuestion } from "@/data/matchmaker-config";
 import { PartnerCta } from "@/components/ui/partner-cta";
+import {
+  downloadCsv,
+  encodeToolParams,
+  loadToolState,
+  printToPdf,
+  saveToolState,
+  shareOrCopy,
+} from "@/lib/share";
+import { useToast } from "@/lib/toast-context";
+
+const QUIZ_KEYS: (keyof QuizState)[] = ["userType", "priority", "globalNeed", "scale"];
+
+function isValidQuizState(value: unknown): value is QuizState {
+  if (!value || typeof value !== "object") return false;
+  const state = value as Partial<QuizState>;
+  return QUIZ_KEYS.every((key) => {
+    const answer = state[key];
+    if (typeof answer !== "string") return false;
+    if (answer === "") return true;
+    return QUESTIONS.find((question) => question.id === key)?.options.some((option) => option.id === answer) ?? false;
+  });
+}
+
+function readQuizState(params: URLSearchParams, saved: unknown): QuizState | null {
+  const fromUrl: QuizState = {
+    userType: params.get("matchmaker_userType") ?? "",
+    priority: params.get("matchmaker_priority") ?? "",
+    globalNeed: params.get("matchmaker_globalNeed") ?? "",
+    scale: params.get("matchmaker_scale") ?? "",
+  };
+  if (Object.values(fromUrl).some(Boolean) && isValidQuizState(fromUrl)) return fromUrl;
+  return isValidQuizState(saved) ? saved : null;
+}
 
 export default function MatchmakerQuizPageClient() {
+  const { showToast } = useToast();
   const [step, setStep] = useState(1);
   const [quizState, setQuizState] = useState<QuizState>({
     userType: "",
@@ -24,6 +58,25 @@ export default function MatchmakerQuizPageClient() {
     globalNeed: "",
     scale: "",
   });
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const saved = loadToolState<unknown>("matchmaker");
+    const restored = readQuizState(params, saved);
+    const restoredStep = restored
+      ? Object.values(restored).every(Boolean)
+        ? 5
+        : Object.values(restored).filter(Boolean).length + 1
+      : 1;
+
+    const id = window.setTimeout(() => {
+      if (restored) setQuizState((current) => ({ ...current, ...restored }));
+      setStep(restoredStep);
+      setHydrated(true);
+    }, 0);
+    return () => window.clearTimeout(id);
+  }, []);
 
   const handleSelect = (key: keyof QuizState, value: string) => {
     setQuizState((prev) => ({ ...prev, [key]: value }));
@@ -60,6 +113,48 @@ export default function MatchmakerQuizPageClient() {
     ? getScoreBreakdown(quizState, companies)
     : {};
 
+  const handleShare = async () => {
+    const params = encodeToolParams("matchmaker_", {
+      userType: quizState.userType,
+      priority: quizState.priority,
+      globalNeed: quizState.globalNeed,
+      scale: quizState.scale,
+    });
+    const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState(null, "", url);
+    const result = await shareOrCopy({
+      title: "FinTech Matchmaker Quiz — FinTech Atlas",
+      text: "Educational FinTech shortlist from FinTech Atlas",
+      url,
+    });
+    showToast(
+      result === "shared" ? "Shared matchmaker results" : result === "copied" ? "Matchmaker link copied" : "Could not share or copy the link",
+      result === "failed" ? "error" : "success",
+    );
+  };
+
+  const handleSave = () => {
+    const ok = saveToolState("matchmaker", quizState);
+    showToast(ok ? "Saved on this device" : "Could not save (storage blocked or full)", ok ? "success" : "error");
+  };
+
+  const handleExportCsv = () => {
+    downloadCsv("fintech-atlas-matchmaker.csv", [
+      ["Question", "Answer"],
+      ["User type", quizState.userType],
+      ["Priority", quizState.priority],
+      ["International need", quizState.globalNeed],
+      ["Scale", quizState.scale],
+      [],
+      ["Rank", "Company", "Score"],
+      ...scoredResults.slice(0, 3).map(({ company, score }, index) => [String(index + 1), company.name, String(score)]),
+    ]);
+    showToast("CSV downloaded", "success");
+  };
+
+  const handlePrintPdf = () => {
+    if (printToPdf()) showToast("Print dialog opened — choose Save as PDF", "success");
+  };
 
   return (
     <div className="relative mx-auto max-w-4xl px-5 py-20 md:py-28">
@@ -77,6 +172,15 @@ export default function MatchmakerQuizPageClient() {
         title="FinTech Matchmaker Quiz"
         description="Answer 4 high-level questions to get an initial shortlist you can research further. This is an educational recommendation, not financial or procurement advice."
       />
+
+      {step > 4 && (
+        <div className="mt-4 flex flex-wrap gap-2 print:hidden">
+          <button type="button" onClick={handleShare} className="btn-ghost text-xs px-3 py-1.5" disabled={!hydrated}>Share link</button>
+          <button type="button" onClick={handleSave} className="btn-ghost text-xs px-3 py-1.5" disabled={!hydrated}>Save locally</button>
+          <button type="button" onClick={handleExportCsv} className="btn-ghost text-xs px-3 py-1.5">Export CSV</button>
+          <button type="button" onClick={handlePrintPdf} className="btn-ghost text-xs px-3 py-1.5">Save as PDF</button>
+        </div>
+      )}
 
       <div className="mt-10">
         {/* Step indicator */}

@@ -5,6 +5,7 @@ import { getFocusableElementsInDialog } from "@/lib/focus-trap";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { companies, categories, glossary } from "@/data";
+import { articles } from "@/data/articles";
 import { fuzzyRank } from "@/lib/fuzzy";
 import { CompanyLogo } from "./company-logo";
 import { CategoryIcon } from "./category-icon";
@@ -115,6 +116,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
     else if (selected.type === "company") router.push(`/companies/${selected.item.slug}`);
     else if (selected.type === "category") router.push(`/categories/${selected.item.slug}`);
     else if (selected.type === "glossary") router.push(`/glossary#${selected.item.slug}`);
+    else if (selected.type === "article") router.push(`/articles/${selected.item.slug}`);
   };
 
   const handleKeyDownInInput = (e: React.KeyboardEvent) => {
@@ -179,6 +181,16 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
     return fuzzyRank(tools, cleanQuery, (t) => [t.name, t.desc]);
   }, [cleanQuery, tools]);
 
+  const filteredArticles = useMemo(() => {
+    if (cleanQuery === "") return articles;
+    return fuzzyRank(articles, cleanQuery, (article) => [
+      article.title,
+      article.description,
+      article.category,
+      ...article.relatedCompanySlugs,
+    ]);
+  }, [cleanQuery]);
+
   // Keep the empty palette useful without rendering the entire catalogue. When
   // searching, cap each group so keyboard navigation remains quick and the
   // first results stay predictable for this small editorial catalogue.
@@ -186,12 +198,14 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
   const visibleCompanies = filteredCompanies.slice(0, cleanQuery ? 20 : 4);
   const visibleCategories = filteredCategories.slice(0, cleanQuery ? 20 : 2);
   const visibleGlossary = filteredGlossary.slice(0, cleanQuery ? 20 : 2);
+  const visibleArticles = filteredArticles.slice(0, cleanQuery ? 20 : 2);
 
   const items = [
     ...visibleTools.map((t) => ({ type: "tool" as const, item: t, id: `tool-${t.path}` })),
     ...visibleCompanies.map((c) => ({ type: "company" as const, item: c, id: `company-${c.slug}` })),
     ...visibleCategories.map((cat) => ({ type: "category" as const, item: cat, id: `cat-${cat.slug}` })),
     ...visibleGlossary.map((g) => ({ type: "glossary" as const, item: g, id: `glossary-${g.slug}` })),
+    ...visibleArticles.map((article) => ({ type: "article" as const, item: article, id: `article-${article.slug}` })),
   ];
 
   if (!open) return null;
@@ -235,7 +249,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
               aria-expanded={open}
               aria-autocomplete="list"
               aria-activedescendant={items[selectedIndex] ? `command-option-${items[selectedIndex].id}` : undefined}
-              placeholder="Search companies, categories, glossary terms, or tools... (Esc to close)"
+              placeholder="Search companies, categories, glossary terms, articles, or tools... (Esc to close)"
               value={query}
               onChange={(e) => handleQueryChange(e.target.value)}
               onKeyDown={handleKeyDownInInput}
@@ -270,7 +284,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
                           ? "bg-[var(--subtle-bg)] text-[var(--foreground)] font-medium"
                           : "text-[var(--muted-text)] hover:text-[var(--foreground)]"
                       }`}
-                      aria-label={`Go to ${entry.type}: ${entry.type === "company" ? entry.item.name : entry.type === "category" ? entry.item.name : entry.type === "glossary" ? entry.item.term : entry.type === "tool" ? entry.item.name : ""}`}
+                      aria-label={`Go to ${entry.type}: ${entry.type === "company" ? entry.item.name : entry.type === "category" ? entry.item.name : entry.type === "glossary" ? entry.item.term : entry.type === "tool" ? entry.item.name : entry.type === "article" ? entry.item.title : ""}`}
                     >
                       <div className="flex items-center gap-3 min-w-0">
                         {entry.type === "tool" && (
@@ -289,6 +303,11 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
                             📖
                           </span>
                         )}
+                        {entry.type === "article" && (
+                          <span className="flex h-7 w-7 items-center justify-center rounded bg-[var(--accent)]/10 text-[var(--accent)] font-mono text-xs font-bold shrink-0">
+                            ◫
+                          </span>
+                        )}
 
                         <div className="truncate">
                           <span className="text-[var(--foreground)]">
@@ -296,12 +315,14 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
                             {entry.type === "category" && entry.item.name}
                             {entry.type === "glossary" && entry.item.term}
                             {entry.type === "tool" && entry.item.name}
+                            {entry.type === "article" && entry.item.title}
                           </span>
                           <span className="ml-2 text-xs text-[var(--muted-text)] truncate">
                             {entry.type === "company" && entry.item.tagline}
                             {entry.type === "category" && entry.item.short}
                             {entry.type === "glossary" && entry.item.short}
                             {entry.type === "tool" && entry.item.desc}
+                            {entry.type === "article" && entry.item.description}
                           </span>
                         </div>
                       </div>

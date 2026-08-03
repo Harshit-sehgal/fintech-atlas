@@ -18,7 +18,7 @@
 - [ ] Backup restoration is tested successfully.
 
 ## Status vs. this codebase
-- `npm run build` (static export + auto-sitemap) and `npm test` (214 tests) both
+- `npm run build` (static export + auto-sitemap) and the full Vitest suite both
   exist and pass; content is fully static so rollback = redeploy a prior build.
 - CI is implemented in `.github/workflows/ci.yml`; failed typechecks, lint, tests,
   or the production build block the job.

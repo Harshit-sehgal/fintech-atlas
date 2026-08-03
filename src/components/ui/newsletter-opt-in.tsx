@@ -28,7 +28,8 @@ function isValidEmail(value: string): boolean {
 export function NewsletterOptIn() {
   const { showToast } = useToast();
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [submitted, setSubmitted] = useState<"provider" | "local" | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const action = process.env.NEXT_PUBLIC_NEWSLETTER_FORM_ACTION?.trim();
 
@@ -40,18 +41,22 @@ export function NewsletterOptIn() {
     }
 
     if (action) {
+      setSubmitting(true);
       try {
         // Provider form endpoints typically accept application/x-www-form-urlencoded
         // with an `email` field and support CORS.
-        await fetch(action, {
+        const response = await fetch(action, {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams({ email }).toString(),
+          body: new URLSearchParams({ email: email.trim() }).toString(),
         });
-        setSubmitted(true);
-        showToast("You're subscribed — check your inbox to confirm.", "success");
+        if (!response.ok) throw new Error(`Newsletter provider returned ${response.status}`);
+        setSubmitted("provider");
+        showToast("Submission received — check your inbox to confirm.", "success");
       } catch {
         showToast("Subscription failed. Please try again later.", "error");
+      } finally {
+        setSubmitting(false);
       }
       return;
     }
@@ -61,19 +66,27 @@ export function NewsletterOptIn() {
     saveToolState(NEWSLETTER_KEY, { email, at: new Date().toISOString() });
     const existing = loadToolState<{ email: string } | null>(NEWSLETTER_KEY);
     if (existing) {
-      setSubmitted(true);
+      setSubmitted("local");
       showToast(
-        "Saved on this device — the newsletter isn't connected yet, so nothing was sent. We'll only email you once a provider is wired and you've confirmed.",
+        "Saved on this device — the newsletter isn't connected yet, so nothing was sent.",
         "success",
       );
     }
   };
 
-  if (submitted) {
+  if (submitted === "provider") {
     return (
       <p className="text-xs text-[var(--muted-text)]">
-        Thanks — you&apos;re on the list. We never share your email, and you can
-        unsubscribe anytime.
+        Submission received. Check your inbox for the confirmation email.
+      </p>
+    );
+  }
+
+  if (submitted === "local") {
+    return (
+      <p className="text-xs text-[var(--muted-text)]">
+        Your request is recorded on this device. Nothing was sent because no
+        newsletter provider is connected yet.
       </p>
     );
   }
@@ -97,8 +110,9 @@ export function NewsletterOptIn() {
         <button
           type="submit"
           className="btn-primary shrink-0 text-xs px-4 py-2"
+          disabled={submitting}
         >
-          Subscribe
+          {submitting ? "Submitting…" : "Subscribe"}
         </button>
       </div>
       <p className="text-[10px] leading-relaxed text-[var(--muted-text)]">
@@ -106,7 +120,8 @@ export function NewsletterOptIn() {
         pixels, no sharing.{" "}
         {!action &&
           "This newsletter isn't connected to a provider yet — your email is saved on this device only until then. "}
-        Unsubscribe anytime.
+        {!action && "No provider is connected, so no email is sent. "}
+        {action && "You can unsubscribe using the provider's confirmation email."}
       </p>
     </form>
   );

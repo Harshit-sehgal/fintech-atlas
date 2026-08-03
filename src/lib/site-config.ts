@@ -5,6 +5,27 @@ export function normalizeSiteUrl(value: string): string {
   return value.trim().replace(/\/+$/, "");
 }
 
+/**
+ * Public subpath used by project-site deployments such as GitHub Pages.
+ * Root deployments leave this unset. Next.js applies the same value to router
+ * links when configured as `basePath`; public assets use `assetPath` below.
+ */
+export const PUBLIC_BASE_PATH = normalizeBasePath(
+  process.env.NEXT_PUBLIC_BASE_PATH || "",
+);
+
+function normalizeBasePath(value: string): string {
+  const trimmed = value.trim();
+  if (!trimmed || trimmed === "/") return "";
+  return `/${trimmed.replace(/^\/+|\/+$/g, "")}`;
+}
+
+/** Prefix a public asset path without producing `//` or missing subpaths. */
+export function assetPath(pathname: string): string {
+  const normalized = `/${pathname.replace(/^\/+/, "")}`;
+  return `${PUBLIC_BASE_PATH}${normalized}`;
+}
+
 /** Canonical public URL of the site — used for SEO metadata, structured data, and sitemap. */
 const configuredSiteUrl = normalizeSiteUrl(
   process.env.SITE_URL ||
@@ -12,11 +33,13 @@ const configuredSiteUrl = normalizeSiteUrl(
     "https://fintech-atlas.example.com",
 );
 
-// Fail loudly in production if the canonical URL was never configured, rather
+// Fail loudly at BUILD time if the canonical URL was never configured, rather
 // than silently shipping metadata/sitemap/OpenGraph that point at the example
-// placeholder domain (defensive: site-config is imported at build time, where
-// NODE_ENV is "production").
+// placeholder domain. The check is server-only: SITE_URL is not inlined into
+// client bundles (only NEXT_PUBLIC_* variables are), so evaluating the guard
+// in the browser would always see the placeholder and crash every page.
 if (
+  typeof window === "undefined" &&
   process.env.NODE_ENV === "production" &&
   configuredSiteUrl.includes("example.com")
 ) {

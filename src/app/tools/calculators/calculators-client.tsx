@@ -9,6 +9,7 @@ import { useToast } from "@/lib/toast-context";
 import {
   downloadCsv,
   encodeToolParams,
+  printToPdf,
   loadToolState,
   readNumericParams,
   saveToolState,
@@ -32,6 +33,32 @@ function defaultValuesFor(calc: (typeof CALCULATORS)[number]): CalcValues {
     acc[input.key] = input.default;
     return acc;
   }, {});
+}
+
+function validCalcValue(input: CalcInput, value: unknown): value is number {
+  return typeof value === "number" && Number.isFinite(value) && value >= input.min && value <= input.max;
+}
+
+function isValidCalcState(
+  calc: (typeof CALCULATORS)[number],
+  value: unknown,
+): value is CalcValues {
+  if (!value || typeof value !== "object") return false;
+  const state = value as Record<string, unknown>;
+  return calc.inputs.every((input) => validCalcValue(input, state[input.key]));
+}
+
+function readCalcOverrides(
+  calc: (typeof CALCULATORS)[number],
+  search: string,
+): Partial<CalcValues> {
+  const parsed = readNumericParams(search, `${calc.id}_`, calc.inputs.map((input) => input.key));
+  return Object.fromEntries(
+    Object.entries(parsed).filter(([key, value]) => {
+      const input = calc.inputs.find((candidate) => candidate.key === key);
+      return input && validCalcValue(input, value);
+    }),
+  ) as Partial<CalcValues>;
 }
 
 function formatInputValue(input: CalcInput, value: number): string {
@@ -77,11 +104,7 @@ export default function CalculatorsClient() {
     }
 
     for (const calc of CALCULATORS) {
-      const fromUrl = readNumericParams(
-        window.location.search,
-        `${calc.id}_`,
-        calc.inputs.map((i) => i.key),
-      );
+      const fromUrl = readCalcOverrides(calc, window.location.search);
       if (Object.keys(fromUrl).length > 0) {
         // fromUrl is a partial numeric override of this calc's input keys; the
         // calc's defaults (number for every key) already cover the rest, so the
@@ -92,8 +115,8 @@ export default function CalculatorsClient() {
         };
         continue;
       }
-      const saved = loadToolState<CalcValues>(`calc_${calc.id}`);
-      if (saved) nextValues[calc.id] = { ...nextValues[calc.id], ...saved };
+      const saved = loadToolState<unknown>(`calc_${calc.id}`);
+      if (isValidCalcState(calc, saved)) nextValues[calc.id] = saved;
     }
 
     // Defer to a macrotask so restore runs after paint and satisfies
@@ -144,6 +167,10 @@ export default function CalculatorsClient() {
       ok ? "Saved on this device" : "Could not save (storage blocked or full)",
       ok ? "success" : "error",
     );
+  };
+
+  const handlePrintPdf = () => {
+    if (printToPdf()) showToast("Print dialog opened — choose Save as PDF", "success");
   };
 
   const handleExportCsv = () => {
@@ -283,6 +310,13 @@ export default function CalculatorsClient() {
                     className="btn-ghost text-xs px-3 py-1.5"
                   >
                     Export CSV
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handlePrintPdf}
+                    className="btn-ghost text-xs px-3 py-1.5"
+                  >
+                    Save as PDF
                   </button>
                 </div>
               </div>
