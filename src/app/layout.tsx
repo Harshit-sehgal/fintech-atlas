@@ -98,6 +98,9 @@ export default function RootLayout({
       <head>
         <Script src={assetPath("/theme-init.js")} strategy="beforeInteractive" />
         <AnalyticsScript />
+        {/* RSS autodiscovery (metadata `alternates.types` is not emitted by
+            this Next build for static exports, so the link is literal). */}
+        <link rel="alternate" type="application/rss+xml" title="FinTech Atlas — Articles &amp; Updates" href={assetPath("/feed.xml")} />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--background)] text-[var(--foreground)]">
         <StructuredDataLite />
@@ -121,7 +124,7 @@ export default function RootLayout({
               <BookmarksProvider>
                 <ScrollProgress />
                 <SiteHeader />
-                <main id="main-content" className="flex-1">{children}</main>
+                <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">{children}</main>
                 <SiteFooter />
               </BookmarksProvider>
             </ToastProvider>

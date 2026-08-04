@@ -193,6 +193,17 @@
   --tool-acc-matchmaker: #fbbf24;
 }
 
+/* Focus visibility (WCAG 2.4.7) — every keyboard focus gets a high-contrast
+   outline. Unlayered, so it beats utility-level `outline-none` classes; the
+   .btn-* components keep their own ring shadow via higher specificity.
+   (The `ring-[var(--ring)]` utility pattern is a no-op in Tailwind v4 — a
+   bare var() is ambiguous between length and colour — so this rule is the
+   single source of truth for custom elements.) */
+:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
+}
+
 html {
   scroll-behavior: smooth;
 }

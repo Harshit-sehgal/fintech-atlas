@@ -15,6 +15,8 @@ const ROUTES: Array<[string, string]> = [
   ["categories", "/categories/"],
   ["category detail", "/categories/payments/"],
   ["compare", "/compare/"],
+  ["404 page", "/does-not-exist/"],
+  ["company profile (bright brand)", "/companies/stripe/"],
   ["glossary", "/glossary/"],
   ["about", "/about/"],
   ["bookmarks", "/bookmarks/"],
