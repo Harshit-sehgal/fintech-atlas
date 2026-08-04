@@ -1329,6 +1329,118 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "payment-gateway-for-subscription-businesses",
+    title: "Payment gateway for Indian subscription businesses",
+    description:
+      "Razorpay, Cashfree, and Stripe India for recurring billing: UPI AutoPay mandates, card-on-file eMandates, eNACH, billing engines, and which gateway fits a subscription business.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Payments",
+    relatedCompanySlugs: ["razorpay", "cashfree", "stripe"],
+    ctas: [
+      { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
+      { slug: "cashfree", label: "Visit Cashfree", placement: "compare-vs" },
+      { slug: "stripe", label: "Visit Stripe", placement: "compare-vs" },
+    ],
+    relatedTool: { href: "/tools/calculator", label: "Estimate gateway fees" },
+    body: [
+      {
+        type: "p",
+        text: "A subscription business in India is really three problems: recurring billing, failed-payment recovery, and the rails that let Indian customers authorise repeat debits. The short version: Razorpay and Cashfree cover the full Indian stack — UPI AutoPay mandates, card-on-file eMandates, and eNACH — while Stripe India is the stronger choice if a large share of your customers pay by international cards. All three charge the same published 2% + 18% GST on domestic payments, so the decision is about mandate rails, billing features, and your customer mix, not headline price.",
+      },
+      {
+        type: "h2",
+        text: "Capability at a glance",
+      },
+      {
+        type: "table",
+        headers: ["Capability", "Razorpay", "Cashfree", "Stripe (India)"],
+        rows: [
+          ["UPI AutoPay (recurring mandates)", "Yes", "Yes", "Limited — verify"],
+          ["Card recurring (card-on-file eMandate)", "Yes", "Yes", "Yes"],
+          ["eNACH bank-account auto-debit", "Yes", "Yes", "No"],
+          ["Domestic fee (published)", "2% + 18% GST", "2% + 18% GST", "2% + 18% GST"],
+          ["International cards", "Up to 3%", "Varies by instrument", "3%"],
+          ["Settlement", "T+1 standard", "T+1 default", "T+1-style payouts"],
+          ["Billing engine", "Subscriptions add-on", "Subscription product", "Stripe Billing"],
+        ],
+      },
+      {
+        type: "h2",
+        text: "Why UPI AutoPay changes the decision",
+      },
+      {
+        type: "p",
+        text: "Most Indian consumers do not reach for a credit card when a subscription renews — they pay by UPI. UPI AutoPay (the recurring-mandate variant of the UPI rail) lets a customer approve a standing mandate once, after which the gateway can debit them on schedule. That single flow is the difference between an Indian subscription business that collects reliably and one that chases failed card payments every month.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Mandates carry per-debit limits set by the customer's bank (with additional-factor authentication for higher amounts), so high-ticket annual plans may need a different rail.",
+          "The customer approves the mandate through their own UPI app — the gateway handles the mandate creation, but the experience lives in the customer's bank app.",
+          "Mandate approval is near-instant, which makes UPI AutoPay the fastest recurring rail to onboard a new customer on.",
+          "Razorpay and Cashfree both offer UPI AutoPay; Stripe's India support is more limited — verify current coverage before betting your renewal flow on it.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Cards and bank-account mandates",
+      },
+      {
+        type: "p",
+        text: "For customers who do pay by card, RBI's card-on-file tokenisation rules mean the gateway stores a token, not the card number, and recurring card debits run through an eMandate. For very high-ticket or business-to-business subscriptions, eNACH (the bank-account auto-debit rail) supports larger amounts than UPI mandates — but mandate setup takes days rather than minutes, because the customer's bank has to approve it.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Card-on-file eMandates need the customer's one-time approval at setup; renewal debits then run without re-authentication within the mandate's limits.",
+          "eNACH is the rail for annual contracts above UPI mandate limits — budget 3–7 days for the mandate to go live.",
+          "Stripe India does not offer eNACH; if bank-account auto-debit matters, that is a Razorpay/Cashfree conversation.",
+          "Every recurring rail has a failure rate — budget for it, and build a retry flow rather than assuming clean renewals.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Billing features that matter for subscriptions",
+      },
+      {
+        type: "ul",
+        items: [
+          "Dunning: automatic retries with smart windows (e.g. days 0, 3, 7) recover a meaningful share of failed renewals — the single highest-leverage billing feature.",
+          "Proration and plan changes: upgrades, downgrades, and mid-cycle changes without manual refunds.",
+          "GST invoicing: subscriptions need correct tax invoices at renewal time; the billing engine should emit them automatically.",
+          "Metered/usage billing: for SaaS priced on seats or consumption, the engine must be able to bill variable amounts on a schedule.",
+          "Refund and chargeback tooling: self-serve refunds beat support tickets for every churned customer you want back.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Which one should you pick?",
+      },
+      {
+        type: "ul",
+        items: [
+          "D2C SaaS or membership selling to Indian consumers → Razorpay or Cashfree: UPI AutoPay coverage is the deciding rail, and the billing engines cover the rest.",
+          "International-first SaaS (USD pricing, global customers) → Stripe: global card coverage, Stripe Billing, and the developer ecosystem.",
+          "High-ticket annual or B2B contracts → whichever gateway's eNACH you can live with, and plan the mandate lead time into onboarding.",
+          "Hybrid → run Stripe for the global share and an Indian gateway for UPI AutoPay; both ecosystems tolerate a split checkout.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Run your own numbers",
+      },
+      {
+        type: "p",
+        text: "The fee schedule is the same 2% + 18% GST across all three, but your international mix changes the blended rate. Run your volume, average order value, and international share through the gateway fee calculator to see the monthly number for each provider.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: capabilities above are indicative from the 2026 catalog vintage — mandate limits, eNACH availability, and Stripe's India coverage change; verify the current feature matrix with each provider before committing your renewal flow.",
+      },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {
