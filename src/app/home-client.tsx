@@ -15,8 +15,19 @@ import { LogoMarquee } from "@/components/ui/logo-marquee";
 import { formatValuationShort } from "@/lib/format-company";
 
 export default function HomePageClient() {
-  const featured = useMemo(() => companies.slice(0, 6), []);
-  const marquee = useMemo(() => companies.slice(0, 32), []);
+  // India-first featured providers (plan §7: "India-specific provider
+  // directory"). Curated order so the homepage leads with the Indian market.
+  const FEATURED_SLUGS: readonly string[] = ["razorpay", "cashfree", "payoneer", "wise", "phonepe", "paytm"];
+  const featured = useMemo(
+    () =>
+      FEATURED_SLUGS.map((slug) => companies.find((c) => c.slug === slug))
+        .filter((c): c is NonNullable<typeof c> => Boolean(c)),
+    [],
+  );
+  const marquee = useMemo(
+    () => [...featured, ...companies.filter((c) => !FEATURED_SLUGS.includes(c.slug))].slice(0, 32),
+    [featured],
+  );
 
   // Precompute marquee logos to avoid mapping on every render
   const marqueeLogos = useMemo(() => marquee.map((c) => ({
@@ -216,9 +227,9 @@ export default function HomePageClient() {
       {/* Featured companies */}
       <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
         <SectionHeading
-          eyebrow="Key Players"
-          title="Featured Companies"
-          description="Each profile breaks down product lines, fee structures, strengths, weaknesses, and editorial sentiment summaries."
+          eyebrow="India-First"
+          title="India-First Providers"
+          description="Profiles of the payment gateways and FX services Indian freelancers and businesses choose most — fee structures, strengths, weaknesses, and editorial sentiment."
         />
         <Reveal delay={0.1}>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 reveal-stagger">

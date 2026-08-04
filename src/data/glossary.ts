@@ -12,7 +12,7 @@ export const glossary: GlossaryTerm[] = [
     short: "An electronic network for moving money between US bank accounts.",
     long:
       "ACH is the US system for batch-processed bank-to-bank transfers. It is the rails behind direct deposit, bill pay, and most bank transfers in apps like Venmo and Plaid. ACH transfers are slow (1–3 business days) but cheap (often under $0.10 per transfer), which is why most 'free' fintech products use ACH for funding. Newer versions like Same-Day ACH and the Real Time Payments (RTP) network have reduced settlement times significantly.",
-    related: ["interchange", "wire-transfer", "real-time-payments"],
+    related: ["interchange", "wire-transfer", "real-time-payments", "t-plus-one"],
   },
   {
     slug: "apy",
@@ -178,15 +178,6 @@ export const glossary: GlossaryTerm[] = [
     related: ["interchange"],
   },
   {
-    slug: "real-time-payments",
-    term: "RTP",
-    full: "Real-Time Payments",
-    short: "Networks that settle bank transfers in seconds rather than days.",
-    long:
-      "In the US, the Real Time Payments network (run by The Clearing House, a consortium of large banks) and the Fed's FedNow service settle payments in seconds, 24/7/365. Brazil's Pix, India's UPI, and the UK's Faster Payments have all done similar things at much larger scale. As RTP rolls out, the ACH network will remain for batch payments but is increasingly displaced for consumer use cases.",
-    related: ["ach", "wire-transfer"],
-  },
-  {
     slug: "stablecoin",
     term: "Stablecoin",
     short: "A cryptocurrency whose value is pegged to a traditional asset, usually the US dollar.",
@@ -203,12 +194,65 @@ export const glossary: GlossaryTerm[] = [
     related: ["baas", "fdic"],
   },
   {
+    slug: "upi",
+    term: "UPI",
+    full: "Unified Payments Interface",
+    short: "India's instant bank-to-bank payment rail — the default way Indians pay.",
+    long:
+      "UPI is the NPCI-run system that moves money between Indian bank accounts in seconds, 24/7, using a mobile number, UPI ID, or QR code. It is free for consumers and is the payment method behind PhonePe, Google Pay, Paytm, and most Indian wallets. For merchants, UPI acceptance carries zero MDR (no per-transaction fee), which is why Indian gateways bundle it with cards rather than charging separately for it. Any India-focused payment stack in 2026 must treat UPI as the default rail, not an optional extra.",
+    related: ["mdr", "real-time-payments"],
+  },
+  {
+    slug: "mdr",
+    term: "MDR",
+    full: "Merchant Discount Rate",
+    short: "The fee merchants pay per card or UPI transaction — zero for UPI in India.",
+    long:
+      "MDR is the percentage (plus any fixed fee) a merchant pays the acquiring side for each payment — the interchange fee plus gateway and processor costs. In India, UPI transactions carry zero MDR by regulation, while card MDRs typically run 1–2% and are set by the card networks. This is why '2% on all domestic instruments' gateway pricing (Razorpay, Cashfree) bundles UPI, cards, netbanking, and wallets at one flat rate, with GST added on top.",
+    related: ["interchange", "upi"],
+  },
+  {
+    slug: "firc",
+    term: "FIRC / FIRA",
+    full: "Foreign Inward Remittance Certificate / Advice",
+    short: "The document proving foreign currency legally received in India.",
+    long:
+      "A FIRC (or FIRA, its bank-advice variant) is the certificate Indian banks issue for each inward foreign remittance, showing the sender, amount, and exchange rate. Freelancers and exporters use FIRCs to prove income legally received under FEMA, to claim tax deductions, and to document export earnings. Keep a copy for every international payment you receive — you will need them for tax filings and for any government schemes that reward export income.",
+    related: ["fema", "fx"],
+  },
+  {
+    slug: "fema",
+    term: "FEMA",
+    full: "Foreign Exchange Management Act",
+    short: "India's law governing how foreign currency can be received, held, and converted.",
+    long:
+      "FEMA is the RBI-administered law that regulates every foreign-exchange transaction involving India. For freelancers and businesses it matters in three ways: receiving payments for services is legal and automatic (no RBI approval needed), funds received in foreign currency must be converted to INR or held in an eligible account (no indefinite FX holding), and the exchange must happen through an authorised dealer or a compliant platform. Violations carry penalties, which is why services like Payoneer and Wise route through RBI-compliant structures.",
+    related: ["firc", "fx"],
+  },
+  {
+    slug: "t-plus-one",
+    term: "T+1 Settlement",
+    short: "Payment funds land in your account one business day after the transaction.",
+    long:
+      "T+1 means a transaction settles one business day after it happens: Monday's sales credit Tuesday, Friday's sales credit Monday. Indian gateways like Razorpay and Cashfree advertise T+1 as their standard settlement, with instant or same-day options available on request. T+1 matters for cash flow: a 2% fee on a ₹5,00,000 month is a cost, but a multi-day settlement delay can be a bigger one for a small business with thin margins.",
+    related: ["ach", "upi"],
+  },
+  {
     slug: "wire-transfer",
     term: "Wire Transfer",
     short: "A bank-to-bank transfer that settles same-day, typically with a fee.",
     long:
       "Domestic wires in the US typically settle within hours, and international wires take 1–2 business days. Fees range from $15 (US domestic) to $50+ (international). Wires are reliable but expensive, which is why fintechs prefer ACH for routine payments. SWIFT is the network used for most international wires.",
-    related: ["ach", "real-time-payments"],
+    related: ["ach", "real-time-payments", "t-plus-one"],
+  },
+  {
+    slug: "real-time-payments",
+    term: "RTP",
+    full: "Real-Time Payments",
+    short: "Payment networks that settle in seconds, 24/7/365 — UPI in India, FedNow in the US.",
+    long:
+      "In the US, the Real Time Payments network (run by The Clearing House, a consortium of large banks) and the Fed's FedNow service settle payments in seconds, 24/7/365. Brazil's Pix, India's UPI, and the UK's Faster Payments have all done similar things at much larger scale. As RTP rolls out, the ACH network will remain for batch payments but is increasingly displaced for consumer use cases.",
+    related: ["ach", "upi"],
   },
 ] as const;
 
