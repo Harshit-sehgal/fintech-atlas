@@ -916,7 +916,7 @@ export const articles: Article[] = [
       },
       {
         type: "p",
-        text: "Illustrative math at a mid-market snapshot of ₹86/USD: a $1,000 marketplace payout arrives with no Payoneer receiving fee. Withdrawing to INR at the published 1–4% corridor, at 1% you keep $990 — about ₹85,140 — and at 4% you keep $960 — about ₹82,560. If the client paid by credit card instead, the 2.90% + $0.49 request fee (≈ $29.49) applies first, and the withdrawal corridor then applies to what is left. The exact corridor rate is shown inside your account before you confirm the withdrawal.",
+        text: "Illustrative math at a mid-market snapshot of ₹83.50/USD (the FX estimator's 2026-08-01 rate): a $1,000 marketplace payout arrives with no Payoneer receiving fee. Withdrawing to INR at the published 1–4% corridor, at 1% you keep $990 — about ₹82,665 — and at 4% you keep $960 — about ₹80,160. If the client paid by credit card instead, the 2.90% + $0.49 request fee (≈ $29.49) applies first, and the withdrawal corridor then applies to what is left. The exact corridor rate is shown inside your account before you confirm the withdrawal.",
       },
       {
         type: "h2",
@@ -946,7 +946,7 @@ export const articles: Article[] = [
       },
       {
         type: "p",
-        text: "Figures above are Payoneer's published India pricing (payoneer.com/en-in/about/pricing/, updated 18 June 2026) and global pricing page (updated 1 January 2026). Marketplace payout fees are set by each marketplace and vary. The worked example assumes an illustrative ₹86/USD mid-market snapshot; actual exchange rates move continuously. The fee shown in your Payoneer account before you confirm a transaction is authoritative.",
+        text: "Figures above are Payoneer's published India pricing (payoneer.com/en-in/about/pricing/, updated 18 June 2026) and global pricing page (updated 1 January 2026). Marketplace payout fees are set by each marketplace and vary. The worked example assumes an illustrative ₹83.50/USD mid-market snapshot (the FX estimator's 2026-08-01 rate); actual exchange rates move continuously. The fee shown in your Payoneer account before you confirm a transaction is authoritative.",
       },
       {
         type: "p",
@@ -972,7 +972,7 @@ export const articles: Article[] = [
     body: [
       {
         type: "p",
-        text: "A US client sends you $500. What lands in your INR account depends on the channel they use: the fee the provider takes, the exchange-rate spread, and how long the money takes. At an illustrative ₹86/USD mid-market snapshot (the 2026 catalog vintage), the cheapest and the priciest routes differ by roughly ₹2,900 — about 7% of the amount. The short version: Wise is the cheapest and fastest for most freelancers, bank wires hide their cost in the rate, PayPal is the most expensive, and Payoneer wins when the client already pays through marketplace rails.",
+        text: "A US client sends you $500. What lands in your INR account depends on the channel they use: the fee the provider takes, the exchange-rate spread, and how long the money takes. At the site's ₹83.50/USD mid-market snapshot (2026-08-01, the same rates the FX estimator uses), the cheapest and the priciest routes differ by roughly ₹4,450 — more than 10% of the amount. The short version: Wise and Revolut are the cheapest and fastest for most freelancers, bank wires hide their cost in the rate, PayPal is the most expensive, and Payoneer wins when the client already pays through marketplace rails.",
       },
       {
         type: "h2",
@@ -982,10 +982,10 @@ export const articles: Article[] = [
         type: "table",
         headers: ["Channel", "Upfront fee", "FX markup", "You receive (₹)", "Typical time"],
         rows: [
-          ["Wise", "≈ $5.10 flat", "0% — mid-market rate", "≈ ₹42,560", "Minutes–hours"],
-          ["Payoneer", "$0 to receive", "1–4% corridor (2% illustrated)", "≈ ₹42,140", "1–2 business days"],
-          ["Bank wire (SWIFT)", "₹850–1,500 incoming + sender's bank fees", "≈ 4.5% corridor", "≈ ₹40,100", "2–5 business days"],
-          ["PayPal", "4.4% + $0.49", "≈ 3.5% FX spread", "≈ ₹39,650", "Instant–1 day"],
+          ["Wise", "≈ $2.65 flat", "0% — mid-market rate", "≈ ₹41,529", "Minutes–hours"],
+          ["Payoneer", "$0 to receive", "1–4% corridor (2% illustrated)", "≈ ₹40,915", "1–2 business days"],
+          ["Bank wire (SWIFT)", "≈ $35 outgoing + sender's bank fees", "≈ 4.5% corridor", "≈ ₹37,080", "2–5 business days"],
+          ["PayPal", "≈ $4.99 flat", "≈ 3.5% FX spread", "≈ ₹39,887", "1–3 days"],
         ],
       },
       {
@@ -997,7 +997,7 @@ export const articles: Article[] = [
         items: [
           "Wise converts at the mid-market rate and charges a flat upfront fee (≈ 0.5% at this size), so the FX cost is visible before anyone sends anything.",
           "Payoneer's USD→INR withdrawal spread (1–4%, corridor-dependent) is hidden inside the conversion — check the exact rate in the Fees section before confirming.",
-          "PayPal's 4.4% + $0.49 cross-border fee applies to receiving personal payments from abroad, and its conversion spread sits on top.",
+          "PayPal's flat ~$5 fee plus a ~3.5% conversion spread sits on top of the mid-market rate — and the personal-payment model can add a percentage fee on top of that; check the quote before confirming.",
           "Bank wires look cheap on paper but add double-ended fees (your client's bank + incoming SWIFT charges) plus the bank's FX margin — the classic hidden-markup trap.",
         ],
       },
@@ -1025,9 +1025,9 @@ export const articles: Article[] = [
       {
         type: "ul",
         items: [
-          "Occasional $500 from a direct client → Wise: cheapest, fastest, most transparent at this size.",
+          "Occasional $500 from a direct client → Wise (or Revolut — at this size they land within ₹12 of each other): cheapest, fastest, most transparent.",
           "Platform or marketplace payouts → Payoneer: the rail the platform already uses, and receiving is $0.",
-          "Client insists on PayPal → accept, but know you are paying ~7% versus Wise — asking the client to cover the fee is reasonable.",
+          "Client insists on PayPal → accept, but know you are paying roughly 10% versus Wise — asking the client to cover the fee is reasonable.",
           "Large or recurring amounts → give the client your Wise USD account details so they can pay by domestic ACH transfer; receiving is $0 and there is no SWIFT chain.",
         ],
       },
@@ -1041,7 +1041,7 @@ export const articles: Article[] = [
       },
       {
         type: "p",
-        text: "Editorial note: figures are illustrative from the 2026 catalog vintage (₹86/USD mid-market snapshot, matching the Payoneer fees article), not live quotes or financial advice. Fee schedules and FX programs change — verify the current rate before confirming any transfer.",
+        text: "Editorial note: figures are illustrative from the 2026 catalog vintage (₹83.50/USD, the FX estimator's 2026-08-01 snapshot; fee models match the estimator's provider configs), not live quotes or financial advice. Fee schedules and FX programs change — verify the current rate before confirming any transfer.",
       },
     ],
   },
@@ -1244,6 +1244,88 @@ export const articles: Article[] = [
       {
         type: "p",
         text: "Editorial note: FIRC/FIRA practices are general banking practice as of the 2026 catalog vintage and vary by bank, branch, and transaction type — confirm the current process with your own bank before planning around it.",
+      },
+    ],
+  },
+  {
+    slug: "quarterly-india-cross-border-fee-index",
+    title: "Quarterly India Cross-Border Payment Fee Index",
+    description:
+      "The FinTech Atlas consolidated index of India cross-border payment fees: what Wise, Revolut, Payoneer, PayPal, and a bank wire actually deliver for $500, $1,000, and $5,000 — computed from the site's published fee schedules.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Cross-Border",
+    relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
+    ctas: [
+      { slug: "wise", label: "Open Wise", placement: "compare-vs" },
+      { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
+      { slug: "revolut", label: "Open Revolut", placement: "compare-vs" },
+    ],
+    body: [
+      {
+        type: "p",
+        text: "This is the FinTech Atlas consolidated fee index for receiving USD in India — what each channel actually delivers after fees and FX markup, for three representative amounts. Every figure is computed from the same provider fee models and the same ₹83.50/USD mid-market snapshot (2026-08-01) that power the site's Cross-Border FX Estimator, so the index and the calculator can never disagree. Treat it as a snapshot of the current vintage, not a live quote: schedules change, and your exact corridor can differ.",
+      },
+      {
+        type: "h2",
+        text: "The index: net INR for $500 / $1,000 / $5,000",
+      },
+      {
+        type: "table",
+        headers: ["Channel", "$500", "$1,000", "$5,000", "Fee model", "FX markup"],
+        rows: [
+          ["Wise", "≈ ₹41,529", "≈ ₹83,099", "≈ ₹4,15,663", "0.43% + $0.50", "0%"],
+          ["Revolut", "≈ ₹41,541", "≈ ₹83,083", "≈ ₹4,15,413", "0.5%", "0%"],
+          ["Payoneer (2% corridor illustrated)", "≈ ₹40,915", "≈ ₹81,830", "≈ ₹4,09,150", "1–4% corridor", "In-spread"],
+          ["PayPal / Xoom", "≈ ₹39,887", "≈ ₹80,175", "≈ ₹4,02,485", "$4.99 flat", "3.5%"],
+          ["Illustrative bank wire", "≈ ₹37,080", "≈ ₹76,952", "≈ ₹3,95,922", "$35 flat", "4.5%"],
+        ],
+      },
+      {
+        type: "h2",
+        text: "How the index is computed",
+      },
+      {
+        type: "p",
+        text: "For each provider: the fee model (percentage, flat, or both) is applied to the send amount, then the FX markup is applied to the mid-market rate, and the net amount is converted. The mid-market snapshot is ₹83.50/USD (2026-08-01); the fee models are the ones published in the site's remittance configuration — the same inputs the Cross-Border FX Estimator runs. Payoneer has no fixed published percentage for USD→INR: the published 1–4% corridor is shown at its 2% midpoint for comparison, with the caveat that the actual rate is shown in your account before you confirm.",
+      },
+      {
+        type: "h2",
+        text: "Reading the index",
+      },
+      {
+        type: "ul",
+        items: [
+          "At $500, Revolut and Wise land within ₹12 of each other — a rounding difference, not a decision; the tie breaks on speed, account features, and corridors you actually use.",
+          "Above roughly $714, Wise's 0.43% + $0.50 model beats Revolut's flat 0.5% — the crossover is built into the fee math.",
+          "PayPal's flat $4.99 fee scales down as a percentage as amounts grow, but the 3.5% spread stays proportional — it trails Wise by ~7–8% at every size in this table.",
+          "The bank wire is the most expensive at every size in this table: the $35 flat fee plus 4.5% margin costs roughly 10% of a $500 transfer before any incoming charges.",
+          "Payoneer's corridor sits between the specialists and PayPal at the 2% midpoint — check the actual corridor before relying on it.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "What's not in the index",
+      },
+      {
+        type: "ul",
+        items: [
+          "Domestic gateway fees (Razorpay, Cashfree, Stripe India at 2% + 18% GST) are a different rail — they apply to INR checkouts, not USD receipts; use the gateway fee calculator for those.",
+          "Enterprise and negotiated rates, card-funded payment requests, weekend FX effects, and promotional offers are all excluded.",
+          "Incoming bank charges on wires are excluded — the bank row is the outgoing-side $35 model plus the 4.5% margin.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Run your own numbers",
+      },
+      {
+        type: "p",
+        text: "The index is a fixed snapshot; your transfer is live. Run your exact amount through the Cross-Border FX Estimator, and use the exchange-rate markup calculator to expose the hidden spread in any rate a provider offers you.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: index figures are computed from the site's published provider fee models and the ₹83.50/USD snapshot of 2026-08-01 — the same inputs as the Cross-Border FX Estimator. They are illustrative, not live quotes; verify current schedules before planning around any figure.",
       },
     ],
   },
