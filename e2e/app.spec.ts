@@ -220,4 +220,49 @@ test.describe("critical flows", () => {
     await page.getByRole("radio", { name: /Sending INR/ }).click();
     await expect(page.getByText("1.80%").first()).toBeVisible();
   });
+
+  test("remittance ranks providers with visible fees and markups", async ({ page }) => {
+    await page.goto("/tools/remittance/");
+    // Wise (0.43% + $0.50, no FX markup) must lead the default $1,000 model.
+    await expect(
+      page.getByRole("heading", { name: /leads in this illustrative model/ }),
+    ).toContainText("Wise");
+
+    const wiseRow = page
+      .locator("div.rounded-xl.border.p-4", { hasText: "Wise" })
+      .filter({ hasText: "Upfront Fee" })
+      .first();
+    await expect(wiseRow).toContainText("Upfront Fee: $4.80");
+    await expect(wiseRow).toContainText("Exchange Markup: 0%");
+
+    const paypalRow = page
+      .locator("div.rounded-xl.border.p-4", { hasText: "PayPal" })
+      .filter({ hasText: "Upfront Fee" })
+      .first();
+    await expect(paypalRow).toContainText("Exchange Markup: 3.5%");
+
+    // The island renders a semantic breadcrumb like every other tool page.
+    await expect(
+      page.getByRole("navigation", { name: "Breadcrumb" }),
+    ).toContainText("Tools");
+  });
+
+  test("calculators suite exposes all nine calculators and switches tabs", async ({ page }) => {
+    await page.goto("/tools/calculators/");
+    await expect(page.getByRole("tab")).toHaveCount(9);
+    await expect(page.getByRole("tab", { name: /SIP Calculator/ })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    await expect(page.getByRole("heading", { name: "SIP Calculator" })).toBeVisible();
+    await expect(page.getByRole("tabpanel")).toContainText("Projected Corpus");
+
+    // EMI tab swaps panel and outputs.
+    await page.getByRole("tab", { name: /EMI \/ Loan Calculator/ }).click();
+    await expect(page.getByRole("tab", { name: /EMI \/ Loan Calculator/ })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    await expect(page.getByRole("tabpanel")).toContainText("Monthly Installment (EMI)");
+  });
 });
