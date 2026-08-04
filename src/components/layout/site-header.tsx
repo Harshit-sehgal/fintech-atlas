@@ -134,7 +134,7 @@ export function SiteHeader() {
                 <path d="M21 21l-4.35-4.35" />
               </svg>
               <span className="hidden sm:inline">Search...</span>
-              <kbd className="hidden font-mono text-[10px] opacity-70 sm:inline-block bg-[var(--border-color)] px-1.5 py-0.5 rounded">
+              <kbd className="hidden font-mono text-[10px] text-[var(--foreground)] sm:inline-block bg-[var(--border-color)] px-1.5 py-0.5 rounded">
                 {isMac ? "⌘K" : "Ctrl K"}
               </kbd>
             </button>

@@ -48,7 +48,7 @@ export default function RootError({
 
       {/* Error digest + message for transparency (digest is safe to expose) */}
       {error.digest && (
-        <p className="mt-4 font-mono text-[11px] text-[var(--muted-dim)]">
+        <p className="mt-4 font-mono text-[11px] text-[var(--muted-text)]">
           error digest: {error.digest}
         </p>
       )}

@@ -108,7 +108,7 @@ export default function RazorpayFeeCalculatorPage() {
 
       <div className="mx-auto mt-12 max-w-5xl">
         <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading calculator…</div>}>
-          <FeeCalculatorPageClient defaultCurrency="INR" />
+          <FeeCalculatorPageClient defaultCurrency="INR" showBreadcrumb={false} />
         </Suspense>
       </div>
       <section className="mx-auto max-w-5xl px-5 pb-16">

@@ -24,9 +24,11 @@ import CALCULATORS, {
   type CalcValues,
 } from "@/data/calculator-config";
 
+// All accents are WCAG-AA-safe: ≥4.5:1 as text on --surface/--card and as
+// active-tab backgrounds under cream text (checked per color at 14px).
 const ACCENTS = [
-  "#6366f1", "#10b981", "#f59e0b", "#8b5cf6",
-  "#ec4899", "#f97316", "#ef4444", "#06b6d4", "#22c55e",
+  "#4f46e5", "#047857", "#92400e", "#6d28d9",
+  "#be185d", "#9a3412", "#b91c1c", "#0e7490", "#166534",
 ];
 
 function defaultValuesFor(calc: (typeof CALCULATORS)[number]): CalcValues {

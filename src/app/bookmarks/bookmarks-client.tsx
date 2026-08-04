@@ -47,7 +47,7 @@ export default function BookmarksPageClient() {
             >
               ⭐
             </motion.span>
-            <h3 className="mt-4 text-lg font-bold text-[var(--foreground)]">No saved items yet</h3>
+            <h2 className="mt-4 text-lg font-bold text-[var(--foreground)]">No saved items yet</h2>
             <p className="mt-2 text-sm text-[var(--muted-text)] max-w-md mx-auto">
               Click the star icon (☆) on any company profile or glossary term to save it for quick reference later.
             </p>

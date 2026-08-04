@@ -24,7 +24,7 @@ export default function ToolsError({
         Something went wrong while rendering this tool. Try again, or return to the tools overview.
       </p>
       {error.digest && (
-        <p className="mt-4 font-mono text-[11px] text-[var(--muted-dim)]">
+        <p className="mt-4 font-mono text-[11px] text-[var(--muted-text)]">
           error digest: {error.digest}
         </p>
       )}

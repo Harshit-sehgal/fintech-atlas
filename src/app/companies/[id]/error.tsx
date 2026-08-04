@@ -33,7 +33,7 @@ export default function CompanyError({
         data issue or a render error — try again, or browse the directory.
       </p>
       {error.digest && (
-        <p className="mt-4 font-mono text-[11px] text-[var(--muted-dim)]">
+        <p className="mt-4 font-mono text-[11px] text-[var(--muted-text)]">
           error digest: {error.digest}
         </p>
       )}

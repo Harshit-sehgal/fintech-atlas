@@ -79,14 +79,16 @@ const toolsList = [
   },
 ];
 
-// Per-tool accent colors used to tint each tool's ambient glow + hover ring
+// Per-tool accent colors used to tint each tool's ambient glow + hover ring.
+// All are WCAG-AA-safe as text on the light surfaces (--surface/--card) and as
+// backgrounds with cream text, so badges and "Launch tool" labels pass.
 const TOOL_ACCENTS: Record<string, string> = {
-  calculators: "#8b5cf6", // violet
-  calculator: "#6366f1", // indigo
-  "razorpay-fee-calculator": "#3395ff", // Razorpay blue
-  remittance: "#10b981", // emerald
-  "exchange-rate-markup-calculator": "#0891b2", // cyan
-  matchmaker: "#f59e0b", // amber
+  calculators: "#6d28d9", // violet
+  calculator: "#4f46e5", // indigo
+  "razorpay-fee-calculator": "#1a64ad", // Razorpay blue
+  remittance: "#047857", // emerald
+  "exchange-rate-markup-calculator": "#0e7490", // cyan
+  matchmaker: "#92400e", // amber
 };
 
 export default function ToolsPage() {
@@ -109,7 +111,7 @@ export default function ToolsPage() {
 
       <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4 reveal-stagger">
         {toolsList.map((tool) => {
-          const accent = TOOL_ACCENTS[tool.id] ?? "#6366f1";
+          const accent = TOOL_ACCENTS[tool.id] ?? "#4f46e5";
           return (
             <Link
               key={tool.id}

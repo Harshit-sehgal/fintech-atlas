@@ -61,7 +61,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
       <Reveal>
         <div className="flex items-center gap-2 text-xs text-[var(--muted-text)] mb-6">
           <Link href="/categories" className="hover:text-[var(--foreground)] transition-colors">Categories</Link>
-          <span className="text-[var(--muted-dim)]">/</span>
+          <span className="text-[var(--muted-text)]">/</span>
           <span className="text-[var(--foreground)] font-medium">{cat.name}</span>
         </div>
 

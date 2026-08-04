@@ -72,7 +72,7 @@
 
   /* Text hierarchy */
   --fg-dim: #3d3a33;
-  --muted: #6f6a60;
+  --muted: #5c574e;
   --muted-dim: #a29c90;
   --muted-text: var(--muted);
 
@@ -90,8 +90,8 @@
   /* Text-grade twins — darker per-theme shades used wherever the colour is
      text or a small semantically-coloured glyph/icon, so it clears WCAG AA
      on the light surface. */
-  --success-text: #147a43;
-  --warning-text: #8f5f0b;
+  --success-text: #0a5c2e;
+  --warning-text: #7d5208;
   --danger-text: #a32e1f;
 
   /* Glass surface */

@@ -10,7 +10,7 @@
     "dev": "next dev",
     "build": "next build",
     "prebuild": "node scripts/check-rate-snapshot.mjs && tsx scripts/generate-company-summaries.ts",
-    "postbuild": "tsx scripts/generate-sitemap.ts && tsx scripts/generate-rss.ts && node scripts/generate-security-headers.mjs && node scripts/check-performance-budget.mjs && node scripts/check-structured-data.mjs && node scripts/check-static-artifact.mjs && node scripts/check-internal-links.mjs",
+    "postbuild": "tsx scripts/generate-sitemap.ts && tsx scripts/generate-rss.ts && node scripts/generate-security-headers.mjs && node scripts/check-performance-budget.mjs && node scripts/check-structured-data.mjs && node scripts/check-static-artifact.mjs && node scripts/check-internal-links.mjs && node scripts/version-service-worker.mjs",
     "logos:fetch": "tsx scripts/fetch-logos.ts",
     "check:provenance": "tsx scripts/check-provenance.ts",
     "check:artifact": "node scripts/check-static-artifact.mjs && node scripts/check-internal-links.mjs",
@@ -41,6 +41,7 @@
     }
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
     "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.62.1",
     "@tailwindcss/postcss": "^4",

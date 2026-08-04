@@ -197,7 +197,7 @@ export function GlossaryClient() {
                       {g.related.map((r, idx) => {
                         const rel = glossary.find((x) => x.slug === r);
                         return rel ? (
-                          <a key={r} href={`#${r}`} className="text-[var(--accent)] hover:underline mr-2">
+                          <a key={r} href={`#${r}`} className="text-[var(--accent)] underline underline-offset-2 mr-2">
                             {rel.term}{idx < g.related.length - 1 ? "," : ""}
                           </a>
                         ) : null;

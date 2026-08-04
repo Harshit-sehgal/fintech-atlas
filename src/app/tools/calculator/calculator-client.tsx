@@ -95,9 +95,12 @@ function formatFeeMoney(value: number, currency: FeeCurrency): string {
 
 export default function FeeCalculatorPageClient({
   defaultCurrency = DEFAULT_FEE_CURRENCY,
+  showBreadcrumb = true,
 }: {
   /** Preselected currency for pages that target one market (e.g. INR for the Razorpay calculator). */
   defaultCurrency?: FeeCurrency;
+  /** Pages that already render their own breadcrumb (e.g. the Razorpay page) hide the island's nav to avoid duplicate landmarks. */
+  showBreadcrumb?: boolean;
 }) {
   const { showToast } = useToast();
   const [monthlyRevenue, setMonthlyRevenue] =
@@ -204,13 +207,15 @@ export default function FeeCalculatorPageClient({
     <div className="relative mx-auto max-w-6xl px-5 py-20 md:py-28">
       <GridBackdrop />
 
-      <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs text-[var(--muted-text)] font-mono">
-        <Link href="/" className="hover:text-[var(--foreground)] transition-colors">Home</Link>
-        <span>/</span>
-        <Link href="/tools" className="hover:text-[var(--foreground)] transition-colors">Tools</Link>
-        <span>/</span>
-        <span className="text-[var(--foreground)] font-medium">Payment Gateway Fee Calculator</span>
-      </nav>
+      {showBreadcrumb && (
+        <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs text-[var(--muted-text)] font-mono">
+          <Link href="/" className="hover:text-[var(--foreground)] transition-colors">Home</Link>
+          <span>/</span>
+          <Link href="/tools" className="hover:text-[var(--foreground)] transition-colors">Tools</Link>
+          <span>/</span>
+          <span className="text-[var(--foreground)] font-medium">Payment Gateway Fee Calculator</span>
+        </nav>
+      )}
 
       <SectionHeading
         headingLevel={1}

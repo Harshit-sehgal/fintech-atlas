@@ -267,7 +267,7 @@ export default function RemittanceCalculatorPageClient() {
                     )}
                     <div>
                       <div className="text-sm">{c.code} ({c.symbol})</div>
-                      <div className="text-[11px] font-normal opacity-70">{c.name}</div>
+                      <div className="text-[11px] font-normal">{c.name}</div>
                     </div>
                   </button>
                 );

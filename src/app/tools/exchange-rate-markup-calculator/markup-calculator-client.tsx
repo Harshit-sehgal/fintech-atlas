@@ -229,7 +229,7 @@ export function MarkupCalculatorClient() {
 
           <div>
             <label htmlFor="fx-amount" className="mb-2 block text-sm font-medium text-[var(--muted-text)]">
-              {amountLabel} <span className="text-[var(--muted-text)] opacity-70">(optional)</span>
+              {amountLabel} <span className="text-[var(--muted-text)]">(optional)</span>
             </label>
             <input
               id="fx-amount"
