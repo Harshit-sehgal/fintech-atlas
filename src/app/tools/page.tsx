@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { canonicalUrl } from "@/lib/canonical-url";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { openGraphImage } from "@/lib/shared-metadata";
 
 const description =
@@ -92,6 +93,12 @@ export default function ToolsPage() {
   return (
     <div className="relative mx-auto max-w-6xl px-5 py-20 md:py-28">
       <GridBackdrop />
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Tools", href: "/tools" },
+        ]}
+      />
 
       <SectionHeading
         headingLevel={1}

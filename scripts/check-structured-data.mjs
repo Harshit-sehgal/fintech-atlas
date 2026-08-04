@@ -26,15 +26,25 @@ const files = collectIndexFiles(outDir);
 const problems = [];
 let blocks = 0;
 
-// Every tool page must carry a BreadcrumbList (server shell or editorial page).
-// The site-wide Organization/WebSite blocks come from the root layout.
-const TOOL_PAGE_RE = /\/tools\/[^/]+\/index\.html$/;
+// Every tool page (hub + individual) must carry a BreadcrumbList — server
+// shell or editorial page. The site-wide Organization/WebSite blocks come
+// from the root layout.
+const TOOL_PAGE_RE = /\/tools(?:\/[^/]+)?\/index\.html$/;
 for (const file of files.filter((f) => TOOL_PAGE_RE.test(f))) {
   const html = fs.readFileSync(file, "utf8");
   if (!html.includes('"BreadcrumbList"')) {
     problems.push(`${file}: missing BreadcrumbList JSON-LD`);
   }
 }
+
+// Per-type required properties — a well-formed block that omits its headline
+// or items is worse than a typo: it is silently ignored by search engines.
+const REQUIRED_PROPS = {
+  Article: ["headline", "datePublished"],
+  BreadcrumbList: ["itemListElement"],
+  WebSite: ["name", "url"],
+  Organization: ["name"],
+};
 
 for (const file of files) {
   const html = fs.readFileSync(file, "utf8");
@@ -58,6 +68,14 @@ for (const file of files) {
     for (const node of nodes) {
       if (!node || typeof node !== "object" || !node["@type"]) {
         problems.push(`${file}: JSON-LD node missing @type`);
+        continue;
+      }
+      for (const type of Array.isArray(node["@type"]) ? node["@type"] : [node["@type"]]) {
+        for (const prop of REQUIRED_PROPS[type] ?? []) {
+          if (node[prop] === undefined || node[prop] === null || node[prop] === "") {
+            problems.push(`${file}: ${type} missing required property "${prop}"`);
+          }
+        }
       }
     }
   }
