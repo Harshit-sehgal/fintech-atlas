@@ -266,3 +266,55 @@ test.describe("critical flows", () => {
     await expect(page.getByRole("tabpanel")).toContainText("Monthly Installment (EMI)");
   });
 });
+
+test.describe("services track", () => {
+  test("services page shows both service lines with pricing and validates the booking form", async ({ page }) => {
+    await page.goto("/services/");
+    await expect(page.getByRole("heading", { level: 1, name: /Payment gateway help/i })).toBeVisible();
+    await expect(page.getByText(/₹999–₹1,999/)).toBeVisible();
+    await expect(page.getByText(/₹2,500–₹5,000/)).toBeVisible();
+    await expect(page.getByText(/₹3,000–₹8,000/)).toBeVisible();
+
+    // Client-side validation: bad email + short message → both error alerts.
+    await page.fill("#svc-email", "not-an-email");
+    await page.fill("#svc-message", "short");
+    await page.click('button[type="submit"]');
+    await expect(page.getByRole("alert")).toHaveCount(3); // 2 form errors + Next's route announcer
+    await expect(page.getByText("Enter a valid email address so we can reply.")).toBeVisible();
+    await expect(page.getByText("Tell us a bit more — at least 20 characters helps us scope the work.")).toBeVisible();
+    await expect(page.locator("#svc-email")).toHaveAttribute("aria-invalid", "true");
+
+    // Valid input opens the prefilled issue draft (GitHub login gate may
+    // redirect, so assert the popup's URL shape, not a 200).
+    await page.fill("#svc-email", "founder@example.in");
+    await page.fill(
+      "#svc-message",
+      "We run a D2C store on Shopify doing about eight lakh a month in card payments.",
+    );
+    const popupPromise = page.waitForEvent("popup");
+    await page.click('button[type="submit"]');
+    const popup = await popupPromise;
+    expect(popup.url()).toMatch(/^https:\/\/github\.com\/(login|Harshit-sehgal\/fintech-atlas\/issues\/new)/);
+    await popup.close();
+  });
+
+  test("sample report derives fees from the calculator's provider tables", async ({ page }) => {
+    await page.goto("/services/gateway-selection-report-sample/");
+    // Three INR providers (Razorpay, Stripe India, Cashfree) — never the USD rows.
+    await expect(page.getByText(/2\.150%/).first()).toBeVisible();
+    await expect(page.getByText("Lowest total")).toBeVisible();
+    // GST line: 18% of the platform fee, printed per provider.
+    await expect(page.getByText(/GST \(18%\)/)).toBeVisible();
+  });
+
+  test("checklist toggles persist across reload", async ({ page }) => {
+    await page.goto("/services/payment-gateway-implementation-checklist/");
+    const boxes = page.locator('input[type="checkbox"]');
+    await expect(boxes).toHaveCount(25);
+    await boxes.nth(0).check();
+    await boxes.nth(1).check();
+    await expect(page.getByRole("progressbar", { name: /completion/i })).toHaveAttribute("aria-valuenow", "8");
+    await page.reload({ waitUntil: "networkidle" });
+    await expect(page.locator('input[type="checkbox"]:checked')).toHaveCount(2);
+  });
+});

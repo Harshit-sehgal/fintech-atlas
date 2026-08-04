@@ -83,7 +83,7 @@ export default function PrivacyPage() {
           This notice will be updated if the architecture changes—for example, if accounts, forms, or additional third-party services are introduced. Product feedback:{" "}
           <a
             href="https://github.com/Harshit-sehgal/fintech-atlas/issues/new/choose"
-            className="text-[var(--accent)] hover:underline"
+            className="text-[var(--accent)] underline decoration-[var(--accent)]/40 underline-offset-4 hover:decoration-[var(--accent)]"
             target="_blank"
             rel="noopener noreferrer"
           >

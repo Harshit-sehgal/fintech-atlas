@@ -171,6 +171,9 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
     { name: "FinTech Matchmaker Quiz", path: "/tools/matchmaker", desc: "Find the best financial tool suited for your business or personal needs" },
     { name: "Side-by-Side Comparison", path: "/compare", desc: "Compare companies side-by-side" },
     { name: "Saved Bookmarks", path: "/bookmarks", desc: "View your bookmarked companies and glossary terms" },
+    { name: "Gateway Selection Audit", path: "/services", desc: "Paid, independent gateway recommendations for Indian businesses" },
+    { name: "Sample Audit Report", path: "/services/gateway-selection-report-sample", desc: "See exactly what the paid gateway audit delivers" },
+    { name: "Gateway Implementation Checklist", path: "/services/payment-gateway-implementation-checklist", desc: "Pre-flight to go-live checklist with saved progress" },
   ], []);
 
   const filteredTools = useMemo(() => {

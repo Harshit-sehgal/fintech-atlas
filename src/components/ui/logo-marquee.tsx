@@ -56,21 +56,36 @@ export function LogoMarquee({ logos, speed = 40 }: LogoMarqueeProps) {
         onPointerEnter={handleEnter}
         onPointerLeave={handleLeave}
       >
-        {items.map((l, i) => (
-          <Link
-            key={`${l.slug}-${i}`}
-            href={`/companies/${l.slug}`}
-            title={l.name}
-            className="group flex shrink-0 items-center gap-3 rounded-xl border border-transparent px-3 py-2 transition-colors hover:border-[var(--border-color)] hover:bg-[var(--subtle-bg)]/60 hover-lift"
-          >
-            <div className="opacity-80 group-hover:opacity-100 transition-opacity">
-              <CompanyLogo slug={l.slug} name={l.name} size={32} />
-            </div>
-            <span className="text-xs font-medium text-[var(--muted-text)] group-hover:text-[var(--foreground)] transition-colors">
-              {l.name}
+        {items.map((l, i) => {
+          // The strip renders each brand twice for a seamless loop. The
+          // duplicate copy is rendered as a plain span — not a link — so it
+          // adds no keyboard tab stops and no duplicate announcements to
+          // screen readers (aria-hidden/inert on the copy are both fragile:
+          // the former trips axe's aria-hidden-focus rule, the latter is not
+          // supported by this React build).
+          const duplicate = i >= logos.length;
+          const itemClass =
+            "group flex shrink-0 items-center gap-3 rounded-xl border border-transparent px-3 py-2 transition-colors hover:border-[var(--border-color)] hover:bg-[var(--subtle-bg)]/60 hover-lift";
+          const content = (
+            <>
+              <div className="opacity-80 group-hover:opacity-100 transition-opacity">
+                <CompanyLogo slug={l.slug} name={l.name} size={32} />
+              </div>
+              <span className="text-xs font-medium text-[var(--muted-text)] group-hover:text-[var(--foreground)] transition-colors">
+                {l.name}
+              </span>
+            </>
+          );
+          return duplicate ? (
+            <span key={`${l.slug}-${i}`} className={itemClass} aria-hidden="true">
+              {content}
             </span>
-          </Link>
-        ))}
+          ) : (
+            <Link key={`${l.slug}-${i}`} href={`/companies/${l.slug}`} title={l.name} className={itemClass}>
+              {content}
+            </Link>
+          );
+        })}
       </motion.div>
     </div>
   );

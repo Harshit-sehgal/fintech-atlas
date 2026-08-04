@@ -72,7 +72,7 @@ function DefaultFallback({
     <div
       className="fixed inset-0 flex items-center justify-center bg-[var(--background)]/90 backdrop-blur-sm z-50"
     >
-      <div className="bg-[var(--card)] rounded-xl p-8 w-full max-w-2xl text-center border border-[var(--border-color)]">
+      <div role="alert" className="bg-[var(--card)] rounded-xl p-8 w-full max-w-2xl text-center border border-[var(--border-color)]">
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent)]/20 mb-4">
           <svg
             className="h-6 w-6 text-[var(--accent)]"

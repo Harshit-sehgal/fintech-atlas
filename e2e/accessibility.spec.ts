@@ -31,6 +31,9 @@ const ROUTES: Array<[string, string]> = [
   ["services", "/services/"],
   ["services sample report", "/services/gateway-selection-report-sample/"],
   ["services checklist", "/services/payment-gateway-implementation-checklist/"],
+  ["privacy", "/privacy/"],
+  ["terms", "/terms/"],
+  ["affiliate disclosure", "/affiliate-disclosure/"],
 ];
 
 // Dark theme exercises the light accent twins (per-tool/calculator/category

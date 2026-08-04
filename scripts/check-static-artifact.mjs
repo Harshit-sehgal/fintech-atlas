@@ -33,6 +33,10 @@ const representativeRoutes = [
   "tools/remittance/index.html",
   "privacy/index.html",
   "terms/index.html",
+  "affiliate-disclosure/index.html",
+  "services/index.html",
+  "services/gateway-selection-report-sample/index.html",
+  "services/payment-gateway-implementation-checklist/index.html",
 ];
 
 function fail(message) {

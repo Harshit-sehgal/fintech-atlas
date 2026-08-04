@@ -32,9 +32,17 @@ export function CountUp({ target, decimals = 0, suffix = "", duration = 1.2 }: C
   }, [inView, target, mv, duration]);
 
   return (
-    <motion.span ref={ref}>
-      <motion.span>{formatted}</motion.span>
-      {suffix}
-    </motion.span>
+    <span>
+      <span aria-hidden="true">
+        <motion.span ref={ref}>
+          <motion.span>{formatted}</motion.span>
+          {suffix}
+        </motion.span>
+      </span>
+      <span className="sr-only">
+        {target.toFixed(decimals)}
+        {suffix}
+      </span>
+    </span>
   );
 }
