@@ -39,7 +39,14 @@ Optional:
 ```bash
 NEXT_PUBLIC_ANALYTICS_DOMAIN=your.plausible.site.id
 NEXT_PUBLIC_WAITLIST_ENDPOINT=https://formspree.io/f/...
+NEXT_PUBLIC_NEWSLETTER_FORM_ACTION=https://your-provider.example/subscribe
 ```
+
+For the scheduled GitHub Actions uptime workflow, configure the non-secret
+repository variable `DEPLOYMENT_URL` (not a build environment variable) with the
+canonical HTTPS origin. The workflow skips safely until this variable exists;
+when configured, it probes the homepage and key tool/article routes and opens an
+idempotent issue if they fail. See [Goal 11 observability](production-readiness/goal-11-observability.md).
 
 ## Verification
 
@@ -48,6 +55,13 @@ run the deployed-site smoke check against that exact origin:
 
 ```bash
 DEPLOY_URL=https://your.production.domain npm run check:deployment
+```
+
+For a GitHub Pages project-site artifact, pass the same base path used during
+build when checking a downloaded artifact:
+
+```bash
+ARTIFACT_DIR=out NEXT_PUBLIC_BASE_PATH=/REPOSITORY npm run check:artifact
 ```
 
 It checks representative routes, HTTP status, the sitemap/robots relationship,

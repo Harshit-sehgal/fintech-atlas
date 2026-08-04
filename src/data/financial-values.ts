@@ -45,6 +45,7 @@ export const valuationAmountUsdBySlug: Record<string, number> = {
   sofi: 8_100_000_000,
   picpay: 2_000_000_000,
   razorpay: 7_500_000_000,
+  cashfree: 700_000_000,
   starling: 3_200_000_000,
   relay: 360_000_000,
 };
@@ -96,6 +97,7 @@ export const financialValueTypeBySlug: Record<
   picpay: "private-valuation",
   plaid: "private-valuation",
   razorpay: "private-valuation",
+  cashfree: "private-valuation",
   relay: "private-valuation",
   revolut: "private-valuation",
   starling: "private-valuation",

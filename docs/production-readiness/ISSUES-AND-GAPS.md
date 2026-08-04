@@ -1,8 +1,9 @@
-# Issues & Gaps — FinTech Atlas
+# Issues & Status — FinTech Atlas
 
-> Open gaps only (fixed items removed). Complements
+> Actionable gaps and current status (completed items are marked 🟢 rather than
+> removed so the repository-level audit trail remains readable). Complements
 > [GAP-ANALYSIS.md](./GAP-ANALYSIS.md) and the per-goal checklists.
-> Last refreshed: **2026-08-04**. Repository-level static-v1 work is current through the India-focus pass (fee calculator INR mode + GST, Razorpay vs Stripe article/preset, homepage repositioning) and PWA browser verification.
+> Last refreshed: **2026-08-04**. Repository-level static-v1 work is current through the India-focus pass (fee calculator INR mode + GST, Razorpay vs Stripe + Razorpay vs Cashfree articles/presets, homepage repositioning + Popular Comparisons, per-article sitemap lastmods, GitHub Actions uptime monitor, Payoneer fees India article, Payoneer profile copy repair) and PWA browser verification.
 
 **Architecture context:** fully static Next.js 16 export (`output: "export"`) —
 no server, database, auth, or live third-party data feeds.
@@ -27,8 +28,8 @@ Backend-heavy goals are deferred per [ADR-001](../adr/001-defer-backend-capabili
 |---|-----|--------|
 | R1 | All critical features meet their Definition of Done | Open |
 | R2 | No unresolved critical or high-severity defects | Open |
-| R3 | Automated tests for critical paths pass consistently on `origin/main` | Open (local suite strong; merge/CI evidence remains) |
-| R4 | Monitoring, alerting, logging, and backups are active | 🔴 Deferred (ADR-001) / host-level |
+| R3 | Automated tests for critical paths pass consistently on `origin/main` | 🟢 Local Vitest + 18-test Playwright suite pass; merge/CI evidence remains |
+| R4 | Monitoring, alerting, logging, and backups are active | 🟡 Repo-level uptime workflow added (30-minute probes of homepage/tools/articles → GitHub issue alerts; needs `DEPLOYMENT_URL` + GitHub settings); host-level logging/backups remain operator tasks (ADR-001) |
 | R5 | Security review is complete | Open |
 | R6 | Performance targets are met (live-host evidence) | Open |
 | R7 | Documentation is current | Open (provider docs added; legal review remains) |
@@ -90,10 +91,10 @@ Do not implement without revisiting [ADR-001](../adr/001-defer-backend-capabilit
 
 | ID | Gap |
 |----|-----|
-| D1–D3 | Structured provenance is present for all 41 companies; legacy labels still require source-by-source re-verification |
+| D1–D3 | Structured provenance is present for all 42 companies; legacy labels still require source-by-source re-verification |
 | D4 | Logo asset coverage and branded fallback treatment still need an operator/content pass for any missing real marks |
 | D5–D7 | Manual FX / fee / `DATA_AS_OF` / editorial refresh; fee calculator now isolates USD/INR and applies configured India GST, but source freshness remains manual |
-| D8 | Possible editorial quality issues in company copy |
+| D8 | Possible editorial quality issues in company copy | 🟡 Payoneer profile repaired (garbled strengths/weaknesses/pricing rewritten from official India + global pricing pages); full-catalog copy sweep remains open |
 | D9 | Illustrative fee/FX assumptions — freshness risk |
 | D10 | On-device newsletter intent and private notes remain local-only UX by design |
 
@@ -103,13 +104,13 @@ Do not implement without revisiting [ADR-001](../adr/001-defer-backend-capabilit
 
 | ID | Gap |
 |----|-----|
-| W3–W4 | E2E + security/Lighthouse workflows present locally — merge to `origin/main` + enable GitHub settings |
+| W3–W4 | E2E + security/Lighthouse workflows run on all pushed branches locally — merge to `origin/main` + enable GitHub settings |
 | W7 | Dual lockfiles resolved (npm only) — ensure `pnpm-*` stay deleted |
-| E1–E4 | CD and artifact restore verification are implemented; hosted previews and provider-specific rollback drill remain |
-| E7 | No structured-data validation in CI | 🟢 Done — `scripts/check-structured-data.mjs` runs in `postbuild` and validates emitted JSON-LD |
+| E1–E4 | CD, local artifact restore, internal-link verification, project-site link fixtures, and all-push CI verification are implemented; hosted previews and provider-specific rollback drill remain |
+| E7 | Structured-data and internal-link validation | 🟢 Done — `scripts/check-structured-data.mjs` and `scripts/check-internal-links.mjs` run in `postbuild` and validate the emitted artifact |
 | E11 | Audit triage policy thin |
 | E15 | ESLint pinned to v9 until eslint-config-next supports 10 |
-| E17 | Secret scanning needs GitHub repo settings |
+| E17 | Secret scanning push-protection still needs GitHub repo settings |
 | E18 | Incident runbook recovery checklist remains an operator execution checklist; executable artifact/deployment checks are now documented |
 | S5 | Glossary hash deep links are not separate sitemap URLs (by design for static anchors) |
 | S9–S10 | `next/image` remains unused (catalog marks are SVG/fallback); Framer Motion bundle budget watch |
@@ -139,5 +140,7 @@ all backend-heavy goals listed in ADR-001.
 
 ## 9. How to maintain
 
-- Delete rows when closed; do not keep a closed backlog here.
+- Keep completed rows only when they provide useful verification context; mark
+  them 🟢 and add the evidence source.
+- Remove stale rows when the surrounding status section is rewritten.
 - Backend ambitions require a new ADR superseding ADR-001.

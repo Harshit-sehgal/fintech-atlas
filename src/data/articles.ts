@@ -731,6 +731,217 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "razorpay-vs-cashfree-indian-gateways",
+    title: "Razorpay vs Cashfree (India): which gateway fits your business",
+    description:
+      "Both Indian gateways charge a flat 2% on domestic payments plus 18% GST — the differences are international rates, settlement, and product depth. A plain-language comparison for Indian merchants.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Payments",
+    relatedCompanySlugs: ["razorpay", "cashfree"],
+    ctas: [
+      { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
+      { slug: "cashfree", label: "Visit Cashfree", placement: "compare-vs" },
+    ],
+    body: [
+      {
+        type: "p",
+        text: "For an India-registered business, Razorpay and Cashfree are the two most common domestic gateway choices. Both publish flat-rate pricing and both charge 2% on domestic online payments — identical headline numbers that make the decision about everything else: international card rates, settlement speed, payment-method coverage, and what the platform offers beyond processing. This guide compares them for the Indian market specifically.",
+      },
+      {
+        type: "h2",
+        text: "Fee structure at a glance",
+      },
+      {
+        type: "table",
+        headers: ["Factor", "Razorpay", "Cashfree"],
+        rows: [
+          [
+            "Pricing model",
+            "Published flat rate",
+            "Published flat rate",
+          ],
+          [
+            "Domestic online rate",
+            "2% on all domestic instruments (cards, UPI, netbanking, wallets)",
+            "2% on domestic payments (cards, UPI, net banking, EMI, pay-later)",
+          ],
+          [
+            "International cards",
+            "Up to 3%",
+            "From 2.95% (2.99% for Visa/Mastercard)",
+          ],
+          [
+            "Fixed per-transaction fee",
+            "None",
+            "None",
+          ],
+          [
+            "GST",
+            "18% added on top of the platform fee",
+            "18% added on top of the platform fee",
+          ],
+          [
+            "Setup / AMC",
+            "₹0",
+            "₹0 — no setup or annual maintenance charges",
+          ],
+          [
+            "Best fit",
+            "Startups & D2C wanting a full-stack suite (banking, lending)",
+            "Platforms & fintechs needing payouts, verification & settlement APIs",
+          ],
+        ],
+      },
+      {
+        type: "p",
+        text: "Both rates are quoted exclusive of GST: 18% on the platform fee takes the all-in domestic cost to 2.36%. Cashfree's published schedule is 2% with zero setup costs, plus a time-limited 1.95% intro rate for new merchants; Razorpay's flat 2% covers UPI, netbanking, and wallets as well as cards. Internationally, Cashfree starts at 2.95% (2.99% for Visa/Mastercard) while Razorpay charges up to 3% — a hair's breadth apart, so international mix rarely decides the choice on rate alone.",
+      },
+      {
+        type: "h2",
+        text: "Key differences to weigh",
+      },
+      {
+        type: "ul",
+        items: [
+          "Settlement: both default to T+1; Cashfree sells instant-settlement products aimed at marketplaces, while Razorpay couples settlement with its Route and payout tooling.",
+          "Payment methods: both cover UPI, cards, netbanking, EMI, and pay-later; Cashfree markets 180+ modes including RuPay UPI on credit cards.",
+          "Beyond processing: Razorpay adds business banking (RazorpayX) and lending (Razorpay Capital); Cashfree adds bulk payouts, instant settlements, and a KYC/verification suite.",
+          "International: Cashfree collects in 140+ currencies with local acquiring partnerships; Razorpay prices international cards at up to 3% on top of its domestic 2%.",
+          "Developer experience: both are API-first — Cashfree is a common embedded-payments pick for fintech platforms, while Razorpay's docs and plugins target direct merchants.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Run your own numbers",
+      },
+      {
+        type: "p",
+        text: "Your effective rate depends on volume, average order value, and international mix — and GST changes the picture at every volume level. Use our free Payment Gateway Fee Calculator, switch to the INR — India providers view, and compare Razorpay and Cashfree Payments on your own numbers.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: rates above are published India schedules from the catalog vintage (Cashfree's pricing page and Razorpay's pricing page), not quotes — verify current terms before deciding.",
+      },
+    ],
+  },
+  {
+    slug: "payoneer-fees-india",
+    title: "Payoneer fees in India (2026): what it really costs to receive USD",
+    description:
+      "Payoneer's published India pricing — free local receiving accounts, a 1–4% USD-to-INR withdrawal corridor, card-funded requests at 2.90% + $0.49, and the $29.95 annual fee — explained with a worked example.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Cross-Border",
+    relatedCompanySlugs: ["payoneer", "wise"],
+    ctas: [
+      { slug: "payoneer", label: "See Payoneer pricing", placement: "compare-vs" },
+      { slug: "wise", label: "Compare with Wise", placement: "compare-vs" },
+    ],
+    body: [
+      {
+        type: "p",
+        text: "Payoneer's India pricing is layered: receiving money is often free or cheap, the exit to INR costs 1–4% of the amount, and marketplace payouts add fees of their own on top. For a typical Indian freelancer receiving $1,000 and withdrawing to a bank account, the total Payoneer-side cost lands between roughly 1% and 5% depending on how the client paid and which corridor applies. This guide breaks down the published schedule so you can price the decision before you open an account.",
+      },
+      {
+        type: "h2",
+        text: "Payoneer fees at a glance (India)",
+      },
+      {
+        type: "table",
+        headers: ["Fee item", "Published rate", "Notes"],
+        rows: [
+          [
+            "Receive from another Payoneer customer",
+            "Free",
+            "Balance-to-balance transfers",
+          ],
+          [
+            "Receive via local-currency receiving account",
+            "Free",
+            "USD, EUR, GBP and other receiving accounts",
+          ],
+          [
+            "Receive via non-local receiving account",
+            "Fixed fee or 1%",
+            "Depending on the amount received",
+          ],
+          [
+            "Client pays by credit card (payment request)",
+            "2.90% + $0.49",
+            "Card-funded payment requests",
+          ],
+          [
+            "Client pays by US ACH bank debit",
+            "1%",
+            "US-only bank debit",
+          ],
+          [
+            "Marketplace payouts (Upwork, Fiverr, etc.)",
+            "Set by each marketplace",
+            "Payoneer itself does not set these fees",
+          ],
+          [
+            "Withdraw USD balance to an INR bank account",
+            "1–4% of amount",
+            "Automatic withdrawal to the linked Indian bank within 48 hours",
+          ],
+          [
+            "Annual account fee",
+            "$29.95",
+            "Only if under $6,000 received in any 12 consecutive months",
+          ],
+        ],
+      },
+      {
+        type: "p",
+        text: "The headline numbers from Payoneer's India pricing page (updated June 2026): receiving accounts in your local currency are free, payment requests cost 2.90% + $0.49 when funded by credit card, and converting a USD balance into INR costs 1–4% of the transaction amount. That last figure is the one most comparison tables miss — it is a percentage of the full amount, so it dominates every other cost once you actually take the money out.",
+      },
+      {
+        type: "h2",
+        text: "What a real payment costs: a worked example",
+      },
+      {
+        type: "p",
+        text: "Illustrative math at a mid-market snapshot of ₹86/USD: a $1,000 marketplace payout arrives with no Payoneer receiving fee. Withdrawing to INR at the published 1–4% corridor, at 1% you keep $990 — about ₹85,140 — and at 4% you keep $960 — about ₹82,560. If the client paid by credit card instead, the 2.90% + $0.49 request fee (≈ $29.49) applies first, and the withdrawal corridor then applies to what is left. The exact corridor rate is shown inside your account before you confirm the withdrawal.",
+      },
+      {
+        type: "h2",
+        text: "The India-specific detail: automatic INR conversion",
+      },
+      {
+        type: "p",
+        text: "Payoneer's India pricing page states that payments received by customers based in India are automatically withdrawn to the linked Indian bank account within 48 hours. Indian users also do not get the Payoneer prepaid card. Cross-border payouts to Indian freelancers operate under the RBI's Payment Aggregator – Cross Border (PA-CB) framework, which replaced the older OPGSP regime — per January 2026 industry sources; treat this as context, not legal or tax advice.",
+      },
+      {
+        type: "h2",
+        text: "How to reduce your Payoneer costs",
+      },
+      {
+        type: "ul",
+        items: [
+          "Receive through a local-currency receiving account where the client can pay by domestic transfer — the receiving fee is $0.",
+          "Prefer marketplace payouts over card-funded payment requests; card requests add 2.90% + $0.49 before the exit fee.",
+          "Batch withdrawals — the exit cost is a percentage of the amount, so fewer, larger withdrawals beat many small ones where minimums apply.",
+          "Keep at least $6,000 of receipts in any 12-month window to avoid the $29.95 annual account fee.",
+          "Check the exact corridor fee in the Fees section of your account before confirming a withdrawal — the 1–4% range is corridor-dependent.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Methodology & limitations",
+      },
+      {
+        type: "p",
+        text: "Figures above are Payoneer's published India pricing (payoneer.com/en-in/about/pricing/, updated 18 June 2026) and global pricing page (updated 1 January 2026). Marketplace payout fees are set by each marketplace and vary. The worked example assumes an illustrative ₹86/USD mid-market snapshot; actual exchange rates move continuously. The fee shown in your Payoneer account before you confirm a transaction is authoritative.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: rates are published schedules from the catalog vintage, not live quotes — verify current terms in your Payoneer account before confirming any transaction.",
+      },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {

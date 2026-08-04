@@ -93,9 +93,11 @@ The `resolvePartnerCta` mapper already:
 
 ## 5. Hygiene & honesty gates
 
-- [ ] Run a check that **every commercial CTA** carries `rel="sponsored"` and a
-      visible disclosure (enforced by a CI gate — see monetization-plan §1.3).
-- [ ] Keep a public "Affiliate Disclosure" link reachable from the footer.
+- [x] Run a check that **every commercial CTA** carries `rel="sponsored"` and a
+      visible disclosure (`commercialLinksRemainDisclosed()` is covered by
+      `src/lib/partners.test.ts`).
+- [x] Keep a public "Affiliate Disclosure" link reachable from the footer;
+      the route and footer link are covered by `e2e/app.spec.ts`.
 - [ ] Periodically re-verify affiliate links (programs expire/rotate URLs).
 - [ ] Remove or re-check any program whose terms change and conflict with this
       site's editorial independence.

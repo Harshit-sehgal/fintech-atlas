@@ -16,6 +16,8 @@ export const PRESETS: ComparePreset[] = [
   { name: "Chime vs Nubank (Consumer Neobanks)", slugs: ["chime", "nubank"] },
   { name: "Stripe vs PayPal vs Square (Merchant Stack)", slugs: ["stripe", "paypal", "square"] },
   { name: "Razorpay vs Stripe (Payments India)", slugs: ["razorpay", "stripe"] },
+  { name: "Razorpay vs Cashfree (Indian Gateways)", slugs: ["razorpay", "cashfree"] },
+  { name: "Wise vs Payoneer (Freelancer Payouts)", slugs: ["wise", "payoneer"] },
 ];
 
 /** True when every slug in every preset resolves to a known company. */

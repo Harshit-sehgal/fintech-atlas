@@ -34,13 +34,13 @@
 | 05 | [Portfolio Tracker](goal-05-portfolio-tracker.md) | 🔴 Requires account persistence | — |
 | 06 | [Personal Finance](goal-06-personal-finance.md) | 🔴 Requires account persistence | — |
 | 07 | [Search](goal-07-search.md) | 🟢 Client-side catalog search with fuzzy ranking | Market-data search deferred |
-| 08 | [SEO](goal-08-seo.md) | 🟢 Largely implemented | Verify + harden |
-| 09 | [Security](goal-09-security.md) | 🟢/🟡 Static surface; disclosure + generated headers present; host audit remains | Verify host + audit |
+| 08 | [SEO](goal-08-seo.md) | 🟢 Metadata, structured data, sitemap, robots, and artifact validation | Verify live host |
+| 09 | [Security](goal-09-security.md) | 🟢/🟡 Static baseline, production audit, disclosure, and generated headers | Verify host + external pentest |
 | 10 | [Performance](goal-10-performance.md) | 🟢 Static export is naturally fast; budget CWV | Measure & budget |
-| 11 | [Observability](goal-11-observability.md) | 🟡 No analytics/monitoring (current: deliberate privacy choice) | Decide & add |
+| 11 | [Observability](goal-11-observability.md) | 🟡 Uptime workflow scaffold; no error tracking | Configure `DEPLOYMENT_URL` + decide |
 | 12 | [Deployment](goal-12-deployment.md) | 🟡 Build + tests + CI + runbook; preview/provider drill remain | Finish host setup |
 | 13 | [Product Analytics](goal-13-product-analytics.md) | 🟡 No tracking by design (`README`) | Decide & add |
-| 14 | [Accessibility](goal-14-accessibility.md) | 🟢 Automated gate + code-level review | Manual audit remains |
+| 14 | [Accessibility](goal-14-accessibility.md) | 🟢 Lighthouse/E2E/code-level coverage | Manual audit remains |
 | 15 | [Documentation](goal-15-documentation.md) | 🟡 README + contribution, legal, security, and incident docs | Finish provider/legal review |
 
 ## Release Criteria (Production Ready)
@@ -50,7 +50,7 @@ This is the single gate — treat each line as a hard requirement, not a wish.
 
 - [ ] All critical features meet their Definition of Done.
 - [ ] No unresolved critical or high-severity defects.
-- [ ] Automated tests for critical paths pass consistently.
+- [x] Automated tests for critical paths pass locally (282 Vitest tests + 18 Playwright E2E journeys); CI/origin-main evidence remains required.
 - [ ] Monitoring, alerting, logging, and backups are active.
 - [ ] Security review is complete.
 - [ ] Performance targets are met.

@@ -60,7 +60,8 @@ alongside the static export — because:
   for payments; an auth provider (Clerk/Auth0/NextAuth) for accounts
 - updated legal docs for accounts, payments, and data storage (currently the
   privacy notice explicitly states "no accounts, no server-side database")
-- a security review (currently marked Open in ISSUES-AND-GAPS)
+- the code-based security review is complete; a professional penetration test and
+  live-host header verification remain open in ISSUES-AND-GAPS
 
 ## Consequences
 

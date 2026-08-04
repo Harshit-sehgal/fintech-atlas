@@ -206,4 +206,20 @@ export const PROVIDER_FEE_CONFIGS: ProviderFeeConfig[] = [
       intlFixed: 0,
     },
   },
+  {
+    slug: "cashfree",
+    name: "Cashfree Payments",
+    currency: "INR",
+    region: "India",
+    gstPercent: 18,
+    pricingModel: "published-flat-rate",
+    logo: "#663399",
+    note: "2% domestic with zero setup — 180+ payment modes",
+    online: {
+      domPct: 0.02,
+      domFixed: 0,
+      intlSurcharge: 0.0099,
+      intlFixed: 0,
+    },
+  },
 ];

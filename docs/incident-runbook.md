@@ -66,6 +66,19 @@ placeholder domain.
 
 ## Recovery verification checklist
 
+The repository-level automated evidence below reflects the current working-tree
+validation run (record the release SHA and timestamp when promoting it):
+
+- `npm run test:e2e`: 18/18 Playwright journeys passed.
+- `npm run check:provenance`: 42/42 company records validate.
+- `npm audit --production --audit-level=high`: 0 shipped vulnerabilities.
+- `npm run build`: static artifact, structured-data, internal-link, RSS,
+  security-header, and performance gates passed.
+
+The checklist items that follow still require a deployed URL or a human
+keyboard/screen-reader walkthrough; they are intentionally not marked complete
+by local unit/E2E evidence alone.
+
 - [ ] Homepage and navigation render.
 - [ ] Keyboard skip links and command palette work.
 - [ ] Calculator and remittance disclaimers are visible.

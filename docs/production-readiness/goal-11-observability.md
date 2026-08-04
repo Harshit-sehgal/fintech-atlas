@@ -1,6 +1,6 @@
 # Goal 11 — Observability
 
-**Status:** 🟡 No monitoring today (deliberate privacy-by-design stance)
+**Status:** 🟡 Uptime workflow scaffolded; host configuration and error tracking remain open
 
 **Objective:** Logging, error tracking, monitoring, alerts, audit logs.
 
@@ -18,10 +18,13 @@
 - [ ] Logs support troubleshooting without exposing sensitive data.
 
 ## Status vs. this codebase
-- There is no error tracking or uptime monitoring wired in. The `README` states
-  "no tracking, analytics, or data collection" — a deliberate privacy stance that
-  this goal partially conflicts with and must be **explicitly decided**.
-- Minimum viable: adopt privacy-respecting uptime + error monitoring (e.g.
-  Sentry + UptimeRobot/Cloudflare analytics), log nothing personally
-  identifiable, and define which "key business metrics" matter. Document the
-  decision (an ADR) rather than silently enabling tracking.
+- A scheduled GitHub Actions uptime workflow is present at
+  `.github/workflows/uptime.yml`. It probes the homepage and key tools and opens
+  an idempotent issue on failure, but it intentionally skips until the operator
+  configures the non-secret repository variable `DEPLOYMENT_URL` with the real
+  HTTPS origin. The repository does not claim live-host monitoring until that
+  variable and the workflow settings are enabled.
+- Error tracking, application logs, audit logs, and product analytics remain
+  absent by design. Any future provider must be selected through an explicit
+  privacy/architecture decision, with no personally identifiable data collected
+  without updating the privacy notice.

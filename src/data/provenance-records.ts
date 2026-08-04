@@ -551,4 +551,43 @@ export const sourceReferencesBySlug: Partial<Record<string, SourceReference[]>> 
       supports: ["company-profile", "products"],
     },
   ],
+  cashfree: [
+    {
+      id: "official-pricing",
+      publisher: "Cashfree Payments",
+      title: "Payment Gateway Charges — official pricing page",
+      url: "https://www.cashfree.com/payment-gateway-charges/",
+      accessedAt: PROVENANCE_ACCESSED_AT,
+      sourceType: "official-documentation",
+      supports: ["company-profile", "pricing", "products"],
+    },
+    {
+      id: "inc42-datalabs",
+      publisher: "Inc42 Datalabs",
+      title: "Cashfree Payments — funding, valuation & financials",
+      url: "https://inc42.com/company/cashfree/funding/",
+      accessedAt: PROVENANCE_ACCESSED_AT,
+      sourceType: "editorial-reference",
+      supports: ["founders", "employees", "valuation"],
+    },
+    {
+      id: "livemint-sbi-round",
+      publisher: "Mint",
+      title: "Cashfree gets funding from SBI at valuation of $200 million",
+      url: "https://www.livemint.com/companies/start-ups/sbi-invests-in-digital-payments-firm-cashfree-11623058026482.html",
+      accessedAt: PROVENANCE_ACCESSED_AT,
+      sourceType: "news-report",
+      supports: ["valuation"],
+    },
+    {
+      id: "ycombinator",
+      publisher: "Y Combinator",
+      title: "Cashfree — YC company profile",
+      url: "https://www.ycombinator.com/companies/cashfree",
+      accessedAt: PROVENANCE_ACCESSED_AT,
+      sourceType: "editorial-reference",
+      supports: ["company-profile", "founders", "products"],
+    },
+  ],
+
 };

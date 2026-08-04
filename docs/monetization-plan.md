@@ -24,9 +24,9 @@ to keep editorial content independent and commercial inventory loudly disclosed.
 
 - [x] Provenance validation engine (`src/data/provenance.ts`) — accepts ISO dates,
       whitelists `supports` fields, rejects unknown source IDs.
-- [x] Migrate all 41 companies from legacy `sources: string[]` to structured
+- [x] Migrate all 42 companies from legacy `sources: string[]` to structured
       `sourceReferences[]` with `publisher`, `accessedAt`, `effectiveAt`,
-      `sourceType`, and `supports`. **Coverage: 41/41 (100%).** Track with
+      `sourceType`, and `supports`. **Coverage: 42/42 (100%).** Track with
       `scripts/check-provenance.ts` (`npm run check:provenance`).
 - [ ] **Re-verify** each migrated reference (currently official-site + aggregator
       labels structured from the legacy `sources`); add fresh $/fee/employee/valuation
@@ -86,8 +86,10 @@ Priority order by expected payout × conversion fit:
 - Stand up privacy-friendly analytics (Plausible / Fathom) via
   `NEXT_PUBLIC_ANALYTICS_DOMAIN`. `src/lib/analytics.ts` already fires
   `cta_click` with company + placement + relationship.
-- Add a `scripts/check-partner-links.mjs` gate asserting every commercial CTA
-  has `rel="sponsored"` and a disclosure — keeps monetization honest as it grows.
+- The commercial-link honesty gate is implemented by
+  `commercialLinksRemainDisclosed()` in `src/lib/partners.test.ts` and runs in
+  the standard Vitest/CI suite; it asserts every configured commercial offer
+  resolves with `rel="sponsored"` and the shared disclosure.
 
 ### KPIs
 Outbound CTA click-through on company profiles ≥ 2–4%; affiliate conversion on
@@ -126,11 +128,12 @@ Grow from ~0 to ≥10k sessions/mo of commercial-intent traffic within 6–12 mo
   script loaded, stores intent locally until a provider is wired, then submits
   to `NEXT_PUBLIC_NEWSLETTER_FORM_ACTION` (Buttondown/ConvertKit/Mailchimp) with
   one env change. No cookies, no tracking pixels, clear unsubscribe language.
-- **[SCAFFOLD DONE → LIVE]** 8 SEO articles now ship in `src/data/articles.ts`
-  (Stripe vs Adyen, Wise vs Revolut, Stripe vs PayPal, Affirm vs Klarna, Best
-  neobanks, Coinbase vs Robinhood, Best gateway for small business), each with
-  Article JSON-LD, related-profile internal links, and commercial CTAs —
-  sitemap grew to 75 URLs. Add more by appending to the catalog.
+- **[SCAFFOLD DONE → LIVE]** 12 SEO articles now ship in `src/data/articles.ts`
+  (including Stripe vs Adyen, Wise vs Revolut, Stripe vs PayPal, Affirm vs Klarna,
+  best neobanks, Coinbase vs Robinhood, Razorpay vs Stripe, and Razorpay vs
+  Cashfree), each with Article JSON-LD, related-profile internal links, and
+  commercial CTAs. The current build emits 81 sitemap URLs; add more by
+  appending to the catalog.
 - **[DONE] Affiliate Disclosure page** — `/affiliate-disclosure` (FTC-style,
   matches the About FAQ reference), linked from the footer, indexable in the
   sitemap, covered by e2e.

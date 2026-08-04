@@ -20,6 +20,7 @@ npm test           # vitest
 npm run typecheck  # tsc --noEmit
 npm run typecheck:scripts
 npm run lint -- --max-warnings=0
+npm run test:links
 npm run build      # requires SITE_URL in production
 npm run test:e2e:install  # once per machine
 npm run test:e2e          # Playwright against the static export (run after build)

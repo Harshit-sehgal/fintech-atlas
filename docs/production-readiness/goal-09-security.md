@@ -5,27 +5,27 @@
 **Objective:** HTTPS, secure cookies, CSRF/XSS/SQLi protection, input validation, rate limiting, secrets management, encryption.
 
 ## Requirements
-- [ ] HTTPS
-- [ ] Secure cookies
-- [ ] CSRF protection (where applicable)
-- [ ] XSS protection
-- [ ] SQL injection prevention
-- [ ] Input validation
-- [ ] Rate limiting
-- [ ] Secrets management
-- [ ] Encryption
+- [ ] HTTPS (host-level; verify on the production domain)
+- [ ] Secure cookies (N/A until accounts/backend exist)
+- [ ] CSRF protection (N/A for the current static/no-cookie architecture)
+- [x] XSS protection baseline (React escaping, strict CSP, and static output)
+- [ ] SQL injection prevention (N/A — no database)
+- [x] Input validation (client calculators/forms plus provenance/config gates)
+- [ ] Rate limiting (N/A until server-side endpoints exist)
+- [x] Secrets management baseline (environment-only configuration; no committed secrets)
+- [ ] Encryption at rest (N/A — no server-side persistence)
 
 ## Definition of Done
-- [ ] Dependency vulnerabilities are triaged according to policy.
-- [ ] Penetration test findings are resolved or explicitly accepted.
-- [ ] Security headers are configured.
-- [ ] Secrets are not stored in source control.
+- [x] Production dependency vulnerabilities are triaged; `npm audit --production --audit-level=high` passes with 0 vulnerabilities.
+- [ ] Penetration test findings are resolved or explicitly accepted (external test pending).
+- [x] Security headers are configured in the generated static-host artifact; live host application remains to verify.
+- [x] Secrets are not stored in source control; provenance and CI security gates pass.
 
 ## Status vs. this codebase
 - **Favorable position:** a static export has no DB, no server-side sessions, and
-  no SQL — so SQLi and most CSRF surfaces are structurally absent. `npm audit`
-  should be run/triaged; secrets are already kept out of source (`.env.example`
-  is committed, real envs are git-ignored).
+  no SQL — so SQLi and most CSRF surfaces are structurally absent. The
+  production dependency audit passes with 0 vulnerabilities; secrets are kept
+  out of source (`.env.example` is committed, real envs are git-ignored).
 - **Current position:** HTTPS and security headers (CSP, HSTS, X-Content-Type-
   Options, Referrer-Policy) are configured at the **hosting layer**, not in the
   app — document them for the host (Netlify/Vercel/Cloudflare headers). The

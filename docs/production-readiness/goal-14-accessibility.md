@@ -6,7 +6,7 @@
 
 ## Requirements
 - [x] Keyboard navigation
-- [x] Screen reader support
+- [x] Screen-reader semantics and accessible names implemented (manual audit pending)
 - [x] Sufficient color contrast
 - [x] Focus management
 - [x] Semantic markup
@@ -22,6 +22,8 @@
   `forced-colors` handling), `prefers-reduced-motion` support, semantic headings,
   and an automated `heading-hierarchy.test.ts` guard.
 - Automated Lighthouse CI runs the accessibility category with a 0.90 minimum
-  score in `.github/workflows/lighthouse.yml` and `lighthouserc.json`.
+  score in `.github/workflows/lighthouse.yml` and `lighthouserc.json`; the local
+  Playwright suite also covers keyboard palette control, calculator controls,
+  theme switching, and representative route navigation.
 - Remaining DoD action: run and document a manual keyboard + screen-reader pass
   over the calculators and command palette.

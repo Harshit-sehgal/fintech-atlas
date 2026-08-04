@@ -4,7 +4,10 @@ on:
   pull_request:
   push:
     branches:
-      - main
+      - "**"
+
+permissions:
+  contents: read
 
 jobs:
   verify:
@@ -22,6 +25,7 @@ jobs:
       # (low coverage is informational, not a failure).
       - run: npm run check:provenance
       - run: npm run lint -- --max-warnings=0
+      - run: npm run test:links
       # `test:coverage` enforces the coverage thresholds in vitest.config.mts.
       - run: npm run test:coverage
       # Production-dependency audit. `--production` excludes dev-only tooling
@@ -50,7 +54,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: ARTIFACT_DIR=out npm run check:artifact
+      - run: ARTIFACT_DIR=out NEXT_PUBLIC_BASE_PATH= npm run check:artifact
 
   # End-to-end browser tests against the static export (Playwright).
   e2e:

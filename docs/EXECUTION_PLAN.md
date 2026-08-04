@@ -230,16 +230,16 @@ These are release blockers.
 | T025 | Verify `robots.txt`                           | Public pages allowed; private browser-only pages excluded                        |
 | T026 | Verify the sitemap                            | Contains only canonical, indexable URLs                                          |
 | T027 | Correct sitemap `lastmod`                     | Use each article/data page’s actual significant update date                      |
-| T028 | Remove sitemap `priority` dependency          | Google does not use sitemap `priority`; do not treat it as an optimisation lever |
+| T028 | Remove sitemap `priority` dependency          | Done: generated sitemap omits the obsolete `priority` element                |
 | T029 | Verify security headers                       | CSP, HSTS and other generated headers present on live responses                  |
 | T030 | Run clean CI                                  | Typecheck, lint, tests, build, E2E and audit all pass                            |
 | T031 | Enable branch protection                      | `main` cannot accept changes with failed required checks                         |
 | T032 | Create preview deployments                    | Every pull request gets a testable preview                                       |
 | T033 | Perform rollback drill                        | Restore the last known-good deployment successfully                              |
-| T034 | Add uptime monitoring                         | Alert when the homepage or key tools stop responding                             |
+| T034 | Configure uptime monitoring                   | Set the `DEPLOYMENT_URL` repository variable and verify scheduled alerts       |
 | T035 | Test real 404 behaviour                       | Missing pages return correct status and no indexable soft-404                    |
 
-The current sitemap assigns the build date to every page. Google says `<lastmod>` should represent the last significant page update and may use it only when it is consistently accurate. Google also states that sitemap `priority` is ignored. ([Google for Developers][7])
+The sitemap uses article `updatedAt` values for article pages and the build date for generated non-article pages. Google says `<lastmod>` should represent the last significant page update and may use it only when it is consistently accurate. The generated sitemap now omits the obsolete `priority` element, which Google states is ignored. ([Google for Developers][7])
 
 ---
 

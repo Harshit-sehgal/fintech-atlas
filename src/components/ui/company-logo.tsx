@@ -37,6 +37,10 @@ export const logoShapes: Record<string, Logo> = {
     color: "#0ABF53",
     svg: `<circle cx="20" cy="20" r="14" fill="currentColor"/><path d="M13 20h14M20 13v14" stroke="#0f0f14" stroke-width="2.5" stroke-linecap="round"/>`,
   },
+  cashfree: {
+    color: "#663399",
+    svg: `<path d="M27 13a11 11 0 1 0 0 14" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/>`,
+  },
   square: {
     color: "#3E3E40",
     svg: `<rect x="6" y="6" width="28" height="28" rx="5" fill="none" stroke="currentColor" stroke-width="3"/><rect x="13" y="13" width="14" height="14" rx="2" fill="currentColor"/>`,

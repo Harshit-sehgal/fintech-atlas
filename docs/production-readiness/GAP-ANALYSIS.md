@@ -12,13 +12,13 @@
 
 | Capability | Where |
 |---|---|
-| Company directory (41 companies, 12 categories, 24-term glossary) | `src/data/*`, `/companies`, `/categories`, `/glossary` |
+| Company directory (42 companies, 12 categories, 24-term glossary) | `src/data/*`, `/companies`, `/categories`, `/glossary` |
 | Interactive tools (fee estimator, FX remittance, matchmaker quiz, personal finance calculators) | `src/app/tools/*` |
 | Local-only bookmarks + ⌘K command palette | `src/lib/bookmarks-context.tsx`, `command-palette.tsx` |
-| SEO (metadata, canonical, OG, JSON-LD, sitemap, robots) | `src/app/layout.tsx`, `src/components/SEO/*`, `scripts/generate-sitemap.mjs` |
+| SEO (metadata, canonical, OG, JSON-LD, sitemap, robots) | `src/app/layout.tsx`, `src/components/SEO/*`, `scripts/generate-sitemap.ts` |
 | Accessibility (skip links, focus ring, reduced-motion, contrast tokens) | `src/app/layout.tsx`, `globals.css`, `heading-hierarchy.test.ts` |
-| Automated tests (Vitest, currently 260 passing) | `src/__tests__/*`, `src/{lib,data}/**/*.test.ts` |
-| Static build + sitemap postbuild | `package.json`, `next.config.ts` |
+| Automated tests (282 Vitest tests + 18 Playwright E2E journeys) | `src/__tests__/*`, `src/{lib,data}/**/*.test.ts`, `e2e/*` |
+| Static build + sitemap, artifact, and internal-link postbuild gates | `package.json`, `next.config.ts`, `scripts/check-internal-links.mjs` |
 
 ---
 
@@ -33,13 +33,13 @@
 | 05 | Portfolio Tracker | Bookmarks only | Persisted holdings/transactions, perf, benchmarks | 🔴 Persistence + backend |
 | 06 | Personal Finance | None | Persisted budgets/cash flow | 🔴 Persistence + backend |
 | 07 | Search | ⌘K palette searches catalog + articles with fuzzy ranking | Stocks/ETFs/funds require Goal 04 data | 🟢 Current catalog scope complete |
-| 08 | SEO | Largely implemented | Verify indexability, no dupes, CWV budgets, schema validation | 🟢 Mostly green; action is measurement + hardening |
+| 08 | SEO | Metadata, canonicals, sitemap, robots, JSON-LD and build validation implemented | Verify live indexability, duplicate metadata, and CWV | 🟢 Mostly green; action is live measurement + hardening |
 | 09 | Security | Small static surface, no secrets in repo | Host-level HTTPS/headers, CSP, rate limiting (n/a client-side), audit | 🟡 Mostly a hosting + policy concern; no app-level DB/data to protect |
 | 10 | Performance | Static export (no DB, no server) | Set CWV budgets, image optimization, caching headers | 🟢 Measure against budget; enable image optimization where sensible |
-| 11 | Observability | None (privacy-by-design) | Analytics/error tracking/monitoring/alerts | 🟡 Add zero/low-footprint monitoring + document the privacy decision |
+| 11 | Observability | Uptime workflow scaffold; no app error tracking | Configure host monitoring and decide on privacy-compatible error tracking/alerts | 🟡 Operator configuration + architecture decision |
 | 12 | Deployment | Build/tests, CI workflow, sitemap, security headers, performance/rate gates, and incident runbook | No hosted preview environment or verified provider restoration drill | 🟡 Finish host setup and recovery evidence |
 | 13 | Product Analytics | None (README: "no tracking") | Event tracking, funnels, retention | 🟡 Conscious privacy decision must be revisited if analytics are wanted |
-| 14 | Accessibility | Largely implemented | Automated scan (axe) + manual keyboard pass | 🟢 Add scan + manual audit; fix findings |
+| 14 | Accessibility | Lighthouse gate, E2E keyboard paths, and code review implemented | Manual keyboard/screen-reader audit | 🟢 Automated coverage present; manual audit remains |
 | 15 | Documentation | README, contribution/security policy, production checklists, legal routes, incident runbook | Provider-specific operations and jurisdictional legal review | 🟡 Finish release-specific documentation |
 
 ---

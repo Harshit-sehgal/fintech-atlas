@@ -6,13 +6,13 @@ Built from public reference material and editorial summaries. Source URLs and ef
 
 ## Overview
 
-FinTech Atlas is a Next.js 16 static-export website that serves as both an educational directory and an interactive decision suite. It catalogs **41 real-world FinTech companies** across **12 industry categories** with a **24-term glossary** and **4 interactive tools**.
+FinTech Atlas is a Next.js 16 static-export website that serves as both an educational directory and an interactive decision suite. It catalogs **42 real-world FinTech companies** across **12 industry categories** with a **24-term glossary** and **4 interactive tools**.
 
 ### Features
 
 | Section | Description |
 |---|---|
-| **Company Directory** | 41 company profiles with product details, pricing, editorial sentiment summaries, strengths & weaknesses |
+| **Company Directory** | 42 company profiles with product details, pricing, editorial sentiment summaries, strengths & weaknesses |
 | **Industry Categories** | 12 categories (Payments, Neobanks, Investing, Cross-Border, BNPL, Infrastructure, etc.) |
 | **Glossary** | 24 financial technology terms with definitions, synonyms, and cross-references |
 | **Compare Tool** | Side-by-side comparison matrix for up to 3 companies |
@@ -43,7 +43,7 @@ fintech-website/
 │   │   ├── layout/        # Site header (glass), footer
 │   │   ├── SEO/           # JSON-LD structured data
 │   │   └── ui/            # Reusable UI components
-│   ├── data/              # 41 companies, 12 categories, 24 glossary terms
+│   ├── data/              # 42 companies, 12 categories, 24 glossary terms
 │   └── lib/               # Theme, bookmarks, toast contexts
 ├── public/logos/          # Official SVG logos for the catalog
 ├── docs/                  # Production-readiness checklists and incident runbook

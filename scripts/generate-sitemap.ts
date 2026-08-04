@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { articles } from "@/data/articles";
 
 const outDir = path.resolve(process.cwd(), "out");
 const siteUrl = (
@@ -8,9 +9,23 @@ const siteUrl = (
   "https://fintech-atlas.example.com"
 ).trim().replace(/\/+$/, "");
 
-const excludedRoutes = new Set(["404", "_not-found", "bookmarks"]);
+const excludedRoutes: Record<string, true> = {
+  "404": true,
+  "_not-found": true,
+  bookmarks: true,
+};
 
-function collectIndexFiles(directory) {
+/**
+ * Article pages carry their own lastmod: the article's `updatedAt`, so the
+ * sitemap reflects the last *significant* content change instead of the build
+ * date (the execution plan's sitemap criterion — a build date on every page
+ * tells search engines nothing).
+ */
+const articleLastmodByRoute: Record<string, string> = Object.fromEntries(
+  articles.map((article) => [`/articles/${article.slug}/`, article.updatedAt]),
+);
+
+function collectIndexFiles(directory: string): string[] {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
     const entryPath = path.join(directory, entry.name);
     if (entry.isDirectory()) return collectIndexFiles(entryPath);
@@ -18,7 +33,7 @@ function collectIndexFiles(directory) {
   });
 }
 
-function xmlEscape(value) {
+function xmlEscape(value: string): string {
   return value
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
@@ -31,6 +46,8 @@ if (!fs.existsSync(outDir)) {
   throw new Error(`Static export directory not found: ${outDir}`);
 }
 
+// Fallback lastmod for non-article pages: every static page is regenerated
+// each build, so the build date is accurate for them.
 const buildLastmod = new Date().toISOString().slice(0, 10);
 
 const routes = collectIndexFiles(outDir)
@@ -39,31 +56,19 @@ const routes = collectIndexFiles(outDir)
     if (!relativeDirectory) return "/";
 
     const segments = relativeDirectory.split(path.sep);
-    if (segments.length === 1 && excludedRoutes.has(segments[0])) return null;
+    if (segments.length === 1 && excludedRoutes[segments[0]]) return null;
     return `/${segments.join("/")}/`;
   })
-  .filter(Boolean)
+  .filter((route): route is string => Boolean(route))
   .sort((a, b) => a.localeCompare(b));
-
-// Assign priority by path depth: homepage highest, major sections medium,
-// individual detail pages lower. Computed from path *segments* (not slash
-// count), so `/companies/` (1 segment) is treated as a top-level section.
-function priorityForRoute(route) {
-  if (route === "/") return "1.0";
-  const depth = route.split("/").filter(Boolean).length;
-  if (depth === 1) return "0.8";
-  if (depth === 2) return "0.6";
-  return "0.5";
-}
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${routes
     .map((route) => {
       const loc = xmlEscape(`${siteUrl}${route}`);
-      const priority = priorityForRoute(route);
-      // lastmod is the build date: every static page is regenerated each build.
-      return `  <url><loc>${loc}</loc><lastmod>${buildLastmod}</lastmod><priority>${priority}</priority></url>`;
+      const lastmod = articleLastmodByRoute[route] ?? buildLastmod;
+      return `  <url><loc>${loc}</loc><lastmod>${lastmod}</lastmod></url>`;
     })
     .join("\n")}
 </urlset>

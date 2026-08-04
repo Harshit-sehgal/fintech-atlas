@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { useMemo } from "react";
 import { companies, categories, glossary, getCompaniesByCategory } from "@/data";
+import { PRESETS } from "@/data/compare-presets";
 import { DATA_AS_OF } from "@/lib/site-config";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { CompanyLogo } from "@/components/ui/company-logo";
@@ -93,6 +94,34 @@ export default function HomePageClient() {
             </div>
           </div>
         </Reveal>
+      </section>
+
+      {/* Popular comparisons — quick-start presets from the compare tool */}
+      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+        <SectionHeading
+          eyebrow="Start With a Preset"
+          title="Popular Comparisons"
+          description="Jump straight into a side-by-side benchmark — pick a preset and compare fees, pricing models, and platform fit in one view."
+        />
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 reveal-stagger">
+          {PRESETS.map((preset) => (
+            <Link
+              key={preset.name}
+              href={`/compare?companies=${preset.slugs.join(",")}`}
+              className="group block rounded-2xl border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
+            >
+              <div className="flex items-center gap-2">
+                {preset.slugs.map((slug) => (
+                  <CompanyLogo key={slug} slug={slug} name={slug} size={28} decorative />
+                ))}
+              </div>
+              <h3 className="mt-4 text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
+                {preset.name}
+              </h3>
+              <p className="mt-1 text-xs text-[var(--muted-text)]">Open the side-by-side comparison →</p>
+            </Link>
+          ))}
+        </div>
       </section>
 
       {/* What is FinTech */}

@@ -1,0 +1,77 @@
+name: Uptime monitoring
+
+# Scheduled health checks against the deployed static site (execution plan
+# T034). A failing route opens a GitHub issue — idempotently, so repeated
+# failures do not spam the tracker.
+
+on:
+  schedule:
+    # Every 30 minutes, UTC.
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Configure the non-secret repository variable DEPLOYMENT_URL with the
+    # canonical HTTPS origin before enabling scheduled checks. Keeping the
+    # target outside source prevents this workflow from probing the wrong host.
+    env:
+      SITE: ${{ vars.DEPLOYMENT_URL }}
+    steps:
+      - name: Skip when no deployment target is configured
+        if: ${{ vars.DEPLOYMENT_URL == '' }}
+        run: echo "DEPLOYMENT_URL is not configured; skipping uptime probes."
+
+      - name: Probe key routes
+        if: ${{ vars.DEPLOYMENT_URL != '' }}
+        run: |
+          set -euo pipefail
+          case "$SITE" in
+            https://*) ;;
+            *) echo "DEPLOYMENT_URL must be an HTTPS origin." >&2; exit 1 ;;
+          esac
+          SITE="${SITE%/}"
+          export SITE
+
+          failed=""
+          for path in "" "tools/calculator/" "tools/remittance/" "tools/matchmaker/" "compare/" "articles/razorpay-vs-cashfree-indian-gateways/"; do
+            url="${SITE}/${path}"
+            code="$(curl -sS -o /dev/null -w "%{http_code}" --max-time 20 --retry 2 "$url" || true)"
+            if [ "$code" != "200" ]; then
+              failed="${failed}${url} -> HTTP ${code}"$'\n'
+            fi
+          done
+          if [ -n "$failed" ]; then
+            printf "Down routes:\n%b" "$failed" > /tmp/uptime-failures.txt
+            exit 1
+          fi
+          echo "All probed routes returned HTTP 200."
+
+      - name: Open an issue on failure
+        if: ${{ failure() && vars.DEPLOYMENT_URL != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          failures="$(cat /tmp/uptime-failures.txt 2>/dev/null || echo 'One or more routes failed to respond.')"
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search 'in:title "Uptime check failed"' --limit 1 --json number -q '.[0].number' || true)"
+          if [ -n "$existing" ]; then
+            echo "Open issue #${existing} already tracks this outage; skipping."
+            exit 0
+          fi
+          gh issue create --repo "$GITHUB_REPOSITORY" \
+            --title "Uptime check failed: site unreachable" \
+            --body "The scheduled uptime check detected failing routes against $SITE:
+
+\`\`\`
+${failures}
+\`\`\`
+
+Inspect the [workflow run](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}) for response details."
+          # Keep the workflow red so GitHub Actions, branch protection, and
+          # notifications do not treat an outage as a successful run.
+          exit 1

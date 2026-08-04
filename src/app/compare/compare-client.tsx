@@ -57,7 +57,7 @@ function CompareContent() {
     }
   };
 
-  // With only 41 companies, resolving the selected companies is cheap enough
+  // With only 42 companies, resolving the selected companies is cheap enough
   // to do on every render — avoids a useMemo whose deps tripped the compiler
   // (removed the previously "accepted" lint warning).
   const selectedCompanies: Company[] = selectedSlugs

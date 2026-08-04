@@ -105,17 +105,19 @@ describe("Static deployment contracts", () => {
   });
 
   it("generates robots.txt from the same SITE_URL as the sitemap", () => {
-    const script = read("scripts/generate-sitemap.mjs");
+    const script = read("scripts/generate-sitemap.ts");
     expect(script).toContain("fs.writeFileSync(path.join(outDir, \"robots.txt\"), robots)");
     expect(script).toContain(".trim().replace(/\\/+$/, \"\")");
     expect(script).toContain("Sitemap: ${siteUrl}/sitemap.xml");
+    expect(script).not.toContain("<priority>");
   });
 
   it("defines local artifact and deployed-site verification gates", () => {
     const packageJson = JSON.parse(read("package.json")) as {
       scripts?: Record<string, string>;
     };
-    expect(packageJson.scripts?.["check:artifact"]).toBe("node scripts/check-static-artifact.mjs");
+    expect(packageJson.scripts?.["check:artifact"]).toContain("node scripts/check-static-artifact.mjs");
+    expect(packageJson.scripts?.["check:artifact"]).toContain("node scripts/check-internal-links.mjs");
     expect(packageJson.scripts?.["check:deployment"]).toBe("node scripts/check-deployment.mjs");
     expect(read("package.json")).toContain("node scripts/check-static-artifact.mjs");
     expect(read("scripts/check-deployment.mjs")).toContain("content-security-policy");
@@ -123,9 +125,17 @@ describe("Static deployment contracts", () => {
     expect(read("scripts/check-static-artifact.mjs")).toContain("Contact or Policy");
     expect(read("scripts/check-static-artifact.mjs")).toContain("feed.xml");
     expect(read("scripts/check-static-artifact.mjs")).toContain("offline.html");
+    expect(read("scripts/check-internal-links.mjs")).toContain("broken internal reference");
+    expect(read("package.json")).toContain("node scripts/check-internal-links.mjs");
+    expect(read("package.json")).toContain("node scripts/check-internal-links.test.mjs");
+    expect(existsSync(resolve(root, "scripts/check-internal-links.test.mjs"))).toBe(true);
     expect(read("scripts/check-deployment.mjs")).toContain("DEPLOY_URL must use HTTPS");
     expect(read("scripts/check-deployment.mjs")).toContain("const basePath");
     expect(read(".github/workflows/ci.yml")).toContain("actions/download-artifact@v4");
+    expect(read(".github/workflows/ci.yml")).toContain("npm run test:links");
+    expect(read(".github/workflows/ci.yml")).toContain("contents: read");
+    expect(read(".github/workflows/uptime.yml")).toContain("exit 1");
+    expect(read(".github/workflows/lighthouse.yml")).toContain('"**"');
     expect(read(".github/workflows/deploy.yml")).toContain("verify-live:");
   });
 
