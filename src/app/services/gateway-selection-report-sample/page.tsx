@@ -11,7 +11,7 @@ const description =
   "A public sample of the FinTech Atlas gateway-selection audit: a fictional merchant, real published India fee schedules (2% + 18% GST), and the reasoning behind the recommendation.";
 
 export const metadata: Metadata = {
-  title: "Sample Gateway Selection Report — FinTech Atlas Services",
+  title: "Sample Gateway Selection Report (public sample)",
   description,
   alternates: { canonical: canonicalUrl("/services/gateway-selection-report-sample") },
   openGraph: {

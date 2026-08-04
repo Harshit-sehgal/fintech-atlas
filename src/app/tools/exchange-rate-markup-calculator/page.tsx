@@ -10,7 +10,7 @@ const description =
   "Measure the hidden exchange-rate markup on any international transfer: enter the mid-market rate and your provider's rate, see the markup percentage and the rupee cost of the spread — for both receiving INR (USD → INR) and sending INR (INR → USD).";
 
 export const metadata: Metadata = {
-  title: "Exchange-Rate Markup Calculator — measure the hidden FX spread",
+  title: "Exchange-Rate Markup Calculator — hidden FX fees",
   description,
   alternates: { canonical: canonicalUrl("/tools/exchange-rate-markup-calculator") },
   openGraph: {

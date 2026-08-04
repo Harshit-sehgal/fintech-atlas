@@ -52,7 +52,7 @@ export const categories: Category[] = [
   {
     slug: "infrastructure",
     name: "Financial Infrastructure & APIs",
-    short: "The plumbing other fintechs and banks build on.",
+    short: "Financial infrastructure & API products: the rails other fintechs and banks build on.",
     description:
       "These companies provide the invisible building blocks: open banking APIs connecting apps to bank accounts, programmable card issuing, core ledger systems, and compliance rails.",
     icon: "api",

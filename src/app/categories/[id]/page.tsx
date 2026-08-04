@@ -27,7 +27,7 @@ export async function generateMetadata({
   // root openGraph — without this the OG card would show the homepage's
   // title/description/url for every category share.
   return {
-    title: `${cat.name} — FinTech Category Guide`,
+    title: cat.name,
     description: cat.short,
     alternates: { canonical: canonicalUrl(`/categories/${cat.slug}`) },
     openGraph: {

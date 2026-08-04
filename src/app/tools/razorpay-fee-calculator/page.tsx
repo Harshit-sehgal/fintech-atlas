@@ -10,7 +10,7 @@ const description =
   "Estimate what Razorpay actually charges Indian businesses: 2% on all domestic payment instruments, 18% GST on top, and international fees up to 3%. Reverse-calculate the charge for a target payout.";
 
 export const metadata: Metadata = {
-  title: "Razorpay Fee Calculator (India) — fees, GST & reverse-charge math",
+  title: "Razorpay Fee Calculator (India) — fees & GST",
   description,
   alternates: { canonical: canonicalUrl("/tools/razorpay-fee-calculator") },
   openGraph: {

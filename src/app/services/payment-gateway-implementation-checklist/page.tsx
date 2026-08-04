@@ -11,7 +11,7 @@ const description =
   "The FinTech Atlas payment gateway implementation checklist: pre-flight, integration, testing, go-live and reconciliation — with progress saved in your browser.";
 
 export const metadata: Metadata = {
-  title: "Payment Gateway Implementation Checklist — FinTech Atlas",
+  title: "Payment Gateway Implementation Checklist",
   description,
   alternates: { canonical: canonicalUrl("/services/payment-gateway-implementation-checklist") },
   openGraph: {

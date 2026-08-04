@@ -44,7 +44,7 @@ export interface Article {
 export const articles: Article[] = [
   {
     slug: "stripe-vs-adyen-fees",
-    title: "Stripe vs Adyen: fees & platform differences for online businesses",
+    title: "Stripe vs Adyen: fees & platform differences",
     description:
       "A plain-language comparison of Stripe and Adyen — published fee structures, strengths, and who each best fits, with an illustrative monthly-fee estimate you can run yourself.",
     publishedAt: "2026-08-03",
@@ -113,7 +113,7 @@ export const articles: Article[] = [
   },
   {
     slug: "wise-vs-revolut-international-transfers",
-    title: "Wise vs Revolut: which is better for international money transfers?",
+    title: "Wise vs Revolut: international transfers compared",
     description:
       "A practical comparison of Wise and Revolut for sending and spending across borders — FX markups, fees, multi-currency accounts, and who each best fits.",
     publishedAt: "2026-08-03",
@@ -178,7 +178,7 @@ export const articles: Article[] = [
   },
   {
     slug: "stripe-vs-paypal-online-payments",
-    title: "Stripe vs PayPal: online payment processing for your store",
+    title: "Stripe vs PayPal: online payments compared",
     description:
       "Comparing Stripe and PayPal for online checkout — published rates, developer experience, buyer trust, and which merchants each fits best.",
     publishedAt: "2026-08-03",
@@ -297,7 +297,7 @@ export const articles: Article[] = [
   },
   {
     slug: "best-neobanks-2026",
-    title: "Best neobanks compared: Chime, Monzo, N26, and SoFi",
+    title: "Best neobanks: Chime, Monzo, N26 & SoFi",
     description:
       "A roundup of four leading digital banks — what they're best at, their fee models, and who each is built for, so you can pick the right mobile bank.",
     publishedAt: "2026-08-03",
@@ -411,7 +411,7 @@ export const articles: Article[] = [
   },
   {
     slug: "best-payment-gateway-small-business",
-    title: "Best payment gateway for a small business: Stripe, Square, or PayPal",
+    title: "Best payment gateway for a small business",
     description:
       "A small-business buyer's guide to the three most common US gateways — Square vs Stripe vs PayPal across setup, fees, in-person, and online needs.",
     publishedAt: "2026-08-03",
@@ -479,7 +479,7 @@ export const articles: Article[] = [
   },
   {
     slug: "wise-vs-payoneer-business-payouts",
-    title: "Wise vs Payoneer: getting paid and paying out as a freelancer or business",
+    title: "Wise vs Payoneer for freelancers & businesses",
     description:
       "A comparison of Wise and Payoneer for cross-border payments — receiving client money, holding balances, and paying out suppliers as a freelancer or small business.",
     publishedAt: "2026-08-03",
@@ -537,7 +537,7 @@ export const articles: Article[] = [
   },
   {
     slug: "how-to-send-money-abroad-cheap",
-    title: "How to send money abroad cheaply: a plain-language guide",
+    title: "How to send money abroad cheaply",
     description:
       "An evergreen guide to avoiding hidden FX markups when sending money internationally — what mid-market rate means, what to compare, and which providers to run numbers on.",
     publishedAt: "2026-08-03",
@@ -592,7 +592,7 @@ export const articles: Article[] = [
   },
   {
     slug: "square-vs-stripe-retail-and-online",
-    title: "Square vs Stripe: in-person retail vs online platforms",
+    title: "Square vs Stripe: retail vs online platforms",
     description:
       "The honest Square vs Stripe comparison for businesses that sell in person, online, or both — setup, rates, hardware, and which one fits your store.",
     publishedAt: "2026-08-03",
@@ -651,7 +651,7 @@ export const articles: Article[] = [
   },
   {
     slug: "razorpay-vs-stripe-payments-india",
-    title: "Razorpay vs Stripe (India): fees & platform differences",
+    title: "Razorpay vs Stripe (India): fees & platforms",
     description:
       "Razorpay and Stripe India both charge a flat 2% on domestic payments plus 18% GST. A plain-language comparison of the two leading India gateways — fees, settlement, and who each best fits.",
     publishedAt: "2026-08-04",
@@ -743,7 +743,7 @@ export const articles: Article[] = [
   },
   {
     slug: "razorpay-vs-cashfree-indian-gateways",
-    title: "Razorpay vs Cashfree (India): which gateway fits your business",
+    title: "Razorpay vs Cashfree (India): gateway comparison",
     description:
       "Both Indian gateways charge a flat 2% on domestic payments plus 18% GST — the differences are international rates, settlement, and product depth. A plain-language comparison for Indian merchants.",
     publishedAt: "2026-08-04",
@@ -839,7 +839,7 @@ export const articles: Article[] = [
   },
   {
     slug: "payoneer-fees-india",
-    title: "Payoneer fees in India (2026): what it really costs to receive USD",
+    title: "Payoneer fees in India (2026): receiving USD",
     description:
       "Payoneer's published India pricing — free local receiving accounts, a 1–4% USD-to-INR withdrawal corridor, card-funded requests at 2.90% + $0.49, and the $29.95 annual fee — explained with a worked example.",
     publishedAt: "2026-08-04",

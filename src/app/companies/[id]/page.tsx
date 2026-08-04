@@ -24,7 +24,7 @@ export async function generateMetadata({
   // root openGraph, so without this the OG card would fall back to the
   // homepage's title/description/url for every company share.
   return {
-    title: `${c.name} — ${c.tagline}`,
+    title: `${c.name} — fees, features & review`,
     description: c.oneLiner,
     alternates: { canonical: canonicalUrl(`/companies/${c.slug}`) },
     openGraph: {

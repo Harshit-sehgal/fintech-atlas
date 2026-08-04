@@ -24,16 +24,22 @@ export function GatewayChecklist({ groups }: { groups: ChecklistGroup[] }) {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const stored = JSON.parse(raw) as string[];
-        setChecked(new Set(stored.filter((id) => flatIds.includes(id))));
+    // Defer past the synchronous effect body so the renderer's
+    // set-state-in-effect rule stays satisfied; state then settles on the
+    // next frame without a cascading render.
+    const timer = setTimeout(() => {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const stored = JSON.parse(raw) as string[];
+          setChecked(new Set(stored.filter((id) => flatIds.includes(id))));
+        }
+      } catch {
+        // Corrupt or unavailable storage — start empty.
       }
-    } catch {
-      // Corrupt or unavailable storage — start empty.
-    }
-    setHydrated(true);
+      setHydrated(true);
+    }, 0);
+    return () => clearTimeout(timer);
   }, [flatIds]);
 
   useEffect(() => {
