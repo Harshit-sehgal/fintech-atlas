@@ -8,6 +8,7 @@ import { openGraphImage } from "@/lib/shared-metadata";
 import { articles, getArticleBySlug, type ArticleBlock } from "@/data/articles";
 import { getCompanyBySlug } from "@/data";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CorrectionReportLink } from "@/components/ui/correction-report-link";
 
 export function generateStaticParams() {
@@ -135,15 +136,11 @@ export default async function ArticlePage({
     mainEntityOfPage: canonicalUrl(`/articles/${article.slug}`),
   };
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: canonicalUrl("") },
-      { "@type": "ListItem", position: 2, name: "Articles", item: canonicalUrl("/articles") },
-      { "@type": "ListItem", position: 3, name: article.category, item: canonicalUrl(`/articles/${article.slug}`) },
-    ],
-  };
+  const breadcrumbItems = [
+    { name: "Home", href: "/" },
+    { name: "Articles", href: "/articles" },
+    { name: article.category, href: `/articles/${article.slug}` },
+  ];
 
   return (
     <div className="relative mx-auto max-w-3xl px-5 py-20 md:py-28">
@@ -152,21 +149,9 @@ export default async function ArticlePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
-
-
-      <nav className="mb-6 flex items-center gap-2 text-xs text-[var(--muted-text)] font-mono">
-        <Link href="/" className="hover:text-[var(--foreground)] transition-colors">Home</Link>
-        <span>/</span>
-        <Link href="/articles" className="hover:text-[var(--foreground)] transition-colors">Articles</Link>
-        <span>/</span>
-        <span className="text-[var(--foreground)] font-medium">{article.category}</span>
-      </nav>
-
+      <Breadcrumbs items={breadcrumbItems} />
       <header>
+
         <span className="eyebrow">{article.category}</span>
         <h1 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl text-[var(--foreground)]">
           {article.title}

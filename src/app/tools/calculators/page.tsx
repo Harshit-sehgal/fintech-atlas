@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import CalculatorsClient from "./calculators-client";
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
+import { breadcrumbJsonLd } from "@/components/breadcrumbs";
 
 const description =
   "Project SIP and SWP growth, estimate EMIs, inflation, retirement corpus, FIRE number, emergency fund, and net worth with illustrative calculators.";
@@ -21,8 +22,22 @@ export const metadata: Metadata = {
 
 export default function CalculatorsPage() {
   return (
-    <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading calculators…</div>}>
-      <CalculatorsClient />
-    </Suspense>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", href: "/" },
+              { name: "Tools", href: "/tools" },
+              { name: "Personal Finance Calculators", href: "/tools/calculators" },
+            ]),
+          ),
+        }}
+      />
+      <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading calculators…</div>}>
+        <CalculatorsClient />
+      </Suspense>
+    </>
   );
 }

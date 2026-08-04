@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import RemittanceCalculatorPageClient from "./remittance-client";
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
+import { breadcrumbJsonLd } from "@/components/breadcrumbs";
 
 const description =
   "Compare illustrative reference FX rates, exchange markups, and upfront transfer fees across Wise, Revolut, PayPal, and a hypothetical bank-wire baseline.";
@@ -23,6 +24,18 @@ export const metadata: Metadata = {
 export default function RemittanceCalculatorPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", href: "/" },
+              { name: "Tools", href: "/tools" },
+              { name: "Cross-Border FX Estimator", href: "/tools/remittance" },
+            ]),
+          ),
+        }}
+      />
       <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading FX tool…</div>}>
         <RemittanceCalculatorPageClient />
       </Suspense>

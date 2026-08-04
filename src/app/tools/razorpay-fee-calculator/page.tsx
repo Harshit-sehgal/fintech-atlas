@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import Link from "next/link";
 import { Suspense } from "react";
 import FeeCalculatorPageClient from "../calculator/calculator-client";
@@ -24,6 +25,13 @@ export default function RazorpayFeeCalculatorPage() {
   return (
     <div className="relative mx-auto max-w-6xl px-5 py-16 md:py-24">
       <article className="prose-sm mx-auto max-w-3xl">
+        <Breadcrumbs
+          items={[
+            { name: "Home", href: "/" },
+            { name: "Tools", href: "/tools" },
+            { name: "Razorpay Fee Calculator", href: "/tools/razorpay-fee-calculator" },
+          ]}
+        />
         <p className="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">India · Payment Gateways</p>
         <h1 className="mt-2 text-3xl font-bold md:text-4xl">Razorpay fee calculator</h1>
         <p className="mt-4 text-[15px] leading-relaxed text-[var(--muted-text)]">

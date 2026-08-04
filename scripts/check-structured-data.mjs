@@ -26,6 +26,16 @@ const files = collectIndexFiles(outDir);
 const problems = [];
 let blocks = 0;
 
+// Every tool page must carry a BreadcrumbList (server shell or editorial page).
+// The site-wide Organization/WebSite blocks come from the root layout.
+const TOOL_PAGE_RE = /\/tools\/[^/]+\/index\.html$/;
+for (const file of files.filter((f) => TOOL_PAGE_RE.test(f))) {
+  const html = fs.readFileSync(file, "utf8");
+  if (!html.includes('"BreadcrumbList"')) {
+    problems.push(`${file}: missing BreadcrumbList JSON-LD`);
+  }
+}
+
 for (const file of files) {
   const html = fs.readFileSync(file, "utf8");
   let match;

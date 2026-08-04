@@ -5,6 +5,7 @@ import { getCompanyBySlug, companies, categories } from "@/data";
 import { articles } from "@/data/articles";
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CompanyPageClient } from "./client";
 
 export async function generateStaticParams() {
@@ -56,22 +57,17 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
     .filter((a) => a.relatedCompanySlugs.includes(company.slug))
     .map((a) => ({ slug: a.slug, title: a.title, category: a.category }));
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: canonicalUrl("") },
-      { "@type": "ListItem", position: 2, name: "Companies", item: canonicalUrl("/companies") },
-      { "@type": "ListItem", position: 3, name: company.name, item: canonicalUrl(`/companies/${company.slug}`) },
-    ],
-  };
+  const breadcrumbItems = [
+    { name: "Home", href: "/" },
+    { name: "Companies", href: "/companies" },
+    { name: company.name, href: `/companies/${company.slug}` },
+  ];
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
+      <div className="mx-auto max-w-6xl px-5 pt-16 md:pt-24">
+        <Breadcrumbs items={breadcrumbItems} />
+      </div>
       <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading profile…</div>}>
         <CompanyPageClient
           company={company}

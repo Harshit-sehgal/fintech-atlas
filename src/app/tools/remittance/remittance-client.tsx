@@ -147,11 +147,13 @@ export default function RemittanceCalculatorPageClient() {
     <div className="relative mx-auto max-w-6xl px-5 py-20 md:py-28">
       <GridBackdrop />
 
-      <div className="mb-6 flex items-center gap-2 text-xs text-[var(--muted-text)] font-mono">
+      <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs text-[var(--muted-text)] font-mono">
+        <Link href="/" className="hover:text-[var(--foreground)] transition-colors">Home</Link>
+        <span>/</span>
         <Link href="/tools" className="hover:text-[var(--foreground)] transition-colors">Tools</Link>
         <span>/</span>
         <span className="text-[var(--foreground)] font-medium">Cross-Border FX Estimator</span>
-      </div>
+      </nav>
 
       <SectionHeading
         headingLevel={1}

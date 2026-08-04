@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Suspense } from "react";
 import { MarkupCalculatorClient } from "./markup-calculator-client";
 import { canonicalUrl } from "@/lib/canonical-url";
@@ -24,6 +25,13 @@ export default function ExchangeRateMarkupCalculatorPage() {
   return (
     <div className="relative mx-auto max-w-6xl px-5 py-16 md:py-24">
       <article className="prose-sm mx-auto max-w-3xl">
+        <Breadcrumbs
+          items={[
+            { name: "Home", href: "/" },
+            { name: "Tools", href: "/tools" },
+            { name: "Exchange-Rate Markup Calculator", href: "/tools/exchange-rate-markup-calculator" },
+          ]}
+        />
         <p className="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Cross-Border · FX</p>
         <h1 className="mt-2 text-3xl font-bold md:text-4xl">Exchange-rate markup calculator</h1>
         <p className="mt-4 text-[15px] leading-relaxed text-[var(--muted-text)]">

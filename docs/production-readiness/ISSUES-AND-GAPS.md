@@ -113,13 +113,14 @@ Do not implement without revisiting [ADR-001](../adr/001-defer-backend-capabilit
 |----|-----|
 | W3–W4 | E2E + security/Lighthouse workflows run on all pushed branches locally — merge to `origin/main` + enable GitHub settings |
 | W7 | Dual lockfiles resolved (npm only) — ensure `pnpm-*` stay deleted |
-| E7 | Structured-data and internal-link validation | 🟢 Done — `scripts/check-structured-data.mjs` and `scripts/check-internal-links.mjs` run in `postbuild` and validate the emitted artifact; 245 JSON-LD blocks (incl. BreadcrumbList on all 42 profiles + 13 articles), internal-link checker covers 89 HTML files |
+| E7 | Structured-data and internal-link validation | 🟢 Done — `scripts/check-structured-data.mjs` (now also gates BreadcrumbList on every tool page) and `scripts/check-internal-links.mjs` run in `postbuild` and validate the emitted artifact; 251 JSON-LD blocks (BreadcrumbList on all 42 profiles + 13 articles + 6 tool pages), internal-link checker covers 89 HTML files |
 | E11 | Audit triage policy thin |
 | E15 | ESLint pinned to v9 until eslint-config-next supports 10 |
 | E17 | Secret scanning push-protection still needs GitHub repo settings |
 | E18 | Incident runbook recovery checklist remains an operator execution checklist; executable artifact/deployment checks are now documented |
 | S5 | Glossary hash deep links are not separate sitemap URLs (by design for static anchors) |
 | S9–S10 | `next/image` remains unused (catalog marks are SVG/fallback); Framer Motion bundle budget watch |
+| T013-adjacent | Breadcrumb consistency pass | 🟢 Shared `Breadcrumbs` component (visible nav + BreadcrumbList JSON-LD) now used on articles, company profiles, and editorial tool pages (Razorpay fee, FX markup); the four client-island tools (fee estimator, remittance, matchmaker, calculators) gained "Home" links in their navs, semantic `<nav aria-label="Breadcrumb">` markup, and server-side BreadcrumbList JSON-LD. Verified: 251 JSON-LD blocks, 298 vitest, 20/20 e2e, SITE_URL build 413,760/450,000 |
 | S13 | Mirror high-priority gaps into GitHub Issues |
 
 ---

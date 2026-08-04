@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import FeeCalculatorPageClient from "./calculator-client";
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
+import { breadcrumbJsonLd } from "@/components/breadcrumbs";
 
 const description =
   "Compare total monthly processing fees across Stripe, PayPal, Square, and Adyen based on your transaction volume, average order size, and international mix.";
@@ -23,6 +24,18 @@ export const metadata: Metadata = {
 export default function FeeCalculatorPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", href: "/" },
+              { name: "Tools", href: "/tools" },
+              { name: "Payment Gateway Fee Calculator", href: "/tools/calculator" },
+            ]),
+          ),
+        }}
+      />
       <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading calculator…</div>}>
         <FeeCalculatorPageClient />
       </Suspense>
