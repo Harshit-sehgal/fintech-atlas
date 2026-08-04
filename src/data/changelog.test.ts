@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { changelog, changelogKinds } from "./changelog";
 import { articles } from "./articles";
+import { companies } from "./companies";
 
 describe("changelog data", () => {
   it("keeps every entry's kind within the declared set", () => {
@@ -29,6 +30,7 @@ describe("changelog data", () => {
   });
   it("points every internal href at a real page", () => {
     const articleSlugs = new Set(articles.map((a) => `/articles/${a.slug}/`));
+    const companySlugs = new Set(companies.map((c) => `/companies/${c.slug}/`));
     for (const entry of changelog) {
       if (entry.href.startsWith("http")) continue;
       const internal = [
@@ -42,10 +44,11 @@ describe("changelog data", () => {
         "/tools/exchange-rate-markup-calculator/",
         "/tools/matchmaker/",
         "/services/",
+        "/companies/",
         "/changelog/",
       ];
       const isKnownRoute =
-        articleSlugs.has(entry.href) || internal.includes(entry.href);
+        articleSlugs.has(entry.href) || companySlugs.has(entry.href) || internal.includes(entry.href);
       expect(isKnownRoute, `unknown internal href: ${entry.href}`).toBe(true);
     }
   });

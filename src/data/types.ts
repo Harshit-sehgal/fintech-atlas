@@ -20,6 +20,24 @@ export type SourceType =
   | "news-report"
   | "editorial-reference";
 
+/**
+ * Machine-checkable legal ownership status of a company (T009).
+ *
+ *  - "public"       → publicly traded on a stock exchange.
+ *  - "private"      → privately held; not listed on any public exchange.
+ *  - "subsidiary"   → wholly-owned subsidiary of a parent corporation.
+ *  - "division"     → a business unit or product line of a larger company.
+ *  - "acquired"     → acquired by a larger company and now operates as part of it.
+ *  - "not-disclosed" → ownership status is not publicly verifiable.
+ */
+export type OwnershipType =
+  | "public"
+  | "private"
+  | "subsidiary"
+  | "division"
+  | "acquired"
+  | "not-disclosed";
+
 export interface SourceReference {
   id: string;
   publisher: string;
@@ -81,6 +99,8 @@ export interface Company {
   founders: string[];
   headquarters: string;
   employees: string;
+  /** Machine-checkable legal ownership classification (T009). */
+  ownershipType: OwnershipType;
   valuation: string;
   website: string;
   categories: string[];

@@ -157,6 +157,38 @@ export const changelog: ChangelogEntry[] = [
   },
   {
     date: "2026-08-04",
+    kind: "article",
+    title: "Best payment gateway for Shopify India",
+    description:
+      "Shopify Payments is not available to India-registered merchants, so every Indian store pairs Shopify with a third-party gateway — Razorpay, Cashfree, Paytm, PayPal, and Braintree compared for UPI-first checkout, international cards, and Apple Pay at checkout.",
+    href: "/articles/best-payment-gateway-shopify-india/",
+  },
+  {
+    date: "2026-08-04",
+    kind: "article",
+    title: "Payment gateway fees compared: India",
+    description:
+      "What Indian merchants actually pay — the 2% headline plus 18% GST (2.36% effective), international-card surcharges past 3.5%, and the settlement, refund, and contract costs the rate tables hide — across Razorpay, Cashfree, Stripe India, Paytm, and PhonePe.",
+    href: "/articles/payment-gateway-fee-comparison-india/",
+  },
+  {
+    date: "2026-08-04",
+    kind: "site",
+    title: "Company ownership audit",
+    description:
+      "Every company profile now shows a machine-checkable ownership classification (publicly listed, privately held, subsidiary, division, acquired). The audit corrected four stale statuses: Klarna is publicly listed (NYSE since Sep 2025), Afterpay operates inside Block, MoneyGram is private since its 2023 take-private, and Cash App is a Block product line.",
+    href: "/companies/klarna/",
+  },
+  {
+    date: "2026-08-04",
+    kind: "fix",
+    title: "Company profile quick-stat fix",
+    description:
+      "The ownership row renders with an accessible one-line hint, and a crash that dropped the section-header component during the ownership edit is fixed and covered by typecheck and tests.",
+    href: "/companies/",
+  },
+  {
+    date: "2026-08-04",
     kind: "fix",
     title: "Cross-site FX consistency sweep",
     description:

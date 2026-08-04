@@ -7,6 +7,7 @@ type BaseCompany = Omit<Company, "sourceReferences">;
 const baseCompanies: BaseCompany[] = [
   {
     slug: "stripe",
+    ownershipType: "private",
     name: "Stripe",
     tagline: "Financial infrastructure for the internet.",
     founded: 2010,
@@ -35,6 +36,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "paypal",
+    ownershipType: "public",
     name: "PayPal",
     tagline: "The safer, easier way to pay.",
     founded: 1998,
@@ -63,6 +65,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "square",
+    ownershipType: "public",
     name: "Square",
     tagline: "Start, run, and grow your business.",
     founded: 2009,
@@ -91,6 +94,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "adyen",
+    ownershipType: "public",
     name: "Adyen",
     tagline: "The payments platform for global businesses.",
     founded: 2006,
@@ -118,6 +122,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "wise",
+    ownershipType: "public",
     name: "Wise",
     tagline: "Money without borders.",
     founded: 2011,
@@ -146,6 +151,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "revolut",
+    ownershipType: "private",
     name: "Revolut",
     tagline: "One app, all things money.",
     founded: 2015,
@@ -174,6 +180,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "brex",
+    ownershipType: "private",
     name: "Brex",
     tagline: "Financial software for the next generation of businesses.",
     founded: 2017,
@@ -202,6 +209,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "gusto",
+    ownershipType: "private",
     name: "Gusto",
     tagline: "Payroll and HR built for you.",
     founded: 2011,
@@ -230,6 +238,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "plaid",
+    ownershipType: "private",
     name: "Plaid",
     tagline: "The connective tissue of the fintech ecosystem.",
     founded: 2013,
@@ -258,6 +267,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "nubank",
+    ownershipType: "public",
     name: "Nubank",
     tagline: "Vamos mostrar que você pode estar no controle.",
     founded: 2013,
@@ -286,6 +296,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "chime",
+    ownershipType: "private",
     name: "Chime",
     tagline: "Banking that has your back.",
     founded: 2013,
@@ -314,7 +325,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "robinhood", name: "Robinhood", tagline: "Investing for everyone.", founded: 2013,
-    founders: ["Vlad Tenev", "Baiju Bhatt"], headquarters: "Menlo Park, CA", employees: "3000+", valuation: "$12B", website: "robinhood.com", categories: ["investing"], logo: "robinhood", accent: "#21CE99",
+    founders: ["Vlad Tenev", "Baiju Bhatt"], headquarters: "Menlo Park, CA", employees: "3000+", ownershipType: "public", valuation: "$12B", website: "robinhood.com", categories: ["investing"], logo: "robinhood", accent: "#21CE99",
     oneLiner: "Commission-free investing in stocks, ETFs, options, and crypto on a mobile-first platform.",
     whatIsIt: "Robinhood is an investing platform best known for pioneering zero-commission stock and ETF trading in the US via a simple mobile and web app.",
     whatTheyOffer: [{ name: "Equities & ETFs", description: "Commission-free stock and ETF trading including fractional shares." }],
@@ -328,7 +339,7 @@ const baseCompanies: BaseCompany[] = [
   {
     slug: "klarna", name: "Klarna", tagline: "Shop smarter, pay smarter.", founded: 2005,
     founders: ["Sebastian Siemiatkowski", "Niklas Adalberth"],
-    headquarters: "Stockholm, Sweden", employees: "4500+", valuation: "$6.8B", website: "klarna.com", categories: ["bnpl"], logo: "klarna", accent: "#FFA8CD",
+    headquarters: "Stockholm, Sweden", employees: "4500+", ownershipType: "public", valuation: "$6.8B", website: "klarna.com", categories: ["bnpl"], logo: "klarna", accent: "#FFA8CD",
     oneLiner: "Buy now, pay later and shopping app with creative payment options.",
     whatIsIt: "Klarna allows shoppers to try before they buy, pay in 30 days, or break purchases into installments with no interest or fees — plus a price comparison tool.",
     whatTheyOffer: [
@@ -341,11 +352,11 @@ const baseCompanies: BaseCompany[] = [
     strengths: ["Flexible payment options including Pay in 4 and Pay in 30", "Large integrated merchant network covering top brands", "Powerful price-comparison shopping app", "Strong brand recognition in Europe and an expanding US presence"],
     weaknesses: ["Can encourage impulsive overspending", "Late fees may apply when scheduled payments are missed", "Some merchants consider the fees high", "Availability and terms vary by market"],
     userReviews: { rating: 4.1, summary: "Shoppers appreciate the flexibility; overspending risk is a concern.", pros: ["No interest for on-time repayment plans", "Large retailer network", "Seamless checkout integration", "Price comparison built in"], cons: ["Can encourage overspending", "Late fees if payment schedule is missed", "Not universally available", "Underwriting is still evolving"] },
-    sources: ["TechCrunch", "Business Insider"],
+    sources: ["NYSE (KLAR) listing", "TechCrunch", "Business Insider"],
   },
   {
     slug: "afterpay", name: "Afterpay", tagline: "BNPL, simplified.", founded: 2014,
-    founders: ["Nick Molnar", "Anthony Eisen"], headquarters: "Sydney, Australia", employees: "1700+", valuation: "$29B", website: "afterpay.com", categories: ["bnpl"], logo: "afterpay", accent: "#B2FCE4",
+    founders: ["Nick Molnar", "Anthony Eisen"], headquarters: "Sydney, Australia", employees: "1700+", ownershipType: "acquired", valuation: "$29B", website: "afterpay.com", categories: ["bnpl"], logo: "afterpay", accent: "#B2FCE4",
     oneLiner: "Buy now, pay later — split purchases over four interest-free installment payments.", whatIsIt: "Afterpay is a BNPL pioneer that lets consumers split retail purchases into 4 installment periods, zero-interest; the merchant gets paid in full at the time of sale, and Afterpay collects from the consumer.",
     whatTheyOffer: [{ name: "Pay-in-4", description: "Split an approved purchase into four equal interest-free installments paid every two weeks." }, { name: "Merchant Solutions", description: "Integrate Afterpay into checkout to support conversion and average order value." }],
     whoUses: ["Fashion and lifestyle shoppers", "Millennials and Gen Z shoppers wanting to try before fully paying", "Merchants wanting a lift in average order value"],
@@ -353,11 +364,11 @@ const baseCompanies: BaseCompany[] = [
     strengths: ["Simple four-installment model", "Widespread fashion merchant adoption", "Easy mobile app on-the-fly purchase", "Boost average order value for merchants"],
     weaknesses: ["Impulsive spending led by split-pay ease", "Late fees apply when payments are missed after the grace period", "Narrow product type range", "Regulatory oversight high in some jurisdictions"],
     userReviews: { rating: 3.9, summary: "Easy to use for fashion lovers; but missed payment fees disappoint some if trial or due dates are misunderstood.", pros: ["Instant approval for small amounts", "Clean in-store integration", "Wide retail partner network", "Simple no-confusion payment structure"], cons: ["Fees if a payment is missed or declined", "Less widely accepted overseas"] },
-    sources: ["Australian Treasury filings", "Crunchbase", "ASX"],
+    sources: ["Australian Treasury filings", "Crunchbase", "Block annual filings"],
   },
   {
     slug: "monzo", name: "Monzo", tagline: "Your bank in a pocket.", founded: 2015,
-    founders: ["Tom Blomfield", "Jonas Huckestein", "Gary Dolman", "Paul Rippon"], headquarters: "London, UK", employees: "2500+", valuation: "$4.5B", website: "monzo.com", categories: ["neobanks"], logo: "monzo", accent: "#DE5A67",
+    founders: ["Tom Blomfield", "Jonas Huckestein", "Gary Dolman", "Paul Rippon"], headquarters: "London, UK", employees: "2500+", ownershipType: "private", valuation: "$4.5B", website: "monzo.com", categories: ["neobanks"], logo: "monzo", accent: "#DE5A67",
     oneLiner: "Mobile-only UK bank with real-time spending alerts and budgeting tools.", whatIsIt: "Monzo is a full UK-licensed digital challenger bank, known for its coral debit card, instant transaction notifications, savings pots, and fee-free overseas spending.",
     whatTheyOffer: [{ name: "Hot Coral Account", description: "A mobile current account with instant push notifications for spending and salary payments." }, { name: "Saving Pots", description: "Dedicated, ring-fenced accounts for bills, personal spending, and saving goals." }, { name: "Plus & Premium", description: "Two subscription tiers adding travel insurance, credit score, and advanced analytics." }],
     whoUses: ["Young urban professionals (18-38)", "UK residents wanting on-the-fly banking", "Freelancers tracking irregular expenses", "International travelers wanting fee-free debit abroad"],
@@ -369,6 +380,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "n26", name: "N26", tagline: "Banking with no hidden fees.", founded: 2013,
+    ownershipType: "private",
     founders: ["Valentin Stalf", "Maximilian Tayenthal"], headquarters: "Berlin, Germany", employees: "2400+", valuation: "$9B", website: "n26.com", categories: ["neobanks"], logo: "n26", accent: "#00C4B4",
     oneLiner: "Germany's first fully digital eurozone bank with simple free and premium accounts.", whatIsIt: "N26 is a Berlin-based digital bank offering local IBAN accounts, Mastercard debit cards, real-time transaction notifications, and a clean mobile interface.",
     whatTheyOffer: [{ name: "Euro IBAN account", description: "Full-featured German current account with direct deposits, SEPA transfers, and debit-card access." }, { name: "Spaces", description: "Installment sub-accounts to segregate bill money, savings, and cash allocations." }],
@@ -381,6 +393,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "adp",
+    ownershipType: "public",
     name: "ADP",
     tagline: "Always designing for people.",
     founded: 1949,
@@ -409,6 +422,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "apple-pay",
+    ownershipType: "subsidiary",
     name: "Apple Pay",
     tagline: "Pay the Apple way.",
     founded: 2014,
@@ -437,6 +451,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "affirm",
+    ownershipType: "public",
     name: "Affirm",
     tagline: "Pay over time. No late fees.",
     founded: 2012,
@@ -465,6 +480,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "binance",
+    ownershipType: "private",
     name: "Binance",
     tagline: "The world's leading cryptocurrency exchange.",
     founded: 2017,
@@ -493,6 +509,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "braintree",
+    ownershipType: "subsidiary",
     name: "Braintree",
     tagline: "Payments infrastructure for thousands of the fastest-growing companies.",
     founded: 2007,
@@ -521,6 +538,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "bunq",
+    ownershipType: "private",
     name: "bunq",
     tagline: "Bank of The Free.",
     founded: 2012,
@@ -549,6 +567,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "cash-app",
+    ownershipType: "division",
     name: "Cash App",
     tagline: "Send. Spend. Save. Invest.",
     founded: 2013,
@@ -561,7 +580,7 @@ const baseCompanies: BaseCompany[] = [
     logo: "cash-app",
     accent: "#00D64B",
     oneLiner: "Peer-to-peer mobile payment app with Bitcoin trading, stock investing, and a cash card.",
-    whatIsIt: "Cash App is Square's consumer mobile-wallet and payments app that allows peer instant transfers, Bitcoin purchase, fractional stock investing, and a customizable Cash Card debit card linked to the user's balance.",
+    whatIsIt: "Cash App is Block's consumer mobile-wallet and payments app that allows peer instant transfers, Bitcoin purchase, fractional stock investing, and a customizable Cash Card debit card linked to the user's balance.",
     whatTheyOffer: [
       { name: "P2P Payments", description: "Instant, free bank-to-bank transfers between Cash App users with unique $cashtag." },
       { name: "Cash Card", description: "Customizable Visa debit card that draws from Cash App balance, with instant rewards." },
@@ -577,6 +596,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "circle",
+    ownershipType: "private",
     name: "Circle",
     tagline: "Internet-first finance for the world.",
     founded: 2013,
@@ -605,6 +625,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "coinbase",
+    ownershipType: "public",
     name: "Coinbase",
     tagline: "The future of money is here.",
     founded: 2012,
@@ -633,6 +654,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "google-pay",
+    ownershipType: "division",
     name: "Google Pay",
     tagline: "Tap, pay, and send money.",
     founded: 2015,
@@ -661,6 +683,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "mastercard-send",
+    ownershipType: "division",
     name: "Mastercard Send",
     tagline: "Send money. Instantly.",
     founded: 2015,
@@ -689,6 +712,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "mercado-pago",
+    ownershipType: "division",
     name: "Mercado Pago",
     tagline: "Payments from Mercado Libre.",
     founded: 2003,
@@ -717,6 +741,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "moneygram",
+    ownershipType: "private",
     name: "MoneyGram",
     tagline: "Bringing people and their money closer.",
     founded: 1940,
@@ -741,10 +766,11 @@ const baseCompanies: BaseCompany[] = [
     strengths: ["450,000+ agent locations for cash pickup worldwide", "Strong presence in migrant and underbanked communities", "Mobile app supports digital transfers to 200+ countries", "Quick 10-minute dispatch to pickup in many major corridors"],
     weaknesses: ["FX markup can add $5–10 or more on top of transfer fees", "Cash-centric model that may lose ground as payments digitize", "Bank-account linking is less streamlined than digital-first competitors", "Consumer app lacks modern fintech experience"],
     userReviews: { rating: 3.8, summary: "Useful for cash remittance in underbanked corridors; FX spread and transfer delay complaints are common.", pros: ["Extensive global cash pickup network", "Solid in key remittance corridors like USA-to-LatAm", "Well-known trusted brand"], cons: ["FX margin adds significant cost", "Transfers can be held for compliance review", "No real-time tracking for most corridors"] },
-    sources: ["MoneyGram International SEC", "Remittance Policy Worker Magazine"],
+    sources: ["Madison Dearborn Partners (acquisition)", "MoneyGram International SEC", "Remittance Policy Worker Magazine"],
   },
   {
     slug: "okx",
+    ownershipType: "private",
     name: "OKX",
     tagline: "Trade crypto. All in one place.",
     founded: 2017,
@@ -773,6 +799,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "paychex",
+    ownershipType: "public",
     name: "Paychex",
     tagline: "HR solutions that fit your business.",
     founded: 1971,
@@ -801,6 +828,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "cashfree",
+    ownershipType: "private",
     name: "Cashfree Payments",
     tagline: "Payments, payouts & verification for Indian businesses.",
     founded: 2015,
@@ -846,6 +874,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "payoneer",
+    ownershipType: "public",
     name: "Payoneer",
     tagline: "Commerce without borders.",
     founded: 2005,
@@ -874,6 +903,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "paytm",
+    ownershipType: "public",
     name: "Paytm",
     tagline: "Pay through Mobile.",
     founded: 2010,
@@ -902,6 +932,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "phonepe",
+    ownershipType: "private",
     name: "PhonePe",
     tagline: "Kuch Bhi Pay.",
     founded: 2015,
@@ -930,6 +961,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "sofi",
+    ownershipType: "public",
     name: "SoFi",
     tagline: "Get your money right.",
     founded: 2011,
@@ -975,6 +1007,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "picpay",
+    ownershipType: "private",
     name: "PicPay",
     tagline: "Payments made simple.",
     founded: 2012,
@@ -1018,6 +1051,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "razorpay",
+    ownershipType: "private",
     name: "Razorpay",
     tagline: "Powering payments for ambitious businesses.",
     founded: 2014,
@@ -1061,6 +1095,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "starling",
+    ownershipType: "private",
     name: "Starling Bank",
     tagline: "Banking made better.",
     founded: 2014,
@@ -1104,6 +1139,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "relay",
+    ownershipType: "private",
     name: "Relay",
     tagline: "Banking built for your business.",
     founded: 2020,
@@ -1147,6 +1183,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "venmo",
+    ownershipType: "subsidiary",
     name: "Venmo",
     tagline: "Pay friends. Split bills. Share moments.",
     founded: 2009,
@@ -1190,6 +1227,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "visa-direct",
+    ownershipType: "division",
     name: "Visa Direct",
     tagline: "Move money in real time.",
     founded: 2011,

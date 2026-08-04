@@ -199,6 +199,16 @@ export const sourceReferencesBySlug: Partial<Record<string, SourceReference[]>> 
       sourceType: "regulatory-filing",
       supports: ["employees", "valuation"],
     },
+    {
+      id: "mdp-acquisition",
+      publisher: "Madison Dearborn Partners",
+      title: "MDP completes acquisition of MoneyGram (take-private)",
+      url: "https://www.prnewswire.com/news-releases/madison-dearborn-partners-completes-acquisition-of-moneygram-301840026.html",
+      accessedAt: "2026-08-04",
+      effectiveAt: "2023-06-01",
+      sourceType: "news-report",
+      supports: ["ownership"],
+    },
   ],
   chime: [
     {
@@ -300,6 +310,16 @@ export const sourceReferencesBySlug: Partial<Record<string, SourceReference[]>> 
       sourceType: "official-documentation",
       supports: ["company-profile", "products", "pricing", "customers"],
     },
+    {
+      id: "nyse-listing",
+      publisher: "NYSE",
+      title: "Klarna Group plc (KLAR) — NYSE listing",
+      url: "https://www.nyse.com/quote/XNYS:KLAR",
+      accessedAt: "2026-08-04",
+      effectiveAt: "2025-09-10",
+      sourceType: "regulatory-filing",
+      supports: ["ownership"],
+    },
   ],
   gusto: [
     {
@@ -332,6 +352,16 @@ export const sourceReferencesBySlug: Partial<Record<string, SourceReference[]>> 
       accessedAt: PROVENANCE_ACCESSED_AT,
       sourceType: "official-documentation",
       supports: ["company-profile", "products", "pricing", "customers"],
+    },
+    {
+      id: "block-acquisition",
+      publisher: "Block",
+      title: "Block completes acquisition of Afterpay — investor update",
+      url: "https://investor.block.xyz/",
+      accessedAt: "2026-08-04",
+      effectiveAt: "2022-01-31",
+      sourceType: "company-report",
+      supports: ["ownership"],
     },
   ],
   adp: [
@@ -387,6 +417,15 @@ export const sourceReferencesBySlug: Partial<Record<string, SourceReference[]>> 
       accessedAt: PROVENANCE_ACCESSED_AT,
       sourceType: "official-documentation",
       supports: ["company-profile", "products"],
+    },
+    {
+      id: "block-report",
+      publisher: "Block",
+      title: "Block quarterly report — Cash App segment disclosures",
+      url: "https://investor.block.xyz/",
+      accessedAt: "2026-08-04",
+      sourceType: "company-report",
+      supports: ["ownership", "products"],
     },
   ],
   circle: [

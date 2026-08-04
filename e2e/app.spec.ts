@@ -17,18 +17,19 @@ test.describe("critical flows", () => {
     // The most recently appended articles lead the section on same-day ties
     // (later array index first among equal updatedAt values).
     await expect(
+      latestSection.getByRole("link", { name: /Payment gateway fees compared: India/ }),
+    ).toBeVisible();
+    await expect(
+      latestSection.getByRole("link", { name: /Best payment gateway for Shopify India/ }),
+    ).toBeVisible();
+    await expect(
       latestSection.getByRole("link", { name: /How to get paid from Latin America in India/ }),
-    ).toBeVisible();
-    await expect(
-      latestSection.getByRole("link", { name: /Plaid vs India's Account Aggregator/ }),
-    ).toBeVisible();
-    await expect(
-      latestSection.getByRole("link", { name: /Cash App vs Venmo: US peer-to-peer payments/ }),
     ).toBeVisible();
     // Order contract: newest editorial additions come first, not array order.
     await expect(latestSection.locator("a").first()).toContainText(
-      "How to get paid from Latin America in India",
+      "Payment gateway fees compared: India",
     );
+
   });
 
   test("company profile opens from a deep link", async ({ page }) => {

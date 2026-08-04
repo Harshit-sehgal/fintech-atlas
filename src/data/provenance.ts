@@ -12,7 +12,7 @@ export const PROVENANCE_FIELDS = new Set([
   "products",
   "customers",
   "strengths",
-  "weaknesses",
+  "ownership",
   "editorial-sentiment",
   "rating-methodology",
 ]);

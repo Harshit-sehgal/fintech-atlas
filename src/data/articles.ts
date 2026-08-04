@@ -454,7 +454,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-03",
     category: "Payments",
     relatedCompanySlugs: ["square", "stripe", "paypal", "adyen"],
-    relatedArticleSlugs: ["razorpay-vs-stripe-payments-india", "razorpay-vs-cashfree-indian-gateways", "brex-vs-relay-business-banking"],
+    relatedArticleSlugs: ["razorpay-vs-stripe-payments-india", "razorpay-vs-cashfree-indian-gateways", "brex-vs-relay-business-banking", "best-payment-gateway-shopify-india", "payment-gateway-fee-comparison-india"],
     ctas: [
       { slug: "square", label: "Visit Square", placement: "compare-vs" },
       { slug: "stripe", label: "Visit Stripe", placement: "compare-vs" },
@@ -714,7 +714,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Payments",
     relatedCompanySlugs: ["razorpay", "stripe"],
-    relatedArticleSlugs: ["razorpay-vs-cashfree-indian-gateways", "best-payment-gateway-small-business", "razorpay-vs-stripe-for-developers", "payment-gateway-for-subscription-businesses", "stripe-vs-paypal-online-payments"],
+    relatedArticleSlugs: ["razorpay-vs-cashfree-indian-gateways", "best-payment-gateway-small-business", "razorpay-vs-stripe-for-developers", "payment-gateway-for-subscription-businesses", "stripe-vs-paypal-online-payments", "payment-gateway-fee-comparison-india"],
     ctas: [
       { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
       { slug: "stripe", label: "Visit Stripe", placement: "compare-vs" },
@@ -808,7 +808,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Payments",
     relatedCompanySlugs: ["razorpay", "cashfree"],
-    relatedArticleSlugs: ["razorpay-vs-stripe-payments-india", "best-payment-gateway-small-business", "razorpay-vs-cashfree-for-ecommerce"],
+    relatedArticleSlugs: ["razorpay-vs-stripe-payments-india", "best-payment-gateway-small-business", "razorpay-vs-cashfree-for-ecommerce", "payment-gateway-fee-comparison-india"],
     ctas: [
       { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
       { slug: "cashfree", label: "Visit Cashfree", placement: "compare-vs" },
@@ -1327,7 +1327,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
-    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "payoneer-fees-india", "wise-vs-revolut-international-transfers", "international-payment-settlement-times", "stablecoins-for-cross-border-payments"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "payoneer-fees-india", "wise-vs-revolut-international-transfers", "international-payment-settlement-times", "stablecoins-for-cross-border-payments", "payment-gateway-fee-comparison-india"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -1413,7 +1413,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Payments",
     relatedCompanySlugs: ["razorpay", "cashfree", "stripe"],
-    relatedArticleSlugs: ["razorpay-vs-stripe-payments-india", "razorpay-vs-stripe-for-developers", "razorpay-vs-cashfree-for-ecommerce"],
+    relatedArticleSlugs: ["razorpay-vs-stripe-payments-india", "razorpay-vs-stripe-for-developers", "razorpay-vs-cashfree-for-ecommerce", "payment-gateway-fee-comparison-india"],
     ctas: [
       { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
       { slug: "cashfree", label: "Visit Cashfree", placement: "compare-vs" },
@@ -1793,7 +1793,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Payments",
     relatedCompanySlugs: ["razorpay", "cashfree"],
-    relatedArticleSlugs: ["razorpay-vs-cashfree-indian-gateways", "payment-gateway-for-subscription-businesses"],
+    relatedArticleSlugs: ["razorpay-vs-cashfree-indian-gateways", "payment-gateway-for-subscription-businesses", "best-payment-gateway-shopify-india"],
     ctas: [
       { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
       { slug: "cashfree", label: "Visit Cashfree", placement: "compare-vs" },
@@ -2451,6 +2451,175 @@ export const articles: Article[] = [
           "Client insists on PayPal → accept for small amounts, but ask them to cover the fee or switch to a cheaper corridor once the relationship is established.",
           "Client holds USDC or the corridor is unstable → benchmark the stablecoin route against the bank rails before committing (see the stablecoin guide).",
         ],
+      },
+    ],
+  },
+  {
+    slug: "best-payment-gateway-shopify-india",
+    author: "FinTech Atlas editorial team",
+    title: "Best payment gateway for Shopify India (2026)",
+    description:
+      "Shopify Payments is not available in India, so every Indian store pairs Shopify with a third-party gateway. Razorpay, Cashfree, Paytm, PayPal, and Braintree compared for UPI, cards, and international buyers.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Payments",
+    relatedCompanySlugs: ["razorpay", "cashfree", "paytm", "paypal", "braintree", "apple-pay"],
+    relatedArticleSlugs: ["razorpay-vs-cashfree-for-ecommerce", "best-payment-gateway-small-business", "payment-gateway-fee-comparison-india"],
+    ctas: [
+      { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
+      { slug: "cashfree", label: "Visit Cashfree", placement: "compare-vs" },
+      { slug: "paypal", label: "Visit PayPal", placement: "compare-vs" },
+    ],
+    relatedTool: { href: "/tools/calculator", label: "Estimate gateway fees" },
+    body: [
+      {
+        type: "p",
+        text: "The first fact that shapes every Shopify decision in India: Shopify Payments — the built-in gateway that removes third-party fees elsewhere — is not available to India-registered merchants. Every Indian store therefore pairs Shopify with a separate gateway, pays that gateway's transaction fees, and also pays Shopify's third-party transaction fee unless a plan-level waiver applies. The actual choice is between Indian payment service providers (Razorpay, Cashfree, Paytm) for the UPI-first domestic checkout, and international processors (PayPal, and via it Braintree) when a large share of buyers pay in USD with cards.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: gateway availability, fee schedules, and Shopify's own policies change often; this is the 2026 catalog vintage and educational guidance, not financial advice. Verify current availability and rates before onboarding.",
+      },
+      { type: "h2", text: "Why Shopify Payments doesn't settle this" },
+      {
+        type: "p",
+        text: "Shopify Payments is powered by a third-party processor (Stripe) in the markets where it runs. India is not among them: Shopify directs Indian merchants to its supported third-party gateway list instead. The practical consequences: separate KYC and merchant onboarding with your gateway, settlements that follow the gateway's schedule (not Shopify's), and transaction fees charged by both Shopify and the gateway. That is why the gateway choice — not the Shopify plan — is the main cost lever for an Indian store.",
+      },
+      { type: "h2", text: "The gateways Indian Shopify stores actually use" },
+      {
+        type: "table",
+        headers: ["Gateway", "Domestic rate (published)", "International cards", "Settlement", "Shopify fit"],
+        rows: [
+          ["Razorpay", "2% + 18% GST", "+1% surcharge", "T+2 typical", "Dedicated Shopify app; subscriptions, EMI, smart routing"],
+          ["Cashfree Payments", "2% + 18% GST", "+0.99% surcharge", "Same/next-day options", "Official Shopify partner; strong plugin and payouts tooling"],
+          ["Paytm Payment Gateway", "~2% + GST (published schedule)", "Premium/international cards higher", "T+1/T+2", "Shopify app; strong wallet + UPI presence"],
+          ["PayPal (India)", "Cross-border pricing; no domestic MDR schedule", "3.5% + $0.49 (US-style schedule, India variants apply)", "Instant to ~1 day after capture", "PayPal Express on Shopify checkout"],
+          ["Braintree (via PayPal)", "Not an India domestic gateway", "US-style card pricing, ~2.59% + $0.49 blended", "Daily", "Third-party gateway on Shopify's list; eligibility depends on PayPal onboarding"],
+        ],
+      },
+      {
+        type: "p",
+        text: "The domestic 2% + 18% GST rows match the site's gateway fee calculator and the published India schedules — the calculator adds the GST line for you, so a ₹10,000 domestic card payment costs ₹200 in platform fee plus ₹36 GST, and you receive ₹9,764. International-card surcharges (Razorpay and Stripe India +1%, Cashfree +0.99%) apply on top of the domestic percentage for non-Indian cards.",
+      },
+      { type: "h2", text: "Wallets and Apple Pay at checkout" },
+      {
+        type: "ul",
+        items: [
+          "Apple Pay is not available in India — the wallet has never launched there. 2026 reports describe an expected launch later in the year, initially card-based without UPI, but as of this vintage it does not exist as a payment method for Indian buyers.",
+          "International buyers can still pay with Apple Pay on a Shopify store: Shopify checkout presents the wallet when the gateway supports it. So an Apple-heavy US customer base is a reason to confirm your gateway's Apple Pay support rather than ignore the wallet.",
+          "The Indian equivalent of the wallet moment is UPI: PhonePe, Paytm, Google Pay, and BHIM dominate checkout. UPI support is table stakes — the differentiator is whether the gateway routes UPI payments reliably (QR, intent flow, and auto-pay for subscriptions).",
+        ],
+      },
+      { type: "h2", text: "Braintree as the third-party option" },
+      {
+        type: "p",
+        text: "Braintree is PayPal's developer gateway — the API-first card processor behind many US and Canadian storefronts, and a long-standing third-party gateway on Shopify's supported list. For an Indian store it is relevant in exactly one scenario: a customer base that pays in USD with cards and wallets, where the store wants a dedicated card processor rather than PayPal's branded checkout. The caveats are real: Braintree onboarding for India-registered merchants runs through PayPal's regional entity and eligibility varies, there is no domestic INR schedule, and settlements land in a linked bank account rather than through Indian rails. For the UPI-first Indian checkout it is the wrong tool; for the US export storefront it is a genuine alternative to PayPal Express.",
+      },
+      { type: "h2", text: "Which to pick" },
+      {
+        type: "ul",
+        items: [
+          "Indian customers, UPI-heavy store, subscriptions or EMI → Razorpay: the dedicated Shopify app plus auto-pay, smart routing, and the same 2% + GST domestic schedule as its peers.",
+          "Cash-flow-sensitive store → Cashfree: same-day/next-day settlement options and payout automation are the differentiators; an official Shopify partner with a mature plugin.",
+          "Mostly international (USD) buyers → PayPal Express for simplicity, or Braintree via PayPal onboarding if you want the branded-less card checkout; accept the cross-border pricing on both.",
+          "High average order value and premium cards → compare the international surcharge rows above — a +1% surcharge difference at ₹10,000 is only ₹100, but it compounds across your card mix.",
+          "Evaluate the total, not the headline: Shopify's own third-party transaction fee plus gateway fee plus GST is what you actually pay — run the gateway fee calculator with your volume and card mix.",
+        ],
+      },
+      {
+        type: "p",
+        text: "The gateway fee comparison guide covers the same published schedules across Razorpay, Cashfree, Stripe India, Paytm, and PhonePe in more detail, including the GST math and what the rate tables leave out.",
+      },
+    ],
+  },
+  {
+    slug: "payment-gateway-fee-comparison-india",
+    author: "FinTech Atlas editorial team",
+    title: "Payment gateway fees compared: India (2026)",
+    description:
+      "What Indian merchants actually pay: platform fee plus 18% GST, international-card surcharges, and the costs the rate tables hide — Razorpay, Cashfree, Stripe India, Paytm, and PhonePe on the same schedule.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Payments",
+    relatedCompanySlugs: ["razorpay", "cashfree", "stripe", "paytm", "phonepe"],
+    relatedArticleSlugs: ["razorpay-vs-stripe-payments-india", "razorpay-vs-cashfree-indian-gateways", "payment-gateway-for-subscription-businesses", "best-payment-gateway-small-business", "quarterly-india-cross-border-fee-index", "best-payment-gateway-shopify-india"],
+    ctas: [
+      { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
+      { slug: "cashfree", label: "Visit Cashfree", placement: "compare-vs" },
+      { slug: "stripe", label: "Visit Stripe India", placement: "compare-vs" },
+    ],
+    relatedTool: { href: "/tools/calculator", label: "Estimate gateway fees" },
+    body: [
+      {
+        type: "p",
+        text: "The headline number Indian gateways advertise is a percentage — 2% — but what you actually pay is that percentage plus 18% GST on the fee, plus an international-card surcharge when the card is foreign, plus the costs that never appear in a rate table: settlement timing, refund and chargeback handling, monthly or annual plans, and interchange-plus contracts for high volume. This guide puts Razorpay, Cashfree, Stripe India, Paytm, and PhonePe on one schedule with the same math, so the comparison is apples to apples. It complements the head-to-head guides: this one is the fee structure itself, not a two-way feature comparison.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: all rates are the published India schedules of the 2026 catalog vintage and are indicative only — high-volume merchants regularly negotiate interchange++ or custom pricing that materially differs. Verify the current schedule with the provider before planning around any figure.",
+      },
+      { type: "h2", text: "Fee anatomy" },
+      {
+        type: "table",
+        headers: ["Component", "What it is", "Who charges it"],
+        rows: [
+          ["Platform fee (MDR)", "Percentage of the transaction value — the advertised 2%", "Gateway"],
+          ["GST on the fee", "18% of the platform fee, not of the transaction — ₹36 on a ₹200 fee", "Gateway (pass-through)"],
+          ["International surcharge", "Additional percentage for cards issued outside India", "Gateway"],
+          ["Settlement & hold", "T+1 to T+3 payout timing, rolling reserves for high-risk categories", "Gateway"],
+          ["Refund fees", "Many gateways refund the MDR; some do not, or charge per refund", "Gateway"],
+          ["Setup / annual", "₹0 on standard plans; enterprise tiers can carry setup and annual fees", "Gateway"],
+        ],
+      },
+      { type: "h2", text: "Published India schedules (same math applied)" },
+      {
+        type: "table",
+        headers: ["Gateway", "Domestic platform fee", "Effective with 18% GST", "International cards", "Effective international"],
+        rows: [
+          ["Razorpay", "2%", "2.36%", "2% + 1% surcharge", "3.54%"],
+          ["Cashfree Payments", "2%", "2.36%", "2% + 0.99% surcharge", "3.53%"],
+          ["Stripe India", "2%", "2.36%", "2% + 1% surcharge", "3.54%"],
+          ["Paytm Payment Gateway", "~2% (published schedule)", "~2.36%", "Premium and international cards priced higher", "Verify current"],
+          ["PhonePe Payment Gateway", "Under 2% (recent entrant; merchant agreement)", "Below 2.36%", "International pricing per agreement", "Verify current"],
+        ],
+      },
+      {
+        type: "p",
+        text: "The Razorpay, Cashfree, and Stripe India rows are the same schedules the site's gateway fee calculator runs — the calculator applies the GST line automatically, so any amount you compute there matches this table. Paytm and PhonePe rows are hedged because their schedules move with merchant agreements; treat the direction (at or near 2%, GST on top) as the planning assumption and confirm the number in onboarding.",
+      },
+      { type: "h2", text: "The GST math" },
+      {
+        type: "ul",
+        items: [
+          "GST applies to the platform fee, not the transaction: a ₹10,000 sale at 2% carries a ₹200 fee and ₹36 GST — total ₹236, or 2.36% effective. Quoting '2% plus GST' without the arithmetic understates your cost by a sixth.",
+          "At ₹1,00,000 monthly volume the difference between 2% and 2.36% effective is ₹360 a month — small, but it is the same order as many settlement and plan differences, so it should be in the comparison.",
+          "International cards take the effective rate past 3.5% at most Indian gateways: a ₹10,000 international-card sale costs ₹354 in fee plus GST. For export-facing stores the surcharge often exceeds the domestic fee difference between gateways.",
+        ],
+      },
+      { type: "h2", text: "What the rate tables leave out" },
+      {
+        type: "ul",
+        items: [
+          "Settlement timing: T+1 at most gateways for Indian cards, but T+2 or rolling reserves for high-risk categories — the same 2% fee with a week of held cash flow is a different product.",
+          "Refund economics: if the MDR is not refunded on refunded orders, a 10% return rate adds a hidden ~0.2% to your effective cost.",
+          "Success rates: routing quality (smart routing, retries) moves conversion by more than the fee differences here; a 1% conversion gain beats a 0.3% fee saving for most stores.",
+          "Custom pricing: interchange++ or flat-per-transaction contracts start being available around ₹10–25 lakh monthly volume — the published 2% is not the ceiling.",
+        ],
+      },
+      { type: "h2", text: "Which to pick" },
+      {
+        type: "ul",
+        items: [
+          "Standard Indian checkout, no international exposure → any of the three published-schedule gateways; the fees are identical, so decide on settlement speed, UPI reliability, and support.",
+          "International cards are a material share → compare the surcharge rows (3.53–3.54% effective) and check whether your gateway routes those cards at the advertised rate or requires a premium tier.",
+          "High volume → ask every shortlist for interchange++ pricing before comparing published rates; the comparison above stops being relevant above roughly ₹10 lakh monthly.",
+          "Subscriptions → add the auto-pay rails (UPI AutoPay, card eMandates) to the fee math — the subscription guide covers which gateways carry them and the setup timelines.",
+          "Shopify store → the Shopify India guide applies these same schedules to the platform's third-party-gateway requirement.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Run your own volume and card mix through the gateway fee calculator — it computes the GST line and the international split for you, so the estimate matches the schedules above exactly.",
       },
     ],
   },

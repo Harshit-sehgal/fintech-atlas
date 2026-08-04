@@ -2,10 +2,10 @@ import { companies } from "./companies";
 import { categories } from "./categories";
 import { glossary, categoryGlossaryMap } from "./glossary";
 
-import { Company, Category, GlossaryTerm } from "./types";
+import { Company, Category, GlossaryTerm, OwnershipType } from "./types";
 
 export { companies, categories, glossary, categoryGlossaryMap };
-export type { Company, Category, GlossaryTerm };
+export type { Company, Category, GlossaryTerm, OwnershipType };
 
 export function getCompanyBySlug(slug: string): Company | undefined {
   return companies.find((c) => c.slug === slug);

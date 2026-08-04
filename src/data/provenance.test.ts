@@ -65,3 +65,33 @@ describe("company provenance", () => {
     }
   });
 });
+
+describe("ownership audit (T009)", () => {
+  const bySlug = Object.fromEntries(companies.map((c) => [c.slug, c]));
+
+  it("every company carries a machine-checkable ownership classification", () => {
+    for (const company of companies) {
+      expect(["public", "private", "subsidiary", "division", "acquired", "not-disclosed"], company.slug).toContain(
+        company.ownershipType,
+      );
+    }
+  });
+
+  it("re-audited ownership facts stay correct (Klarna, Afterpay, MoneyGram, Cash App)", () => {
+    // Klarna IPO'd on the NYSE on 2025-09-10 (KLAR) and remains listed.
+    expect(bySlug["klarna"].ownershipType).toBe("public");
+    // Afterpay delisted from the ASX when Block's acquisition completed in 2022.
+    expect(bySlug["afterpay"].ownershipType).toBe("acquired");
+    // MoneyGram was taken private by Madison Dearborn Partners on 2023-06-01.
+    expect(bySlug["moneygram"].ownershipType).toBe("private");
+    // Cash App is a product line of Block Inc., not a separate subsidiary.
+    expect(bySlug["cash-app"].ownershipType).toBe("division");
+  });
+
+  it("ownership evidence is cited for the audited companies", () => {
+    for (const slug of ["klarna", "afterpay", "moneygram", "cash-app"]) {
+      const supportsOwnership = bySlug[slug].sourceReferences?.some((s) => s.supports.includes("ownership"));
+      expect(supportsOwnership, slug).toBe(true);
+    }
+  });
+});

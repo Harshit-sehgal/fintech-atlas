@@ -22,6 +22,7 @@ import { getFocusableElementsInDialog } from "@/lib/focus-trap";
 import { resolvePartnerCta, partnerRel, COMMERCIAL_DISCLOSURE } from "@/lib/partners";
 import { trackCtaClick } from "@/lib/analytics";
 import { CorrectionReportLink } from "@/components/ui/correction-report-link";
+import type { OwnershipType } from "@/data";
 
 function readReviews(slug: string): string {
   if (typeof window === "undefined") return "";
@@ -49,15 +50,31 @@ function subscribeReviews(slug: string, onStoreChange: () => void) {
 }
 
 
+// Human-readable label + one-line description for each ownership classification
+// (T009). The label is what we render in the company profile; the description is
+// used as the accessible hint to make machine-checkable ownership sane to a
+// non-technical reader.
+const OWNERSHIP_LABELS: Record<OwnershipType, { label: string; description: string }> = {
+  public: { label: "Publicly listed", description: "Traded on a public stock exchange." },
+  private: { label: "Privately held", description: "Not listed on any public exchange." },
+  subsidiary: { label: "Subsidiary", description: "Wholly owned by a publicly listed parent company." },
+  division: { label: "Product / division", description: "A business unit or product line of a larger parent." },
+  acquired: { label: "Acquired unit", description: "Acquired by a larger company and now operates within it." },
+  "not-disclosed": { label: "Not disclosed", description: "Ownership status is not publicly verifiable." },
+};
+function ownershipLabel(t: OwnershipType): string {
+  return OWNERSHIP_LABELS[t]?.label ?? t;
+}
+
 // A uniform section header: mono accent-dash eyebrow + bold section title.
 function SectionHeader({ eyebrow, title }: { eyebrow: string; title: string }) {
-  return (
-    <div className="mb-5">
-      <span className="eyebrow">{eyebrow}</span>
-      <h2 className="mt-2 text-xl font-bold tracking-tight">{title}</h2>
-    </div>
-  );
-}
+   return (
+     <div className="mb-5">
+       <span className="eyebrow">{eyebrow}</span>
+       <h2 className="mt-2 text-xl font-bold tracking-tight">{title}</h2>
+     </div>
+   );
+ }
 
 // CountUp from @/components/ui/count-up used below.
 
@@ -399,13 +416,14 @@ export function CompanyPageClient({
 
       {/* Quick stats grid */}
       <Reveal delay={0.1}>
-        <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 rounded-2xl border border-[var(--border-color)] p-5 sm:grid-cols-4 surface">
+        <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 rounded-2xl border border-[var(--border-color)] p-5 sm:grid-cols-3 lg:grid-cols-5 surface">
           {[
             { label: "Founded", value: String(c.founded) },
             { label: "Employees", value: c.employees },
+            { label: "Ownership", value: ownershipLabel(c.ownershipType), hint: OWNERSHIP_LABELS[c.ownershipType].description },
             { label: "Valuation", value: formatValuationForStats(c) },
             { label: "Official Website", isLink: true, href: `https://${c.website}`, value: c.website },
-          ].map(({ label, value, isLink, href }) => (
+          ].map(({ label, value, isLink, hint, href }) => (
             <div key={label}>
               <p className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted-text)]">{label}</p>
               {isLink ? (
@@ -418,7 +436,10 @@ export function CompanyPageClient({
                   {value} ↗
                 </a>
               ) : (
-                <p className="mt-1 text-sm font-bold tracking-tight text-[var(--foreground)]">{value}</p>
+                <p className="mt-1 text-sm font-bold tracking-tight text-[var(--foreground)]">
+                  {value}
+                  {hint && <span className="sr-only"> {hint}</span>}
+                </p>
               )}
             </div>
           ))}
