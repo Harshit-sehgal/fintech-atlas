@@ -50,33 +50,94 @@ function targetCandidates(reference) {
     : [];
 }
 
+/** Resolve a reference's path to a concrete HTML file, or null when missing. */
+function resolvePage(reference) {
+  const targets = targetCandidates(reference);
+  const found = targets.find((target) => fs.existsSync(target));
+  if (!found) return null;
+  if (fs.statSync(found).isDirectory()) {
+    const index = path.join(found, "index.html");
+    return fs.existsSync(index) ? index : null;
+  }
+  return found;
+}
+
+/** True when the file declares the given fragment id (anchors are plain `id` attributes). */
+function hasFragment(file, fragment) {
+  try {
+    const html = fs.readFileSync(file, "utf8");
+    const escaped = fragment.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return new RegExp(`id=["']${escaped}["']`).test(html);
+  } catch {
+    return false;
+  }
+}
+
 const htmlFiles = collectHtmlFiles(outDir);
-const references = new Map();
+const brokenPaths = new Map();
+const brokenFragments = new Map();
 
 for (const file of htmlFiles) {
   const html = fs.readFileSync(file, "utf8");
   for (const match of html.matchAll(/(?:href|src)=["']([^"']+)["']/gi)) {
-    const rawReference = match[1].split("#", 1)[0].split("?", 1)[0];
-    if (!rawReference) continue;
+    const rawReference = match[1];
+    const hashIndex = rawReference.indexOf("#");
+    const pathPart = (hashIndex >= 0 ? rawReference.slice(0, hashIndex) : rawReference).split("?", 1)[0];
+    let fragment = null;
+    if (hashIndex >= 0) {
+      try {
+        fragment = decodeURIComponent(rawReference.slice(hashIndex + 1));
+      } catch {
+        continue;
+      }
+    }
+    if (!fragment) fragment = null;
 
-    const reference = normalizeReference(rawReference);
+    // Fragment-only reference: must resolve on the page itself.
+    if (!pathPart) {
+      if (!fragment) continue;
+      if (!hasFragment(file, fragment)) {
+        const sources = brokenFragments.get(`#${fragment}`) || [];
+        sources.push(path.relative(outDir, file));
+        brokenFragments.set(`#${fragment}`, sources);
+      }
+      continue;
+    }
+
+    const reference = normalizeReference(pathPart);
     if (!reference || reference.startsWith("/_next/")) continue;
 
-    const targets = targetCandidates(reference);
-    if (targets.some((target) => fs.existsSync(target))) continue;
+    const page = resolvePage(reference);
+    if (!page) {
+      const sources = brokenPaths.get(rawReference) || [];
+      sources.push(path.relative(outDir, file));
+      brokenPaths.set(rawReference, sources);
+      continue;
+    }
 
-    const sources = references.get(rawReference) || [];
-    sources.push(path.relative(outDir, file));
-    references.set(rawReference, sources);
+    if (fragment && !hasFragment(page, fragment)) {
+      const sources = brokenFragments.get(`${rawReference} (missing id="${fragment}")`) || [];
+      sources.push(path.relative(outDir, file));
+      brokenFragments.set(`${rawReference} (missing id="${fragment}")`, sources);
+    }
   }
 }
 
-if (references.size > 0) {
-  console.error(`✗ Found ${references.size} broken internal reference(s):`);
-  for (const [reference, sources] of references) {
+let failed = false;
+if (brokenPaths.size > 0) {
+  failed = true;
+  console.error(`✗ Found ${brokenPaths.size} broken internal reference(s):`);
+  for (const [reference, sources] of brokenPaths) {
     console.error(`  ${reference} (from ${sources.slice(0, 3).join(", ")}${sources.length > 3 ? ", …" : ""})`);
   }
-  process.exit(1);
 }
+if (brokenFragments.size > 0) {
+  failed = true;
+  console.error(`✗ Found ${brokenFragments.size} unresolvable fragment target(s):`);
+  for (const [reference, sources] of brokenFragments) {
+    console.error(`  ${reference} (from ${sources.slice(0, 3).join(", ")}${sources.length > 3 ? ", …" : ""})`);
+  }
+}
+if (failed) process.exit(1);
 
 console.log(`Internal-link verification passed: ${htmlFiles.length} HTML files checked.`);
