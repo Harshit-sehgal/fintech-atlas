@@ -264,10 +264,10 @@ export const glossary: GlossaryTerm[] = [
  * without one simply render no "Key Domain Terminology" section.
  */
 export const categoryGlossaryMap: Record<string, string[]> = {
-  payments: ["ach", "interchange", "chargeback", "api", "real-time-payments"],
+  payments: ["upi", "mdr", "ach", "interchange", "chargeback", "api", "real-time-payments", "t-plus-one"],
   neobanks: ["baas", "fdic", "e-money", "apy", "neobank"],
   investing: ["crypto", "defi", "apy", "apr", "stablecoin", "pfof"],
-  "cross-border": ["fx", "mid-market-rate", "e-money", "ach", "wire-transfer"],
+  "cross-border": ["fx", "mid-market-rate", "firc", "fema", "e-money", "ach", "wire-transfer"],
   bnpl: ["bnpl", "interchange", "chargeback"],
   infrastructure: ["api", "baas", "open-banking", "treasury"],
   "spend-management": ["api", "treasury", "interchange"],

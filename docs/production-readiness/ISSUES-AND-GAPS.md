@@ -3,7 +3,7 @@
 > Actionable gaps and current status (completed items are marked 🟢 rather than
 > removed so the repository-level audit trail remains readable). Complements
 > [GAP-ANALYSIS.md](./GAP-ANALYSIS.md) and the per-goal checklists.
-> Last refreshed: **2026-08-04**. Repository-level static-v1 work is current through the India-focus pass (fee calculator INR mode + GST, Razorpay vs Stripe + Razorpay vs Cashfree articles/presets, homepage repositioning + Popular Comparisons, per-article sitemap lastmods, GitHub Actions uptime monitor, Payoneer fees India article, Payoneer profile copy repair, dedicated Razorpay fee calculator page, catalog-wide editorial copy sweep) and PWA browser verification.
+> Last refreshed: **2026-08-04**. Repository-level static-v1 work is current through the India-focus pass (fee calculator INR mode + GST, Razorpay vs Stripe + Razorpay vs Cashfree articles/presets, homepage repositioning + Popular Comparisons, per-article sitemap lastmods, GitHub Actions uptime monitor, Payoneer fees India article, Payoneer profile copy repair, dedicated Razorpay fee calculator page, catalog-wide editorial copy sweep, T050/T051/T055 link + breadcrumb structured-data wiring, India-first homepage provider directory, India payment glossary terms) and PWA browser verification.
 
 **Architecture context:** fully static Next.js 16 export (`output: "export"`) —
 no server, database, auth, or live third-party data feeds.
@@ -71,6 +71,8 @@ Do not implement without revisiting [ADR-001](../adr/001-defer-backend-capabilit
 | Manual keyboard + screen-reader audit | Open |
 | Provider-specific ops beyond [`deployment-providers.md`](../deployment-providers.md) | Ongoing |
 | Dedicated Razorpay fee calculator page (`/tools/razorpay-fee-calculator`) | 🟢 Published-rate table + 18% GST math, reverse-charge formula, INR-preseeded estimator; Razorpay profile CTA updated |
+| T050/T051/T055 architecture wiring | 🟢 Fee-calculator pages link related comparisons; every company profile links the articles that mention it (server-side, hidden when empty); Article + BreadcrumbList JSON-LD on articles and profiles |
+| India-first homepage directory + glossary | 🟢 Homepage "India-First Providers" curated order (Razorpay, Cashfree, Payoneer, Wise, PhonePe, Paytm); glossary +5 India terms (UPI, MDR, FIRC/FIRA, FEMA, T+1) wired into the related-term graph and category maps |
 
 ---
 
@@ -107,8 +109,7 @@ Do not implement without revisiting [ADR-001](../adr/001-defer-backend-capabilit
 |----|-----|
 | W3–W4 | E2E + security/Lighthouse workflows run on all pushed branches locally — merge to `origin/main` + enable GitHub settings |
 | W7 | Dual lockfiles resolved (npm only) — ensure `pnpm-*` stay deleted |
-| E1–E4 | CD, local artifact restore, internal-link verification, project-site link fixtures, and all-push CI verification are implemented; hosted previews and provider-specific rollback drill remain | 🟢 CI now runs on all branches with `test:links` step and `ARTIFACT_DIR=out` artifact gate |
-| E7 | Structured-data and internal-link validation | 🟢 Done — `scripts/check-structured-data.mjs` and `scripts/check-internal-links.mjs` run in `postbuild` and validate the emitted artifact; internal-link checker covers 88 HTML files incl. the new Razorpay calculator page |
+| E7 | Structured-data and internal-link validation | 🟢 Done — `scripts/check-structured-data.mjs` and `scripts/check-internal-links.mjs` run in `postbuild` and validate the emitted artifact; 243 JSON-LD blocks (incl. BreadcrumbList on all 42 profiles + 13 articles), internal-link checker covers 88 HTML files |
 | E11 | Audit triage policy thin |
 | E15 | ESLint pinned to v9 until eslint-config-next supports 10 |
 | E17 | Secret scanning push-protection still needs GitHub repo settings |
