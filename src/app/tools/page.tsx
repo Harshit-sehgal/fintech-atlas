@@ -41,6 +41,15 @@ const toolsList = [
     features: ["Real-time fee calculation", "Effective rate comparison", "Volume discount thresholds", "Detailed cost breakdowns"],
   },
   {
+    id: "razorpay-fee-calculator",
+    href: "/tools/razorpay-fee-calculator",
+    icon: "🇮🇳",
+    name: "Razorpay Fee Calculator (India)",
+    badge: "India Calculator",
+    description: "Estimate Razorpay's real cost for Indian businesses: 2% on all domestic instruments, 18% GST on top, international up to 3% — with a reverse-charge formula for target payouts.",
+    features: ["2% domestic + 18% GST (2.36% all-in)", "International up to 3%", "Reverse-charge estimate", "Compare with Stripe & Cashfree"],
+  },
+  {
     id: "remittance",
     href: "/tools/remittance",
     icon: "🌍",
@@ -64,6 +73,7 @@ const toolsList = [
 const TOOL_ACCENTS: Record<string, string> = {
   calculators: "#8b5cf6", // violet
   calculator: "#6366f1", // indigo
+  "razorpay-fee-calculator": "#3395ff", // Razorpay blue
   remittance: "#10b981", // emerald
   matchmaker: "#f59e0b", // amber
 };

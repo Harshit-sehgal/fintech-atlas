@@ -478,7 +478,11 @@ export function CompanyPageClient({
 
           <div className="mt-4">
             <Link
-              href="/tools/calculator"
+              href={
+                c.slug === "razorpay"
+                  ? "/tools/razorpay-fee-calculator"
+                  : "/tools/calculator"
+              }
               className="inline-flex items-center gap-2 text-xs font-bold text-[var(--accent)] hover:underline"
             >
               <span>⚡ Calculate your estimated fees on our Fee Estimator →</span>

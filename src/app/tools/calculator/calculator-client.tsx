@@ -59,17 +59,25 @@ function isValidFeeState(value: unknown): value is FeeState {
   );
 }
 
-function readFeeCurrency(search: string, saved: unknown): FeeCurrency {
+function readFeeCurrency(
+  search: string,
+  saved: unknown,
+  fallback: FeeCurrency,
+): FeeCurrency {
   const fromUrl = new URLSearchParams(search).get("fee_currency");
   if (fromUrl === "USD" || fromUrl === "INR") return fromUrl;
   const savedCurrency = (saved as Partial<FeeState> | null)?.currency;
   return savedCurrency === "USD" || savedCurrency === "INR"
     ? savedCurrency
-    : DEFAULT_FEE_CURRENCY;
+    : fallback;
 }
 
-function readFeeState(search: string, saved: unknown): FeeState | null {
-  const currency = readFeeCurrency(search, saved);
+function readFeeState(
+  search: string,
+  saved: unknown,
+  fallback: FeeCurrency,
+): FeeState | null {
+  const currency = readFeeCurrency(search, saved, fallback);
   const fromUrl = readNumericParams(search, "fee_", [...FEE_KEYS]);
   const urlState = { ...fromUrl, currency } as Partial<FeeState>;
   if (isValidFeeState(urlState)) return urlState;
@@ -84,7 +92,12 @@ function formatFeeMoney(value: number, currency: FeeCurrency): string {
   return `${symbol}${Math.round(value).toLocaleString(locale)}`;
 }
 
-export default function FeeCalculatorPageClient() {
+export default function FeeCalculatorPageClient({
+  defaultCurrency = DEFAULT_FEE_CURRENCY,
+}: {
+  /** Preselected currency for pages that target one market (e.g. INR for the Razorpay calculator). */
+  defaultCurrency?: FeeCurrency;
+}) {
   const { showToast } = useToast();
   const [monthlyRevenue, setMonthlyRevenue] =
     useState<number>(DEFAULT_MONTHLY_REVENUE);
@@ -99,7 +112,7 @@ export default function FeeCalculatorPageClient() {
 
   useEffect(() => {
     const saved = loadToolState<unknown>("fee_calculator");
-    const source = readFeeState(window.location.search, saved);
+    const source = readFeeState(window.location.search, saved, defaultCurrency);
     // Defer to a macrotask so restore runs after paint and satisfies
     // react-hooks/set-state-in-effect (client-only URL/localStorage hydrate).
     const id = window.setTimeout(() => {
@@ -109,7 +122,7 @@ export default function FeeCalculatorPageClient() {
         if (typeof source.intlPercent === "number") setIntlPercent(source.intlPercent);
         if (typeof source.inPersonPercent === "number") setInPersonPercent(source.inPersonPercent);
       }
-      setCurrency(readFeeCurrency(window.location.search, saved));
+      setCurrency(readFeeCurrency(window.location.search, saved, defaultCurrency));
       setHydrated(true);
     }, 0);
     return () => window.clearTimeout(id);
