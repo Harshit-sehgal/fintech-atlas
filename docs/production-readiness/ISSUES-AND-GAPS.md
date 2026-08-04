@@ -98,6 +98,7 @@ Do not implement without revisiting [ADR-001](../adr/001-defer-backend-capabilit
 | A11 | No i18n (`lang="en"` only) |
 | A12 | No changelog feed (RSS feed now covers published articles) |
 
+| T058–T062 | Services track | 🟢 `/services` shipped: gateway selection audit (₹999–₹1,999 basic / ₹2,500–₹5,000 detailed) + integration (₹3,000–₹15,000+) with deliverables/exclusions (T059), booking form (T060 — prefilled GitHub-issue channel, the site's only public inbox; mailto swap documented when an operator email exists), public sample audit report (T061 — fee table computed at build time from the SAME `PROVIDER_FEE_CONFIGS` the calculator uses, so rates can't drift; fictional merchant, real India schedules 2% + 18% GST), interactive implementation checklist (T062 — 5 phases, localStorage persistence, progress bar). Cross-linked from footer Explore, tools hub CTA, compare page, and each other. Service + OfferCatalog JSON-LD, breadcrumbs. Gated: 3 light + 2 dark axe routes, 1 keyboard route. Verified: 68/68 e2e, 317 vitest, budget 417,283/450,000, 262 JSON-LD/92 files |
 | A14 | `"private": true` vs MIT LICENSE intent |
 
 ---

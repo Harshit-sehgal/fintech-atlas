@@ -162,6 +162,19 @@ export default function ToolsPage() {
           );
         })}
       </div>
+
+      {/* Services cross-link (plan: internal links from existing pages) */}
+      <section aria-labelledby="tools-services-cta" className="mt-10">
+        <div className="flex flex-col items-start justify-between gap-4 rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6 sm:flex-row sm:items-center">
+          <div>
+            <h2 id="tools-services-cta" className="text-base font-bold tracking-tight">Need a human to do the analysis?</h2>
+            <p className="mt-1 text-sm text-[var(--muted-text)]">
+              Gateway selection audits and integration work for Indian businesses — independent of any provider.
+            </p>
+          </div>
+          <Link href="/services" className="btn-primary shrink-0">See services</Link>
+        </div>
+      </section>
     </div>
   );
 }

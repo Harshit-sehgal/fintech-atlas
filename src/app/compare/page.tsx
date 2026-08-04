@@ -34,6 +34,7 @@ export default function ComparePage() {
             <Link href="/articles/razorpay-vs-cashfree-indian-gateways" className="btn-ghost text-xs">Razorpay vs Cashfree</Link>
             <Link href="/articles/wise-vs-payoneer-business-payouts" className="btn-ghost text-xs">Wise vs Payoneer for payouts</Link>
             <Link href="/articles/best-payment-gateway-small-business" className="btn-ghost text-xs">Best gateway for small business</Link>
+            <Link href="/services" className="btn-ghost text-xs">Gateway selection audit (services)</Link>
           </div>
         </div>
       </section>

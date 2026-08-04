@@ -4,6 +4,7 @@ import { DATA_AS_OF } from "@/lib/site-config";
 import { NewsletterOptIn } from "@/components/ui/newsletter-opt-in";
 
 const exploreLinks = [
+  { href: "/services", label: "Services & Consulting" },
   { href: "/companies", label: "Companies Directory" },
   { href: "/categories", label: "Industry Categories" },
   { href: "/compare", label: "Side-by-Side Comparison" },

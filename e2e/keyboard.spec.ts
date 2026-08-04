@@ -13,6 +13,7 @@ const ROUTES = [
   "/companies/payoneer/",
   "/compare/",
   "/glossary/",
+  "/services/",
 ];
 
 // Elements whose focus indicator is not a visual signal (native controls the

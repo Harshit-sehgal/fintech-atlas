@@ -28,6 +28,9 @@ const ROUTES: Array<[string, string]> = [
   ["calculators suite", "/tools/calculators/"],
   ["markup calculator", "/tools/exchange-rate-markup-calculator/"],
   ["company profile", "/companies/payoneer/"],
+  ["services", "/services/"],
+  ["services sample report", "/services/gateway-selection-report-sample/"],
+  ["services checklist", "/services/payment-gateway-implementation-checklist/"],
 ];
 
 // Dark theme exercises the light accent twins (per-tool/calculator/category
@@ -45,6 +48,8 @@ const DARK_ROUTES: Array<[string, string]> = [
   ["calculators suite", "/tools/calculators/"],
   ["markup calculator", "/tools/exchange-rate-markup-calculator/"],
   ["company profile (bright brand)", "/companies/stripe/"],
+  ["services", "/services/"],
+  ["services checklist", "/services/payment-gateway-implementation-checklist/"],
 ];
 
 async function expectAxeClean(page: Page, route: string) {
