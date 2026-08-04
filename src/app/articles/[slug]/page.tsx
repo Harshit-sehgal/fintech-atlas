@@ -134,6 +134,16 @@ export default async function ArticlePage({
     mainEntityOfPage: canonicalUrl(`/articles/${article.slug}`),
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: canonicalUrl("") },
+      { "@type": "ListItem", position: 2, name: "Articles", item: canonicalUrl("/articles") },
+      { "@type": "ListItem", position: 3, name: article.category, item: canonicalUrl(`/articles/${article.slug}`) },
+    ],
+  };
+
   return (
     <div className="relative mx-auto max-w-3xl px-5 py-20 md:py-28">
       <GridBackdrop />
@@ -141,6 +151,11 @@ export default async function ArticlePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+
 
       <nav className="mb-6 flex items-center gap-2 text-xs text-[var(--muted-text)] font-mono">
         <Link href="/" className="hover:text-[var(--foreground)] transition-colors">Home</Link>

@@ -63,10 +63,12 @@ function SectionHeader({ eyebrow, title }: { eyebrow: string; title: string }) {
 export function CompanyPageClient({
   company: c,
   relatedCategories,
+  relatedArticles,
   adjacent,
 }: {
   company: Company;
   relatedCategories: Category[];
+  relatedArticles: { slug: string; title: string; category: string }[];
   adjacent: {
     previous: { slug: string; name: string } | null;
     next: { slug: string; name: string } | null;
@@ -677,6 +679,30 @@ export function CompanyPageClient({
           </div>
         </section>
       </Reveal>
+
+      {/* Related Articles — plan T051: link each provider profile to its articles */}
+      {relatedArticles.length > 0 && (
+        <Reveal delay={0.45}>
+          <section className="mt-12">
+            <SectionHeader eyebrow="Explore" title="Related Articles & Guides" />
+            <ul className="grid gap-2 sm:grid-cols-2">
+              {relatedArticles.map((a) => (
+                <li key={a.slug}>
+                  <Link
+                    href={`/articles/${a.slug}`}
+                    className="block rounded-xl border border-[var(--border-color)] surface px-4 py-3 text-sm transition-all hover:border-[var(--accent)]/40 hover:-translate-y-0.5 hover:shadow-md hover:shadow-[var(--accent-glow)]"
+                  >
+                    <span className="block text-[11px] font-mono uppercase tracking-wider text-[var(--muted-text)]">
+                      {a.category}
+                    </span>
+                    <span className="mt-0.5 block font-semibold leading-snug">{a.title}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </Reveal>
+      )}
 
       {/* Next / Previous Nav */}
       <Reveal delay={0.5}>

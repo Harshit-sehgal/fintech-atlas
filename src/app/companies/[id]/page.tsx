@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getCompanyBySlug, companies, categories } from "@/data";
+import { articles } from "@/data/articles";
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
 import { CompanyPageClient } from "./client";
@@ -49,10 +50,36 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
     previous: previousCompany ? { slug: previousCompany.slug, name: previousCompany.name } : null,
     next: nextCompany ? { slug: nextCompany.slug, name: nextCompany.name } : null,
   };
+  // Plan T051: every provider profile links the articles that mention it.
+  // Minimal shape (slug/title/category) keeps the client flight payload small.
+  const relatedArticles = articles
+    .filter((a) => a.relatedCompanySlugs.includes(company.slug))
+    .map((a) => ({ slug: a.slug, title: a.title, category: a.category }));
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: canonicalUrl("") },
+      { "@type": "ListItem", position: 2, name: "Companies", item: canonicalUrl("/companies") },
+      { "@type": "ListItem", position: 3, name: company.name, item: canonicalUrl(`/companies/${company.slug}`) },
+    ],
+  };
 
   return (
-    <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading profile…</div>}>
-      <CompanyPageClient company={company} relatedCategories={relatedCategories} adjacent={adjacent} />
-    </Suspense>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading profile…</div>}>
+        <CompanyPageClient
+          company={company}
+          relatedCategories={relatedCategories}
+          relatedArticles={relatedArticles}
+          adjacent={adjacent}
+        />
+      </Suspense>
+    </>
   );
 }

@@ -126,7 +126,7 @@ export default function FeeCalculatorPageClient({
       setHydrated(true);
     }, 0);
     return () => window.clearTimeout(id);
-  }, []);
+  }, [defaultCurrency]);
 
   const inputs: FeeInputs = {
     monthlyRevenue,

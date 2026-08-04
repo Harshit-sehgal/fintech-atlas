@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 import FeeCalculatorPageClient from "./calculator-client";
 import { canonicalUrl } from "@/lib/canonical-url";
@@ -21,8 +22,20 @@ export const metadata: Metadata = {
 
 export default function FeeCalculatorPage() {
   return (
-    <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading calculator…</div>}>
-      <FeeCalculatorPageClient />
-    </Suspense>
+    <>
+      <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading calculator…</div>}>
+        <FeeCalculatorPageClient />
+      </Suspense>
+      <section className="mx-auto max-w-5xl px-5 pb-16">
+        <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-[var(--muted-text)]">Related comparisons</h2>
+          <div className="mt-3 flex flex-wrap gap-3">
+            <Link href="/articles/razorpay-vs-stripe-payments-india" className="btn-ghost text-xs">Razorpay vs Stripe (India)</Link>
+            <Link href="/articles/razorpay-vs-cashfree-indian-gateways" className="btn-ghost text-xs">Razorpay vs Cashfree</Link>
+            <Link href="/articles/stripe-vs-paypal-online-payments" className="btn-ghost text-xs">Stripe vs PayPal</Link>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

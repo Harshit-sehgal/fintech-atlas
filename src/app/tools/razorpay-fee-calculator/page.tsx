@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 import FeeCalculatorPageClient from "../calculator/calculator-client";
 import { canonicalUrl } from "@/lib/canonical-url";
@@ -102,6 +103,16 @@ export default function RazorpayFeeCalculatorPage() {
           <FeeCalculatorPageClient defaultCurrency="INR" />
         </Suspense>
       </div>
+      <section className="mx-auto max-w-5xl px-5 pb-16">
+        <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-[var(--muted-text)]">Related comparisons</h2>
+          <div className="mt-3 flex flex-wrap gap-3">
+            <Link href="/articles/razorpay-vs-stripe-payments-india" className="btn-ghost text-xs">Razorpay vs Stripe (India)</Link>
+            <Link href="/articles/razorpay-vs-cashfree-indian-gateways" className="btn-ghost text-xs">Razorpay vs Cashfree</Link>
+            <Link href="/articles/how-to-send-money-abroad-cheap" className="btn-ghost text-xs">Send money abroad: cost guide</Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
