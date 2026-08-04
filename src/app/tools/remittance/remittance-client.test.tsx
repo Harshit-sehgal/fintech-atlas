@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { beforeEach, describe, it, expect } from "vitest";
 import { ToastProvider } from "@/lib/toast-context";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
@@ -6,6 +6,9 @@ import "@/test/mocks";
 import RemittanceCalculatorPageClient from "./remittance-client";
 
 describe("RemittanceCalculatorPageClient (interaction)", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
   it("moves currency radio focus with left/right arrow keys", () => {
     render(
       <ToastProvider>

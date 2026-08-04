@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 import "@/test/mocks";
@@ -14,6 +14,9 @@ function renderNewsletter() {
 }
 
 describe("NewsletterOptIn", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
   afterEach(() => {
     vi.unstubAllEnvs();
     vi.unstubAllGlobals();

@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { beforeEach, describe, it, expect } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 import "@/test/mocks";
@@ -14,6 +14,9 @@ function renderFeeCalculator() {
 }
 
 describe("FeeCalculatorPageClient (interaction)", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
   it("renders all four providers and marks a single lowest comparable estimate", () => {
     renderFeeCalculator();
     expect(screen.getAllByText("Payment Gateway Fee Calculator").length).toBeGreaterThan(0);

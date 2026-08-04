@@ -8,6 +8,24 @@ test.describe("critical flows", () => {
     await page.goto("/");
     await expect(page.getByRole("navigation", { name: /Primary/i })).toBeVisible();
     await expect(page.getByRole("button", { name: "Search" })).toBeVisible();
+    // "Latest Guides & Comparisons" must surface the genuinely newest
+    // articles (updatedAt desc, editorial order on ties) — not array order.
+    await expect(page.getByRole("heading", { name: "Latest Guides & Comparisons" })).toBeVisible();
+    const latestSection = page
+      .locator("section")
+      .filter({ has: page.getByRole("heading", { name: "Latest Guides & Comparisons" }) });
+    // The most recently appended articles lead the section on same-day ties.
+    await expect(
+      latestSection.getByRole("link", { name: /Cash App vs Venmo: US peer-to-peer payments/ }),
+    ).toBeVisible();
+    await expect(
+      latestSection.getByRole("link", { name: /USDC vs bank wire: receiving USD in India/ }),
+    ).toBeVisible();
+    await expect(
+      latestSection.getByRole("link", { name: /Brex vs Relay: business banking for startups/ }),
+    ).toBeVisible();
+    // Order contract: newest editorial additions come first, not array order.
+    await expect(latestSection.locator("a").first()).toContainText("Cash App vs Venmo");
   });
 
   test("company profile opens from a deep link", async ({ page }) => {

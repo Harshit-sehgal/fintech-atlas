@@ -21,6 +21,22 @@ export const changelog: ChangelogEntry[] = [
   {
     date: "2026-08-04",
     kind: "article",
+    title: "USDC vs bank wire: receiving USD in India",
+    description:
+      "Stablecoin rails compared against the site's bank-rail models — where USDC's 24×7 settlement and fee structure genuinely win, and the Section 115BBH/194S tax, FIRC, and FEMA caveats that keep it a complementary rail, not the default.",
+    href: "/articles/stablecoins-for-cross-border-payments/",
+  },
+  {
+    date: "2026-08-04",
+    kind: "article",
+    title: "Cash App vs Venmo: US peer-to-peer payments",
+    description:
+      "The two dominant US P2P apps compared — business fees, cards, and speed — plus the honest India angle: neither supports INR, and cross-border workarounds end in frozen balances.",
+    href: "/articles/cash-app-vs-venmo/",
+  },
+  {
+    date: "2026-08-04",
+    kind: "article",
     title: "Gusto vs ADP vs Paychex for US payroll",
     description:
       "US payroll for global teams — contractor payments (the India-relevant part), W-2 tax filing, benefits, and PEO options across the three, with the pick driven by headcount and state count.",

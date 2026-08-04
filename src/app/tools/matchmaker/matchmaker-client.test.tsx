@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { beforeEach, describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/vitest";
@@ -7,6 +7,9 @@ import MatchmakerQuizPageClient from "./matchmaker-client";
 import { ToastProvider } from "@/lib/toast-context";
 
 describe("MatchmakerQuizPageClient (interaction)", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
   it("walks through the four questions and surfaces scored results with reasons", async () => {
     const user = userEvent.setup();
     render(

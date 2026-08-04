@@ -27,10 +27,13 @@ export default function HomePage() {
   // articles, computed server-side so the client bundle never imports the
   // full articles data.
   const recentArticles = articles
-    .slice()
-    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
+    .map((article, index) => ({ article, index }))
+    .sort(
+      (a, b) =>
+        b.article.updatedAt.localeCompare(a.article.updatedAt) || b.index - a.index,
+    )
     .slice(0, 3)
-    .map((a) => ({
+    .map(({ article: a }) => ({
       slug: a.slug,
       title: a.title,
       category: a.category,

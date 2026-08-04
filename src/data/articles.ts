@@ -309,7 +309,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Neobanks",
     relatedCompanySlugs: ["chime", "monzo", "n26", "sofi", "revolut", "starling", "nubank", "bunq"],
-    relatedArticleSlugs: ["wise-vs-revolut-international-transfers", "brex-vs-relay-business-banking"],
+    relatedArticleSlugs: ["wise-vs-revolut-international-transfers", "brex-vs-relay-business-banking", "cash-app-vs-venmo"],
     ctas: [
       { slug: "chime", label: "Open Chime", placement: "compare-vs" },
       { slug: "sofi", label: "Open SoFi", placement: "compare-vs" },
@@ -358,6 +358,10 @@ export const articles: Article[] = [
       {
         type: "p",
         text: "The same app-first model has produced strong regional challengers beyond this roundup: Starling (UK, business-banking focused), Nubank (Brazil, now Latin America's largest digital bank), and Bunq (Europe, multi-currency and AI-driven budgeting) each follow the playbook with a local twist. Their profiles cover the full landscape.",
+      },
+      {
+        type: "p",
+        text: "If what you actually need is free person-to-person money movement rather than a bank account, the US money apps (Cash App, Venmo) cover that without any bank — the Cash App vs Venmo guide compares them.",
       },
       {
         type: "p",
@@ -565,7 +569,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-03",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "revolut", "paypal", "moneygram"],
-    relatedArticleSlugs: ["wise-vs-payoneer-business-payouts", "wise-vs-revolut-international-transfers", "receiving-500-usd-from-us-client-in-india"],
+    relatedArticleSlugs: ["wise-vs-payoneer-business-payouts", "wise-vs-revolut-international-transfers", "receiving-500-usd-from-us-client-in-india", "stablecoins-for-cross-border-payments", "cash-app-vs-venmo"],
     ctas: [
       { slug: "wise", label: "Compare rates with Wise", placement: "compare-vs" },
       { slug: "revolut", label: "Compare rates with Revolut", placement: "compare-vs" },
@@ -600,6 +604,8 @@ export const articles: Article[] = [
           "Superapp neobanks (e.g. Revolut) offer free FX up to a monthly limit, then a markup.",
           "Traditional banks and card-based services often charge a percentage markup instead of/alongside a fee.",
           "Instant remittance services can be convenient but pricier per transfer.",
+          "Stablecoin rails (USDC) are a newer corridor — 24×7 settlement and no bank hours, but with unsettled regulation and exchange-spread costs (see the USDC vs bank wire guide).",
+          "US person-to-person apps (Cash App, Venmo) are not an international corridor at all — US-only accounts, no INR support, so they cannot receive a transfer sent from India (see the Cash App vs Venmo guide).",
         ],
       },
       {
@@ -999,7 +1005,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
-    relatedArticleSlugs: ["receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "how-to-send-money-abroad-cheap", "international-payment-settlement-times", "gusto-vs-adp-vs-paychex-us-payroll"],
+    relatedArticleSlugs: ["receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "how-to-send-money-abroad-cheap", "international-payment-settlement-times", "gusto-vs-adp-vs-paychex-us-payroll", "cash-app-vs-venmo"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -1066,6 +1072,7 @@ export const articles: Article[] = [
           "Platform or marketplace payouts → Payoneer: the rail the platform already uses, and receiving is $0.",
           "Client insists on PayPal → accept, but know you are paying roughly 10% versus Wise — asking the client to cover the fee is reasonable.",
           "Large or recurring amounts → give the client your Wise USD account details so they can pay by domestic ACH transfer; receiving is $0 and there is no SWIFT chain.",
+          "Never via US P2P apps (Cash App, Venmo) — both are US-only, support no INR, and cross-border workarounds violate their terms (see the Cash App vs Venmo guide).",
         ],
       },
       {
@@ -1091,7 +1098,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["razorpay", "cashfree", "stripe", "wise", "payoneer", "paytm", "phonepe", "google-pay", "visa-direct", "mastercard-send"],
-    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "quarterly-india-cross-border-fee-index"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "quarterly-india-cross-border-fee-index", "stablecoins-for-cross-border-payments"],
     ctas: [
       { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
       { slug: "cashfree", label: "Visit Cashfree", placement: "compare-vs" },
@@ -1120,6 +1127,7 @@ export const articles: Article[] = [
           ["Payoneer (USD → INR)", "1–2 business days", "Marketplace rails; 1–4% corridor", "Platform payouts"],
           ["Bank wire / SWIFT", "2–5 business days", "Correspondent chain + double-ended fees", "Bank-to-bank international"],
           ["Card rails (Visa Direct / Mastercard Send)", "Minutes, where supported", "Real-time push to a debit card; network and bank dependent", "Instant payouts, refunds"],
+          ["Stablecoin rails (USDC)", "Minutes–hours, 24×7", "On/off-ramp spreads + network fee; no bank hours — see the USDC vs bank wire guide", "Large or weekend-urgent receipts"],
         ],
       },
       {
@@ -1296,7 +1304,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
-    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "payoneer-fees-india", "wise-vs-revolut-international-transfers", "international-payment-settlement-times"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "payoneer-fees-india", "wise-vs-revolut-international-transfers", "international-payment-settlement-times", "stablecoins-for-cross-border-payments"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -1354,6 +1362,7 @@ export const articles: Article[] = [
         items: [
           "Domestic gateway fees (Razorpay, Cashfree, Stripe India at 2% + 18% GST) are a different rail — they apply to INR checkouts, not USD receipts; use the gateway fee calculator for those.",
           "Enterprise and negotiated rates, card-funded payment requests, weekend FX effects, and promotional offers are all excluded.",
+          "Stablecoin rails (USDC) are excluded — they have no published fee schedule; the USDC vs bank wire guide covers the corridor, its typical spread range, and the regulatory caveats.",
           "Incoming bank charges on wires are excluded — the bank row is the outgoing-side $35 model plus the 4.5% margin.",
         ],
       },
@@ -1493,7 +1502,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
-    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "stablecoins-for-cross-border-payments"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -1591,6 +1600,7 @@ export const articles: Article[] = [
           "Client insists on PayPal → the ~3% gap is tolerable at this size, but the conversion spread still makes it the worst of the four.",
           "Never a bank wire at this size unless the client's bank requires it — it is the most expensive row in the table.",
           "Want conversion timing control → EEFC at your bank, or a Wise USD balance — the choice is where you want the money parked.",
+          "Crypto-comfortable, weekend-urgent, no FIRC needed → a USDC rail can match Wise at this size (see the USDC vs bank wire guide) — benchmark the quoted spread first.",
         ],
       },
       {
@@ -2040,7 +2050,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Business Banking",
     relatedCompanySlugs: ["brex", "relay"],
-    relatedArticleSlugs: ["best-neobanks-2026", "best-payment-gateway-small-business", "gusto-vs-adp-vs-paychex-us-payroll"],
+    relatedArticleSlugs: ["best-neobanks-2026", "best-payment-gateway-small-business", "gusto-vs-adp-vs-paychex-us-payroll", "cash-app-vs-venmo"],
     ctas: [
       { slug: "brex", label: "Visit Brex", placement: "compare-vs" },
       { slug: "relay", label: "Visit Relay", placement: "compare-vs" },
@@ -2081,6 +2091,168 @@ export const articles: Article[] = [
       {
         type: "p",
         text: "The decision is funding stage, not feature count: Brex is a spend-management platform for companies that are scaling fast; Relay is free banking for companies that want to stay lean.",
+      },
+    ],
+  },
+  {
+    slug: "stablecoins-for-cross-border-payments",
+    title: "USDC vs bank wire: receiving USD in India",
+    description:
+      "How stablecoin rails (USDC) compare with Wise, Payoneer, and bank wires for receiving USD in India — fees, speed, and the regulatory caveats that matter.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Cross-Border",
+    relatedCompanySlugs: ["circle", "coinbase"],
+    relatedArticleSlugs: ["quarterly-india-cross-border-fee-index", "international-payment-settlement-times", "receiving-5000-usd-from-us-client-in-india", "how-to-send-money-abroad-cheap"],
+    ctas: [
+      { slug: "circle", label: "About USDC", placement: "compare-vs" },
+      { slug: "coinbase", label: "Coinbase on-ramp", placement: "compare-vs" },
+    ],
+    relatedTool: { href: "/tools/remittance", label: "Compare bank rails" },
+    body: [
+      {
+        type: "p",
+        text: "If you are weighing stablecoin rails against the usual ways to receive USD in India, the honest headline is: USDC can be faster (24×7 settlement, no bank hours) and structurally cheaper on large sums, but it carries regulatory, tax, and documentation caveats that Wise, Payoneer, and bank wires simply do not — so it is a complementary rail for specific situations, not the default. Use it for large one-off receipts, weekend-urgent transfers, or payers who already hold USDC; use bank rails for routine receipts where you want a FIRC and the least paperwork.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: crypto regulation in India remains unsettled and exchange spreads move; everything here is the 2026 catalog vintage and educational guidance, not tax or legal advice. Verify current rules and quoted spreads before your first transfer.",
+      },
+      { type: "h2", text: "How a USDC transfer actually works" },
+      {
+        type: "p",
+        text: "A USDC transfer is three legs, and the total cost is the sum of all three: on-ramp — you buy USDC with USD at an exchange such as Coinbase, paying the exchange's spread (typically a fraction of a percent to ~1%, depending on venue and order size); send — the USDC moves on-chain to your own wallet for a network fee that ranges from cents on Solana or TRON to a few dollars on Ethereum L1 during congestion; off-ramp — you convert USDC back to INR at an exchange's INR market or via a P2P marketplace, paying another spread plus a withdrawal fee. The bank rails in the site's fee index do all of this in one step — which is why their headline percentage often beats a naive reading of 'zero-fee crypto'.",
+      },
+      { type: "h2", text: "Capability at a glance" },
+      {
+        type: "table",
+        headers: ["Capability", "USDC rail", "Wise", "Payoneer", "Bank wire"],
+        rows: [
+          ["Fee model", "On/off-ramp spreads (typ. ~0.1–1% per leg) + network fee", "0.43% + $0.50", "1–4% corridor, in-spread", "$35 flat + 4.5% margin (illustrative)"],
+          ["FX markup", "Whatever the exchange's INR market quotes", "0% — mid-market", "1–4%", "≈ 4.5% (illustrative)"],
+          ["Settlement time", "Minutes–hours, 24×7", "Minutes–hours", "1–2 business days", "2–5 business days (SWIFT)"],
+          ["FIRC / bank documentation", "None — no AD bank involved", "Bank-dependent", "Bank-dependent", "Yes (SWIFT)"],
+          ["Regulatory friction (India)", "Highest — unsettled rules", "Low", "Low", "Low"],
+          ["Dispute / refund recourse", "None on-chain", "Provider support", "Provider support", "Bank + correspondent chain"],
+        ],
+      },
+      { type: "h2", text: "Where the costs actually land" },
+      {
+        type: "ul",
+        items: [
+          "At $500, Wise lands ≈ ₹41,529 at the index's ₹83.50 snapshot, and a USDC round trip with ~1% total spread lands within a similar band — at this size the differentiator is speed and 24×7 availability, not price.",
+          "At $5,000, percentage fees dominate: Wise charges ≈ $22 (0.43% + $0.50), the illustrative wire costs $35 plus a 4.5% margin, and a USDC trip with a tight ~0.3–0.5% total spread lands within a hair of Wise — far ahead of the wire. This is where the rail becomes worth benchmarking.",
+          "The quoted exchange rate is the hidden variable on both sides: an illiquid USDC→INR market can carry a wide spread, exactly like Payoneer's 1–4% corridor — always compare the quoted INR against the mid-market rate before converting (the exchange-rate markup calculator does this for any rate you are offered).",
+          "Network choice matters: sending on Ethereum L1 during congestion can cost more than Wise's whole fee; Solana, TRON, and Base-style networks typically settle in cents — the address you give a sender decides the fee.",
+        ],
+      },
+      { type: "h2", text: "India-specific caveats" },
+      {
+        type: "ul",
+        items: [
+          "As of the catalog vintage, India taxes crypto (VDA) gains at 30% under Section 115BBH and applies 1% TDS on VDA transfers above the threshold under Section 194S — neither applies to a plain foreign-exchange receipt through a bank, which is a real paperwork difference.",
+          "The Reserve Bank of India has repeatedly cautioned against cryptocurrencies, and banks have at times restricted crypto-related flows; the legal position has shifted before and can shift again — the primary reason this rail is not the default.",
+          "A USDC receipt produces no FIRC — only an authorised-dealer bank issues FIRCs. Exporters and GST claimants who rely on FIRC-based documentation must treat crypto receipts as a documentation gap and take professional advice (the FIRA vs FIRC guide covers what bank channels do issue).",
+          "Whether a cross-border crypto receipt is a current-account or capital-account transaction under FEMA is unsettled — do not rely on this guide for compliance; get professional advice before using the rail for business receipts.",
+        ],
+      },
+      { type: "h2", text: "When USDC wins" },
+      {
+        type: "ul",
+        items: [
+          "Large one-off receipts ($5,000+) where percentage fees dominate the total cost — benchmark it against the estimator's bank-rail results at your exact amount.",
+          "Weekend or same-hour urgency — crypto rails run 24×7 while SWIFT, FX markets, and bank processing pause (see the settlement-times guide).",
+          "A payer who already holds USDC — the on-ramp leg disappears and the trip is network fee plus off-ramp spread.",
+          "Diversifying away from a single corridor or a provider's freeze risk.",
+        ],
+      },
+      { type: "h2", text: "When bank rails win" },
+      {
+        type: "ul",
+        items: [
+          "Routine, smaller receipts where the fee difference is noise and settled rules are worth more than a percent or two.",
+          "Any business receipt with GST-export or DTAA documentation needs — bank rails produce the certificates; crypto rails produce none.",
+          "If you have no existing crypto setup — the onboarding, KYC, and learning cost is real, and the savings may not pay for it.",
+          "Regulatory comfort — the bank rails' rules are settled; crypto's are not.",
+        ],
+      },
+      { type: "h2", text: "Which to pick" },
+      {
+        type: "ul",
+        items: [
+          "First transfer, small amount, documentation matters → Wise or Payoneer per the fee index — nothing else to set up.",
+          "Large or urgent receipt, technically comfortable, documentation not a blocker → benchmark a USDC rail with a tight-spread exchange against the estimator's numbers before deciding.",
+          "Everything in between → run your amount through the Cross-Border FX Estimator for the bank rails, then compare the exchange's quoted USDC→INR spread — the decision should be a number comparison, not a vibe.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Neither rail is universally better: USDC's edge is speed and the structure of its fees; bank rails' edge is settled rules and paperwork. The calculators on this site quantify the bank side; the stablecoin side has no published schedule by design — always compute from the live quoted spread.",
+      },
+    ],
+  },
+  {
+    slug: "cash-app-vs-venmo",
+    title: "Cash App vs Venmo: US peer-to-peer payments",
+    description:
+      "The two dominant US P2P apps compared — personal and business fees, cards, speed, and why neither is built for receiving international payments into India.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Payments",
+    relatedCompanySlugs: ["cash-app", "venmo", "paypal"],
+    relatedArticleSlugs: ["best-neobanks-2026", "brex-vs-relay-business-banking", "how-to-send-money-abroad-cheap", "receiving-500-usd-from-us-client-in-india"],
+    ctas: [
+      { slug: "cash-app", label: "Visit Cash App", placement: "compare-vs" },
+      { slug: "venmo", label: "Visit Venmo", placement: "compare-vs" },
+    ],
+    body: [
+      {
+        type: "p",
+        text: "Cash App and Venmo are the two dominant US person-to-person payment apps, and for someone living in the US the honest difference is: Venmo for social, widely-adopted payments between people (it is PayPal's consumer app and the default among US millennials); Cash App for a more banking-like experience — debit card, direct deposit, bitcoin — with cheaper business-payment fees. Neither supports India, INR, or cross-border transfers in any useful sense, so for receiving money from a US client into India they are the wrong tool entirely; the receiving-money guides cover the rails that actually work.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: both are US-market consumer apps; fees and features change and vary by account state. This is the 2026 catalog vintage and educational guidance, not financial advice.",
+      },
+      { type: "h2", text: "Capability at a glance" },
+      {
+        type: "table",
+        headers: ["Capability", "Cash App", "Venmo"],
+        rows: [
+          ["Personal transfers (bank-funded)", "Free", "Free"],
+          ["Business / goods & services payments", "≈ 0.75% per payment (min $0.25)", "1.9% + $0.10"],
+          ["Instant transfer to bank", "0.5–1.75% (varies by account)", "1.75% (min $0.25, max $25)"],
+          ["Debit card", "Yes — Cash Card", "Yes — Venmo card"],
+          ["Direct deposit", "Yes", "Yes"],
+          ["Bitcoin", "Yes — buy/sell in app", "No"],
+          ["Social feed", "Minimal", "Yes — the feed is the differentiator"],
+          ["Parent company", "Block", "PayPal"],
+          ["International availability", "US (+ limited UK)", "US only"],
+        ],
+      },
+      { type: "h2", text: "The India angle: neither is for cross-border money" },
+      {
+        type: "ul",
+        items: [
+          "Both require a US phone number and a US bank account or card; neither supports INR or Indian banks.",
+          "Workarounds — opening accounts through US intermediaries, or sending to a US contact to forward — violate both apps' terms and routinely end in frozen balances. The fee you avoid is not worth the principal you can lose.",
+          "US P2P apps also create US reporting surface: 1099-K thresholds apply to business payments received through them.",
+          "For an Indian freelancer paid by a US client, the correct comparison is Wise, Payoneer, PayPal, or a bank wire — the receiving-$500 guide works the numbers at the amount most freelancers start with.",
+        ],
+      },
+      { type: "h2", text: "Which to pick" },
+      {
+        type: "ul",
+        items: [
+          "You live in the US and pay friends, rent, or group expenses → Venmo; its feed and adoption make it the path of least resistance.",
+          "You live in the US and want one app for payments, a card, direct deposit, and bitcoin → Cash App.",
+          "You run a small US business taking in-app payments → compare the business fee: Cash App's ~0.75% beats Venmo's 1.9% + $0.10 at most ticket sizes (verify current rates).",
+          "You are an Indian freelancer or business receiving USD → neither; use the receiving guides instead.",
+        ],
+      },
+      {
+        type: "p",
+        text: "The choice matters only inside the US. Once money has to cross a border, both apps step out of the picture — and the exchange-rate markup calculator is the tool that exposes what the rails that do cross it actually cost.",
       },
     ],
   },

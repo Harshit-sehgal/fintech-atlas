@@ -38,20 +38,26 @@ export default function ArticlesIndexPage() {
       </p>
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2">
-        {articles.map((a) => (
-          <Link
-            key={a.slug}
-            href={`/articles/${a.slug}`}
-            className="surface rounded-2xl border border-[var(--border-color)] p-5 hover:border-[var(--foreground)]/30 hover:-translate-y-0.5 transition-all"
-          >
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted-text)]">
-              {a.category}
-            </span>
-            <h2 className="mt-2 text-base font-bold text-[var(--foreground)]">{a.title}</h2>
-            <p className="mt-2 text-xs leading-relaxed text-[var(--muted-text)]">{a.description}</p>
-            <span className="mt-3 inline-block text-xs font-bold text-[var(--accent)]">Read →</span>
-          </Link>
-        ))}
+        {articles
+          .map((article, index) => ({ article, index }))
+          .sort(
+            (a, b) =>
+              b.article.updatedAt.localeCompare(a.article.updatedAt) || b.index - a.index,
+          )
+          .map(({ article: a }) => (
+            <Link
+              key={a.slug}
+              href={`/articles/${a.slug}`}
+              className="surface rounded-2xl border border-[var(--border-color)] p-5 hover:border-[var(--foreground)]/30 hover:-translate-y-0.5 transition-all"
+            >
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted-text)]">
+                {a.category}
+              </span>
+              <h2 className="mt-2 text-base font-bold text-[var(--foreground)]">{a.title}</h2>
+              <p className="mt-2 text-xs leading-relaxed text-[var(--muted-text)]">{a.description}</p>
+              <span className="mt-3 inline-block text-xs font-bold text-[var(--accent)]">Read →</span>
+            </Link>
+          ))}
       </div>
     </div>
   );

@@ -23,9 +23,15 @@ function xmlEscape(value: string): string {
     .replaceAll("'", "&apos;");
 }
 
-const items = articles.map((article) => {
-  const url = `${siteUrl}/articles/${article.slug}/`;
-  return `    <item>
+const items = articles
+  .map((article, index) => ({ article, index }))
+  .sort(
+    (a, b) =>
+      b.article.updatedAt.localeCompare(a.article.updatedAt) || b.index - a.index,
+  )
+  .map(({ article }) => {
+    const url = `${siteUrl}/articles/${article.slug}/`;
+    return `    <item>
       <title>${xmlEscape(article.title)}</title>
       <description>${xmlEscape(article.description)}</description>
       <link>${xmlEscape(url)}</link>
@@ -33,7 +39,8 @@ const items = articles.map((article) => {
       <pubDate>${new Date(`${article.updatedAt}T00:00:00Z`).toUTCString()}</pubDate>
       <category>${xmlEscape(article.category)}</category>
     </item>`;
-}).join("\n");
+  })
+  .join("\n");
 
 const feed = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
