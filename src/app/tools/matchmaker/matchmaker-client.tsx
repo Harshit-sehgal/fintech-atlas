@@ -259,7 +259,7 @@ export default function MatchmakerQuizPageClient() {
               <div className="surface rounded-2xl border border-[var(--border-color)] p-8">
                 <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-4">
                   <div>
-                    <span className="eyebrow text-[var(--accent)]">Initial Shortlist</span>
+                    <span className="eyebrow">Initial Shortlist</span>
                     <h2 className="mt-1 text-2xl font-bold text-[var(--foreground)]">Suggested starting points</h2>
                   </div>
                   <button

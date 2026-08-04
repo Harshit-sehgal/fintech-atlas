@@ -301,9 +301,9 @@ export const articles: Article[] = [
     description:
       "A roundup of four leading digital banks — what they're best at, their fee models, and who each is built for, so you can pick the right mobile bank.",
     publishedAt: "2026-08-03",
-    updatedAt: "2026-08-03",
+    updatedAt: "2026-08-04",
     category: "Neobanks",
-    relatedCompanySlugs: ["chime", "monzo", "n26", "sofi", "revolut"],
+    relatedCompanySlugs: ["chime", "monzo", "n26", "sofi", "revolut", "starling", "nubank", "bunq"],
     ctas: [
       { slug: "chime", label: "Open Chime", placement: "compare-vs" },
       { slug: "sofi", label: "Open SoFi", placement: "compare-vs" },
@@ -345,6 +345,14 @@ export const articles: Article[] = [
         text: "SoFi stands out by combining banking, lending (student-loan refi, personal loans, mortgages), and investing in one platform. If you want a single relationship that covers cash, credit, and investments — and you qualify — it's a compelling US option.",
       },
       {
+        type: "h2",
+        text: "Beyond the big four",
+      },
+      {
+        type: "p",
+        text: "The same app-first model has produced strong regional challengers beyond this roundup: Starling (UK, business-banking focused), Nubank (Brazil, now Latin America's largest digital bank), and Bunq (Europe, multi-currency and AI-driven budgeting) each follow the playbook with a local twist. Their profiles cover the full landscape.",
+      },
+      {
         type: "p",
         text: "Editorial note: features, fees, and availability above are illustrative from the catalog vintage and vary by region and account tier. Confirm current terms and eligibility before opening an account.",
       },
@@ -356,9 +364,9 @@ export const articles: Article[] = [
     description:
       "A practical comparison of Coinbase and Robinhood for retail investors — trading fees, crypto selection, regulation, and who each fits best.",
     publishedAt: "2026-08-03",
-    updatedAt: "2026-08-03",
+    updatedAt: "2026-08-04",
     category: "Investing",
-    relatedCompanySlugs: ["coinbase", "robinhood", "sofi"],
+    relatedCompanySlugs: ["coinbase", "robinhood", "sofi", "binance", "okx"],
     ctas: [
       { slug: "coinbase", label: "Visit Coinbase", placement: "compare-vs" },
       { slug: "robinhood", label: "Visit Robinhood", placement: "compare-vs" },
@@ -402,6 +410,10 @@ export const articles: Article[] = [
       {
         type: "p",
         text: "The honest trade-off: Coinbase tends to be more expensive for small, frequent retail crypto trades but offers far more depth and regulated custody; Robinhood is cheaper and simpler to start but has a narrower crypto selection and thinner self-custody story. Fees shown are illustrative snapshots — check live rates before trading.",
+      },
+      {
+        type: "p",
+        text: "If you are choosing a crypto venue rather than a broker, the global exchanges — Binance and OKX — offer the widest asset selection and the deepest trading tooling, at the cost of a thinner US regulatory story than Coinbase's. Their profiles cover the exchange landscape; the right pick depends on where you trade and what you value.",
       },
       {
         type: "p",
@@ -1053,7 +1065,7 @@ export const articles: Article[] = [
     publishedAt: "2026-08-04",
     updatedAt: "2026-08-04",
     category: "Cross-Border",
-    relatedCompanySlugs: ["razorpay", "cashfree", "stripe", "wise", "payoneer"],
+    relatedCompanySlugs: ["razorpay", "cashfree", "stripe", "wise", "payoneer", "paytm", "phonepe", "google-pay", "visa-direct", "mastercard-send"],
     ctas: [
       { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
       { slug: "cashfree", label: "Visit Cashfree", placement: "compare-vs" },
@@ -1081,6 +1093,7 @@ export const articles: Article[] = [
           ["Wise (USD → INR)", "Minutes–hours", "Local-rail pairs; mid-market FX", "International transfers"],
           ["Payoneer (USD → INR)", "1–2 business days", "Marketplace rails; 1–4% corridor", "Platform payouts"],
           ["Bank wire / SWIFT", "2–5 business days", "Correspondent chain + double-ended fees", "Bank-to-bank international"],
+          ["Card rails (Visa Direct / Mastercard Send)", "Minutes, where supported", "Real-time push to a debit card; network and bank dependent", "Instant payouts, refunds"],
         ],
       },
       {
@@ -1803,7 +1816,7 @@ export const articles: Article[] = [
     body: [
       {
         type: "p",
-        text: "A $1,000 payment is the freelancer milestone — the typical Upwork or Fiverr payout, the size where clients stop asking how to pay and you should start caring about how you receive it. It sits exactly where the two fee structures balance: the flat fees that dominated at $500 (Wise's $0.50, PayPal's $4.99) have shrunk into the noise, while percentage costs still matter — the spread between the cheapest and priciest channels is roughly ₹6,100, about 7% of the money. The short version: take the payment on the rail your client or platform prefers, pick Wise or Revolut when you choose, and use the first $1,000 receipts to build the documentation habit — invoice pairs, FIRCs, and a folder per project.",
+        text: "A $1,000 payment is the freelancer milestone — the typical Upwork or Fiverr payout, the size where clients stop asking how to pay and you should start caring about how you receive it. It sits exactly where the two fee structures balance: the flat fees that dominated at $500 (Wise's $0.50, PayPal's $4.99) have shrunk into the noise, while percentage costs still matter — the spread between the cheapest and priciest channels is about ₹6,150 — roughly 7.4% of the money. The short version: take the payment on the rail your client or platform prefers, pick Wise or Revolut when you choose, and use the first $1,000 receipts to build the documentation habit — invoice pairs, FIRCs, and a folder per project.",
       },
       {
         type: "h2",
@@ -1832,7 +1845,7 @@ export const articles: Article[] = [
         type: "ul",
         items: [
           "At $500 the flat fees decided everything — Wise's $0.50 versus PayPal's $4.99 plus a 3.5% spread made the channels differ by more than 10%.",
-          "At $1,000 the flat fees are rounding error; the percentage spread is what separates the rails — about 3.5% between Wise and PayPal, and roughly 7% between the best and the bank wire.",
+          "At $1,000 the flat fees are rounding error; the percentage spread is what separates the rails — about 3.5% between Wise and PayPal, and about 7.4% between the best and the bank wire.",
           "At $5,000 the percentages converge too, and the decision moves to timing and documentation — the milestone progression is the point: each size has one dominant question.",
           "For $1,000 the dominant question is which rail your client or platform already uses — switching costs usually exceed the ~3.5% you would save.",
         ],

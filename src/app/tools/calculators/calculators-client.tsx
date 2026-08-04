@@ -301,7 +301,7 @@ export default function CalculatorsClient() {
           <div className="space-y-6 lg:col-span-7">
             <div className="surface rounded-2xl border border-[var(--border-color)] p-6 print:break-inside-avoid">
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border-color)] pb-4">
-                <span className="eyebrow text-[var(--muted-text)]">Results</span>
+                <span className="eyebrow !text-[var(--muted-text)]">Results</span>
                 <div className="flex flex-wrap gap-2 print:hidden">
                   <button
                     type="button"

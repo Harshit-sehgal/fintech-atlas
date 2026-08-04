@@ -392,7 +392,7 @@ export default function FeeCalculatorPageClient({
             <div className="surface rounded-2xl border border-[var(--border-color)] p-6">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[var(--border-color)] pb-4">
                 <div>
-                  <span className="eyebrow text-[var(--muted-text)]">Recommendation</span>
+                  <span className="eyebrow !text-[var(--muted-text)]">Recommendation</span>
                   <h3 className="mt-1 text-lg font-bold text-[var(--foreground)]">
                     {lowestCost.name} has the lowest estimate among comparable published rates
                   </h3>

@@ -293,7 +293,7 @@ export default function RemittanceCalculatorPageClient() {
             <div className="surface rounded-2xl border border-[var(--border-color)] p-6">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[var(--border-color)] pb-4">
                 <div>
-                  <span className="eyebrow text-[var(--muted-text)]">Maximum Received</span>
+                  <span className="eyebrow !text-[var(--muted-text)]">Maximum Received</span>
                   <h3 className="mt-1 text-lg font-bold text-[var(--foreground)]">
                     {bestProvider.name} leads in this illustrative model
                   </h3>
