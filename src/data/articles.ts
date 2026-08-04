@@ -524,7 +524,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-03",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "revolut", "paypal"],
-    relatedArticleSlugs: ["payoneer-fees-india", "how-to-send-money-abroad-cheap", "best-payment-method-upwork-india"],
+    relatedArticleSlugs: ["payoneer-fees-india", "how-to-send-money-abroad-cheap", "best-payment-method-upwork-india", "paypal-vs-payoneer-india"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -906,7 +906,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["payoneer", "wise"],
-    relatedArticleSlugs: ["wise-vs-payoneer-business-payouts", "receiving-1000-usd-from-us-client-in-india", "quarterly-india-cross-border-fee-index", "best-payment-method-upwork-india", "best-payment-method-fiverr-india"],
+    relatedArticleSlugs: ["wise-vs-payoneer-business-payouts", "receiving-1000-usd-from-us-client-in-india", "quarterly-india-cross-border-fee-index", "best-payment-method-upwork-india", "best-payment-method-fiverr-india", "best-way-to-receive-usd-in-india", "paypal-vs-payoneer-india"],
     ctas: [
       { slug: "payoneer", label: "See Payoneer pricing", placement: "compare-vs" },
       { slug: "wise", label: "Compare with Wise", placement: "compare-vs" },
@@ -1025,7 +1025,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
-    relatedArticleSlugs: ["receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "how-to-send-money-abroad-cheap", "international-payment-settlement-times", "gusto-vs-adp-vs-paychex-us-payroll", "cash-app-vs-venmo", "receiving-payments-from-latin-america-in-india"],
+    relatedArticleSlugs: ["receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "how-to-send-money-abroad-cheap", "international-payment-settlement-times", "gusto-vs-adp-vs-paychex-us-payroll", "cash-app-vs-venmo", "receiving-payments-from-latin-america-in-india", "best-way-to-receive-usd-in-india"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -1222,7 +1222,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
-    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "best-payment-method-upwork-india", "best-payment-method-fiverr-india"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "best-payment-method-upwork-india", "best-payment-method-fiverr-india", "best-way-to-receive-usd-in-india"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -1527,7 +1527,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
-    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "stablecoins-for-cross-border-payments"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "stablecoins-for-cross-border-payments", "best-way-to-receive-usd-in-india"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -1910,7 +1910,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
-    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "payoneer-fees-india", "gusto-vs-adp-vs-paychex-us-payroll", "best-payment-method-upwork-india", "best-payment-method-fiverr-india"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "payoneer-fees-india", "gusto-vs-adp-vs-paychex-us-payroll", "best-payment-method-upwork-india", "best-payment-method-fiverr-india", "best-way-to-receive-usd-in-india", "paypal-vs-payoneer-india"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -2730,7 +2730,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["payoneer", "paypal"],
-    relatedArticleSlugs: ["best-payment-method-upwork-india", "payoneer-fees-india", "receiving-1000-usd-from-us-client-in-india", "quarterly-india-cross-border-fee-index", "fira-vs-firc-payment-methods"],
+    relatedArticleSlugs: ["best-payment-method-upwork-india", "payoneer-fees-india", "receiving-1000-usd-from-us-client-in-india", "quarterly-india-cross-border-fee-index", "fira-vs-firc-payment-methods", "paypal-vs-payoneer-india"],
     ctas: [
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
       { slug: "paypal", label: "Visit PayPal", placement: "compare-vs" },
@@ -2831,6 +2831,201 @@ export const articles: Article[] = [
       {
         type: "p",
         text: "Editorial note: fees and timings above are from Fiverr's official help center (accessed 4 August 2026); conversion markups are the site's fee-index models (Payoneer 1–4% corridor, PayPal ~3.5%) and can differ at the moment of withdrawal. The rate shown in your provider account before you confirm is authoritative.",
+      },
+    ],
+  },
+  {
+    slug: "paypal-vs-payoneer-india",
+    author: "FinTech Atlas editorial team",
+    title: "PayPal vs Payoneer India (2026)",
+    description:
+      "PayPal India's receiving schedule — 4.4% + $0.30, then a 3% conversion — vs Payoneer's $0 receiving accounts and 1–4% corridor, priced with a $1,000 worked example.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Cross-Border",
+    relatedCompanySlugs: ["paypal", "payoneer", "wise"],
+    relatedArticleSlugs: ["best-way-to-receive-usd-in-india", "payoneer-fees-india", "receiving-1000-usd-from-us-client-in-india", "wise-vs-payoneer-business-payouts", "best-payment-method-fiverr-india"],
+    ctas: [
+      { slug: "paypal", label: "Visit PayPal", placement: "compare-vs" },
+      { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
+    ],
+    relatedTool: { href: "/tools/exchange-rate-markup-calculator", label: "Measure the conversion markup" },
+    body: [
+      {
+        type: "p",
+        text: "PayPal and Payoneer are the two classic rails for getting paid from abroad into India without a bank wire, and they price the same journey completely differently. PayPal charges on the way in — 4.4% plus a fixed fee on every international receipt, then 3% when you convert — so a $1,000 payment costs roughly 7% before it is INR. Payoneer charges on the way out: receiving is usually $0, and the exit to INR runs on a 1–4% corridor. The 2026 short version: Payoneer wins wherever you can choose the rail, PayPal wins only where the client insists on it.",
+      },
+      {
+        type: "h2",
+        text: "How PayPal India prices a receipt",
+      },
+      {
+        type: "p",
+        text: "PayPal India's official merchant schedule (fee page updated 28 March 2024) applies 4.40% plus a fixed fee to every international commercial receipt — $0.30 for USD, ₹3.00 for INR. There is no domestic rail: PayPal India accounts only support international payments, so this rate hits every payment a freelancer receives, personal or business account. On a $1,000 receipt the fee is $44.30 before anything else.",
+      },
+      {
+        type: "p",
+        text: "The conversion is the second layer. Converting a balance or payments received into another currency costs 3.0% above the base exchange rate (India consumer fees page). Withdrawing to your linked bank is free on the standard schedule, but Indian bank accounts settle in INR, so the 3% conversion applies on the way out either way — and 18% GST applies on PayPal's fees for Indian accounts (2026 industry sources). Net on $1,000: $44.30 fee, then the remaining $955.70 converts at roughly 3% above base — about $927 lands in INR, near ₹77,400 at the site's ₹83.50 snapshot.",
+      },
+      {
+        type: "h2",
+        text: "How Payoneer India prices a receipt",
+      },
+      {
+        type: "p",
+        text: "Payoneer's published India pricing (updated June 2026) is the mirror image: receiving accounts in your local currency are free, non-local receiving accounts cost a fixed fee or 1%, US ACH bank debits cost 1%, and card-funded payment requests cost 2.90% + $0.49. Marketplace payouts are priced by each marketplace, not by Payoneer. The exit is the real cost: converting a USD balance to INR runs 1–4% of the amount depending on the corridor, and for India-based users withdrawals to the linked bank are automatic within 48 hours.",
+      },
+      {
+        type: "p",
+        text: "Two structural notes. First, the annual account fee of $29.95 applies only if you receive under $6,000 in any 12 consecutive months — most working freelancers never see it. Second, Payoneer's India operations run under the RBI's Payment Aggregator – Cross Border (PA-CB) framework that replaced the older OPGSP regime (per January 2026 industry sources; treat as context, not advice). Net on $1,000: $0 receiving fee, then the corridor — at the 2% midpoint $980 lands, about ₹81,830; at 1%, ₹82,665.",
+      },
+      {
+        type: "h2",
+        text: "The $1,000 worked example",
+      },
+      {
+        type: "table",
+        headers: ["Rail", "Receiving fee", "Conversion", "Net (₹83.50 snapshot)"],
+        rows: [
+          ["PayPal", "4.4% + $0.30 (≈ $44.30)", "3.0% above base (official)", "≈ ₹77,400"],
+          ["Payoneer — 2% corridor midpoint", "$0", "1–4% corridor (2% shown)", "≈ ₹81,830"],
+          ["Payoneer — 1% corridor", "$0", "1% corridor", "≈ ₹82,665"],
+          ["Wise (benchmark)", "≈ $0 via ACH", "0.43% + $0.50 (fee-index model)", "≈ ₹83,099"],
+        ],
+      },
+      {
+        type: "p",
+        text: "The gap between PayPal and Payoneer's midpoint is roughly ₹4,400 on this $1,000 — about 5.3 percentage points of the payment — and Wise's benchmark sits a further ₹1,300 ahead. The same arithmetic scales: the receiving fee and the conversion are both percentages, so the ₹ gap grows with every dollar, which is why recurring freelancers should treat PayPal as a last resort rather than a habit.",
+      },
+      {
+        type: "h2",
+        text: "Where PayPal genuinely wins",
+      },
+      {
+        type: "ul",
+        items: [
+          "The client insists — PayPal's email-payment habit and buyer protections make it the path of least resistance with US clients who are not payment-savvy. On a one-off small receipt the absolute loss is the cost of keeping the client; the receiving guides reach the same conclusion.",
+          "You want to hold USD — PayPal lets you keep the balance in dollars and convert when you choose; Payoneer's India accounts auto-withdraw within 48 hours, so the exit timing is theirs, not yours.",
+          "The conversion timing is worth more than the fee — if you are deliberately waiting for a better rate, PayPal's hold-and-convert model is a feature, priced at 3% per conversion.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "What the fee index models (and why this guide differs)",
+      },
+      {
+        type: "p",
+        text: "The site's calculator and fee-index tables model PayPal with its send-side schedule — roughly $4.99 flat plus a ~3.5% spread — for cross-provider comparisons. Receiving is priced differently by PayPal itself: 4.4% + $0.30 on the way in, then 3.0% on the conversion. This guide prices the actual receive flow; the cross-provider tables keep the send-side model for consistency. When you see PayPal in a receiving comparison on this site, the real receive-side cost is the higher one.",
+      },
+      {
+        type: "h2",
+        text: "Which should you pick?",
+      },
+      {
+        type: "ul",
+        items: [
+          "Marketplace payouts (Upwork, Fiverr, and most platforms) → Payoneer. The platform rails already route through it, and the corridor is the price of one balance and one conversion — the platform-specific math is in the Upwork and Fiverr guides.",
+          "Recurring direct clients, and you can choose the method → neither, if you can help it: a Wise USD balance costs ~0.5% total and is the benchmark in the table. Payoneer is the fallback that keeps client friction near zero.",
+          "Client insists on PayPal → accept and price it consciously: ~7% at $1,000. Below roughly $300 the absolute loss is small enough to be the cost of doing business; above that, asking for a bank transfer or Wise payment is worth ₹4,000+ per receipt.",
+          "Large one-off receipts → neither rail; the EEFC and wire math lives in the $5,000 guide.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Editorial note: PayPal figures are from PayPal India's official consumer and merchant fee pages (consumer page updated 31 May 2021, merchant page 28 March 2024 — both live at access on 4 August 2026); Payoneer figures from its India pricing page (updated 18 June 2026). The ₹83.50 snapshot is the FX estimator's 2026-08-01 rate. GST treatment is per 2026 industry sources. The fee shown in your account before you confirm a transaction is authoritative.",
+      },
+    ],
+  },
+  {
+    slug: "best-way-to-receive-usd-in-india",
+    author: "FinTech Atlas editorial team",
+    title: "Best way to receive USD in India (2026)",
+    description:
+      "The decision map for getting paid in USD from US clients: Wise USD details, Payoneer, PayPal, bank wire, USDC and EEFC — routed by who pays, how much, and how often, with links to the deep dives.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Cross-Border",
+    relatedCompanySlugs: ["wise", "paypal", "payoneer"],
+    relatedArticleSlugs: ["paypal-vs-payoneer-india", "receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "payoneer-fees-india", "fira-vs-firc-payment-methods"],
+    ctas: [
+      { slug: "wise", label: "Open Wise", placement: "compare-vs" },
+      { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
+      { slug: "paypal", label: "Visit PayPal", placement: "compare-vs" },
+    ],
+    relatedTool: { href: "/tools/exchange-rate-markup-calculator", label: "Measure any quoted conversion" },
+    body: [
+      {
+        type: "p",
+        text: "There is no single best way to receive USD in India — there is a best rail per situation, and the situation is decided by three questions: who is paying (a platform or a direct client), how much, and how often. This guide is the map; the amount-specific guides are the deep dives. The 2026 default: give direct clients USD account details (Wise-class, ~0.5% total), let marketplaces route through their own rails (usually Payoneer), and treat PayPal as the client-convenience tax rather than a first choice.",
+      },
+      {
+        type: "h2",
+        text: "The rail matrix",
+      },
+      {
+        type: "table",
+        headers: ["Rail", "How money moves", "Cost to INR", "Speed", "Paperwork"],
+        rows: [
+          ["Wise USD balance", "Client pays ACH to your US account details", "0.43% + $0.50, mid-market (fee-index model)", "Minutes–hours", "Bank credit advice"],
+          ["Payoneer", "Client or platform pays your receiving account", "$0 receive + 1–4% corridor", "≤48h auto-withdrawal", "Bank credit advice"],
+          ["PayPal", "Client pays your email", "4.4% + $0.30 + 3.0% conversion (official)", "~24h to balance", "No FIRC — domestic settlement"],
+          ["Bank wire (SWIFT)", "Client's bank to your bank", "~4.5% margin + $35-class + incoming fees (site model)", "2–5 business days", "FIRC automatic"],
+          ["USDC", "On-chain to your wallet, then INR", "~0.1–1% per leg (site model)", "Minutes, 24×7", "None — unsettled rules"],
+          ["EEFC account", "Export receipts held in USD at your AD bank", "Your bank's conversion — timing is yours", "2–5 business days", "FIRC on credit"],
+        ],
+      },
+      {
+        type: "h2",
+        text: "Route by who pays",
+      },
+      {
+        type: "ul",
+        items: [
+          "Marketplace seller (Upwork, Fiverr, and similar) → you mostly do not choose: the platform's payout rails decide, and Payoneer dominates both. The Upwork and Fiverr guides price the platform-specific options.",
+          "Direct client, you choose the method → Wise USD details for a domestic ACH payment — best rate, and you decide when to convert. Revolut-class alternatives land within pennies at most sizes.",
+          "Client insists on PayPal → accept for small receipts, but know the price: the PayPal vs Payoneer guide prices it at roughly 7% of a $1,000 payment end to end.",
+          "Client's bank only does wires → ask the client to quote the outgoing fees in advance; the wire row is the worst in the table at every size once double-ended fees apply.",
+          "Crypto-native client → the USDC corridor works 24×7 and can undercut every bank rail, with regulatory caveats — the USDC vs bank wire guide covers the spread.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Route by size",
+      },
+      {
+        type: "ul",
+        items: [
+          "Under $500 → flat fees decide everything; the $500 guide works the numbers. Wise's $0.50 versus PayPal's percentage stack can differ by more than 10% at this size.",
+          "$500–1,000 → percentage spreads decide; the $1,000 guide covers the crossover and the client-friction tradeoffs.",
+          "$1,000–5,000 → channels converge within ~3% of each other; the $5,000 guide covers EEFC accounts, FIRC discipline, and advance payments.",
+          "Recurring $1,000+ every month → the conversion markup compounds: consolidate on one low-cost rail (Wise or Payoneer) and batch withdrawals instead of switching per payment.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "The paperwork follows the rail",
+      },
+      {
+        type: "p",
+        text: "Bank wires and EEFC credits generate FIRCs automatically. Wise and Payoneer land as domestic credits with bank credit advice — the evidence file is the advice paired with your invoice. PayPal settles domestically, so PayPal-only freelancers get no FIRC at all and should keep withdrawal statements instead; the FIRA vs FIRC guide covers the bank-side formats. Export of services stays zero-rated under GST on every rail.",
+      },
+      {
+        type: "h2",
+        text: "The short answer",
+      },
+      {
+        type: "ul",
+        items: [
+          "Default for direct clients → a Wise USD balance (or Revolut-class equivalent): ~0.5% total, mid-market rate, convert when you choose.",
+          "Default for marketplaces → Payoneer, because the platform rails already run through it.",
+          "Only when the client insists → PayPal, at ~7% per $1,000 — priced, not ignored.",
+          "Only when a bank requires it → a wire, and consider an EEFC account if large or frequent receipts make conversion timing matter.",
+          "USDC for the 24×7 crypto corridor — cheapest at large sizes on cheap networks, with the unsettled-rules caveat.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Editorial note: fee models are the site's published index inputs (Wise 0.43% + $0.50; Payoneer 1–4% corridor; bank wire ~4.5% + $35-class; USDC ~0.1–1% per leg) and PayPal India's official schedules (4.4% + $0.30 receiving, 3.0% conversion). The ₹83.50 snapshot is the FX estimator's 2026-08-01 rate. Each linked guide carries its own sources and hedges; the rate shown in your provider account before you confirm is authoritative.",
       },
     ],
   },

@@ -21,6 +21,30 @@ export const changelog: ChangelogEntry[] = [
   {
     date: "2026-08-04",
     kind: "article",
+    title: "Best way to receive USD in India (2026)",
+    description:
+      "The decision map for USD receipts: Wise USD details (~0.5% total), Payoneer's $0 receive + 1–4% corridor, PayPal's 4.4% + $0.30 + 3% conversion, bank wires, USDC and EEFC — routed by who pays, how much, and how often.",
+    href: "/articles/best-way-to-receive-usd-in-india/",
+  },
+  {
+    date: "2026-08-04",
+    kind: "article",
+    title: "PayPal vs Payoneer India (2026)",
+    description:
+      "PayPal India's receiving schedule (4.4% + $0.30, then a 3% conversion — roughly 7% of a $1,000 receipt) vs Payoneer's $0 receiving accounts and 1–4% exit corridor, with a $1,000 worked example.",
+    href: "/articles/paypal-vs-payoneer-india/",
+  },
+  {
+    date: "2026-08-04",
+    kind: "fix",
+    title: "Klarna valuation corrected to market capitalisation",
+    description:
+      "Klarna's profile showed the $6.8B private-round valuation after its NYSE listing; the quick-stat now shows the ~$7.5B market capitalisation (as of 3–4 August 2026) and is labelled as such, with a cited source.",
+    href: "/companies/klarna/",
+  },
+  {
+    date: "2026-08-04",
+    kind: "article",
     title: "Best payment method for Upwork India (2026)",
     description:
       "Upwork's two-stage payment decision: the 0–15% service fee locked per contract, then the India rails — Direct to Local Bank ($0.99, ~2–4% conversion markup), Payoneer's 1–4% corridor, and the Wise two-step via free ACH.",

@@ -320,6 +320,15 @@ export const sourceReferencesBySlug: Partial<Record<string, SourceReference[]>> 
       sourceType: "regulatory-filing",
       supports: ["ownership"],
     },
+    {
+      id: "market-cap-2026-08",
+      publisher: "MarketBeat",
+      title: "Klarna Group (KLAR) Stock Price, News & Analysis",
+      url: "https://www.marketbeat.com/stocks/NYSE/KLAR/",
+      accessedAt: "2026-08-04",
+      sourceType: "editorial-reference",
+      supports: ["valuation"],
+    },
   ],
   gusto: [
     {

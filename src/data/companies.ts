@@ -324,7 +324,7 @@ const baseCompanies: BaseCompany[] = [
     sources: ["Crunchbase", "World Banking digest", "NerdWallet"],
   },
   {
-    slug: "robinhood", ownershipType: "public", name: "Robinhood", tagline: "Investing for everyone.", founded: 2013,
+    slug: "robinhood", name: "Robinhood", tagline: "Investing for everyone.", founded: 2013,
     founders: ["Vlad Tenev", "Baiju Bhatt"], headquarters: "Menlo Park, CA", employees: "3000+", ownershipType: "public", valuation: "$12B", website: "robinhood.com", categories: ["investing"], logo: "robinhood", accent: "#21CE99",
     oneLiner: "Commission-free investing in stocks, ETFs, options, and crypto on a mobile-first platform.",
     whatIsIt: "Robinhood is an investing platform best known for pioneering zero-commission stock and ETF trading in the US via a simple mobile and web app.",
@@ -339,7 +339,7 @@ const baseCompanies: BaseCompany[] = [
   {
     slug: "klarna", name: "Klarna", tagline: "Shop smarter, pay smarter.", founded: 2005,
     founders: ["Sebastian Siemiatkowski", "Niklas Adalberth"],
-    headquarters: "Stockholm, Sweden", employees: "4500+", ownershipType: "public", valuation: "$6.8B", website: "klarna.com", categories: ["bnpl"], logo: "klarna", accent: "#FFA8CD",
+    headquarters: "Stockholm, Sweden", employees: "4500+", ownershipType: "public", valuation: "$7.5B", website: "klarna.com", categories: ["bnpl"], logo: "klarna", accent: "#FFA8CD",
     oneLiner: "Buy now, pay later and shopping app with creative payment options.",
     whatIsIt: "Klarna allows shoppers to try before they buy, pay in 30 days, or break purchases into installments with no interest or fees — plus a price comparison tool.",
     whatTheyOffer: [
@@ -352,7 +352,7 @@ const baseCompanies: BaseCompany[] = [
     strengths: ["Flexible payment options including Pay in 4 and Pay in 30", "Large integrated merchant network covering top brands", "Powerful price-comparison shopping app", "Strong brand recognition in Europe and an expanding US presence"],
     weaknesses: ["Can encourage impulsive overspending", "Late fees may apply when scheduled payments are missed", "Some merchants consider the fees high", "Availability and terms vary by market"],
     userReviews: { rating: 4.1, summary: "Shoppers appreciate the flexibility; overspending risk is a concern.", pros: ["No interest for on-time repayment plans", "Large retailer network", "Seamless checkout integration", "Price comparison built in"], cons: ["Can encourage overspending", "Late fees if payment schedule is missed", "Not universally available", "Underwriting is still evolving"] },
-    sources: ["NYSE (KLAR) listing", "TechCrunch", "Business Insider"],
+    sources: ["NYSE (KLAR) listing", "MarketBeat (KLAR market data)", "TechCrunch"],
   },
   {
     slug: "afterpay", name: "Afterpay", tagline: "BNPL, simplified.", founded: 2014,
