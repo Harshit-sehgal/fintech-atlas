@@ -28,6 +28,8 @@ export interface Article {
   slug: string;
   title: string;
   description: string;
+  /** Named author (T015: required for Google trust signals on financial content). */
+  author: string;
   /** ISO date YYYY-MM-DD. */
   publishedAt: string;
   updatedAt: string;
@@ -46,6 +48,7 @@ export interface Article {
 export const articles: Article[] = [
   {
     slug: "stripe-vs-adyen-fees",
+    author: "FinTech Atlas editorial team",
     title: "Stripe vs Adyen: fees & platform differences",
     description:
       "A plain-language comparison of Stripe and Adyen — published fee structures, strengths, and who each best fits, with an illustrative monthly-fee estimate you can run yourself.",
@@ -116,6 +119,7 @@ export const articles: Article[] = [
   },
   {
     slug: "wise-vs-revolut-international-transfers",
+    author: "FinTech Atlas editorial team",
     title: "Wise vs Revolut: international transfers compared",
     description:
       "A practical comparison of Wise and Revolut for sending and spending across borders — FX markups, fees, multi-currency accounts, and who each best fits.",
@@ -182,6 +186,7 @@ export const articles: Article[] = [
   },
   {
     slug: "stripe-vs-paypal-online-payments",
+    author: "FinTech Atlas editorial team",
     title: "Stripe vs PayPal: online payments compared",
     description:
       "Comparing Stripe and PayPal for online checkout — published rates, developer experience, buyer trust, and which merchants each fits best.",
@@ -243,6 +248,7 @@ export const articles: Article[] = [
   },
   {
     slug: "affirm-vs-klarna-bnpl",
+    author: "FinTech Atlas editorial team",
     title: "Affirm vs Klarna: buy now, pay later compared",
     description:
       "A side-by-side of two leading BNPL providers — fee models, late-fee policies, merchant costs, and which shoppers and stores each fits.",
@@ -302,6 +308,7 @@ export const articles: Article[] = [
   },
   {
     slug: "best-neobanks-2026",
+    author: "FinTech Atlas editorial team",
     title: "Best neobanks: Chime, Monzo, N26 & SoFi",
     description:
       "A roundup of four leading digital banks — what they're best at, their fee models, and who each is built for, so you can pick the right mobile bank.",
@@ -309,7 +316,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Neobanks",
     relatedCompanySlugs: ["chime", "monzo", "n26", "sofi", "revolut", "starling", "nubank", "bunq"],
-    relatedArticleSlugs: ["wise-vs-revolut-international-transfers", "brex-vs-relay-business-banking", "cash-app-vs-venmo"],
+    relatedArticleSlugs: ["wise-vs-revolut-international-transfers", "brex-vs-relay-business-banking", "cash-app-vs-venmo", "plaid-vs-indias-account-aggregator"],
     ctas: [
       { slug: "chime", label: "Open Chime", placement: "compare-vs" },
       { slug: "sofi", label: "Open SoFi", placement: "compare-vs" },
@@ -365,12 +372,17 @@ export const articles: Article[] = [
       },
       {
         type: "p",
+        text: "And the account-linking layer underneath these apps is its own decision: Plaid vs India's Account Aggregator compares the US bank-data API model with the RBI's consent-based framework, which matters the moment a neobank's 'link your bank' button points at a bank outside the US.",
+      },
+      {
+        type: "p",
         text: "Editorial note: features, fees, and availability above are illustrative from the catalog vintage and vary by region and account tier. Confirm current terms and eligibility before opening an account.",
       },
     ],
   },
   {
     slug: "coinbase-vs-robinhood-crypto-investing",
+    author: "FinTech Atlas editorial team",
     title: "Coinbase vs Robinhood: buying crypto and stocks",
     description:
       "A practical comparison of Coinbase and Robinhood for retail investors — trading fees, crypto selection, regulation, and who each fits best.",
@@ -434,6 +446,7 @@ export const articles: Article[] = [
   },
   {
     slug: "best-payment-gateway-small-business",
+    author: "FinTech Atlas editorial team",
     title: "Best payment gateway for a small business",
     description:
       "A small-business buyer's guide to the three most common US gateways — Square vs Stripe vs PayPal across setup, fees, in-person, and online needs.",
@@ -503,6 +516,7 @@ export const articles: Article[] = [
   },
   {
     slug: "wise-vs-payoneer-business-payouts",
+    author: "FinTech Atlas editorial team",
     title: "Wise vs Payoneer for freelancers & businesses",
     description:
       "A comparison of Wise and Payoneer for cross-border payments — receiving client money, holding balances, and paying out suppliers as a freelancer or small business.",
@@ -562,6 +576,7 @@ export const articles: Article[] = [
   },
   {
     slug: "how-to-send-money-abroad-cheap",
+    author: "FinTech Atlas editorial team",
     title: "How to send money abroad cheaply",
     description:
       "An evergreen guide to avoiding hidden FX markups when sending money internationally — what mid-market rate means, what to compare, and which providers to run numbers on.",
@@ -630,6 +645,7 @@ export const articles: Article[] = [
   },
   {
     slug: "square-vs-stripe-retail-and-online",
+    author: "FinTech Atlas editorial team",
     title: "Square vs Stripe: retail vs online platforms",
     description:
       "The honest Square vs Stripe comparison for businesses that sell in person, online, or both — setup, rates, hardware, and which one fits your store.",
@@ -690,6 +706,7 @@ export const articles: Article[] = [
   },
   {
     slug: "razorpay-vs-stripe-payments-india",
+    author: "FinTech Atlas editorial team",
     title: "Razorpay vs Stripe (India): fees & platforms",
     description:
       "Razorpay and Stripe India both charge a flat 2% on domestic payments plus 18% GST. A plain-language comparison of the two leading India gateways — fees, settlement, and who each best fits.",
@@ -783,6 +800,7 @@ export const articles: Article[] = [
   },
   {
     slug: "razorpay-vs-cashfree-indian-gateways",
+    author: "FinTech Atlas editorial team",
     title: "Razorpay vs Cashfree (India): gateway comparison",
     description:
       "Both Indian gateways charge a flat 2% on domestic payments plus 18% GST — the differences are international rates, settlement, and product depth. A plain-language comparison for Indian merchants.",
@@ -880,6 +898,7 @@ export const articles: Article[] = [
   },
   {
     slug: "payoneer-fees-india",
+    author: "FinTech Atlas editorial team",
     title: "Payoneer fees in India (2026): receiving USD",
     description:
       "Payoneer's published India pricing — free local receiving accounts, a 1–4% USD-to-INR withdrawal corridor, card-funded requests at 2.90% + $0.49, and the $29.95 annual fee — explained with a worked example.",
@@ -998,6 +1017,7 @@ export const articles: Article[] = [
   },
   {
     slug: "receiving-500-usd-from-us-client-in-india",
+    author: "FinTech Atlas editorial team",
     title: "Receiving $500 from a US client in India",
     description:
       "What actually lands in your INR account when a US client sends $500 — Wise, Payoneer, PayPal, and bank wire compared with a worked rupee example, plus FIRC and tax notes.",
@@ -1005,7 +1025,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
-    relatedArticleSlugs: ["receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "how-to-send-money-abroad-cheap", "international-payment-settlement-times", "gusto-vs-adp-vs-paychex-us-payroll", "cash-app-vs-venmo"],
+    relatedArticleSlugs: ["receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "how-to-send-money-abroad-cheap", "international-payment-settlement-times", "gusto-vs-adp-vs-paychex-us-payroll", "cash-app-vs-venmo", "receiving-payments-from-latin-america-in-india"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -1081,7 +1101,7 @@ export const articles: Article[] = [
       },
       {
         type: "p",
-        text: "The exact gap depends on the day's rate and your specific corridor. Use the Cross-Border FX Estimator to compare providers for your actual amount, and the exchange-rate markup calculator to expose the hidden spread of any rate you are offered.",
+        text: "The exact gap depends on the day's rate and your specific corridor. Use the Cross-Border FX Estimator to compare providers for your actual amount, and the exchange-rate markup calculator to expose the hidden spread of any rate you are offered. The same playbook applies when the client is outside the US — the Latin America guide covers the corridors (PIX, Mercado Pago, Payoneer) that get the money from there to India.",
       },
       {
         type: "p",
@@ -1091,6 +1111,7 @@ export const articles: Article[] = [
   },
   {
     slug: "international-payment-settlement-times",
+    author: "FinTech Atlas editorial team",
     title: "International payment settlement times (India)",
     description:
       "How fast money actually moves in India: UPI, IMPS, NEFT, RTGS, gateway T+1 settlement, Wise, SWIFT, and Payoneer — typical timelines and what slows them down.",
@@ -1193,6 +1214,7 @@ export const articles: Article[] = [
   },
   {
     slug: "fira-vs-firc-payment-methods",
+    author: "FinTech Atlas editorial team",
     title: "FIRA vs FIRC: payment-method comparison",
     description:
       "FIRA and FIRC are the two documents that prove money from abroad reached your Indian bank — what each is, when you need the certificate, and which payment methods produce one.",
@@ -1297,6 +1319,7 @@ export const articles: Article[] = [
   },
   {
     slug: "quarterly-india-cross-border-fee-index",
+    author: "FinTech Atlas editorial team",
     title: "Quarterly India Cross-Border Payment Fee Index",
     description:
       "The FinTech Atlas consolidated index of India cross-border payment fees: what Wise, Revolut, Payoneer, PayPal, and a bank wire actually deliver for $500, $1,000, and $5,000 — computed from the site's published fee schedules.",
@@ -1382,6 +1405,7 @@ export const articles: Article[] = [
   },
   {
     slug: "payment-gateway-for-subscription-businesses",
+    author: "FinTech Atlas editorial team",
     title: "Payment gateways for Indian subscriptions",
     description:
       "Razorpay, Cashfree, and Stripe India for recurring billing: UPI AutoPay mandates, card-on-file eMandates, eNACH, billing engines, and which gateway fits a subscription business.",
@@ -1495,6 +1519,7 @@ export const articles: Article[] = [
   },
   {
     slug: "receiving-5000-usd-from-us-client-in-india",
+    author: "FinTech Atlas editorial team",
     title: "Receiving $5,000 from a US client in India",
     description:
       "At $5,000 the channel gap shrinks to ~3% — the real decisions are EEFC accounts (hold the dollars), FIRC documentation, and advance payments. Worked numbers from the site's fee index.",
@@ -1619,6 +1644,7 @@ export const articles: Article[] = [
   },
   {
     slug: "razorpay-vs-stripe-for-developers",
+    author: "FinTech Atlas editorial team",
     title: "Razorpay vs Stripe for developers",
     description:
       "API design, SDKs, webhooks, test tooling, PCI scope, and India-specific rails — which gateway your engineering team will build faster on, and where the DX gap is real.",
@@ -1759,6 +1785,7 @@ export const articles: Article[] = [
   },
   {
     slug: "razorpay-vs-cashfree-for-ecommerce",
+    author: "FinTech Atlas editorial team",
     title: "Razorpay vs Cashfree for ecommerce",
     description:
       "Checkout plugins, EMI and pay-later coverage, COD reconciliation, and international selling — the operational differences that decide the gateway for an Indian online store.",
@@ -1875,6 +1902,7 @@ export const articles: Article[] = [
   },
   {
     slug: "receiving-1000-usd-from-us-client-in-india",
+    author: "FinTech Atlas editorial team",
     title: "Receiving $1,000 from a US client in India",
     description:
       "The freelancer-milestone guide: at $1,000 flat fees and percentage fees balance out, marketplace rails (Upwork/Fiverr) route you to Payoneer, and FIRC documentation habits start.",
@@ -1981,6 +2009,7 @@ export const articles: Article[] = [
   },
   {
     slug: "gusto-vs-adp-vs-paychex-us-payroll",
+    author: "FinTech Atlas editorial team",
     title: "Gusto vs ADP vs Paychex for US payroll",
     description:
       "US payroll for global teams: contractor payments, W-2 tax filing, benefits, and PEO options across Gusto, ADP, and Paychex — and when an Indian company actually needs them.",
@@ -2043,6 +2072,7 @@ export const articles: Article[] = [
   },
   {
     slug: "brex-vs-relay-business-banking",
+    author: "FinTech Atlas editorial team",
     title: "Brex vs Relay: business banking for startups",
     description:
       "Corporate cards and rewards vs free business checking: which US business-banking stack fits a VC-backed startup, and which fits a bootstrapped SMB.",
@@ -2096,6 +2126,7 @@ export const articles: Article[] = [
   },
   {
     slug: "stablecoins-for-cross-border-payments",
+    author: "FinTech Atlas editorial team",
     title: "USDC vs bank wire: receiving USD in India",
     description:
       "How stablecoin rails (USDC) compare with Wise, Payoneer, and bank wires for receiving USD in India — fees, speed, and the regulatory caveats that matter.",
@@ -2103,7 +2134,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["circle", "coinbase"],
-    relatedArticleSlugs: ["quarterly-india-cross-border-fee-index", "international-payment-settlement-times", "receiving-5000-usd-from-us-client-in-india", "how-to-send-money-abroad-cheap"],
+    relatedArticleSlugs: ["quarterly-india-cross-border-fee-index", "international-payment-settlement-times", "receiving-5000-usd-from-us-client-in-india", "how-to-send-money-abroad-cheap", "receiving-payments-from-latin-america-in-india"],
     ctas: [
       { slug: "circle", label: "About USDC", placement: "compare-vs" },
       { slug: "coinbase", label: "Coinbase on-ramp", placement: "compare-vs" },
@@ -2164,6 +2195,7 @@ export const articles: Article[] = [
           "Weekend or same-hour urgency — crypto rails run 24×7 while SWIFT, FX markets, and bank processing pause (see the settlement-times guide).",
           "A payer who already holds USDC — the on-ramp leg disappears and the trip is network fee plus off-ramp spread.",
           "Diversifying away from a single corridor or a provider's freeze risk.",
+          "A payer in a high-inflation corridor (for example Argentina) who already lives in stablecoins — USDC sidesteps the devaluation window between invoice and settlement; the Latin America guide walks that corridor end to end.",
         ],
       },
       { type: "h2", text: "When bank rails win" },
@@ -2193,6 +2225,7 @@ export const articles: Article[] = [
   },
   {
     slug: "cash-app-vs-venmo",
+    author: "FinTech Atlas editorial team",
     title: "Cash App vs Venmo: US peer-to-peer payments",
     description:
       "The two dominant US P2P apps compared — personal and business fees, cards, speed, and why neither is built for receiving international payments into India.",
@@ -2200,7 +2233,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Payments",
     relatedCompanySlugs: ["cash-app", "venmo", "paypal"],
-    relatedArticleSlugs: ["best-neobanks-2026", "brex-vs-relay-business-banking", "how-to-send-money-abroad-cheap", "receiving-500-usd-from-us-client-in-india"],
+    relatedArticleSlugs: ["best-neobanks-2026", "brex-vs-relay-business-banking", "how-to-send-money-abroad-cheap", "receiving-500-usd-from-us-client-in-india", "plaid-vs-indias-account-aggregator"],
     ctas: [
       { slug: "cash-app", label: "Visit Cash App", placement: "compare-vs" },
       { slug: "venmo", label: "Visit Venmo", placement: "compare-vs" },
@@ -2238,6 +2271,7 @@ export const articles: Article[] = [
           "Workarounds — opening accounts through US intermediaries, or sending to a US contact to forward — violate both apps' terms and routinely end in frozen balances. The fee you avoid is not worth the principal you can lose.",
           "US P2P apps also create US reporting surface: 1099-K thresholds apply to business payments received through them.",
           "For an Indian freelancer paid by a US client, the correct comparison is Wise, Payoneer, PayPal, or a bank wire — the receiving-$500 guide works the numbers at the amount most freelancers start with.",
+          "Both apps link your US bank account through data-sharing APIs of the Plaid kind — the Plaid vs India's Account Aggregator guide explains that layer and why India built a consent-based counterpart instead.",
         ],
       },
       { type: "h2", text: "Which to pick" },
@@ -2253,6 +2287,170 @@ export const articles: Article[] = [
       {
         type: "p",
         text: "The choice matters only inside the US. Once money has to cross a border, both apps step out of the picture — and the exchange-rate markup calculator is the tool that exposes what the rails that do cross it actually cost.",
+      },
+    ],
+  },
+  {
+    slug: "plaid-vs-indias-account-aggregator",
+    author: "FinTech Atlas editorial team",
+    title: "Plaid vs India's Account Aggregator",
+    description:
+      "Plaid connects US apps to 12,000+ banks; India's Account Aggregator framework does the same job with RBI-regulated consent. How the two compare and which one your product needs.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Payments",
+    relatedCompanySlugs: ["plaid"],
+    relatedArticleSlugs: ["best-neobanks-2026", "cash-app-vs-venmo"],
+    ctas: [{ slug: "plaid", label: "Visit Plaid", placement: "compare-vs" }],
+    body: [
+      {
+        type: "p",
+        text: "Plaid and India's Account Aggregator (AA) framework solve the same underlying problem — letting a financial app read a user's bank data with permission — but from opposite ends of the regulatory spectrum. Plaid is a commercial US API company whose connections span 12,000+ financial institutions, powering account linking inside apps like Venmo, Cash App, and Betterment. India's AA framework is an RBI-regulated network of licensed Account Aggregators (NBFC-AA) that move consented financial data between banks (FIPs) and financial users (FIUs) without the user's credentials ever leaving the bank. Which one matters to you depends entirely on where your users' bank accounts are.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: Plaid's product surface and the AA framework's participant coverage both evolve quickly; this is the 2026 catalog vintage and educational guidance, not regulatory or legal advice.",
+      },
+      { type: "h2", text: "What Plaid actually does" },
+      {
+        type: "ul",
+        items: [
+          "Auth — verifies a user's bank account in seconds and returns account details for initiating payments.",
+          "Transactions — returns cleansed, categorized transaction history for budgeting, underwriting, and personal-finance apps.",
+          "Identity — ties identity verification to bank-account ownership at KYC time.",
+          "Transfer — initiates ACH and real-time payments from the linked account.",
+          "It is the connective tissue behind most US fintech account linking: when a US app asks you to 'link your bank', Plaid-style APIs are usually doing the work.",
+        ],
+      },
+      { type: "h2", text: "What India's Account Aggregator is" },
+      {
+        type: "ul",
+        items: [
+          "An RBI-regulated framework launched in 2021: licensed NBFCs (Account Aggregators) manage consent for financial-data sharing between banks and financial-information users.",
+          "Consent-first by design — the user's credentials stay with the bank; the AA relays data only after explicit, revocable consent per purpose and duration.",
+          "The Sahamati network connects AAs, banks (FIPs), and users (FIUs); participation has grown steadily but coverage across smaller banks and use cases is still uneven.",
+          "RBI introduced a self-regulatory-organization (SRO) framework for the AA ecosystem in 2025, formalizing how the network governs itself.",
+        ],
+      },
+      { type: "h2", text: "How they compare" },
+      {
+        type: "table",
+        headers: ["Dimension", "Plaid", "India's AA framework"],
+        rows: [
+          ["Geographic reach", "US, Canada (+ expanding)", "India"],
+          ["Regulator", "None (commercial company)", "RBI (NBFC-AA license)"],
+          ["Connection model", "Credentials + API keys", "Consent-based, credential-free"],
+          ["Typical data", "Balances, transactions, identity, payments", "Bank, insurance, tax (GSTN) data"],
+          ["Who pays", "Apps pay per connection", "FIUs pay; users don't"],
+          ["Best for", "US-facing fintech products", "India-facing fintech products"],
+        ],
+      },
+      { type: "h2", text: "Why this matters for India" },
+      {
+        type: "ul",
+        items: [
+          "An Indian startup building for US users will almost certainly integrate Plaid (or a similar US aggregator) — the network effect of 12,000+ institutions is hard to bypass.",
+          "An India-facing product reading bank data should plan around the AA framework instead: consent-based access, no credential handling, and a regulator-approved path.",
+          "The two models are not interchangeable — a Plaid integration does not transfer to the AA ecosystem, and vice versa; the data-sharing contracts differ in consent semantics, liability, and certification.",
+          "The neobanks and US P2P guides on this site sit on exactly this layer — the account linking they describe runs on Plaid-style APIs, and India's AA is the domestic counterpart.",
+        ],
+      },
+      { type: "h2", text: "Which to pick" },
+      {
+        type: "ul",
+        items: [
+          "Your users' banks are in the US → integrate Plaid; it is the default path with the deepest institution coverage.",
+          "Your users' banks are in India → plan around the AA framework; consent-based access is the sanctioned route and avoids credential risk entirely.",
+          "You serve both → you will likely maintain both integrations; budget for two data contracts, not one.",
+          "You are evaluating both for the first time → start with the one that matches your primary market, then add the other only when user demand justifies the second integration.",
+        ],
+      },
+      {
+        type: "p",
+        text: "The honest summary: Plaid is a product you buy; India's AA framework is a regulation you join. Both exist to make bank data flow with permission — the right choice is decided by where the account holder's bank sits, not by the feature list.",
+      },
+    ],
+  },
+  {
+    slug: "receiving-payments-from-latin-america-in-india",
+    author: "FinTech Atlas editorial team",
+    title: "How to get paid from Latin America in India",
+    description:
+      "Brazil, Argentina, and Mexico clients pay with PIX, Mercado Pago, and PicPay — but those rails stop at their border. The channels that actually reach an Indian bank account.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Cross-Border",
+    relatedCompanySlugs: ["mercado-pago", "picpay", "wise", "payoneer"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "stablecoins-for-cross-border-payments"],
+    ctas: [
+      { slug: "mercado-pago", label: "Visit Mercado Pago", placement: "compare-vs" },
+      { slug: "picpay", label: "Visit PicPay", placement: "compare-vs" },
+    ],
+    relatedTool: { href: "/tools/exchange-rate-markup-calculator", label: "Check FX markup" },
+    body: [
+      {
+        type: "p",
+        text: "If your client is in Brazil, Argentina, or Mexico, the honest headline is: they will pay you through local rails — PIX in Brazil, Mercado Pago QR codes and wallets across the region, PicPay for person-to-person in Brazil — and none of those rails reach an Indian bank account directly. You receive the money through a cross-border corridor (Wise, Payoneer, PayPal, or a bank wire) and the local payment is only the first leg. The practical difference versus US clients is that your client's 'pay' button points at a domestic wallet, so your invoice needs to route around that instead of assuming SWIFT or a USD transfer.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: LatAm payment rails and corridor fees change often; this is the 2026 catalog vintage and educational guidance, not financial advice. Verify current availability and rates before quoting a client.",
+      },
+      { type: "h2", text: "How your LatAm client actually pays" },
+      {
+        type: "table",
+        headers: ["Country", "Dominant rail", "How it works"],
+        rows: [
+          ["Brazil", "PIX", "Instant, typically free transfers between any Brazilian accounts, by key (phone, CPF, email) — the default way businesses pay"],
+          ["Argentina", "Mercado Pago + bank transfer", "QR-code wallet payments and local bank transfers in ARS; Mercado Pago is ubiquitous"],
+          ["Mexico", "SPEI + cards", "Instant interbank transfers (SPEI) plus card rails; Mercado Pago also operates locally"],
+          ["All three", "Domestic only", "Every one of these rails settles within the country — none can push money across the border"],
+        ],
+      },
+      { type: "h2", text: "The corridors that reach India" },
+      {
+        type: "ul",
+        items: [
+          "Wise — you get BRL account details; your Brazilian client pushes PIX to them, and you convert to INR at the mid-market rate with a transparent fee. Availability and exact BRL support depend on your Wise profile and region — check in-app before promising it to a client.",
+          "Payoneer — the marketplace corridor: LatAm freelance platforms such as Workana pay out via Payoneer, and you withdraw to India in USD/INR. Receiving is $0; the withdrawal conversion carries a corridor spread (1–4% range, check the in-account rate).",
+          "PayPal — works across LatAm and converts to INR, but the FX spread is typically the priciest option (≈ 3.5% plus fees) — fine for small amounts, expensive at scale.",
+          "Bank wire (SWIFT) — always works if the client's bank offers it, but it is the slowest (2–5 business days) and carries double-ended fees plus the bank's FX margin; for a one-off large payment it can still be the cleanest paper trail.",
+        ],
+      },
+      { type: "h2", text: "What the local wallets are for" },
+      {
+        type: "ul",
+        items: [
+          "Mercado Pago is Latin America's largest payments platform — the QR wallet your client scans in shops. It is not a receiving rail for an Indian freelancer; you cannot hold or withdraw INR through it.",
+          "PicPay is Brazil's social P2P app with free person-to-person transfers. It settles in BRL domestically — useful to know when a Brazilian client offers to 'send it on PicPay', which only works if you have a Brazilian account.",
+          "Think of these as the payment method your client is used to, not as a channel you can receive through — your invoice should specify the corridor you can actually collect on.",
+        ],
+      },
+      { type: "h2", text: "Currency risk and quoting" },
+      {
+        type: "ul",
+        items: [
+          "ARS has a long history of devaluation, and BRL moves; quoting in local currency can erode your margin before the money lands.",
+          "Quote in USD where the client can pay USD — it moves the FX risk to them and keeps your income stable in INR terms.",
+          "If the client can only pay in local currency, price in enough margin to absorb a 5–10% move and convert promptly rather than holding the balance.",
+          "For high-inflation corridors, some clients already hold USDC and can pay that way — the stablecoin guide covers the India-side tax and documentation caveats before you accept it.",
+        ],
+      },
+      { type: "h2", text: "FIRC, records, and tax" },
+      {
+        type: "p",
+        text: "Whatever the corridor, a receipt into your Indian bank account is recorded under FEMA like any other foreign receipt, and the documentation habits are identical to the US-receiving guides: keep the credit advice, request a FIRC when you need one, and treat the amount as business income (Section 44ADA presumptive taxation applies when eligible). The receiving-$500 guide walks through the full playbook at a worked amount — the corridor changes, the paperwork does not.",
+      },
+      { type: "h2", text: "Which to pick" },
+      {
+        type: "ul",
+        items: [
+          "Brazilian client paying in BRL → Wise with BRL details (if available on your profile): PIX is instant and Wise converts at mid-market.",
+          "Work from LatAm freelance platforms (Workana and similar) → Payoneer: it is the rail the platform already uses, and receiving is $0.",
+          "One-off large payment and the client has no corridor → SWIFT wire for the clean documentation trail, accepting the fees.",
+          "Client insists on PayPal → accept for small amounts, but ask them to cover the fee or switch to a cheaper corridor once the relationship is established.",
+          "Client holds USDC or the corridor is unstable → benchmark the stablecoin route against the bank rails before committing (see the stablecoin guide).",
+        ],
       },
     ],
   },

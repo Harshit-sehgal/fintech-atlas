@@ -603,7 +603,7 @@ export function CompanyPageClient({
               <p className="text-xs text-[var(--muted-text)]">Editorial sentiment summary. Notes below are saved only in this browser and are not added to this rating.</p>
             </div>
             <p className="mt-3 text-[11px] leading-relaxed text-[var(--muted-text)]">
-              {c.userReviews.methodology ?? "Editorially synthesized from the reference labels below; this is not a statistically weighted review aggregate."}
+              {c.userReviews.methodology ?? `Editorially synthesized from the provenance record shown below. Ratings are qualitative editorial context — not a statistically weighted community average, independently audited score, or procurement recommendation.`}
               {c.userReviews.asOf ? ` Reviewed ${c.userReviews.asOf}.` : ""}
             </p>
 

@@ -12,12 +12,12 @@
 
 | Capability | Where |
 |---|---|
-| Company directory (42 companies, 12 categories, 24-term glossary) | `src/data/*`, `/companies`, `/categories`, `/glossary` |
+| Company directory (42 companies, 12 categories, 29-term glossary) | `src/data/*`, `/companies`, `/categories`, `/glossary` |
 | Interactive tools (fee estimator, FX remittance, matchmaker quiz, personal finance calculators) | `src/app/tools/*` |
 | Local-only bookmarks + ⌘K command palette | `src/lib/bookmarks-context.tsx`, `command-palette.tsx` |
 | SEO (metadata, canonical, OG, JSON-LD, sitemap, robots) | `src/app/layout.tsx`, `src/components/SEO/*`, `scripts/generate-sitemap.ts` |
 | Accessibility (skip links, focus ring, reduced-motion, contrast tokens) | `src/app/layout.tsx`, `globals.css`, `heading-hierarchy.test.ts` |
-| Automated tests (282 Vitest tests + 18 Playwright E2E journeys) | `src/__tests__/*`, `src/{lib,data}/**/*.test.ts`, `e2e/*` |
+| Automated tests (327 Vitest tests + 80 Playwright E2E journeys) | `src/__tests__/*`, `src/{lib,data}/**/*.test.ts`, `e2e/*` |
 | Static build + sitemap, artifact, and internal-link postbuild gates | `package.json`, `next.config.ts`, `scripts/check-internal-links.mjs` |
 
 ---

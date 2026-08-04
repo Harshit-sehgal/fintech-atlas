@@ -21,6 +21,22 @@ export const changelog: ChangelogEntry[] = [
   {
     date: "2026-08-04",
     kind: "article",
+    title: "How to get paid from Latin America in India",
+    description:
+      "Why PIX, Mercado Pago, and PicPay stop at their border — and the corridors (Wise BRL details, Payoneer via Workana-style platforms, PayPal, SWIFT) that actually land the money in an INR account, with ARS/BRL currency-risk and FIRC notes.",
+    href: "/articles/receiving-payments-from-latin-america-in-india/",
+  },
+  {
+    date: "2026-08-04",
+    kind: "article",
+    title: "Plaid vs India's Account Aggregator",
+    description:
+      "Plaid's 12,000+ institution API model vs the RBI-regulated, consent-based AA framework — the comparison that decides which bank-data integration a fintech actually needs.",
+    href: "/articles/plaid-vs-indias-account-aggregator/",
+  },
+  {
+    date: "2026-08-04",
+    kind: "article",
     title: "USDC vs bank wire: receiving USD in India",
     description:
       "Stablecoin rails compared against the site's bank-rail models — where USDC's 24×7 settlement and fee structure genuinely win, and the Section 115BBH/194S tax, FIRC, and FEMA caveats that keep it a complementary rail, not the default.",
