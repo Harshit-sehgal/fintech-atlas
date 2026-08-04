@@ -3,7 +3,7 @@
 > Actionable gaps and current status (completed items are marked 🟢 rather than
 > removed so the repository-level audit trail remains readable). Complements
 > [GAP-ANALYSIS.md](./GAP-ANALYSIS.md) and the per-goal checklists.
-> Last refreshed: **2026-08-04**. Repository-level static-v1 work is current through the India-focus pass (fee calculator INR mode + GST, Razorpay vs Stripe + Razorpay vs Cashfree articles/presets, homepage repositioning + Popular Comparisons, per-article sitemap lastmods, GitHub Actions uptime monitor, Payoneer fees India article, Payoneer profile copy repair, dedicated Razorpay fee calculator page, catalog-wide editorial copy sweep, T050/T051/T055 link + breadcrumb structured-data wiring, India-first homepage provider directory, India payment glossary terms) and PWA browser verification.
+> Last refreshed: **2026-08-04**. Repository-level static-v1 work is current through the India-focus pass (fee calculator INR mode + GST, Razorpay vs Stripe + Razorpay vs Cashfree articles/presets, homepage repositioning + Popular Comparisons, per-article sitemap lastmods, GitHub Actions uptime monitor, Payoneer fees India article, Payoneer profile copy repair, dedicated Razorpay fee calculator page, catalog-wide editorial copy sweep, T049/T050/T051/T055 link + breadcrumb structured-data wiring, India-first homepage provider directory + latest-guides strip, India payment glossary terms) and PWA browser verification.
 
 **Architecture context:** fully static Next.js 16 export (`output: "export"`) —
 no server, database, auth, or live third-party data feeds.
@@ -71,7 +71,7 @@ Do not implement without revisiting [ADR-001](../adr/001-defer-backend-capabilit
 | Manual keyboard + screen-reader audit | Open |
 | Provider-specific ops beyond [`deployment-providers.md`](../deployment-providers.md) | Ongoing |
 | Dedicated Razorpay fee calculator page (`/tools/razorpay-fee-calculator`) | 🟢 Published-rate table + 18% GST math, reverse-charge formula, INR-preseeded estimator; Razorpay profile CTA updated |
-| T050/T051/T055 architecture wiring | 🟢 Fee-calculator pages link related comparisons; every company profile links the articles that mention it (server-side, hidden when empty); Article + BreadcrumbList JSON-LD on articles and profiles |
+| T049/T050/T051/T055 architecture wiring | 🟢 Every fee-related article links its calculator via a "Try the calculator" box (9/13 articles; Payoneer article omitted — no receive-side tool yet); calculator pages link related comparisons; every company profile links the articles that mention it (server-side, hidden when empty); Article + BreadcrumbList JSON-LD on articles and profiles |
 | India-first homepage directory + glossary | 🟢 Homepage "India-First Providers" curated order (Razorpay, Cashfree, Payoneer, Wise, PhonePe, Paytm); glossary +5 India terms (UPI, MDR, FIRC/FIRA, FEMA, T+1) wired into the related-term graph and category maps |
 
 ---
