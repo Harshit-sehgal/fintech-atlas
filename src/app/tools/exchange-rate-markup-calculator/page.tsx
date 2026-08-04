@@ -69,7 +69,7 @@ export default function ExchangeRateMarkupCalculatorPage() {
               </tr>
               <tr className="border-b border-[var(--border-color)]">
                 <td className="px-4 py-3">Typical Indian bank wire / NRE conversions</td>
-                <td className="px-4 py-3 font-medium">Roughly 1.5–4% hidden spread</td>
+                <td className="px-4 py-3 font-medium">Roughly 1.5–4.5% hidden spread</td>
               </tr>
               <tr>
                 <td className="px-4 py-3">PayPal international payments</td>

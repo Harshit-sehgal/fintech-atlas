@@ -21,6 +21,7 @@ import { formatValuationForStats, formatHeadquartersCity } from "@/lib/format-co
 import { getFocusableElementsInDialog } from "@/lib/focus-trap";
 import { resolvePartnerCta, partnerRel, COMMERCIAL_DISCLOSURE } from "@/lib/partners";
 import { trackCtaClick } from "@/lib/analytics";
+import { CorrectionReportLink } from "@/components/ui/correction-report-link";
 
 function readReviews(slug: string): string {
   if (typeof window === "undefined") return "";

@@ -16,7 +16,9 @@ const toolsLinks = [
   { href: "/tools", label: "Tools Overview" },
   { href: "/tools/calculators", label: "Personal Finance Calculators" },
   { href: "/tools/calculator", label: "Fee Estimator" },
+  { href: "/tools/razorpay-fee-calculator", label: "Razorpay Fee Calculator (India)" },
   { href: "/tools/remittance", label: "Cross-Border FX Tool" },
+  { href: "/tools/exchange-rate-markup-calculator", label: "Exchange-Rate Markup Calculator" },
   { href: "/tools/matchmaker", label: "Matchmaker Quiz" },
 ];
 
