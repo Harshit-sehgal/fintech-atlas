@@ -71,6 +71,9 @@ export function computeProviderPayout(
   inputs: RemittanceInputs
 ): ProviderPayout {
   const midRate = midMarketRate(inputs.currency);
+  if (!Number.isFinite(inputs.sendAmount) || !Number.isFinite(midRate)) {
+    throw new TypeError("Remittance inputs must be finite numbers");
+  }
   const fee = computeFee(config, inputs.sendAmount);
   const rate = computeEffectiveRate(config, midRate);
   const amountAfterFee = Math.max(0, inputs.sendAmount - fee);

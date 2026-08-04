@@ -209,3 +209,42 @@ describe("computeNetWorth", () => {
     expect(r.totalAssets).toBe(0);
   });
 });
+
+describe("non-finite inputs", () => {
+  it("rejects NaN/Infinity instead of computing NaN results", () => {
+    expect(computeSip(NaN, 10, 5)).toBeNull();
+    expect(computeSip(1000, NaN, 5)).toBeNull();
+    expect(computeSwp(100_000, NaN, 5)).toBeNull();
+    expect(computeEmi(NaN, 10, 5)).toBeNull();
+    expect(computeEmi(100_000, Infinity, 5)).toBeNull();
+    expect(computeCagr(NaN, 2000, 5)).toBeNull();
+    expect(computeCagr(1000, NaN, 5)).toBeNull();
+    expect(computeRetirement(NaN, 6, 20, 25, 10)).toBeNull();
+    expect(computeRetirement(100_000, 6, NaN, 25, 10)).toBeNull();
+    expect(computeFire(NaN, 4, 0, 10_000, 10)).toBeNull();
+    expect(computeFire(100_000, 4, NaN, 10_000, 10)).toBeNull();
+    expect(emergencyFundCoverage(NaN, 1000)).toBeNull();
+    expect(emergencyFundCoverage(5000, NaN)).toBeNull();
+  });
+
+  it("returns 0 instead of NaN for emergency fund need", () => {
+    expect(emergencyFundNeeded(NaN, 6)).toBe(0);
+    expect(emergencyFundNeeded(1000, Infinity)).toBe(0);
+  });
+
+  it("rejects non-finite net worth inputs", () => {
+    const valid = {
+      cash: 10_000,
+      investments: 0,
+      property: 0,
+      vehicles: 0,
+      otherAssets: 0,
+      mortgage: 0,
+      loans: 0,
+      creditCards: 0,
+      otherLiabilities: 0,
+    };
+    expect(() => computeNetWorth({ ...valid, cash: NaN })).toThrow(TypeError);
+    expect(() => computeNetWorth({ ...valid, mortgage: Infinity })).toThrow(TypeError);
+  });
+});

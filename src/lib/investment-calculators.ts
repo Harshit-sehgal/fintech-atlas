@@ -20,6 +20,14 @@ function clampNonNegative(value: number): number {
   return Math.max(0, value);
 }
 
+function isPositive(value: number): boolean {
+  return Number.isFinite(value) && value > 0;
+}
+
+function isNonNegative(value: number): boolean {
+  return Number.isFinite(value) && value >= 0;
+}
+
 export interface SipResult {
   /** Amount invested over the period. */
   invested: number;
@@ -42,7 +50,7 @@ export function computeSip(
   annualReturnPercent: number,
   years: number,
 ): SipResult | null {
-  if (monthlyContribution <= 0 || years <= 0) return null;
+  if (!isPositive(monthlyContribution) || !isPositive(years) || !Number.isFinite(annualReturnPercent)) return null;
   const months = Math.round(years * 12);
   const i = monthlyRate(annualReturnPercent);
   const invested = monthlyContribution * months;
@@ -64,15 +72,14 @@ export interface SwpResult {
 /**
  * Systematic Withdrawal Plan (SWP) — an initial corpus supports a fixed
  * monthly withdrawal, compounded at the annual return. If monthly income from
- * the corpus (return on the balance) covers the withdrawal, the corpus never
- * depletes and `monthsUntilDepleted` is `null`.
+ * the corpus never depletes, `monthsUntilDepleted` is `null`.
  */
 export function computeSwp(
   corpus: number,
   monthlyWithdrawal: number,
   annualReturnPercent: number,
 ): SwpResult | null {
-  if (corpus <= 0 || monthlyWithdrawal <= 0) return null;
+  if (!isPositive(corpus) || !isPositive(monthlyWithdrawal) || !Number.isFinite(annualReturnPercent)) return null;
   const i = monthlyRate(annualReturnPercent);
 
   if (i > 0 && monthlyWithdrawal <= corpus * i) {
@@ -108,7 +115,6 @@ export interface EmiResult {
 
 /**
  * Equated Monthly Installment (EMI) for a fixed-rate amortizing loan.
- *
  *   EMI = P × i × (1+i)^n / ((1+i)^n − 1)
  */
 export function computeEmi(
@@ -116,7 +122,7 @@ export function computeEmi(
   annualRatePercent: number,
   years: number,
 ): EmiResult | null {
-  if (principal <= 0 || years <= 0) return null;
+  if (!isPositive(principal) || !isPositive(years) || !Number.isFinite(annualRatePercent)) return null;
   const i = monthlyRate(annualRatePercent);
   const months = Math.round(years * 12);
 
@@ -133,7 +139,7 @@ export function computeCagr(
   finalValue: number,
   years: number,
 ): number | null {
-  if (initialValue <= 0 || years <= 0 || finalValue < 0) return null;
+  if (!isPositive(initialValue) || !isPositive(years) || !isNonNegative(finalValue)) return null;
   if (finalValue === 0) return -100;
   return (Math.pow(finalValue / initialValue, 1 / years) - 1) * 100;
 }
@@ -173,7 +179,15 @@ export function computeRetirement(
   retirementReturnPercent = accumulationReturnPercent,
   currentSavings = 0,
 ): RetirementResult | null {
-  if (currentMonthlyExpense <= 0 || yearsToRetirement < 0 || retirementYears <= 0) return null;
+  if (
+    !isPositive(currentMonthlyExpense) ||
+    !isNonNegative(yearsToRetirement) ||
+    !isPositive(retirementYears) ||
+    !Number.isFinite(annualInflationPercent) ||
+    !Number.isFinite(accumulationReturnPercent) ||
+    !Number.isFinite(retirementReturnPercent) ||
+    !isNonNegative(currentSavings)
+  ) return null;
 
   const annualExpenseAtRetirement =
     currentMonthlyExpense * 12 * inflate(1, annualInflationPercent, yearsToRetirement);
@@ -212,6 +226,7 @@ export function requiredSip(
   years: number,
   currentSavings = 0,
 ): number {
+  if (!Number.isFinite(targetCorpus) || !Number.isFinite(annualReturnPercent) || !Number.isFinite(years) || !Number.isFinite(currentSavings)) return 0;
   if (targetCorpus <= 0) return 0;
   if (years <= 0) return Math.max(0, targetCorpus - clampNonNegative(currentSavings));
   const months = Math.round(years * 12);
@@ -246,7 +261,13 @@ export function computeFire(
   monthlyContribution: number,
   annualReturnPercent: number,
 ): FireResult | null {
-  if (annualExpenses <= 0 || safeWithdrawalRatePercent <= 0) return null;
+  if (
+    !isPositive(annualExpenses) ||
+    !isPositive(safeWithdrawalRatePercent) ||
+    !isNonNegative(currentAssets) ||
+    !isNonNegative(monthlyContribution) ||
+    !Number.isFinite(annualReturnPercent)
+  ) return null;
   const fireNumber = annualExpenses / (safeWithdrawalRatePercent / 100);
   const assets = clampNonNegative(currentAssets);
   const contribution = clampNonNegative(monthlyContribution);
@@ -277,6 +298,7 @@ export function emergencyFundNeeded(
   monthlyExpenses: number,
   months: number,
 ): number {
+  if (!isNonNegative(monthlyExpenses) || !isNonNegative(months)) return 0;
   return Math.max(0, monthlyExpenses) * Math.max(0, months);
 }
 
@@ -285,7 +307,7 @@ export function emergencyFundCoverage(
   savings: number,
   monthlyExpenses: number,
 ): number | null {
-  if (monthlyExpenses <= 0) return null;
+  if (!isNonNegative(savings) || !isPositive(monthlyExpenses)) return null;
   return Math.max(0, savings) / monthlyExpenses;
 }
 
@@ -310,6 +332,10 @@ export interface NetWorthResult {
 
 /** Sum of assets and liabilities, plus the net figure and a debt ratio. */
 export function computeNetWorth(inputs: NetWorthInputs): NetWorthResult {
+  const values = Object.values(inputs);
+  if (!values.every(Number.isFinite)) {
+    throw new TypeError("Net worth inputs must be finite numbers");
+  }
   const { cash, investments, property, vehicles, otherAssets } = inputs;
   const { mortgage, loans, creditCards, otherLiabilities } = inputs;
   const totalAssets = clampNonNegative(cash) + clampNonNegative(investments) +

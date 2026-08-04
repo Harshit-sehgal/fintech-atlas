@@ -144,6 +144,18 @@ describe("Remittance Calculator Logic", () => {
       expect(payout.fee).toBe(1500);
       expect(payout.netPayout).toBe(0); // (1000 - 1500) clamped to 0
     });
+    it("rejects non-finite send amounts and rates", () => {
+      expect(() =>
+        computeProviderPayout(mockConfigs[0], { sendAmount: NaN, currency: mockCurrencies[0] }),
+      ).toThrow(TypeError);
+      expect(() =>
+        computeProviderPayout(mockConfigs[0], { sendAmount: Infinity, currency: mockCurrencies[0] }),
+      ).toThrow(TypeError);
+      const badRateCurrency = { ...mockCurrencies[0], rate: NaN };
+      expect(() =>
+        computeProviderPayout(mockConfigs[0], { sendAmount: 1000, currency: badRateCurrency }),
+      ).toThrow(TypeError);
+    });
   });
 
   describe("computeProviderPayouts()", () => {

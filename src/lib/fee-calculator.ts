@@ -54,6 +54,10 @@ export function computeProviderCost(config: ProviderFeeConfig, inputs: FeeInputs
     );
   }
 
+  if (![inputs.monthlyRevenue, inputs.avgOrderValue, inputs.intlPercent, inputs.inPersonPercent].every(Number.isFinite)) {
+    throw new TypeError("Fee inputs must be finite numbers");
+  }
+
   const monthlyRevenue = Math.max(0, inputs.monthlyRevenue);
   const { avgOrderValue } = inputs;
   const intlPercent = Math.min(100, Math.max(0, inputs.intlPercent));

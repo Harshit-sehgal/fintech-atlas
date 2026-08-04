@@ -149,6 +149,23 @@ describe("Fee Calculator Logic", () => {
         computeProviderCost(mockConfigs[0], withInPerson),
       );
     });
+    it("rejects non-finite inputs", () => {
+      const base = {
+        monthlyRevenue: 10000,
+        avgOrderValue: 100,
+        intlPercent: 0,
+        inPersonPercent: 0,
+        currency: "USD" as const,
+      };
+      expect(() => computeProviderCost(mockConfigs[0], { ...base, monthlyRevenue: NaN }))
+        .toThrow(TypeError);
+      expect(() => computeProviderCost(mockConfigs[0], { ...base, avgOrderValue: Infinity }))
+        .toThrow(TypeError);
+      expect(() => computeProviderCost(mockConfigs[0], { ...base, intlPercent: NaN }))
+        .toThrow(TypeError);
+      expect(() => computeProviderCost(mockConfigs[0], { ...base, inPersonPercent: Infinity }))
+        .toThrow(TypeError);
+    });
   });
 
   describe("computeProviderCosts()", () => {
