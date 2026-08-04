@@ -972,7 +972,7 @@ export const articles: Article[] = [
     body: [
       {
         type: "p",
-        text: "A US client sends you $500. What lands in your INR account depends on the channel they use: the fee the provider takes, the exchange-rate spread, and how long the money takes. At an illustrative ₹83/USD mid-market rate (2026 catalog vintage), the cheapest and the priciest routes differ by roughly ₹2,800 — about 7% of the amount. The short version: Wise is the cheapest and fastest for most freelancers, bank wires hide their cost in the rate, PayPal is the most expensive, and Payoneer wins when the client already pays through marketplace rails.",
+        text: "A US client sends you $500. What lands in your INR account depends on the channel they use: the fee the provider takes, the exchange-rate spread, and how long the money takes. At an illustrative ₹86/USD mid-market snapshot (the 2026 catalog vintage), the cheapest and the priciest routes differ by roughly ₹2,900 — about 7% of the amount. The short version: Wise is the cheapest and fastest for most freelancers, bank wires hide their cost in the rate, PayPal is the most expensive, and Payoneer wins when the client already pays through marketplace rails.",
       },
       {
         type: "h2",
@@ -982,10 +982,10 @@ export const articles: Article[] = [
         type: "table",
         headers: ["Channel", "Upfront fee", "FX markup", "You receive (₹)", "Typical time"],
         rows: [
-          ["Wise", "≈ $5.10 flat", "0% — mid-market rate", "≈ ₹41,080", "Minutes–hours"],
-          ["Payoneer", "$0 to receive", "1–4% corridor (2% illustrated)", "≈ ₹40,670", "1–2 business days"],
-          ["Bank wire (SWIFT)", "₹850–1,500 incoming + sender's bank fees", "≈ 4.5% corridor", "≈ ₹38,600", "2–5 business days"],
-          ["PayPal", "4.4% + $0.49", "≈ 3.5% FX spread", "≈ ₹38,250", "Instant–1 day"],
+          ["Wise", "≈ $5.10 flat", "0% — mid-market rate", "≈ ₹42,560", "Minutes–hours"],
+          ["Payoneer", "$0 to receive", "1–4% corridor (2% illustrated)", "≈ ₹42,140", "1–2 business days"],
+          ["Bank wire (SWIFT)", "₹850–1,500 incoming + sender's bank fees", "≈ 4.5% corridor", "≈ ₹40,100", "2–5 business days"],
+          ["PayPal", "4.4% + $0.49", "≈ 3.5% FX spread", "≈ ₹39,650", "Instant–1 day"],
         ],
       },
       {
@@ -1041,7 +1041,106 @@ export const articles: Article[] = [
       },
       {
         type: "p",
-        text: "Editorial note: figures are illustrative from the 2026 catalog vintage (₹83/USD mid-market snapshot), not live quotes or financial advice. Fee schedules and FX programs change — verify the current rate before confirming any transfer.",
+        text: "Editorial note: figures are illustrative from the 2026 catalog vintage (₹86/USD mid-market snapshot, matching the Payoneer fees article), not live quotes or financial advice. Fee schedules and FX programs change — verify the current rate before confirming any transfer.",
+      },
+    ],
+  },
+  {
+    slug: "international-payment-settlement-times",
+    title: "International payment settlement times (India)",
+    description:
+      "How fast money actually moves in India: UPI, IMPS, NEFT, RTGS, gateway T+1 settlement, Wise, SWIFT, and Payoneer — typical timelines and what slows them down.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Cross-Border",
+    relatedCompanySlugs: ["razorpay", "cashfree", "stripe", "wise", "payoneer"],
+    ctas: [
+      { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
+      { slug: "cashfree", label: "Visit Cashfree", placement: "compare-vs" },
+      { slug: "wise", label: "Open Wise", placement: "compare-vs" },
+    ],
+    relatedTool: { href: "/tools/remittance", label: "Estimate transfer costs" },
+    body: [
+      {
+        type: "p",
+        text: "The money you expect is only as fast as the rail it travels on. In India the same ₹1,000 can move instantly over UPI or take three business days through a bank wire — and international payments add the correspondent-bank chain on top. The short version: domestic rails settle in seconds to minutes (UPI, IMPS, NEFT, RTGS), payment gateways settle merchants on T+1 as standard, and cross-border payments land in minutes (Wise) to 2–5 business days (SWIFT). What you should expect depends on whether you are a merchant waiting for checkout revenue or a freelancer waiting for a client's transfer.",
+      },
+      {
+        type: "h2",
+        text: "India settlement timelines at a glance",
+      },
+      {
+        type: "table",
+        headers: ["Rail", "Typical time", "Notes", "Best for"],
+        rows: [
+          ["UPI", "Instant, 24×7", "Free; per-bank transaction limits apply", "Checkout, P2P, small payments"],
+          ["IMPS", "Instant, 24×7", "Small fee; works from any bank", "Bank-to-bank transfers"],
+          ["NEFT", "≈ 30 minutes (half-hourly batches)", "Free or near-free; 24×7 since 2019", "Domestic transfers, salaries"],
+          ["RTGS", "Real-time", "₹2 lakh minimum; high-value", "Large domestic payments"],
+          ["Gateway settlement (Razorpay, Cashfree, Stripe India)", "T+1 standard; T+0 for select merchants", "Settled to your bank account next business day", "Online merchants"],
+          ["Wise (USD → INR)", "Minutes–hours", "Local-rail pairs; mid-market FX", "International transfers"],
+          ["Payoneer (USD → INR)", "1–2 business days", "Marketplace rails; 1–4% corridor", "Platform payouts"],
+          ["Bank wire / SWIFT", "2–5 business days", "Correspondent chain + double-ended fees", "Bank-to-bank international"],
+        ],
+      },
+      {
+        type: "h2",
+        text: "Gateway settlement: what T+1 actually means",
+      },
+      {
+        type: "p",
+        text: "When a customer pays you at 8 PM on a Friday, T+1 does not mean Saturday morning. T+1 means the settlement instruction is processed on the next business day — so a Friday-evening transaction typically lands Monday, and a Saturday transaction lands Tuesday. Weekends, public holidays, and bank cut-off times all stretch the calendar.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Standard settlement for Razorpay, Cashfree, and Stripe India is T+1; select merchants on some gateways qualify for T+0 instant settlement.",
+          "New merchants can face temporary settlement holds (days to a couple of weeks) while the gateway builds a risk history.",
+          "Refunds and chargebacks are deducted from upcoming settlements, so a heavy refund week can shrink or delay your payout.",
+          "Settlement happens to your linked bank account, not to a wallet — the bank's own processing adds the final few hours.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "International transfers: where the days go",
+      },
+      {
+        type: "p",
+        text: "A SWIFT wire passes through at least two banks — your client's and yours — and often a correspondent bank in between. Each hop has its own processing window, and weekends pause the chain entirely. FX markets close on weekends too, so a Friday-afternoon USD transfer can effectively stand still until Monday. Wise avoids most of the chain by moving money locally in each country (an INR transfer in India, a USD transfer in the US) and netting the difference — which is why it lands in minutes to hours at the mid-market rate.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Client-side delays matter: the client's bank cut-off time decides whether the wire leaves today or tomorrow.",
+          "Beneficiary banks add their own processing — and their own incoming fees — even after the SWIFT message arrives.",
+          "Payoneer receives into a local account and withdraws to INR on the 1–4% corridor, typically 1–2 business days.",
+          "US ACH (domestic) payments into a Wise USD account clear in 1–3 business days, then convert and land in minutes.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Which timeline matters for your business",
+      },
+      {
+        type: "ul",
+        items: [
+          "Merchant with checkout revenue → gateway T+1 (or T+0 if eligible) is the cash-flow number to plan around; UPI at the counter settles instantly.",
+          "Freelancer waiting on a client → ask how the client pays: ACH into your Wise USD details beats a SWIFT wire on both speed and fees.",
+          "High-value domestic payment → RTGS clears in real time; NEFT is fine when tomorrow is acceptable.",
+          "Recurring international invoices → build a 2–5 business day buffer into your expectations so a slow wire never becomes a missed deadline.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Run your own numbers",
+      },
+      {
+        type: "p",
+        text: "Speed is half the picture — the other half is what the transfer costs you. Use the Cross-Border FX Estimator to compare providers for your exact amount, and the exchange-rate markup calculator to see the hidden spread in any rate you are offered.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: timelines above are typical published behaviour from the 2026 catalog vintage, not guarantees. Settlement windows vary by bank, merchant category, gateway policy, and public holidays — check your provider's current terms before planning around a date.",
       },
     ],
   },
