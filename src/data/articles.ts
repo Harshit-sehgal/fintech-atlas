@@ -36,6 +36,8 @@ export interface Article {
   relatedCompanySlugs: string[];
   /** Commercial CTAs placed in the article's call-to-action band. */
   ctas: ArticleCta[];
+  /** Related interactive tool (plan T049: every article links its calculator). */
+  relatedTool?: { href: string; label: string };
   body: ArticleBlock[];
 }
 
@@ -53,6 +55,7 @@ export const articles: Article[] = [
       { slug: "stripe", label: "Visit Stripe", placement: "compare-vs" },
       { slug: "adyen", label: "Visit Adyen", placement: "compare-vs" },
     ],
+    relatedTool: { href: "/tools/calculator", label: "Run the fee calculator" },
     body: [
       {
         type: "p",
@@ -121,6 +124,7 @@ export const articles: Article[] = [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "revolut", label: "Open Revolut", placement: "compare-vs" },
     ],
+    relatedTool: { href: "/tools/remittance", label: "Estimate transfer costs" },
     body: [
       {
         type: "p",
@@ -185,6 +189,7 @@ export const articles: Article[] = [
       { slug: "stripe", label: "Visit Stripe", placement: "compare-vs" },
       { slug: "paypal", label: "Visit PayPal", placement: "compare-vs" },
     ],
+    relatedTool: { href: "/tools/calculator", label: "Run the fee calculator" },
     body: [
       {
         type: "p",
@@ -418,6 +423,7 @@ export const articles: Article[] = [
       { slug: "stripe", label: "Visit Stripe", placement: "compare-vs" },
       { slug: "paypal", label: "Visit PayPal", placement: "compare-vs" },
     ],
+    relatedTool: { href: "/tools/calculator", label: "Estimate gateway fees" },
     body: [
       {
         type: "p",
@@ -484,6 +490,7 @@ export const articles: Article[] = [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
     ],
+    relatedTool: { href: "/tools/remittance", label: "Estimate FX transfer costs" },
     body: [
       {
         type: "p",
@@ -541,6 +548,7 @@ export const articles: Article[] = [
       { slug: "wise", label: "Compare rates with Wise", placement: "compare-vs" },
       { slug: "revolut", label: "Compare rates with Revolut", placement: "compare-vs" },
     ],
+    relatedTool: { href: "/tools/remittance", label: "Estimate transfer costs" },
     body: [
       {
         type: "p",
@@ -595,6 +603,7 @@ export const articles: Article[] = [
       { slug: "square", label: "Visit Square", placement: "compare-vs" },
       { slug: "stripe", label: "Visit Stripe", placement: "compare-vs" },
     ],
+    relatedTool: { href: "/tools/calculator", label: "Run the fee calculator" },
     body: [
       {
         type: "p",
@@ -653,6 +662,7 @@ export const articles: Article[] = [
       { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
       { slug: "stripe", label: "Visit Stripe", placement: "compare-vs" },
     ],
+    relatedTool: { href: "/tools/razorpay-fee-calculator", label: "Calculate Razorpay fees" },
     body: [
       {
         type: "p",
@@ -744,6 +754,7 @@ export const articles: Article[] = [
       { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
       { slug: "cashfree", label: "Visit Cashfree", placement: "compare-vs" },
     ],
+    relatedTool: { href: "/tools/razorpay-fee-calculator", label: "Calculate gateway fees" },
     body: [
       {
         type: "p",

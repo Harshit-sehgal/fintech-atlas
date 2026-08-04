@@ -25,6 +25,25 @@ describe("articles catalog", () => {
     }
   });
 
+  it("relatedTool links point at an existing tool route", () => {
+    const toolRoutes = new Set([
+      "/tools/calculator",
+      "/tools/razorpay-fee-calculator",
+      "/tools/remittance",
+      "/tools/matchmaker",
+      "/tools/calculators",
+    ]);
+    for (const article of articles) {
+      if (article.relatedTool) {
+        expect(
+          toolRoutes.has(article.relatedTool.href),
+          `${article.slug} relatedTool -> ${article.relatedTool.href}`,
+        ).toBe(true);
+        expect(article.relatedTool.label.length).toBeGreaterThan(0);
+      }
+    }
+  });
+
   it("has well-formed tables and required fields", () => {
     for (const article of articles) {
       expect(article.title.length).toBeGreaterThan(0);

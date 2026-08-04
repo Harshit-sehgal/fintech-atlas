@@ -218,6 +218,18 @@ export default async function ArticlePage({
         </Suspense>
       )}
 
+      {article.relatedTool && (
+        <div className="mt-6 rounded-2xl border border-[var(--accent)]/30 bg-[var(--accent-glow)] p-5">
+          <h2 className="text-sm font-bold text-[var(--foreground)]">Try the calculator</h2>
+          <p className="mt-1 text-xs leading-relaxed text-[var(--muted-text)]">
+            Run the numbers for your own volume and mix before you choose.
+          </p>
+          <Link href={article.relatedTool.href} className="btn-primary mt-3 inline-flex text-xs">
+            {article.relatedTool.label}
+          </Link>
+        </div>
+      )}
+
       <p className="mt-10 border-t border-[var(--border-color)] pt-5 text-xs text-[var(--muted-text)]">
         Editorial disclaimer: fee figures are illustrative published-rate assumptions from the
         catalog vintage, not live quotes. Always verify current terms directly with the provider
