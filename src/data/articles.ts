@@ -1785,6 +1785,111 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "receiving-1000-usd-from-us-client-in-india",
+    title: "Receiving $1,000 from a US client in India",
+    description:
+      "The freelancer-milestone guide: at $1,000 flat fees and percentage fees balance out, marketplace rails (Upwork/Fiverr) route you to Payoneer, and FIRC documentation habits start.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Cross-Border",
+    relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
+    ctas: [
+      { slug: "wise", label: "Open Wise", placement: "compare-vs" },
+      { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
+      { slug: "paypal", label: "Visit PayPal", placement: "compare-vs" },
+    ],
+    relatedTool: { href: "/tools/remittance", label: "Estimate transfer costs" },
+    body: [
+      {
+        type: "p",
+        text: "A $1,000 payment is the freelancer milestone — the typical Upwork or Fiverr payout, the size where clients stop asking how to pay and you should start caring about how you receive it. It sits exactly where the two fee structures balance: the flat fees that dominated at $500 (Wise's $0.50, PayPal's $4.99) have shrunk into the noise, while percentage costs still matter — the spread between the cheapest and priciest channels is roughly ₹6,100, about 7% of the money. The short version: take the payment on the rail your client or platform prefers, pick Wise or Revolut when you choose, and use the first $1,000 receipts to build the documentation habit — invoice pairs, FIRCs, and a folder per project.",
+      },
+      {
+        type: "h2",
+        text: "The numbers at $1,000",
+      },
+      {
+        type: "table",
+        headers: ["Channel", "You receive (₹)", "Fee model", "FX markup"],
+        rows: [
+          ["Wise", "≈ ₹83,099", "0.43% + $0.50", "0%"],
+          ["Revolut", "≈ ₹83,083", "0.5%", "0%"],
+          ["Payoneer (2% corridor illustrated)", "≈ ₹81,830", "1–4% corridor", "In-spread"],
+          ["PayPal / Xoom", "≈ ₹80,175", "$4.99 flat", "3.5%"],
+          ["Illustrative bank wire", "≈ ₹76,952", "$35 flat", "4.5%"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Figures computed from the same fee models and ₹83.50/USD snapshot (2026-08-01) as the Quarterly India Cross-Border Payment Fee Index — the $500 and $5,000 companion tables live in the sibling guides for those amounts.",
+      },
+      {
+        type: "h2",
+        text: "Where the fee structures flip",
+      },
+      {
+        type: "ul",
+        items: [
+          "At $500 the flat fees decided everything — Wise's $0.50 versus PayPal's $4.99 plus a 3.5% spread made the channels differ by more than 10%.",
+          "At $1,000 the flat fees are rounding error; the percentage spread is what separates the rails — about 3.5% between Wise and PayPal, and roughly 7% between the best and the bank wire.",
+          "At $5,000 the percentages converge too, and the decision moves to timing and documentation — the milestone progression is the point: each size has one dominant question.",
+          "For $1,000 the dominant question is which rail your client or platform already uses — switching costs usually exceed the ~3.5% you would save.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Marketplace rails: Upwork and Fiverr",
+      },
+      {
+        type: "ul",
+        items: [
+          "Upwork direct contracts pay via the platform's rails; Fiverr pays out on its schedule — in both cases the platform, not you, picks most of the routing.",
+          "Payoneer is the common withdrawal path for marketplace balances, which is why the Payoneer corridor (1–4%) shows up even when you would never choose it for a direct client payment.",
+          "Withdrawals from a marketplace balance to your bank are the same rail decision as any receipt: compare the corridor rate shown at withdrawal time against the Wise/Revolut route.",
+          "If the platform lets you choose the receiving account, a Wise USD balance often beats the platform's built-in conversion — worth a test withdrawal at your first payout size.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Start the documentation habit here",
+      },
+      {
+        type: "ul",
+        items: [
+          "This is the size where banks routinely issue FIRCs and where export-of-services claims start getting examined — keep the invoice and the credit advice as a pair.",
+          "One folder per client project: invoice, payment record, and (if it arrives) the FIRC — the habit costs minutes per receipt and saves a tax-season scramble.",
+          "If the bank queries the source of a credit, the invoice-plus-FIRC pair answers it; a $1,000 credit without an invoice invites the question.",
+          "44ADA lets eligible freelancers declare 50% of gross receipts as profit without full bookkeeping — the documentation habit keeps the 50% claim defensible.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Which channel should you pick?",
+      },
+      {
+        type: "ul",
+        items: [
+          "Direct client, you choose → Wise or Revolut (within ₹20 of each other here) — give them your USD account details for an ACH payment and convert when you like.",
+          "Client insists on PayPal → acceptable at this size: the ~3.5% gap is a rounding-error class cost on one payment, and the client-friction saving is real.",
+          "Marketplace balance → withdraw through the platform's rails (usually Payoneer), but check the corridor rate before confirming — it moves the outcome by up to 3%.",
+          "Bank wire → only when the client's bank requires it; it is the worst row in the table at every size.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Run your own numbers",
+      },
+      {
+        type: "p",
+        text: "The table is a fixed snapshot — run your exact amount through the Cross-Border FX Estimator, and compare against the full fee index for the $500 and $5,000 companion scenarios.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: figures are computed from the site's published fee models and ₹83.50/USD snapshot (2026-08-01) — the same inputs as the FX estimator. Platform payout rails, Payoneer corridors, and bank practices vary; this is editorial guidance, not tax or legal advice.",
+      },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {
