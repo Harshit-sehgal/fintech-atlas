@@ -138,5 +138,5 @@ const lines = [
 mkdirSync(dirname(outPath), { recursive: true });
 writeFileSync(outPath, lines.join("\n"));
 console.log(
-  `Generated ${outPath}: ${summaries.length} company summaries (${categoryNames.length} category names).`,
+  `Generated ${outPath}: ${summaries.length} company summaries (${Object.keys(categoryNames).length} category names).`,
 );

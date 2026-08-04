@@ -113,7 +113,7 @@ Do not implement without revisiting [ADR-001](../adr/001-defer-backend-capabilit
 |----|-----|
 | W3–W4 | E2E + security/Lighthouse workflows run on all pushed branches locally — merge to `origin/main` + enable GitHub settings |
 | W7 | Dual lockfiles resolved (npm only) — ensure `pnpm-*` stay deleted |
-| E7 | Structured-data and internal-link validation | 🟢 Done — `scripts/check-structured-data.mjs` and `scripts/check-internal-links.mjs` run in `postbuild` and validate the emitted artifact; 243 JSON-LD blocks (incl. BreadcrumbList on all 42 profiles + 13 articles), internal-link checker covers 88 HTML files |
+| E7 | Structured-data and internal-link validation | 🟢 Done — `scripts/check-structured-data.mjs` and `scripts/check-internal-links.mjs` run in `postbuild` and validate the emitted artifact; 245 JSON-LD blocks (incl. BreadcrumbList on all 42 profiles + 13 articles), internal-link checker covers 89 HTML files |
 | E11 | Audit triage policy thin |
 | E15 | ESLint pinned to v9 until eslint-config-next supports 10 |
 | E17 | Secret scanning push-protection still needs GitHub repo settings |
