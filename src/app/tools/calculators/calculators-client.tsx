@@ -24,11 +24,12 @@ import CALCULATORS, {
   type CalcValues,
 } from "@/data/calculator-config";
 
-// All accents are WCAG-AA-safe: ≥4.5:1 as text on --surface/--card and as
-// active-tab backgrounds under cream text (checked per color at 14px).
-const ACCENTS = [
-  "#4f46e5", "#047857", "#92400e", "#6d28d9",
-  "#be185d", "#9a3412", "#b91c1c", "#0e7490", "#166534",
+// Accents are theme-aware CSS variables (globals.css): deep AA-safe shades
+// in light theme, light twins in dark. Both clear 4.5:1 as text on
+// --surface/--card and as active-tab backgrounds under the theme ink.
+const ACCENT_VARS = [
+  "--acc-0", "--acc-1", "--acc-2", "--acc-3", "--acc-4",
+  "--acc-5", "--acc-6", "--acc-7", "--acc-8",
 ];
 
 function defaultValuesFor(calc: (typeof CALCULATORS)[number]): CalcValues {
@@ -134,8 +135,8 @@ export default function CalculatorsClient() {
 
   const activeCalc =
     CALCULATORS.find((c) => c.id === activeId) ?? CALCULATORS[0];
-  const activeValues = valuesByCalc[activeCalc.id];
-  const accent = ACCENTS[CALCULATORS.findIndex((c) => c.id === activeCalc.id) % ACCENTS.length];
+  const activeValues = valuesByCalc[activeCalc.id] ?? defaultValuesFor(activeCalc);
+  const accent = ACCENT_VARS[CALCULATORS.findIndex((c) => c.id === activeCalc.id) % ACCENT_VARS.length];
   const outputs = activeCalc.compute(activeValues);
 
   // Fire tool_complete once hydrated with computed results.
@@ -222,7 +223,7 @@ export default function CalculatorsClient() {
       <div className="mt-10 flex flex-wrap gap-2" role="tablist" aria-label="Choose a calculator">
         {CALCULATORS.map((calc, index) => {
           const active = calc.id === activeCalc.id;
-          const cAccent = ACCENTS[index % ACCENTS.length];
+          const cAccent = ACCENT_VARS[index % ACCENT_VARS.length];
           return (
             <button
               key={calc.id}
@@ -236,7 +237,7 @@ export default function CalculatorsClient() {
                   ? "border-transparent text-[var(--background)]"
                   : "border-[var(--border-color)] text-[var(--muted-text)] hover:border-[var(--border-strong)] hover:text-[var(--foreground)]"
               }`}
-              style={active ? ({ background: cAccent } as CSSProperties) : undefined}
+              style={active ? ({ background: `var(${cAccent})` } as CSSProperties) : undefined}
             >
               <span className="text-base">{calc.icon}</span>
               <span className="font-medium">{calc.name}</span>
@@ -254,8 +255,7 @@ export default function CalculatorsClient() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.25 }}
-          style={{ ["--accent"]: accent } as CSSProperties}
+          style={{ ["--accent"]: `var(${accent})` } as CSSProperties}
           className="mt-8 grid gap-8 lg:grid-cols-12"
         >
           <div className="surface rounded-2xl border border-[var(--border-color)] p-6 lg:col-span-5 print:break-inside-avoid">

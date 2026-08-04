@@ -51,7 +51,7 @@ export default function CategoriesPage() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center justify-between gap-2">
-                    <h2 className="text-lg font-bold tracking-tight text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">{cat.name}</h2>
+                    <h2 className="text-lg font-bold tracking-tight text-[var(--foreground)] group-hover:text-[var(--accent-ink)] transition-colors">{cat.name}</h2>
                     <span className="shrink-0 rounded-full border border-[var(--border-color)] px-2.5 py-0.5 text-[10px] font-mono font-semibold text-[var(--muted-text)]">
                       {count} compan{count === 1 ? "y" : "ies"}
                     </span>

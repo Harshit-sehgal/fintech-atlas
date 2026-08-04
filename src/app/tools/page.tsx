@@ -79,16 +79,17 @@ const toolsList = [
   },
 ];
 
-// Per-tool accent colors used to tint each tool's ambient glow + hover ring.
-// All are WCAG-AA-safe as text on the light surfaces (--surface/--card) and as
-// backgrounds with cream text, so badges and "Launch tool" labels pass.
+// Per-tool accent CSS variables (globals.css): deep shades in the light
+// theme, light twins in dark — readable text ("Launch tool", badges) clears
+// WCAG AA in both. The 20/33/10% alpha tints use color-mix so they follow
+// the theme variable too.
 const TOOL_ACCENTS: Record<string, string> = {
-  calculators: "#6d28d9", // violet
-  calculator: "#4f46e5", // indigo
-  "razorpay-fee-calculator": "#1a64ad", // Razorpay blue
-  remittance: "#047857", // emerald
-  "exchange-rate-markup-calculator": "#0e7490", // cyan
-  matchmaker: "#92400e", // amber
+  calculators: "var(--tool-acc-calculators)",
+  calculator: "var(--tool-acc-calculator)",
+  "razorpay-fee-calculator": "var(--tool-acc-razorpay-fee-calculator)",
+  remittance: "var(--tool-acc-remittance)",
+  "exchange-rate-markup-calculator": "var(--tool-acc-exchange-rate-markup-calculator)",
+  matchmaker: "var(--tool-acc-matchmaker)",
 };
 
 export default function ToolsPage() {
@@ -111,7 +112,7 @@ export default function ToolsPage() {
 
       <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4 reveal-stagger">
         {toolsList.map((tool) => {
-          const accent = TOOL_ACCENTS[tool.id] ?? "#4f46e5";
+          const accent = TOOL_ACCENTS[tool.id] ?? "var(--tool-acc-calculator)";
           return (
             <Link
               key={tool.id}
@@ -122,7 +123,7 @@ export default function ToolsPage() {
               {/* Per-tool tinted ambient glow that intensifies on hover */}
               <div
                 className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full blur-2xl transition-all duration-500 group-hover:scale-150"
-                style={{ background: `${accent}33` }}
+                style={{ background: `color-mix(in srgb, ${accent} 20%, transparent)` }}
               />
 
               <div>
@@ -130,7 +131,7 @@ export default function ToolsPage() {
                   <span className="text-4xl">{tool.icon}</span>
                   <span
                     className="rounded-full border px-3 py-1 text-[11px] font-medium font-mono"
-                    style={{ borderColor: `${accent}55`, background: `${accent}1a`, color: accent }}
+                    style={{ borderColor: `color-mix(in srgb, ${accent} 33%, transparent)`, background: `color-mix(in srgb, ${accent} 10%, transparent)`, color: accent }}
                   >
                     {tool.badge}
                   </span>

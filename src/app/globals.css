@@ -103,6 +103,34 @@
 
   /* Accent-green used for small status/marker glyphs (kept for parity). */
   --term-green: #1e8a54;
+
+  /* Accent ink — the text-grade accent. Inline `--accent` overrides on
+     category/company/tool cards may hold arbitrary brand colours, so
+     always-visible accent text and .eyebrow labels use this theme-scoped
+     twin instead: it clears WCAG AA on every surface in both themes. */
+  --accent-ink: #16563d;
+
+  /* Per-tool / per-calculator accent palettes. Light theme uses deep shades
+     that clear 4.5:1 as text on the cream surfaces and as chip/tab
+     backgrounds under cream text; the dark theme swaps in light twins that
+     clear 4.5:1 as text on the charcoal surfaces and as chip/tab
+     backgrounds under the dark ink. Consumers reference var(--acc-N) /
+     var(--tool-acc-*), never raw hexes. */
+  --acc-0: #4f46e5;
+  --acc-1: #047857;
+  --acc-2: #92400e;
+  --acc-3: #6d28d9;
+  --acc-4: #be185d;
+  --acc-5: #9a3412;
+  --acc-6: #b91c1c;
+  --acc-7: #0e7490;
+  --acc-8: #166534;
+  --tool-acc-calculators: #6d28d9;
+  --tool-acc-calculator: #4f46e5;
+  --tool-acc-razorpay-fee-calculator: #1a64ad;
+  --tool-acc-remittance: #047857;
+  --tool-acc-exchange-rate-markup-calculator: #0e7490;
+  --tool-acc-matchmaker: #92400e;
 }
 
 :root[data-theme="dark"] {
@@ -124,8 +152,7 @@
   --border-color: var(--border);
 
   --fg-dim: #c9c4b8;
-  --muted: #9a9488;
-  --muted-dim: #6d685e;
+  --muted: #a29c90;
   --muted-text: var(--muted);
 
   --accent: #6fc39c;
@@ -146,6 +173,24 @@
   --muted-bg: var(--surface);
 
   --term-green: #4cc27e;
+
+  --accent-ink: #8ad4b2;
+
+  --acc-0: #818cf8;
+  --acc-1: #34d399;
+  --acc-2: #fbbf24;
+  --acc-3: #a78bfa;
+  --acc-4: #fb7185;
+  --acc-5: #fb923c;
+  --acc-6: #f87171;
+  --acc-7: #22d3ee;
+  --acc-8: #4ade80;
+  --tool-acc-calculators: #a78bfa;
+  --tool-acc-calculator: #818cf8;
+  --tool-acc-razorpay-fee-calculator: #60a5fa;
+  --tool-acc-remittance: #34d399;
+  --tool-acc-exchange-rate-markup-calculator: #22d3ee;
+  --tool-acc-matchmaker: #fbbf24;
 }
 
 html {
@@ -263,7 +308,6 @@ h1, h2, h3 {
   border: 1px solid var(--border-strong);
   font-weight: 500;
   font-size: 0.875rem;
-  padding: 0.625rem 1.25rem;
   transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
 .btn-ghost:hover {
@@ -308,7 +352,7 @@ h1, h2, h3 {
   font-weight: 600;
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-ink);
 }
 
 /* ── Backdrop wash — a barely-there tonal shift instead of a tech grid ── */

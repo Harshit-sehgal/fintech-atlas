@@ -127,7 +127,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
                           <CompanyLogo slug={c.slug} name={c.name} size={40} />
                         </div>
                         <div>
-                          <h3 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">{c.name}</h3>
+                          <h3 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent-ink)] transition-colors">{c.name}</h3>
                           <p className="text-xs text-[var(--muted-text)]">{formatValuationShort(c.valuation)}</p>
                         </div>
                       </div>
@@ -138,7 +138,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
                     <p className="mt-3 text-xs leading-relaxed text-[var(--muted-text)] line-clamp-2">{c.tagline}</p>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-[var(--border-color)] flex items-center justify-between text-xs font-semibold text-[var(--accent)]">
+                  <div className="mt-4 pt-3 border-t border-[var(--border-color)] flex items-center justify-between text-xs font-semibold text-[var(--accent-ink)]">
                     <span>View company breakdown</span>
                     <span className="group-hover:translate-x-0.5 transition-transform">→</span>
                   </div>
