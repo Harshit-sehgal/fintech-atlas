@@ -165,7 +165,9 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
   const tools = useMemo(() => [
     { name: "Personal Finance Calculators", path: "/tools/calculators", desc: "SIP, SWP, EMI, CAGR, retirement, FIRE, net worth & emergency fund" },
     { name: "Payment Gateway Fee Estimator", path: "/tools/calculator", desc: "Compare processing costs across Stripe, PayPal, Square & Adyen" },
+    { name: "Razorpay Fee Calculator (India)", path: "/tools/razorpay-fee-calculator", desc: "2% domestic + 18% GST, international up to 3%, reverse-charge formula" },
     { name: "Cross-Border Remittance Calculator", path: "/tools/remittance", desc: "Compare FX & transfer fees for international money transfers" },
+    { name: "Exchange-Rate Markup Calculator", path: "/tools/exchange-rate-markup-calculator", desc: "Measure the hidden FX spread on any transfer, both directions" },
     { name: "FinTech Matchmaker Quiz", path: "/tools/matchmaker", desc: "Find the best financial tool suited for your business or personal needs" },
     { name: "Side-by-Side Comparison", path: "/compare", desc: "Compare companies side-by-side" },
     { name: "Saved Bookmarks", path: "/bookmarks", desc: "View your bookmarked companies and glossary terms" },

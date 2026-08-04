@@ -64,6 +64,20 @@ test.describe("critical flows", () => {
     await expect(dialog).toBeHidden({ timeout: 10_000 });
   });
 
+  test("command palette finds every tool by name", async ({ page }) => {
+    await page.goto("/");
+    await page.keyboard.press(process.platform === "darwin" ? "Meta+K" : "Control+K");
+    const input = page.getByPlaceholder(/Search companies/);
+    await expect(input).toBeAttached();
+    for (const query of ["Markup", "Razorpay", "Remittance", "Matchmaker"]) {
+      await input.fill(query);
+      await expect(
+        page.getByRole("option", { name: new RegExp(query, "i") }).first(),
+      ).toBeVisible({ timeout: 5_000 });
+    }
+    await page.keyboard.press("Escape");
+  });
+
   test("compare deep link preserves the selected companies", async ({ page }) => {
     await page.goto("/compare?companies=stripe,paypal");
     await expect(page.getByText("Stripe", { exact: false }).first()).toBeVisible();

@@ -96,15 +96,18 @@ export default function HomePageClient({
                   Calculate real costs &amp; compare services
                 </h2>
                 <p className="text-sm leading-relaxed text-[var(--muted-text)]">
-                  Estimate payment processing fees, explore illustrative
-                  cross-border FX scenarios, or take the matchmaker quiz to
-                  build an initial fintech shortlist.
+                  Estimate payment processing fees, measure hidden FX
+                  markups on international transfers, or take the matchmaker
+                  quiz to build an initial fintech shortlist.
                 </p>
               </div>
 
               <div className="flex flex-wrap gap-3">
                 <Link href="/tools/calculator" className="btn-primary text-xs">
                   Fee Estimator
+                </Link>
+                <Link href="/tools/exchange-rate-markup-calculator" className="btn-ghost text-xs">
+                  FX Markup
                 </Link>
                 <Link href="/tools/remittance" className="btn-ghost text-xs">
                   Cross-Border FX

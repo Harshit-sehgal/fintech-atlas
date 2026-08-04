@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 import MatchmakerQuizPageClient from "./matchmaker-client";
 import { canonicalUrl } from "@/lib/canonical-url";
@@ -21,8 +22,21 @@ export const metadata: Metadata = {
 
 export default function MatchmakerQuizPage() {
   return (
-    <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading quiz…</div>}>
-      <MatchmakerQuizPageClient />
-    </Suspense>
+    <>
+      <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading quiz…</div>}>
+        <MatchmakerQuizPageClient />
+      </Suspense>
+      <section className="mx-auto max-w-5xl px-5 pb-16">
+        <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-[var(--muted-text)]">Related comparisons</h2>
+          <div className="mt-3 flex flex-wrap gap-3">
+            <Link href="/articles/best-payment-gateway-small-business" className="btn-ghost text-xs">Best payment gateway for small business</Link>
+            <Link href="/articles/wise-vs-payoneer-business-payouts" className="btn-ghost text-xs">Wise vs Payoneer for payouts</Link>
+            <Link href="/articles/best-neobanks-2026" className="btn-ghost text-xs">Best neobanks 2026</Link>
+            <Link href="/articles/razorpay-vs-stripe-payments-india" className="btn-ghost text-xs">Razorpay vs Stripe (India)</Link>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
