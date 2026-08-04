@@ -1686,6 +1686,105 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "razorpay-vs-cashfree-for-ecommerce",
+    title: "Razorpay vs Cashfree for ecommerce",
+    description:
+      "Checkout plugins, EMI and pay-later coverage, COD reconciliation, and international selling — the operational differences that decide the gateway for an Indian online store.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Payments",
+    relatedCompanySlugs: ["razorpay", "cashfree"],
+    ctas: [
+      { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
+      { slug: "cashfree", label: "Visit Cashfree", placement: "compare-vs" },
+    ],
+    relatedTool: { href: "/tools/calculator", label: "Estimate gateway fees" },
+    body: [
+      {
+        type: "p",
+        text: "For an online store, Razorpay and Cashfree are again identical on headline price — 2% + 18% GST on domestic payments, covered in the general gateway comparison — so the ecommerce decision turns on store operations: how the checkout fits your cart, how EMI and pay-later options are surfaced, how COD gets reconciled, and whether you can sell internationally on the same account. Both gateways cover all of these; the differences are in checkout conversion features, integration depth, and which one your store platform supports best.",
+      },
+      {
+        type: "h2",
+        text: "Checkout and store integrations",
+      },
+      {
+        type: "ul",
+        items: [
+          "Both ship first-party plugins for WooCommerce, Shopify, and the major Indian carts — check the plugin's update cadence, because abandoned plugins are how stores end up on outdated SDKs.",
+          "Hosted payment pages and links: both offer them for quick launches; Razorpay's payment-page builder and Cashfree's equivalents are comparable for low-volume stores.",
+          "Headless or custom checkout: both publish SDKs and APIs; the checkout UX (one-click UPI, saved cards, smart retry) is where the platforms differentiate — evaluate with a demo store, not a feature list.",
+          "Conversion features worth testing: express checkouts, one-click reorders for logged-in customers, and UPI intent flows that avoid app-switching friction.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "EMI, pay-later, and UPI at checkout",
+      },
+      {
+        type: "ul",
+        items: [
+          "Both cover card EMI and net-banking EMI; the real question is which banks and tenors are live for your merchant account — coverage varies by agreement, not by gateway brand.",
+          "Pay-later instruments (buy-now-pay-later wallets and card-linked options) are available on both; availability at checkout depends on the customer's instrument, so the merchant-side choice matters less than the coverage list.",
+          "UPI is table stakes — the conversion difference is intent flow design and whether the checkout offers UPI as a first-class option or an afterthought.",
+          "Verify the EMI/pay-later settlement terms: some schemes settle the full amount with a subvention fee, which changes your cash-flow math.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "COD and order reconciliation",
+      },
+      {
+        type: "ul",
+        items: [
+          "COD is a logistics rail, not a payment rail: the gateway reconciles the COD amount your logistics partner collects. Both platforms support it; the difference is in the reconciliation dashboard.",
+          "Look for auto-reconciliation against your order system — manual matching scales badly past a few hundred orders a day.",
+          "Refunds and partial refunds: both handle them, but the speed of the refund loop (and whether the gateway auto-reconciles it with the original order) affects your customer-service workload.",
+          "Chargebacks and disputes: both provide a dispute interface; response windows are short, so dashboard alerting matters more than the form itself.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "International ecommerce",
+      },
+      {
+        type: "ul",
+        items: [
+          "Selling to foreign customers from an Indian store: Razorpay International and Cashfree's cross-border options both let you charge foreign cards on a rupee account — the merchant keeps INR, the customer pays in their currency.",
+          "Published international rates sit at ~3% (Razorpay up to 3%, Cashfree from 2.95%) — close enough that coverage, settlement, and documentation decide.",
+          "If you sell via Shopify Markets or a marketplace, check the gateway's plugin support for multi-currency checkout before committing.",
+          "For larger international volume, compare against a merchant-of-record or a local acquiring setup — the ~3% band is not the floor once cross-border volume is meaningful.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Which store type should pick which",
+      },
+      {
+        type: "ul",
+        items: [
+          "D2C store on Shopify/WooCommerce → whichever plugin your stack runs best on; both are first-party, so this is a tie-breaker you can settle with a demo checkout.",
+          "High-volume marketplace or multi-vendor → Cashfree's verification suite and bulk-payout rails fit marketplace settlement flows; Razorpay's equivalent covers similar ground — compare the payout API for your split logic.",
+          "Headless or custom storefront → evaluate SDK quality and checkout components hands-on; the conversion features above are the differentiator.",
+          "COD-heavy catalogue → whichever gateway's reconciliation workflow you can wire to your order system with least glue code.",
+          "International-first catalogue → check the cross-border product's currency and settlement terms on your merchant agreement before signing.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Run your own numbers",
+      },
+      {
+        type: "p",
+        text: "Operations decide the gateway; volume decides the cost. Run your average order value, volume, and international share through the gateway fee calculator for both providers.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: capabilities, EMI/pay-later coverage, and cross-border terms are indicative of the 2026 catalog vintage and vary by merchant agreement — verify the current feature matrix and your signed terms before deciding.",
+      },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {
