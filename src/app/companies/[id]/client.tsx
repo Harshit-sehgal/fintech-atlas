@@ -537,6 +537,10 @@ export function CompanyPageClient({
                 </li>
               ))}
             </ul>
+            <CorrectionReportLink
+              pageLabel={`${c.name} profile`}
+              pagePath={`/companies/${c.slug}`}
+            />
           </div>
         </section>
       </Reveal>

@@ -1,0 +1,39 @@
+name: Correction report
+description: Flag inaccurate fees, stale data, or broken sources from a FinTech Atlas page
+title: "Correction: "
+labels: [data]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping keep FinTech Atlas accurate. This form is pre-filled from the
+        on-page "Report an issue" link; corrections are reviewed weekly.
+  - type: markdown
+    attributes:
+      value: "**Page:** _filled from the site link_"
+  - type: textarea
+    id: what
+    attributes:
+      label: What is incorrect?
+      description: Quote the wrong claim or number exactly as shown on the page.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Suggested correction / evidence
+      description: What should it say instead, and what source supports it? (URL preferred)
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Fee / pricing data
+        - Exchange rate or FX content
+        - Company facts (founding, funding, leadership)
+        - Source link broken or outdated
+        - Other
+    validations:
+      required: false

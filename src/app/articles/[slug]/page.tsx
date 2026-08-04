@@ -8,6 +8,7 @@ import { openGraphImage } from "@/lib/shared-metadata";
 import { articles, getArticleBySlug, type ArticleBlock } from "@/data/articles";
 import { getCompanyBySlug } from "@/data";
 import Link from "next/link";
+import { CorrectionReportLink } from "@/components/ui/correction-report-link";
 
 export function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
@@ -235,6 +236,10 @@ export default async function ArticlePage({
         catalog vintage, not live quotes. Always verify current terms directly with the provider
         before making a decision.
       </p>
+      <CorrectionReportLink
+        pageLabel={`${article.title} page`}
+        pagePath={`/articles/${article.slug}`}
+      />
     </div>
   );
 }
