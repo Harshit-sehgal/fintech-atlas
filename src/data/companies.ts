@@ -324,7 +324,7 @@ const baseCompanies: BaseCompany[] = [
     sources: ["Crunchbase", "World Banking digest", "NerdWallet"],
   },
   {
-    slug: "robinhood", name: "Robinhood", tagline: "Investing for everyone.", founded: 2013,
+    slug: "robinhood", ownershipType: "public", name: "Robinhood", tagline: "Investing for everyone.", founded: 2013,
     founders: ["Vlad Tenev", "Baiju Bhatt"], headquarters: "Menlo Park, CA", employees: "3000+", ownershipType: "public", valuation: "$12B", website: "robinhood.com", categories: ["investing"], logo: "robinhood", accent: "#21CE99",
     oneLiner: "Commission-free investing in stocks, ETFs, options, and crypto on a mobile-first platform.",
     whatIsIt: "Robinhood is an investing platform best known for pioneering zero-commission stock and ETF trading in the US via a simple mobile and web app.",

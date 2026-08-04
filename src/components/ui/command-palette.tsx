@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { categories } from "@/data/categories";
 import { glossary } from "@/data/glossary";
 import { companySummaries } from "@/generated/company-summaries";
-import { articles } from "@/data/articles";
+import { articleSummaries } from "@/generated/article-summaries";
 import { fuzzyRank } from "@/lib/fuzzy";
 import { CompanyLogo } from "./company-logo";
 import { CategoryIcon } from "./category-icon";
@@ -182,8 +182,8 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
   }, [cleanQuery, tools]);
 
   const filteredArticles = useMemo(() => {
-    if (cleanQuery === "") return articles;
-    return fuzzyRank(articles, cleanQuery, (article) => [
+    if (cleanQuery === "") return articleSummaries;
+    return fuzzyRank(articleSummaries, cleanQuery, (article) => [
       article.title,
       article.description,
       article.category,

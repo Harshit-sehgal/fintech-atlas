@@ -524,7 +524,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-03",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "revolut", "paypal"],
-    relatedArticleSlugs: ["payoneer-fees-india", "how-to-send-money-abroad-cheap"],
+    relatedArticleSlugs: ["payoneer-fees-india", "how-to-send-money-abroad-cheap", "best-payment-method-upwork-india"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -906,7 +906,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["payoneer", "wise"],
-    relatedArticleSlugs: ["wise-vs-payoneer-business-payouts", "receiving-1000-usd-from-us-client-in-india", "quarterly-india-cross-border-fee-index"],
+    relatedArticleSlugs: ["wise-vs-payoneer-business-payouts", "receiving-1000-usd-from-us-client-in-india", "quarterly-india-cross-border-fee-index", "best-payment-method-upwork-india", "best-payment-method-fiverr-india"],
     ctas: [
       { slug: "payoneer", label: "See Payoneer pricing", placement: "compare-vs" },
       { slug: "wise", label: "Compare with Wise", placement: "compare-vs" },
@@ -1222,7 +1222,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
-    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "best-payment-method-upwork-india", "best-payment-method-fiverr-india"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -1327,7 +1327,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
-    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "payoneer-fees-india", "wise-vs-revolut-international-transfers", "international-payment-settlement-times", "stablecoins-for-cross-border-payments", "payment-gateway-fee-comparison-india"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "payoneer-fees-india", "wise-vs-revolut-international-transfers", "international-payment-settlement-times", "stablecoins-for-cross-border-payments", "payment-gateway-fee-comparison-india", "best-payment-method-upwork-india", "best-payment-method-fiverr-india"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -1910,7 +1910,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
-    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "payoneer-fees-india", "gusto-vs-adp-vs-paychex-us-payroll"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "payoneer-fees-india", "gusto-vs-adp-vs-paychex-us-payroll", "best-payment-method-upwork-india", "best-payment-method-fiverr-india"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -2620,6 +2620,217 @@ export const articles: Article[] = [
       {
         type: "p",
         text: "Run your own volume and card mix through the gateway fee calculator — it computes the GST line and the international split for you, so the estimate matches the schedules above exactly.",
+      },
+    ],
+  },
+  {
+    slug: "best-payment-method-upwork-india",
+    author: "FinTech Atlas editorial team",
+    title: "Best payment method for Upwork India (2026)",
+    description:
+      "Upwork's payout rails for India: Direct to Local Bank ($0.99) vs Payoneer's 1–4% corridor vs the USD two-step via Wise — plus the service fee that hits before withdrawal.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Cross-Border",
+    relatedCompanySlugs: ["wise", "payoneer", "paypal"],
+    relatedArticleSlugs: ["best-payment-method-fiverr-india", "payoneer-fees-india", "receiving-1000-usd-from-us-client-in-india", "quarterly-india-cross-border-fee-index", "wise-vs-payoneer-business-payouts", "fira-vs-firc-payment-methods"],
+    ctas: [
+      { slug: "wise", label: "Open Wise", placement: "compare-vs" },
+      { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
+    ],
+    relatedTool: { href: "/tools/exchange-rate-markup-calculator", label: "Measure the conversion markup" },
+    body: [
+      {
+        type: "p",
+        text: "Upwork's payment decision has two stages, and most fee guides only cover the second. Stage one is the service fee Upwork takes from every contract — the percentage you see when you bid is locked for that contract. Stage two is the withdrawal rail that moves your balance to India. The short version for 2026: the rail choice costs you 0% to roughly 4% of the money depending on who converts USD to INR for you, and the headline $0.99 bank fee is rarely the number that decides it.",
+      },
+      {
+        type: "h2",
+        text: "What Upwork takes before you withdraw",
+      },
+      {
+        type: "p",
+        text: "The Freelancer Service Fee ranges from 0% to 15% per contract and is fixed once the contract begins — the exact percentage is shown when a client sends an offer or you submit a proposal, and it stays on the contract details. Most marketplace contracts land at or near 10%, which is the figure the worked example below uses. Direct Contracts carry a reduced fee; Any Hire and Upwork Payroll contracts are excluded.",
+      },
+      {
+        type: "ul",
+        items: [
+          "The fee is per contract and locked — a new client can be quoted a different percentage than a repeat client.",
+          "If a payment is refunded, the service fee on the refunded portion comes back with it.",
+          "Connects are the cost of proposing, not of getting paid — they do not touch the withdrawal.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Withdrawal rails for India",
+      },
+      {
+        type: "table",
+        headers: ["Rail", "Withdrawal fee", "FX cost", "Speed", "Bottom line"],
+        rows: [
+          ["Direct to Local Bank", "$0.99 (+ possible incoming bank fee)", "Upwork's conversion — reported ~2–4% markup; the rate shown on screen is authoritative", "Within 4 business days", "Cheapest headline; min $5"],
+          ["Payoneer", "Upwork's small per-transfer fee", "Payoneer's 1–4% INR corridor (fee-index model)", "2–5 business days to bank", "Same corridor as the fee index; consolidates with other marketplace balances"],
+          ["Direct to US Bank (Wise two-step)", "Free ACH", "Wise: mid-market + ~0.43% + $0.50 (fee-index model)", "1–2 business days to Wise, then your choice", "Lowest FX cost; needs a Wise USD balance with US account details"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Direct to Local Bank is the default for good reason: $0.99 per withdrawal, a $5 minimum, and money within four business days. The catch is the conversion — Upwork sends INR, and the rate it applies carries a markup that 2026 reports put in the 2–4% range. Check the rate shown on your Get Paid screen before confirming: it, not the $0.99, decides the real cost of this rail.",
+      },
+      {
+        type: "p",
+        text: "The two-step trick costs nothing to try: link a Wise USD balance — Wise provides real US routing and account numbers — as your Direct to US Bank destination. Upwork sends the withdrawal as a free ACH transfer, no conversion happens at Upwork, and you convert inside Wise at the mid-market rate plus roughly 0.43% + $0.50, the same model the site's fee index publishes. The caveat: this route is designed for people with US banks, and whether your account can use it is decided by Upwork's Get Paid page, not by any guide.",
+      },
+      {
+        type: "h2",
+        text: "The $1,000 worked example",
+      },
+      {
+        type: "p",
+        text: "A $1,000 milestone at a 10% service fee leaves $900 to withdraw. Direct to Local Bank: $0.99 plus the conversion markup — at a 2–4% markup that is roughly $18–36 of the $900. Payoneer at the corridor's 2% midpoint: roughly $18. The Wise two-step: about $4.40. The spread between cheapest and most expensive rail is $15–30 on a single milestone — smaller than the service fee, but an order of magnitude larger than the $0.99 headline suggests. The markup calculator runs this arithmetic on any snapshot rate.",
+      },
+      {
+        type: "h2",
+        text: "Documents, not just money",
+      },
+      {
+        type: "ul",
+        items: [
+          "Every withdrawal that lands in India is a foreign inward remittance — the bank's credit advice (or FIRC) paired with the Upwork invoice is the evidence file your CA will ask for.",
+          "Export of services stays zero-rated under GST; marketplace payouts do not change that.",
+          "The FIRA vs FIRC guide covers the bank-side formats — the same rules apply to marketplace credits.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Which rail should you pick?",
+      },
+      {
+        type: "ul",
+        items: [
+          "Small balances ($5–200) → Direct to Local Bank; the $0.99 flat beats every percentage option at this size even with the markup.",
+          "Regular $1,000+ milestones → the Wise two-step if your Get Paid page offers it; otherwise Direct to Local Bank — just compare the conversion rate shown at withdrawal.",
+          "You already use Payoneer for other marketplaces or receiving accounts → consolidate there; the corridor is the price of one balance and one conversion.",
+          "Clients paying you directly, outside Upwork → that is a different decision entirely; the receiving guides and the fee index cover it.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Editorial note: service-fee range and rail mechanics above are from Upwork's official help center (accessed 4 August 2026); conversion markups are the site's fee-index models and 2026 reports. The fee percentage on your specific contract and the conversion rate shown on your Get Paid screen before you confirm are authoritative.",
+      },
+    ],
+  },
+  {
+    slug: "best-payment-method-fiverr-india",
+    author: "FinTech Atlas editorial team",
+    title: "Best payment method for Fiverr India (2026)",
+    description:
+      "Fiverr pays in USD only — PayPal, bank transfer via Payoneer, or a Payoneer account. The 20% commission, the 14-day clearance, and which withdrawal rail wins for INR.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Cross-Border",
+    relatedCompanySlugs: ["payoneer", "paypal"],
+    relatedArticleSlugs: ["best-payment-method-upwork-india", "payoneer-fees-india", "receiving-1000-usd-from-us-client-in-india", "quarterly-india-cross-border-fee-index", "fira-vs-firc-payment-methods"],
+    ctas: [
+      { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
+      { slug: "paypal", label: "Visit PayPal", placement: "compare-vs" },
+    ],
+    relatedTool: { href: "/tools/exchange-rate-markup-calculator", label: "Measure the withdrawal markup" },
+    body: [
+      {
+        type: "p",
+        text: "Fiverr's money flow has three stages that matter for India: the 20% commission on every order, the clearance period before earnings become withdrawable, and the withdrawal rail that converts USD to INR. Fiverr pays only in USD — there is no INR rail — so the conversion markup is baked into your choice of withdrawal method. The short version for 2026: bank transfer via Payoneer is the standard pick, PayPal wins only where minimums bind, and the Payoneer account option is worth its $3 when you want to time the conversion yourself.",
+      },
+      {
+        type: "h2",
+        text: "The 20% commission comes first",
+      },
+      {
+        type: "p",
+        text: "Fiverr keeps a flat 20% of every completed order — including extras and tips — before anything reaches your earnings balance. There are no tiers and no volume discounts. On a $100 order you can withdraw $80, and the withdrawal math below starts from that net.",
+      },
+      {
+        type: "ul",
+        items: [
+          "The commission applies per order at completion, including tips.",
+          "Cancellations and refunds reverse the commission on the refunded amount.",
+          "Fiverr's buyer-side service fee is paid by the client, not by you — it is not a seller cost.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Clearance: 14 days, or 7",
+      },
+      {
+        type: "p",
+        text: "Earnings become withdrawable only after a clearance period from order completion: 14 days for most sellers, 7 days for Top Rated, PRO, and Seller Plus Premium sellers. That is the platform's cash-flow tax — budget for it even when the client pays instantly.",
+      },
+      {
+        type: "h2",
+        text: "Withdrawal methods, per Fiverr's own table",
+      },
+      {
+        type: "table",
+        headers: ["Method", "Fee", "Minimum", "Timing", "INR path"],
+        rows: [
+          ["PayPal", "$0", "$1", "24 hours", "Convert and withdraw inside PayPal — its conversion markup applies"],
+          ["Bank transfer (via Payoneer)", "$1", "$20", "1–3 business days local currency; 5–7 days USD wire", "Payoneer converts at its 1–4% corridor"],
+          ["Payoneer account", "$3", "$10", "Up to 2 business days", "Hold USD in Payoneer, convert when you choose"],
+          ["Fiverr Revenue Card", "$1–$3", "$30", "Up to 2 business days", "Discontinued December 2022 — existing cardholders only"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Two official caveats shape the decision. First, Fiverr sends the full amount you withdraw; the provider's conversion is the only place money is lost — the help center says so explicitly. Second, withdrawals cap at $5,000 per transaction, and waiting periods apply (24 hours after the first withdrawal or a method change, 48 hours after a phone-number update), which catches sellers who switch methods mid-flow.",
+      },
+      {
+        type: "h2",
+        text: "What each rail actually costs in INR",
+      },
+      {
+        type: "ul",
+        items: [
+          "Bank transfer via Payoneer ($1) is the default: on a $100 withdrawal the fee is 1%, and the conversion runs through the same 1–4% corridor the site's fee index tracks for Payoneer.",
+          "PayPal is free to withdraw to but converts at PayPal's own markup — the fee index models it around 3.5%, i.e. roughly $3.50 hidden in the rate on $100. It beats the $1 rail only at balances where the $20 bank-transfer minimum binds.",
+          "The Payoneer account option ($3, $10 minimum) is the FX-timing play: keep the USD in Payoneer and convert when the rate suits you — the same hold-and-time decision the $5,000 guide discusses for EEFC accounts, without the bank account.",
+          "The USD wire (5–7 days) exists for sellers who want dollars at their own bank; it is slower than the local-currency option and still costs $1.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Fiverr vs Upwork in one paragraph",
+      },
+      {
+        type: "p",
+        text: "The two platforms differ more in the earning stage than the withdrawal stage: Upwork's service fee is typically 10% and locked per contract, Fiverr's is a flat 20%. The rails are similar — Payoneer dominates both — but Fiverr adds the clearance delay and Upwork adds a cheaper bank rail ($0.99 direct to your Indian bank). The Upwork guide's rail logic applies here too: compare the conversion, not the headline fee.",
+      },
+      {
+        type: "h2",
+        text: "Documents",
+      },
+      {
+        type: "ul",
+        items: [
+          "Fiverr credits are foreign inward remittances like any other export earning — keep the withdrawal record paired with your Fiverr invoice for the FIRC or credit-advice file.",
+          "Export of services is zero-rated under GST; the FIRA vs FIRC guide covers the bank-side paperwork.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Which should you pick?",
+      },
+      {
+        type: "ul",
+        items: [
+          "Most India sellers → bank transfer via Payoneer: $1, $20 minimum, INR in 1–3 business days.",
+          "Balances under $20 → wait for the bank-transfer minimum, or use PayPal if you already hold a USD balance there — the $1 rail cannot start below its floor.",
+          "Large, infrequent conversions → the Payoneer account: pay $3, hold USD, convert when the rate is right.",
+          "You need USD at your own bank (an EEFC plan, for example) → the USD wire, and accept the 5–7 day wait.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Editorial note: fees and timings above are from Fiverr's official help center (accessed 4 August 2026); conversion markups are the site's fee-index models (Payoneer 1–4% corridor, PayPal ~3.5%) and can differ at the moment of withdrawal. The rate shown in your provider account before you confirm is authoritative.",
       },
     ],
   },

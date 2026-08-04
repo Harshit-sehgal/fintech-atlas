@@ -21,6 +21,22 @@ export const changelog: ChangelogEntry[] = [
   {
     date: "2026-08-04",
     kind: "article",
+    title: "Best payment method for Upwork India (2026)",
+    description:
+      "Upwork's two-stage payment decision: the 0–15% service fee locked per contract, then the India rails — Direct to Local Bank ($0.99, ~2–4% conversion markup), Payoneer's 1–4% corridor, and the Wise two-step via free ACH.",
+    href: "/articles/best-payment-method-upwork-india/",
+  },
+  {
+    date: "2026-08-04",
+    kind: "article",
+    title: "Best payment method for Fiverr India (2026)",
+    description:
+      "Fiverr's 20% flat commission, 14-day (or 7-day) clearance, and the official payout table — PayPal free vs bank transfer via Payoneer ($1) vs the Payoneer account ($3) — with the USD-only conversion math for INR.",
+    href: "/articles/best-payment-method-fiverr-india/",
+  },
+  {
+    date: "2026-08-04",
+    kind: "article",
     title: "How to get paid from Latin America in India",
     description:
       "Why PIX, Mercado Pago, and PicPay stop at their border — and the corridors (Wise BRL details, Payoneer via Workana-style platforms, PayPal, SWIFT) that actually land the money in an INR account, with ARS/BRL currency-risk and FIRC notes.",
