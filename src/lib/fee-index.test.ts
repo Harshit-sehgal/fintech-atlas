@@ -71,6 +71,19 @@ describe("Quarterly India Cross-Border Payment Fee Index (article 26)", () => {
     expect(body).toContain("≈ ₹40,915"); // Payoneer 2% corridor
   });
 
+
+  it("keeps the receiving-$5,000 article's table on the same config", () => {
+    const body = articleBodyText("receiving-5000-usd-from-us-client-in-india");
+    const wise = providerConfig("wise");
+    expect(body).toContain(netInr(5000, wise.feePct, wise.feeFixed, wise.fxMargin));
+    const revolut = providerConfig("revolut");
+    expect(body).toContain(netInr(5000, revolut.feePct, revolut.feeFixed, revolut.fxMargin));
+    const paypal = providerConfig("paypal");
+    expect(body).toContain(netInr(5000, paypal.feePct, paypal.feeFixed, paypal.fxMargin));
+    const bank = providerConfig("bank");
+    expect(body).toContain(netInr(5000, bank.feePct, bank.feeFixed, bank.fxMargin));
+    expect(body).toContain("≈ ₹4,09,150"); // Payoneer 2% corridor at $5,000
+  });
   it("keeps the Payoneer article's worked example on the shared snapshot", () => {
     const body = articleBodyText("payoneer-fees-india");
     // 1% corridor: $990 × 83.5; 4% corridor: $960 × 83.5

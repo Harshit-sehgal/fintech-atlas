@@ -1441,6 +1441,128 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "receiving-5000-usd-from-us-client-in-india",
+    title: "Receiving $5,000 from a US client in India",
+    description:
+      "At $5,000 the channel gap shrinks to ~3% — the real decisions are EEFC accounts (hold the dollars), FIRC documentation, and advance payments. Worked numbers from the site's fee index.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Cross-Border",
+    relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
+    ctas: [
+      { slug: "wise", label: "Open Wise", placement: "compare-vs" },
+      { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
+      { slug: "revolut", label: "Open Revolut", placement: "compare-vs" },
+    ],
+    relatedTool: { href: "/tools/remittance", label: "Estimate transfer costs" },
+    body: [
+      {
+        type: "p",
+        text: "A $5,000 receipt from a US client is a different game from $500. At the smaller size the channel choice was worth more than 10% of the money; at $5,000 the published schedules land within about 3% of each other — the channel decision mostly stops mattering, and three new ones take its place: whether to convert at all (EEFC), how to document the receipt (FIRC), and how the client pays (advance vs milestones). The short version: at this size, pick a low-cost rail and spend your attention on holding, records, and timing.",
+      },
+      {
+        type: "h2",
+        text: "The numbers at $5,000",
+      },
+      {
+        type: "table",
+        headers: ["Channel", "You receive (₹)", "Fee model", "FX markup"],
+        rows: [
+          ["Wise", "≈ ₹4,15,663", "0.43% + $0.50", "0%"],
+          ["Revolut", "≈ ₹4,15,413", "0.5%", "0%"],
+          ["Payoneer (2% corridor illustrated)", "≈ ₹4,09,150", "1–4% corridor", "In-spread"],
+          ["PayPal / Xoom", "≈ ₹4,02,485", "$4.99 flat", "3.5%"],
+          ["Illustrative bank wire", "≈ ₹3,95,922", "$35 flat", "4.5%"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Figures computed from the same fee models and ₹83.50/USD snapshot (2026-08-01) as the Quarterly India Cross-Border Payment Fee Index — the full $500/$1,000/$5,000 matrix lives there.",
+      },
+      {
+        type: "h2",
+        text: "What changes at this size",
+      },
+      {
+        type: "ul",
+        items: [
+          "The channel gap compresses: Wise vs PayPal is ~3% at $5,000, versus more than 10% at $500 — the flat fees that hurt small transfers barely register now.",
+          "FIRC becomes routine: at this size your bank will commonly issue (or expect you to have) a Foreign Inward Remittance Certificate for the credit.",
+          "Banks may ask for source documentation — an invoice or contract matching the credit is the standard answer, so keep it ready.",
+          "The amount clears the threshold where an EEFC account (holding the dollars) starts being a real option rather than a curiosity.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "EEFC: hold the dollars instead of converting",
+      },
+      {
+        type: "p",
+        text: "An EEFC (Exchange Earners' Foreign Currency Account) is a foreign-currency account with an AD-category bank that service exporters — including freelancers — can credit with eligible export earnings. Instead of converting on arrival, you keep the USD in the account and convert when you actually need INR. That decouples the payment from the exchange rate: if you believe the rupee will weaken, holding delays conversion; if it strengthens, you lose. It is timing risk either way, and the account is not free money — balances earn interest under RBI norms and can only be used for permitted purposes.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Eligible earnings: foreign-currency receipts for exported services can be credited, up to the permitted percentage — ask your bank about current limits.",
+          "The account lives at your AD bank and pairs with your regular INR account; conversion happens when you instruct it.",
+          "Currency risk is yours: there is no hedging product here — holding is a bet on the USD/INR direction, and converting on receipt is the neutral default.",
+          "Most freelancers do not need an EEFC; it earns its keep only when receipts are frequent or large enough that conversion timing meaningfully moves the outcome.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "FIRC and documentation at $5,000",
+      },
+      {
+        type: "ul",
+        items: [
+          "Keep the invoice and the credit advice (or FIRC) as a pair — it is the evidence trail for export-of-services claims and tax files.",
+          "Export of services is zero-rated under GST; the certificate is the standard receipt evidence your CA will ask for alongside the LUT/refund mechanics.",
+          "The India–US tax treaty prevents double taxation, but the paperwork is yours: file the FIRC with the invoice it corresponds to.",
+          "If the bank queries the source of a credit, the invoice-plus-FIRC pair answers it in one message.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Advance payments and milestones",
+      },
+      {
+        type: "ul",
+        items: [
+          "A 100% advance on invoice is normal at this size — agree the rail before the client pays so you are not surprised by a wire.",
+          "Split milestone payments each generate their own FIRC/credit advice; batch them into one folder per project, not per year.",
+          "If the client pays by ACH into your Wise USD account, you choose when to convert — the same timing decision as an EEFC, without the bank account.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Which channel should you pick?",
+      },
+      {
+        type: "ul",
+        items: [
+          "Direct client paying $5,000 → Wise (or Revolut — within ₹250 of each other at this size), and give them your USD account details for an ACH payment.",
+          "Marketplace or platform payouts → Payoneer: the rail the platform already uses; the ~1.6% gap to Wise is the price of the rails.",
+          "Client insists on PayPal → the ~3% gap is tolerable at this size, but the conversion spread still makes it the worst of the four.",
+          "Never a bank wire at this size unless the client's bank requires it — it is the most expensive row in the table.",
+          "Want conversion timing control → EEFC at your bank, or a Wise USD balance — the choice is where you want the money parked.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Run your own numbers",
+      },
+      {
+        type: "p",
+        text: "The table above is a fixed snapshot. Run your exact amount through the Cross-Border FX Estimator, compare against the full fee index, and use the exchange-rate markup calculator to expose the hidden spread in any rate you are offered.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: figures are computed from the site's published fee models and ₹83.50/USD snapshot (2026-08-01) — the same inputs as the FX estimator. EEFC eligibility, holding limits, and banking practice vary by bank and regulation; this is editorial guidance, not tax or legal advice. Verify current terms before acting.",
+      },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {
