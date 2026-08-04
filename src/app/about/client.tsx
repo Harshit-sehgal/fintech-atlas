@@ -55,7 +55,7 @@ export function AboutClient() {
           </div>
 
           <div>
-            <h2 className="eyebrow !text-[var(--muted-text)] !tracking-widest border-b border-[var(--border-color)] pb-2 pt-4 text-lg font-bold text-[var(--foreground)]">
+            <h2 id="methodology" className="eyebrow !text-[var(--muted-text)] !tracking-widest border-b border-[var(--border-color)] pb-2 pt-4 text-lg font-bold text-[var(--foreground)]">
               Data Sources & Synthesizing Methodology
             </h2>
             <p className="mt-3">The information across our company profiles, tool calculators, and glossary is compiled from:</p>
