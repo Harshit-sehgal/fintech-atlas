@@ -954,6 +954,97 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "receiving-500-usd-from-us-client-in-india",
+    title: "Receiving $500 from a US client in India",
+    description:
+      "What actually lands in your INR account when a US client sends $500 — Wise, Payoneer, PayPal, and bank wire compared with a worked rupee example, plus FIRC and tax notes.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Cross-Border",
+    relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
+    ctas: [
+      { slug: "wise", label: "Open Wise", placement: "compare-vs" },
+      { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
+      { slug: "paypal", label: "Visit PayPal", placement: "compare-vs" },
+    ],
+    relatedTool: { href: "/tools/remittance", label: "Estimate transfer costs" },
+    body: [
+      {
+        type: "p",
+        text: "A US client sends you $500. What lands in your INR account depends on the channel they use: the fee the provider takes, the exchange-rate spread, and how long the money takes. At an illustrative ₹83/USD mid-market rate (2026 catalog vintage), the cheapest and the priciest routes differ by roughly ₹2,800 — about 7% of the amount. The short version: Wise is the cheapest and fastest for most freelancers, bank wires hide their cost in the rate, PayPal is the most expensive, and Payoneer wins when the client already pays through marketplace rails.",
+      },
+      {
+        type: "h2",
+        text: "What each channel delivers for $500",
+      },
+      {
+        type: "table",
+        headers: ["Channel", "Upfront fee", "FX markup", "You receive (₹)", "Typical time"],
+        rows: [
+          ["Wise", "≈ $5.10 flat", "0% — mid-market rate", "≈ ₹41,080", "Minutes–hours"],
+          ["Payoneer", "$0 to receive", "1–4% corridor (2% illustrated)", "≈ ₹40,670", "1–2 business days"],
+          ["Bank wire (SWIFT)", "₹850–1,500 incoming + sender's bank fees", "≈ 4.5% corridor", "≈ ₹38,600", "2–5 business days"],
+          ["PayPal", "4.4% + $0.49", "≈ 3.5% FX spread", "≈ ₹38,250", "Instant–1 day"],
+        ],
+      },
+      {
+        type: "h2",
+        text: "Where the differences come from",
+      },
+      {
+        type: "ul",
+        items: [
+          "Wise converts at the mid-market rate and charges a flat upfront fee (≈ 0.5% at this size), so the FX cost is visible before anyone sends anything.",
+          "Payoneer's USD→INR withdrawal spread (1–4%, corridor-dependent) is hidden inside the conversion — check the exact rate in the Fees section before confirming.",
+          "PayPal's 4.4% + $0.49 cross-border fee applies to receiving personal payments from abroad, and its conversion spread sits on top.",
+          "Bank wires look cheap on paper but add double-ended fees (your client's bank + incoming SWIFT charges) plus the bank's FX margin — the classic hidden-markup trap.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "FIRC, records, and tax",
+      },
+      {
+        type: "p",
+        text: "A $500 inward remittance arrives through the banking channel and is recorded under FEMA like any other foreign receipt. For amounts this small, your bank's credit advice is the practical record — you can request a formal Foreign Inward Remittance Certificate (FIRC) from your branch whenever you need one for tax or documentation purposes.",
+      },
+      {
+        type: "ul",
+        items: [
+          "A US client generally does not deduct Indian TDS, so the gross receipt lands in full — but the amount is business income for you.",
+          "Many freelancers pay tax on a presumptive basis under Section 44ADA when eligible (professional income, turnover within limits) — the India–US tax treaty prevents double taxation.",
+          "Keep the credit advice and any FIRC with your invoices; they are the evidence trail if a bank or the tax office ever asks.",
+          "This is editorial guidance, not tax or legal advice — run your numbers past a CA.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Which channel should you pick?",
+      },
+      {
+        type: "ul",
+        items: [
+          "Occasional $500 from a direct client → Wise: cheapest, fastest, most transparent at this size.",
+          "Platform or marketplace payouts → Payoneer: the rail the platform already uses, and receiving is $0.",
+          "Client insists on PayPal → accept, but know you are paying ~7% versus Wise — asking the client to cover the fee is reasonable.",
+          "Large or recurring amounts → give the client your Wise USD account details so they can pay by domestic ACH transfer; receiving is $0 and there is no SWIFT chain.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Run your own numbers",
+      },
+      {
+        type: "p",
+        text: "The exact gap depends on the day's rate and your specific corridor. Use the Cross-Border FX Estimator to compare providers for your actual amount, and the exchange-rate markup calculator to expose the hidden spread of any rate you are offered.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: figures are illustrative from the 2026 catalog vintage (₹83/USD mid-market snapshot), not live quotes or financial advice. Fee schedules and FX programs change — verify the current rate before confirming any transfer.",
+      },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {
