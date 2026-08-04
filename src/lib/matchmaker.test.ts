@@ -61,6 +61,7 @@ describe("matchmaker capability scoring", () => {
 
   it("keeps every selectable answer meaningful (some company scores)", () => {
     const states = [
+      { userType: "freelancer", priority: "", globalNeed: "", scale: "" },
       { userType: "", priority: "all_in_one", globalNeed: "", scale: "" },
       { userType: "", priority: "", globalNeed: "low", scale: "" },
       { userType: "", priority: "", globalNeed: "", scale: "early" },

@@ -199,7 +199,7 @@ export const COMPANY_CAPABILITIES: Record<string, CompanyCapabilities> = {
   },
   payoneer: {
     useCases: ["transfers", "banking", "payments"],
-    customerTypes: ["ecommerce", "startup"],
+    customerTypes: ["ecommerce", "startup", "personal"],
     channels: ["online", "api"],
     features: ["international", "multi-currency"],
   },
@@ -229,9 +229,15 @@ export const COMPANY_CAPABILITIES: Record<string, CompanyCapabilities> = {
   },
   razorpay: {
     useCases: ["payments"],
-    customerTypes: ["startup", "ecommerce"],
+    customerTypes: ["startup", "ecommerce", "saas", "enterprise"],
+    channels: ["api", "online", "mobile"],
+    features: ["developer-apis", "multi-currency", "international", "low-fee", "all-in-one", "no-code", "high-volume"],
+  },
+  cashfree: {
+    useCases: ["payments"],
+    customerTypes: ["ecommerce", "startup", "saas"],
     channels: ["api", "online"],
-    features: ["developer-apis"],
+    features: ["developer-apis", "low-fee", "no-code"],
   },
   starling: {
     useCases: ["banking", "cards"],

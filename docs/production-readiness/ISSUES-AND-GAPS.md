@@ -73,6 +73,7 @@ Do not implement without revisiting [ADR-001](../adr/001-defer-backend-capabilit
 | Dedicated Razorpay fee calculator page (`/tools/razorpay-fee-calculator`) | 🟢 Published-rate table + 18% GST math, reverse-charge formula, INR-preseeded estimator; Razorpay profile CTA updated |
 | T049/T050/T051/T055 architecture wiring | 🟢 Every fee-related article links its calculator via a "Try the calculator" box (9/13 articles; Payoneer article omitted — no receive-side tool yet); calculator pages link related comparisons; every company profile links the articles that mention it (server-side, hidden when empty); Article + BreadcrumbList JSON-LD on articles and profiles |
 | India-first homepage directory + glossary | 🟢 Homepage "India-First Providers" curated order (Razorpay, Cashfree, Payoneer, Wise, PhonePe, Paytm); glossary +5 India terms (UPI, MDR, FIRC/FIRA, FEMA, T+1) wired into the related-term graph and category maps |
+| Matchmaker quiz India coverage | 🟢 Quiz now recommends Indian providers: new "Freelancer / Independent" answer (international + transfers + multi-currency requirements), Cashfree capability entry, Razorpay capabilities extended (SaaS/enterprise, international, multi-currency, low-fee), Payoneer gains personal tier, PhonePe/Paytm score on personal/all-in-one; legacy SCORE_WEIGHTS matrix kept in sync. Verified: freelancer track → Wise/Razorpay/Revolut; SaaS+low-fee → Razorpay/Cashfree lead |
 
 ---
 
