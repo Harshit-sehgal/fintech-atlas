@@ -38,6 +38,8 @@ export interface Article {
   ctas: ArticleCta[];
   /** Related interactive tool (plan T049: every article links its calculator). */
   relatedTool?: { href: string; label: string };
+  /** Curated cross-article links (plan T052: related guides on genuine relevance). */
+  relatedArticleSlugs?: string[];
   body: ArticleBlock[];
 }
 
@@ -51,6 +53,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-03",
     category: "Payments",
     relatedCompanySlugs: ["stripe", "adyen", "paypal", "square"],
+    relatedArticleSlugs: ["stripe-vs-paypal-online-payments", "square-vs-stripe-retail-and-online"],
     ctas: [
       { slug: "stripe", label: "Visit Stripe", placement: "compare-vs" },
       { slug: "adyen", label: "Visit Adyen", placement: "compare-vs" },
@@ -120,6 +123,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-03",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "revolut", "moneygram", "payoneer"],
+    relatedArticleSlugs: ["how-to-send-money-abroad-cheap", "quarterly-india-cross-border-fee-index", "best-neobanks-2026"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "revolut", label: "Open Revolut", placement: "compare-vs" },
@@ -185,6 +189,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-03",
     category: "Payments",
     relatedCompanySlugs: ["stripe", "paypal", "square", "adyen"],
+    relatedArticleSlugs: ["stripe-vs-adyen-fees", "razorpay-vs-stripe-payments-india", "square-vs-stripe-retail-and-online"],
     ctas: [
       { slug: "stripe", label: "Visit Stripe", placement: "compare-vs" },
       { slug: "paypal", label: "Visit PayPal", placement: "compare-vs" },
@@ -304,6 +309,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Neobanks",
     relatedCompanySlugs: ["chime", "monzo", "n26", "sofi", "revolut", "starling", "nubank", "bunq"],
+    relatedArticleSlugs: ["wise-vs-revolut-international-transfers"],
     ctas: [
       { slug: "chime", label: "Open Chime", placement: "compare-vs" },
       { slug: "sofi", label: "Open SoFi", placement: "compare-vs" },
@@ -430,6 +436,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-03",
     category: "Payments",
     relatedCompanySlugs: ["square", "stripe", "paypal", "adyen"],
+    relatedArticleSlugs: ["razorpay-vs-stripe-payments-india", "razorpay-vs-cashfree-indian-gateways"],
     ctas: [
       { slug: "square", label: "Visit Square", placement: "compare-vs" },
       { slug: "stripe", label: "Visit Stripe", placement: "compare-vs" },
@@ -498,6 +505,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-03",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "revolut", "paypal"],
+    relatedArticleSlugs: ["payoneer-fees-india", "how-to-send-money-abroad-cheap"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -556,6 +564,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-03",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "revolut", "paypal", "moneygram"],
+    relatedArticleSlugs: ["wise-vs-payoneer-business-payouts", "wise-vs-revolut-international-transfers", "receiving-500-usd-from-us-client-in-india"],
     ctas: [
       { slug: "wise", label: "Compare rates with Wise", placement: "compare-vs" },
       { slug: "revolut", label: "Compare rates with Revolut", placement: "compare-vs" },
@@ -593,6 +602,16 @@ export const articles: Article[] = [
         ],
       },
       {
+        type: "table",
+        headers: ["Provider type", "Typical cost (illustrative)", "The catch"],
+        rows: [
+          ["Bank wire", "~4.5% markup, $35-class fee", "Worst rate; correspondent fees at both ends"],
+          ["FX specialist (Wise-class)", "~0.4–0.5% + small fee, mid-market rate", "Fast and transparent — the baseline to beat"],
+          ["Superapp (Revolut-class)", "0.5%, or free within monthly limits", "Free tier caps; markup past the limit"],
+          ["Card-based (PayPal-class)", "~$5 flat + ~3.5% spread", "Convenient; the spread is the cost"],
+        ],
+      },
+      {
         type: "p",
         text: "Run your exact send amount and target currency through our free Cross-Border FX Estimator — it shows the upfront fee, FX markup, and estimated recipient payout for a bank wire, a specialist service, a superapp, and a card-based provider side by side.",
       },
@@ -611,6 +630,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-03",
     category: "Payments",
     relatedCompanySlugs: ["square", "stripe", "paypal", "adyen"],
+    relatedArticleSlugs: ["stripe-vs-adyen-fees", "stripe-vs-paypal-online-payments"],
     ctas: [
       { slug: "square", label: "Visit Square", placement: "compare-vs" },
       { slug: "stripe", label: "Visit Stripe", placement: "compare-vs" },
@@ -670,6 +690,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Payments",
     relatedCompanySlugs: ["razorpay", "stripe"],
+    relatedArticleSlugs: ["razorpay-vs-cashfree-indian-gateways", "best-payment-gateway-small-business", "razorpay-vs-stripe-for-developers", "payment-gateway-for-subscription-businesses", "stripe-vs-paypal-online-payments"],
     ctas: [
       { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
       { slug: "stripe", label: "Visit Stripe", placement: "compare-vs" },
@@ -762,6 +783,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Payments",
     relatedCompanySlugs: ["razorpay", "cashfree"],
+    relatedArticleSlugs: ["razorpay-vs-stripe-payments-india", "best-payment-gateway-small-business", "razorpay-vs-cashfree-for-ecommerce"],
     ctas: [
       { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
       { slug: "cashfree", label: "Visit Cashfree", placement: "compare-vs" },
@@ -858,6 +880,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["payoneer", "wise"],
+    relatedArticleSlugs: ["wise-vs-payoneer-business-payouts", "receiving-1000-usd-from-us-client-in-india", "quarterly-india-cross-border-fee-index"],
     ctas: [
       { slug: "payoneer", label: "See Payoneer pricing", placement: "compare-vs" },
       { slug: "wise", label: "Compare with Wise", placement: "compare-vs" },
@@ -975,6 +998,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
+    relatedArticleSlugs: ["receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "how-to-send-money-abroad-cheap", "international-payment-settlement-times", "quarterly-india-cross-border-fee-index"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -1066,6 +1090,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["razorpay", "cashfree", "stripe", "wise", "payoneer", "paytm", "phonepe", "google-pay", "visa-direct", "mastercard-send"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "quarterly-india-cross-border-fee-index"],
     ctas: [
       { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
       { slug: "cashfree", label: "Visit Cashfree", placement: "compare-vs" },
@@ -1166,6 +1191,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -1269,11 +1295,13 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "payoneer-fees-india", "wise-vs-revolut-international-transfers", "international-payment-settlement-times"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
       { slug: "revolut", label: "Open Revolut", placement: "compare-vs" },
     ],
+    relatedTool: { href: "/tools/remittance", label: "Run your own amount" },
     body: [
       {
         type: "p",
@@ -1351,6 +1379,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Payments",
     relatedCompanySlugs: ["razorpay", "cashfree", "stripe"],
+    relatedArticleSlugs: ["razorpay-vs-stripe-payments-india", "razorpay-vs-stripe-for-developers", "razorpay-vs-cashfree-for-ecommerce"],
     ctas: [
       { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
       { slug: "cashfree", label: "Visit Cashfree", placement: "compare-vs" },
@@ -1463,6 +1492,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -1585,6 +1615,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Payments",
     relatedCompanySlugs: ["razorpay", "stripe"],
+    relatedArticleSlugs: ["razorpay-vs-stripe-payments-india", "payment-gateway-for-subscription-businesses"],
     ctas: [
       { slug: "razorpay", label: "Razorpay developer docs", placement: "compare-vs" },
       { slug: "stripe", label: "Stripe developer docs", placement: "compare-vs" },
@@ -1594,6 +1625,22 @@ export const articles: Article[] = [
       {
         type: "p",
         text: "For an engineering team, Razorpay vs Stripe is a developer-experience question, not a pricing one — the published rates converge at 2% + GST on domestic payments, and the business comparison is covered separately. The DX differences are real but narrower than Stripe's global reputation suggests: Stripe brings a more consistent API surface, richer event model, and first-class test tooling; Razorpay brings native India-specific rails — UPI intents, AutoPay mandates, and payouts — that Stripe India does not match. If your checkout is UPI-heavy and Indian, Razorpay gets you live faster; if you are building global subscriptions or need the cleanest API to hang billing off, Stripe is the safer long-term bet.",
+      },
+      {
+        type: "h2",
+        text: "Capability at a glance",
+      },
+      {
+        type: "table",
+        headers: ["Capability", "Razorpay", "Stripe (India)"],
+        rows: [
+          ["API design", "India-first resources (orders, UPI intents, mandates)", "Consistent, versioned, idempotency-first"],
+          ["SDK coverage", "All major languages + WooCommerce/Shopify plugins", "All major languages + ecosystem plugins"],
+          ["Webhook event model", "Core payment/refund/settlement events", "Rich catalog incl. subscription lifecycle"],
+          ["Test tooling", "Sandbox with UPI test flow", "Sandbox + test clock for recurring billing"],
+          ["India rails (UPI, AutoPay, payouts)", "Native, first-party", "Limited — verify current coverage"],
+          ["PCI scope", "SAQ-A on hosted flows", "SAQ-A on hosted flows"],
+        ],
       },
       {
         type: "h2",
@@ -1708,6 +1755,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Payments",
     relatedCompanySlugs: ["razorpay", "cashfree"],
+    relatedArticleSlugs: ["razorpay-vs-cashfree-indian-gateways", "payment-gateway-for-subscription-businesses"],
     ctas: [
       { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
       { slug: "cashfree", label: "Visit Cashfree", placement: "compare-vs" },
@@ -1717,6 +1765,22 @@ export const articles: Article[] = [
       {
         type: "p",
         text: "For an online store, Razorpay and Cashfree are again identical on headline price — 2% + 18% GST on domestic payments, covered in the general gateway comparison — so the ecommerce decision turns on store operations: how the checkout fits your cart, how EMI and pay-later options are surfaced, how COD gets reconciled, and whether you can sell internationally on the same account. Both gateways cover all of these; the differences are in checkout conversion features, integration depth, and which one your store platform supports best.",
+      },
+      {
+        type: "h2",
+        text: "Capability at a glance",
+      },
+      {
+        type: "table",
+        headers: ["Capability", "Razorpay", "Cashfree"],
+        rows: [
+          ["Cart plugins (WooCommerce/Shopify)", "First-party", "First-party"],
+          ["EMI / pay-later at checkout", "Yes — coverage by agreement", "Yes — coverage by agreement"],
+          ["UPI intent checkout", "First-class", "First-class"],
+          ["COD reconciliation", "Dashboard + auto-reconcile", "Dashboard + bulk tools"],
+          ["International cards (₹ account)", "Up to 3%", "From 2.95%"],
+          ["Settlement", "T+1 standard", "T+1 default"],
+        ],
       },
       {
         type: "h2",
@@ -1807,6 +1871,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "payoneer-fees-india"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },

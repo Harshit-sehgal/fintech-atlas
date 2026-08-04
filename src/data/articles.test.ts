@@ -58,4 +58,18 @@ describe("articles catalog", () => {
       }
     }
   });
+
+  it("relatedArticleSlugs point at real articles, never self, and stay symmetric", () => {
+    const bySlug = new Map(articles.map((a) => [a.slug, a]));
+    for (const article of articles) {
+      for (const slug of article.relatedArticleSlugs ?? []) {
+        expect(bySlug.has(slug), `${article.slug} -> ${slug} (unknown)`).toBe(true);
+        expect(slug).not.toBe(article.slug);
+        expect(
+          bySlug.get(slug)?.relatedArticleSlugs?.includes(article.slug),
+          `${article.slug} <-> ${slug} (one-way)`,
+        ).toBe(true);
+      }
+    }
+  });
 });

@@ -195,6 +195,33 @@ export default async function ArticlePage({
         </div>
       )}
 
+      {article.relatedArticleSlugs && article.relatedArticleSlugs.length > 0 && (
+        <div className="mt-12">
+          <h2 className="text-lg font-bold text-[var(--foreground)]">Related guides</h2>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {article.relatedArticleSlugs.map((s) => {
+              const relatedArticle = getArticleBySlug(s);
+              if (!relatedArticle) return null;
+              return (
+                <Link
+                  key={s}
+                  href={`/articles/${s}`}
+                  className="surface rounded-2xl border border-[var(--border-color)] p-4 transition-all hover:border-[var(--foreground)]/30 hover:-translate-y-0.5"
+                >
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted-text)]">
+                    {relatedArticle.category}
+                  </span>
+                  <h3 className="mt-1.5 text-sm font-bold leading-snug text-[var(--foreground)]">
+                    {relatedArticle.title}
+                  </h3>
+                  <span className="mt-2 inline-block text-xs font-bold text-[var(--accent)]">Read →</span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {article.ctas.length > 0 && (
         <Suspense fallback={null}>
           <div className="surface mt-12 rounded-2xl border border-[var(--border-color)] p-5">
