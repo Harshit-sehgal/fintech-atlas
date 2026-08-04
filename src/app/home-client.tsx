@@ -14,7 +14,11 @@ import { HomeHero } from "@/components/home/hero";
 import { LogoMarquee } from "@/components/ui/logo-marquee";
 import { formatValuationShort } from "@/lib/format-company";
 
-export default function HomePageClient() {
+export default function HomePageClient({
+  recentArticles,
+}: {
+  recentArticles: { slug: string; title: string; category: string; displayDate: string }[];
+}) {
   // India-first featured providers (plan §7: "India-specific provider
   // directory"). Curated order so the homepage leads with the Indian market.
   const FEATURED_SLUGS: readonly string[] = ["razorpay", "cashfree", "payoneer", "wise", "phonepe", "paytm"];
@@ -130,6 +134,32 @@ export default function HomePageClient() {
                 {preset.name}
               </h3>
               <p className="mt-1 text-xs text-[var(--muted-text)]">Open the side-by-side comparison →</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Recently verified updates — plan §7 homepage section */}
+      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+        <SectionHeading
+          eyebrow="Recently Verified"
+          title="Latest Guides & Comparisons"
+          description="The newest researched articles, with the dates they were last verified."
+        />
+        <div className="mt-10 grid gap-4 md:grid-cols-3 reveal-stagger">
+          {recentArticles.map((a) => (
+            <Link
+              key={a.slug}
+              href={`/articles/${a.slug}`}
+              className="group block rounded-2xl border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
+            >
+              <p className="text-[11px] font-mono uppercase tracking-wider text-[var(--muted-text)]">
+                {a.category} · {a.displayDate}
+              </p>
+              <h3 className="mt-2 text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
+                {a.title}
+              </h3>
+              <p className="mt-2 text-xs text-[var(--muted-text)]">Read the guide →</p>
             </Link>
           ))}
         </div>
