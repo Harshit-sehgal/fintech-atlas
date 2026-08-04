@@ -1144,6 +1144,109 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "fira-vs-firc-payment-methods",
+    title: "FIRA vs FIRC: payment-method comparison",
+    description:
+      "FIRA and FIRC are the two documents that prove money from abroad reached your Indian bank — what each is, when you need the certificate, and which payment methods produce one.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Cross-Border",
+    relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
+    ctas: [
+      { slug: "wise", label: "Open Wise", placement: "compare-vs" },
+      { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
+      { slug: "paypal", label: "Visit PayPal", placement: "compare-vs" },
+    ],
+    relatedTool: { href: "/tools/remittance", label: "Estimate transfer costs" },
+    body: [
+      {
+        type: "p",
+        text: "FIRA and FIRC are the two documents banks issue for money received from outside India, and the names are used almost interchangeably in freelancer forums — which is exactly why the difference matters. The short version: FIRA is the bank's advice that a remittance arrived; FIRC is the formal certificate with a reference number that accountants, GST offices, and banks ask for when you need to prove foreign receipt. For day-to-day bookkeeping the credit advice is usually enough; for export-of-services claims under GST, tax documentation, or DTAA relief, you want the FIRC.",
+      },
+      {
+        type: "h2",
+        text: "FIRA vs FIRC at a glance",
+      },
+      {
+        type: "table",
+        headers: ["", "FIRA", "FIRC"],
+        rows: [
+          ["Full name", "Foreign Inward Remittance Advice", "Foreign Inward Remittance Certificate"],
+          ["What it is", "The bank's advice/acknowledgement of a credit", "A formal certificate with a certificate number"],
+          ["Issued by", "Your AD-category bank, usually automatically", "Your bank, usually on request"],
+          ["Cost", "Free", "Free (standard practice)"],
+          ["Typical turnaround", "Instant–same day", "1–3 business days"],
+          ["When you need it", "Bookkeeping and general records", "GST export claims, tax files, DTAA documentation, bank queries"],
+        ],
+      },
+      {
+        type: "h2",
+        text: "When the difference actually matters",
+      },
+      {
+        type: "ul",
+        items: [
+          "Export of services under GST — the certificate is the standard evidence that foreign currency was received for the supply.",
+          "Income-tax documentation for foreign receipts, especially when claiming double-taxation relief under the India–US treaty.",
+          "Bank or CA requests for a formal record of a specific inward remittance.",
+          "Large or recurring receipts where the bank's compliance team wants a clean audit trail.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "How to get a FIRC",
+      },
+      {
+        type: "ul",
+        items: [
+          "Most banks now generate FIRCs from netbanking: open the inward-remittance record for the transaction and download the certificate.",
+          "If it is not online, visit the branch that services your account — take the transaction reference from your credit advice.",
+          "FIRC is issued under FEMA for remittances received through the banking channel; the process is free as standard practice.",
+          "Keep a copy with the matching invoice — the pair is your evidence trail if a bank or the tax office ever asks.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Which payment methods produce one",
+      },
+      {
+        type: "table",
+        headers: ["Channel", "FIRC treatment", "Why"],
+        rows: [
+          ["Bank wire / SWIFT", "Yes — standard", "The classic banking-channel inward remittance; your bank issues FIRC automatically or on request"],
+          ["Wise (USD → INR)", "Usually yes, bank-dependent", "Credits arrive through banking partners; classification varies by bank — ask your branch"],
+          ["Payoneer (USD → INR)", "Usually yes, bank-dependent", "Withdrawals land as banking-channel credits; confirmation depends on your bank"],
+          ["PayPal (balance → INR)", "Typically no", "Withdrawals settle domestically from PayPal's Indian entity, so there is no foreign remittance to certify"],
+        ],
+      },
+      {
+        type: "h2",
+        text: "What to do with the documents",
+      },
+      {
+        type: "ul",
+        items: [
+          "File FIRCs with the invoices they correspond to — one folder per financial year keeps tax season simple.",
+          "If you claim GST refunds or export benefits, your CA will ask for FIRC as standard evidence — collect them as you go, not in April.",
+          "PayPal-only freelancers should keep the withdrawal statements instead; the domestic settlement means no FIRC, but the record still proves the income.",
+          "This is editorial guidance, not tax or legal advice — confirm what your own accountant needs.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Run your own numbers",
+      },
+      {
+        type: "p",
+        text: "FIRC eligibility depends on how your bank classifies a credit — the other half of the picture is what each channel costs. Use the Cross-Border FX Estimator to compare providers for your exact amount, and the exchange-rate markup calculator to expose the hidden spread in any rate you are offered.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: FIRC/FIRA practices are general banking practice as of the 2026 catalog vintage and vary by bank, branch, and transaction type — confirm the current process with your own bank before planning around it.",
+      },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {
