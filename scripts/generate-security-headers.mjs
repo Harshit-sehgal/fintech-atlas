@@ -82,3 +82,20 @@ const headers = `# Generated from the static export by scripts/generate-security
 
 fs.writeFileSync(path.join(outDir, "_headers"), headers);
 console.log(`Generated hashed CSP with ${hashes.size} inline script hashes.`);
+
+// RFC 9116 security contact file. The GitHub issues inbox is the site's only
+// public channel (same pattern as the services booking form). Expires must
+// stay within 12 months of the current date — refresh it on the same cadence
+// as RATES_AS_OF.
+const siteUrl = (process.env.SITE_URL || "https://harshit-sehgal.github.io/fintech-atlas").replace(/\/$/, "");
+const securityTxt = `# Security contact for FinTech Atlas
+# See https://www.rfc-editor.org/rfc/rfc9116
+
+Contact: https://github.com/harshit-sehgal/fintech-atlas/issues
+Expires: 2027-01-01
+Policy: Report vulnerabilities via the Contact link above; coordinated disclosure expected, no bounty program.
+Canonical: ${siteUrl}/.well-known/security.txt
+`;
+fs.mkdirSync(path.join(outDir, ".well-known"), { recursive: true });
+fs.writeFileSync(path.join(outDir, ".well-known", "security.txt"), securityTxt);
+console.log("Generated .well-known/security.txt (RFC 9116).");

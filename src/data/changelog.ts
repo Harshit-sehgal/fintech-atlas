@@ -21,6 +21,23 @@ export const changelog: ChangelogEntry[] = [
   {
     date: "2026-08-04",
     kind: "article",
+    title: "Gusto vs ADP vs Paychex for US payroll",
+    description:
+      "US payroll for global teams — contractor payments (the India-relevant part), W-2 tax filing, benefits, and PEO options across the three, with the pick driven by headcount and state count.",
+    href: "/articles/gusto-vs-adp-vs-paychex-us-payroll/",
+  },
+  {
+    date: "2026-08-04",
+    kind: "article",
+    title: "Brex vs Relay: business banking for startups",
+    description:
+      "Corporate cards and rewards for VC-backed startups vs free business checking for bootstrapped SMBs — including when an Indian company does not need US business banking at all.",
+    href: "/articles/brex-vs-relay-business-banking/",
+  },
+
+  {
+    date: "2026-08-04",
+    kind: "article",
     title: "Receiving $1,000 from a US client in India",
     description:
       "Completes the $500/$1,000/$5,000 trilogy at the point where flat fees and percentage fees balance out — marketplace rails (Upwork/Fiverr → Payoneer), and starting the FIRC and 44ADA documentation habit.",

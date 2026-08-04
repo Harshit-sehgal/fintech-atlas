@@ -309,11 +309,12 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Neobanks",
     relatedCompanySlugs: ["chime", "monzo", "n26", "sofi", "revolut", "starling", "nubank", "bunq"],
-    relatedArticleSlugs: ["wise-vs-revolut-international-transfers"],
+    relatedArticleSlugs: ["wise-vs-revolut-international-transfers", "brex-vs-relay-business-banking"],
     ctas: [
       { slug: "chime", label: "Open Chime", placement: "compare-vs" },
       { slug: "sofi", label: "Open SoFi", placement: "compare-vs" },
     ],
+    relatedTool: { href: "/tools/remittance", label: "Compare transfer costs" },
     body: [
       {
         type: "p",
@@ -436,7 +437,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-03",
     category: "Payments",
     relatedCompanySlugs: ["square", "stripe", "paypal", "adyen"],
-    relatedArticleSlugs: ["razorpay-vs-stripe-payments-india", "razorpay-vs-cashfree-indian-gateways"],
+    relatedArticleSlugs: ["razorpay-vs-stripe-payments-india", "razorpay-vs-cashfree-indian-gateways", "brex-vs-relay-business-banking"],
     ctas: [
       { slug: "square", label: "Visit Square", placement: "compare-vs" },
       { slug: "stripe", label: "Visit Stripe", placement: "compare-vs" },
@@ -998,7 +999,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
-    relatedArticleSlugs: ["receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "how-to-send-money-abroad-cheap", "international-payment-settlement-times", "quarterly-india-cross-border-fee-index"],
+    relatedArticleSlugs: ["receiving-1000-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "how-to-send-money-abroad-cheap", "international-payment-settlement-times", "gusto-vs-adp-vs-paychex-us-payroll"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -1871,7 +1872,7 @@ export const articles: Article[] = [
     updatedAt: "2026-08-04",
     category: "Cross-Border",
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
-    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "payoneer-fees-india"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-5000-usd-from-us-client-in-india", "fira-vs-firc-payment-methods", "quarterly-india-cross-border-fee-index", "payoneer-fees-india", "gusto-vs-adp-vs-paychex-us-payroll"],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -1965,6 +1966,121 @@ export const articles: Article[] = [
       {
         type: "p",
         text: "Editorial note: figures are computed from the site's published fee models and ₹83.50/USD snapshot (2026-08-01) — the same inputs as the FX estimator. Platform payout rails, Payoneer corridors, and bank practices vary; this is editorial guidance, not tax or legal advice.",
+      },
+    ],
+  },
+  {
+    slug: "gusto-vs-adp-vs-paychex-us-payroll",
+    title: "Gusto vs ADP vs Paychex for US payroll",
+    description:
+      "US payroll for global teams: contractor payments, W-2 tax filing, benefits, and PEO options across Gusto, ADP, and Paychex — and when an Indian company actually needs them.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Payroll",
+    relatedCompanySlugs: ["gusto", "adp", "paychex"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india", "receiving-1000-usd-from-us-client-in-india", "brex-vs-relay-business-banking"],
+    ctas: [
+      { slug: "gusto", label: "Visit Gusto", placement: "compare-vs" },
+      { slug: "adp", label: "Visit ADP", placement: "compare-vs" },
+      { slug: "paychex", label: "Visit Paychex", placement: "compare-vs" },
+    ],
+    body: [
+      {
+        type: "p",
+        text: "If you are hiring in the US — contractors or employees — the choice comes down to Gusto for first-time employers and small teams (the smoothest self-serve setup and transparent per-person pricing), ADP for scale and multi-state compliance (the deepest capability, quote-based), and Paychex for SMBs that want a human account manager. One honest caveat for Indian companies: none of the three is required to pay a US contractor — contractor payments are the only feature that matters at that stage, and the receiving-money guides on this site cover cheaper direct rails.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: plans, per-person fees, and features vary by state, headcount, and contract; everything here is the 2026 catalog vintage and educational guidance, not tax or legal advice.",
+      },
+      { type: "h2", text: "Capability at a glance" },
+      {
+        type: "table",
+        headers: ["Capability", "Gusto", "ADP", "Paychex"],
+        rows: [
+          ["Contractor payments (1099)", "Yes — self-serve, per-contractor fee", "Yes — via Run and TotalSource", "Yes — via Flex"],
+          ["W-2 payroll + tax filing", "Yes, all 50 states", "Yes, all 50 states", "Yes, all 50 states"],
+          ["Benefits administration", "Yes (medical, 401(k), commuter)", "Yes, incl. large-plan HR tools", "Yes, guided setup"],
+          ["Pricing model", "Flat per-person monthly", "Quote-based, tiered", "Entry plan + quote tiers"],
+          ["Global / EOR", "Gusto Global (international contractor payments)", "TotalSource PEO", "PEO via Flex"],
+          ["Best for", "First-time employers, small teams", "Mid-market to enterprise", "SMBs wanting an account manager"],
+        ],
+      },
+      { type: "h2", text: "Contractor payments: the India-relevant part" },
+      {
+        type: "ul",
+        items: [
+          "US companies pay international contractors through payroll platforms like Gusto (a per-contractor monthly fee); the platform files 1099-NEC paperwork only for US payees — foreign contractors are paid without US tax withholding.",
+          "If you are the Indian contractor on the receiving side, the payment lands like any other USD receipt — the receiving-$500 and receiving-$1,000 guides compare the rails (Wise, Payoneer, bank wire) that decide what you actually keep.",
+          "Contractor vs employee classification (1099 vs W-2) carries real misclassification risk in the US, and payroll platforms won't decide it for you — get professional advice if a worker looks like a full-time employee.",
+        ],
+      },
+      { type: "h2", text: "Which to pick" },
+      {
+        type: "ul",
+        items: [
+          "You hire a few US contractors and no employees → Gusto, or skip payroll software entirely and pay through the transfer rails in our receiving-money guides.",
+          "You hire your first US W-2 employee → Gusto; setup is self-serve and the tax-filing workflow is the easiest to start.",
+          "You scale past roughly 20 employees or go multi-state → ADP; the compliance surface (state registrations, tax calendars) is the deepest.",
+          "You want a named account manager to lean on → Paychex; its service model is the most relationship-driven.",
+        ],
+      },
+      {
+        type: "p",
+        text: "All three are legitimate; the differentiators are size, state count, and how much hand-holding you want. None of them is required to pay a US contractor — compare the direct rails in the receiving-money guides first.",
+      },
+    ],
+  },
+  {
+    slug: "brex-vs-relay-business-banking",
+    title: "Brex vs Relay: business banking for startups",
+    description:
+      "Corporate cards and rewards vs free business checking: which US business-banking stack fits a VC-backed startup, and which fits a bootstrapped SMB.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Business Banking",
+    relatedCompanySlugs: ["brex", "relay"],
+    relatedArticleSlugs: ["best-neobanks-2026", "best-payment-gateway-small-business", "gusto-vs-adp-vs-paychex-us-payroll"],
+    ctas: [
+      { slug: "brex", label: "Visit Brex", placement: "compare-vs" },
+      { slug: "relay", label: "Visit Relay", placement: "compare-vs" },
+    ],
+    body: [
+      {
+        type: "p",
+        text: "Brex and Relay both run the app-first business-banking model, but they target different companies. Brex is built for venture-backed startups: corporate cards with spend limits and rewards plus cash management, priced around your spend rather than a monthly fee. Relay is built for bootstrapped SMBs: free business checking with up to 20 sub-accounts, high-yield savings, and per-account debit cards, with no monthly fees or minimums. Choose Brex if you're raising and want cards plus rewards; choose Relay if you want free, well-organized banking without upsells.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: both are US-market products — an India-registered company typically needs a US entity (EIN) to open either. Fees, APYs, and features change; this is the 2026 catalog vintage and educational guidance, not financial advice.",
+      },
+      { type: "h2", text: "Capability at a glance" },
+      {
+        type: "table",
+        headers: ["Capability", "Brex", "Relay"],
+        rows: [
+          ["Monthly fee", "None on core checking", "None — the free plan is the flagship"],
+          ["Accounts", "Business checking + cash management", "Business checking + high-yield savings"],
+          ["Cards", "Corporate charge cards with rewards", "Debit cards per sub-account"],
+          ["Target customer", "VC-backed startups", "Bootstrapped SMBs"],
+          ["Expense tools", "Spend limits, approvals, accounting export", "Sub-accounts, roles, receipt capture"],
+          ["International payments", "Available (FX on business balances)", "US-focused — verify current coverage"],
+        ],
+      },
+      { type: "h2", text: "Which to pick" },
+      {
+        type: "ul",
+        items: [
+          "You're a venture-backed startup raising rounds → Brex; rewards and cash-management features scale with spend.",
+          "You're a bootstrapped SMB with simple needs → Relay; free sub-accounts keep tax, rent, and opex buckets cleanly separated.",
+          "You need corporate cards with granular per-employee limits → Brex.",
+          "You want multiple accounts without paying for them → Relay.",
+          "Neither replaces payroll software — the Gusto vs ADP vs Paychex guide covers paying people; and an Indian company paying only US contractors doesn't need US business banking at all.",
+        ],
+      },
+      {
+        type: "p",
+        text: "The decision is funding stage, not feature count: Brex is a spend-management platform for companies that are scaling fast; Relay is free banking for companies that want to stay lean.",
       },
     ],
   },
