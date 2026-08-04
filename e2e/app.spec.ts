@@ -298,6 +298,28 @@ test.describe("services track", () => {
     await popup.close();
   });
 
+  test("booking form offers a direct draft link when the popup is blocked", async ({ page }) => {
+    // Force window.open to fail (browser popup blocker) and confirm the form
+    // does not claim success but offers the prefilled draft as a link.
+    await page.addInitScript(() => {
+      window.open = () => null;
+    });
+    await page.goto("/services/");
+    await page.fill("#svc-email", "founder@example.in");
+    await page.fill(
+      "#svc-message",
+      "We run a D2C store on Shopify doing about eight lakh a month in card payments.",
+    );
+    await page.click('button[type="submit"]');
+    const fallback = page.getByRole("link", { name: /open your prefilled inquiry draft here/i });
+    await expect(fallback).toBeVisible();
+    expect(fallback).toHaveAttribute(
+      "href",
+      expect.stringContaining("github.com/Harshit-sehgal/fintech-atlas/issues/new"),
+    );
+    await expect(page.getByText(/popup was blocked/i)).toBeVisible();
+  });
+
   test("sample report derives fees from the calculator's provider tables", async ({ page }) => {
     await page.goto("/services/gateway-selection-report-sample/");
     // Three INR providers (Razorpay, Stripe India, Cashfree) — never the USD rows.

@@ -32,5 +32,19 @@
       "type": "image/png",
       "purpose": "any"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "Payment Gateway Fee Estimator",
+      "short_name": "Fee Estimator",
+      "url": "./tools/calculator/",
+      "icons": [{ "src": "./icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Services & Consulting",
+      "short_name": "Services",
+      "url": "./services/",
+      "icons": [{ "src": "./icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    }
   ]
 }

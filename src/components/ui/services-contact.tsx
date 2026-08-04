@@ -26,6 +26,7 @@ export function ServicesContactForm() {
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<{ email?: string; message?: string }>({});
   const [submitted, setSubmitted] = useState(false);
+  const [draftUrl, setDraftUrl] = useState<string | null>(null);
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -39,17 +40,17 @@ export function ServicesContactForm() {
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
-    window.open(
-      buildContactIssueUrl({
-        service,
-        businessSize,
-        email: email.trim(),
-        message: message.trim(),
-      }),
-      "_blank",
-      "noopener",
-    );
-    setSubmitted(true);
+    const url = buildContactIssueUrl({
+      service,
+      businessSize,
+      email: email.trim(),
+      message: message.trim(),
+    });
+    setDraftUrl(url);
+    // Popups can be blocked (browser settings, in-app webviews) — window.open
+    // returns null then, so only claim success when the draft actually opened.
+    const popup = window.open(url, "_blank", "noopener");
+    setSubmitted(popup !== null);
   }
 
   const inputClasses =
@@ -147,6 +148,19 @@ export function ServicesContactForm() {
           Your browser opened a <strong className="text-[var(--foreground)]">GitHub issue draft</strong> with
           your inquiry prefilled — press <em>Submit new issue</em> there to send it. Nothing is sent until you
           do; it lands in the site&apos;s public issue tracker.
+        </p>
+      ) : draftUrl ? (
+        <p role="status" className="text-xs leading-relaxed text-[var(--muted-text)]">
+          The popup was blocked —{" "}
+          <a
+            href={draftUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-[var(--accent-ink)] underline decoration-[var(--accent)]/40 underline-offset-4 hover:decoration-[var(--accent)]"
+          >
+            open your prefilled inquiry draft here
+          </a>
+          . Nothing is sent until you submit it on GitHub.
         </p>
       ) : (
         <p className="text-xs leading-relaxed text-[var(--muted-text)]">
