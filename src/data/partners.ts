@@ -14,7 +14,7 @@
  */
 
 import type { PartnerOffer } from "./types";
-import { companies } from "./companies";
+import { companySummaries } from "@/generated/company-summaries";
 
 /** High-value B2B / consumer targets — pre-labeled for partner enrollment. */
 const PRIORITY_OVERRIDES: Record<
@@ -174,7 +174,7 @@ function defaultCtaLabel(name: string): string {
  * Full partner catalog — one entry per company.
  * Generated from the company directory so new companies get a safe default CTA.
  */
-export const partnerOffers: PartnerOffer[] = companies.map((company) => {
+export const partnerOffers: PartnerOffer[] = companySummaries.map((company) => {
   const override = PRIORITY_OVERRIDES[company.slug];
   return {
     companySlug: company.slug,

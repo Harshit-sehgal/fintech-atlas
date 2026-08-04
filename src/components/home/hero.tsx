@@ -3,7 +3,11 @@
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import { companies, categories, glossary } from "@/data";
+import {
+  companySummaries,
+  categoryNames,
+  getCompanySummaryBySlug,
+} from "@/generated/company-summaries";
 import { DATA_AS_OF } from "@/lib/site-config";
 import { CountUp } from "@/components/ui/count-up";
 import { CompanyLogo } from "@/components/ui/company-logo";
@@ -25,7 +29,7 @@ const HERO_PROFILE_SLUGS = [
 
 /* Resolve a slug to its catalog entry, skipping any that have drifted away. */
 const heroProfiles = HERO_PROFILE_SLUGS.map((slug) =>
-  companies.find((c) => c.slug === slug),
+  getCompanySummaryBySlug(slug),
 ).filter((c): c is NonNullable<typeof c> => Boolean(c));
 
 /* Hook that rotates through heroProfiles every few seconds. */
@@ -42,10 +46,10 @@ function useRotatingProfile(interval = 5000) {
   return heroProfiles[index] ?? heroProfiles[0];
 }
 
-export function HomeHero() {
+export function HomeHero({ glossaryCount = 0 }: { glossaryCount?: number }) {
   const activeProfile = useRotatingProfile();
   const categoryName =
-    categories.find((x) => activeProfile.categories.includes(x.slug))?.name ??
+    activeProfile.categories.map((slug) => categoryNames[slug]).find(Boolean) ??
     activeProfile.categories?.[0] ??
     "";
 
@@ -78,7 +82,7 @@ export function HomeHero() {
           className="mx-auto mt-6 max-w-xl text-pretty text-base leading-relaxed text-[var(--muted-text)] sm:text-lg"
         >
           Calculate real fees, settlement amounts and provider differences
-          before choosing — {companies.length} company profiles, no jargon
+          before choosing — {companySummaries.length} company profiles, no jargon
           without an explanation.
         </motion.p>
 
@@ -102,10 +106,9 @@ export function HomeHero() {
       >
         <div className="grid grid-cols-2 divide-x divide-[var(--border-color)] md:grid-cols-4">
           {[
-            { value: companies.length, label: "Company profiles" },
-            { value: categories.length, label: "Industry categories" },
-            { value: glossary.length, label: "Glossary terms" },
-            { value: 0, label: "Data as of" },
+            { value: companySummaries.length, label: "Company profiles" },
+            { value: Object.keys(categoryNames).length, label: "Industry categories" },
+            { value: glossaryCount, label: "Glossary terms" },
           ].map(({ value, label }) => (
             <div key={label} className="px-3 py-6 text-center">
               <div className="font-display text-3xl font-semibold tabular-nums text-[var(--foreground)] md:text-4xl">
@@ -182,7 +185,7 @@ export function HomeHero() {
                 </div>
                 <div className="bg-[var(--card)] px-3 py-3">
                   <div className="text-[10px] font-medium uppercase tracking-wider text-[var(--muted-text)]">Rating</div>
-                  <div className="mt-0.5 text-sm font-semibold tabular-nums text-[var(--foreground)]">★ {activeProfile.userReviews.rating.toFixed(1)}</div>
+                  <div className="mt-0.5 text-sm font-semibold tabular-nums text-[var(--foreground)]">★ {activeProfile.rating.toFixed(1)}</div>
                 </div>
               </div>
 

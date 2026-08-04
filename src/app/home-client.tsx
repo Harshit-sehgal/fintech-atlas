@@ -3,7 +3,13 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { useMemo } from "react";
-import { companies, categories, glossary, getCompaniesByCategory } from "@/data";
+import { categories } from "@/data/categories";
+import { glossary } from "@/data/glossary";
+import {
+  companySummaries,
+  companySummaryCountByCategory,
+  getCompanySummaryBySlug,
+} from "@/generated/company-summaries";
 import { PRESETS } from "@/data/compare-presets";
 import { DATA_AS_OF } from "@/lib/site-config";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -14,22 +20,23 @@ import { HomeHero } from "@/components/home/hero";
 import { LogoMarquee } from "@/components/ui/logo-marquee";
 import { formatValuationShort } from "@/lib/format-company";
 
+// India-first featured providers (plan §7: "India-specific provider
+// directory"). Curated order so the homepage leads with the Indian market.
+const FEATURED_SLUGS: readonly string[] = ["razorpay", "cashfree", "payoneer", "wise", "phonepe", "paytm"];
+
 export default function HomePageClient({
   recentArticles,
 }: {
   recentArticles: { slug: string; title: string; category: string; displayDate: string }[];
 }) {
-  // India-first featured providers (plan §7: "India-specific provider
-  // directory"). Curated order so the homepage leads with the Indian market.
-  const FEATURED_SLUGS: readonly string[] = ["razorpay", "cashfree", "payoneer", "wise", "phonepe", "paytm"];
   const featured = useMemo(
     () =>
-      FEATURED_SLUGS.map((slug) => companies.find((c) => c.slug === slug))
+      FEATURED_SLUGS.map((slug) => getCompanySummaryBySlug(slug))
         .filter((c): c is NonNullable<typeof c> => Boolean(c)),
     [],
   );
   const marquee = useMemo(
-    () => [...featured, ...companies.filter((c) => !FEATURED_SLUGS.includes(c.slug))].slice(0, 32),
+    () => [...featured, ...companySummaries.filter((c) => !FEATURED_SLUGS.includes(c.slug))].slice(0, 32),
     [featured],
   );
 
@@ -54,7 +61,7 @@ export default function HomePageClient({
 
   return (
     <>
-      <HomeHero />
+      <HomeHero glossaryCount={glossary.length} />
 
       {/* Brand wall — auto-scrolling, hover-to-pause logo marquee */}
       <section className="relative border-y border-[var(--border-color)] bg-[var(--subtle-bg)]/30 py-10 overflow-hidden">
@@ -62,13 +69,13 @@ export default function HomePageClient({
           <Reveal>
             <div className="mb-6 flex items-center justify-between">
               <p className="text-xs font-medium uppercase tracking-wider text-[var(--muted-text)]">
-                {companies.length} companies · Updated {DATA_AS_OF}
+                {companySummaries.length} companies · Updated {DATA_AS_OF}
               </p>
               <Link
                 href="/companies"
                 className="hidden text-xs font-semibold text-[var(--accent)] hover:underline underline-offset-4 sm:inline"
               >
-                View all {companies.length}
+                View all {companySummaries.length}
               </Link>
             </div>
           </Reveal>
@@ -240,7 +247,7 @@ export default function HomePageClient({
                   <h3 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">{cat.name}</h3>
                   <p className="mt-1 text-xs leading-relaxed text-[var(--muted-text)] line-clamp-2">{cat.short}</p>
                   {(() => {
-                    const count = getCompaniesByCategory(cat.slug).length;
+                    const count = companySummaryCountByCategory(cat.slug);
                     return count > 0 ? (
                       <p className="mt-3 text-xs font-medium text-[var(--muted-text)]">
                         {count} compan{count === 1 ? "y" : "ies"}
@@ -282,7 +289,7 @@ export default function HomePageClient({
                       </div>
                     </div>
                     <span className="shrink-0 rounded-lg bg-[var(--success)]/10 px-2.5 py-1 text-xs font-semibold text-success-text border border-[var(--success)]/20">
-                      ★ {c.userReviews.rating}
+                      ★ {c.rating}
                     </span>
                   </div>
                   <p className="mt-3 text-xs text-[var(--muted-text)] leading-relaxed line-clamp-2">{c.tagline}</p>
@@ -304,7 +311,7 @@ export default function HomePageClient({
         <Reveal delay={0.15}>
           <div className="mt-8 text-center">
             <Link href="/companies" className="btn-ghost text-xs">
-              View all {companies.length} companies
+              View all {companySummaries.length} companies
             </Link>
           </div>
         </Reveal>

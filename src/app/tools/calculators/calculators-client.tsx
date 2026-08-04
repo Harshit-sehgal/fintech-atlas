@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { useToast } from "@/lib/toast-context";
+import { trackEvent } from "@/lib/analytics";
 import {
   downloadCsv,
   encodeToolParams,
@@ -134,6 +135,16 @@ export default function CalculatorsClient() {
   const activeValues = valuesByCalc[activeCalc.id];
   const accent = ACCENTS[CALCULATORS.findIndex((c) => c.id === activeCalc.id) % ACCENTS.length];
   const outputs = activeCalc.compute(activeValues);
+
+  // Fire tool_complete once hydrated with computed results.
+  useEffect(() => {
+    if (hydrated && outputs) {
+      trackEvent("tool_complete", {
+        tool: "calculator",
+        calc_id: activeCalc.id,
+      });
+    }
+  }, [hydrated, outputs, activeCalc.id]);
 
   const setValue = (calcId: string, key: string, value: number) => {
     setValuesByCalc((prev) => ({

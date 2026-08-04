@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
-import { companies } from "@/data";
+import { companySummaries } from "@/generated/company-summaries";
 import { getContrastingText } from "@/lib/color";
 import {
   computeMatchScores,
@@ -24,6 +24,7 @@ import {
   shareOrCopy,
 } from "@/lib/share";
 import { useToast } from "@/lib/toast-context";
+import { trackEvent } from "@/lib/analytics";
 
 const QUIZ_KEYS: (keyof QuizState)[] = ["userType", "priority", "globalNeed", "scale"];
 
@@ -89,12 +90,25 @@ export default function MatchmakerQuizPageClient() {
   };
 
   const scoredResults = step > 4
-    ? computeMatchScores(quizState, companies)
+    ? computeMatchScores(quizState, companySummaries)
     : [];
   const topScore = scoredResults[0]?.score ?? 0;
   const results = topScore > 0
     ? scoredResults.slice(0, 3).map(({ company }) => company)
     : [];
+
+  // Fire analytics when quiz is completed and results computed.
+  useEffect(() => {
+    if (hydrated && topScore > 0) {
+      trackEvent("tool_complete", {
+        tool: "matchmaker",
+        matches: results.length,
+        top_score: topScore,
+        user_type: quizState.userType,
+        priority: quizState.priority,
+      });
+    }
+  }, [hydrated, topScore, results.length, quizState.userType, quizState.priority]);
 
   // Human-readable question/option labels so the score breakdown can be
   // surfaced as plain-language "why it matched" reasons (audit #31).
@@ -110,7 +124,7 @@ export default function MatchmakerQuizPageClient() {
   // Per-company score breakdown keyed by question; used to explain the
   // shortlist instead of presenting it as a black box.
   const scoreBreakdown = step > 4
-    ? getScoreBreakdown(quizState, companies)
+    ? getScoreBreakdown(quizState, companySummaries)
     : {};
 
   const handleShare = async () => {

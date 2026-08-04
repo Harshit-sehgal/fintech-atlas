@@ -373,7 +373,7 @@ Search results show active competition in this area, including provider pages, i
 21. Razorpay vs Stripe for developers
 22. Razorpay vs Cashfree for ecommerce
 23. International payment settlement times
-24. Exchange-rate markup calculator
+24. ~~Exchange-rate markup calculator~~ ✅ done — `/tools/exchange-rate-markup-calculator` (2026-08-04): input-only mid-vs-offered rate tool with markup % and INR/USD loss for both directions; relatedTool on payoneer-fees-india, how-to-send-money-abroad-cheap, wise-vs-payoneer-business-payouts
 25. FIRA/FIRC payment-method comparison
 26. Quarterly India Cross-Border Payment Fee Index
 

@@ -16,7 +16,6 @@
  * untrusted query string can reach the render layer with an unknown slug.
  */
 
-import type { Company } from "@/data";
 
 export const MAX_COMPARE = 3;
 export const DEFAULT_COMPARE_SLUGS: string[] = ["stripe", "adyen"];
@@ -37,7 +36,7 @@ export interface SearchParamSource {
  * hot path avoids re-allocating a Set per check when callers pass a stable
  * list reference.
  */
-function makeSlugValidator(companies: Company[]) {
+function makeSlugValidator(companies: ReadonlyArray<{ slug: string }>) {
   const known = new Set(companies.map((c) => c.slug));
   return (slug: string) => known.has(slug);
 }
@@ -61,7 +60,7 @@ function normalizeSlugs(slugs: string[], isValid: (s: string) => boolean): strin
 
 export function parseCompareSlugs(
   params: SearchParamSource,
-  companies: Company[],
+  companies: ReadonlyArray<{ slug: string }>,
 ): string[] {
   const isValid = makeSlugValidator(companies);
 

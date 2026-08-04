@@ -8,7 +8,6 @@
  * company no longer requires hand-editing a slug→points matrix.
  */
 
-import type { Company } from "@/data";
 import type { CompanyCapabilities } from "@/data/types";
 import {
   ANSWER_CAPABILITIES,
@@ -38,70 +37,80 @@ export function requirementsFor(quizState: QuizState): CapabilityRequirement[] {
   return requirements;
 }
 
+/** Group the selected answers' requirements by question, in question order. */
+function requirementsByQuestion(
+  quizState: QuizState,
+): Array<[string, CapabilityRequirement[]]> {
+  return (Object.keys(quizState) as (keyof QuizState)[])
+    .filter((qKey) => Boolean(quizState[qKey]))
+    .map((qKey) => [
+      qKey,
+      ANSWER_CAPABILITIES[qKey]?.[quizState[qKey] as string] ?? [],
+    ]);
+}
+
 /**
  * Score every company by how many capability requirements its capabilities
  * satisfy, sorted descending. Companies without a capabilities entry score 0.
  */
-export function computeMatchScores(
+export function computeMatchScores<T extends { slug: string }>(
   quizState: QuizState,
-  companies: Company[],
-): { company: Company; score: number }[] {
+  companies: readonly T[],
+): { company: T; score: number }[] {
   const requirements = requirementsFor(quizState);
-  return companies
-    .map((company) => {
-      const caps = COMPANY_CAPABILITIES[company.slug];
-      const score = caps
-        ? requirements.reduce(
-            (sum, req) => sum + (capabilityMatches(caps, req) ? req.points : 0),
-            0,
-          )
-        : 0;
-      return { company, score };
-    })
-    .sort((a, b) => b.score - a.score);
+  const scored = companies.map((company) => {
+    const caps = COMPANY_CAPABILITIES[company.slug];
+    const score = caps
+      ? requirements.reduce(
+          (sum, req) => sum + (capabilityMatches(caps, req) ? req.points : 0),
+          0,
+        )
+      : 0;
+    return { company, score };
+  });
+  return scored.sort((a, b) => b.score - a.score);
 }
 
 /**
  * Get top N recommended companies (only those that actually scored above 0).
  */
-export function getTopRecommendations(
+export function getTopRecommendations<T extends { slug: string }>(
   quizState: QuizState,
-  companies: Company[],
+  companies: readonly T[],
   limit = 3,
-): Company[] {
+): T[] {
   return computeMatchScores(quizState, companies)
-    .filter((item) => item.score > 0)
+    .filter(({ score }) => score > 0)
     .slice(0, limit)
-    .map((item) => item.company);
+    .map(({ company }) => company);
 }
 
 /**
  * Per-company score and per-question contribution, used by the UI to explain
  * why a company matched (audit #31).
  */
-export function getScoreBreakdown(
+export function getScoreBreakdown<T extends { slug: string }>(
   quizState: QuizState,
-  companies: Company[],
+  companies: readonly T[],
 ): Record<string, { score: number; breakdown: Record<string, number> }> {
   const result: Record<string, { score: number; breakdown: Record<string, number> }> = {};
-  companies.forEach((company) => {
+  for (const company of companies) {
     const caps = COMPANY_CAPABILITIES[company.slug];
+    if (!caps) continue;
     const breakdown: Record<string, number> = {};
     let score = 0;
-    if (caps) {
-      (Object.keys(quizState) as (keyof QuizState)[]).forEach((qKey) => {
-        const value = quizState[qKey];
-        if (!value) return;
-        const list = ANSWER_CAPABILITIES[qKey]?.[value] ?? [];
-        const pts = list.reduce(
-          (sum, req) => sum + (capabilityMatches(caps, req) ? req.points : 0),
-          0,
-        );
-        if (pts > 0) breakdown[qKey] = pts;
-        score += pts;
-      });
+    for (const [question, questionRequirements] of requirementsByQuestion(
+      quizState,
+    )) {
+      const points = questionRequirements
+        .filter((req) => capabilityMatches(caps, req))
+        .reduce((sum, req) => sum + req.points, 0);
+      if (points > 0) {
+        breakdown[question] = points;
+        score += points;
+      }
     }
     result[company.slug] = { score, breakdown };
-  });
+  }
   return result;
 }

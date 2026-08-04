@@ -3,7 +3,12 @@
 import { useState, useMemo, useCallback, type CSSProperties } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { companies, categories, type Company, type Category } from "@/data";
+import { categories } from "@/data/categories";
+import type { Category } from "@/data/types";
+import {
+  companySummaries,
+  type CompanySummary,
+} from "@/generated/company-summaries";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { useBookmarks } from "@/lib/bookmarks-context";
@@ -26,7 +31,7 @@ export function CompaniesClient() {
   // companies array per category pill on every render.
   const categoryCounts = useMemo(() => {
     const counts = new Map<string, number>();
-    for (const c of companies) {
+    for (const c of companySummaries) {
       for (const cat of c.categories as readonly string[]) {
         counts.set(cat, (counts.get(cat) ?? 0) + 1);
       }
@@ -47,9 +52,9 @@ export function CompaniesClient() {
     // Precompute valuation numbers once to avoid repeated lookups when sorting.
     // Valuation uses the structured numeric `valuationAmountUsd` (audit #37)
     // rather than parsing the human-readable `valuation` display string.
-    const companiesWithVal = companies.map(c => ({
+    const companiesWithVal = companySummaries.map((c) => ({
       ...c,
-      valuationNum: getValuationAmountUsd(c)
+      valuationNum: getValuationAmountUsd(c),
     }));
 
     // Filter and sort using precomputed values
@@ -63,19 +68,13 @@ export function CompaniesClient() {
           query === "" ||
           c.name.toLowerCase().includes(query) ||
           c.tagline.toLowerCase().includes(query) ||
-          c.oneLiner.toLowerCase().includes(query) ||
-          c.founders.some((f) => f.toLowerCase().includes(query)) ||
-          c.whatTheyOffer.some(
-            (offer) =>
-              offer.name.toLowerCase().includes(query) ||
-              offer.description.toLowerCase().includes(query),
-          );
+          c.searchTerms.includes(query);
 
         return matchesCategory && matchesQuery;
       })
       .sort((a, b) => {
         if (sortBy === "name") return a.name.localeCompare(b.name);
-        if (sortBy === "rating") return b.userReviews.rating - a.userReviews.rating;
+        if (sortBy === "rating") return b.rating - a.rating;
         if (sortBy === "valuation") {
           if (a.valuationNum === null) return 1;
           if (b.valuationNum === null) return -1;
@@ -86,7 +85,7 @@ export function CompaniesClient() {
       });
   }, [search, selectedCategory, sortBy]);
 
-  const handleBookmarkToggle = useCallback((e: React.MouseEvent, c: Company) => {
+  const handleBookmarkToggle = useCallback((e: React.MouseEvent, c: CompanySummary) => {
     // The bookmark button sits inside a card-wrapping <Link>. Without
     // stopping propagation the click bubbles up and navigates to the company
     // page, so the user clicks "Save" and unexpectedly leaves the directory.
@@ -96,7 +95,7 @@ export function CompaniesClient() {
     toggleBookmark(c.slug);
     showToast(
       bookmarked ? `Removed ${c.name} from saved items` : `Saved ${c.name} to bookmarks!`,
-      bookmarked ? "info" : "success"
+      bookmarked ? "info" : "success",
     );
   }, [isBookmarked, toggleBookmark, showToast]);
 
@@ -219,7 +218,7 @@ export function CompaniesClient() {
                 transition={animation.transition.springBouncier}
               />
             )}
-            All Companies ({companies.length})
+            All Companies ({companySummaries.length})
           </button>
           {categories.map((cat) => {
             const count = categoryCounts.get(cat.slug) ?? 0;
@@ -252,7 +251,7 @@ export function CompaniesClient() {
 
       {/* Results Header Counter */}
       <div className="mt-6 flex items-center justify-between text-xs text-[var(--muted-text)] font-mono border-b border-[var(--border-color)] pb-3">
-        <span aria-live="polite">Showing <span className="text-[var(--foreground)] font-bold">{filteredCompanies.length}</span> of {companies.length} companies</span>
+        <span aria-live="polite">Showing <span className="text-[var(--foreground)] font-bold">{filteredCompanies.length}</span> of {companySummaries.length} companies</span>
         {search && <span>Filtered by &ldquo;{search}&rdquo;</span>}
       </div>
 
@@ -329,7 +328,7 @@ export function CompaniesClient() {
                         <div className="mt-5 space-y-3">
                           <div className="flex items-center justify-between text-xs font-mono pt-3 border-t border-[var(--border-color)]">
                             <span className="rounded-lg bg-[var(--success)]/10 border border-[var(--success)]/20 px-2 py-0.5 font-bold text-success-text">
-                              ★ {c.userReviews.rating}
+                              ★ {c.rating}
                             </span>
                             <span className="text-[var(--muted-text)]">{formatValuationShort(c.valuation)}</span>
                           </div>
@@ -339,7 +338,7 @@ export function CompaniesClient() {
                             <div className="h-1 flex-1 overflow-hidden rounded-full bg-[var(--border-color)]">
                               <motion.div
                                 initial={{ width: 0 }}
-                                whileInView={{ width: `${(c.userReviews.rating / 5) * 100}%` }}
+                                whileInView={{ width: `${(c.rating / 5) * 100}%` }}
                                 viewport={{ once: true, margin: "-40px" }}
                                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: Math.min(i * 0.02, 0.3) }}
                                 className="h-full rounded-full"
@@ -408,7 +407,7 @@ export function CompaniesClient() {
                             <div className="flex items-center gap-2">
                               <h3 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">{c.name}</h3>
                               <span className="rounded-lg bg-[var(--success)]/10 border border-[var(--success)]/20 px-2 py-0.5 text-[10px] font-mono font-bold text-success-text">
-                                ★ {c.userReviews.rating}
+                                ★ {c.rating}
                               </span>
                             </div>
                             <p className="text-xs text-[var(--muted-text)]">{c.tagline}</p>

@@ -32,6 +32,7 @@ describe("articles catalog", () => {
       "/tools/remittance",
       "/tools/matchmaker",
       "/tools/calculators",
+      "/tools/exchange-rate-markup-calculator",
     ]);
     for (const article of articles) {
       if (article.relatedTool) {

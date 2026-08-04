@@ -6,7 +6,6 @@
  * source of truth handles all display transformations.
  */
 
-import type { Company } from "@/data/types";
 import { financialValueTypeBySlug } from "@/data/financial-values";
 
 /**
@@ -25,7 +24,9 @@ export function formatValuationShort(valuation: string): string {
  * unit). The directory sorts by this number instead of parsing the display
  * string at runtime (audit #37).
  */
-export function getValuationAmountUsd(company: Company): number | null {
+export function getValuationAmountUsd(company: {
+  valuationAmountUsd?: number;
+}): number | null {
   return company.valuationAmountUsd ?? null;
 }
 
@@ -35,12 +36,12 @@ type FinancialValueType =
   | "not-disclosed";
 
 /** Editorial classification of what the displayed valuation number represents. */
-export function getFinancialValueType(company: Company): FinancialValueType | null {
+export function getFinancialValueType(company: { slug: string }): FinancialValueType | null {
   return financialValueTypeBySlug[company.slug] ?? null;
 }
 
 /** Human label for the valuation concept, or `null` when unclassified. */
-export function financialValueTypeLabel(company: Company): string | null {
+export function financialValueTypeLabel(company: { slug: string }): string | null {
   switch (getFinancialValueType(company)) {
     case "private-valuation":
       return "Private valuation";
@@ -57,7 +58,10 @@ export function financialValueTypeLabel(company: Company): string | null {
  * Short valuation string with its concept appended, e.g.
  * `"65B · Private valuation"` or `"N/A · Not publicly disclosed"`.
  */
-export function formatValuationForStats(company: Company): string {
+export function formatValuationForStats(company: {
+  slug: string;
+  valuation: string;
+}): string {
   const label = financialValueTypeLabel(company);
   return label ? `${formatValuationShort(company.valuation)} · ${label}` : formatValuationShort(company.valuation);
 }

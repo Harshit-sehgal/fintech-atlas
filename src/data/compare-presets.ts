@@ -1,4 +1,4 @@
-import { companies } from "@/data";
+import { companySummaries } from "@/generated/company-summaries";
 
 /**
  * Comparison preset benchmarks. Defined as data (not inline in the client) so a
@@ -22,6 +22,6 @@ export const PRESETS: ComparePreset[] = [
 
 /** True when every slug in every preset resolves to a known company. */
 export function presetsAreValid(): boolean {
-  const known = new Set(companies.map((c) => c.slug));
+  const known = new Set(companySummaries.map((c) => c.slug));
   return PRESETS.every((p) => p.slugs.every((slug) => known.has(slug)));
 }

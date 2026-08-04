@@ -4,7 +4,9 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { getFocusableElementsInDialog } from "@/lib/focus-trap";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { companies, categories, glossary } from "@/data";
+import { categories } from "@/data/categories";
+import { glossary } from "@/data/glossary";
+import { companySummaries } from "@/generated/company-summaries";
 import { articles } from "@/data/articles";
 import { fuzzyRank } from "@/lib/fuzzy";
 import { CompanyLogo } from "./company-logo";
@@ -138,18 +140,11 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
   // When the user has typed nothing (cleanQuery === ""), skip creating intermediate
   // filtered arrays — every item matches, so we can directly map the raw lists.
   const filteredCompanies = useMemo(() => {
-    if (cleanQuery === "") return companies;
+    if (cleanQuery === "") return companySummaries;
     return fuzzyRank(
-      companies,
+      companySummaries,
       cleanQuery,
-      (c) => [
-        c.name,
-        c.tagline,
-        c.oneLiner,
-        ...c.founders,
-        ...c.categories,
-        ...c.whatTheyOffer.flatMap((o) => [o.name, o.description]),
-      ],
+      (c) => [c.name, c.tagline, c.searchTerms],
     );
   }, [cleanQuery]);
 

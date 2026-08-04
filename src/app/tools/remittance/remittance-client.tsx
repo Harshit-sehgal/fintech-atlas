@@ -26,6 +26,7 @@ import {
   shareOrCopy,
 } from "@/lib/share";
 import { useToast } from "@/lib/toast-context";
+import { trackEvent } from "@/lib/analytics";
 
 type RemittanceState = {
   sendAmount: number;
@@ -91,6 +92,17 @@ export default function RemittanceCalculatorPageClient() {
   const providers = computeProviderPayouts(REMITTANCE_PROVIDERS, inputs);
   const bestProvider = providers[0];
   const worstProvider = providers[providers.length - 1];
+
+  // Fire analytics event once hydrated and providers are resolved.
+  useEffect(() => {
+    if (hydrated && providers.length > 0) {
+      trackEvent("tool_complete", {
+        tool: "remittance",
+        provider_count: providers.length,
+        currency: currencyCode,
+      });
+    }
+  }, [hydrated, providers.length, currencyCode]);
   const savings = bestProvider.netPayout - worstProvider.netPayout;
   const currentState: RemittanceState = { sendAmount, currencyCode };
 

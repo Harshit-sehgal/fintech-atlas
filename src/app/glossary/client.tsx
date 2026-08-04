@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { glossary, type GlossaryTerm } from "@/data";
+import { glossary } from "@/data/glossary";
+import type { GlossaryTerm } from "@/data/types";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { useBookmarks } from "@/lib/bookmarks-context";

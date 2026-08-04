@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useMemo, type CSSProperties } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useBookmarks } from "@/lib/bookmarks-context";
-import { companies, glossary } from "@/data";
+import { glossary } from "@/data/glossary";
+import { companySummaries } from "@/generated/company-summaries";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { formatValuationShort } from "@/lib/format-company";
@@ -15,8 +16,8 @@ export default function BookmarksPageClient() {
   const { bookmarks, toggleBookmark, glossaryBookmarks, toggleGlossaryBookmark } = useBookmarks();
 
   const savedCompanies = useMemo(
-    () => companies.filter((c) => bookmarks.includes(c.slug)),
-    [bookmarks] // companies is imported constant
+    () => companySummaries.filter((c) => bookmarks.includes(c.slug)),
+    [bookmarks] // companySummaries is an imported constant
   );
   const savedGlossary = useMemo(
     () => glossary.filter((g) => glossaryBookmarks.includes(g.slug)),

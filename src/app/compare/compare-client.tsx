@@ -4,7 +4,10 @@ import { Suspense, useMemo, type CSSProperties } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { companies, type Company } from "@/data";
+import {
+  companySummaries,
+  type CompanySummary,
+} from "@/generated/company-summaries";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
@@ -33,7 +36,7 @@ function CompareContent() {
   //
   // Every slug is validated against the company list by parseCompareSlugs, so no
   // untrusted query string can surface an unknown slug in the render layer.
-  const selectedSlugs = parseCompareSlugs(searchParams, companies);
+  const selectedSlugs = parseCompareSlugs(searchParams, companySummaries);
 
   const updateUrl = (slugs: string[]) => {
     if (slugs.length > 0) {
@@ -60,21 +63,21 @@ function CompareContent() {
   // With only 42 companies, resolving the selected companies is cheap enough
   // to do on every render — avoids a useMemo whose deps tripped the compiler
   // (removed the previously "accepted" lint warning).
-  const selectedCompanies: Company[] = selectedSlugs
-    .map((s) => companies.find((c) => (c.slug as string) === s))
-    .filter((c): c is Company => c !== undefined);
+  const selectedCompanies: CompanySummary[] = selectedSlugs
+    .map((s) => companySummaries.find((c) => (c.slug as string) === s))
+    .filter((c): c is CompanySummary => c !== undefined);
 
   const rows = useMemo(
     () => [
-      { label: "Tagline", fn: (c: Company) => c.tagline },
-      { label: "Founded & HQ", fn: (c: Company) => `${c.founded} — ${formatHeadquartersCity(c.headquarters)}` },
-      { label: "Employees (reported)", fn: (c: Company) => c.employees },
-      { label: "Valuation / market value", fn: (c: Company) => formatValuationForStats(c) },
-      { label: "Pricing Model", fn: (c: Company) => c.pricing.model },
-      { label: "Editorial sentiment", fn: (c: Company) => `${c.userReviews.rating} / 5.0` },
-      { label: "Primary Advantage", fn: (c: Company) => c.strengths?.[0] ?? "None listed" },
-      { label: "Key Tradeoff", fn: (c: Company) => c.weaknesses?.[0] ?? "None listed" },
-      { label: "Notable Customers", fn: (c: Company) => c.whoUses.slice(0, 4).join(", ") },
+      { label: "Tagline", fn: (c: CompanySummary) => c.tagline },
+      { label: "Founded & HQ", fn: (c: CompanySummary) => `${c.founded} — ${formatHeadquartersCity(c.headquarters)}` },
+      { label: "Employees (reported)", fn: (c: CompanySummary) => c.employees },
+      { label: "Valuation / market value", fn: (c: CompanySummary) => formatValuationForStats(c) },
+      { label: "Pricing Model", fn: (c: CompanySummary) => c.pricingModel },
+      { label: "Editorial sentiment", fn: (c: CompanySummary) => `${c.rating} / 5.0` },
+      { label: "Primary Advantage", fn: (c: CompanySummary) => c.primaryStrength ?? "None listed" },
+      { label: "Key Tradeoff", fn: (c: CompanySummary) => c.primaryWeakness ?? "None listed" },
+      { label: "Notable Customers", fn: (c: CompanySummary) => c.customers.join(", ") },
     ],
     []
   );
@@ -128,7 +131,7 @@ function CompareContent() {
         </div>
 
         <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
-          {companies.map((c) => {
+          {companySummaries.map((c) => {
             const active = selectedSlugs.includes(c.slug);
             return (
               <motion.button

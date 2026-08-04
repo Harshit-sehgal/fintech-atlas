@@ -9,7 +9,10 @@ import {
   partnerOffers,
 } from "@/data/partners";
 import type { PartnerOffer, PartnerRelationship } from "@/data/types";
-import { companies, getCompanyBySlug } from "@/data";
+import {
+  companySummaries,
+  getCompanySummaryBySlug,
+} from "@/generated/company-summaries";
 
 export type PartnerCtaPlacement =
   | "company-profile"
@@ -88,7 +91,7 @@ export function resolvePartnerCta(
   placement: PartnerCtaPlacement,
   campaign?: string,
 ): ResolvedPartnerCta | null {
-  const company = getCompanyBySlug(companySlug);
+  const company = getCompanySummaryBySlug(companySlug);
   if (!company) return null;
 
   const offer: PartnerOffer | undefined = getPartnerOffer(companySlug);
@@ -165,7 +168,7 @@ export function listFeaturedResolved(
 
 /** Integrity: every partner row points at a known company. */
 export function partnerCatalogIsValid(): boolean {
-  const known = new Set(companies.map((c) => c.slug));
+  const known = new Set(companySummaries.map((c) => c.slug));
   return partnerOffers.every(
     (p) =>
       known.has(p.companySlug) &&
@@ -176,5 +179,5 @@ export function partnerCatalogIsValid(): boolean {
 
 export function everyCompanyHasPartnerOffer(): boolean {
   const offerSlugs = new Set(partnerOffers.map((p) => p.companySlug));
-  return companies.every((c) => offerSlugs.has(c.slug));
+  return companySummaries.every((c) => offerSlugs.has(c.slug));
 }

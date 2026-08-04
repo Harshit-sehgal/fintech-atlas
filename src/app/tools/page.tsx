@@ -59,6 +59,15 @@ const toolsList = [
     features: ["Reference FX comparison", "Markup visibility", "Transfer speed comparison", "Recipient net payout estimate"],
   },
   {
+    id: "exchange-rate-markup-calculator",
+    href: "/tools/exchange-rate-markup-calculator",
+    icon: "💱",
+    name: "Exchange-Rate Markup Calculator",
+    badge: "FX Tool",
+    description: "Measure the hidden FX spread on any international transfer: enter the mid-market rate and your provider's rate to see the markup percentage and the rupee cost — for receiving INR (USD → INR) and sending INR (INR → USD).",
+    features: ["Markup vs mid-market", "USD → INR and INR → USD", "Rupee cost of the spread", "Works with any provider's quote"],
+  },
+  {
     id: "matchmaker",
     href: "/tools/matchmaker",
     icon: "🎯",
@@ -75,6 +84,7 @@ const TOOL_ACCENTS: Record<string, string> = {
   calculator: "#6366f1", // indigo
   "razorpay-fee-calculator": "#3395ff", // Razorpay blue
   remittance: "#10b981", // emerald
+  "exchange-rate-markup-calculator": "#0891b2", // cyan
   matchmaker: "#f59e0b", // amber
 };
 

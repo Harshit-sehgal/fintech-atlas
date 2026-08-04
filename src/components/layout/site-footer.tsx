@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { companies } from "@/data";
+import { companySummaries } from "@/generated/company-summaries";
 import { DATA_AS_OF } from "@/lib/site-config";
 import { NewsletterOptIn } from "@/components/ui/newsletter-opt-in";
 
@@ -55,7 +55,7 @@ export function SiteFooter() {
 
             {/* Small, quiet source note (no fake "live" status dot) */}
             <p className="text-[11px] text-[var(--muted-text)]">
-              {companies.length} companies profiled · Updated {DATA_AS_OF}.
+              {companySummaries.length} companies profiled · Updated {DATA_AS_OF}.
             </p>
 
             {/* Newsletter opt-in (Phase 3 — audience capture) */}

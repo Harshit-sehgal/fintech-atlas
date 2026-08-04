@@ -490,7 +490,7 @@ export const articles: Article[] = [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
     ],
-    relatedTool: { href: "/tools/remittance", label: "Estimate FX transfer costs" },
+    relatedTool: { href: "/tools/exchange-rate-markup-calculator", label: "Measure the rate markup" },
     body: [
       {
         type: "p",
@@ -548,7 +548,7 @@ export const articles: Article[] = [
       { slug: "wise", label: "Compare rates with Wise", placement: "compare-vs" },
       { slug: "revolut", label: "Compare rates with Revolut", placement: "compare-vs" },
     ],
-    relatedTool: { href: "/tools/remittance", label: "Estimate transfer costs" },
+    relatedTool: { href: "/tools/exchange-rate-markup-calculator", label: "Measure a rate markup" },
     body: [
       {
         type: "p",
@@ -850,6 +850,7 @@ export const articles: Article[] = [
       { slug: "payoneer", label: "See Payoneer pricing", placement: "compare-vs" },
       { slug: "wise", label: "Compare with Wise", placement: "compare-vs" },
     ],
+    relatedTool: { href: "/tools/exchange-rate-markup-calculator", label: "Measure the 1–4% withdrawal markup" },
     body: [
       {
         type: "p",

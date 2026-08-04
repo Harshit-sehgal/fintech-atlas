@@ -8,6 +8,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { useToast } from "@/lib/toast-context";
+import { trackEvent } from "@/lib/analytics";
 import {
   downloadCsv,
   encodeToolParams,
@@ -140,6 +141,18 @@ export default function FeeCalculatorPageClient({
   const comparableProviders = providers.filter((provider) => provider.pricingModel === "published-flat-rate");
   const lowestCost = comparableProviders[0] ?? providers[0];
   const maxCost = Math.max(...providers.map((provider) => provider.cost));
+
+  // Fire analytics once hydrated and results are available.
+  useEffect(() => {
+    if (hydrated && providers.length > 0) {
+      trackEvent("tool_complete", {
+        tool: "fee_calculator",
+        provider_count: providers.length,
+        lowest_cost: Math.round(lowestCost.cost),
+        currency,
+      });
+    }
+  }, [hydrated, providers.length, currency, lowestCost.cost]);
 
   const currentState: FeeState = {
     monthlyRevenue,

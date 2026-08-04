@@ -189,4 +189,21 @@ test.describe("critical flows", () => {
     // A real glossary term is present.
     await expect(page.getByText(/Interchange/i).first()).toBeVisible();
   });
+
+  test("markup calculator measures the hidden FX spread", async ({ page }) => {
+    await page.goto("/tools/exchange-rate-markup-calculator/");
+    await expect(
+      page.getByRole("heading", { level: 1, name: "Exchange-rate markup calculator" }),
+    ).toBeVisible();
+
+    // Defaults: mid ₹83.50, offered ₹82.00, $1,000 received → 1.80% markup.
+    await expect(page.getByText("1.80%").first()).toBeVisible();
+    await expect(page.getByText("₹83,500").first()).toBeVisible();
+    await expect(page.getByText("₹82,000").first()).toBeVisible();
+    await expect(page.getByText("₹1,500").first()).toBeVisible();
+
+    // Sending INR flips the loss to the sender side.
+    await page.getByRole("radio", { name: /Sending INR/ }).click();
+    await expect(page.getByText("1.80%").first()).toBeVisible();
+  });
 });
