@@ -1563,6 +1563,129 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "razorpay-vs-stripe-for-developers",
+    title: "Razorpay vs Stripe for developers",
+    description:
+      "API design, SDKs, webhooks, test tooling, PCI scope, and India-specific rails — which gateway your engineering team will build faster on, and where the DX gap is real.",
+    publishedAt: "2026-08-04",
+    updatedAt: "2026-08-04",
+    category: "Payments",
+    relatedCompanySlugs: ["razorpay", "stripe"],
+    ctas: [
+      { slug: "razorpay", label: "Razorpay developer docs", placement: "compare-vs" },
+      { slug: "stripe", label: "Stripe developer docs", placement: "compare-vs" },
+    ],
+    relatedTool: { href: "/tools/calculator", label: "Estimate gateway fees" },
+    body: [
+      {
+        type: "p",
+        text: "For an engineering team, Razorpay vs Stripe is a developer-experience question, not a pricing one — the published rates converge at 2% + GST on domestic payments, and the business comparison is covered separately. The DX differences are real but narrower than Stripe's global reputation suggests: Stripe brings a more consistent API surface, richer event model, and first-class test tooling; Razorpay brings native India-specific rails — UPI intents, AutoPay mandates, and payouts — that Stripe India does not match. If your checkout is UPI-heavy and Indian, Razorpay gets you live faster; if you are building global subscriptions or need the cleanest API to hang billing off, Stripe is the safer long-term bet.",
+      },
+      {
+        type: "h2",
+        text: "API design and documentation",
+      },
+      {
+        type: "ul",
+        items: [
+          "Stripe's API is the industry reference: idempotency keys on every mutating call, a consistent resource model, versioned API with migration guides, and typed SDKs in most languages.",
+          "Razorpay's API is competent and covers India-specific resources Stripe lacks — orders, payment links, UPI intents, mandates, and settlement routing — but the surface is more sprawling, with less uniform conventions across products.",
+          "Both document well; Razorpay's docs are practical for the Indian flow (UPI intent handshake, mandate creation), Stripe's are deeper for general payment plumbing.",
+          "Error handling: Stripe's typed error classes and decline codes are easier to map to user-facing messages; Razorpay's error model is thinner and needs more mapping on your side.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "SDKs and client libraries",
+      },
+      {
+        type: "ul",
+        items: [
+          "Both ship official SDKs for the mainstream languages (Node, Python, PHP, Java, Go) — pick by your stack, not by gateway.",
+          "Stripe's SDKs are more consistently versioned and typed; Razorpay's are adequate but occasionally lag new API features.",
+          "Framework plugins: Razorpay has first-party WooCommerce/Shopify/other plugin coverage tuned for Indian merchants; Stripe relies on its own plugins plus the ecosystem — both cover the popular carts.",
+          "Mobile: both offer native iOS/Android SDKs; Stripe's checkout sheet is more polished, Razorpay's is India-aware (UPI apps deep-linking, netbanking list).",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Webhooks and events",
+      },
+      {
+        type: "ul",
+        items: [
+          "Stripe's event model is the gold standard: a rich event catalog (payment, dispute lifecycle, subscription and invoice events for Billing), signed payloads, and replayable delivery.",
+          "Razorpay covers the core events — payment success/failure, refund, settlement — with signed webhooks; the catalog is smaller and subscription-automation events live in the subscriptions product.",
+          "Both support signature verification and retries; plan for idempotent handlers either way, because redelivery happens on both platforms.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Test mode and tooling",
+      },
+      {
+        type: "ul",
+        items: [
+          "Both give you a sandbox with test cards and (for Razorpay) a UPI test flow that mirrors the app handshake.",
+          "Stripe's test clock is the differentiator for subscription teams: you can fast-forward billing cycles and exercise proration, dunning, and cancellations deterministically.",
+          "Razorpay's sandbox is fine for Indian rails but thinner for recurring-billing edge cases — subscription logic tends to get tested against production-like data.",
+          "Neither charges for sandbox usage; both have webhook test tools and CLI-driven local testing (Stripe CLI, Razorpay's equivalents).",
+        ],
+      },
+      {
+        type: "h2",
+        text: "PCI scope and compliance",
+      },
+      {
+        type: "ul",
+        items: [
+          "Use the hosted checkout or redirect flow and card data never touches your servers — that keeps you on the narrow SAQ-A questionnaire with either gateway.",
+          "Custom iframe/hosted-fields integrations stay low-scope; rendering raw card inputs yourself drags you into SAQ-D territory and is rarely worth it.",
+          "Both platforms hold PCI-DSS certification and act as the merchant of record on card data; your scope is defined by how you integrate, not which you choose.",
+          "Razorpay handles Indian compliance (PA-CB/aggregator licensing, GST invoicing); Stripe India is licensed in-country but its product surface is smaller.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "India-specific rails",
+      },
+      {
+        type: "ul",
+        items: [
+          "UPI: Razorpay's UPI intent and collect flows are first-party and battle-tested; Stripe India's UPI support exists but with less depth — verify current coverage for your flow.",
+          "Recurring: Razorpay owns UPI AutoPay mandate creation end to end; Stripe's recurring strength is card eMandates and Stripe Billing's global engine.",
+          "Payouts: RazorpayX-style instant payouts and settlement routing are Razorpay territory; Stripe India payouts are more basic.",
+          "If your product is Indian consumer payments, the native-rails gap is the biggest DX difference on this page — it is engineering time spent on workarounds otherwise.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Which should your team build on?",
+      },
+      {
+        type: "ul",
+        items: [
+          "UPI-heavy Indian checkout → Razorpay: native UPI intents, AutoPay mandates, and payouts are features you would otherwise build around.",
+          "Global SaaS with subscriptions → Stripe: Billing, test clock, event model, and the cleanest API for metered logic.",
+          "Hybrid (Indian consumers + global customers) → run both: keep the Indian rails on Razorpay and route international card/subscription volume to Stripe.",
+          "Small team, one codebase, mostly cards → Stripe: the API quality directly reduces integration and maintenance time.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Run your own numbers",
+      },
+      {
+        type: "p",
+        text: "DX decides velocity, but fees decide the P&L — run your volume and international mix through the gateway fee calculator with both providers selected.",
+      },
+      {
+        type: "p",
+        text: "Editorial note: capabilities and tooling described are indicative of the 2026 catalog vintage — Stripe India's UPI coverage and Razorpay's API surface both move; verify current docs before committing an architecture.",
+      },
+    ],
+  },
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {
