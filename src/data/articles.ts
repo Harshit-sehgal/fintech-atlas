@@ -1331,7 +1331,7 @@ export const articles: Article[] = [
   },
   {
     slug: "payment-gateway-for-subscription-businesses",
-    title: "Payment gateway for Indian subscription businesses",
+    title: "Payment gateways for Indian subscriptions",
     description:
       "Razorpay, Cashfree, and Stripe India for recurring billing: UPI AutoPay mandates, card-on-file eMandates, eNACH, billing engines, and which gateway fits a subscription business.",
     publishedAt: "2026-08-04",

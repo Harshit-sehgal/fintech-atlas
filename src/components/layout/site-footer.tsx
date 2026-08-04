@@ -10,6 +10,7 @@ const exploreLinks = [
   { href: "/compare", label: "Side-by-Side Comparison" },
   { href: "/glossary", label: "FinTech Glossary" },
   { href: "/articles", label: "Guides & Comparisons" },
+  { href: "/changelog", label: "Site Changelog" },
   { href: "/bookmarks", label: "Saved Bookmarks" },
 ];
 

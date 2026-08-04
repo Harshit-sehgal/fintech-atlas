@@ -6,7 +6,7 @@ import { openGraphImage } from "@/lib/shared-metadata";
 import { articles } from "@/data/articles";
 
 export const metadata: Metadata = {
-  title: "Guides & Comparisons — FinTech Atlas",
+  title: "Guides & Comparisons",
   description:
     "Plain-language comparisons and explainers of FinTech fees, providers, and platforms — written to help you choose, with free calculators to run the numbers.",
   alternates: { canonical: canonicalUrl("/articles") },
