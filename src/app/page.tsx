@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import HomePageClient from "./home-client";
 import { SITE_URL } from "@/lib/site-config";
 import { openGraphImage } from "@/lib/shared-metadata";
@@ -44,9 +43,9 @@ export default function HomePage() {
       }),
     }));
 
-  return (
-    <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading…</div>}>
-      <HomePageClient recentArticles={recentArticles} />
-    </Suspense>
-  );
+  // Note: No Suspense wrapper around HomePageClient — static export pre-renders
+  // the page fully at build time. A Suspense boundary around a client component
+  // causes Next.js to defer rendering and ship only the fallback skeleton,
+  // triggering React hydration error #418 on mount.
+  return <HomePageClient recentArticles={recentArticles} />;
 }

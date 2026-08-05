@@ -5,10 +5,13 @@ const description = "This page doesn't exist or has moved to a different route."
 export const metadata: Metadata = {
   title: "Page Not Found",
   description,
-  // Unknown URLs must not be indexed or canonicalised to a separate /404 page.
-  robots: { index: false, follow: false },
   // Error pages should not advertise a canonical share URL.
   openGraph: undefined,
+  // robots is intentionally omitted — the root layout emits a permissive
+  // <meta name="robots">, and we add a <meta name="robots" content="noindex, nofollow">
+  // at the top of the component body to override it. Putting `robots` in the
+  // metadata export would deep-merge with the root layout's and produce
+  // duplicate <meta> tags with conflicting directives.
 };
 
 export default function NotFound() {

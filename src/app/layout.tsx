@@ -68,12 +68,11 @@ export const metadata: Metadata = {
     { rel: "icon", url: assetPath("/maskable-512.png"), sizes: "512x512", type: "image/png" },
   ],
   manifest: assetPath("/manifest.json"),
-  robots: {
-    index: true,
-    follow: true,
-    "max-snippet": -1,
-    "max-image-preview": "large",
-  },
+  // robots is emitted as an explicit <meta> tag in the <head> of the layout
+  // component body instead of via the `robots` export, because Next.js
+  // deep-merges nested robots keys (e.g. the per-page `robots:` + root
+  // `robots:`) into duplicate <meta name="robots"> tags. An explicit <meta>
+  // in the <head> body is reliably replaced by per-page metadata exports.
 };
 
 // Browser/OS chrome follows the user's colour scheme instead of forcing dark.
@@ -101,6 +100,9 @@ export default function RootLayout({
         {/* RSS autodiscovery (metadata `alternates.types` is not emitted by
             this Next build for static exports, so the link is literal). */}
         <link rel="alternate" type="application/rss+xml" title="FinTech Atlas — Articles &amp; Updates" href={assetPath("/feed.xml")} />
+        {/* Explicit robots (see metadata comment above for why this is a <meta>
+            tag in the body not an export — prevents deep-merged duplicates). */}
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--background)] text-[var(--foreground)]">
         <StructuredDataLite />
