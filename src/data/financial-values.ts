@@ -70,7 +70,7 @@ export const financialValueTypeBySlug: Record<
   adp: "public-market-cap",
   adyen: "public-market-cap",
   affirm: "public-market-cap",
-  afterpay: "public-market-cap",
+  afterpay: "not-disclosed",
   coinbase: "public-market-cap",
   klarna: "public-market-cap",
   moneygram: "private-valuation",

@@ -126,6 +126,7 @@ export interface Company {
   /** Structured evidence required for every published catalog record. */
   sourceReferences: SourceReference[];
   employeesSourced?: SourcedValue<string>;
+  availability?: CompanyAvailability;
   financialValue?: CompanyFinancialValue;
 }
 
@@ -157,6 +158,25 @@ export interface GlossaryTerm {
  * scores when its capabilities satisfy them. Kept separate from the manual
  * slug→points matrix so adding a company is safe and automatic.
  */
+/**
+ * Structured geographic availability of a company (T010).
+ * Surfaces what regions the service operates in, which are excluded, and
+ * what provenance evidence supports each claim.
+ */
+export interface CompanyAvailability {
+  /** Countries/regions where the company's services are available. */
+  supportedRegions: string[];
+  /** Known countries/regions where the services are expressly unavailable. */
+  unavailableRegions: string[];
+  /** ISO date the availability snapshot was last verified. */
+  asOf: string;
+  /**
+   * Source IDs (must exist in sourceReferences) that verify availability.
+   * Should include geographic-coverage evidence.
+   */
+  sourceIds: string[];
+}
+
 export interface CompanyCapabilities {
   /** High-level problems/solutions the product addresses. */
   useCases: string[];

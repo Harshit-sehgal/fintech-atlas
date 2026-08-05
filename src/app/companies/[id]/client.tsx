@@ -515,6 +515,30 @@ export function CompanyPageClient({
         </section>
       </Reveal>
 
+      {/* Geographic Availability (T010) */}
+      {c.availability && (
+        <Reveal delay={0.22}>
+          <section className="mt-12">
+            <SectionHeader eyebrow="Availability" title="Geographic availability" />
+            <div className="rounded-2xl border border-[var(--border-color)] p-6 surface space-y-4">
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted-text)]">Supported regions</span>
+                <p className="mt-1 text-sm font-medium text-[var(--foreground)]">{c.availability.supportedRegions.join(" · ")}</p>
+              </div>
+              {c.availability.unavailableRegions.length > 0 && (
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted-text)]">Known exclusions</span>
+                  <p className="mt-1 text-sm text-[var(--muted-text)]">{c.availability.unavailableRegions.join(" · ")}</p>
+                </div>
+              )}
+              <p className="text-[11px] text-[var(--muted-text)]">
+                Editorial snapshot as of {c.availability.asOf}. Verify current availability directly with the provider.
+              </p>
+            </div>
+          </section>
+        </Reveal>
+      )}
+
       {/* Sources and effective dates */}
       <Reveal delay={0.24}>
         <section className="mt-12">

@@ -158,7 +158,7 @@ export default async function ArticlePage({
         </h1>
         <p className="mt-3 text-sm leading-relaxed text-[var(--muted-text)]">{article.description}</p>
         <p className="mt-3 text-[11px] font-mono text-[var(--muted-text)]">
-          {formatDate(article.updatedAt)} &middot; Updated regularly &middot; By{" "}
+          Last independently verified: {formatDate(article.updatedAt)} &middot; By{" "}
           <Link href="/about" className="underline decoration-dotted underline-offset-2 transition-colors hover:text-[var(--foreground)]">
             {article.author}
           </Link>

@@ -1,6 +1,7 @@
 import { Company } from "./types";
 import { valuationAmountUsdBySlug } from "./financial-values";
 import { sourceReferencesBySlug } from "./provenance-records";
+import { companyAvailabilityBySlug } from "./company-availability";
 
 type BaseCompany = Omit<Company, "sourceReferences">;
 
@@ -1286,6 +1287,8 @@ export const companies: Company[] = baseCompanies.map((company) => {
     ...company,
     valuationAmountUsd:
       company.valuationAmountUsd ?? valuationAmountUsdBySlug[company.slug],
+    availability:
+      company.availability ?? companyAvailabilityBySlug[company.slug],
     sourceReferences,
   };
 });

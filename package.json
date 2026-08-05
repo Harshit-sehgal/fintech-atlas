@@ -9,10 +9,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "prebuild": "node scripts/check-rate-snapshot.mjs && tsx scripts/generate-company-summaries.ts && tsx scripts/generate-article-summaries.ts",
+    "prebuild": "node scripts/check-rate-snapshot.mjs && node scripts/check-data-freshness.mjs && tsx scripts/generate-company-summaries.ts && tsx scripts/generate-article-summaries.ts",
     "postbuild": "tsx scripts/generate-sitemap.ts && tsx scripts/generate-rss.ts && node scripts/generate-security-headers.mjs && node scripts/check-performance-budget.mjs && node scripts/check-structured-data.mjs && node scripts/check-static-artifact.mjs && node scripts/check-internal-links.mjs && node scripts/check-titles.mjs && node scripts/version-service-worker.mjs",
     "logos:fetch": "tsx scripts/fetch-logos.ts",
     "check:provenance": "tsx scripts/check-provenance.ts",
+    "check:data-freshness": "node scripts/check-data-freshness.mjs",
     "check:artifact": "node scripts/check-static-artifact.mjs && node scripts/check-internal-links.mjs",
     "test:links": "node scripts/check-internal-links.test.mjs",
     "check:deployment": "node scripts/check-deployment.mjs",
