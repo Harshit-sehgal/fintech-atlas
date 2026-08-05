@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getCompanyBySlug, companies, categories } from "@/data";
 import { articles } from "@/data/articles";
@@ -68,14 +67,15 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
       <div className="mx-auto max-w-6xl px-5 pt-16 md:pt-24">
         <Breadcrumbs items={breadcrumbItems} />
       </div>
-      <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading profile…</div>}>
-        <CompanyPageClient
-          company={company}
-          relatedCategories={relatedCategories}
-          relatedArticles={relatedArticles}
-          adjacent={adjacent}
-        />
-      </Suspense>
+      {/* No Suspense wrapper: static export pre-renders fully at build time.
+          A Suspense boundary around a client component causes Next.js to defer
+          rendering and ship only the fallback, triggering hydration mismatch. */}
+      <CompanyPageClient
+        company={company}
+        relatedCategories={relatedCategories}
+        relatedArticles={relatedArticles}
+        adjacent={adjacent}
+      />
     </>
   );
 }
