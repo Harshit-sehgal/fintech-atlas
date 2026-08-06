@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { CompaniesClient } from "./client";
 import { openGraphImage } from "@/lib/shared-metadata";
 import { canonicalUrl } from "@/lib/canonical-url";
@@ -24,9 +23,9 @@ export const metadata: Metadata = {
 
 export default function CompaniesPage() {
   return (
-    <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading companies…</div>}>
+    <>
       <StructuredData />
       <CompaniesClient />
-    </Suspense>
+    </>
   );
 }

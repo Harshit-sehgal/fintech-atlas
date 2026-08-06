@@ -320,6 +320,8 @@ function CompareContent() {
 }
 
 export default function ComparePageClient() {
+  // Suspense is required here: CompareContent calls useSearchParams(), which
+  // Next.js only permits inside a <Suspense> boundary (even in static exports).
   return (
     <Suspense fallback={<div className="p-20 text-center text-sm text-[var(--muted-text)]">Loading comparison...</div>}>
       <CompareContent />

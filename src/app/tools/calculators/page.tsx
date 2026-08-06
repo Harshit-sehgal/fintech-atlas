@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import CalculatorsClient from "./calculators-client";
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
@@ -35,9 +34,7 @@ export default function CalculatorsPage() {
           ),
         }}
       />
-      <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading calculators…</div>}>
-        <CalculatorsClient />
-      </Suspense>
+      <CalculatorsClient />
     </>
   );
 }

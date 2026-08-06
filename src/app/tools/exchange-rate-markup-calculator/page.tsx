@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { Suspense } from "react";
 import { MarkupCalculatorClient } from "./markup-calculator-client";
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
@@ -119,9 +118,7 @@ export default function ExchangeRateMarkupCalculatorPage() {
       </article>
 
       <div className="mx-auto mt-12 max-w-5xl">
-        <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading calculator…</div>}>
-          <MarkupCalculatorClient />
-        </Suspense>
+        <MarkupCalculatorClient />
       </div>
 
       <section className="mx-auto max-w-5xl px-5 pb-16">

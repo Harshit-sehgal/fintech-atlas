@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import Link from "next/link";
-import { Suspense } from "react";
 import FeeCalculatorPageClient from "../calculator/calculator-client";
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
@@ -107,9 +106,7 @@ export default function RazorpayFeeCalculatorPage() {
       </article>
 
       <div className="mx-auto mt-12 max-w-5xl">
-        <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading calculator…</div>}>
-          <FeeCalculatorPageClient defaultCurrency="INR" showBreadcrumb={false} />
-        </Suspense>
+        <FeeCalculatorPageClient defaultCurrency="INR" showBreadcrumb={false} />
       </div>
       <section className="mx-auto max-w-5xl px-5 pb-16">
         <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6">

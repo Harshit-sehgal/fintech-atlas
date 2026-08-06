@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { GlossaryClient } from "./client";
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
@@ -20,9 +19,5 @@ export const metadata: Metadata = {
 };
 
 export default function GlossaryPage() {
-  return (
-    <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading glossary…</div>}>
-      <GlossaryClient />
-    </Suspense>
-  );
+  return <GlossaryClient />;
 }

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Suspense } from "react";
 import MatchmakerQuizPageClient from "./matchmaker-client";
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
@@ -36,9 +35,7 @@ export default function MatchmakerQuizPage() {
           ),
         }}
       />
-      <Suspense fallback={<div className="px-5 py-24 text-center text-sm text-[var(--muted-text)]">Loading quiz…</div>}>
-        <MatchmakerQuizPageClient />
-      </Suspense>
+      <MatchmakerQuizPageClient />
       <section className="mx-auto max-w-5xl px-5 pb-16">
         <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6">
           <h2 className="text-sm font-bold uppercase tracking-wider text-[var(--muted-text)]">Related comparisons</h2>
