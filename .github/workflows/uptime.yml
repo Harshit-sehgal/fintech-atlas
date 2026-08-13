@@ -67,11 +67,11 @@ jobs:
             --title "Uptime check failed: site unreachable" \
             --body "The scheduled uptime check detected failing routes against $SITE:
 
-\`\`\`
-${failures}
-\`\`\`
+            ```
+            ${failures}
+            ```
 
-Inspect the [workflow run](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}) for response details."
+            Inspect the [workflow run](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}) for response details."
           # Keep the workflow red so GitHub Actions, branch protection, and
           # notifications do not treat an outage as a successful run.
           exit 1
