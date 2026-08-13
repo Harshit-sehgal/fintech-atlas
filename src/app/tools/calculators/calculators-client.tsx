@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { useToast } from "@/lib/toast-context";
 import { trackEvent } from "@/lib/analytics";
+import { useToolStart } from "@/lib/use-tool-start";
 import {
   downloadCsv,
   encodeToolParams,
@@ -80,6 +81,8 @@ function formatInputValue(input: CalcInput, value: number): string {
 
 export default function CalculatorsClient() {
   const { showToast } = useToast();
+  const rootRef = useRef<HTMLDivElement>(null);
+  useToolStart("calculators", rootRef);
   const [activeId, setActiveId] = useState<string>(CALCULATORS[0].id);
   const [valuesByCalc, setValuesByCalc] = useState<Record<string, CalcValues>>(
     () =>
@@ -202,7 +205,7 @@ export default function CalculatorsClient() {
   };
 
   return (
-    <div className="relative mx-auto max-w-6xl px-5 py-20 md:py-28">
+    <div ref={rootRef} className="relative mx-auto max-w-6xl px-5 py-20 md:py-28">
       <GridBackdrop />
 
       <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs text-[var(--muted-text)] font-mono">

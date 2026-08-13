@@ -26,10 +26,11 @@
   no SQL — so SQLi and most CSRF surfaces are structurally absent. The
   production dependency audit passes with 0 vulnerabilities; secrets are kept
   out of source (`.env.example` is committed, real envs are git-ignored).
-- **Current position:** HTTPS and security headers (CSP, HSTS, X-Content-Type-
-  Options, Referrer-Policy) are configured at the **hosting layer**, not in the
-  app — document them for the host (Netlify/Vercel/Cloudflare headers). The
-  generated `_headers` artifact includes HSTS, and
-  `public/.well-known/security.txt` provides the private GitHub reporting path.
-  Cookies are client-only today, so secure-cookie controls are N/A until
-  Goals 01/05/06 add a backend.
+- **Current position:** HTTPS and host-level headers (HSTS, X-Content-Type-
+  Options, Referrer-Policy, X-Frame-Options) are configured at the **hosting
+  layer** via the generated `_headers` — document them for the host
+  (Netlify/Cloudflare/Vercel). The core CSP ships **per page** as a meta tag in
+  every HTML document, so it is enforced even on hosts that ignore `_headers`
+  (e.g. GitHub Pages). `public/.well-known/security.txt` provides the private
+  GitHub reporting path. Cookies are client-only today, so secure-cookie
+  controls are N/A until Goals 01/05/06 add a backend.

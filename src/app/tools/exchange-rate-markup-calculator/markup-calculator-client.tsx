@@ -32,8 +32,8 @@ type MarkupState = {
 
 const DEFAULT_STATE: MarkupState = {
   direction: "receive-inr",
-  midRate: 83.5,
-  offeredRate: 82,
+  midRate: 95.4,
+  offeredRate: 94,
   amount: 1000,
 };
 
@@ -203,7 +203,7 @@ export function MarkupCalculatorClient() {
               className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--accent)] focus:outline-none"
             />
             <p className="mt-1.5 text-[11px] leading-relaxed text-[var(--muted-text)]">
-              The real interbank rate (example: ₹83.50 per US$). Look it up on a rate
+              The real interbank rate (example: ₹95.40 per US$). Look it up on a rate
               aggregator the same day you check your provider&apos;s quote.
             </p>
           </div>

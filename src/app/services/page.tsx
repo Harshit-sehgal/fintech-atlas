@@ -4,6 +4,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ServicesContactForm } from "@/components/ui/services-contact";
+import { SITE_URL } from "@/lib/site-config";
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
 
@@ -71,7 +72,7 @@ const serviceJsonLd = {
   provider: {
     "@type": "Organization",
     name: "FinTech Atlas",
-    url: "https://harshit-sehgal.github.io/fintech-atlas",
+    url: SITE_URL,
   },
   areaServed: "IN",
   audience: { "@type": "BusinessAudience" },

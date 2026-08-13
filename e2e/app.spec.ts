@@ -235,15 +235,15 @@ test.describe("critical flows", () => {
       page.getByRole("heading", { level: 1, name: "Exchange-rate markup calculator" }),
     ).toBeVisible();
 
-    // Defaults: mid ₹83.50, offered ₹82.00, $1,000 received → 1.80% markup.
-    await expect(page.getByText("1.80%").first()).toBeVisible();
-    await expect(page.getByText("₹83,500").first()).toBeVisible();
-    await expect(page.getByText("₹82,000").first()).toBeVisible();
-    await expect(page.getByText("₹1,500").first()).toBeVisible();
+    // Defaults: mid ₹95.40, offered ₹94.00, $1,000 received → 1.47% markup.
+    await expect(page.getByText("1.47%").first()).toBeVisible();
+    await expect(page.getByText("₹95,400").first()).toBeVisible();
+    await expect(page.getByText("₹94,000").first()).toBeVisible();
+    await expect(page.getByText("₹1,400").first()).toBeVisible();
 
     // Sending INR flips the loss to the sender side.
     await page.getByRole("radio", { name: /Sending INR/ }).click();
-    await expect(page.getByText("1.80%").first()).toBeVisible();
+    await expect(page.getByText("1.47%").first()).toBeVisible();
   });
 
   test("remittance ranks providers with visible fees and markups", async ({ page }) => {

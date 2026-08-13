@@ -2,13 +2,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { articles } from "@/data/articles";
 import { changelog } from "@/data/changelog";
+import { resolveSiteUrl } from "./lib/site-url.mjs";
 
 const outDir = path.resolve(process.cwd(), "out");
-const siteUrl = (
-  process.env.SITE_URL ||
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://fintech-atlas.example.com"
-).trim().replace(/\/+$/, "");
+const siteUrl = resolveSiteUrl();
 
 if (!fs.existsSync(outDir)) {
   throw new Error(`Static export directory not found: ${outDir}`);

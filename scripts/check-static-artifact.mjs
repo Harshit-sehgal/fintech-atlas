@@ -94,13 +94,22 @@ for (const [file, requiredText] of [["sw.js", "addEventListener"], ["offline.htm
 if (fs.existsSync(path.join(outDir, "_headers"))) {
   const headers = read("_headers");
   for (const requiredHeader of [
-    "Content-Security-Policy:",
     "Strict-Transport-Security:",
     "X-Content-Type-Options:",
     "Referrer-Policy:",
     "Permissions-Policy:",
+    "X-Frame-Options:",
   ]) {
     if (!headers.includes(requiredHeader)) fail(`_headers is missing ${requiredHeader}`);
+  }
+}
+
+// CSP lives per-page as a <meta> tag (host-agnostic; _headers is ignored on
+// GitHub Pages). Every shipping HTML page must carry one.
+if (fs.existsSync(path.join(outDir, "index.html"))) {
+  const homepage = read("index.html");
+  if (!/<meta[^>]*http-equiv=["']Content-Security-Policy["'][^>]*>/i.test(homepage)) {
+    fail("index.html is missing its per-page Content-Security-Policy meta tag");
   }
 }
 

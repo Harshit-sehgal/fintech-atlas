@@ -19,6 +19,7 @@ const CommandPalette = dynamic(
 
 const nav = [
   { href: "/", label: "Home" },
+  { href: "/india", label: "India" },
   { href: "/companies", label: "Companies" },
   { href: "/categories", label: "Categories" },
   { href: "/compare", label: "Compare" },
@@ -29,7 +30,10 @@ const nav = [
 ];
 
 export function SiteHeader() {
-  const pathname = usePathname();
+  // Server-rendered pathname for the homepage is "/" but a static host can
+  // surface the same document at "/index.html". Normalize so active-link
+  // state (and its aria-current attribute) hydrates identically in both.
+  const pathname = usePathname()?.replace(/\/index\.html$/, "") || "/";
   const [open, setOpen] = useState(false);
   const [cmdOpen, setCmdOpen] = useState(false);
   const { bookmarks, glossaryBookmarks } = useBookmarks();

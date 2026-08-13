@@ -18,6 +18,7 @@ import { CategoryIcon } from "@/components/ui/category-icon";
 import { Reveal } from "@/components/ui/reveal";
 import { HomeHero } from "@/components/home/hero";
 import { LogoMarquee } from "@/components/ui/logo-marquee";
+import { NewsletterOptIn } from "@/components/ui/newsletter-opt-in";
 import { formatValuationShort } from "@/lib/format-company";
 
 // India-first featured providers (plan §7: "India-specific provider
@@ -146,6 +147,16 @@ export default function HomePageClient({
               <p className="mt-1 text-xs text-[var(--muted-text)]">Open the side-by-side comparison →</p>
             </Link>
           ))}
+        </div>
+        <div className="mt-8">
+          <Link
+            href="/india"
+            className="group inline-flex items-center gap-2 rounded-xl border border-[var(--border-color)] bg-[var(--card)] px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
+          >
+            <span>🇮🇳</span>
+            <span>Payment gateways & international payments for India</span>
+            <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+          </Link>
         </div>
       </section>
 
@@ -350,6 +361,132 @@ export default function HomePageClient({
             </Link>
           </div>
         </Reveal>
+      </section>
+
+      {/* How FinTech Atlas makes money (plan §7 homepage section 6) */}
+      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+        <SectionHeading
+          eyebrow="Independence"
+          title="How FinTech Atlas Makes Money"
+          description="The site stays free because it is honest about how it is funded — and keeps editorial choices separate from commercial inventory."
+        />
+        <Reveal delay={0.1}>
+          <div className="mt-10 grid gap-5 md:grid-cols-3 reveal-stagger">
+            {[
+              {
+                title: "Affiliate links",
+                desc: "When you sign up through a link we earn a commission at no cost to you. These links carry rel=\"sponsored\" and are disclosed on every page where they appear.",
+              },
+              {
+                title: "Sponsored placements",
+                desc: "Clearly-labeled paid promotions live in dedicated slots, visually distinct from editorial ratings and comparisons. Ratings are never bought.",
+              },
+              {
+                title: "Never pay-to-rank",
+                desc: "A commercial relationship never buys a rating, a ranking, or an editorial claim. Our fee comparisons and methodology are independent of sponsors.",
+              },
+            ].map((item) => (
+              <div key={item.title} className="surface rounded-2xl border border-[var(--border-color)] p-6 card-glow">
+                <h3 className="text-base font-bold text-[var(--foreground)]">{item.title}</h3>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--muted-text)]">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+        <Reveal delay={0.15}>
+          <div className="mt-8">
+            <Link href="/about" className="text-xs font-semibold text-[var(--accent)] hover:underline underline-offset-4">
+              Read the full disclosure on the About page →
+            </Link>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* Methodology (plan §7 homepage section 7) */}
+      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+        <SectionHeading
+          eyebrow="How We Research"
+          title="Transparent Methodology"
+          description="Every comparison, fee figure, and rating traces back to a documented source and a verifiable date. No figures are invented; nothing is locked behind a subscription."
+        />
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 reveal-stagger">
+          {[
+            {
+              title: "Sourced pricing",
+              desc: "Fee structures come from published pricing pages and are captured with a verification date on each article.",
+            },
+            {
+              title: "Independent calculators",
+              desc: "Tool formulas are open and documented — you can see what is included, what is excluded, and how each number is derived.",
+            },
+            {
+              title: "Regular re-checks",
+              desc: "Currency snapshots and pricing pages are re-verified on a schedule; stale rates are flagged by automated build-time checks.",
+            },
+          ].map((item) => (
+            <Link
+              key={item.title}
+              href="/about#methodology"
+              className="group block rounded-2xl border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
+            >
+              <h3 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
+                {item.title}
+              </h3>
+              <p className="mt-2 text-xs leading-relaxed text-[var(--muted-text)]">{item.desc}</p>
+              <p className="mt-3 text-xs text-[var(--accent)]">See the sourcing &amp; scoring method →</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Newsletter (plan §7 homepage section 8) */}
+      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+        <div className="rounded-3xl border border-[var(--border-color)] bg-[var(--card)] p-8 md:p-12">
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
+                Newsletter
+              </p>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--foreground)] md:text-3xl">
+                Fee Changes, New Calculators &amp; Research Notes
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-[var(--muted-text)]">
+                A low-frequency update when pricing changes, tools ship, or new
+                comparisons land. No tracking pixels, no resale — just the
+                research.
+              </p>
+              <NewsletterOptIn />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Author / editorial information (plan §7 homepage section 9) */}
+      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+          <div className="max-w-2xl space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
+              Editorial
+            </p>
+            <h2 className="text-2xl font-semibold tracking-tight text-[var(--foreground)] md:text-3xl">
+              Researched by FinTech Atlas
+            </h2>
+            <p className="text-sm leading-relaxed text-[var(--muted-text)]">
+              Every guide, profile, and calculator is authored and verified by
+              FinTech Atlas. See the full data sources, synthesis methodology,
+              and editorial standards — and send real feedback if we got
+              something wrong.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/about" className="btn-primary text-xs">
+              About &amp; Methodology
+            </Link>
+            <Link href="/about#feedback" className="btn-ghost text-xs">
+              Send Feedback
+            </Link>
+          </div>
+        </div>
       </section>
 
       {/* Compare CTA */}

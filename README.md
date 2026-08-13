@@ -6,7 +6,7 @@ Built from public reference material and editorial summaries. Source URLs and ef
 
 ## Overview
 
-FinTech Atlas is a Next.js 16 static-export website that serves as both an educational directory and an interactive decision suite. It catalogs **42 real-world FinTech companies** across **12 industry categories** with a **24-term glossary** and **4 interactive tools**.
+FinTech Atlas is a Next.js 16 static-export website that serves as both an educational directory and an interactive decision suite. It catalogs **42 real-world FinTech companies** across **12 industry categories** with a **29-term glossary** and **6 interactive tools**.
 
 ### Features
 
@@ -14,10 +14,12 @@ FinTech Atlas is a Next.js 16 static-export website that serves as both an educa
 |---|---|
 | **Company Directory** | 42 company profiles with product details, pricing, editorial sentiment summaries, strengths & weaknesses |
 | **Industry Categories** | 12 categories (Payments, Neobanks, Investing, Cross-Border, BNPL, Infrastructure, etc.) |
-| **Glossary** | 24 financial technology terms with definitions, synonyms, and cross-references |
+| **Glossary** | 29 financial technology terms with definitions, synonyms, and cross-references |
 | **Compare Tool** | Side-by-side comparison matrix for up to 3 companies |
 | **Fee Calculator** | Payment gateway fee estimator (Stripe, PayPal, Square, Adyen) |
+| **Razorpay Fee Calculator** | India-specific Razorpay fee estimator with published rates and GST |
 | **FX Remittance** | Cross-border remittance cost calculator (Wise, Revolut, PayPal, Bank) |
+| **FX Markup Calculator** | Exchange-rate markup % and INR/USD loss for both directions |
 | **Matchmaker Quiz** | 4-step quiz with weighted scoring to find the right FinTech tools |
 | **Bookmarks** | LocalStorage-backed bookmarking for companies and glossary terms |
 | **⌘K Search** | Command palette search across companies, categories, glossary, and tools |
@@ -43,7 +45,7 @@ fintech-website/
 │   │   ├── layout/        # Site header (glass), footer
 │   │   ├── SEO/           # JSON-LD structured data
 │   │   └── ui/            # Reusable UI components
-│   ├── data/              # 42 companies, 12 categories, 24 glossary terms
+│   ├── data/              # 42 companies, 12 categories, 29 glossary terms
 │   └── lib/               # Theme, bookmarks, toast contexts
 ├── public/logos/          # Official SVG logos for the catalog
 ├── docs/                  # Production-readiness checklists and incident runbook
@@ -102,7 +104,7 @@ real SVGs and regenerate `src/data/logos-index.ts`.
 
 | Variable | Required | Default | Description |
 |---|---|---|---|
-| `SITE_URL` | No* | `https://fintech-atlas.example.com` | Canonical site URL for sitemap and SEO. **Required for production builds** (placeholder is rejected). |
+| `SITE_URL` | No* | `https://fintech-atlas.com` | Canonical site URL for sitemap, SEO, and security.txt. **Required for production builds** (placeholder is rejected). Postbuild scripts resolve this from the env or `.env.local` via `scripts/lib/site-url.mjs`. |
 | `NEXT_PUBLIC_ANALYTICS_DOMAIN` | No | unset | Optional cookieless Plausible-compatible analytics site id. When unset, no analytics script loads. |
 | `NEXT_PUBLIC_WAITLIST_ENDPOINT` | No | unset | Optional third-party form endpoint for a Pro/partner waitlist. When unset, waitlist UI stays hidden. |
 | `NEXT_PUBLIC_NEWSLETTER_FORM_ACTION` | No | unset | Optional newsletter provider form endpoint. When unset, email intent stays on-device and nothing is sent. |

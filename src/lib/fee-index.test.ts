@@ -10,7 +10,7 @@ import { REMITTANCE_PROVIDERS } from "@/data/remittance-config";
  * without the other.
  */
 
-const INR_RATE = 83.5; // matches remittance-config CURRENCIES INR snapshot
+const INR_RATE = 95.4; // matches remittance-config CURRENCIES INR snapshot
 
 function netInr(amountUsd: number, feePct: number, feeFixed: number, fxMargin: number): string {
   const fee = amountUsd * feePct + feeFixed;
@@ -55,9 +55,9 @@ describe("Quarterly India Cross-Border Payment Fee Index (article 26)", () => {
 
     // Payoneer is not in the estimator config (1–4% corridor, no fixed model);
     // the index publishes its 2% corridor midpoint.
-    expect(body).toContain("≈ ₹40,915"); // $500 × 0.98 × 83.5
-    expect(body).toContain("≈ ₹81,830"); // $1,000 × 0.98 × 83.5
-    expect(body).toContain("≈ ₹4,09,150"); // $5,000 × 0.98 × 83.5
+    expect(body).toContain("≈ ₹46,746"); // $500 × 0.98 × 95.4
+    expect(body).toContain("≈ ₹93,492"); // $1,000 × 0.98 × 95.4
+    expect(body).toContain("≈ ₹4,67,460"); // $5,000 × 0.98 × 95.4
   });
 
   it("keeps the receiving-$500 article's table on the same config", () => {
@@ -68,7 +68,7 @@ describe("Quarterly India Cross-Border Payment Fee Index (article 26)", () => {
     expect(body).toContain(netInr(500, paypal.feePct, paypal.feeFixed, paypal.fxMargin));
     const bank = providerConfig("bank");
     expect(body).toContain(netInr(500, bank.feePct, bank.feeFixed, bank.fxMargin));
-    expect(body).toContain("≈ ₹40,915"); // Payoneer 2% corridor
+    expect(body).toContain("≈ ₹46,746"); // Payoneer 2% corridor
   });
 
 
@@ -82,7 +82,7 @@ describe("Quarterly India Cross-Border Payment Fee Index (article 26)", () => {
     expect(body).toContain(netInr(5000, paypal.feePct, paypal.feeFixed, paypal.fxMargin));
     const bank = providerConfig("bank");
     expect(body).toContain(netInr(5000, bank.feePct, bank.feeFixed, bank.fxMargin));
-    expect(body).toContain("≈ ₹4,09,150"); // Payoneer 2% corridor at $5,000
+    expect(body).toContain("≈ ₹4,67,460"); // Payoneer 2% corridor at $5,000
   });
 
   it("keeps the receiving-$1,000 article's table on the same config", () => {
@@ -95,12 +95,12 @@ describe("Quarterly India Cross-Border Payment Fee Index (article 26)", () => {
     expect(body).toContain(netInr(1000, paypal.feePct, paypal.feeFixed, paypal.fxMargin));
     const bank = providerConfig("bank");
     expect(body).toContain(netInr(1000, bank.feePct, bank.feeFixed, bank.fxMargin));
-    expect(body).toContain("≈ ₹81,830"); // Payoneer 2% corridor at $1,000
+    expect(body).toContain("≈ ₹93,492"); // Payoneer 2% corridor at $1,000
   });
   it("keeps the Payoneer article's worked example on the shared snapshot", () => {
     const body = articleBodyText("payoneer-fees-india");
-    // 1% corridor: $990 × 83.5; 4% corridor: $960 × 83.5
-    expect(body).toContain("₹82,665");
-    expect(body).toContain("₹80,160");
+    // 1% corridor: $990 × 95.4; 4% corridor: $960 × 95.4
+    expect(body).toContain("₹94,446");
+    expect(body).toContain("₹91,584");
   });
 });

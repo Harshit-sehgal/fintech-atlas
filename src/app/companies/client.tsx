@@ -120,7 +120,7 @@ export function CompaniesClient() {
               stroke="currentColor"
               aria-hidden="true"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z" />
             </svg>
             <input
               type="search"
@@ -298,9 +298,9 @@ export function CompaniesClient() {
                                 <CompanyLogo slug={c.slug} name={c.name} size={40} />
                               </div>
                               <div>
-                                <h3 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
+                                <h2 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
                                   {c.name}
-                                </h3>
+                                </h2>
                                 <p className="text-xs text-[var(--muted-text)] font-mono">
                                   {c.founded} · {formatHeadquartersCity(c.headquarters)}
                                 </p>
@@ -405,7 +405,7 @@ export function CompaniesClient() {
                           </div>
                           <div>
                             <div className="flex items-center gap-2">
-                              <h3 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">{c.name}</h3>
+                              <h2 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">{c.name}</h2>
                               <span className="rounded-lg bg-[var(--success)]/10 border border-[var(--success)]/20 px-2 py-0.5 text-[10px] font-mono font-bold text-success-text">
                                 ★ {c.rating}
                               </span>

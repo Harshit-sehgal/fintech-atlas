@@ -476,6 +476,32 @@ h1, h2, h3 {
   );
 }
 
+/* ── Marquee strip animation ──
+   Driven by CSS instead of JavaScript so the off-screen auto-scroll never
+   occupies the main thread (an rAF loop keeps the page from reaching
+   "interactive" on throttled connections). The strip renders two identical
+   copies of the brand list; translating -50% of the doubled strip loops it
+   seamlessly. Pause-on-hover is a plain animation-play-state flip. */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-strip {
+  animation: marquee-scroll 40s linear infinite;
+  will-change: transform;
+}
+.marquee-strip:hover,
+.marquee-strip:focus-within {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-strip {
+    animation: none;
+    transform: none;
+  }
+}
+
 /* ── Universal focus ring token ── */
 :where(.btn-primary, .btn-ghost, .btn-icon):focus-visible {
   outline: none;

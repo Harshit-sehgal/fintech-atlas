@@ -977,7 +977,7 @@ export const articles: Article[] = [
       },
       {
         type: "p",
-        text: "Illustrative math at a mid-market snapshot of ₹83.50/USD (the FX estimator's 2026-08-01 rate): a $1,000 marketplace payout arrives with no Payoneer receiving fee. Withdrawing to INR at the published 1–4% corridor, at 1% you keep $990 — about ₹82,665 — and at 4% you keep $960 — about ₹80,160. If the client paid by credit card instead, the 2.90% + $0.49 request fee (≈ $29.49) applies first, and the withdrawal corridor then applies to what is left. The exact corridor rate is shown inside your account before you confirm the withdrawal.",
+        text: "Illustrative math at a mid-market snapshot of ₹95.40/USD (the FX estimator's 2026-08-12 rate): a $1,000 marketplace payout arrives with no Payoneer receiving fee. Withdrawing to INR at the published 1–4% corridor, at 1% you keep $990 — about ₹94,446 — and at 4% you keep $960 — about ₹91,584. If the client paid by credit card instead, the 2.90% + $0.49 request fee (≈ $29.49) applies first, and the withdrawal corridor then applies to what is left. The exact corridor rate is shown inside your account before you confirm the withdrawal.",
       },
       {
         type: "h2",
@@ -1007,7 +1007,7 @@ export const articles: Article[] = [
       },
       {
         type: "p",
-        text: "Figures above are Payoneer's published India pricing (payoneer.com/en-in/about/pricing/, updated 18 June 2026) and global pricing page (updated 1 January 2026). Marketplace payout fees are set by each marketplace and vary. The worked example assumes an illustrative ₹83.50/USD mid-market snapshot (the FX estimator's 2026-08-01 rate); actual exchange rates move continuously. The fee shown in your Payoneer account before you confirm a transaction is authoritative.",
+        text: "Figures above are Payoneer's published India pricing (payoneer.com/en-in/about/pricing/, updated 18 June 2026) and global pricing page (updated 1 January 2026). Marketplace payout fees are set by each marketplace and vary. The worked example assumes an illustrative ₹95.40/USD mid-market snapshot (the FX estimator's 2026-08-12 rate); actual exchange rates move continuously. The fee shown in your Payoneer account before you confirm a transaction is authoritative.",
       },
       {
         type: "p",
@@ -1035,7 +1035,7 @@ export const articles: Article[] = [
     body: [
       {
         type: "p",
-        text: "A US client sends you $500. What lands in your INR account depends on the channel they use: the fee the provider takes, the exchange-rate spread, and how long the money takes. At the site's ₹83.50/USD mid-market snapshot (2026-08-01, the same rates the FX estimator uses), the cheapest and the priciest routes differ by roughly ₹4,450 — more than 10% of the amount. The short version: Wise and Revolut are the cheapest and fastest for most freelancers, bank wires hide their cost in the rate, PayPal is the most expensive, and Payoneer wins when the client already pays through marketplace rails.",
+        text: "A US client sends you $500. What lands in your INR account depends on the channel they use: the fee the provider takes, the exchange-rate spread, and how long the money takes. At the site's ₹95.40/USD mid-market snapshot (2026-08-12, the same rates the FX estimator uses), the cheapest and the priciest routes differ by roughly ₹5,100 — more than 10% of the amount. The short version: Wise and Revolut are the cheapest and fastest for most freelancers, bank wires hide their cost in the rate, PayPal is the most expensive, and Payoneer wins when the client already pays through marketplace rails.",
       },
       {
         type: "h2",
@@ -1045,10 +1045,10 @@ export const articles: Article[] = [
         type: "table",
         headers: ["Channel", "Upfront fee", "FX markup", "You receive (₹)", "Typical time"],
         rows: [
-          ["Wise", "≈ $2.65 flat", "0% — mid-market rate", "≈ ₹41,529", "Minutes–hours"],
-          ["Payoneer", "$0 to receive", "1–4% corridor (2% illustrated)", "≈ ₹40,915", "1–2 business days"],
-          ["Bank wire (SWIFT)", "≈ $35 outgoing + sender's bank fees", "≈ 4.5% corridor", "≈ ₹37,080", "2–5 business days"],
-          ["PayPal", "≈ $4.99 flat", "≈ 3.5% FX spread", "≈ ₹39,887", "1–3 days"],
+          ["Wise", "≈ $2.65 flat", "0% — mid-market rate", "≈ ₹47,447", "Minutes–hours"],
+          ["Payoneer", "$0 to receive", "1–4% corridor (2% illustrated)", "≈ ₹46,746", "1–2 business days"],
+          ["Bank wire (SWIFT)", "≈ $35 outgoing + sender's bank fees", "≈ 4.5% corridor", "≈ ₹42,365", "2–5 business days"],
+          ["PayPal", "≈ $4.99 flat", "≈ 3.5% FX spread", "≈ ₹45,571", "1–3 days"],
         ],
       },
       {
@@ -1088,7 +1088,7 @@ export const articles: Article[] = [
       {
         type: "ul",
         items: [
-          "Occasional $500 from a direct client → Wise (or Revolut — at this size they land within ₹12 of each other): cheapest, fastest, most transparent.",
+          "Occasional $500 from a direct client → Wise (or Revolut — at this size they land within ₹15 of each other): cheapest, fastest, most transparent.",
           "Platform or marketplace payouts → Payoneer: the rail the platform already uses, and receiving is $0.",
           "Client insists on PayPal → accept, but know you are paying roughly 10% versus Wise — asking the client to cover the fee is reasonable.",
           "Large or recurring amounts → give the client your Wise USD account details so they can pay by domestic ACH transfer; receiving is $0 and there is no SWIFT chain.",
@@ -1105,7 +1105,7 @@ export const articles: Article[] = [
       },
       {
         type: "p",
-        text: "Editorial note: figures are illustrative from the 2026 catalog vintage (₹83.50/USD, the FX estimator's 2026-08-01 snapshot; fee models match the estimator's provider configs), not live quotes or financial advice. Fee schedules and FX programs change — verify the current rate before confirming any transfer.",
+        text: "Editorial note: figures are illustrative from the 2026 catalog vintage (₹95.40/USD, the FX estimator's 2026-08-12 snapshot; fee models match the estimator's provider configs), not live quotes or financial advice. Fee schedules and FX programs change — verify the current rate before confirming any transfer.",
       },
     ],
   },
@@ -1337,7 +1337,7 @@ export const articles: Article[] = [
     body: [
       {
         type: "p",
-        text: "This is the FinTech Atlas consolidated fee index for receiving USD in India — what each channel actually delivers after fees and FX markup, for three representative amounts. Every figure is computed from the same provider fee models and the same ₹83.50/USD mid-market snapshot (2026-08-01) that power the site's Cross-Border FX Estimator, so the index and the calculator can never disagree. Treat it as a snapshot of the current vintage, not a live quote: schedules change, and your exact corridor can differ.",
+        text: "This is the FinTech Atlas consolidated fee index for receiving USD in India — what each channel actually delivers after fees and FX markup, for three representative amounts. Every figure is computed from the same provider fee models and the same ₹95.40/USD mid-market snapshot (2026-08-12) that power the site's Cross-Border FX Estimator, so the index and the calculator can never disagree. Treat it as a snapshot of the current vintage, not a live quote: schedules change, and your exact corridor can differ.",
       },
       {
         type: "h2",
@@ -1347,11 +1347,11 @@ export const articles: Article[] = [
         type: "table",
         headers: ["Channel", "$500", "$1,000", "$5,000", "Fee model", "FX markup"],
         rows: [
-          ["Wise", "≈ ₹41,529", "≈ ₹83,099", "≈ ₹4,15,663", "0.43% + $0.50", "0%"],
-          ["Revolut", "≈ ₹41,541", "≈ ₹83,083", "≈ ₹4,15,413", "0.5%", "0%"],
-          ["Payoneer (2% corridor illustrated)", "≈ ₹40,915", "≈ ₹81,830", "≈ ₹4,09,150", "1–4% corridor", "In-spread"],
-          ["PayPal / Xoom", "≈ ₹39,887", "≈ ₹80,175", "≈ ₹4,02,485", "$4.99 flat", "3.5%"],
-          ["Illustrative bank wire", "≈ ₹37,080", "≈ ₹76,952", "≈ ₹3,95,922", "$35 flat", "4.5%"],
+          ["Wise", "≈ ₹47,447", "≈ ₹94,942", "≈ ₹4,74,901", "0.43% + $0.50", "0%"],
+          ["Revolut", "≈ ₹47,462", "≈ ₹94,923", "≈ ₹4,74,615", "0.5%", "0%"],
+          ["Payoneer (2% corridor illustrated)", "≈ ₹46,746", "≈ ₹93,492", "≈ ₹4,67,460", "1–4% corridor", "In-spread"],
+          ["PayPal / Xoom", "≈ ₹45,571", "≈ ₹91,602", "≈ ₹4,59,846", "$4.99 flat", "3.5%"],
+          ["Illustrative bank wire", "≈ ₹42,365", "≈ ₹87,918", "≈ ₹4,52,346", "$35 flat", "4.5%"],
         ],
       },
       {
@@ -1360,7 +1360,7 @@ export const articles: Article[] = [
       },
       {
         type: "p",
-        text: "For each provider: the fee model (percentage, flat, or both) is applied to the send amount, then the FX markup is applied to the mid-market rate, and the net amount is converted. The mid-market snapshot is ₹83.50/USD (2026-08-01); the fee models are the ones published in the site's remittance configuration — the same inputs the Cross-Border FX Estimator runs. Payoneer has no fixed published percentage for USD→INR: the published 1–4% corridor is shown at its 2% midpoint for comparison, with the caveat that the actual rate is shown in your account before you confirm.",
+        text: "For each provider: the fee model (percentage, flat, or both) is applied to the send amount, then the FX markup is applied to the mid-market rate, and the net amount is converted. The mid-market snapshot is ₹95.40/USD (2026-08-12); the fee models are the ones published in the site's remittance configuration — the same inputs the Cross-Border FX Estimator runs. Payoneer has no fixed published percentage for USD→INR: the published 1–4% corridor is shown at its 2% midpoint for comparison, with the caveat that the actual rate is shown in your account before you confirm.",
       },
       {
         type: "h2",
@@ -1369,7 +1369,7 @@ export const articles: Article[] = [
       {
         type: "ul",
         items: [
-          "At $500, Revolut and Wise land within ₹12 of each other — a rounding difference, not a decision; the tie breaks on speed, account features, and corridors you actually use.",
+          "At $500, Revolut and Wise land within ₹15 of each other — a rounding difference, not a decision; the tie breaks on speed, account features, and corridors you actually use.",
           "Above roughly $714, Wise's 0.43% + $0.50 model beats Revolut's flat 0.5% — the crossover is built into the fee math.",
           "PayPal's flat $4.99 fee scales down as a percentage as amounts grow, but the 3.5% spread stays proportional — it trails Wise by ~7–8% at every size in this table.",
           "The bank wire is the most expensive at every size in this table: the $35 flat fee plus 4.5% margin costs roughly 10% of a $500 transfer before any incoming charges.",
@@ -1399,7 +1399,7 @@ export const articles: Article[] = [
       },
       {
         type: "p",
-        text: "Editorial note: index figures are computed from the site's published provider fee models and the ₹83.50/USD snapshot of 2026-08-01 — the same inputs as the Cross-Border FX Estimator. They are illustrative, not live quotes; verify current schedules before planning around any figure.",
+        text: "Editorial note: index figures are computed from the site's published provider fee models and the ₹95.40/USD snapshot of 2026-08-12 — the same inputs as the Cross-Border FX Estimator. They are illustrative, not live quotes; verify current schedules before planning around any figure.",
       },
     ],
   },
@@ -1547,16 +1547,16 @@ export const articles: Article[] = [
         type: "table",
         headers: ["Channel", "You receive (₹)", "Fee model", "FX markup"],
         rows: [
-          ["Wise", "≈ ₹4,15,663", "0.43% + $0.50", "0%"],
-          ["Revolut", "≈ ₹4,15,413", "0.5%", "0%"],
-          ["Payoneer (2% corridor illustrated)", "≈ ₹4,09,150", "1–4% corridor", "In-spread"],
-          ["PayPal / Xoom", "≈ ₹4,02,485", "$4.99 flat", "3.5%"],
-          ["Illustrative bank wire", "≈ ₹3,95,922", "$35 flat", "4.5%"],
+          ["Wise", "≈ ₹4,74,901", "0.43% + $0.50", "0%"],
+          ["Revolut", "≈ ₹4,74,615", "0.5%", "0%"],
+          ["Payoneer (2% corridor illustrated)", "≈ ₹4,67,460", "1–4% corridor", "In-spread"],
+          ["PayPal / Xoom", "≈ ₹4,59,846", "$4.99 flat", "3.5%"],
+          ["Illustrative bank wire", "≈ ₹4,52,346", "$35 flat", "4.5%"],
         ],
       },
       {
         type: "p",
-        text: "Figures computed from the same fee models and ₹83.50/USD snapshot (2026-08-01) as the Quarterly India Cross-Border Payment Fee Index — the full $500/$1,000/$5,000 matrix lives there.",
+        text: "Figures computed from the same fee models and ₹95.40/USD snapshot (2026-08-12) as the Quarterly India Cross-Border Payment Fee Index — the full $500/$1,000/$5,000 matrix lives there.",
       },
       {
         type: "h2",
@@ -1638,7 +1638,7 @@ export const articles: Article[] = [
       },
       {
         type: "p",
-        text: "Editorial note: figures are computed from the site's published fee models and ₹83.50/USD snapshot (2026-08-01) — the same inputs as the FX estimator. EEFC eligibility, holding limits, and banking practice vary by bank and regulation; this is editorial guidance, not tax or legal advice. Verify current terms before acting.",
+        text: "Editorial note: figures are computed from the site's published fee models and ₹95.40/USD snapshot (2026-08-12) — the same inputs as the FX estimator. EEFC eligibility, holding limits, and banking practice vary by bank and regulation; this is editorial guidance, not tax or legal advice. Verify current terms before acting.",
       },
     ],
   },
@@ -1920,7 +1920,7 @@ export const articles: Article[] = [
     body: [
       {
         type: "p",
-        text: "A $1,000 payment is the freelancer milestone — the typical Upwork or Fiverr payout, the size where clients stop asking how to pay and you should start caring about how you receive it. It sits exactly where the two fee structures balance: the flat fees that dominated at $500 (Wise's $0.50, PayPal's $4.99) have shrunk into the noise, while percentage costs still matter — the spread between the cheapest and priciest channels is about ₹6,150 — roughly 7.4% of the money. The short version: take the payment on the rail your client or platform prefers, pick Wise or Revolut when you choose, and use the first $1,000 receipts to build the documentation habit — invoice pairs, FIRCs, and a folder per project.",
+        text: "A $1,000 payment is the freelancer milestone — the typical Upwork or Fiverr payout, the size where clients stop asking how to pay and you should start caring about how you receive it. It sits exactly where the two fee structures balance: the flat fees that dominated at $500 (Wise's $0.50, PayPal's $4.99) have shrunk into the noise, while percentage costs still matter — the spread between the cheapest and priciest channels is about ₹7,000 — roughly 7.4% of the money. The short version: take the payment on the rail your client or platform prefers, pick Wise or Revolut when you choose, and use the first $1,000 receipts to build the documentation habit — invoice pairs, FIRCs, and a folder per project.",
       },
       {
         type: "h2",
@@ -1930,16 +1930,16 @@ export const articles: Article[] = [
         type: "table",
         headers: ["Channel", "You receive (₹)", "Fee model", "FX markup"],
         rows: [
-          ["Wise", "≈ ₹83,099", "0.43% + $0.50", "0%"],
-          ["Revolut", "≈ ₹83,083", "0.5%", "0%"],
-          ["Payoneer (2% corridor illustrated)", "≈ ₹81,830", "1–4% corridor", "In-spread"],
-          ["PayPal / Xoom", "≈ ₹80,175", "$4.99 flat", "3.5%"],
-          ["Illustrative bank wire", "≈ ₹76,952", "$35 flat", "4.5%"],
+          ["Wise", "≈ ₹94,942", "0.43% + $0.50", "0%"],
+          ["Revolut", "≈ ₹94,923", "0.5%", "0%"],
+          ["Payoneer (2% corridor illustrated)", "≈ ₹93,492", "1–4% corridor", "In-spread"],
+          ["PayPal / Xoom", "≈ ₹91,602", "$4.99 flat", "3.5%"],
+          ["Illustrative bank wire", "≈ ₹87,918", "$35 flat", "4.5%"],
         ],
       },
       {
         type: "p",
-        text: "Figures computed from the same fee models and ₹83.50/USD snapshot (2026-08-01) as the Quarterly India Cross-Border Payment Fee Index — the $500 and $5,000 companion tables live in the sibling guides for those amounts.",
+        text: "Figures computed from the same fee models and ₹95.40/USD snapshot (2026-08-12) as the Quarterly India Cross-Border Payment Fee Index — the $500 and $5,000 companion tables live in the sibling guides for those amounts.",
       },
       {
         type: "h2",
@@ -2003,7 +2003,7 @@ export const articles: Article[] = [
       },
       {
         type: "p",
-        text: "Editorial note: figures are computed from the site's published fee models and ₹83.50/USD snapshot (2026-08-01) — the same inputs as the FX estimator. Platform payout rails, Payoneer corridors, and bank practices vary; this is editorial guidance, not tax or legal advice.",
+        text: "Editorial note: figures are computed from the site's published fee models and ₹95.40/USD snapshot (2026-08-12) — the same inputs as the FX estimator. Platform payout rails, Payoneer corridors, and bank practices vary; this is editorial guidance, not tax or legal advice.",
       },
     ],
   },
@@ -2171,7 +2171,7 @@ export const articles: Article[] = [
       {
         type: "ul",
         items: [
-          "At $500, Wise lands ≈ ₹41,529 at the index's ₹83.50 snapshot, and a USDC round trip with ~1% total spread lands within a similar band — at this size the differentiator is speed and 24×7 availability, not price.",
+          "At $500, Wise lands ≈ ₹47,447 at the index's ₹95.40 snapshot, and a USDC round trip with ~1% total spread lands within a similar band — at this size the differentiator is speed and 24×7 availability, not price.",
           "At $5,000, percentage fees dominate: Wise charges ≈ $22 (0.43% + $0.50), the illustrative wire costs $35 plus a 4.5% margin, and a USDC trip with a tight ~0.3–0.5% total spread lands within a hair of Wise — far ahead of the wire. This is where the rail becomes worth benchmarking.",
           "The quoted exchange rate is the hidden variable on both sides: an illiquid USDC→INR market can carry a wide spread, exactly like Payoneer's 1–4% corridor — always compare the quoted INR against the mid-market rate before converting (the exchange-rate markup calculator does this for any rate you are offered).",
           "Network choice matters: sending on Ethereum L1 during congestion can cost more than Wise's whole fee; Solana, TRON, and Base-style networks typically settle in cents — the address you give a sender decides the fee.",
@@ -2865,7 +2865,7 @@ export const articles: Article[] = [
       },
       {
         type: "p",
-        text: "The conversion is the second layer. Converting a balance or payments received into another currency costs 3.0% above the base exchange rate (India consumer fees page). Withdrawing to your linked bank is free on the standard schedule, but Indian bank accounts settle in INR, so the 3% conversion applies on the way out either way — and 18% GST applies on PayPal's fees for Indian accounts (2026 industry sources). Net on $1,000: $44.30 fee, then the remaining $955.70 converts at roughly 3% above base — about $927 lands in INR, near ₹77,400 at the site's ₹83.50 snapshot.",
+        text: "The conversion is the second layer. Converting a balance or payments received into another currency costs 3.0% above the base exchange rate (India consumer fees page). Withdrawing to your linked bank is free on the standard schedule, but Indian bank accounts settle in INR, so the 3% conversion applies on the way out either way — and 18% GST applies on PayPal's fees for Indian accounts (2026 industry sources). Net on $1,000: $44.30 fee, then the remaining $955.70 converts at roughly 3% above base — about $927 lands in INR, near ₹88,436 at the site's ₹95.40 snapshot.",
       },
       {
         type: "h2",
@@ -2877,7 +2877,7 @@ export const articles: Article[] = [
       },
       {
         type: "p",
-        text: "Two structural notes. First, the annual account fee of $29.95 applies only if you receive under $6,000 in any 12 consecutive months — most working freelancers never see it. Second, Payoneer's India operations run under the RBI's Payment Aggregator – Cross Border (PA-CB) framework that replaced the older OPGSP regime (per January 2026 industry sources; treat as context, not advice). Net on $1,000: $0 receiving fee, then the corridor — at the 2% midpoint $980 lands, about ₹81,830; at 1%, ₹82,665.",
+        text: "Two structural notes. First, the annual account fee of $29.95 applies only if you receive under $6,000 in any 12 consecutive months — most working freelancers never see it. Second, Payoneer's India operations run under the RBI's Payment Aggregator – Cross Border (PA-CB) framework that replaced the older OPGSP regime (per January 2026 industry sources; treat as context, not advice). Net on $1,000: $0 receiving fee, then the corridor — at the 2% midpoint $980 lands, about ₹93,492; at 1%, ₹94,446.",
       },
       {
         type: "h2",
@@ -2885,12 +2885,12 @@ export const articles: Article[] = [
       },
       {
         type: "table",
-        headers: ["Rail", "Receiving fee", "Conversion", "Net (₹83.50 snapshot)"],
+        headers: ["Rail", "Receiving fee", "Conversion", "Net (₹95.40 snapshot)"],
         rows: [
-          ["PayPal", "4.4% + $0.30 (≈ $44.30)", "3.0% above base (official)", "≈ ₹77,400"],
-          ["Payoneer — 2% corridor midpoint", "$0", "1–4% corridor (2% shown)", "≈ ₹81,830"],
-          ["Payoneer — 1% corridor", "$0", "1% corridor", "≈ ₹82,665"],
-          ["Wise (benchmark)", "≈ $0 via ACH", "0.43% + $0.50 (fee-index model)", "≈ ₹83,099"],
+          ["PayPal", "4.4% + $0.30 (≈ $44.30)", "3.0% above base (official)", "≈ ₹88,436"],
+          ["Payoneer — 2% corridor midpoint", "$0", "1–4% corridor (2% shown)", "≈ ₹93,492"],
+          ["Payoneer — 1% corridor", "$0", "1% corridor", "≈ ₹94,446"],
+          ["Wise (benchmark)", "≈ $0 via ACH", "0.43% + $0.50 (fee-index model)", "≈ ₹94,942"],
         ],
       },
       {
@@ -2932,7 +2932,7 @@ export const articles: Article[] = [
       },
       {
         type: "p",
-        text: "Editorial note: PayPal figures are from PayPal India's official consumer and merchant fee pages (consumer page updated 31 May 2021, merchant page 28 March 2024 — both live at access on 4 August 2026); Payoneer figures from its India pricing page (updated 18 June 2026). The ₹83.50 snapshot is the FX estimator's 2026-08-01 rate. GST treatment is per 2026 industry sources. The fee shown in your account before you confirm a transaction is authoritative.",
+        text: "Editorial note: PayPal figures are from PayPal India's official consumer and merchant fee pages (consumer page updated 31 May 2021, merchant page 28 March 2024 — both live at access on 4 August 2026); Payoneer figures from its India pricing page (updated 18 June 2026). The ₹95.40 snapshot is the FX estimator's 2026-08-12 rate. GST treatment is per 2026 industry sources. The fee shown in your account before you confirm a transaction is authoritative.",
       },
     ],
   },
@@ -3025,7 +3025,7 @@ export const articles: Article[] = [
       },
       {
         type: "p",
-        text: "Editorial note: fee models are the site's published index inputs (Wise 0.43% + $0.50; Payoneer 1–4% corridor; bank wire ~4.5% + $35-class; USDC ~0.1–1% per leg) and PayPal India's official schedules (4.4% + $0.30 receiving, 3.0% conversion). The ₹83.50 snapshot is the FX estimator's 2026-08-01 rate. Each linked guide carries its own sources and hedges; the rate shown in your provider account before you confirm is authoritative.",
+        text: "Editorial note: fee models are the site's published index inputs (Wise 0.43% + $0.50; Payoneer 1–4% corridor; bank wire ~4.5% + $35-class; USDC ~0.1–1% per leg) and PayPal India's official schedules (4.4% + $0.30 receiving, 3.0% conversion). The ₹95.40 snapshot is the FX estimator's 2026-08-12 rate. Each linked guide carries its own sources and hedges; the rate shown in your provider account before you confirm is authoritative.",
       },
     ],
   },

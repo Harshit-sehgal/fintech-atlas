@@ -13,6 +13,7 @@
 
 export type AnalyticsEventName =
   | "cta_click"
+  | "tool_start"
   | "tool_complete"
   | "featured_impression"
   | "waitlist_submit"

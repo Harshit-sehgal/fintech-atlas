@@ -92,18 +92,18 @@ export default function ExchangeRateMarkupCalculatorPage() {
 
         <h2 className="mt-10 text-xl font-bold">Worked example: receiving USD as a freelancer</h2>
         <p className="mt-3 text-[15px] leading-relaxed text-[var(--muted-text)]">
-          The mid-market rate is ₹83.50 per US$. Your payout platform quotes ₹82.00 — that is a{" "}
-          <strong className="text-[var(--foreground)]">1.80% markup</strong> ((83.50 − 82.00) ÷ 83.50).
-          On a $1,000 withdrawal you receive ₹82,000 instead of ₹83,500 —{" "}
-          <strong className="text-[var(--foreground)]">₹1,500 lost to the spread alone</strong>, before
-          any withdrawal fee. Add a 1% fee and the total cost crosses 2.8% of the amount.
+          The mid-market rate is ₹95.40 per US$. Your payout platform quotes ₹94.00 — that is a{" "}
+          <strong className="text-[var(--foreground)]">1.47% markup</strong> ((95.40 − 94.00) ÷ 95.40).
+          On a $1,000 withdrawal you receive ₹94,000 instead of ₹95,400 —{" "}
+          <strong className="text-[var(--foreground)]">₹1,400 lost to the spread alone</strong>, before
+          any withdrawal fee. Add a 1% fee and the total cost crosses 2.5% of the amount.
         </p>
 
         <h2 className="mt-10 text-xl font-bold">Worked example: sending rupees abroad</h2>
         <p className="mt-3 text-[15px] leading-relaxed text-[var(--muted-text)]">
-          Mid-market is ₹83.50, but the sender&apos;s bank charges ₹84.50 per US$. That is a{" "}
-          <strong className="text-[var(--foreground)]">1.20% markup</strong> — on a ₹50,000 transfer the
-          recipient gets about $591.72 instead of $598.80, a loss of roughly ₹592. The same
+          Mid-market is ₹95.40, but the sender&apos;s bank charges ₹96.40 per US$. That is a{" "}
+          <strong className="text-[var(--foreground)]">1.05% markup</strong> — on a ₹50,000 transfer the
+          recipient gets about $518.67 instead of $524.11, a loss of roughly ₹519. The same
           calculator measures it: pick &quot;Sending INR&quot; and enter the two rates.
         </p>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -25,6 +25,7 @@ import {
 } from "@/lib/share";
 import { useToast } from "@/lib/toast-context";
 import { trackEvent } from "@/lib/analytics";
+import { useToolStart } from "@/lib/use-tool-start";
 
 const QUIZ_KEYS: (keyof QuizState)[] = ["userType", "priority", "globalNeed", "scale"];
 
@@ -52,6 +53,8 @@ function readQuizState(params: URLSearchParams, saved: unknown): QuizState | nul
 
 export default function MatchmakerQuizPageClient() {
   const { showToast } = useToast();
+  const rootRef = useRef<HTMLDivElement>(null);
+  useToolStart("matchmaker", rootRef);
   const [step, setStep] = useState(1);
   const [quizState, setQuizState] = useState<QuizState>({
     userType: "",
@@ -171,7 +174,7 @@ export default function MatchmakerQuizPageClient() {
   };
 
   return (
-    <div className="relative mx-auto max-w-4xl px-5 py-20 md:py-28">
+    <div ref={rootRef} className="relative mx-auto max-w-4xl px-5 py-20 md:py-28">
       <GridBackdrop />
 
       <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs text-[var(--muted-text)] font-mono">

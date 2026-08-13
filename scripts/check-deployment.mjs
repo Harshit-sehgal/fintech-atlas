@@ -44,7 +44,6 @@ const routes = [
 ];
 
 const requiredHeaders = [
-  "content-security-policy",
   "strict-transport-security",
   "x-content-type-options",
   "referrer-policy",
@@ -83,12 +82,23 @@ for (const route of routes) {
 }
 
 const homepage = responses.get("/")?.response;
+const homepageBody = responses.get("/")?.body || "";
 if (homepage) {
   for (const header of requiredHeaders) {
     if (!homepage.headers.get(header)) {
       failed = true;
       console.error(`[FAIL] / missing ${header}`);
     }
+  }
+  // CSP is embedded per-page as a meta tag (host-agnostic), so accept either
+  // a response header OR the in-document meta.
+  const cspHeader = homepage.headers.get("content-security-policy");
+  const cspMeta = /<meta[^>]*http-equiv=["']Content-Security-Policy["'][^>]*>/i.test(
+    homepageBody,
+  );
+  if (!cspHeader && !cspMeta) {
+    failed = true;
+    console.error("[FAIL] / is missing Content-Security-Policy (header or meta)");
   }
 }
 

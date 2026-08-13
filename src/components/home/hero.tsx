@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import {
   companySummaries,
@@ -56,54 +55,29 @@ export function HomeHero({ glossaryCount = 0 }: { glossaryCount?: number }) {
   return (
     <section className="relative mx-auto max-w-5xl px-5 pb-20 pt-20 md:pb-28 md:pt-32">
       <div className="mx-auto max-w-3xl text-center">
-        <motion.p
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-6 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]"
-        >
+        <p className="mb-6 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
           FinTech Atlas · India payment decisions, compared
-        </motion.p>
+        </p>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-          className="text-balance text-4xl font-semibold leading-[1.08] tracking-tight text-[var(--foreground)] sm:text-5xl md:text-6xl"
-        >
+        <h1 className="text-balance text-4xl font-semibold leading-[1.08] tracking-tight text-[var(--foreground)] sm:text-5xl md:text-6xl">
           Compare payment gateways &{" "}
           <em className="font-serif italic text-[var(--accent)]">international</em> payments for India
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mt-6 max-w-xl text-pretty text-base leading-relaxed text-[var(--muted-text)] sm:text-lg"
-        >
+        <p className="mx-auto mt-6 max-w-xl text-pretty text-base leading-relaxed text-[var(--muted-text)] sm:text-lg">
           Calculate real fees, settlement amounts and provider differences
           before choosing — {companySummaries.length} company profiles, no jargon
           without an explanation.
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-9 flex flex-wrap items-center justify-center gap-3 text-sm"
-        >
+        <div className="mt-9 flex flex-wrap items-center justify-center gap-3 text-sm">
           <Link href="/compare" className="btn-primary">Compare payment gateways</Link>
           <Link href="/tools/calculator" className="btn-ghost">Calculate gateway fees</Link>
-        </motion.div>
+        </div>
       </div>
 
       {/* Key facts - quiet editorial stat row (hairline-separated serif numerals). */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.55, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-        className="mx-auto mt-16 max-w-2xl border-y border-[var(--border-color)]"
-      >
+      <div className="mx-auto mt-16 max-w-2xl border-y border-[var(--border-color)]">
         <div className="grid grid-cols-2 divide-x divide-[var(--border-color)] md:grid-cols-4">
           {[
             { value: companySummaries.length, label: "Company profiles" },
@@ -120,27 +94,22 @@ export function HomeHero({ glossaryCount = 0 }: { glossaryCount?: number }) {
             </div>
           ))}
         </div>
-      </motion.div>
+      </div>
 
       {/* Directory index card - the human, paper-like counterpart to a terminal. */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.45, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="mx-auto mt-14 max-w-xl"
-      >
+      <div className="mx-auto mt-14 max-w-xl">
         <div className="mb-3 flex items-center justify-between px-1">
           <span className="text-[11px] font-medium uppercase tracking-wider text-[var(--muted-text)]">
             From the directory
           </span>
           <div className="flex items-center gap-1.5">
-            {heroProfiles.map((p, i) => (
+            {heroProfiles.map((p) => (
               <span
                 key={p.slug}
                 className="h-1.5 w-1.5 rounded-full transition-colors duration-300"
                 style={{
                   background:
-                    heroProfiles[i]?.slug === activeProfile.slug
+                    p.slug === activeProfile.slug
                       ? "var(--accent)"
                       : "var(--border-strong)",
                 }}
@@ -150,58 +119,50 @@ export function HomeHero({ glossaryCount = 0 }: { glossaryCount?: number }) {
         </div>
 
         <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6 shadow-[var(--shadow-sm)]">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={activeProfile.slug}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div className="flex items-center gap-4">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-[var(--border-color)] bg-[var(--surface)]">
-                  <CompanyLogo slug={activeProfile.slug} name={activeProfile.name} size={34} />
-                </div>
-                <div className="min-w-0">
-                  <h2 className="text-lg font-semibold leading-tight text-[var(--foreground)]">
-                    {activeProfile.name}
-                  </h2>
-                  <p className="text-xs text-[var(--muted-text)]">{categoryName}</p>
-                </div>
+          <div key={activeProfile.slug} className="page-in">
+            <div className="flex items-center gap-4">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-[var(--border-color)] bg-[var(--surface)]">
+                <CompanyLogo slug={activeProfile.slug} name={activeProfile.name} size={34} />
               </div>
-
-              <p className="mt-4 text-sm leading-relaxed text-[var(--fg-dim)]">
-                {activeProfile.tagline}
-              </p>
-
-              <div className="mt-5 grid grid-cols-3 gap-px overflow-hidden rounded-lg border border-[var(--border-color)] bg-[var(--border-color)]">
-                <div className="bg-[var(--card)] px-3 py-3">
-                  <div className="text-[10px] font-medium uppercase tracking-wider text-[var(--muted-text)]">Founded</div>
-                  <div className="mt-0.5 text-sm font-semibold tabular-nums text-[var(--foreground)]">{activeProfile.founded}</div>
-                </div>
-                <div className="bg-[var(--card)] px-3 py-3">
-                  <div className="text-[10px] font-medium uppercase tracking-wider text-[var(--muted-text)]">Valuation</div>
-                  <div className="mt-0.5 text-sm font-semibold tabular-nums text-[var(--foreground)]">{formatValuationShort(activeProfile.valuation)}</div>
-                </div>
-                <div className="bg-[var(--card)] px-3 py-3">
-                  <div className="text-[10px] font-medium uppercase tracking-wider text-[var(--muted-text)]">Rating</div>
-                  <div className="mt-0.5 text-sm font-semibold tabular-nums text-[var(--foreground)]">★ {activeProfile.rating.toFixed(1)}</div>
-                </div>
+              <div className="min-w-0">
+                <h2 className="text-lg font-semibold leading-tight text-[var(--foreground)]">
+                  {activeProfile.name}
+                </h2>
+                <p className="text-xs text-[var(--muted-text)]">{categoryName}</p>
               </div>
+            </div>
 
-              <div className="mt-5">
-                <Link
-                  href={`/companies/${activeProfile.slug}`}
-                  className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)] hover:underline underline-offset-4"
-                >
-                  View full profile
-                  <span aria-hidden>→</span>
-                </Link>
+            <p className="mt-4 text-sm leading-relaxed text-[var(--fg-dim)]">
+              {activeProfile.tagline}
+            </p>
+
+            <div className="mt-5 grid grid-cols-3 gap-px overflow-hidden rounded-lg border border-[var(--border-color)] bg-[var(--border-color)]">
+              <div className="bg-[var(--card)] px-3 py-3">
+                <div className="text-[10px] font-medium uppercase tracking-wider text-[var(--muted-text)]">Founded</div>
+                <div className="mt-0.5 text-sm font-semibold tabular-nums text-[var(--foreground)]">{activeProfile.founded}</div>
               </div>
-            </motion.div>
-          </AnimatePresence>
+              <div className="bg-[var(--card)] px-3 py-3">
+                <div className="text-[10px] font-medium uppercase tracking-wider text-[var(--muted-text)]">Valuation</div>
+                <div className="mt-0.5 text-sm font-semibold tabular-nums text-[var(--foreground)]">{formatValuationShort(activeProfile.valuation)}</div>
+              </div>
+              <div className="bg-[var(--card)] px-3 py-3">
+                <div className="text-[10px] font-medium uppercase tracking-wider text-[var(--muted-text)]">Rating</div>
+                <div className="mt-0.5 text-sm font-semibold tabular-nums text-[var(--foreground)]">★ {activeProfile.rating.toFixed(1)}</div>
+              </div>
+            </div>
+
+            <div className="mt-5">
+              <Link
+                href={`/companies/${activeProfile.slug}`}
+                className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)] hover:underline underline-offset-4"
+              >
+                View full profile
+                <span aria-hidden>→</span>
+              </Link>
+            </div>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

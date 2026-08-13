@@ -19,6 +19,14 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    date: "2026-08-13",
+    kind: "site",
+    title: "Per-page security policy hardening",
+    description:
+      "Every page now ships its own strict content-security policy as a document meta tag (hash-allowlisted to that page's inline scripts) plus host-level HSTS and frame-protection headers — enforced on any static host, GitHub Pages included.",
+    href: "/",
+  },
+  {
     date: "2026-08-04",
     kind: "article",
     title: "Best way to receive USD in India (2026)",
@@ -152,7 +160,7 @@ export const changelog: ChangelogEntry[] = [
     kind: "article",
     title: "Quarterly India Cross-Border Payment Fee Index",
     description:
-      "A $500/$1,000/$5,000 matrix across five channels, every cell computed from the same fee models and ₹83.50/USD snapshot as the FX estimator — with a drift test so published figures cannot silently diverge from the calculators.",
+      "A $500/$1,000/$5,000 matrix across five channels, every cell computed from the same fee models and ₹95.40/USD snapshot as the FX estimator — with a drift test so published figures cannot silently diverge from the calculators.",
     href: "/articles/quarterly-india-cross-border-fee-index/",
   },
   {

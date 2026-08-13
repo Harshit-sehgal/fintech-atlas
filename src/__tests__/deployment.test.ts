@@ -8,19 +8,20 @@ const root = process.cwd();
 const read = (file: string) => readFileSync(resolve(root, file), "utf8");
 
 describe("Static deployment contracts", () => {
-  it("documents and exposes all four interactive tools", () => {
+  it("documents and exposes all interactive tools", () => {
     const readme = read("README.md");
-    expect(readme).toContain("4 interactive tools");
+    expect(readme).toContain("6 interactive tools");
     expect(readme).not.toContain("3 interactive tools");
     expect(readme).toContain("Compare Tool");
     expect(readme).toContain("Fee Calculator");
     expect(readme).toContain("FX Remittance");
+    expect(readme).toContain("FX Markup Calculator");
     expect(readme).toContain("Matchmaker Quiz");
   });
 
   it("keeps the environment template aligned with documented configuration", () => {
     const envExample = read(".env.example");
-    expect(envExample).toContain("SITE_URL=https://fintech-atlas.example.com");
+    expect(envExample).toContain("SITE_URL=https://fintech-atlas.com");
     expect(read("README.md")).toContain("Copy `.env.example` to `.env.local`");
   });
 
@@ -74,11 +75,20 @@ describe("Static deployment contracts", () => {
     expect(existsSync(resolve(root, "public/apple-touch-icon.png"))).toBe(true);
   });
 
-  it("ships a strict static-host security policy and external theme initializer", () => {
+  it("ships a strict per-page CSP and host-level header policy", () => {
+    const generator = read("scripts/generate-security-headers.mjs");
+    // CSP is embedded per-page as a meta tag, hash-allowlisted and host-agnostic.
+    expect(generator).toContain('http-equiv="Content-Security-Policy"');
+    expect(generator).toContain("script-src 'self'");
+    expect(generator).not.toContain("script-src 'self' 'unsafe-inline'");
+    // frame-ancestors is ignored in <meta>-delivered CSPs and Chrome logs a
+    // console error for it, which fails the errors-in-console gate. Clickjacking
+    // protection stays in the header policy (X-Frame-Options: DENY).
+    expect(generator).not.toContain("frame-ancestors 'none'");
+    // The host-level template must not carry a broken catch-all CSP.
     const headers = read("public/_headers");
-    expect(headers).toContain("Content-Security-Policy:");
-    expect(headers).toContain("script-src 'self'");
-    expect(headers).not.toContain("script-src 'self' 'unsafe-inline'");
+    expect(headers).not.toContain("Content-Security-Policy:");
+    expect(headers).toContain("Strict-Transport-Security:");
     expect(read("src/app/layout.tsx")).toContain('assetPath("/theme-init.js")');
     expect(read("src/app/layout.tsx")).toContain('strategy="beforeInteractive"');
     expect(existsSync(resolve(root, "public/theme-init.js"))).toBe(true);
@@ -107,8 +117,8 @@ describe("Static deployment contracts", () => {
   it("generates robots.txt from the same SITE_URL as the sitemap", () => {
     const script = read("scripts/generate-sitemap.ts");
     expect(script).toContain("fs.writeFileSync(path.join(outDir, \"robots.txt\"), robots)");
-    expect(script).toContain(".trim().replace(/\\/+$/, \"\")");
-    expect(script).toContain("Sitemap: ${siteUrl}/sitemap.xml");
+    expect(script).toContain('Sitemap: ${siteUrl}/sitemap.xml');
+    expect(script).toContain("const siteUrl = resolveSiteUrl();");
     expect(script).not.toContain("<priority>");
   });
 

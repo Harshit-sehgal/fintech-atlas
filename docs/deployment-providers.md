@@ -1,8 +1,12 @@
 # Static hosting — provider notes
 
 FinTech Atlas builds to `out/` (`next build` with `output: "export"`). Any static
-host works. Apply the generated `out/_headers` (CSP, HSTS, etc.) and serve
-`public/.well-known/security.txt`.
+host works. The CSP ships **per page** as a `<meta http-equiv="Content-Security-Policy">`
+tag inside each HTML document (see [SECURITY_REVIEW.md](./SECURITY_REVIEW.md)), so
+it applies even on hosts that ignore `_headers`. The generated `out/_headers`
+carries the remaining host-level security headers (HSTS, `X-Content-Type-Options`,
+`Referrer-Policy`, `Permissions-Policy`, `COOP`, `X-Frame-Options: DENY`). Also
+serve `public/.well-known/security.txt`.
 
 ## Common providers
 
@@ -10,9 +14,9 @@ host works. Apply the generated `out/_headers` (CSP, HSTS, etc.) and serve
 |----------|--------|
 | **Netlify** | Publish directory `out`. `_headers` is picked up automatically. Set `SITE_URL` in build env. |
 | **Cloudflare Pages** | Build command `npm run build`, output `out`. Map `_headers` via Pages Headers or `_headers` support. |
-| **GitHub Pages** | Upload `out/` (Actions recommended). Configure custom domain + HTTPS. Headers need Pages advanced config or a CDN in front. |
-| **Vercel** | Can host the static export; prefer configuring headers in `vercel.json` from the generated CSP if `_headers` is not applied. |
-| **S3 + CloudFront** | Sync `out/` to the bucket; attach response headers policy for CSP/HSTS. |
+| **GitHub Pages** | Upload `out/` (Actions recommended). Configure custom domain + HTTPS. CSP ships in the document (meta tag) automatically; only host-level headers (HSTS, `X-Frame-Options`, etc.) need `_headers` support or a CDN in front. |
+| **Vercel** | Can host the static export; document CSP applies automatically (in-page); configure remaining headers in `vercel.json`. |
+| **S3 + CloudFront** | Sync `out/` to the bucket; attach response headers policy for HSTS/`X-Frame-Options` (CSP already ships in-page). |
 
 ## Required build environment
 

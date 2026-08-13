@@ -159,7 +159,7 @@ export function AboutClient() {
       {/* Feedback status */}
       <Reveal delay={0.25}>
         <section className="surface mt-16 rounded-2xl border border-[var(--border-color)] p-6 sm:p-8">
-          <h2 className="text-lg font-bold text-[var(--foreground)]">Have Feedback or Suggestions?</h2>
+          <h2 id="feedback" className="text-lg font-bold text-[var(--foreground)]">Have Feedback or Suggestions?</h2>
           <p className="mt-1 text-xs leading-relaxed text-[var(--muted-text)]">
             This is a static demo with no in-app contact form. Please open a GitHub issue for product
             feedback, or use private vulnerability reporting for security concerns (see{" "}

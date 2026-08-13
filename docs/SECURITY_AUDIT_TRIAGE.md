@@ -11,7 +11,7 @@
 - **CodeQL** (`.github/workflows/codeql.yml`) — static analysis on push/PR.
 - **GitHub secret scanning** (`.github/secret_scanning.yml`) — leaked credentials.
 - **Dependency review** on PRs (`.github/workflows/dependency-review.yml`).
-- Manual review — security headers, CSP (generated `_headers`), provenance integrity.
+- Manual review — security headers, CSP (per-page meta in generated HTML), provenance integrity.
 
 ## Severity definitions
 
@@ -49,13 +49,13 @@
 | `tmp` path-traversal (via `@lhci/cli` → `inquirer`) | High (upstream) | **Not exploitable here** — dev-only, CI-time tooling with operator-supplied input; never shipped or reachable at runtime | Documented; production audit clean (`npm audit --omit=dev` = 0) |
 | `inquirer` / `external-editor` / `uuid` transitives | Moderate/Low | Same as above — dev-only | Documented |
 | Secrets scan (`grep` + GitHub secret scanning) | n/a | n/a | **Clean** — no secrets committed (see `SECURITY_REVIEW.md`) |
-| CSP / security headers | n/a | n/a | Verified — generated `_headers`; `connect-src`/`form-action` auto-permit configured providers only |
+| CSP / security headers | n/a | n/a | Verified — per-page CSP meta in every document; host headers in `_headers`; `connect-src`/`form-action` auto-permit configured providers only |
 
 
 - Keep the **deploy token/dashboard access** out of the repo (environment-only).
-- Verify the generated `_headers` (CSP/HSTS) after any dependency or build change;
-  a tightened CSP must never be widened accidentally (see
-  `scripts/generate-security-headers.mjs`).
+- Verify the generated security artifact (per-page CSP meta + `_headers`) after
+  any dependency or build change; a tightened CSP must never be widened
+  accidentally (see `scripts/generate-security-headers.mjs`).
 - Affiliate/partner URLs may encode identifiers — keep them out of public git
   where possible and treat them as semi-sensitive config, not application secrets.
 - Prefer the smallest safe action and always re-run the full CI suite (typecheck,

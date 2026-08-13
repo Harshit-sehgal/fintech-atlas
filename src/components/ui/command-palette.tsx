@@ -238,7 +238,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
           {/* Input field */}
           <div className="flex items-center border-b border-[var(--border-color)] px-4 py-3.5">
             <svg className="mr-3 h-5 w-5 text-[var(--muted-text)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z" />
             </svg>
             <input
               ref={inputRef}

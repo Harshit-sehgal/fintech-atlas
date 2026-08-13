@@ -1,7 +1,7 @@
 "use client";
 
-import { Suspense, useMemo, type CSSProperties } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -13,32 +13,50 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { useToast } from "@/lib/toast-context";
 import { animationPresets as animation } from "@/lib/animation";
-import { parseCompareSlugs } from "@/lib/compare";
+import { DEFAULT_COMPARE_SLUGS, parseCompareSlugs } from "@/lib/compare";
 import { formatHeadquartersCity, formatValuationForStats } from "@/lib/format-company";
 
 import { PRESETS } from "@/data/compare-presets";
 import { PartnerCta } from "@/components/ui/partner-cta";
 
 function CompareContent() {
-  const searchParams = useSearchParams();
   const router = useRouter();
   const { showToast } = useToast();
 
-  // Derive the selected slugs directly from the URL on every render. This is the
-  // source of truth: toggling a company calls updateUrl, which calls router.replace,
-  // updating searchParams and re-rendering with the new selection — no derived state
-  // or syncing effect needed (avoids the setState-in-effect anti-pattern).
+  // The selection mirrors the URL query string (?companies=stripe,adyen), but it
+  // is tracked as local state instead of `useSearchParams()`. Reading search
+  // params forces Next.js to render this page inside a Suspense boundary, so the
+  // static HTML would contain only the fallback box and hydration would swap in
+  // the full page — a large layout shift (CLS ~0.26 in Lighthouse) plus a late
+  // LCP. Baking the default page into the static HTML eliminates both.
   //
   // We distinguish three URL shapes:
-  //   - no params at all       → first visit, fall back to the Stripe vs Adyen default
+  //   - no params at all       → first visit, fall back to the Stripe vs Adyen default.
+  //     This is the build-time state, so the static export contains the real page.
   //   - `?companies=` (empty)   → user explicitly cleared; show the empty state
   //   - `?companies=stripe,adyen` → explicit selection
   //
   // Every slug is validated against the company list by parseCompareSlugs, so no
   // untrusted query string can surface an unknown slug in the render layer.
-  const selectedSlugs = parseCompareSlugs(searchParams, companySummaries);
+  const [selectedSlugs, setSelectedSlugs] = useState<string[]>(() => [...DEFAULT_COMPARE_SLUGS]);
+
+  // Reconcile once with the real URL after mount. A no-op for a bare /compare
+  // (keeps the pristine default), but restores a shared link's selection.
+  // Deferred to a macrotask so the restore runs after paint and satisfies
+  // react-hooks/set-state-in-effect (client-only URL hydrate) — same pattern
+  // as the tool clients below.
+  useEffect(() => {
+    const parsed = parseCompareSlugs(new URLSearchParams(window.location.search), companySummaries);
+    const id = window.setTimeout(() => {
+      setSelectedSlugs((prev) =>
+        prev.length === parsed.length && prev.every((s, i) => s === parsed[i]) ? prev : parsed,
+      );
+    }, 0);
+    return () => window.clearTimeout(id);
+  }, []);
 
   const updateUrl = (slugs: string[]) => {
+    setSelectedSlugs(slugs);
     if (slugs.length > 0) {
       router.replace(`/compare?companies=${slugs.join(",")}`, { scroll: false });
     } else {
@@ -320,11 +338,5 @@ function CompareContent() {
 }
 
 export default function ComparePageClient() {
-  // Suspense is required here: CompareContent calls useSearchParams(), which
-  // Next.js only permits inside a <Suspense> boundary (even in static exports).
-  return (
-    <Suspense fallback={<div className="p-20 text-center text-sm text-[var(--muted-text)]">Loading comparison...</div>}>
-      <CompareContent />
-    </Suspense>
-  );
+  return <CompareContent />;
 }

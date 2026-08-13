@@ -27,6 +27,7 @@ import {
 } from "@/lib/share";
 import { useToast } from "@/lib/toast-context";
 import { trackEvent } from "@/lib/analytics";
+import { useToolStart } from "@/lib/use-tool-start";
 
 type RemittanceState = {
   sendAmount: number;
@@ -60,6 +61,8 @@ function readRemittanceState(params: URLSearchParams, saved: unknown): Remittanc
 
 export default function RemittanceCalculatorPageClient() {
   const { showToast } = useToast();
+  const rootRef = useRef<HTMLDivElement>(null);
+  useToolStart("remittance", rootRef);
   const [sendAmount, setSendAmount] = useState<number>(DEFAULT_SEND_AMOUNT);
   const [currencyCode, setCurrencyCode] = useState<string>(DEFAULT_CURRENCY);
   const [focusedIndex, setFocusedIndex] = useState<number>(0);
@@ -144,7 +147,7 @@ export default function RemittanceCalculatorPageClient() {
   };
 
   return (
-    <div className="relative mx-auto max-w-6xl px-5 py-20 md:py-28">
+    <div ref={rootRef} className="relative mx-auto max-w-6xl px-5 py-20 md:py-28">
       <GridBackdrop />
 
       <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs text-[var(--muted-text)] font-mono">

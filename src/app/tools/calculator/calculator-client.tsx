@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -9,6 +9,7 @@ import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { useToast } from "@/lib/toast-context";
 import { trackEvent } from "@/lib/analytics";
+import { useToolStart } from "@/lib/use-tool-start";
 import {
   downloadCsv,
   encodeToolParams,
@@ -103,6 +104,8 @@ export default function FeeCalculatorPageClient({
   showBreadcrumb?: boolean;
 }) {
   const { showToast } = useToast();
+  const rootRef = useRef<HTMLDivElement>(null);
+  useToolStart("fee_calculator", rootRef);
   const [monthlyRevenue, setMonthlyRevenue] =
     useState<number>(DEFAULT_MONTHLY_REVENUE);
   const [avgOrderValue, setAvgOrderValue] =
@@ -204,7 +207,7 @@ export default function FeeCalculatorPageClient({
   };
 
   return (
-    <div className="relative mx-auto max-w-6xl px-5 py-20 md:py-28">
+    <div ref={rootRef} className="relative mx-auto max-w-6xl px-5 py-20 md:py-28">
       <GridBackdrop />
 
       {showBreadcrumb && (

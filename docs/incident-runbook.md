@@ -69,7 +69,8 @@ placeholder domain.
 The repository-level automated evidence below reflects the current working-tree
 validation run (record the release SHA and timestamp when promoting it):
 
-- `npm run test:e2e`: 18/18 Playwright journeys passed.
+- `npm run test:e2e`: 80/80 Playwright journeys passed (axe, keyboard, and
+  interactive specs across accessibility, app, and keyboard suites).
 - `npm run check:provenance`: 42/42 company records validate.
 - `npm audit --production --audit-level=high`: 0 shipped vulnerabilities.
 - `npm run build`: static artifact, structured-data, internal-link, RSS,
@@ -87,7 +88,8 @@ by local unit/E2E evidence alone.
 - [ ] Article pages render with JSON-LD and related-profile links.
 - [ ] Newsletter opt-in renders in the footer (no console errors).
 - [ ] No console errors on representative routes.
-- [ ] Security headers (`_headers`) and canonical URLs are present.
+- [ ] Host-level security headers (`_headers`: HSTS, `X-Content-Type-Options`,
+      `X-Frame-Options`) and per-page CSP meta are present; canonical URLs are correct.
 - [ ] `sitemap.xml`, `robots.txt`, and `feed.xml` are present and correct.
 - [ ] `sw.js` and `offline.html` are present when offline enhancement is enabled.
 - [ ] Structured-data validation passes (`scripts/check-structured-data.mjs`).
