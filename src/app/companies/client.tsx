@@ -270,10 +270,10 @@ export function CompaniesClient() {
                 return (
                   <motion.div
                     key={c.slug}
-                    initial={{ opacity: 0, y: 12 }}
+                    initial={false}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.25, delay: Math.min(i * 0.02, 0.3), ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <article
                       className="group relative flex flex-col justify-between rounded-xl border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
@@ -373,16 +373,16 @@ export function CompaniesClient() {
           /* List View */
           <div className="space-y-3">
             <AnimatePresence>
-              {filteredCompanies.map((c, i) => {
+              {filteredCompanies.map((c) => {
                 const bookmarked = isBookmarked(c.slug);
 
                 return (
                   <motion.div
                     key={c.slug}
-                    initial={{ opacity: 0, y: 8 }}
+                    initial={false}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.98 }}
-                    transition={{ duration: 0.22, delay: Math.min(i * 0.015, 0.25), ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <article
                       className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-[var(--border-color)] p-4 transition-all duration-300 card-glow h-full"
