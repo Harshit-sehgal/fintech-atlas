@@ -248,11 +248,19 @@ h1, h2, h3 {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0);   }
 }
-/* Page-entry animation — respect reduced-motion preference. SPA navigations
-   do re-trigger this, but Next.js Layout/Page boundaries already prevent the
-   full <main> from re-mounting on sub-route transitions. */
+/* Page-entry animation — respect reduced-motion preference.
+   NOTE: <main> deliberately animates transform ONLY (no opacity). Every page's
+   LCP candidate element (the H1) lives inside <main>; an opacity:0 start would
+   hold the largest paint back from the moment the browser can render it and
+   inflate LCP on real devices (gated by the LHCI largest-contentful-paint
+   budget). The fade stay available on smaller elements below the fold via the
+   `.page-in` utility class on the hero profile card. */
 @media (prefers-reduced-motion: no-preference) {
-  main { animation: page-in 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+  main { animation: page-rise 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+}
+@keyframes page-rise {
+  from { transform: translateY(12px); }
+  to   { transform: translateY(0);   }
 }
 
 /* ── Keyframes for a quiet, editorial motion vocabulary ── */

@@ -15,6 +15,30 @@ type SectionHeadingProps = {
 
 export function SectionHeading({ eyebrow, title, description, align = "left", headingLevel = 2 }: SectionHeadingProps) {
   const HeadingTag = (`h${headingLevel}` as "h1" | "h2");
+
+  // Page primary headings (headingLevel 1) are typically the LCP element, so
+  // render them statically — a scroll-triggered fade would keep them at
+  // opacity:0 and inflate LCP render delay on slow/throttled connections.
+  if (headingLevel === 1) {
+    return (
+      <div className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
+        {eyebrow && (
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
+            {eyebrow}
+          </p>
+        )}
+        <HeadingTag className="text-balance text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
+          {title}
+        </HeadingTag>
+        {description && (
+          <p className="mt-4 text-pretty text-base leading-relaxed text-[var(--muted-text)]">
+            {description}
+          </p>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
       {eyebrow && (

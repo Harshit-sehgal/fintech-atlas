@@ -6,7 +6,7 @@ Built from public reference material and editorial summaries. Source URLs and ef
 
 ## Overview
 
-FinTech Atlas is a Next.js 16 static-export website that serves as both an educational directory and an interactive decision suite. It catalogs **42 real-world FinTech companies** across **12 industry categories** with a **29-term glossary** and **6 interactive tools**.
+FinTech Atlas is a Next.js 16 static-export website that serves as both an educational directory and an interactive decision suite. It catalogs **42 real-world FinTech companies** across **12 industry categories**, a **29-term glossary**, **34 articles** focused on international payments for India, and **6 interactive tools**.
 
 ### Features
 
@@ -16,11 +16,14 @@ FinTech Atlas is a Next.js 16 static-export website that serves as both an educa
 | **Industry Categories** | 12 categories (Payments, Neobanks, Investing, Cross-Border, BNPL, Infrastructure, etc.) |
 | **Glossary** | 29 financial technology terms with definitions, synonyms, and cross-references |
 | **Compare Tool** | Side-by-side comparison matrix for up to 3 companies |
-| **Fee Calculator** | Payment gateway fee estimator (Stripe, PayPal, Square, Adyen) |
+| **Fee Calculator** | Payment gateway fee estimator (Stripe, PayPal, Square, Adyen, Razorpay, Cashfree) |
 | **Razorpay Fee Calculator** | India-specific Razorpay fee estimator with published rates and GST |
 | **FX Remittance** | Cross-border remittance cost calculator (Wise, Revolut, PayPal, Bank) |
 | **FX Markup Calculator** | Exchange-rate markup % and INR/USD loss for both directions |
 | **Matchmaker Quiz** | 4-step quiz with weighted scoring to find the right FinTech tools |
+| **Articles** | 34 India-focused guides (freelancer payouts, USD receipt, gateway fees, remittance corridors) with RSS feed |
+| **India Hub** | One-page entry point comparing Razorpay, Cashfree, Wise, Payoneer and PayPal for INR |
+| **Services** | Commercial offerings: gateway-selection report sample and implementation checklist |
 | **Bookmarks** | LocalStorage-backed bookmarking for companies and glossary terms |
 | **⌘K Search** | Command palette search across companies, categories, glossary, and tools |
 | **Dark/Light Theme** | System-aware theme toggle with dark, light, and system modes |
@@ -32,24 +35,36 @@ fintech-website/
 ├── src/
 │   ├── app/               # Next.js App Router pages & layouts
 │   │   ├── about/         # Mission, methodology, FAQ, feedback
+│   │   ├── affiliate-disclosure/
+│   │   ├── articles/[slug]  # 34 India-focused guides
 │   │   ├── bookmarks/     # Saved companies & glossary terms
 │   │   ├── categories/    # 12 industry categories + drill-down
+│   │   ├── changelog/     # Site changelog (RSS)
 │   │   ├── companies/     # Full directory + individual profiles
 │   │   ├── compare/       # Side-by-side comparison matrix
 │   │   ├── glossary/      # A-Z glossary with search
-│   │   ├── tools/         # Calculator, matchmaker, remittance
+│   │   ├── india/         # India payments entry point
+│   │   ├── services/      # Report sample + implementation checklist
+│   │   ├── tools/         # Fee, Razorpay, remittance, markup calculators + matchmaker
 │   │   ├── layout.tsx     # Root layout (providers, metadata, SEO)
+│   │   ├── error.tsx      # Error boundary
 │   │   └── globals.css    # Design system (Tailwind v4 CSS variables & theming)
 │   ├── components/
 │   │   ├── home/          # Hero section with animated terminal
 │   │   ├── layout/        # Site header (glass), footer
-│   │   ├── SEO/           # JSON-LD structured data
-│   │   └── ui/            # Reusable UI components
-│   ├── data/              # 42 companies, 12 categories, 29 glossary terms
-│   └── lib/               # Theme, bookmarks, toast contexts
+│   │   ├── legal/         # Privacy/terms shared components
+│   │   ├── SEO/           # JSON-LD structured data, schemas, analytics
+│   │   └── ui/            # Reusable UI components (command palette, count-up, etc.)
+│   ├── data/              # 42 companies, 12 categories, 29 glossary terms, 34 articles, tool configs, provenance records
+│   ├── generated/         # Client-safe article summaries (build-generated)
+│   ├── lib/               # Site config, canonical URLs, calculators, matchmaker, remittance, theme, bookmarks, focus-trap, analytics
+│   ├── __tests__/         # Cross-cutting integration tests (data integrity, deployment, heading hierarchy)
+│   └── test/              # Shared test utilities
+├── e2e/                   # Playwright specs (app, accessibility, keyboard)
 ├── public/logos/          # Official SVG logos for the catalog
-├── docs/                  # Production-readiness checklists and incident runbook
-└── scripts/               # Logo fetching & manifest generation
+├── docs/                  # EXECUTION_PLAN.md (project plan & T-task backlog), ADRs, production-readiness goals, security reviews, incident runbook
+├── scripts/               # ~20 build-gate scripts (sitemap, RSS, security headers, performance budget, data freshness, provenance)
+└── .github/workflows/     # CI, CodeQL, dependency-review, Lighthouse CI, GitHub Pages deploy, uptime monitoring
 ```
 
 ### Tech Stack
@@ -58,6 +73,7 @@ fintech-website/
 - **React 19.2** with TypeScript 5 (strict mode)
 - **Tailwind CSS v4** with CSS variables-based design system
 - **Framer Motion** for animations and transitions
+- **Vitest + Testing Library** for unit/integration tests, **Playwright + axe-core** for e2e and accessibility
 - **Static export output** — deploy `out/` to any static host
 
 > **ESLint version note:** `eslint` is intentionally pinned to `^9`. ESLint 10 removed
@@ -89,6 +105,21 @@ npm run dev
 npm run build
 # → outputs to out/ (fully self-contained static site)
 ```
+
+`prebuild`/`postbuild` run the quality gates automatically: data-freshness and rate-snapshot checks, generated summary regeneration, sitemap/RSS generation, security headers, performance budget, structured-data validation, internal-link and title checks, and service-worker versioning.
+
+### Test
+
+```bash
+npm run lint          # ESLint
+npm run typecheck     # tsc --noEmit
+npm test              # Vitest unit/integration (run with -w to watch)
+npm run test:coverage # coverage report
+npm run test:e2e      # Playwright e2e + accessibility specs (chromium only; install first via npm run test:e2e:install)
+npm run lhci          # Lighthouse CI gate against local static artifact (requires out/ built)
+```
+
+CI runs lint, typecheck, Vitest, and the Lighthouse gate on every push; the deploy workflow builds and publishes `out/` to GitHub Pages.
 
 ### Fetch Company Logos
 
@@ -127,6 +158,8 @@ python -m http.server -d out 8080
 ```
 
 Works with: **Netlify**, **Vercel**, **Cloudflare Pages**, **GitHub Pages**, **S3 + CloudFront**, or any static file server.
+
+The repo includes a GitHub Pages deploy workflow (with build archiving and a documented rollback drill) and a scheduled uptime probe that files GitHub issues if the live site goes down. See [`docs/incident-runbook.md`](docs/incident-runbook.md) and [`docs/deployment-providers.md`](docs/deployment-providers.md).
 
 ## Methods & Disclaimers
 
