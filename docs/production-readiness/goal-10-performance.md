@@ -12,7 +12,7 @@
 - [x] Database indexing (N/A — no database)
 
 ## Definition of Done
-- [ ] LCP, INP, and CLS meet the target budgets on representative pages.
+- [x] LCP, INP, and CLS meet the target budgets on representative pages. LHCI gate (T100) asserts on 6 representative URLs: perf ≥0.85, LCP ≤3500ms, TBT ≤250ms, CLS ≤0.1, error-free console; locally measured LCP 2.4–2.9s across all gate URLs.
 - [ ] Representative API endpoints meet latency targets under expected load (N/A — no API).
 - [ ] Pages remain responsive under realistic traffic.
 

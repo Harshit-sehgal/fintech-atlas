@@ -64,15 +64,15 @@ Because financial topics can significantly affect users, Google’s guidance pla
 
 The newsletter implementation now checks `response.ok`, prevents duplicate submissions while a request is pending, and clearly distinguishes a real provider submission from on-device intent storage. Provider selection, double opt-in, unsubscribe handling, consent records, and delivery cadence still require an operator/provider decision.
 
-### GitHub Pages is not yet SEO-safe
+### GitHub Pages is live, custom domain still pending
 
-The deployment workflow builds for:
+The site is deployed and verified at:
 
 ```text
-https://username.github.io/fintech-atlas
+https://harshit-sehgal.github.io/fintech-atlas
 ```
 
-The build now accepts `NEXT_PUBLIC_BASE_PATH=/fintech-atlas`, applies the prefix to Next routing and public asset helpers, and uses relative PWA manifest/service-worker URLs. Build and live-host verification are still required for the actual repository URL. The cleaner solution remains a dedicated custom domain at the root.
+The deploy workflow builds with `NEXT_PUBLIC_BASE_PATH=/fintech-atlas` (applied to Next routing, public asset helpers, PWA manifest and service-worker URLs), and live-host checks are green (T022 complete, 2026-08-13). GitHub Pages cannot apply `_headers` (HSTS only, no per-page CSP headers — the per-page `<meta>` CSP covers this host) and has no redirects from a bare `www` or alternate host. The cleaner long-term solution remains a dedicated custom domain at the root (T019–T021, operator action).
 
 ---
 
