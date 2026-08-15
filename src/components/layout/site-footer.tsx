@@ -5,6 +5,7 @@ import { NewsletterOptIn } from "@/components/ui/newsletter-opt-in";
 
 const exploreLinks = [
   { href: "/india", label: "India — Payments & Gateways" },
+  { href: "/india/directory", label: "India FinTech Directory (1,386)" },
   { href: "/services", label: "Services & Consulting" },
   { href: "/companies", label: "Companies Directory" },
   { href: "/categories", label: "Industry Categories" },

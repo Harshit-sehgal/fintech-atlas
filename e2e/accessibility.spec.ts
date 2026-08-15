@@ -19,6 +19,8 @@ const ROUTES: Array<[string, string]> = [
   ["company profile (bright brand)", "/companies/stripe/"],
   ["glossary", "/glossary/"],
   ["about", "/about/"],
+  ["india directory", "/india/directory/"],
+  ["india directory profile", "/india/directory/razorpay/"],
   ["bookmarks", "/bookmarks/"],
   ["tools hub", "/tools/"],
   ["fee calculator island", "/tools/calculator/"],

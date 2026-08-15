@@ -229,6 +229,14 @@ export default function IndiaLandingPage() {
       {/* India provider directory */}
       <section aria-labelledby="india-providers" className="mt-14">
         <h2 id="india-providers" className="eyebrow mb-4">India provider profiles</h2>
+        <p className="mb-4 max-w-2xl text-sm text-[var(--fg-dim)]">
+          The full research directory holds all {""}
+          <Link href="/india/directory" className="font-semibold text-[var(--accent)] hover:underline">
+            1,386 Indian fintech companies
+          </Link>{" "}
+          — founders, funding, valuations, licences, and websites. Start with
+          the curated profiles below.
+        </p>
         <div className="flex flex-wrap gap-3">
           {INDIA_PROVIDERS.map((provider) => (
             <Link

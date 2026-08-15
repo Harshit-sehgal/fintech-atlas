@@ -26,6 +26,8 @@ const representativeRoutes = [
   "companies/stripe/index.html",
   "compare/index.html",
   "glossary/index.html",
+  "india/directory/index.html",
+  "india/directory/razorpay/index.html",
   "tools/index.html",
   "tools/calculator/index.html",
   "tools/calculators/index.html",
