@@ -105,7 +105,7 @@ export default function RootLayout({
             tag in the body not an export — prevents deep-merged duplicates). */}
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
       </head>
-      <body className="min-h-full flex flex-col bg-[var(--background)] text-[var(--foreground)]">
+      <body className="min-h-full flex flex-col bg-[var(--background)] text-[var(--foreground)] pb-14 lg:pb-0">
         <StructuredDataLite />
         <ServiceWorkerRegister />
         <AnalyticsTracker />
