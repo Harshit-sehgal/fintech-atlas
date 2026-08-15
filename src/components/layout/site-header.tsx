@@ -36,6 +36,17 @@ const moreNav = [
   { href: "/changelog", label: "Changelog" },
 ];
 
+// App-like bottom navigation for touch screens (hidden on lg+ where the
+// desktop bar shows everything). Kept to the five highest-value destinations
+// so each target stays thumb-sized on a 360px viewport.
+const bottomNav = [
+  { href: "/", label: "Home" },
+  { href: "/companies", label: "Companies" },
+  { href: "/compare", label: "Compare" },
+  { href: "/tools", label: "Tools" },
+  { href: "/bookmarks", label: "Saved" },
+];
+
 const isActive = (pathname: string, href: string) =>
   href === "/" ? pathname === "/" : pathname.startsWith(href);
 
@@ -310,6 +321,75 @@ export function SiteHeader() {
       </header>
 
       <CommandPalette open={cmdOpen} onClose={() => setCmdOpen(false)} />
+
+      {/* Mobile bottom navigation (touch-optimized, app-like) */}
+      <nav
+        aria-label="Mobile bottom"
+        className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--border-color)] bg-[var(--card)]/95 backdrop-blur lg:hidden"
+        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      >
+        <div className="mx-auto flex h-14 max-w-lg items-stretch">
+          {bottomNav.map((item) => {
+            const active = isActive(pathname, item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                className={`relative flex flex-1 flex-col items-center justify-center gap-0.5 text-[10px] transition-colors ${
+                  active
+                    ? "text-[var(--foreground)] font-semibold"
+                    : "text-[var(--muted-text)]"
+                }`}
+              >
+                <span className="relative">
+                  {item.label === "Home" && (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M3 10.5L12 3l9 7.5" />
+                      <path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5" />
+                    </svg>
+                  )}
+                  {item.label === "Companies" && (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                      <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                      <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                      <rect x="14" y="14" width="7" height="7" rx="1.5" />
+                    </svg>
+                  )}
+                  {item.label === "Compare" && (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M7 3v18M17 3v18M3 7h4M3 17h4M17 7h4M17 17h4" />
+                    </svg>
+                  )}
+                  {item.label === "Tools" && (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                  )}
+                  {item.label === "Saved" && (
+                    <span className="relative">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4.5L5 21V4a1 1 0 0 1 1-1Z" />
+                      </svg>
+                      {totalSaved > 0 && (
+                        <span className="absolute -right-2 -top-1 flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-[var(--accent)] px-0.5 text-[9px] font-bold text-white">
+                          {totalSaved}
+                        </span>
+                      )}
+                    </span>
+                  )}
+                </span>
+                {item.label}
+                {active && (
+                  <span className="absolute inset-x-4 top-0 h-0.5 rounded-full bg-[var(--foreground)]" />
+                )}
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
     </>
   );
 }
