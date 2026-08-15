@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useBookmarks } from "@/lib/bookmarks-context";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
@@ -17,17 +17,27 @@ const CommandPalette = dynamic(
   { ssr: false },
 );
 
-const nav = [
-  { href: "/", label: "Home" },
+// Primary navigation — the five decision surfaces. Everything else lives in
+// "More" so the bar stays calm and scannable (proven comparison-site pattern).
+const primaryNav = [
   { href: "/india", label: "India" },
   { href: "/companies", label: "Companies" },
-  { href: "/categories", label: "Categories" },
   { href: "/compare", label: "Compare" },
   { href: "/tools", label: "Tools" },
+  { href: "/articles", label: "Guides" },
+];
+
+const moreNav = [
+  { href: "/categories", label: "Categories" },
   { href: "/glossary", label: "Glossary" },
+  { href: "/services", label: "Services" },
   { href: "/bookmarks", label: "Saved" },
   { href: "/about", label: "About" },
+  { href: "/changelog", label: "Changelog" },
 ];
+
+const isActive = (pathname: string, href: string) =>
+  href === "/" ? pathname === "/" : pathname.startsWith(href);
 
 export function SiteHeader() {
   // Server-rendered pathname for the homepage is "/" but a static host can
@@ -35,10 +45,12 @@ export function SiteHeader() {
   // state (and its aria-current attribute) hydrates identically in both.
   const pathname = usePathname()?.replace(/\/index\.html$/, "") || "/";
   const [open, setOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
   const [cmdOpen, setCmdOpen] = useState(false);
   const { bookmarks, glossaryBookmarks } = useBookmarks();
   const [scrolled, setScrolled] = useState(false);
   const [isMac, setIsMac] = useState(false);
+  const moreRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -58,6 +70,24 @@ export function SiteHeader() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  // Escape closes the "More" menu; click outside closes it.
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMoreOpen(false);
+    };
+    const onClick = (event: MouseEvent) => {
+      if (moreRef.current && !moreRef.current.contains(event.target as Node)) {
+        setMoreOpen(false);
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onClick);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onClick);
+    };
   }, []);
 
   // Platform-aware shortcut label (macOS uses ⌘K, elsewhere Ctrl+K). Must be set
@@ -94,50 +124,113 @@ export function SiteHeader() {
           </Link>
 
           {/* Desktop nav */}
-          <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
-            {nav.map((item) => {
-              const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
-              const isSavedNav = item.href === "/bookmarks";
-
+          <nav aria-label="Primary" className="hidden items-center gap-0.5 lg:flex">
+            {primaryNav.map((item) => {
+              const active = isActive(pathname, item.href);
               return (
                 <Link
                   key={item.href}
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className={`relative rounded-md px-2.5 py-1.5 text-sm transition-colors flex items-center gap-1.5 ${
+                  className={`relative rounded-md px-3 py-1.5 text-sm transition-colors flex items-center gap-1.5 ${
                     active ? "text-[var(--foreground)] font-medium" : "text-[var(--muted-text)] hover:text-[var(--foreground)]"
                   }`}
                 >
                   {item.label}
-                  {isSavedNav && totalSaved > 0 && (
-                    <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--accent)] text-[10px] font-bold text-white">
-                      {totalSaved}
-                    </span>
-                  )}
                   {active && (
                     <motion.span
                       layoutId="nav-underline"
-                      className="absolute inset-x-2.5 -bottom-px h-px bg-[var(--foreground)]"
+                      className="absolute inset-x-3 -bottom-px h-px bg-[var(--foreground)]"
                       transition={animation.transition.springDefault}
                     />
                   )}
                 </Link>
               );
             })}
+
+            {/* More dropdown */}
+            <div ref={moreRef} className="relative">
+              <button
+                type="button"
+                onClick={() => setMoreOpen((v) => !v)}
+                aria-expanded={moreOpen}
+                aria-haspopup="menu"
+                className={`flex items-center gap-1 rounded-md px-3 py-1.5 text-sm transition-colors ${
+                  moreNav.some((item) => isActive(pathname, item.href))
+                    ? "text-[var(--foreground)] font-medium"
+                    : "text-[var(--muted-text)] hover:text-[var(--foreground)]"
+                }`}
+              >
+                More
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                  className={`transition-transform duration-200 ${moreOpen ? "rotate-180" : ""}`}
+                >
+                  <path d="M2.5 4.5L6 8l3.5-3.5" />
+                </svg>
+              </button>
+
+              <AnimatePresence>
+                {moreOpen && (
+                  <motion.div
+                    role="menu"
+                    aria-label="More sections"
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 6 }}
+                    transition={animation.transition.reveal}
+                    className="absolute right-0 top-full z-50 mt-2 w-52 rounded-xl border border-[var(--border-color)] bg-[var(--card)] p-1.5 shadow-[var(--shadow-md)]"
+                  >
+                    {moreNav.map((item) => {
+                      const active = isActive(pathname, item.href);
+                      return (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          role="menuitem"
+                          onClick={() => setMoreOpen(false)}
+                          aria-current={active ? "page" : undefined}
+                          className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors ${
+                            active
+                              ? "bg-[var(--subtle-bg)] font-medium text-[var(--foreground)]"
+                              : "text-[var(--muted-text)] hover:bg-[var(--subtle-bg)] hover:text-[var(--foreground)]"
+                          }`}
+                        >
+                          <span>{item.label}</span>
+                          {item.href === "/bookmarks" && totalSaved > 0 && (
+                            <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--accent)] text-[10px] font-bold text-white">
+                              {totalSaved}
+                            </span>
+                          )}
+                        </Link>
+                      );
+                    })}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </nav>
 
           {/* Search Trigger & Mobile Controls */}
           <div className="flex items-center gap-2">
             <button
               onClick={() => setCmdOpen(true)}
-              className="flex items-center gap-2 surface rounded-lg px-3 py-1.5 text-xs text-[var(--muted-text)] transition-colors hover:text-[var(--foreground)] hover:border-[var(--border-strong)] focus-visible:text-[var(--foreground)] focus-visible:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
-              aria-label="Search"
+              className="flex items-center gap-2 rounded-lg border border-[var(--border-color)] bg-[var(--card)] py-1.5 pl-3 pr-1.5 text-xs text-[var(--muted-text)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--foreground)] focus-visible:text-[var(--foreground)] focus-visible:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+              aria-label="Search companies, tools and terms"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                 <circle cx="11" cy="11" r="8" />
                 <path d="M21 21l-4.35-4.35" />
               </svg>
-              <span className="hidden sm:inline">Search...</span>
+              <span className="hidden sm:inline">Search companies &amp; terms</span>
               <kbd className="hidden font-mono text-[10px] text-[var(--foreground)] sm:inline-block bg-[var(--border-color)] px-1.5 py-0.5 rounded">
                 {isMac ? "⌘K" : "Ctrl K"}
               </kbd>
@@ -189,9 +282,8 @@ export function SiteHeader() {
               className="overflow-hidden border-t border-[var(--border-color)] lg:hidden"
             >
               <div className="mx-auto flex max-w-6xl flex-col px-5 py-2">
-                {nav.map((item) => {
-                  const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
-                  const isSavedNav = item.href === "/bookmarks";
+                {[...primaryNav, ...moreNav].map((item) => {
+                  const active = isActive(pathname, item.href);
                   return (
                     <Link
                       key={item.href}
@@ -203,7 +295,7 @@ export function SiteHeader() {
                       }`}
                     >
                       <span>{item.label}</span>
-                      {isSavedNav && totalSaved > 0 && (
+                      {item.href === "/bookmarks" && totalSaved > 0 && (
                         <span className="rounded-full bg-[var(--accent)] px-2 py-0.5 text-xs text-white">
                           {totalSaved}
                         </span>

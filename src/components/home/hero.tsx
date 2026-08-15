@@ -45,7 +45,13 @@ function useRotatingProfile(interval = 5000) {
   return heroProfiles[index] ?? heroProfiles[0];
 }
 
-export function HomeHero({ glossaryCount = 0 }: { glossaryCount?: number }) {
+export function HomeHero({
+  glossaryCount = 0,
+  articleCount = 0,
+}: {
+  glossaryCount?: number;
+  articleCount?: number;
+}) {
   const activeProfile = useRotatingProfile();
   const categoryName =
     activeProfile.categories.map((slug) => categoryNames[slug]).find(Boolean) ??
@@ -83,6 +89,7 @@ export function HomeHero({ glossaryCount = 0 }: { glossaryCount?: number }) {
             { value: companySummaries.length, label: "Company profiles" },
             { value: Object.keys(categoryNames).length, label: "Industry categories" },
             { value: glossaryCount, label: "Glossary terms" },
+            { value: articleCount, label: "Guides & comparisons" },
           ].map(({ value, label }) => (
             <div key={label} className="px-3 py-6 text-center">
               <div className="font-display text-3xl font-semibold tabular-nums text-[var(--foreground)] md:text-4xl">
