@@ -1,5 +1,32 @@
 import { describe, it, expect } from "vitest";
 import { glossary } from "@/data/glossary";
+import { glossarySummaries } from "@/generated/glossary-summaries";
+
+/**
+ * Contract: the generated client-safe glossary summaries must mirror the
+ * full glossary for the fields clients render (homepage teaser cards).
+ * Drift here means the generator script or a client import is out of sync.
+ */
+describe("glossary summaries (generated client subset)", () => {
+  it("has one summary per glossary term, mirroring term and short", () => {
+    expect(glossarySummaries).toHaveLength(glossary.length);
+    const bySlug = new Map(glossary.map((g) => [g.slug, g]));
+    for (const summary of glossarySummaries) {
+      const term = bySlug.get(summary.slug);
+      expect(term, `summary for unknown slug ${summary.slug}`).toBeDefined();
+      expect(summary.term).toBe(term!.term);
+      expect(summary.short).toBe(term!.short);
+    }
+  });
+
+  it("keeps long-form definitions out of the client subset", () => {
+    for (const summary of glossarySummaries) {
+      expect(summary).not.toHaveProperty("long");
+      expect(summary).not.toHaveProperty("related");
+      expect(summary).not.toHaveProperty("full");
+    }
+  });
+});
 
 /**
  * Content-graph integrity for the glossary. These invariants keep the
