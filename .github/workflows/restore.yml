@@ -29,11 +29,15 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Download archived deploy artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ github.event.inputs.artifact_name }}
-          path: out
+      - name: Resolve and download archived deploy artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          url=$(gh api "repos/${{ github.repository }}/actions/artifacts?name=${{ github.event.inputs.artifact_name }}" \
+            --jq '.artifacts[0].archive_download_url')
+          test -n "$url" || { echo "artifact not found: ${{ github.event.inputs.artifact_name }}"; exit 1; }
+          curl -fsSL -H "Authorization: Bearer $GH_TOKEN" -o artifact.zip "$url"
+          unzip -q artifact.zip -d out
       - name: Verify restored artifact contains a static export
         run: |
           test -f out/index.html
