@@ -31,16 +31,35 @@ const heroProfiles = HERO_PROFILE_SLUGS.map((slug) =>
   getCompanySummaryBySlug(slug),
 ).filter((c): c is NonNullable<typeof c> => Boolean(c));
 
-/* Hook that rotates through heroProfiles every few seconds. */
+/* Hook that rotates through heroProfiles every few seconds. The rotation
+ * freezes on the first interaction with the directory card (pointer/touch/
+ * focus) so a tapped "View full profile" never changes target mid-gesture,
+ * and it never runs under prefers-reduced-motion. */
 function useRotatingProfile(interval = 5000) {
   const [index, setIndex] = useState(0);
   useEffect(() => {
     if (heroProfiles.length <= 1) return;
-    const id = setInterval(
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(
       () => setIndex((i) => (i + 1) % heroProfiles.length),
       interval,
     );
-    return () => clearInterval(id);
+    let stopped = false;
+    const stop = () => {
+      if (stopped) return;
+      stopped = true;
+      window.clearInterval(id);
+    };
+    const card = document.querySelector("[data-hero-card]");
+    card?.addEventListener("pointerdown", stop, { passive: true });
+    card?.addEventListener("touchstart", stop, { passive: true });
+    card?.addEventListener("focusin", stop);
+    return () => {
+      window.clearInterval(id);
+      card?.removeEventListener("pointerdown", stop);
+      card?.removeEventListener("touchstart", stop);
+      card?.removeEventListener("focusin", stop);
+    };
   }, [interval]);
   return heroProfiles[index] ?? heroProfiles[0];
 }
@@ -59,9 +78,9 @@ export function HomeHero({
     "";
 
   return (
-    <section className="relative mx-auto max-w-5xl px-5 pb-20 pt-20 md:pb-28 md:pt-32">
+    <section data-placement="home-hero" className="relative mx-auto max-w-5xl px-5 pb-14 pt-14 md:pb-28 md:pt-32">
       <div className="mx-auto max-w-3xl text-center">
-        <p className="mb-6 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
+        <p className="mb-5 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
           FinTech Atlas · India payment decisions, compared
         </p>
 
@@ -70,20 +89,20 @@ export function HomeHero({
           <em className="font-serif italic text-[var(--accent)]">international</em> payments for India
         </h1>
 
-        <p className="mx-auto mt-6 max-w-xl text-pretty text-base leading-relaxed text-[var(--muted-text)] sm:text-lg">
+        <p className="mx-auto mt-5 max-w-xl text-pretty text-base leading-relaxed text-[var(--muted-text)] sm:text-lg">
           Calculate real fees, settlement amounts and provider differences
-          before choosing — {companySummaries.length} company profiles, no jargon
-          without an explanation.
+          before choosing — {companySummaries.length} company profiles, every
+          jargon term explained in plain English.
         </p>
 
-        <div className="mt-9 flex flex-wrap items-center justify-center gap-3 text-sm">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm">
           <Link href="/compare" className="btn-primary">Compare payment gateways</Link>
           <Link href="/tools/calculator" className="btn-ghost">Calculate gateway fees</Link>
         </div>
       </div>
 
       {/* Key facts - quiet editorial stat row (hairline-separated serif numerals). */}
-      <div className="mx-auto mt-16 max-w-2xl border-y border-[var(--border-color)]">
+      <div className="mx-auto mt-12 max-w-2xl border-y border-[var(--border-color)] md:mt-16">
         <div className="grid grid-cols-2 divide-x divide-[var(--border-color)] md:grid-cols-4">
           {[
             { value: companySummaries.length, label: "Company profiles" },
@@ -125,7 +144,7 @@ export function HomeHero({
           </div>
         </div>
 
-        <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6 shadow-[var(--shadow-sm)]">
+        <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6 shadow-[var(--shadow-sm)]" data-hero-card>
           <div key={activeProfile.slug} className="page-in">
             <div className="flex items-center gap-4">
               <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-[var(--border-color)] bg-[var(--surface)]">

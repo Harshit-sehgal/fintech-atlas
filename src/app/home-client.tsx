@@ -67,7 +67,7 @@ export default function HomePageClient({
       <HomeHero glossaryCount={glossary.length} articleCount={articleCount} />
 
       {/* Brand wall — auto-scrolling, hover-to-pause logo marquee */}
-      <section className="relative border-y border-[var(--border-color)] bg-[var(--subtle-bg)]/30 py-10 overflow-hidden">
+      <section data-placement="brand-wall" className="relative border-y border-[var(--border-color)] bg-[var(--subtle-bg)]/30 py-10 overflow-hidden">
         <div className="mx-auto max-w-6xl px-5">
           <Reveal>
             <div className="mb-6 flex items-center justify-between">
@@ -87,7 +87,7 @@ export default function HomePageClient({
       </section>
 
       {/* Interactive Tools Teaser */}
-      <section className="mx-auto max-w-6xl px-5 py-16 md:py-24">
+      <section data-placement="tools-teaser" className="mx-auto max-w-6xl px-5 py-16 md:py-24">
         <Reveal>
           <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-8 md:p-12">
             <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
@@ -125,7 +125,7 @@ export default function HomePageClient({
       </section>
 
       {/* Popular comparisons — quick-start presets from the compare tool */}
-      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+      <section data-placement="popular-comparisons" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
         <SectionHeading
           eyebrow="Start With a Preset"
           title="Popular Comparisons"
@@ -163,7 +163,7 @@ export default function HomePageClient({
       </section>
 
       {/* Recently verified updates — plan §7 homepage section */}
-      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+      <section data-placement="latest-guides" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
         <SectionHeading
           eyebrow="Recently Verified"
           title="Latest Guides & Comparisons"
@@ -189,7 +189,7 @@ export default function HomePageClient({
       </section>
 
       {/* What is FinTech */}
-      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+      <section data-placement="what-is-fintech" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
         <SectionHeading
           eyebrow="The Big Picture"
           title="What is FinTech?"
@@ -239,7 +239,7 @@ export default function HomePageClient({
         </section>
 
       {/* Categories */}
-      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+      <section data-placement="categories" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
         <SectionHeading
           eyebrow="Navigate by Domain"
           title="Industry Categories"
@@ -276,7 +276,7 @@ export default function HomePageClient({
       </section>
 
       {/* Featured companies */}
-      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+      <section data-placement="india-first" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
         <SectionHeading
           eyebrow="India-First"
           title="India-First Providers"
@@ -328,7 +328,7 @@ export default function HomePageClient({
       </section>
 
       {/* Glossary teaser */}
-      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+      <section data-placement="glossary" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
         <SectionHeading
           eyebrow="Jargon Decoder"
           title="Glossary &amp; Terms"
@@ -356,7 +356,7 @@ export default function HomePageClient({
       </section>
 
       {/* How FinTech Atlas makes money (plan §7 homepage section 6) */}
-      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+      <section data-placement="monetization" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
         <SectionHeading
           eyebrow="Independence"
           title="How FinTech Atlas Makes Money"
@@ -391,7 +391,7 @@ export default function HomePageClient({
       </section>
 
       {/* Methodology (plan §7 homepage section 7) */}
-      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+      <section data-placement="methodology" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
         <SectionHeading
           eyebrow="How We Research"
           title="Transparent Methodology"
@@ -443,7 +443,7 @@ export default function HomePageClient({
       </section>
 
       {/* Newsletter (plan §7 homepage section 8) */}
-      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+      <section data-placement="newsletter" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
         <div className="rounded-3xl border border-[var(--border-color)] bg-[var(--card)] p-8 md:p-12">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
@@ -463,7 +463,7 @@ export default function HomePageClient({
       </section>
 
       {/* Compare CTA */}
-      <section className="mx-auto max-w-6xl px-5 py-16 md:py-24">
+      <section data-placement="compare-cta" className="mx-auto max-w-6xl px-5 py-16 md:py-24">
         <div className="rounded-3xl border border-[var(--border-color)] bg-[var(--card)] p-8 text-center md:p-14">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
             Side-by-Side
