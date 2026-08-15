@@ -1,0 +1,48 @@
+# Rollback drill: redeploy a previously archived, immutable build artifact.
+# Usage: Actions → Restore → Run workflow → choose a retained deploy artifact
+# name (e.g. `fintech-atlas-deploy-<sha>`). After the run, verify the live
+# origin, then re-run the normal Deploy workflow to restore the latest build.
+# See docs/incident-runbook.md § Rollback.
+name: Restore artifact
+
+on:
+  workflow_dispatch:
+    inputs:
+      artifact_name:
+        description: "Archived deploy artifact to restore (fintech-atlas-deploy-<sha>)"
+        required: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  actions: read
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download archived deploy artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ github.event.inputs.artifact_name }}
+          path: out
+      - name: Verify restored artifact contains a static export
+        run: |
+          test -f out/index.html
+          test -f out/sw.js
+          echo "restored artifact: ${{ github.event.inputs.artifact_name }}"
+      - name: Prepare Pages artifact from restored export
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

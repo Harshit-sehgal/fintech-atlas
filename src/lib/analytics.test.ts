@@ -1,5 +1,10 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { getAnalyticsDomain, trackCtaClick, trackEvent } from "./analytics";
+import {
+  getAnalyticsDomain,
+  trackCtaClick,
+  trackEvent,
+  trackOutboundClick,
+} from "./analytics";
 
 describe("analytics helpers", () => {
   afterEach(() => {
@@ -46,5 +51,20 @@ describe("analytics helpers", () => {
       },
     });
     expect(() => trackEvent("tool_complete", { complete: true })).not.toThrow();
+  });
+
+  it("tracks outbound clicks with a placement fallback", () => {
+    const plausible = vi.fn();
+    vi.stubGlobal("window", { plausible });
+
+    trackOutboundClick({ url: "https://razorpay.com", placement: "footer" });
+    trackOutboundClick({ url: "https://wise.com" });
+
+    expect(plausible).toHaveBeenNthCalledWith(1, "outbound_click", {
+      props: { url: "https://razorpay.com", placement: "footer" },
+    });
+    expect(plausible).toHaveBeenNthCalledWith(2, "outbound_click", {
+      props: { url: "https://wise.com", placement: "body" },
+    });
   });
 });
