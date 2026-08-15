@@ -51,8 +51,8 @@ function useRotatingProfile(interval = 5000) {
       window.clearInterval(id);
     };
     const card = document.querySelector("[data-hero-card]");
-    card?.addEventListener("pointerdown", stop);
-    card?.addEventListener("touchstart", stop);
+    card?.addEventListener("pointerdown", stop, { passive: true });
+    card?.addEventListener("touchstart", stop, { passive: true });
     card?.addEventListener("focusin", stop);
     return () => {
       window.clearInterval(id);
