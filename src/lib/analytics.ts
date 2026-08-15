@@ -13,6 +13,7 @@
 
 export type AnalyticsEventName =
   | "cta_click"
+  | "outbound_click"
   | "tool_start"
   | "tool_complete"
   | "featured_impression"
@@ -62,5 +63,15 @@ export function trackCtaClick(opts: {
     placement: opts.placement,
     relationship: opts.relationship,
     tracking_id: opts.trackingId,
+  });
+}
+
+export function trackOutboundClick(opts: {
+  url: string;
+  placement?: string;
+}): void {
+  trackEvent("outbound_click", {
+    url: opts.url,
+    placement: opts.placement || "body",
   });
 }

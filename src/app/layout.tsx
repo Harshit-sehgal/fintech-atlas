@@ -9,6 +9,7 @@ import { BookmarksProvider } from "@/lib/bookmarks-context";
 import { ToastProvider } from "@/lib/toast-context";
 import StructuredDataLite from "@/components/SEO/StructuredDataLite";
 import { AnalyticsScript } from "@/components/SEO/AnalyticsScript";
+import { AnalyticsTracker } from "@/components/SEO/AnalyticsTracker";
 import { assetPath, SITE_URL } from "@/lib/site-config";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
 import { MotionConfig } from "framer-motion";
@@ -107,6 +108,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-[var(--background)] text-[var(--foreground)]">
         <StructuredDataLite />
         <ServiceWorkerRegister />
+        <AnalyticsTracker />
         <a
           href="#main-content"
           className="sr-only focus:fixed focus:w-auto focus:h-auto focus:[clip:auto] focus:m-0 focus:px-4 focus:py-2 focus:top-4 focus:left-4 focus:z-50 focus:rounded-lg focus:bg-[var(--accent)] focus:text-white focus:font-semibold focus:outline-none"

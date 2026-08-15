@@ -15,6 +15,7 @@ import { useToast } from "@/lib/toast-context";
 import { animationPresets as animation } from "@/lib/animation";
 import { DEFAULT_COMPARE_SLUGS, parseCompareSlugs } from "@/lib/compare";
 import { formatHeadquartersCity, formatValuationForStats } from "@/lib/format-company";
+import { trackEvent } from "@/lib/analytics";
 
 import { PRESETS } from "@/data/compare-presets";
 import { PartnerCta } from "@/components/ui/partner-cta";
@@ -47,6 +48,9 @@ function CompareContent() {
   // as the tool clients below.
   useEffect(() => {
     const parsed = parseCompareSlugs(new URLSearchParams(window.location.search), companySummaries);
+    trackEvent("compare_view", {
+      companies: parsed.length > 0 ? parsed.join(",") : DEFAULT_COMPARE_SLUGS.join(","),
+    });
     const id = window.setTimeout(() => {
       setSelectedSlugs((prev) =>
         prev.length === parsed.length && prev.every((s, i) => s === parsed[i]) ? prev : parsed,
