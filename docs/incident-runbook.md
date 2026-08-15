@@ -64,6 +64,22 @@ for each production environment. The artifact gate is local and deterministic;
 the deployment check requires the real deployed URL and must not be run against a
 placeholder domain.
 
+### Executed drill (2026-08-15) — PASS
+
+Mechanism: `Restore artifact` workflow (`.github/workflows/restore.yml`,
+workflow_dispatch: `artifact_name`) resolves the artifact archive via the
+Actions API and deploys it to GitHub Pages. Steps performed:
+
+1. Captured current live state: `sw.js` CACHE_NAME `fintech-atlas-6a745d257c`, home `index.html` md5 `afa113f893a9150aeb2cb13db88563a0`.
+2. Restored `fintech-atlas-deploy-a3dfc1a6eb9da07dfb579671af873e2d0ec42ca9` (pre-#25 build) — run 31873830155 **success**.
+3. Verified live origin byte-identical to the restored artifact: sw.js `fintech-atlas-5ec8a9d15a` and home md5 `0d0be41f0e165288ff8c8301c5e73386` both match the artifact exactly.
+4. Redeployed the current build via the normal Deploy workflow (run 31873887276 **success**).
+5. Verified live restored to current build: sw.js `fintech-atlas-0dcbf6ec61`, home 200.
+
+Result: rollback-and-restore cycle fully verified against the live origin.
+Artifacts are retained 30 days; older builds must be rebuilt from `git` (build
+is deterministic: `npm ci && npm run build` with the commit's env).
+
 ## Recovery verification checklist
 
 The repository-level automated evidence below reflects the current working-tree
