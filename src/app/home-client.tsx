@@ -27,8 +27,10 @@ const FEATURED_SLUGS: readonly string[] = ["razorpay", "cashfree", "payoneer", "
 
 export default function HomePageClient({
   recentArticles,
+  articleCount,
 }: {
   recentArticles: { slug: string; title: string; category: string; displayDate: string }[];
+  articleCount: number;
 }) {
   const featured = useMemo(
     () =>
@@ -62,7 +64,7 @@ export default function HomePageClient({
 
   return (
     <>
-      <HomeHero glossaryCount={glossary.length} />
+      <HomeHero glossaryCount={glossary.length} articleCount={articleCount} />
 
       {/* Brand wall — auto-scrolling, hover-to-pause logo marquee */}
       <section className="relative border-y border-[var(--border-color)] bg-[var(--subtle-bg)]/30 py-10 overflow-hidden">
@@ -193,11 +195,10 @@ export default function HomePageClient({
           title="What is FinTech?"
           description="'FinTech' — short for Financial Technology — is software-powered financial services: the app you use to pay a friend, the API that charges a card on a website, the digital-only bank in your pocket. In India it means UPI instant payments, QR-first checkouts, and gateways like Razorpay moving hundreds of millions of transactions every month."
         />
-        <Reveal delay={0.1}>
-          <div className="mt-10 grid gap-5 md:grid-cols-3 reveal-stagger">
-            {[
-              {
-                title: "Speed & Automation",
+        <div className="mt-10 grid gap-5 md:grid-cols-3 reveal-stagger">
+          {[
+            {
+              title: "Speed & Automation",
                 desc: "Transactions that used to take days now clear in seconds. Accounts open in minutes instead of weeks.",
                 svg: (
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
@@ -235,8 +236,7 @@ export default function HomePageClient({
               </div>
             ))}
           </div>
-        </Reveal>
-      </section>
+        </section>
 
       {/* Categories */}
       <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
@@ -282,9 +282,8 @@ export default function HomePageClient({
           title="India-First Providers"
           description="Profiles of the payment gateways and FX services Indian freelancers and businesses choose most — fee structures, strengths, weaknesses, and editorial sentiment."
         />
-        <Reveal delay={0.1}>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 reveal-stagger">
-            {featuredWithCategories.map((c) => (
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 reveal-stagger">
+          {featuredWithCategories.map((c) => (
               <Link
                 key={c.slug}
                 href={`/companies/${c.slug}`}
@@ -321,14 +320,11 @@ export default function HomePageClient({
               </Link>
             ))}
           </div>
-        </Reveal>
-        <Reveal delay={0.15}>
-          <div className="mt-8 text-center">
-            <Link href="/companies" className="btn-ghost text-xs">
-              View all {companySummaries.length} companies
-            </Link>
-          </div>
-        </Reveal>
+        <div className="mt-8 text-center">
+          <Link href="/companies" className="btn-ghost text-xs">
+            View all {companySummaries.length} companies
+          </Link>
+        </div>
       </section>
 
       {/* Glossary teaser */}
@@ -338,9 +334,8 @@ export default function HomePageClient({
           title="Glossary &amp; Terms"
           description="Every term explained simply. Hover or click to decode financial jargon."
         />
-        <Reveal delay={0.1}>
-          <div className="mt-8 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 reveal-stagger">
-            {glossaryPreview.map((g) => (
+        <div className="mt-8 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 reveal-stagger">
+          {glossaryPreview.map((g) => (
               <Link
                 key={g.slug}
                 href={`/glossary#${g.slug}`}
@@ -353,14 +348,11 @@ export default function HomePageClient({
               </Link>
             ))}
           </div>
-        </Reveal>
-        <Reveal delay={0.15}>
-          <div className="mt-6 text-center">
-            <Link href="/glossary" className="btn-ghost text-xs">
-              Browse all {glossary.length} terms
-            </Link>
-          </div>
-        </Reveal>
+        <div className="mt-6 text-center">
+          <Link href="/glossary" className="btn-ghost text-xs">
+            Browse all {glossary.length} terms
+          </Link>
+        </div>
       </section>
 
       {/* How FinTech Atlas makes money (plan §7 homepage section 6) */}
@@ -370,11 +362,10 @@ export default function HomePageClient({
           title="How FinTech Atlas Makes Money"
           description="The site stays free because it is honest about how it is funded — and keeps editorial choices separate from commercial inventory."
         />
-        <Reveal delay={0.1}>
-          <div className="mt-10 grid gap-5 md:grid-cols-3 reveal-stagger">
-            {[
-              {
-                title: "Affiliate links",
+        <div className="mt-10 grid gap-5 md:grid-cols-3 reveal-stagger">
+          {[
+            {
+              title: "Affiliate links",
                 desc: "When you sign up through a link we earn a commission at no cost to you. These links carry rel=\"sponsored\" and are disclosed on every page where they appear.",
               },
               {
@@ -392,14 +383,11 @@ export default function HomePageClient({
               </div>
             ))}
           </div>
-        </Reveal>
-        <Reveal delay={0.15}>
-          <div className="mt-8">
-            <Link href="/about" className="text-xs font-semibold text-[var(--accent)] hover:underline underline-offset-4">
-              Read the full disclosure on the About page →
-            </Link>
-          </div>
-        </Reveal>
+        <div className="mt-8">
+          <Link href="/about" className="text-xs font-semibold text-[var(--accent)] hover:underline underline-offset-4">
+            Read the full disclosure on the About page →
+          </Link>
+        </div>
       </section>
 
       {/* Methodology (plan §7 homepage section 7) */}
@@ -437,47 +425,12 @@ export default function HomePageClient({
             </Link>
           ))}
         </div>
-      </section>
-
-      {/* Newsletter (plan §7 homepage section 8) */}
-      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
-        <div className="rounded-3xl border border-[var(--border-color)] bg-[var(--card)] p-8 md:p-12">
-          <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
-                Newsletter
-              </p>
-              <h2 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--foreground)] md:text-3xl">
-                Fee Changes, New Calculators &amp; Research Notes
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-[var(--muted-text)]">
-                A low-frequency update when pricing changes, tools ship, or new
-                comparisons land. No tracking pixels, no resale — just the
-                research.
-              </p>
-              <NewsletterOptIn />
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* Author / editorial information (plan §7 homepage section 9) */}
-      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
-        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
-          <div className="max-w-2xl space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
-              Editorial
-            </p>
-            <h2 className="text-2xl font-semibold tracking-tight text-[var(--foreground)] md:text-3xl">
-              Researched by FinTech Atlas
-            </h2>
-            <p className="text-sm leading-relaxed text-[var(--muted-text)]">
-              Every guide, profile, and calculator is authored and verified by
-              FinTech Atlas. See the full data sources, synthesis methodology,
-              and editorial standards — and send real feedback if we got
-              something wrong.
-            </p>
-          </div>
+        <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-[var(--border-color)] pt-8 md:flex-row md:items-center">
+          <p className="max-w-xl text-xs leading-relaxed text-[var(--muted-text)]">
+            Every guide, profile, and calculator is authored and verified by
+            FinTech Atlas — no figures are invented, and nothing is locked
+            behind a subscription.
+          </p>
           <div className="flex flex-wrap gap-3">
             <Link href="/about" className="btn-primary text-xs">
               About &amp; Methodology
@@ -489,30 +442,42 @@ export default function HomePageClient({
         </div>
       </section>
 
+      {/* Newsletter (plan §7 homepage section 8) */}
+      <section className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+        <div className="rounded-3xl border border-[var(--border-color)] bg-[var(--card)] p-8 md:p-12">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
+              Newsletter
+            </p>
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--foreground)] md:text-3xl">
+              Fee Changes, New Calculators &amp; Research Notes
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-[var(--muted-text)]">
+              A low-frequency update when pricing changes, tools ship, or new
+              comparisons land. No tracking pixels, no resale — just the
+              research.
+            </p>
+            <NewsletterOptIn />
+          </div>
+        </div>
+      </section>
+
       {/* Compare CTA */}
       <section className="mx-auto max-w-6xl px-5 py-16 md:py-24">
         <div className="rounded-3xl border border-[var(--border-color)] bg-[var(--card)] p-8 text-center md:p-14">
-          <div>
-            <Reveal>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
-                Side-by-Side
-              </p>
-              <h2 className="text-2xl font-semibold tracking-tight md:text-4xl text-[var(--foreground)]">
-                Compare Side-by-Side
-              </h2>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-[var(--muted-text)]">
-                Select up to 3 companies to see how they stack up across pricing,
-                ratings, core features, strengths, and weaknesses — all in one view.
-              </p>
-            </Reveal>
-            <Reveal delay={0.15}>
-              <Link href="/compare" className="btn-primary mt-7">
-                Open Comparison Matrix
-              </Link>
-            </Reveal>
-          </div>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
+            Side-by-Side
+          </p>
+          <h2 className="text-2xl font-semibold tracking-tight md:text-4xl text-[var(--foreground)]">
+            Compare Side-by-Side
+          </h2>
+          <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-[var(--muted-text)]">
+            Select up to 3 companies to see how they stack up across pricing,
+            ratings, core features, strengths, and weaknesses — all in one view.
+          </p>
+          <Link href="/compare" className="btn-primary mt-7">
+            Open Comparison Matrix
+          </Link>
         </div>
       </section>
     </>

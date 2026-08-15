@@ -173,3 +173,4 @@ The repo includes a GitHub Pages deploy workflow (with build archiving and a doc
 - The static build also emits `feed.xml` for article subscribers and a small production-only service worker with an offline fallback
 - Provider-specific static hosting notes: [`docs/deployment-providers.md`](docs/deployment-providers.md)
 - Architecture decisions (deferred backend goals): [`docs/adr/`](docs/adr/)
+- India fintech market research: [`docs/research/india-fintech-directory.md`](docs/research/india-fintech-directory.md) (1,386-company master directory) and [`docs/research/india-fintech-directory-enriched.md`](docs/research/india-fintech-directory-enriched.md) (same companies with founders, funding, valuation, licences, and websites)
