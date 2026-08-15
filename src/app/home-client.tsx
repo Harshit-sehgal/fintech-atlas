@@ -4,7 +4,7 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { useMemo } from "react";
 import { categories } from "@/data/categories";
-import { glossary } from "@/data/glossary";
+import { glossarySummaries } from "@/generated/glossary-summaries";
 import {
   companySummaries,
   companySummaryCountByCategory,
@@ -60,11 +60,11 @@ export default function HomePageClient({
   }, [featured]);
 
   // Precompute glossary slice to avoid slicing on every render
-  const glossaryPreview = useMemo(() => glossary.slice(0, 12), []);
+  const glossaryPreview = useMemo(() => glossarySummaries.slice(0, 12), []);
 
   return (
     <>
-      <HomeHero glossaryCount={glossary.length} articleCount={articleCount} />
+      <HomeHero glossaryCount={glossarySummaries.length} articleCount={articleCount} />
 
       {/* Brand wall — auto-scrolling, hover-to-pause logo marquee */}
       <section data-placement="brand-wall" className="relative border-y border-[var(--border-color)] bg-[var(--subtle-bg)]/30 py-10 overflow-hidden">
@@ -350,7 +350,7 @@ export default function HomePageClient({
           </div>
         <div className="mt-6 text-center">
           <Link href="/glossary" className="btn-ghost text-xs">
-            Browse all {glossary.length} terms
+            Browse all {glossarySummaries.length} terms
           </Link>
         </div>
       </section>

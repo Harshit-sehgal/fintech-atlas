@@ -15,7 +15,7 @@ const PAGES_WITHOUT_OWN_H1: { file: string; title: string }[] = [
   { file: "src/app/about/client.tsx", title: "About & Methodology" },
   { file: "src/app/bookmarks/bookmarks-client.tsx", title: "Saved Items & Bookmarks" },
   { file: "src/app/compare/compare-client.tsx", title: "Compare FinTech Companies" },
-  { file: "src/app/glossary/client.tsx", title: "FinTech Glossary & Terminology" },
+  { file: "src/app/glossary/page.tsx", title: "FinTech Glossary & Terminology" },
   { file: "src/app/companies/client.tsx", title: "FinTech Companies Directory" },
   { file: "src/app/categories/page.tsx", title: "Categories" },
   { file: "src/app/tools/page.tsx", title: "FinTech Tools & Calculators" },
