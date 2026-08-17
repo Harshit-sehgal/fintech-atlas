@@ -8,19 +8,24 @@ import {
 } from "@/generated/india-directory";
 import { IndiaDirectoryClient } from "./client";
 
-export const metadata: Metadata = {
-  title: "India FinTech Directory (1,386 companies)",
-  description:
-    "Searchable directory of Indian fintech companies with founder, funding, valuation, RBI licence, and website data compiled from public sources.",
-  alternates: { canonical: canonicalUrl("/india/directory") },
-  openGraph: {
-    ...openGraphImage,
-    title: "India FinTech Directory (1,386 companies)",
+export const metadata: Metadata = generateDirectoryMetadata();
+
+function generateDirectoryMetadata(): Metadata {
+  const title = `India FinTech Directory (${indiaDirectoryCount.toLocaleString()} companies)`;
+  return {
+    title,
     description:
-      "Searchable directory of Indian fintech companies — founders, funding, valuations, licences, and websites.",
-    url: canonicalUrl("/india/directory"),
-  },
-};
+      "Searchable directory of Indian fintech companies with founder, funding, valuation, RBI licence, and website data compiled from public sources.",
+    alternates: { canonical: canonicalUrl("/india/directory") },
+    openGraph: {
+      ...openGraphImage,
+      title,
+      description:
+        "Searchable directory of Indian fintech companies — founders, funding, valuations, licences, and websites.",
+      url: canonicalUrl("/india/directory"),
+    },
+  };
+}
 
 export default function IndiaDirectoryPage() {
   return (

@@ -83,6 +83,7 @@ export function CompanyPageClient({
   relatedCategories,
   relatedArticles,
   adjacent,
+  researchProfile,
 }: {
   company: Company;
   relatedCategories: Category[];
@@ -91,6 +92,7 @@ export function CompanyPageClient({
     previous: { slug: string; name: string } | null;
     next: { slug: string; name: string } | null;
   };
+  researchProfile: { slug: string; name: string } | null;
 }) {
   const { isBookmarked, toggleBookmark } = useBookmarks();
   const { showToast } = useToast();
@@ -413,6 +415,26 @@ export function CompanyPageClient({
           <strong className="font-semibold">{c.name}</strong> {c.oneLiner}
         </p>
       </Reveal>
+
+      {/* Directory bridge — plan T053: link between the curated profile and the
+          India research directory when the company appears on both surfaces. */}
+      {researchProfile && (
+        <Reveal delay={0.05}>
+          <Link
+            href={`/india/directory/${researchProfile.slug}`}
+            data-placement="company-profile-to-research"
+            className="mt-4 flex items-center justify-between gap-3 rounded-xl border border-[var(--border-color)] surface px-4 py-3 text-sm transition-all hover:border-[var(--accent)]/40 hover:-translate-y-0.5 hover:shadow-md hover:shadow-[var(--accent-glow)]"
+          >
+            <span className="text-[var(--muted-text)]">
+              Also in the India research directory —{" "}
+              <span className="font-semibold text-[var(--foreground)]">{researchProfile.name}</span>
+            </span>
+            <span className="shrink-0 font-semibold text-[var(--accent)]" aria-hidden>
+              →
+            </span>
+          </Link>
+        </Reveal>
+      )}
 
       {/* Quick stats grid */}
       <Reveal delay={0.1}>

@@ -455,16 +455,19 @@ describe("Data Integrity", () => {
           cwd: process.cwd(),
           stdio: ["pipe", "pipe", "pipe"],
         }).toString();
-        // Every page must (a) export metadata/generateMetadata and (b) include
-        // an `openGraph:` field. `url:` is required inside it so og:url pins
-        // to the page, not the homepage.
-        if (!/openGraph\s*:/.test(body)) {
+        // Every page must (a) export metadata/generateMetadata and (b) own an
+        // `openGraph` block. This can be either an inline `openGraph:` field or
+        // a `pageMetadata({...})` call (the shared helper always sets
+        // openGraph with its own `url:` pinned to the page). `url:` is required
+        // so og:url pins to the page, not the homepage.
+        const usesPageMetadata = /pageMetadata\(/.test(body);
+        if (!/openGraph\s*:/.test(body) && !usesPageMetadata) {
           offenders.push(`${page}: missing openGraph block (renders homepage OG card)`);
         } else if (page.endsWith("not-found.tsx")) {
           // 404 responses are explicitly noindex and intentionally omit OG URL
           // and canonical metadata, so they cannot be mistaken for a content page.
           continue;
-        } else if (!/url\s*:/.test(body)) {
+        } else if (!/url\s*:/.test(body) && !usesPageMetadata) {
           offenders.push(`${page}: openGraph block has no url: (og:url falls back to homepage)`);
         }
       }

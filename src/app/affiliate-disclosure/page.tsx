@@ -1,22 +1,17 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/legal/legal-page";
-import { canonicalUrl } from "@/lib/canonical-url";
 import { LEGAL_EFFECTIVE_DATE } from "@/lib/legal-config";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 
 const description =
   "When and how FinTech Atlas earns money through affiliate links and clearly-labeled sponsored placements, and why it never affects our editorial independence.";
 
 export const metadata: Metadata = {
-  title: "Affiliate Disclosure",
-  description,
-  alternates: { canonical: canonicalUrl("/affiliate-disclosure") },
-  openGraph: {
-    ...openGraphImage,
-    title: "Affiliate Disclosure — FinTech Atlas",
+  ...pageMetadata({
+    pathname: "/affiliate-disclosure",
+    title: "Affiliate Disclosure",
     description,
-    url: canonicalUrl("/affiliate-disclosure"),
-  },
+  }),
   robots: { index: true, follow: true },
 };
 

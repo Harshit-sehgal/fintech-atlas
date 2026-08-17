@@ -1,24 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import RemittanceCalculatorPageClient from "./remittance-client";
-import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 import { breadcrumbJsonLd } from "@/components/breadcrumbs";
 
 const description =
   "Compare illustrative reference FX rates, exchange markups, and upfront transfer fees across Wise, Revolut, PayPal, and a hypothetical bank-wire baseline.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/tools/remittance",
   title: "Cross-Border FX & Transfer Calculator",
   description,
-  alternates: { canonical: canonicalUrl("/tools/remittance") },
-  openGraph: {
-    ...openGraphImage,
-    title: "Cross-Border FX & Transfer Calculator — FinTech Atlas",
-    description,
-    url: canonicalUrl("/tools/remittance"),
-  },
-};
+});
 
 export default function RemittanceCalculatorPage() {
   return (

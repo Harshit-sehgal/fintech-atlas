@@ -1,24 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import FeeCalculatorPageClient from "./calculator-client";
-import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 import { breadcrumbJsonLd } from "@/components/breadcrumbs";
 
 const description =
   "Compare total monthly processing fees across Stripe, PayPal, Square, and Adyen based on your transaction volume, average order size, and international mix.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/tools/calculator",
   title: "Payment Gateway Fee Calculator",
   description,
-  alternates: { canonical: canonicalUrl("/tools/calculator") },
-  openGraph: {
-    ...openGraphImage,
-    title: "Payment Gateway Fee Calculator — FinTech Atlas",
-    description,
-    url: canonicalUrl("/tools/calculator"),
-  },
-};
+});
 
 export default function FeeCalculatorPage() {
   return (

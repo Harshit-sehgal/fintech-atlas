@@ -39,6 +39,7 @@ const ROUTES: Array<[string, string]> = [
   ["privacy", "/privacy/"],
   ["terms", "/terms/"],
   ["affiliate disclosure", "/affiliate-disclosure/"],
+  ["radar review queue", "/radar/review/"],
 ];
 
 // Dark theme exercises the light accent twins (per-tool/calculator/category

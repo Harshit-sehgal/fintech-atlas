@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { categories, companies } from "@/data";
-import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { CategoryIcon } from "@/components/ui/category-icon";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
@@ -11,17 +10,11 @@ import { GridBackdrop } from "@/components/ui/grid-backdrop";
 const description =
   "Browse FinTech domains from Payments & Processing and Digital Banks to InsurTech, Lending, and beyond. Each category maps the key companies and industry patterns.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/categories",
   title: "All FinTech Categories",
   description,
-  alternates: { canonical: canonicalUrl("/categories") },
-  openGraph: {
-    ...openGraphImage,
-    title: "All FinTech Categories — FinTech Atlas",
-    description,
-    url: canonicalUrl("/categories"),
-  },
-};
+});
 
 export default function CategoriesPage() {
   return (

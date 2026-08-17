@@ -1,23 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ComparePageClient from "./compare-client";
-import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 
 const description =
   "Compare FinTech companies across pricing, editorial sentiment, strengths, weaknesses, and notable customers. Values may have different dates and methodologies; use the matrix as an orientation tool.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/compare",
   title: "Compare FinTech Companies Side-by-Side",
   description,
-  alternates: { canonical: canonicalUrl("/compare") },
-  openGraph: {
-    ...openGraphImage,
-    title: "Compare FinTech Companies Side-by-Side — FinTech Atlas",
-    description,
-    url: canonicalUrl("/compare"),
-  },
-};
+});
 
 export default function ComparePage() {
   return (

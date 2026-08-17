@@ -5,7 +5,7 @@ import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { PartnerCta } from "@/components/ui/partner-cta";
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
-import { articles, getArticleBySlug, type ArticleBlock } from "@/data/articles";
+import { articles, getArticleBySlug, type ArticleBlock, categoryHref } from "@/data/articles";
 import { getCompanyBySlug } from "@/data";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
@@ -139,7 +139,8 @@ export default async function ArticlePage({
   const breadcrumbItems = [
     { name: "Home", href: "/" },
     { name: "Articles", href: "/articles" },
-    { name: article.category, href: `/articles/${article.slug}` },
+    { name: article.category, href: categoryHref(article.category) },
+    { name: article.title, href: `/articles/${article.slug}` },
   ];
 
   return (

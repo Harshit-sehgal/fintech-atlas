@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useBookmarks } from "@/lib/bookmarks-context";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { animationPresets as animation } from "@/lib/animation";
+import { primaryNav, moreNav, bottomNav } from "@/lib/site-nav";
 
 // Lazy-load the command palette so its heavy data import (the full companies /
 // categories / glossary catalogue) is NOT shipped on every page's initial
@@ -16,36 +17,6 @@ const CommandPalette = dynamic(
   () => import("@/components/ui/command-palette").then((m) => m.CommandPalette),
   { ssr: false },
 );
-
-// Primary navigation — the five decision surfaces. Everything else lives in
-// "More" so the bar stays calm and scannable (proven comparison-site pattern).
-const primaryNav = [
-  { href: "/india", label: "India" },
-  { href: "/companies", label: "Companies" },
-  { href: "/compare", label: "Compare" },
-  { href: "/tools", label: "Tools" },
-  { href: "/articles", label: "Guides" },
-];
-
-const moreNav = [
-  { href: "/categories", label: "Categories" },
-  { href: "/glossary", label: "Glossary" },
-  { href: "/services", label: "Services" },
-  { href: "/bookmarks", label: "Saved" },
-  { href: "/about", label: "About" },
-  { href: "/changelog", label: "Changelog" },
-];
-
-// App-like bottom navigation for touch screens (hidden on lg+ where the
-// desktop bar shows everything). Kept to the five highest-value destinations
-// so each target stays thumb-sized on a 360px viewport.
-const bottomNav = [
-  { href: "/", label: "Home" },
-  { href: "/companies", label: "Companies" },
-  { href: "/compare", label: "Compare" },
-  { href: "/tools", label: "Tools" },
-  { href: "/bookmarks", label: "Saved" },
-];
 
 const isActive = (pathname: string, href: string) =>
   href === "/" ? pathname === "/" : pathname.startsWith(href);

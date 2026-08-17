@@ -333,10 +333,10 @@ Publish in this order:
 1. Razorpay fee calculator
 2. Razorpay vs Stripe for Indian businesses
 3. Razorpay vs Cashfree
-4. Best payment gateway for Indian startups
+4. ~~Best payment gateway for Indian startups~~ ✅ done — `/articles/best-payment-gateway-indian-startups/` (2026-08-15): Razorpay/Cashfree/Stripe (India)/Paytm compared on flat 2% + 18% GST, UPI as the zero-MDR default rail; relatedTool fee calculator
 5. Payment gateway fee comparison India
-6. Best payment gateway for Indian SaaS
-7. Razorpay international payment fees
+6. ~~Best payment gateway for Indian SaaS~~ ✅ done — `/articles/best-payment-gateway-indian-saas/` (2026-08-15): INR subscriptions + USD revenue in one stack — Razorpay UPI-first vs Stripe Billing vs Cashfree payouts; relatedTool fee calculator
+7. ~~Razorpay international payment fees~~ ✅ done — `/articles/razorpay-international-payment-fees/` (2026-08-15): up-to-3% international cards, 18% GST on the fee (3.54% on ₹10,000), bundled conversion, MoneySaver export-account path; relatedTool exchange-rate markup calculator
 8. Best payment gateway for Shopify India
 
 ### Original value required

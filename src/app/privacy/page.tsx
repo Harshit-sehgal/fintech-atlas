@@ -1,23 +1,16 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/legal/legal-page";
-import { canonicalUrl } from "@/lib/canonical-url";
 import { LEGAL_EFFECTIVE_DATE } from "@/lib/legal-config";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 
 const description =
   "How FinTech Atlas handles browser storage, static hosting logs, external links, and privacy.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/privacy",
   title: "Privacy Notice",
   description,
-  alternates: { canonical: canonicalUrl("/privacy") },
-  openGraph: {
-    ...openGraphImage,
-    title: "Privacy Notice — FinTech Atlas",
-    description,
-    url: canonicalUrl("/privacy"),
-  },
-};
+});
 
 export default function PrivacyPage() {
   return (
