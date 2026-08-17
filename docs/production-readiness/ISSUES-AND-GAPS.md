@@ -63,11 +63,11 @@ Do not implement without revisiting [ADR-001](../adr/001-defer-backend-capabilit
 | Typo-tolerant search beyond current fuzzy scoring | 🟢 Implemented for current static catalog; market-data scope deferred |
 | Stocks / ETFs / funds / articles search content | 🔴 Deferred with Goal 04/07 content |
 | Production `SITE_URL` set on real host | 🟢 GitHub Pages origin live at `https://harshit-sehgal.github.io/fintech-atlas` (deploy workflow green 2026-08-13); dedicated `fintech-atlas.com` domain still operator action (T019–T021) |
-| Indexability / CWV / structured-data verification on live URLs | Open |
+| Indexability / CWV / structured-data verification on live URLs | 🟡 Live CWV recorded on the GitHub Pages origin (gap 115, `LIVE-CWV-REPORT.md`: all six routes pass the T100 gates) and structured data verified in the static artifact; Search Console registration + indexability evidence remain operator tasks (T036–T045) |
 | Host applies `_headers` + serves `security.txt` | Operator action |
 | Penetration test | Open |
-| Preview environments + CD / deploy workflow | Open |
-| Rollback / backup restoration drill | Open |
+| Preview environments + CD / deploy workflow | 🟢 CD/deploy workflow is live on GitHub Pages (gap 112, T022) with `restore.yml` for rollbacks; per-PR preview environments still need a provider account (Netlify/Vercel) and remain an operator action |
+| Rollback / backup restoration drill | 🟢 Executed 2026-08-15 and recorded in the incident runbook (gap 115, #19): `restore.yml` downloaded an archived artifact, rebuilt, and redeployed; 9 retained deploy artifacts verified. Routine re-drills remain a scheduled operator habit |
 | Manual screen-reader audit | 🟡 Keyboard + focus-visibility + skip-link automated (WCAG 2.1.1/2.4.1/2.4.7 gate, 10 tests); CountUp now announces only the final value (sr-only twin, animated digits aria-hidden); logo marquee duplicate copy rendered as aria-hidden spans (was 2× keyboard stops + double announcements); error-boundary fallback announces via role="alert". Manual NVDA/VoiceOver walkthrough still open |
 | WCAG accessibility pass (automated) | 🟢 axe-core e2e gate (`e2e/accessibility.spec.ts`): 22 light routes (404, bright-brand company, all 3 services pages, privacy/terms/affiliate-disclosure — legal templates were previously ungated, and privacy shipped a link-in-text-block violation: an inline "GitHub Issues" link distinguishable only by color, now underlined) + 14 dark routes. Theme-aware accent system: `--acc-0..8`, `--tool-acc-*`, `--accent-ink` tokens with light/dark twins in globals.css; tools hub + calculators suite + matchmaker + category pages consume vars (color-mix for alpha tints), so every accent is ≥4.5:1 as text and as chip/tab background in both themes; `.eyebrow` and always-visible card CTAs use `--accent-ink` (immune to inline brand-colour overrides); dark `--muted` brightened (#9a9488 → #a29c90, fixes 4.35:1 10px chip). Verified: axe CLEAN on 36 routes; 75/75 e2e, 317 vitest, budget 417,667/450,000 |
 | Keyboard focus gate (2.4.1/2.4.7) | 🟢 `e2e/keyboard.spec.ts`: Tab-walks 7 templates asserting every stop shows a visible indicator, plus skip-link (Enter → focus lands in `#main-content`, now `tabIndex={-1}`) and keyboard-reachability of the primary nav. Root cause found: `ring-[var(--ring)]` is a no-op in Tailwind v4 (a bare var() is ambiguous length/colour) — 32 occurrences rendered no focus ring. Fixed with one unlayered `:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 2px }` rule (unlayered beats utility `outline-none`; `.btn-*` keep their shadow ring via specificity) |
@@ -127,11 +127,11 @@ cross-check against the full product/monetization plan. P13–P17 stay gated beh
 | Radar admin/research review console (`/radar/review`: Accept/Reject/Edit on review items) | 🟢 Shipped — server-rendered review queue at `/radar/review` (queue stats, per-company diff groups, decision worksheet as a copy-paste apply batch, `--decisions` flag on the ingest CLI writes the resolved batch), axe-clean light route; full account-gated console stays behind the validation gate |
 | Freshness policy grading (regulatory/pricing high, funding medium, founders medium, founded very low) | 🟢 Shipped — `src/data-platform/freshness.ts` grades every evidence family (licence 30d, funding 90d, category/website 180d, founded 365d) into fresh/due/stale; surfaced as a "Data freshness" block on every `/radar/company` profile and as platform stats on `/radar/review` |
 | FinTech Market Research service (third services offering) | 🟢 Shipped — third service on `/services` (verified ICP company lists, sourced + CSV export, from ₹10,000/project), JSON-LD OfferCatalog entry, contact-form option, service-agnostic "How it works" steps |
-| SEBI / NPCI / IRDAI live regulator ingestion pipelines | 🔴 Only RBI built (48/48, review-gated); other regulators gated (P15) |
+| SEBI / NPCI / IRDAI live regulator ingestion pipelines | 🔴 Only RBI built (48/48, review-gated); other regulators are Phase 17 expansion (regulator families NBFC → SEBI → IRDAI), gated |
 | Auth + billing + entitlement layer; alert/watchlist email delivery + unsubscribe | 🔴 Gated (P13) — localStorage prototypes exist, no accounts or email |
 | Team / B2B seats + shared lists | 🔴 Gated (P14) |
-| API / data licensing | 🔴 Gated (P16) |
-| AI research interface over Atlas data + citations | 🔴 Gated (P17) |
+| Public API / data licensing | 🔴 Gated (P15) |
+| AI research interface over Atlas data + citations | 🔴 Gated (P16) |
 | Quarterly original-research reports (payment-infra map, regulatory landscape, new RBI entrants) | Operator/content action |
 | Concierge sales + discovery interviews + validation-gate evidence (10/5/3 design partners) | Operator action (ROADMAP O4) |
 
@@ -204,8 +204,8 @@ decision: a dedicated `fintech-atlas.com` domain and its DNS/HTTPS, live
 CWV/indexability checks against the final origin, manual keyboard/screen-reader
 audit, penetration testing, affiliate/newsletter provider enrollment,
 jurisdiction-specific legal review, rollback drills, and all backend-heavy
-goals listed in ADR-001. Radar-specific: P13–P17 (auth/billing, team, other
-regulators, API, AI) remain gated behind `docs/sales/VALIDATION-GATE.md`, and
+goals listed in ADR-001. Radar-specific: P13–P17 (auth/billing, team, public
+API, AI, and Phase 17 expansion incl. other regulators) remain gated behind `docs/sales/VALIDATION-GATE.md`, and
 the proprietary data layer (canonical DB, enrichment, regulatory ingestion,
 evidence) currently sits in this public repo behind the gitignored
 `data-platform/out/` directory + a `platform:export` package gate — moving it
