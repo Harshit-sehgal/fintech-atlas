@@ -13,7 +13,7 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { parseEnrichedDirectory } from "../src/lib/india-directory-parse";
 import { RADAR_LICENCES, RADAR_LICENCE_LABELS } from "../src/lib/radar-facets";
-import { coverageStats, importDirectory } from "../src/data-platform/import-directory";
+import { collectCategoryIds, categoryId, coverageStats, importDirectory, mapCompanyStatus } from "../src/data-platform/import-directory";
 import { RESEARCH_COMPILED_AT } from "../src/data-platform/sources";
 import type { CompanyRecord, Confidence } from "../src/data-platform/types";
 
@@ -58,6 +58,7 @@ function buildSeed(snapshotData: ReturnType<typeof importDirectory>): string {
       "('IRDAI', 'Insurance Regulatory and Development Authority of India')",
       "('NPCI', 'National Payments Corporation of India')",
       "('FIU', 'Financial Intelligence Unit')",
+      "('mixed', 'Mixed / multiple regulators')",
     ].join(",\n"),
   );
   lines.push(";");
@@ -81,16 +82,11 @@ function buildSeed(snapshotData: ReturnType<typeof importDirectory>): string {
   lines.push(";");
   lines.push("");
 
-  const categories = [...new Set(recs.map((r) => r.company.category))];
-  const categoryId = (label: string) =>
-    label
-      .toLowerCase()
-      .replace(/&/g, " and ")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "")
-      .slice(0, 80);
+  const categories = collectCategoryIds(
+    recs.flatMap((r) => [r.company.category, ...r.categories.map((c) => c.category)]),
+  );
   lines.push("INSERT INTO categories (id, label) VALUES");
-  lines.push(categories.map((c) => `(${sqlStr(categoryId(c))}, ${sqlStr(c)})`).join(",\n"));
+  lines.push([...categories].map(([id, label]) => `(${sqlStr(id)}, ${sqlStr(label)})`).join(",\n"));
   lines.push(";");
   lines.push("");
 
@@ -98,18 +94,28 @@ function buildSeed(snapshotData: ReturnType<typeof importDirectory>): string {
   lines.push(
     recs
       .map((r) =>
-        `(${sqlStr(r.company.id)}, ${sqlStr(r.company.legalName)}, ${sqlStr(r.company.displayName)}, ${sqlStr(r.company.website)}, ${sqlStr(r.company.description)}, ${sqlOptNum(r.company.foundedYear)}, ${sqlStr(r.company.headquarters)}, ${sqlStr(r.company.status)})`,
+        `(${sqlStr(r.company.id)}, ${sqlStr(r.company.legalName)}, ${sqlStr(r.company.displayName)}, ${sqlStr(r.company.website)}, ${sqlStr(r.company.description)}, ${sqlOptNum(r.company.foundedYear)}, ${sqlStr(r.company.headquarters)}, ${sqlStr(mapCompanyStatus(r.company.status))})`,
       )
       .join(",\n"),
   );
   lines.push(";");
   lines.push("");
 
+  const seenCategories = new Set<string>();
   lines.push("INSERT INTO company_categories (company_id, category_id, source_id, confidence, verified_at) VALUES");
   lines.push(
-    recs.flatMap((r) => r.categories).map((c) =>
-      `(${sqlStr(c.companyId)}, ${sqlStr(categoryId(c.category))}, ${sqlStr(c.sourceId)}, ${sqlStr(c.confidence)}, ${sqlStr(RESEARCH_COMPILED_AT)})`,
-    ).join(",\n"),
+    recs
+      .flatMap((r) => r.categories.map((c) => ({ companyId: c.companyId, category: c.category, sourceId: c.sourceId, confidence: c.confidence })))
+      .filter((c) => {
+        const key = `${c.companyId}|${categoryId(c.category)}`;
+        if (seenCategories.has(key)) return false;
+        seenCategories.add(key);
+        return true;
+      })
+      .map((c) =>
+        `(${sqlStr(c.companyId)}, ${sqlStr(categoryId(c.category))}, ${sqlStr(c.sourceId)}, ${sqlStr(c.confidence)}, ${sqlStr(RESEARCH_COMPILED_AT)})`,
+      )
+      .join(",\n"),
   );
   lines.push(";");
   lines.push("");

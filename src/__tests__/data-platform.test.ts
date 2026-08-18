@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { parseEnrichedDirectory } from "@/lib/india-directory-parse";
-import { coverageStats, importDirectory, importDirectoryRecord } from "@/data-platform/import-directory";
+import { coverageStats, importDirectory, importDirectoryRecord, categoryId, collectCategoryIds, mapCompanyStatus } from "@/data-platform/import-directory";
 import { getSource, RESEARCH_COMPILED_AT, SOURCES } from "@/data-platform/sources";
 import {
   buildLicenceRecords,
@@ -24,6 +24,52 @@ describe("data platform — research import contract", () => {
   it("imports every company from the research file", () => {
     expect(stats.companies).toBe(1386);
     expect(snapshot.records.length).toBe(1386);
+  });
+
+  it("category labels dedupe to one row per id (seed stays loadable)", () => {
+    const labels = snapshot.records.flatMap((r) => [
+      r.company.category,
+      ...r.categories.map((c) => c.category),
+    ]);
+    const distinctLabels = [...new Set(labels)];
+    const uniqueIds = new Set(distinctLabels.map(categoryId));
+    const collapsed = collectCategoryIds(labels);
+
+    // Case/punctuation variants legitimately collapse (e.g. "POS/Payment" vs
+    // "POS / payment"); the map must still emit exactly one row per id…
+    expect(collapsed.size).toBe(uniqueIds.size);
+    // …and every id referenced by company_categories must exist in it, so the
+    // categories INSERT satisfies the foreign key no matter the label variant.
+    for (const label of labels) {
+      expect(collapsed.has(categoryId(label))).toBe(true);
+    }
+  });
+
+  it("no duplicate (companyId, categoryId) pairs across company_categories", () => {
+    const keys = snapshot.records.flatMap((r) =>
+      r.categories.map((c) => `${c.companyId}|${categoryId(c.category)}`),
+    );
+    expect(new Set(keys).size).toBe(keys.length);
+  });
+
+  it("every licence regulator resolves to a seeded regulator code", () => {
+    const regulatorCodes = ["RBI", "SEBI", "IRDAI", "NPCI", "FIU", "mixed"];
+    for (const record of snapshot.records) {
+      for (const licence of record.licences) {
+        expect(regulatorCodes).toContain(licence.regulator);
+      }
+    }
+  });
+
+  it("company status maps into the schema enum (company_status)", () => {
+    const enumValues = ["operating", "acquired", "merged", "shut-down", "unknown"];
+    for (const record of snapshot.records) {
+      expect(enumValues).toContain(mapCompanyStatus(record.company.status));
+    }
+    expect(mapCompanyStatus("Unicorn ~$7.5B (2021); acquired POP (2025)")).toBe("acquired");
+    expect(mapCompanyStatus("~$109M (2023)")).toBe("operating");
+    expect(mapCompanyStatus("merged with RenewBuy (2025)")).toBe("merged");
+    expect(mapCompanyStatus("defunct since 2022")).toBe("shut-down");
   });
 
   it("every record carries category evidence with a source + confidence", () => {

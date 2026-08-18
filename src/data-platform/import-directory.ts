@@ -27,6 +27,46 @@ function stripMarks(value: string): string {
   return value.replace(/\*\*|`/g, "");
 }
 
+/** Normalizes a category label into a stable primary key (SQL-friendly). */
+export function categoryId(label: string): string {
+  return label
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+}
+
+/**
+ * Collapses category labels into a canonical id → first-seen label map so two
+ * labels that normalize identically (case/punctuation variants) produce one
+ * row instead of a primary-key collision.
+ */
+export function collectCategoryIds(labels: Iterable<string>): Map<string, string> {
+  const map = new Map<string, string>();
+  for (const label of labels) {
+    const id = categoryId(label);
+    if (!map.has(id)) map.set(id, label);
+  }
+  return map;
+}
+
+export type CompanyStatus = "operating" | "acquired" | "merged" | "shut-down" | "unknown";
+
+/**
+ * Derives the schema's `company_status` enum value from the directory's
+ * free-form valuation/status column. Explicit lifecycle markers win; the
+ * directory catalogs operating fintechs, so a bare valuation implies
+ * operating.
+ */
+export function mapCompanyStatus(text: string): CompanyStatus {
+  const t = text.toLowerCase();
+  if (/(acquired|acquisition)/.test(t)) return "acquired";
+  if (/(merged|merger)/.test(t)) return "merged";
+  if (/(shut|defunct|wound|bankrupt|insolven|closed|delisted)/.test(t)) return "shut-down";
+  return "operating";
+}
+
 /** Maps one research row into a full canonical record with evidence. */
 export function importDirectoryRecord(record: IndiaDirectoryRecord): CompanyRecord {
   const foundedYear = parseFoundedYear(record.founded);
