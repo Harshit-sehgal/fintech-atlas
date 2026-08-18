@@ -184,9 +184,9 @@ right account/access. **Do not build around them** — they are external by desi
 
 | # | Action | Owner | Blocks |
 | --- | --- | --- | --- |
-| O1 | Create the private repository `fintech-atlas-platform` and push the staged package from `npm run platform:export` (`data-platform/staging/`) | operator | private data platform go-live |
-| O2 | Provision PostgreSQL and load `database/schema.sql` + `data-platform/out/seed.sql` | operator | canonical DB go-live |
-| O3 | Switch RBI ingestion from local snapshot files to live fetching, then run the review queue | operator | real change feed |
+| O1 | Create the private repository `fintech-atlas-platform` and push the staged package from `npm run platform:export` (`data-platform/staging/`) | ✅ done — `Harshit-sehgal/fintech-atlas-platform` (private), package pushed + refreshed after O2 fixes (2026-08-18) |
+| O2 | Provision PostgreSQL and load `database/schema.sql` + `data-platform/out/seed.sql` | ✅ done (local, 2026-08-18) — Postgres 16 container, schema+seed load verified (1,386 companies / 558 categories / 330 licence rows / 4,827 evidence); production Postgres host remains operator |
+| O3 | Switch RBI ingestion from local snapshot files to live fetching, then run the review queue | ✅ done (2026-08-18) — `npm run platform:fetch-rbi` pulls RBI's live PSS applications-status page (36 entries); baseline + v1 diff ran through the ingest pipeline (84 events, review queue); caveat: RBI's CoA-holder PDF is bot-challenged, so the live feed tracks application-status tables |
 | O4 | Concierge outreach: discovery calls, deliverable delivery, invoice billing (P6 / PAID-BETA-PLAYBOOK) | operator | validation gate |
 | O5 | Affiliate enrollment and sponsored listings (external accounts, per monetization plan Phase 23) | operator | affiliate revenue |
 | O6 | Wire an email provider for alerts / weekly digest once the gate passes | operator | P13 alerts |
