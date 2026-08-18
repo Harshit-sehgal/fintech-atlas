@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { glossary } from "@/data/glossary";
 import type { GlossaryTerm } from "@/data/types";
-import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { GlossaryToolbar } from "./toolbar";
@@ -11,17 +10,11 @@ import { TermActions } from "./term-actions";
 const description =
   "Plain-language definitions of the FinTech terms used on this site — UPI and payment aggregators to FEMA, FIRCs, and RBI licences.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/glossary",
   title: "FinTech Glossary & Terminology",
   description,
-  alternates: { canonical: canonicalUrl("/glossary") },
-  openGraph: {
-    ...openGraphImage,
-    title: "FinTech Glossary & Terminology — FinTech Atlas",
-    description,
-    url: canonicalUrl("/glossary"),
-  },
-};
+});
 
 // Server-side search surface: every card carries a lower-cased data-search
 // attribute covering term + full + short + long, so the client toolbar can

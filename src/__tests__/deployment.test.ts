@@ -97,11 +97,12 @@ describe("Static deployment contracts", () => {
   it("publishes the legal and incident-readiness surfaces", () => {
     expect(existsSync(resolve(root, "src/app/privacy/page.tsx"))).toBe(true);
     expect(existsSync(resolve(root, "src/app/terms/page.tsx"))).toBe(true);
-    expect(read("src/components/layout/site-footer.tsx")).toContain('href: "/privacy"');
-    expect(read("src/components/layout/site-footer.tsx")).toContain('href: "/terms"');
+    // Footer About links now come from the shared nav registry.
+    expect(read("src/lib/site-nav.ts")).toContain('href: "/privacy"');
+    expect(read("src/lib/site-nav.ts")).toContain('href: "/terms"');
     expect(existsSync(resolve(root, "docs/incident-runbook.md"))).toBe(true);
-    expect(read("src/app/privacy/page.tsx")).toContain("openGraph:");
-    expect(read("src/app/terms/page.tsx")).toContain("openGraph:");
+    expect(read("src/app/privacy/page.tsx")).toContain("pageMetadata(");
+    expect(read("src/app/terms/page.tsx")).toContain("pageMetadata(");
     expect(privacyMetadata.openGraph).toMatchObject({
       title: "Privacy Notice — FinTech Atlas",
       url: expect.stringContaining("/privacy/"),

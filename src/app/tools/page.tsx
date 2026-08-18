@@ -1,96 +1,38 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { CSSProperties } from "react";
+import { tools } from "@/data/tools";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
-import { canonicalUrl } from "@/lib/canonical-url";
+import { pageMetadata } from "@/lib/shared-metadata";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { openGraphImage } from "@/lib/shared-metadata";
 
 const description =
   "Estimate payment gateway processing costs, compare reference FX scenarios, or build an initial fintech shortlist with our interactive tools.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/tools",
   title: "Interactive FinTech Tools",
   description,
-  alternates: { canonical: canonicalUrl("/tools") },
-  openGraph: {
-    ...openGraphImage,
-    title: "Interactive FinTech Tools — FinTech Atlas",
-    description,
-    url: canonicalUrl("/tools"),
-  },
-};
+});
 
-const toolsList = [
-  {
-    id: "calculators",
-    href: "/tools/calculators",
-    icon: "🧮",
-    name: "Personal Finance Calculators",
-    badge: "Calculator Suite",
-    description: "Project SIP and SWP growth, estimate EMIs, inflation, retirement corpus, FIRE number, emergency fund, and net worth.",
-    features: ["SIP, SWP & CAGR", "EMI & loan costs", "Retirement & FIRE planning", "Net worth & emergency fund"],
-  },
-  {
-    id: "calculator",
-    href: "/tools/calculator",
-    icon: "💳",
-    name: "Payment Gateway Fee Estimator",
-    badge: "Interactive Calculator",
-    description: "Compare total monthly processing fees across Stripe, PayPal, Square, and Adyen based on your transaction volume, average order size, and international mix.",
-    features: ["Real-time fee calculation", "Effective rate comparison", "Volume discount thresholds", "Detailed cost breakdowns"],
-  },
-  {
-    id: "razorpay-fee-calculator",
-    href: "/tools/razorpay-fee-calculator",
-    icon: "🇮🇳",
-    name: "Razorpay Fee Calculator (India)",
-    badge: "India Calculator",
-    description: "Estimate Razorpay's real cost for Indian businesses: 2% on all domestic instruments, 18% GST on top, international up to 3% — with a reverse-charge formula for target payouts.",
-    features: ["2% domestic + 18% GST (2.36% all-in)", "International up to 3%", "Reverse-charge estimate", "Compare with Stripe & Cashfree"],
-  },
-  {
-    id: "remittance",
-    href: "/tools/remittance",
-    icon: "🌍",
-    name: "Cross-Border FX & Transfer Estimator",
-    badge: "FX Tool",
-    description: "Estimate recipient payouts for USD transfers to common currencies using simplified Wise, Revolut, PayPal, or hypothetical bank-wire scenarios.",
-    features: ["Reference FX comparison", "Markup visibility", "Transfer speed comparison", "Recipient net payout estimate"],
-  },
-  {
-    id: "exchange-rate-markup-calculator",
-    href: "/tools/exchange-rate-markup-calculator",
-    icon: "💱",
-    name: "Exchange-Rate Markup Calculator",
-    badge: "FX Tool",
-    description: "Measure the hidden FX spread on any international transfer: enter the mid-market rate and your provider's rate to see the markup percentage and the rupee cost — for receiving INR (USD → INR) and sending INR (INR → USD).",
-    features: ["Markup vs mid-market", "USD → INR and INR → USD", "Rupee cost of the spread", "Works with any provider's quote"],
-  },
-  {
-    id: "matchmaker",
-    href: "/tools/matchmaker",
-    icon: "🎯",
-    name: "FinTech Matchmaker Quiz",
-    badge: "Interactive Quiz",
-    description: "Answer a few questions about your business, scale, or personal finance needs to get an initial shortlist of FinTech platforms.",
-    features: ["4-step recommendation flow", "SaaS, E-commerce, Freelance, & Personal tracks", "Pros & cons breakdown", "Direct profile links"],
-  },
-];
+const toolsList = tools.map(({ id, href, icon, name, badge, description, features }) => ({
+  id,
+  href,
+  icon,
+  name,
+  badge,
+  description,
+  features,
+}));
 
 // Per-tool accent CSS variables (globals.css): deep shades in the light
 // theme, light twins in dark — readable text ("Launch tool", badges) clears
 // WCAG AA in both. The 20/33/10% alpha tints use color-mix so they follow
 // the theme variable too.
-const TOOL_ACCENTS: Record<string, string> = {
-  calculators: "var(--tool-acc-calculators)",
-  calculator: "var(--tool-acc-calculator)",
-  "razorpay-fee-calculator": "var(--tool-acc-razorpay-fee-calculator)",
-  remittance: "var(--tool-acc-remittance)",
-  "exchange-rate-markup-calculator": "var(--tool-acc-exchange-rate-markup-calculator)",
-  matchmaker: "var(--tool-acc-matchmaker)",
-};
+const TOOL_ACCENTS: Record<string, string> = Object.fromEntries(
+  tools.map((t) => [t.id, t.accentVar]),
+);
 
 export default function ToolsPage() {
   return (

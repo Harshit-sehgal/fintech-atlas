@@ -123,6 +123,13 @@ export interface Company {
    * subsidiary/product of a parent), in which case it sorts after known values.
    */
   valuationAmountUsd?: number;
+  /**
+   * Research-directory profile slug when this curated company also exists in
+   * the India research directory (`/india/directory/<slug>`). Bridges the two
+   * profile surfaces so each links to the other. Hand-curated: name matching
+   * is unreliable, and a wrong mapping is worse than no mapping.
+   */
+  researchProfileSlug?: string;
   /** Structured evidence required for every published catalog record. */
   sourceReferences: SourceReference[];
   employeesSourced?: SourcedValue<string>;

@@ -1,30 +1,24 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
-import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 import { changelog, changelogKindLabels } from "@/data/changelog";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/changelog",
   title: "Site Changelog",
   description:
     "What changed on FinTech Atlas and when: new guides, tools, fee updates, and fixes — the site's own update log, also available as an RSS feed.",
-  alternates: {
-    canonical: canonicalUrl("/changelog"),
+  ogDescription:
+    "New guides, tools, fee updates, and fixes on FinTech Atlas — the site's update log, also available as an RSS feed.",
+  extraAlternates: {
     types: {
       "application/rss+xml": [
         { url: "/changelog.xml", title: "FinTech Atlas — Site Changelog" },
       ],
     },
   },
-  openGraph: {
-    ...openGraphImage,
-    title: "Site Changelog — FinTech Atlas",
-    description:
-      "New guides, tools, fee updates, and fixes on FinTech Atlas — the site's update log, also available as an RSS feed.",
-    url: canonicalUrl("/changelog"),
-  },
-};
+});
 
 const kindDot: Record<string, string> = {
   tool: "bg-[var(--accent-strong)]",

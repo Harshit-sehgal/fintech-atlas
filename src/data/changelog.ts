@@ -19,6 +19,30 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    date: "2026-08-15",
+    kind: "article",
+    title: "Best payment gateway for Indian startups (2026)",
+    description:
+      "Razorpay, Cashfree, Stripe (India) and Paytm compared for Indian startups — flat 2% + 18% GST on all domestic instruments, UPI as the zero-MDR default rail, and which gateway fits D2C, payouts-heavy, and global-first teams.",
+    href: "/articles/best-payment-gateway-indian-startups/",
+  },
+  {
+    date: "2026-08-15",
+    kind: "article",
+    title: "Best payment gateway for Indian SaaS (2026)",
+    description:
+      "How Indian SaaS teams handle INR subscriptions and USD revenue at once — Razorpay's flat 2% UPI-first stack vs Stripe Billing's maturity at 2% on India cards / 3% international, with Cashfree for payout-heavy flows.",
+    href: "/articles/best-payment-gateway-indian-saas/",
+  },
+  {
+    date: "2026-08-15",
+    kind: "article",
+    title: "Razorpay international payment fees (2026)",
+    description:
+      "The all-in cost when international customers pay a Razorpay checkout — up to 3% on non-India cards plus 18% GST on the fee (3.54% on a ₹10,000 ticket), bundled conversion, and when the MoneySaver export account beats the gateway route.",
+    href: "/articles/razorpay-international-payment-fees/",
+  },
+  {
     date: "2026-08-13",
     kind: "site",
     title: "Per-page security policy hardening",

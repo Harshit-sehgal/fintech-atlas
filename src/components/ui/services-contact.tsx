@@ -9,6 +9,7 @@ const SERVICE_OPTIONS = [
   "Payment gateway integration — basic Razorpay checkout",
   "Payment gateway integration — ecommerce",
   "Payment gateway integration — subscription/custom",
+  "FinTech market research (verified company list)",
 ] as const;
 
 const BUSINESS_SIZE_OPTIONS = ["Just me / freelancer", "2–10 people", "11–50 people", "51+ people"] as const;

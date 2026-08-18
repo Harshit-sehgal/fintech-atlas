@@ -4,23 +4,16 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { GatewayChecklist, type ChecklistGroup } from "@/components/ui/gateway-checklist";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 
 const description =
   "The FinTech Atlas payment gateway implementation checklist: pre-flight, integration, testing, go-live and reconciliation — with progress saved in your browser.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/services/payment-gateway-implementation-checklist",
   title: "Payment Gateway Implementation Checklist",
   description,
-  alternates: { canonical: canonicalUrl("/services/payment-gateway-implementation-checklist") },
-  openGraph: {
-    ...openGraphImage,
-    title: "Payment Gateway Implementation Checklist — FinTech Atlas",
-    description,
-    url: canonicalUrl("/services/payment-gateway-implementation-checklist"),
-  },
-};
+});
 
 const GROUPS: ChecklistGroup[] = [
   {

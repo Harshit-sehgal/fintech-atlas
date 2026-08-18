@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
+import { getCompanyForResearchProfile, getCompanyName } from "@/lib/company-directory-links";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import {
   getIndiaDirectoryRecordBySlug,
@@ -88,6 +89,13 @@ export default async function IndiaDirectoryProfilePage({
     { name: record.name, href: `/india/directory/${record.slug}` },
   ];
 
+  // Directory bridge: when this research profile also has a curated editorial
+  // profile, link across so visitors can move between the two surfaces.
+  const curatedCompanySlug = getCompanyForResearchProfile(record.slug);
+  const curatedCompanyName = curatedCompanySlug
+    ? getCompanyName(curatedCompanySlug)
+    : null;
+
   return (
     <div className="mx-auto max-w-3xl px-5 py-14 md:py-20">
       <Breadcrumbs items={breadcrumbItems} />
@@ -117,6 +125,15 @@ export default async function IndiaDirectoryProfilePage({
         <p className="mt-3 text-sm leading-relaxed text-[var(--fg-dim)]">
           {clean(record.description) || "No public overview available for this company yet."}
         </p>
+        {curatedCompanySlug && curatedCompanyName && (
+          <Link
+            href={`/companies/${curatedCompanySlug}`}
+            data-placement="research-profile-to-company"
+            className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)] transition-colors hover:underline"
+          >
+            Read the curated profile of {curatedCompanyName} <span aria-hidden>→</span>
+          </Link>
+        )}
         {record.website && !UNVERIFIED.has(record.website) && (
           <a
             href={`https://${record.website}`}

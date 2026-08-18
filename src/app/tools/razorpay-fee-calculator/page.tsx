@@ -2,23 +2,17 @@ import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import Link from "next/link";
 import FeeCalculatorPageClient from "../calculator/calculator-client";
-import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 
 const description =
   "Estimate what Razorpay actually charges Indian businesses: 2% on all domestic payment instruments, 18% GST on top, and international fees up to 3%. Reverse-calculate the charge for a target payout.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/tools/razorpay-fee-calculator",
   title: "Razorpay Fee Calculator (India) — fees & GST",
+  ogTitle: "Razorpay Fee Calculator (India)",
   description,
-  alternates: { canonical: canonicalUrl("/tools/razorpay-fee-calculator") },
-  openGraph: {
-    ...openGraphImage,
-    title: "Razorpay Fee Calculator (India) — FinTech Atlas",
-    description,
-    url: canonicalUrl("/tools/razorpay-fee-calculator"),
-  },
-};
+});
 
 export default function RazorpayFeeCalculatorPage() {
   return (

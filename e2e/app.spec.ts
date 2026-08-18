@@ -17,20 +17,20 @@ test.describe("critical flows", () => {
     // The most recently appended articles lead the section on same-day ties
     // (later array index first among equal updatedAt values).
     await expect(
-      latestSection.getByRole("link", { name: /Best way to receive USD in India/ }),
+      latestSection.getByRole("link", { name: /Razorpay international payment fees/ }),
     ).toBeVisible();
     await expect(
-      latestSection.getByRole("link", { name: /PayPal vs Payoneer India/ }),
+      latestSection.getByRole("link", { name: /Best payment gateway for Indian SaaS/ }),
     ).toBeVisible();
     await expect(
-      latestSection.getByRole("link", { name: /Best payment method for Fiverr India/ }),
+      latestSection.getByRole("link", { name: /Best payment gateway for Indian startups/ }),
     ).toBeVisible();
     // Order contract: newest editorial additions come first, not array order.
     await expect(latestSection.locator("a").first()).toContainText(
-      "Best way to receive USD in India",
+      "Razorpay international payment fees",
     );
     await expect(latestSection.locator("a").nth(1)).toContainText(
-      "PayPal vs Payoneer India",
+      "Best payment gateway for Indian SaaS",
     );
 
   });
@@ -363,5 +363,119 @@ test.describe("services track", () => {
     await expect(page.getByRole("progressbar", { name: /completion/i })).toHaveAttribute("aria-valuenow", "8");
     await page.reload({ waitUntil: "networkidle" });
     await expect(page.locator('input[type="checkbox"]:checked')).toHaveCount(2);
+  });
+});
+
+test.describe("radar track", () => {
+  test("radar renders the intelligence filters and searches by name", async ({
+    page,
+  }) => {
+    await page.goto("/radar/");
+    await expect(
+      page.getByRole("heading", { level: 1, name: "FinTech Radar" }),
+    ).toBeVisible();
+    const search = page.getByRole("searchbox", { name: "Search Indian fintech companies" });
+    await expect(search).toBeVisible();
+    // Filter groups render with the pooled labels.
+    await expect(page.getByRole("checkbox", { name: /Payments/ })).toBeVisible();
+    await expect(page.getByRole("checkbox", { name: "RBI" })).toBeVisible();
+    await expect(
+      page.getByRole("checkbox", { name: "Payment Aggregator" }),
+    ).toBeVisible();
+
+    // Full unfiltered set is reported, and a known company opens its record.
+    await expect(page.getByText("1386 companies")).toBeVisible();
+    await search.fill("razorpay");
+    await expect(page.getByText(/of 1386 companies/)).toBeVisible();
+    await page
+      .getByRole("link", { name: /Razorpay/ })
+      .first()
+      .click();
+    await expect(page.getByRole("heading", { name: "Razorpay" })).toBeVisible();
+  });
+
+  test("radar sector and licence filters narrow the result set", async ({
+    page,
+  }) => {
+    await page.goto("/radar/");
+    const resultCount = page.locator(
+      '[data-placement="radar"] [aria-live="polite"]',
+    );
+    // Read the leading number; NaN when the island is mid re-render so the
+    // poll keeps retrying instead of tripping on a transient empty node.
+    const readCount = async () => {
+      const text = await resultCount.innerText().catch(() => "");
+      const match = /^(\d+)/.exec(text);
+      return match ? Number(match[1]) : Number.NaN;
+    };
+
+    // Payments sector only — full set must shrink.
+    await page.getByRole("checkbox", { name: /Payments/ }).check();
+    await expect.poll(readCount).toBeLessThan(1386);
+    const sectorOnly = await readCount();
+
+    // Narrow to licensed payment aggregators — must shrink again.
+    await page.getByRole("checkbox", { name: "Payment Aggregator" }).check();
+    await expect.poll(readCount).toBeLessThan(sectorOnly);
+    const licensed = await readCount();
+    expect(licensed).toBeGreaterThan(0);
+
+    // Every card exposes the derived licence badge.
+    await expect(
+      page.getByText("Payment Aggregator", { exact: true }).first(),
+    ).toBeVisible();
+  });
+});
+
+test.describe("radar intelligence surfaces", () => {
+  test("intelligence profile renders the trust block and evidence", async ({
+    page,
+  }) => {
+    await page.goto("/radar/company/razorpay/");
+    await expect(page.getByRole("heading", { name: "Razorpay" })).toBeVisible();
+    await expect(page.getByText("Regulatory intelligence")).toBeVisible();
+    await expect(page.getByText("Payment Aggregator").first()).toBeVisible();
+    await expect(page.getByText(/Verified \(A\)/).first()).toBeVisible();
+    await expect(page.getByText("Evidence & sources")).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "View the full directory profile" }),
+    ).toBeVisible();
+  });
+
+  test("activity feed renders the baseline licence events", async ({ page }) => {
+    await page.goto("/radar/activity/");
+    await expect(
+      page.getByRole("heading", { level: 1, name: "Radar activity" }),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Payment Aggregator", { exact: true }).first(),
+    ).toBeVisible();
+  });
+
+  test("saved searches persist and re-apply filters", async ({ page }) => {
+    await page.goto("/radar/");
+    await page.getByRole("checkbox", { name: /Payments/ }).check();
+    await page.getByRole("button", { name: "Save current search" }).click();
+    await page
+      .getByRole("textbox", { name: "Name for the saved search" })
+      .fill("Payments only");
+    await page.getByRole("button", { name: "Save", exact: true }).click();
+    await expect(page.getByText("Payments only")).toBeVisible();
+
+    await page.getByRole("button", { name: "Clear all" }).click();
+    await page.getByRole("button", { name: "Apply" }).click();
+    await expect(page.getByRole("checkbox", { name: /Payments/ })).toBeChecked();
+  });
+
+  test("watchlist watches and unwatches a company", async ({ page }) => {
+    await page.goto("/radar/company/razorpay/");
+    await page.getByRole("button", { name: /Watch/ }).click();
+    await page.goto("/radar/watchlist/");
+    await expect(
+      page.locator('[data-placement="radar-watchlist-item"]', { hasText: "Razorpay" }),
+    ).toBeVisible();
+
+    await page.getByRole("button", { name: "Remove" }).click();
+    await expect(page.getByText("Your watchlist is empty.")).toBeVisible();
   });
 });

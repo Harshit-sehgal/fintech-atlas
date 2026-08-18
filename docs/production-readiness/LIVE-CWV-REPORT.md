@@ -1,7 +1,7 @@
 # Live Core Web Vitals & SEO Dashboard — FinTech Atlas
 
 > Measured against the production origin `https://harshit-sehgal.github.io/fintech-atlas`
-> on **2026-08-15** with Lighthouse 12.6.1 (Chrome headless), performance-only
+> on **2026-08-18** with Lighthouse 12.6.1 (Chrome headless), performance-only
 > category, desktop emulation. Companion: `ISSUES-AND-GAPS.md` R6 / issue #21.
 
 ## Gate (T100, lighthouserc.json)
@@ -17,23 +17,25 @@
 
 | Route | Perf | LCP | TBT | CLS |
 | --- | ---: | ---: | ---: | ---: |
-| `/` (home) | 0.96 | 2.0 s | 78 ms | 0.000 |
-| `/companies/` | 0.96 | 1.0 s | 185 ms | 0.000 |
-| `/articles/` | 0.98 | 1.0 s | 69 ms | 0.000 |
-| `/glossary/` | 0.99 | 2.0 s | 59 ms | 0.000 |
-| `/compare/` | 0.99 | 1.0 s | 16 ms | 0.000 |
-| `/tools/remittance` | 0.96 | 1.0 s | 15 ms | 0.000 |
+| `/` (home) | 0.96 | 1.4 s | 200 ms | 0.028 |
+| `/companies/` | 0.99 | 1.3 s | 110 ms | 0.000 |
+| `/articles/` | 0.93 | 2.4 s | 180 ms | 0.000 |
+| `/glossary/` | 0.99 | 1.8 s | 50 ms | 0.000 |
+| `/compare/` | 0.94 | 2.5 s | 70 ms | 0.000 |
+| `/tools/remittance` | 1.00 | 1.1 s | 20 ms | 0.000 |
 
-**Result: all six gate URLs pass every raised threshold on the live origin.**
-Worst case: TBT 185 ms on `/companies/` (remains under the 250 ms gate).
+**Result: all six gate URLs pass every raised threshold on the live origin**
+(re-run 2026-08-18, after the Radar + live-RBI cycles; same pass as the
+2026-08-15 run). Worst cases remain under gate: TBT 200 ms on `/`, LCP 2.5 s on
+`/compare/`, CLS 0.028 on `/` (each < 250 ms / 3500 ms / 0.1).
 
-## SEO dashboard (production artifact checks, 2026-08-15)
+## SEO dashboard (production artifact checks, 2026-08-18)
 
 | Check | Result |
 | --- | --- |
 | `sitemap.xml` (index) | 200, application/xml |
-| `feed.xml` (RSS) | 200, 21,720 B |
-| `robots.txt` | 200, 207 B (points at sitemap index) |
+| `feed.xml` (RSS) | 200, application/xml |
+| `robots.txt` | 200, text/plain (allows `/`, disallows `/bookmarks/`, points at sitemap index) |
 | `sw.js` (service worker) | 200, stamped cache version |
 | `/.well-known/security.txt` | 200, RFC 9116, expires 2027-01-01 |
 | Indexability (noindex) | None rendered (verified at build: titles audit 113 pages) |

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { CompaniesClient } from "./client";
-import { openGraphImage } from "@/lib/shared-metadata";
-import { canonicalUrl } from "@/lib/canonical-url";
+import { pageMetadata } from "@/lib/shared-metadata";
 import StructuredData from "@/components/SEO/StructuredData";
 
 const description =
@@ -9,17 +8,11 @@ const description =
 
 const pathname = "/companies";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname,
   title: "FinTech Companies Directory",
   description,
-  alternates: { canonical: canonicalUrl(pathname) },
-  openGraph: {
-    ...openGraphImage,
-    title: "FinTech Companies Directory — FinTech Atlas",
-    description,
-    url: canonicalUrl(pathname),
-  },
-};
+});
 
 export default function CompaniesPage() {
   return (

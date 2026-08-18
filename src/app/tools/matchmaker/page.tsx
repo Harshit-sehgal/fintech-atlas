@@ -1,24 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import MatchmakerQuizPageClient from "./matchmaker-client";
-import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 import { breadcrumbJsonLd } from "@/components/breadcrumbs";
 
 const description =
   "Answer 4 quick questions about your business or personal finance needs to get a tailored recommendation of top FinTech platforms.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/tools/matchmaker",
   title: "FinTech Matchmaker Quiz",
   description,
-  alternates: { canonical: canonicalUrl("/tools/matchmaker") },
-  openGraph: {
-    ...openGraphImage,
-    title: "FinTech Matchmaker Quiz — FinTech Atlas",
-    description,
-    url: canonicalUrl("/tools/matchmaker"),
-  },
-};
+});
 
 export default function MatchmakerQuizPage() {
   return (

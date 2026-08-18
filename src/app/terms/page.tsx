@@ -1,23 +1,16 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/legal/legal-page";
-import { canonicalUrl } from "@/lib/canonical-url";
 import { LEGAL_EFFECTIVE_DATE } from "@/lib/legal-config";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 
 const description =
   "Terms for using FinTech Atlas as an educational directory and illustrative decision-tool site.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/terms",
   title: "Terms of Use",
   description,
-  alternates: { canonical: canonicalUrl("/terms") },
-  openGraph: {
-    ...openGraphImage,
-    title: "Terms of Use — FinTech Atlas",
-    description,
-    url: canonicalUrl("/terms"),
-  },
-};
+});
 
 export default function TermsPage() {
   return (

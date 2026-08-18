@@ -2,70 +2,37 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { articles } from "@/data/articles";
+import { indiaFeaturedTools } from "@/data/tools";
+import { indiaDirectoryCount } from "@/generated/india-directory";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 import { SITE_URL } from "@/lib/site-config";
 
 const description =
   "Payment gateways and international payments for India: compare Razorpay, Cashfree, Wise, Payoneer and PayPal, calculate real fees and see what actually lands in your INR account.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/india",
   title: "Payment Gateways & Transfers for India",
   description,
-  alternates: { canonical: canonicalUrl("/india") },
-  openGraph: {
-    ...openGraphImage,
-    title: "Payment Gateways & Transfers for India · FinTech Atlas",
-    description,
-    url: canonicalUrl("/india"),
-  },
-};
+  ogSeparator: "·",
+});
 
-// Every India-focused comparison in the catalog (checked against article
-// availability at build time — the ComposePost step links only released slugs).
-const INDIA_ARTICLES = [
-  "razorpay-vs-stripe-payments-india",
-  "razorpay-vs-cashfree-indian-gateways",
-  "payoneer-fees-india",
-  "best-way-to-receive-usd-in-india",
-  "paypal-vs-payoneer-india",
-  "best-payment-method-upwork-india",
-  "best-payment-method-fiverr-india",
-  "payment-gateway-fee-comparison-india",
-  "best-payment-gateway-shopify-india",
-  "receiving-500-usd-from-us-client-in-india",
-  "receiving-1000-usd-from-us-client-in-india",
-  "receiving-5000-usd-from-us-client-in-india",
-  "quarterly-india-cross-border-fee-index",
-  "fira-vs-firc-payment-methods",
-  "payment-gateway-for-subscription-businesses",
-] as const;
+// Every India-focused comparison in the catalog, derived from the data
+// (region tag on each article) instead of a hand-maintained slug list that
+// drifts as articles are added.
+const INDIA_ARTICLES = articles
+  .filter((a) => a.regions.includes("india"))
+  .map((a) => ({ slug: a.slug, title: a.title, category: a.category, updatedAt: a.updatedAt }))
+  .sort((a, b) => a.title.localeCompare(b.title));
 
-const INDIA_TOOLS = [
-  {
-    href: "/tools/razorpay-fee-calculator",
-    name: "Razorpay Fee Calculator",
-    description: "2% domestic + 18% GST (2.36% all-in) on Indian card/UPI transactions, international up to 3% — with a reverse-charge formula.",
-  },
-  {
-    href: "/tools/calculator",
-    name: "Payment Gateway Fee Estimator",
-    description: "Compare total monthly processing fees across gateways on your own volume, order value and international mix (GST included).",
-  },
-  {
-    href: "/tools/remittance",
-    name: "Cross-Border FX & Transfer Estimator",
-    description: "Estimate exactly what a USD transfer lands in your INR account after fees and FX markup.",
-  },
-  {
-    href: "/tools/exchange-rate-markup-calculator",
-    name: "Exchange-Rate Markup Calculator",
-    description: "Expose the hidden spread on any rate you are offered — the Payoneer corridor, a bank's FX margin, or a platform quote.",
-  },
-];
+const INDIA_TOOLS = indiaFeaturedTools.map((t) => ({
+  href: t.href,
+  name: t.name,
+  description: t.description,
+}));
 
 const INDIA_PROVIDERS = [
   { slug: "razorpay", name: "Razorpay" },
@@ -75,13 +42,6 @@ const INDIA_PROVIDERS = [
   { slug: "paytm", name: "Paytm" },
   { slug: "phonepe", name: "PhonePe" },
 ] as const;
-
-function resolveArticles() {
-  return INDIA_ARTICLES.map((slug) => {
-    const article = articles.find((a) => a.slug === slug);
-    return article ? { slug: article.slug, title: article.title, category: article.category } : null;
-  }).filter(Boolean) as Array<{ slug: string; title: string; category: string }>;
-}
 
 const indiaJsonLd = {
   "@context": "https://schema.org",
@@ -99,15 +59,16 @@ const indiaJsonLd = {
 };
 
 export default function IndiaLandingPage() {
-  const featured = resolveArticles();
-  // "Recently verified" block: newest three India articles by updatedAt.
-  const recentlyUpdated = [...featured]
-    .sort(
-      (a, b) =>
-        (articles.find((x) => x.slug === b.slug)?.updatedAt ?? "").localeCompare(
-          articles.find((x) => x.slug === a.slug)?.updatedAt ?? "",
-        ),
-    )
+  // "Head to head": the four newest India articles (updatedAt desc) — the same
+  // recency convention the homepage uses, so no hand-maintained order to drift.
+  const featured = [...INDIA_ARTICLES]
+    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
+    .slice(0, 4);
+  // "Recently verified" block: the three next-newest India articles, excluding
+  // the ones already shown in "Head to head" so the two sections stay distinct.
+  const recentlyUpdated = [...INDIA_ARTICLES]
+    .filter((a) => !featured.some((f) => f.slug === a.slug))
+    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
     .slice(0, 3);
 
   return (
@@ -232,7 +193,7 @@ export default function IndiaLandingPage() {
         <p className="mb-4 max-w-2xl text-sm text-[var(--fg-dim)]">
           The full research directory holds all {""}
           <Link href="/india/directory" className="font-semibold text-[var(--accent)] hover:underline">
-            1,386 Indian fintech companies
+            {indiaDirectoryCount.toLocaleString()} Indian fintech companies
           </Link>{" "}
           — founders, funding, valuations, licences, and websites. Start with
           the curated profiles below.

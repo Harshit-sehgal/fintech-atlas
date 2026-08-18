@@ -1,43 +1,25 @@
 import Link from "next/link";
 import { companySummaries } from "@/generated/company-summaries";
+import { indiaDirectorySummaries } from "@/generated/india-directory-summaries";
 import { DATA_AS_OF } from "@/lib/site-config";
+import { footerExploreLinks, footerAboutLinks } from "@/lib/site-nav";
+import { tools } from "@/data/tools";
 import { NewsletterOptIn } from "@/components/ui/newsletter-opt-in";
 
-const exploreLinks = [
-  { href: "/india", label: "India — Payments & Gateways" },
-  { href: "/india/directory", label: "India FinTech Directory (1,386)" },
-  { href: "/services", label: "Services & Consulting" },
-  { href: "/companies", label: "Companies Directory" },
-  { href: "/categories", label: "Industry Categories" },
-  { href: "/compare", label: "Side-by-Side Comparison" },
-  { href: "/glossary", label: "FinTech Glossary" },
-  { href: "/articles", label: "Guides & Comparisons" },
-  { href: "/changelog", label: "Site Changelog" },
-  { href: "/bookmarks", label: "Saved Bookmarks" },
-];
+// Explore column from the shared nav registry, with the directory count
+// derived from data so it never goes stale.
+const exploreLinks = footerExploreLinks.map((l) =>
+  l.href === "/india/directory"
+    ? { ...l, label: `India FinTech Directory (${indiaDirectorySummaries.length.toLocaleString()})` }
+    : l,
+);
 
 const toolsLinks = [
   { href: "/tools", label: "Tools Overview" },
-  { href: "/tools/calculators", label: "Personal Finance Calculators" },
-  { href: "/tools/calculator", label: "Fee Estimator" },
-  { href: "/tools/razorpay-fee-calculator", label: "Razorpay Fee Calculator (India)" },
-  { href: "/tools/remittance", label: "Cross-Border FX Tool" },
-  { href: "/tools/exchange-rate-markup-calculator", label: "Exchange-Rate Markup Calculator" },
-  { href: "/tools/matchmaker", label: "Matchmaker Quiz" },
+  ...tools.map((t) => ({ href: t.href, label: t.name })),
 ];
 
-const aboutLinks = [
-  { href: "/about", label: "Methodology & Sources" },
-  { href: "/about#faq", label: "Frequently Asked Questions" },
-  { href: "/about#disclaimer", label: "Educational Disclaimer" },
-  { href: "/affiliate-disclosure", label: "Affiliate Disclosure" },
-  { href: "/privacy", label: "Privacy Notice" },
-  { href: "/terms", label: "Terms of Use" },
-  {
-    href: "https://github.com/Harshit-sehgal/fintech-atlas/issues/new/choose",
-    label: "Feedback & Issues",
-  },
-];
+const aboutLinks = footerAboutLinks;
 
 export function SiteFooter() {
   return (

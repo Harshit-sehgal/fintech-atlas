@@ -6,7 +6,7 @@ Built from public reference material and editorial summaries. Source URLs and ef
 
 ## Overview
 
-FinTech Atlas is a Next.js 16 static-export website that serves as both an educational directory and an interactive decision suite. It catalogs **42 real-world FinTech companies** across **12 industry categories**, a **29-term glossary**, **34 articles** focused on international payments for India, and **6 interactive tools**.
+FinTech Atlas is a Next.js 16 static-export website that serves as both an educational directory and an interactive decision suite. It catalogs **42 real-world FinTech companies** across **12 industry categories**, a **53-term glossary**, **37 articles** focused on international payments for India, and **6 interactive tools**.
 
 ### Features
 
@@ -14,16 +14,16 @@ FinTech Atlas is a Next.js 16 static-export website that serves as both an educa
 |---|---|
 | **Company Directory** | 42 company profiles with product details, pricing, editorial sentiment summaries, strengths & weaknesses |
 | **Industry Categories** | 12 categories (Payments, Neobanks, Investing, Cross-Border, BNPL, Infrastructure, etc.) |
-| **Glossary** | 29 financial technology terms with definitions, synonyms, and cross-references |
+| **Glossary** | 53 financial technology terms with definitions, synonyms, and cross-references |
 | **Compare Tool** | Side-by-side comparison matrix for up to 3 companies |
 | **Fee Calculator** | Payment gateway fee estimator (Stripe, PayPal, Square, Adyen, Razorpay, Cashfree) |
 | **Razorpay Fee Calculator** | India-specific Razorpay fee estimator with published rates and GST |
 | **FX Remittance** | Cross-border remittance cost calculator (Wise, Revolut, PayPal, Bank) |
 | **FX Markup Calculator** | Exchange-rate markup % and INR/USD loss for both directions |
 | **Matchmaker Quiz** | 4-step quiz with weighted scoring to find the right FinTech tools |
-| **Articles** | 34 India-focused guides (freelancer payouts, USD receipt, gateway fees, remittance corridors) with RSS feed |
+| **Articles** | 37 India-focused guides (freelancer payouts, USD receipt, gateway fees, remittance corridors) with RSS feed |
 | **India Hub** | One-page entry point comparing Razorpay, Cashfree, Wise, Payoneer and PayPal for INR |
-| **Services** | Commercial offerings: gateway-selection report sample and implementation checklist |
+| **Services** | Commercial offerings: gateway-selection research report, implementation checklist, and FinTech market-research service |
 | **Bookmarks** | LocalStorage-backed bookmarking for companies and glossary terms |
 | **⌘K Search** | Command palette search across companies, categories, glossary, and tools |
 | **Dark/Light Theme** | System-aware theme toggle with dark, light, and system modes |
@@ -36,15 +36,17 @@ fintech-website/
 │   ├── app/               # Next.js App Router pages & layouts
 │   │   ├── about/         # Mission, methodology, FAQ, feedback
 │   │   ├── affiliate-disclosure/
-│   │   ├── articles/[slug]  # 34 India-focused guides
+│   │   ├── articles/[slug]  # 37 India-focused guides
 │   │   ├── bookmarks/     # Saved companies & glossary terms
 │   │   ├── categories/    # 12 industry categories + drill-down
 │   │   ├── changelog/     # Site changelog (RSS)
 │   │   ├── companies/     # Full directory + individual profiles
 │   │   ├── compare/       # Side-by-side comparison matrix
+│   │   ├── directory/     # 1,386-company India fintech research directory
 │   │   ├── glossary/      # A-Z glossary with search
 │   │   ├── india/         # India payments entry point
-│   │   ├── services/      # Report sample + implementation checklist
+│   │   ├── radar/         # FinTech Atlas Radar: search, intelligence profiles, watchlists, review console
+│   │   ├── services/      # Research report, implementation checklist, market research
 │   │   ├── tools/         # Fee, Razorpay, remittance, markup calculators + matchmaker
 │   │   ├── layout.tsx     # Root layout (providers, metadata, SEO)
 │   │   ├── error.tsx      # Error boundary
@@ -55,7 +57,7 @@ fintech-website/
 │   │   ├── legal/         # Privacy/terms shared components
 │   │   ├── SEO/           # JSON-LD structured data, schemas, analytics
 │   │   └── ui/            # Reusable UI components (command palette, count-up, etc.)
-│   ├── data/              # 42 companies, 12 categories, 29 glossary terms, 34 articles, tool configs, provenance records
+│   ├── data/              # 42 companies, 12 categories, 53 glossary terms, 37 articles, tool configs, provenance records
 │   ├── generated/         # Client-safe article summaries (build-generated)
 │   ├── lib/               # Site config, canonical URLs, calculators, matchmaker, remittance, theme, bookmarks, focus-trap, analytics
 │   ├── __tests__/         # Cross-cutting integration tests (data integrity, deployment, heading hierarchy)

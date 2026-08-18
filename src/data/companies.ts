@@ -8,6 +8,7 @@ type BaseCompany = Omit<Company, "sourceReferences">;
 const baseCompanies: BaseCompany[] = [
   {
     slug: "stripe",
+    researchProfileSlug: "stripe-india",
     ownershipType: "private",
     name: "Stripe",
     tagline: "Financial infrastructure for the internet.",
@@ -37,6 +38,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "paypal",
+    researchProfileSlug: "paypal-india",
     ownershipType: "public",
     name: "PayPal",
     tagline: "The safer, easier way to pay.",
@@ -123,6 +125,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "wise",
+    researchProfileSlug: "wise-india",
     ownershipType: "public",
     name: "Wise",
     tagline: "Money without borders.",
@@ -152,6 +155,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "revolut",
+    researchProfileSlug: "revolut-payments-india",
     ownershipType: "private",
     name: "Revolut",
     tagline: "One app, all things money.",
@@ -626,6 +630,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "coinbase",
+    researchProfileSlug: "coinbase-india",
     ownershipType: "public",
     name: "Coinbase",
     tagline: "The future of money is here.",
@@ -655,6 +660,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "google-pay",
+    researchProfileSlug: "google-pay",
     ownershipType: "division",
     name: "Google Pay",
     tagline: "Tap, pay, and send money.",
@@ -829,6 +835,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "cashfree",
+    researchProfileSlug: "cashfree-payments",
     ownershipType: "private",
     name: "Cashfree Payments",
     tagline: "Payments, payouts & verification for Indian businesses.",
@@ -904,6 +911,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "paytm",
+    researchProfileSlug: "paytm-payment-gateway-one97-communications",
     ownershipType: "public",
     name: "Paytm",
     tagline: "Pay through Mobile.",
@@ -933,6 +941,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "phonepe",
+    researchProfileSlug: "phonepe",
     ownershipType: "private",
     name: "PhonePe",
     tagline: "Kuch Bhi Pay.",
@@ -1052,6 +1061,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "razorpay",
+    researchProfileSlug: "razorpay",
     ownershipType: "private",
     name: "Razorpay",
     tagline: "Powering payments for ambitious businesses.",
