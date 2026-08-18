@@ -29,15 +29,23 @@ This writes the resolved apply batch to
 Unmatched entries remain pending for the entity-creation pass (17 candidates
 listed in `docs/research/quarterly-2026-q3.md` §3.1).
 
-## Why the removals are rejected (important)
+## Why the removals are rejected (now CoA-verified)
 
-The 48 `remove_license` events all concern v1 entities recorded as
-**authorised** (e.g. Razorpay, Razorpay Software). The live feed only covers
-the applications-status page — the authorised CoA-holder list is a separate
-PDF (`ATH190315ENTPSP.PDF`) that is bot-challenged and not part of this feed.
-Authorised status is therefore unchanged; nothing is revoked. Confirming this
-interpretation before applying is the operator's call — if you have fresh
-authorised-holder evidence, override the corresponding decisions.
+The 48 `remove_license` events are all diff artifacts — verified 2026-08-18
+against the live **Certificate-of-Authorisation list** (see
+`radar-coa-verification-2026-08-18.md`):
+
+- **46** concern v1 `authorised` holders (e.g. Razorpay, Cashfree, PayU,
+  BillDesk, Stripe, Skydo, BriskPe/GoBrisk) — each confirmed **still holding
+  a live CoA** on the RBI publications page. Authorised holders are not
+  listed on the applications-status page by design, so absence ≠ removal.
+- **2** (PayPal India, Payoneer India) are name-style mismatches: v1 used
+  display names; the live page carries the legal names, both still
+  `in-principle`. Status unchanged.
+
+Nothing is revoked; all 48 `rejected` decisions stand. The v1 baseline's
+display-name style is documented as the root cause and flagged for
+re-baselining to legal names before the next diff cycle.
 
 ## Decision file
 

@@ -26,9 +26,9 @@
   transactions where the acceptance device and payment instrument are present
   in close physical proximity (offline/face-to-face collection).
 - In-principle ≠ authorisation: RBI's own tables separate "In-Principle
-  Authorisation Granted" from the authorised list; the CoA-holder PDF remains
-  the authority for full authorisation and is not covered by this feed (see
-  §4 caveats).
+  Authorisation Granted" from the authorised list; the authorised CoA list is
+  now fetched live alongside the applications feed (§4.3), closing the gap
+  that previously required the (bot-challenged) standalone PDF.
 
 ## 2. Live pipeline (36 entities, as on 16.08.2026)
 
@@ -120,17 +120,23 @@ Nearby Technologies, Kamaal Universe, Payswiff Technologies.
 
 - **In-principle is not authorisation.** RBI explicitly separates the two;
   treat "in-principle" as pipeline status only.
-- **CoA-holder PDF not in feed.** The RBI authorised-entity PDF
-  (`ATH190315ENTPSP.PDF`) sits behind a JS bot-challenge and cannot be fetched
-  headlessly; the authorised baseline therefore stays sourced from the v1
-  research snapshot. Operator: drop in a fresh PDF snapshot to close this gap
-  (see `scripts/fetch-rbi-pa.ts` caveat).
+- **Authorised baseline is now live.** The CoA-holder list is published at
+  `PublicationsView.aspx?id=12043` (fetchable without the bot-challenge that
+  blocks the standalone PDF) — `platform:fetch-rbi-coa` pulls it: **70
+  authorised PA holders** with issue dates (`payment-aggregators-coa-2026-08-18.md`).
+  The previously-open "authorised baseline" gap is closed; the standalone PDF
+  is no longer required.
+- **The v1 baseline used display names**, not legal names (Razorpay, Cashfree,
+  PayPal India, BriskPe/GoBrisk, EximPe, Skydo, Xflow, Unlimit IN, PB Pay).
+  This caused spurious diff events; re-baseline to legal names before the next
+  cycle (see `radar-coa-verification-2026-08-18.md`).
 - **Confidence:** every status in §2 is confidence **A** (official regulator
   page, fetched 2026-08-18). The 17 unmatched entities are not yet enriched;
   their `effective` dates are blank on RBI's page.
-- **The 48 removals need human confirmation** before being reported as
-  licence changes — the correct interpretation is "no longer listed on the
-  active applications page".
+- **The 48 "removals" are diff artifacts, not licence changes.** Cross-checked
+  2026-08-18 against the CoA list (`radar-coa-verification-2026-08-18.md`):
+  every entity still holds its licence (46 still-authorised + 2 display-name
+  mismatches). Nothing is revoked; the review decisions (`rejected`) stand.
 
 ## 5. Watchlist-ready
 
