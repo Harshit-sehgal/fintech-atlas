@@ -16,8 +16,10 @@
  *   H new PAs-P                                 → PA-P
  *   I returned/withdrawn/refused PA-P           → skipped
  *
- * Run via `npm run platform:fetch-rbi`; pass `--ingest` to immediately diff
- * the live snapshot against the baseline and emit events + a review queue.
+ * Run via `npm run platform:fetch-rbi` — writes the dated snapshot to
+ * `data/regulatory/rbi/`. The snapshot is then consumed by the review-gated
+ * ingest (a separate step, so no change is ever auto-applied):
+ * `npm run platform:ingest-rbi -- data/regulatory/rbi/<snapshot>.md [--previous <prev.md>] [--decisions <file>]`.
  */
 import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
