@@ -26,8 +26,8 @@ Backend-heavy goals are deferred per [ADR-001](../adr/001-defer-backend-capabili
 
 | # | Gap | Status |
 |---|-----|--------|
-| R1 | All critical features meet their Definition of Done | Open |
-| R2 | No unresolved critical or high-severity defects | Open |
+| R1 | All critical features meet their Definition of Done | 🟡 Evidence compiled 2026-08-18 (`DOD-VERIFICATION.md`): every shipped critical feature maps to a passing gate (440 Vitest, 89 e2e, build+postbuild, live CWV); **sign-off is the operator's decision** |
+| R2 | No unresolved critical or high-severity defects | 🟡 Evidence compiled 2026-08-18 (`DOD-VERIFICATION.md` §defect-scan): all in-code security findings resolved; open rows are operator/gated/deferred — no unresolved critical/high defect in the shipped artifact; **sign-off is the operator's decision** |
 | R3 | Automated tests for critical paths pass consistently on `origin/main` | 🟢 Full local gate green 2026-08-15: 355 Vitest, 82-test Playwright, lint (0 warnings), typecheck+scripts, build+artifact, all postbuild gates (1501 sitemap URLs, RSS 37, changelog RSS 38, titles 1504 pages, JS budget 437,785/450,000, 4526 JSON-LD/1506 HTML, SW stamp fintech-atlas-b48c7b5dbc); merge/CI-on-origin evidence remains |
 | R4 | Monitoring, alerting, logging, and backups are active | 🟡 Repo-level uptime workflow added (30-minute probes of homepage/tools/articles → GitHub issue alerts) — **now configured**: `DEPLOYMENT_URL` repo variable set to the live Pages origin and a manual probe run verified green 2026-08-13; the workflow file's YAML was also repaired (the `run: |` literal block's `--body` continuation lines were unindented, which made GitHub reject the workflow); host-level logging/backups remain operator tasks (ADR-001) |
 | R5 | Security review is complete | 🟡 In-code security review complete (SECURITY_REVIEW.md: dependency audit 0, secrets clean, per-page CSP meta + host headers verified in artifact); live-host header/HTTPS verification + external pentest remain operator items |
