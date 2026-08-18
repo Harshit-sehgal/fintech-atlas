@@ -20,9 +20,11 @@
 - Status split across all 36: **16 in-principle authorisation granted**, **20
   application under process**.
 - Two separate regulatory workstreams are visible: the **PA / PA-CB** regime
-  (licence classes under the RBI PA directions) and the **PA-P** line (payment
-  solutions beyond classic merchant aggregation — e.g. payments infrastructure
-  and instrument-adjacent platforms).
+  (licence classes under the RBI PA directions) and the **PA-P** line — under
+  the consolidated Master Direction on Regulation of Payment Aggregator
+  (PA-MD, effective 15.09.2025) these are **Payment Aggregators – Physical**:
+  transactions where the acceptance device and payment instrument are present
+  in close physical proximity (offline/face-to-face collection).
 - In-principle ≠ authorisation: RBI's own tables separate "In-Principle
   Authorisation Granted" from the authorised list; the CoA-holder PDF remains
   the authority for full authorisation and is not covered by this feed (see
@@ -66,7 +68,7 @@
 | Paymate India Private Limited | application | E |
 | Quick Forex Limited | application | E |
 
-### 2.3 PA-P — Payment Aggregator (Payment Solutions / other) (10)
+### 2.3 PA-P — Payment Aggregator – Physical (10)
 
 | Company | Status | Source table |
 | --- | --- | --- |

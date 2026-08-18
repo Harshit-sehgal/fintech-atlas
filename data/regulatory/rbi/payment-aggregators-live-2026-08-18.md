@@ -4,6 +4,7 @@
 - Source: https://www.rbi.org.in/Scripts/bs_viewcontent.aspx?Id=4236
 - Fetched: 2026-08-18
 - Snapshot: payment-aggregators-live-2026-08-18
+- As on: 16.08.2026
 
 | Company | Licence | Status | Effective | Notes |
 | --- | --- | --- | --- | --- |

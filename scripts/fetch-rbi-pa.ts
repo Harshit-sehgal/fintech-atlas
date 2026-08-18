@@ -145,17 +145,25 @@ export function buildSnapshot(parsed: Record<TableCode, ParsedRow[]>): {
   return { entries };
 }
 
+/** Extracts RBI's "As on DD.MM.YYYY" statement date from the page (provenance). */
+export function extractAsOn(html: string): string | undefined {
+  const match = html.match(/As on\s+(\d{2}\.\d{2}\.\d{4})/);
+  return match ? match[1] : undefined;
+}
+
 export function renderSnapshotMarkdown(
   snapshotId: string,
   sourceUrl: string,
   fetchedOn: string,
   entries: Array<{ companyName: string; code: string; status: string; effectiveDate?: string; notes?: string }>,
+  asOn?: string,
 ): string {
   const lines = ["# RBI Payment Aggregator status — live fetch", ""];
   lines.push("- Regulator: RBI");
   lines.push(`- Source: ${sourceUrl}`);
   lines.push(`- Fetched: ${fetchedOn}`);
   lines.push(`- Snapshot: ${snapshotId}`);
+  if (asOn) lines.push(`- As on: ${asOn}`);
   lines.push("");
   lines.push("| Company | Licence | Status | Effective | Notes |");
   lines.push("| --- | --- | --- | --- | --- |");
@@ -183,6 +191,7 @@ async function main(): Promise<void> {
   const html = await res.text();
 
   const parsed = parseLiveRbiTables(html);
+  const asOn = extractAsOn(html);
   const total = Object.values(parsed).reduce((n, rows) => n + rows.length, 0);
   if (total === 0) {
     throw new Error("No PA tables found — RBI page structure likely changed; refusing to emit an empty snapshot");
@@ -195,7 +204,7 @@ async function main(): Promise<void> {
   }
   console.log(`Tracked entries: ${entries.length} (PA ${entries.filter((e) => e.code === "PA").length}, PA-CB ${entries.filter((e) => e.code === "PA-CB").length}, PA-P ${entries.filter((e) => e.code === "PA-P").length})`);
 
-  const markdown = renderSnapshotMarkdown(snapshotId, LIVE_URL, new Date().toISOString().slice(0, 10), entries);
+  const markdown = renderSnapshotMarkdown(snapshotId, LIVE_URL, new Date().toISOString().slice(0, 10), entries, asOn);
   writeFileSync(outPath, markdown);
   console.log(`Snapshot written: ${outPath}`);
 }
