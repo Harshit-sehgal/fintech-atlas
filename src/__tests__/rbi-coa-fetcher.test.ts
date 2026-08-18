@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { decodeHtmlEntities } from "../../scripts/lib/html";
 import {
   filterPaRows,
   parseCoaPaymentAggregators,
@@ -8,6 +9,21 @@ import {
 } from "../../scripts/fetch-rbi-coa";
 
 const fixture = () => readFileSync(resolve(__dirname, "fixtures/rbi-coa-page.html"), "utf8");
+
+describe("decodeHtmlEntities (single-pass, no double-unescape)", () => {
+  it("decodes named and numeric references", () => {
+    expect(decodeHtmlEntities("A &amp; B &nbsp; C &#8486; &#39;q&#39; &quot;r&quot;")).toBe("A & B   C Ω 'q' \"r\"");
+  });
+
+  it("does not double-unescape escaped ampersands", () => {
+    expect(decodeHtmlEntities("&amp;amp;")).toBe("&amp;");
+    expect(decodeHtmlEntities("&amp;nbsp;")).toBe("&nbsp;");
+  });
+
+  it("leaves unknown references untouched", () => {
+    expect(decodeHtmlEntities("&madeup;")).toBe("&madeup;");
+  });
+});
 
 describe("RBI CoA holder fetcher", () => {
   it("parses the Payment Aggregators section including rowspan continuation rows", () => {

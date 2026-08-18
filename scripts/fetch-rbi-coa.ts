@@ -16,6 +16,7 @@
 import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
+import { decodeHtmlEntities } from "./lib/html";
 
 const COA_URL = "https://rbi.org.in/Scripts/PublicationsView.aspx?id=12043";
 const OUT_DIR = resolve(process.cwd(), "data/regulatory/rbi");
@@ -27,15 +28,7 @@ interface CoaRow {
 }
 
 function decodeHtml(value: string): string {
-  return value
-    .replace(/&amp;/g, "&")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&ndash;/g, "-")
-    .replace(/&lsquo;|&rsquo;/g, "'")
-    .replace(/&ldquo;|&rdquo;/g, '"')
-    .replace(/&#8486;/g, "Ω")
-    .replace(/&#39;/g, "'")
-    .replace(/&quot;/g, '"');
+  return decodeHtmlEntities(value);
 }
 
 function stripHtml(value: string): string {
