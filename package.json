@@ -16,6 +16,7 @@
     "platform:export": "tsx scripts/export-platform-package.ts",
     "platform:import": "tsx scripts/build-data-platform.ts",
     "platform:ingest-rbi": "tsx scripts/ingest-rbi.ts",
+    "platform:fetch-rbi": "tsx scripts/fetch-rbi-pa.ts",
     "sales:seed-prospects": "tsx scripts/seed-prospect-database.ts",
     "platform:digest": "tsx scripts/generate-digest.ts",
     "check:data-freshness": "node scripts/check-data-freshness.mjs",
