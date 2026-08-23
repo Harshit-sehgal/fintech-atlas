@@ -144,7 +144,7 @@ export function HomeHero({
           </div>
         </div>
 
-        <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6 shadow-[var(--shadow-sm)]" data-hero-card>
+        <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6 shadow-[var(--shadow-sm)]" data-hero-card>
           <div key={activeProfile.slug} className="page-in">
             <div className="flex items-center gap-4">
               <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-[var(--border-color)] bg-[var(--surface)]">

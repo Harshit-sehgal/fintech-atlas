@@ -66,12 +66,12 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
         </div>
 
         <div
-          className="relative overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-7"
+          className="relative overflow-hidden rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-7"
           style={{ ["--accent"]: cat.accent } as CSSProperties}
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative z-10">
             <div className="flex items-center gap-5">
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[var(--accent-glow)]">
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-[var(--accent-glow)]">
                 <CategoryIcon icon={cat.icon} color={cat.accent} size={40} />
               </div>
               <div>
@@ -96,7 +96,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
 
       {/* Description */}
       <Reveal delay={0.1}>
-        <div className="surface mt-8 rounded-2xl p-6 leading-relaxed text-sm text-[var(--foreground)]">
+        <div className="surface mt-8 rounded-lg p-6 leading-relaxed text-sm text-[var(--foreground)]">
           <h2 className="eyebrow mb-3">Domain Overview</h2>
           <p>{cat.description}</p>
         </div>
@@ -123,7 +123,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
                   <div>
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3">
-                        <div className="group-hover:scale-105 transition-transform duration-300">
+                        <div className="transition-transform duration-300">
                           <CompanyLogo slug={c.slug} name={c.name} size={40} />
                         </div>
                         <div>
@@ -160,7 +160,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
             <h2 className="border-b border-[var(--border-color)] pb-3 text-xl font-semibold tracking-tight text-[var(--foreground)]">
               Key Domain Terminology
             </h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2 reveal-stagger">
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {relatedGlossary.map((g) => (
                 <Link
                   key={g.slug}

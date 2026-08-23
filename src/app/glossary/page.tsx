@@ -68,7 +68,7 @@ export default function GlossaryPage() {
               data-letter={g.term.charAt(0).toUpperCase()}
               data-search={buildSearchData(g)}
             >
-              <div className="group surface relative rounded-2xl border border-[var(--border-color)] p-5 transition-all hover:border-[var(--accent)]/40 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[var(--accent-glow)]">
+              <div className="group surface relative rounded-lg border border-[var(--border-color)] p-5 transition-all hover:border-[var(--accent)]/40 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[var(--accent-glow)]">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex items-baseline gap-2">
                     <h2 className="text-base font-bold text-[var(--foreground)]">{g.term}</h2>

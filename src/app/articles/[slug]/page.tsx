@@ -207,7 +207,7 @@ export default async function ArticlePage({
                 <Link
                   key={s}
                   href={`/articles/${s}`}
-                  className="surface rounded-2xl border border-[var(--border-color)] p-4 transition-all hover:border-[var(--foreground)]/30 hover:-translate-y-0.5"
+                  className="surface rounded-lg border border-[var(--border-color)] p-4 transition-all hover:border-[var(--foreground)]/30 hover:-translate-y-0.5"
                 >
                   <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted-text)]">
                     {relatedArticle.category}
@@ -225,7 +225,7 @@ export default async function ArticlePage({
 
       {article.ctas.length > 0 && (
         <Suspense fallback={null}>
-          <div className="surface mt-12 rounded-2xl border border-[var(--border-color)] p-5">
+          <div className="surface mt-12 rounded-lg border border-[var(--border-color)] p-5">
             <h2 className="text-sm font-bold text-[var(--foreground)]">Compare these providers yourself</h2>
             <div className="mt-3 flex flex-wrap gap-3">
               {article.ctas.map((cta) => (
@@ -243,7 +243,7 @@ export default async function ArticlePage({
       )}
 
       {article.relatedTool && (
-        <div className="mt-6 rounded-2xl border border-[var(--accent)]/30 bg-[var(--accent-glow)] p-5">
+        <div className="mt-6 rounded-lg border border-[var(--accent)]/30 bg-[var(--accent-glow)] p-5">
           <h2 className="text-sm font-bold text-[var(--foreground)]">Try the calculator</h2>
           <p className="mt-1 text-xs leading-relaxed text-[var(--muted-text)]">
             Run the numbers for your own volume and mix before you choose.

@@ -11,7 +11,6 @@ export interface Tool {
   href: string;
   name: string;
   shortName: string;
-  icon: string;
   badge: string;
   description: string;
   features: string[];
@@ -27,7 +26,6 @@ export const tools: Tool[] = [
     href: "/tools/calculators",
     name: "Personal Finance Calculators",
     shortName: "Personal Finance Calculators",
-    icon: "🧮",
     badge: "Calculator Suite",
     description:
       "Project SIP and SWP growth, estimate EMIs, inflation, retirement corpus, FIRE number, emergency fund, and net worth.",
@@ -40,7 +38,6 @@ export const tools: Tool[] = [
     href: "/tools/calculator",
     name: "Payment Gateway Fee Estimator",
     shortName: "Fee Estimator",
-    icon: "💳",
     badge: "Interactive Calculator",
     description:
       "Compare total monthly processing fees across Stripe, PayPal, Square, and Adyen based on your transaction volume, average order size, and international mix.",
@@ -53,7 +50,6 @@ export const tools: Tool[] = [
     href: "/tools/razorpay-fee-calculator",
     name: "Razorpay Fee Calculator (India)",
     shortName: "Razorpay Fee Calculator",
-    icon: "🇮🇳",
     badge: "India Calculator",
     description:
       "Estimate Razorpay's real cost for Indian businesses: 2% on all domestic instruments, 18% GST on top, international up to 3% — with a reverse-charge formula for target payouts.",
@@ -66,7 +62,6 @@ export const tools: Tool[] = [
     href: "/tools/remittance",
     name: "Cross-Border FX & Transfer Estimator",
     shortName: "Cross-Border FX Tool",
-    icon: "🌍",
     badge: "FX Tool",
     description:
       "Estimate recipient payouts for USD transfers to common currencies using simplified Wise, Revolut, PayPal, or hypothetical bank-wire scenarios.",
@@ -79,7 +74,6 @@ export const tools: Tool[] = [
     href: "/tools/exchange-rate-markup-calculator",
     name: "Exchange-Rate Markup Calculator",
     shortName: "Exchange-Rate Markup Calculator",
-    icon: "💱",
     badge: "FX Tool",
     description:
       "Measure the hidden FX spread on any international transfer: enter the mid-market rate and your provider's rate to see the markup percentage and the rupee cost — for receiving INR (USD → INR) and sending INR (INR → USD).",
@@ -92,7 +86,6 @@ export const tools: Tool[] = [
     href: "/tools/matchmaker",
     name: "FinTech Matchmaker Quiz",
     shortName: "Matchmaker Quiz",
-    icon: "🎯",
     badge: "Interactive Quiz",
     description:
       "Answer a few questions about your business, scale, or personal finance needs to get an initial shortlist of FinTech platforms.",

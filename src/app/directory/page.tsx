@@ -49,7 +49,7 @@ export default async function DirectoryPage() {
       <GridBackdrop />
 
       <Reveal>
-        <header className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-7">
+        <header className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-7">
           <span className="eyebrow">FinTech Atlas directory</span>
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--foreground)]">
             The FinTech Directory
@@ -68,7 +68,7 @@ export default async function DirectoryPage() {
           <Link
             href="/companies"
             data-placement="directory-curated"
-            className="group flex h-full flex-col rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6 transition-all duration-300 card-glow"
+            className="group flex h-full flex-col rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6 transition-all duration-300 card-glow"
           >
             <div className="flex items-center gap-3">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--accent-glow)]">
@@ -94,7 +94,7 @@ export default async function DirectoryPage() {
           <Link
             href="/india/directory"
             data-placement="directory-research"
-            className="group flex h-full flex-col rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6 transition-all duration-300 card-glow"
+            className="group flex h-full flex-col rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6 transition-all duration-300 card-glow"
           >
             <div className="flex items-center gap-3">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--accent-glow)]">
@@ -120,7 +120,7 @@ export default async function DirectoryPage() {
       </div>
 
       <Reveal delay={0.2}>
-        <section className="mt-10 rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6">
+        <section className="mt-10 rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6">
           <h2 className="eyebrow mb-3">Which tier should I use?</h2>
           <ul className="space-y-3 text-sm leading-relaxed text-[var(--muted-text)]">
             <li>

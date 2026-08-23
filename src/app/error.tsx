@@ -37,7 +37,7 @@ export default function RootError({
         Something went wrong
       </p>
 
-      <h1 className="text-5xl font-bold tracking-tight gradient-text">
+      <h1 className="text-5xl font-bold tracking-tight">
         Something broke
       </h1>
 

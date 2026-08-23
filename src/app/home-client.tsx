@@ -89,7 +89,7 @@ export default function HomePageClient({
       {/* Interactive Tools Teaser */}
       <section data-placement="tools-teaser" className="mx-auto max-w-6xl px-5 py-16 md:py-24">
         <Reveal>
-          <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-8 md:p-12">
+          <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-8 md:p-12">
             <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
               <div className="max-w-xl space-y-3">
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
@@ -136,7 +136,7 @@ export default function HomePageClient({
             <Link
               key={preset.name}
               href={`/compare?companies=${preset.slugs.join(",")}`}
-              className="group block rounded-2xl border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
+              className="group block rounded-lg border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
             >
               <div className="flex items-center gap-2">
                 {preset.slugs.map((slug) => (
@@ -153,9 +153,11 @@ export default function HomePageClient({
         <div className="mt-8">
           <Link
             href="/india"
-            className="group inline-flex items-center gap-2 rounded-xl border border-[var(--border-color)] bg-[var(--card)] px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
+            className="group inline-flex items-center gap-2.5 rounded-lg border border-[var(--border-color)] bg-[var(--card)] px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
           >
-            <span>🇮🇳</span>
+            <span aria-hidden className="rounded border border-[var(--border-color)] bg-[var(--subtle-bg)] px-1.5 py-0.5 font-mono text-[10px] tracking-wider text-[var(--muted-text)] group-hover:text-[var(--accent)]">
+              IN
+            </span>
             <span>Payment gateways & international payments for India</span>
             <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
           </Link>
@@ -169,12 +171,12 @@ export default function HomePageClient({
           title="Latest Guides & Comparisons"
           description="The newest researched articles, with the dates they were last verified."
         />
-        <div className="mt-10 grid gap-4 md:grid-cols-3 reveal-stagger">
+        <div className="mt-10 grid gap-4 md:grid-cols-3">
           {recentArticles.map((a) => (
             <Link
               key={a.slug}
               href={`/articles/${a.slug}`}
-              className="group block rounded-2xl border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
+              className="group block rounded-lg border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
             >
               <p className="text-[11px] font-mono uppercase tracking-wider text-[var(--muted-text)]">
                 {a.category} · {a.displayDate}
@@ -195,7 +197,7 @@ export default function HomePageClient({
           title="What is FinTech?"
           description="'FinTech' — short for Financial Technology — is software-powered financial services: the app you use to pay a friend, the API that charges a card on a website, the digital-only bank in your pocket. In India it means UPI instant payments, QR-first checkouts, and gateways like Razorpay moving hundreds of millions of transactions every month."
         />
-        <div className="mt-10 grid gap-5 md:grid-cols-3 reveal-stagger">
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
           {[
             {
               title: "Speed & Automation",
@@ -227,8 +229,8 @@ export default function HomePageClient({
                 ),
               },
             ].map((item) => (
-              <div key={item.title} className="surface rounded-2xl border border-[var(--border-color)] p-6 card-glow group">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--accent-glow)] text-[var(--accent)] group-hover:scale-110 group-hover:bg-[var(--accent)]/20 transition-all duration-300">
+              <div key={item.title} className="surface rounded-lg border border-[var(--border-color)] p-6 card-glow group">
+                <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[var(--accent-glow)] text-[var(--accent)] transition-colors duration-300 group-hover:bg-[var(--accent)]/20">
                   {item.svg}
                 </div>
                 <h3 className="mt-4 text-base font-bold text-[var(--foreground)]">{item.title}</h3>
@@ -245,16 +247,16 @@ export default function HomePageClient({
           title="Industry Categories"
           description="FinTech spans many specialized domains. Each category addresses a distinct problem in global finance."
         />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 reveal-stagger">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {categories.map((cat) => (
             <Link
               key={cat.slug}
               href={`/categories/${cat.slug}`}
               style={{ ["--accent"]: cat.accent } as CSSProperties}
-              className="group block rounded-2xl border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
+              className="group block rounded-lg border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
             >
               <div className="flex items-start gap-4">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--accent-glow)] group-hover:scale-110 transition-transform duration-300">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[var(--accent-glow)] transition-colors duration-300 group-hover:bg-[var(--accent)]/20">
                   <CategoryIcon icon={cat.icon} color={cat.accent} size={28} />
                 </div>
                 <div className="min-w-0">
@@ -282,20 +284,18 @@ export default function HomePageClient({
           title="India-First Providers"
           description="Profiles of the payment gateways and FX services Indian freelancers and businesses choose most — fee structures, strengths, weaknesses, and editorial sentiment."
         />
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 reveal-stagger">
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {featuredWithCategories.map((c) => (
               <Link
                 key={c.slug}
                 href={`/companies/${c.slug}`}
                 style={{ ["--accent"]: c.accent } as CSSProperties}
-                className="group flex flex-col justify-between rounded-2xl border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
+                className="group flex flex-col justify-between rounded-lg border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
               >
                 <div>
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <div className="shrink-0 group-hover:scale-105 transition-transform duration-300">
-                        <CompanyLogo slug={c.slug} name={c.name} size={40} />
-                      </div>
+                      <CompanyLogo slug={c.slug} name={c.name} size={40} />
                       <div className="min-w-0">
                         <h3 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">{c.name}</h3>
                         <p className="mt-0.5 truncate text-xs text-[var(--muted-text)]">{formatValuationShort(c.valuation)}</p>
@@ -334,7 +334,7 @@ export default function HomePageClient({
           title="Glossary &amp; Terms"
           description="Every term explained simply. Hover or click to decode financial jargon."
         />
-        <div className="mt-8 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 reveal-stagger">
+        <div className="mt-8 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {glossaryPreview.map((g) => (
               <Link
                 key={g.slug}
@@ -362,7 +362,7 @@ export default function HomePageClient({
           title="How FinTech Atlas Makes Money"
           description="The site stays free because it is honest about how it is funded — and keeps editorial choices separate from commercial inventory."
         />
-        <div className="mt-10 grid gap-5 md:grid-cols-3 reveal-stagger">
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
           {[
             {
               title: "Affiliate links",
@@ -377,7 +377,7 @@ export default function HomePageClient({
                 desc: "A commercial relationship never buys a rating, a ranking, or an editorial claim. Our fee comparisons and methodology are independent of sponsors.",
               },
             ].map((item) => (
-              <div key={item.title} className="surface rounded-2xl border border-[var(--border-color)] p-6 card-glow">
+              <div key={item.title} className="surface rounded-lg border border-[var(--border-color)] p-6 card-glow">
                 <h3 className="text-base font-bold text-[var(--foreground)]">{item.title}</h3>
                 <p className="mt-2 text-xs leading-relaxed text-[var(--muted-text)]">{item.desc}</p>
               </div>
@@ -397,7 +397,7 @@ export default function HomePageClient({
           title="Transparent Methodology"
           description="Every comparison, fee figure, and rating traces back to a documented source and a verifiable date. No figures are invented; nothing is locked behind a subscription."
         />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 reveal-stagger">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[
             {
               title: "Sourced pricing",
@@ -415,7 +415,7 @@ export default function HomePageClient({
             <Link
               key={item.title}
               href="/about#methodology"
-              className="group block rounded-2xl border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
+              className="group block rounded-lg border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
             >
               <h3 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
                 {item.title}
@@ -444,7 +444,7 @@ export default function HomePageClient({
 
       {/* Newsletter (plan §7 homepage section 8) */}
       <section data-placement="newsletter" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
-        <div className="rounded-3xl border border-[var(--border-color)] bg-[var(--card)] p-8 md:p-12">
+        <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-8 md:p-12">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
               Newsletter
@@ -464,7 +464,7 @@ export default function HomePageClient({
 
       {/* Compare CTA */}
       <section data-placement="compare-cta" className="mx-auto max-w-6xl px-5 py-16 md:py-24">
-        <div className="rounded-3xl border border-[var(--border-color)] bg-[var(--card)] p-8 text-center md:p-14">
+        <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-8 text-center md:p-14">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
             Side-by-Side
           </p>

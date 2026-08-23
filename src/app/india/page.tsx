@@ -99,7 +99,7 @@ export default function IndiaLandingPage() {
         <div className="grid gap-5 md:grid-cols-2">
           <Link
             href="/tools/calculator"
-            className="group relative overflow-hidden rounded-2xl border border-[var(--border-color)] surface p-6 transition-all duration-300 card-glow hover:-translate-y-1"
+            className="group relative overflow-hidden rounded-lg border border-[var(--border-color)] surface p-6 transition-all duration-300 card-glow hover:-translate-y-1"
           >
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">Calculate fees</p>
             <h3 className="mt-2 text-xl font-bold tracking-tight text-[var(--foreground)]">
@@ -115,7 +115,7 @@ export default function IndiaLandingPage() {
 
           <Link
             href="/tools/remittance"
-            className="group relative overflow-hidden rounded-2xl border border-[var(--border-color)] surface p-6 transition-all duration-300 card-glow hover:-translate-y-1"
+            className="group relative overflow-hidden rounded-lg border border-[var(--border-color)] surface p-6 transition-all duration-300 card-glow hover:-translate-y-1"
           >
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">What lands in INR</p>
             <h3 className="mt-2 text-xl font-bold tracking-tight text-[var(--foreground)]">
@@ -141,8 +141,8 @@ export default function IndiaLandingPage() {
               href={tool.href}
               className="group flex items-start gap-4 rounded-xl border border-[var(--border-color)] surface p-5 transition-all duration-300 card-glow hover:-translate-y-0.5"
             >
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[var(--subtle-bg)] text-xl">
-                <span aria-hidden>🧮</span>
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)] font-mono text-base font-bold text-[var(--accent)]">
+                <span aria-hidden>₹</span>
               </div>
               <div className="min-w-0">
                 <h3 className="text-base font-bold tracking-tight text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
@@ -171,7 +171,7 @@ export default function IndiaLandingPage() {
             <Link
               key={article.slug}
               href={`/articles/${article.slug}`}
-              className="group flex flex-col justify-between rounded-2xl border border-[var(--border-color)] surface p-6 transition-all duration-300 card-glow hover:-translate-y-1"
+              className="group flex flex-col justify-between rounded-lg border border-[var(--border-color)] surface p-6 transition-all duration-300 card-glow hover:-translate-y-1"
             >
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--muted-text)]">{article.category}</p>
@@ -250,7 +250,7 @@ export default function IndiaLandingPage() {
 
       {/* Cross-sell services (monetization track 1) */}
       <section aria-labelledby="india-services" className="mt-14">
-        <div className="flex flex-col items-start justify-between gap-4 rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6 sm:flex-row sm:items-center">
+        <div className="flex flex-col items-start justify-between gap-4 rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6 sm:flex-row sm:items-center">
           <div>
             <h2 id="india-services" className="text-base font-bold tracking-tight">Want a human to run the numbers?</h2>
             <p className="mt-1 text-sm text-[var(--muted-text)]">

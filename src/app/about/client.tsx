@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
+import { IconBook, IconChart, IconShield } from "@/components/ui/icons";
 import { DATA_AS_OF } from "@/lib/site-config";
 
 const faqs = [
@@ -47,7 +48,7 @@ export function AboutClient() {
       {/* Purpose & Mission */}
       <Reveal delay={0.1}>
         <section className="mt-10 space-y-6 text-sm leading-relaxed text-[var(--muted-text)]">
-          <div className="surface rounded-2xl border border-[var(--border-color)] p-6 space-y-3">
+          <div className="surface rounded-lg border border-[var(--border-color)] p-6 space-y-3">
             <h2 className="text-lg font-bold text-[var(--foreground)]">Our Mission</h2>
             <p className="text-[var(--foreground)]">
               FinTech Atlas was created to demystify financial software. Financial technology can often feel shrouded in jargon, hidden FX markups, and complex API pricing. We build transparent calculators, plain-language guides, and objective benchmarks so consumers, developers, and founders can make informed decisions.
@@ -83,14 +84,14 @@ export function AboutClient() {
             <h2 className="eyebrow !text-[var(--muted-text)] !tracking-widest border-b border-[var(--border-color)] pb-2 pt-6 text-lg font-bold text-[var(--foreground)]">
               Our Guarantees
             </h2>
-            <div className="mt-4 grid gap-4 sm:grid-cols-3 reveal-stagger">
+            <div className="mt-4 grid gap-4 sm:grid-cols-3">
               {[
-                { icon: "🛡️", title: "No Paid Bias", desc: "No company can pay to rank higher or receive a positive review." },
-                { icon: "📊", title: "Transparent Math", desc: "Our fee calculators show raw mathematical breakdowns with no hidden numbers." },
-                { icon: "📖", title: "No Jargon", desc: "Every complex financial term has interactive glossary cross-references." },
+                { icon: <IconShield size={18} />, title: "No Paid Bias", desc: "No company can pay to rank higher or receive a positive review." },
+                { icon: <IconChart size={18} />, title: "Transparent Math", desc: "Our fee calculators show raw mathematical breakdowns with no hidden numbers." },
+                { icon: <IconBook size={18} />, title: "No Jargon", desc: "Every complex financial term has interactive glossary cross-references." },
               ].map((g) => (
-                <div key={g.title} className="surface rounded-xl border border-[var(--border-color)] p-5 card-glow group">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-glow)] text-2xl group-hover:scale-110 transition-transform duration-300">{g.icon}</span>
+                <div key={g.title} className="surface rounded-lg border border-[var(--border-color)] p-5 card-glow group">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--accent-glow)] text-[var(--accent)] transition-colors duration-300 group-hover:bg-[var(--accent)]/20">{g.icon}</span>
                   <h3 className="mt-3 text-sm font-bold text-[var(--foreground)]">{g.title}</h3>
                   <p className="mt-1 text-xs text-[var(--muted-text)] leading-relaxed">{g.desc}</p>
                 </div>
@@ -158,7 +159,7 @@ export function AboutClient() {
 
       {/* Feedback status */}
       <Reveal delay={0.25}>
-        <section className="surface mt-16 rounded-2xl border border-[var(--border-color)] p-6 sm:p-8">
+        <section className="surface mt-16 rounded-lg border border-[var(--border-color)] p-6 sm:p-8">
           <h2 id="feedback" className="text-lg font-bold text-[var(--foreground)]">Have Feedback or Suggestions?</h2>
           <p className="mt-1 text-xs leading-relaxed text-[var(--muted-text)]">
             This is a static demo with no in-app contact form. Please open a GitHub issue for product

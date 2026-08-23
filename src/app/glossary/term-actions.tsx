@@ -2,6 +2,7 @@
 
 import { useBookmarks } from "@/lib/bookmarks-context";
 import { useToast } from "@/lib/toast-context";
+import { IconLink } from "@/components/ui/icons";
 
 /** Bookmark + copy-link actions for one server-rendered glossary card. */
 export function TermActions({ slug, term }: { slug: string; term: string }) {
@@ -44,7 +45,7 @@ export function TermActions({ slug, term }: { slug: string; term: string }) {
         title="Copy Link"
         aria-label={`Copy link to ${term}`}
       >
-        🔗
+        <IconLink size={13} />
       </button>
     </div>
   );

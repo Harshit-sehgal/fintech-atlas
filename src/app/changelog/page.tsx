@@ -55,7 +55,7 @@ export default function ChangelogPage() {
         {changelog.map((entry) => (
           <li
             key={entry.href + entry.title}
-            className="surface rounded-2xl border border-[var(--border-color)] p-5"
+            className="surface rounded-lg border border-[var(--border-color)] p-5"
           >
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
               <span

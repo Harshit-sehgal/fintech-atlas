@@ -419,11 +419,6 @@ h1, h2, h3 {
 ::-webkit-scrollbar-thumb { background: var(--muted-dim); border-radius: 99px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 
-/* ── Accent text utility (solid, not gradient — the AI gradient look gone) ── */
-.gradient-text {
-  color: var(--accent);
-}
-
 /* ── Glass surface ── */
 .glass {
   background: var(--glass-bg);

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { Company, Category } from "@/data";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { CategoryIcon } from "@/components/ui/category-icon";
+import { IconBolt, IconLink } from "@/components/ui/icons";
 import { Reveal } from "@/components/ui/reveal";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { CountUp } from "@/components/ui/count-up";
@@ -21,6 +22,7 @@ import { formatValuationForStats, formatHeadquartersCity } from "@/lib/format-co
 import { getFocusableElementsInDialog } from "@/lib/focus-trap";
 import { resolvePartnerCta, partnerRel, COMMERCIAL_DISCLOSURE } from "@/lib/partners";
 import { trackCtaClick } from "@/lib/analytics";
+import { readLastCompareSlugs } from "@/lib/compare";
 import { CorrectionReportLink } from "@/components/ui/correction-report-link";
 import type { OwnershipType } from "@/data";
 
@@ -77,6 +79,42 @@ function SectionHeader({ eyebrow, title }: { eyebrow: string; title: string }) {
  }
 
 // CountUp from @/components/ui/count-up used below.
+
+/**
+ * Profile → Compare bridge (T101). Renders a static deep link that works
+ * without JS; after hydration it upgrades to "Add to comparison" when the
+ * visitor has a stored line-up this profile can join. Stored slugs are used
+ * as-is here (deduped + capped by readLastCompareSlugs) — the compare page's
+ * parser re-validates the final URL, so stale/unknown slugs are dropped there
+ * and can never reach the render layer.
+ */
+function CompareBridgeLink({ slug }: { slug: string }) {
+  const [joinSlugs, setJoinSlugs] = useState<string[] | null>(null);
+
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      setJoinSlugs(readLastCompareSlugs());
+    }, 0);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  const target =
+    joinSlugs && joinSlugs.length > 0 && joinSlugs.length < 3 && !joinSlugs.includes(slug)
+      ? [...joinSlugs, slug]
+      : [slug];
+  const joins = target.length > 1;
+
+  return (
+    <Link
+      href={`/compare?companies=${target.join(",")}`}
+      data-placement="profile-to-compare"
+      className="flex items-center gap-1.5 rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-1.5 text-xs font-semibold text-[var(--foreground)] hover:border-[var(--accent)]/40 hover:text-[var(--accent)] focus-visible:border-[var(--accent)]/40 focus-visible:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+      title={joins ? `Open /compare with ${target.length} companies` : `Compare side-by-side`}
+    >
+      <span>{joins ? "Add to comparison" : "Compare"}</span>
+    </Link>
+  );
+}
 
 export function CompanyPageClient({
   company: c,
@@ -328,6 +366,7 @@ export function CompanyPageClient({
         </div>
 
         <div className="flex items-center gap-2">
+          <CompareBridgeLink slug={c.slug} />
           <button
             onClick={handleBookmark}
             className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
@@ -342,7 +381,8 @@ export function CompanyPageClient({
             onClick={handleShare}
             className="flex items-center gap-1.5 rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-1.5 text-xs font-semibold text-[var(--foreground)] hover:border-[var(--foreground)]/40 focus-visible:border-[var(--foreground)]/40 focus-visible:outline-none focus-visible:ring-[var(--ring)]"
           >
-            <span>🔗 Share</span>
+            <IconLink size={13} />
+            <span>Share</span>
           </button>
         </div>
       </div>
@@ -355,7 +395,7 @@ export function CompanyPageClient({
         className="relative flex flex-col md:flex-row items-start gap-6 pt-2"
       >
         <div className="relative group">
-          <div className="relative flex items-center justify-center rounded-2xl border border-[var(--border-color)] bg-[var(--card)] shadow-[var(--shadow-sm)] p-6">
+          <div className="relative flex items-center justify-center rounded-lg border border-[var(--border-color)] bg-[var(--card)] shadow-[var(--shadow-sm)] p-6">
             <CompanyLogo slug={c.slug} name={c.name} size={80} />
           </div>
         </div>
@@ -438,7 +478,7 @@ export function CompanyPageClient({
 
       {/* Quick stats grid */}
       <Reveal delay={0.1}>
-        <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 rounded-2xl border border-[var(--border-color)] p-5 sm:grid-cols-3 lg:grid-cols-5 surface">
+        <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 rounded-lg border border-[var(--border-color)] p-5 sm:grid-cols-3 lg:grid-cols-5 surface">
           {[
             { label: "Founded", value: String(c.founded) },
             { label: "Employees", value: c.employees },
@@ -495,7 +535,7 @@ export function CompanyPageClient({
       <Reveal delay={0.18}>
         <section className="mt-12">
           <SectionHeader eyebrow="Editorial context" title="Qualitative assessment" />
-          <div className="rounded-2xl border border-[var(--border-color)] p-6 space-y-4 surface">
+          <div className="rounded-lg border border-[var(--border-color)] p-6 space-y-4 surface">
             {assessment.map((item) => (
               <div key={item.label} className="flex items-start justify-between gap-4 border-b border-[var(--border-color)] pb-3 last:border-0 last:pb-0">
                 <span className="text-sm font-semibold text-[var(--foreground)]">{item.label}</span>
@@ -531,7 +571,8 @@ export function CompanyPageClient({
               }
               className="inline-flex items-center gap-2 text-xs font-bold text-[var(--accent)] hover:underline"
             >
-              <span>⚡ Calculate your estimated fees on our Fee Estimator →</span>
+              <IconBolt size={13} />
+              <span>Calculate your estimated fees on our Fee Estimator →</span>
             </Link>
           </div>
         </section>
@@ -542,7 +583,7 @@ export function CompanyPageClient({
         <Reveal delay={0.22}>
           <section className="mt-12">
             <SectionHeader eyebrow="Availability" title="Geographic availability" />
-            <div className="rounded-2xl border border-[var(--border-color)] p-6 surface space-y-4">
+            <div className="rounded-lg border border-[var(--border-color)] p-6 surface space-y-4">
               <div>
                 <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted-text)]">Supported regions</span>
                 <p className="mt-1 text-sm font-medium text-[var(--foreground)]">{c.availability.supportedRegions.join(" · ")}</p>
@@ -565,7 +606,7 @@ export function CompanyPageClient({
       <Reveal delay={0.24}>
         <section className="mt-12">
           <SectionHeader eyebrow="Traceability" title="Sources & effective dates" />
-          <div className="rounded-2xl border border-[var(--border-color)] p-6 surface">
+          <div className="rounded-lg border border-[var(--border-color)] p-6 surface">
             <p className="text-xs leading-relaxed text-[var(--muted-text)]">
               These references identify the material used for the profile. A source label without a linked document is a research lead, not independently auditable evidence; verify volatile facts directly before relying on them.
             </p>
@@ -636,7 +677,7 @@ export function CompanyPageClient({
               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--danger)]/20 text-[10px]">✕</span>
               Known Weaknesses
             </h3>
-            <ul className="mt-3 space-y-2 reveal-stagger">
+            <ul className="mt-3 space-y-2">
               {c.weaknesses.map((w) => (
                 <li key={w} className="flex items-start gap-2 text-sm leading-relaxed text-[var(--foreground)]">
                   <span className="mt-0.5 shrink-0 text-danger-text font-bold">✕</span>
@@ -662,7 +703,7 @@ export function CompanyPageClient({
             </button>
           </div>
 
-          <div className="mt-4 rounded-2xl border border-[var(--border-color)] p-6 surface shadow-sm">
+          <div className="mt-4 rounded-lg border border-[var(--border-color)] p-6 surface shadow-sm">
             <div className="flex items-center gap-3">
               <span className="rounded-lg bg-[var(--success)]/20 px-3 py-1 text-lg font-bold font-mono text-success-text border border-[var(--success)]/20 tabular-nums">
                 ★ <CountUp target={c.userReviews.rating} decimals={2} duration={1.1} /> / 5.0
@@ -679,7 +720,7 @@ export function CompanyPageClient({
             <div className="mt-5 grid gap-4 sm:grid-cols-2 pt-4 border-t border-[var(--border-color)]">
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider text-success-text">What users like</h3>
-                <ul className="mt-2 space-y-1 reveal-stagger">
+                <ul className="mt-2 space-y-1">
                   {c.userReviews.pros.map((p) => (
                     <li key={p} className="text-xs text-[var(--muted-text)]">+ {p}</li>
                   ))}
@@ -687,7 +728,7 @@ export function CompanyPageClient({
               </div>
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider text-danger-text">What users complain about</h3>
-                <ul className="mt-2 space-y-1 reveal-stagger">
+                <ul className="mt-2 space-y-1">
                   {c.userReviews.cons.map((p) => (
                     <li key={p} className="text-xs text-[var(--muted-text)]">– {p}</li>
                   ))}
@@ -736,7 +777,7 @@ export function CompanyPageClient({
       <Reveal delay={0.4}>
         <section className="mt-12">
           <SectionHeader eyebrow="Explore" title="Related Categories" />
-          <div className="flex flex-wrap gap-3 reveal-stagger">
+          <div className="flex flex-wrap gap-3">
             {relatedCategories.map((cat) => (
               <Link
                 key={cat.slug}
@@ -824,7 +865,7 @@ export function CompanyPageClient({
               role="dialog"
               aria-modal="true"
               aria-labelledby="review-modal-title"
-              className="relative z-10 w-full max-w-lg overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--background)] p-6 shadow-2xl space-y-4"
+              className="relative z-10 w-full max-w-lg overflow-hidden rounded-lg border border-[var(--border-color)] bg-[var(--background)] p-6 shadow-2xl space-y-4"
             >
               <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-3">
                 <h3 id="review-modal-title" className="text-lg font-bold">Add a private note for {c.name}</h3>

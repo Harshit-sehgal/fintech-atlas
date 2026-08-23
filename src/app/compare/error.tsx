@@ -19,7 +19,7 @@ export default function CompareError({
       <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--danger-text)]">
         Compare error
       </p>
-      <h1 className="text-4xl font-bold tracking-tight gradient-text">Comparison failed to load</h1>
+      <h1 className="text-4xl font-bold tracking-tight">Comparison failed to load</h1>
       <p className="mt-4 max-w-md text-base leading-relaxed text-[var(--muted-text)]">
         Something went wrong while rendering the comparison tool. Try again, or browse the directory.
       </p>

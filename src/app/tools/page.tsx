@@ -16,10 +16,9 @@ export const metadata: Metadata = pageMetadata({
   description,
 });
 
-const toolsList = tools.map(({ id, href, icon, name, badge, description, features }) => ({
+const toolsList = tools.map(({ id, href, name, badge, description, features }) => ({
   id,
   href,
-  icon,
   name,
   badge,
   description,
@@ -53,24 +52,30 @@ export default function ToolsPage() {
       />
 
       <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4 reveal-stagger">
-        {toolsList.map((tool) => {
+        {toolsList.map((tool, index) => {
           const accent = TOOL_ACCENTS[tool.id] ?? "var(--tool-acc-calculator)";
           return (
             <Link
               key={tool.id}
               href={tool.href}
               style={{ ["--accent"]: accent } as CSSProperties}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[var(--border-color)] surface p-6 transition-all duration-300 card-glow hover:-translate-y-1"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-lg border border-[var(--border-color)] surface p-6 transition-all duration-300 card-glow"
             >
-              {/* Per-tool tinted ambient glow that intensifies on hover */}
-              <div
-                className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full blur-2xl transition-all duration-500 group-hover:scale-150"
-                style={{ background: `color-mix(in srgb, ${accent} 20%, transparent)` }}
-              />
-
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-4xl">{tool.icon}</span>
+                  {/* Editorial index numeral instead of an icon — the tool
+                      name carries the meaning (handoff P1-1). */}
+                  <span
+                    aria-hidden
+                    className="flex h-10 w-10 items-center justify-center rounded-lg border font-mono text-sm font-bold"
+                    style={{
+                      borderColor: `color-mix(in srgb, ${accent} 33%, transparent)`,
+                      background: `color-mix(in srgb, ${accent} 10%, transparent)`,
+                      color: accent,
+                    }}
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                   <span
                     className="rounded-full border px-3 py-1 text-[11px] font-medium font-mono"
                     style={{ borderColor: `color-mix(in srgb, ${accent} 33%, transparent)`, background: `color-mix(in srgb, ${accent} 10%, transparent)`, color: accent }}
@@ -89,7 +94,7 @@ export default function ToolsPage() {
                 <div className="mt-6 space-y-2 border-t border-[var(--border-color)] pt-4">
                   {tool.features.map((feat) => (
                     <div key={feat} className="flex items-center gap-2 text-xs text-[var(--foreground)]/80">
-                      <span className="text-success-text">✓</span>
+                      <span className="text-success-text" aria-hidden>✓</span>
                       <span>{feat}</span>
                     </div>
                   ))}
@@ -107,7 +112,7 @@ export default function ToolsPage() {
 
       {/* Services cross-link (plan: internal links from existing pages) */}
       <section aria-labelledby="tools-services-cta" className="mt-10">
-        <div className="flex flex-col items-start justify-between gap-4 rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6 sm:flex-row sm:items-center">
+        <div className="flex flex-col items-start justify-between gap-4 rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6 sm:flex-row sm:items-center">
           <div>
             <h2 id="tools-services-cta" className="text-base font-bold tracking-tight">Need a human to do the analysis?</h2>
             <p className="mt-1 text-sm text-[var(--muted-text)]">

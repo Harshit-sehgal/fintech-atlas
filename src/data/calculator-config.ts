@@ -55,7 +55,6 @@ export interface CalculatorDefinition {
   id: string;
   name: string;
   tagline: string;
-  icon: string;
   inputs: CalcInput[];
   compute: (values: CalcValues) => CalcOutput[];
 }
@@ -98,7 +97,6 @@ const CALCULATORS: CalculatorDefinition[] = [
     id: "sip",
     name: "SIP Calculator",
     tagline: "Project the future value of a monthly investment plan.",
-    icon: "📈",
     inputs: [
       { key: "monthlyContribution", label: "Monthly Contribution", kind: "currency", min: 50, max: 5000, step: 50, default: 500 },
       { key: "annualReturn", label: "Expected Annual Return", kind: "percent", min: 0, max: 20, step: 0.5, default: 12, hint: "Illustrative: equity index funds have historically averaged ~8–10% in real terms." },
@@ -118,7 +116,6 @@ const CALCULATORS: CalculatorDefinition[] = [
     id: "swp",
     name: "SWP Calculator",
     tagline: "How long can a lump sum fund a fixed monthly withdrawal?",
-    icon: "🏦",
     inputs: [
       { key: "corpus", label: "Starting Corpus", kind: "currency", min: 10000, max: 10000000, step: 10000, default: 500000 },
       { key: "monthlyWithdrawal", label: "Monthly Withdrawal", kind: "currency", min: 100, max: 100000, step: 100, default: 3000 },
@@ -142,7 +139,6 @@ const CALCULATORS: CalculatorDefinition[] = [
     id: "emi",
     name: "EMI / Loan Calculator",
     tagline: "Monthly installments and total interest for a fixed-rate loan.",
-    icon: "🏠",
     inputs: [
       { key: "principal", label: "Loan Amount", kind: "currency", min: 1000, max: 50000000, step: 10000, default: 500000 },
       { key: "annualRate", label: "Annual Interest Rate", kind: "percent", min: 0, max: 20, step: 0.25, default: 8 },
@@ -162,7 +158,6 @@ const CALCULATORS: CalculatorDefinition[] = [
     id: "cagr",
     name: "CAGR Calculator",
     tagline: "The compound annual growth rate of any investment.",
-    icon: "📊",
     inputs: [
       { key: "initialValue", label: "Initial Value", kind: "currency", min: 100, max: 10000000, step: 100, default: 10000 },
       { key: "finalValue", label: "Final Value", kind: "currency", min: 0, max: 50000000, step: 100, default: 20000 },
@@ -178,7 +173,6 @@ const CALCULATORS: CalculatorDefinition[] = [
     id: "inflation",
     name: "Inflation Calculator",
     tagline: "What will today's price tag look like in the future?",
-    icon: "🏷️",
     inputs: [
       { key: "amount", label: "Current Cost", kind: "currency", min: 100, max: 1000000, step: 100, default: 1000 },
       { key: "inflationRate", label: "Annual Inflation Rate", kind: "percent", min: 0, max: 15, step: 0.1, default: 6 },
@@ -197,7 +191,6 @@ const CALCULATORS: CalculatorDefinition[] = [
     id: "retirement",
     name: "Retirement Corpus Calculator",
     tagline: "Estimate the corpus you need and the monthly investment to build it.",
-    icon: "🌅",
     inputs: [
       { key: "currentMonthlyExpense", label: "Current Monthly Expenses", kind: "currency", min: 500, max: 100000, step: 500, default: 5000 },
       { key: "annualInflation", label: "Expected Inflation", kind: "percent", min: 0, max: 15, step: 0.5, default: 6 },
@@ -229,7 +222,6 @@ const CALCULATORS: CalculatorDefinition[] = [
     id: "fire",
     name: "FIRE Number Calculator",
     tagline: "Estimate your FIRE target and the time to reach it under fixed-return assumptions.",
-    icon: "🔥",
     inputs: [
       { key: "annualExpenses", label: "Annual Expenses", kind: "currency", min: 10000, max: 1000000, step: 5000, default: 60000 },
       { key: "safeWithdrawalRate", label: "Safe Withdrawal Rate", kind: "percent", min: 2, max: 8, step: 0.25, default: 4, hint: "The classic 4% rule is a common starting benchmark." },
@@ -261,7 +253,6 @@ const CALCULATORS: CalculatorDefinition[] = [
     id: "emergency",
     name: "Emergency Fund Calculator",
     tagline: "Size your cash buffer and see what you still have to save.",
-    icon: "🛟",
     inputs: [
       { key: "monthlyExpenses", label: "Monthly Essential Expenses", kind: "currency", min: 500, max: 50000, step: 250, default: 3000 },
       { key: "months", label: "Months of Cover", kind: "number", min: 1, max: 24, step: 1, default: 6 },
@@ -293,7 +284,6 @@ const CALCULATORS: CalculatorDefinition[] = [
     id: "networth",
     name: "Net Worth Calculator",
     tagline: "Sum your assets and liabilities to see your true financial position.",
-    icon: "🧮",
     inputs: [
       { key: "cash", label: "Cash & Savings", kind: "currency", min: 0, max: 5000000, step: 1000, default: 10000 },
       { key: "investments", label: "Investments", kind: "currency", min: 0, max: 50000000, step: 10000, default: 40000 },

@@ -259,7 +259,7 @@ export default function MatchmakerQuizPageClient() {
               animate={{ opacity: 1, y: 0 }}
               className="space-y-6"
             >
-              <div className="surface rounded-2xl border border-[var(--border-color)] p-8">
+              <div className="surface rounded-lg border border-[var(--border-color)] p-8">
                 <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-4">
                   <div>
                     <span className="eyebrow">Initial Shortlist</span>
@@ -269,7 +269,7 @@ export default function MatchmakerQuizPageClient() {
                     onClick={restart}
                     className="btn-ghost text-xs"
                   >
-                    🔄 Retake Quiz
+                    Retake Quiz
                   </button>
                 </div>
 
@@ -308,7 +308,7 @@ export default function MatchmakerQuizPageClient() {
                             >
                               #{idx + 1}
                             </span>
-                            <div className="group-hover:scale-105 transition-transform duration-300">
+                            <div className="transition-transform duration-300">
                               <CompanyLogo slug={c.slug} name={c.name} size={48} />
                             </div>
                             <div>

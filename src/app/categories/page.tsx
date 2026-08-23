@@ -36,10 +36,10 @@ export default function CategoriesPage() {
               key={cat.slug}
               href={`/categories/${cat.slug}`}
               style={{ ["--accent"]: cat.accent } as CSSProperties}
-              className="group relative block h-full rounded-2xl border border-[var(--border-color)] p-6 transition-all duration-300 card-glow"
+              className="group relative block h-full rounded-lg border border-[var(--border-color)] p-6 transition-all duration-300 card-glow"
             >
               <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[var(--accent-glow)] group-hover:scale-110 transition-transform duration-300">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[var(--accent-glow)] transition-transform duration-300">
                   <CategoryIcon icon={cat.icon} color={cat.accent} size={32} />
                 </div>
                 <div className="min-w-0 flex-1">

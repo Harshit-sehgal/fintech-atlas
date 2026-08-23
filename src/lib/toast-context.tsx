@@ -9,6 +9,7 @@ import React, {
   useEffect,
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { IconCheckCircle, IconErrorCircle, IconInfoCircle } from "@/components/ui/icons";
 
 interface Toast {
   id: string;
@@ -118,8 +119,14 @@ function ToastItem({
           : "border-[var(--success)]/30 bg-[var(--success)]/10 text-[var(--foreground)]"
       }`}
     >
-      <span>
-        {toast.type === "error" ? "❌" : toast.type === "info" ? "ℹ️" : "✨"}
+      <span className="shrink-0">
+        {toast.type === "error" ? (
+          <IconErrorCircle size={16} className="text-danger-text" />
+        ) : toast.type === "info" ? (
+          <IconInfoCircle size={16} className="text-[var(--accent)]" />
+        ) : (
+          <IconCheckCircle size={16} className="text-success-text" />
+        )}
       </span>
       <span>{toast.message}</span>
       <button
