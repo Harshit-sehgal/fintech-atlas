@@ -2,7 +2,8 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
-import { PartnerCta } from "@/components/ui/partner-cta";
+import { ResolvedPartnerCtaLink } from "@/components/ui/resolved-partner-cta-link";
+import { resolvePartnerCta, partnerRel } from "@/lib/partners";
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
 import { articles, getArticleBySlug, type ArticleBlock, categoryHref } from "@/data/articles";
@@ -228,15 +229,26 @@ export default async function ArticlePage({
           <div className="surface mt-12 rounded-lg border border-[var(--border-color)] p-5">
             <h2 className="text-sm font-bold text-[var(--foreground)]">Compare these providers yourself</h2>
             <div className="mt-3 flex flex-wrap gap-3">
-              {article.ctas.map((cta) => (
-                <PartnerCta
-                  key={`${cta.slug}-${cta.placement}`}
-                  slug={cta.slug}
-                  placement={cta.placement}
-                  label={cta.label}
-                  variant="compact"
-                />
-              ))}
+              {article.ctas.map((cta) => {
+                // Resolve server-side: keeps lib/partners (and the company
+                // catalog it reads) out of this route's client bundle.
+                const resolved = resolvePartnerCta(cta.slug, cta.placement);
+                if (!resolved) return null;
+                return (
+                  <ResolvedPartnerCtaLink
+                    key={`${cta.slug}-${cta.placement}`}
+                    href={resolved.href}
+                    label={cta.label ?? resolved.label}
+                    rel={partnerRel(resolved.isCommercial)}
+                    isCommercial={resolved.isCommercial}
+                    companySlug={cta.slug}
+                    placement={cta.placement}
+                    relationship={resolved.relationship}
+                    trackingId={resolved.trackingId}
+                    variant="compact"
+                  />
+                );
+              })}
             </div>
           </div>
         </Suspense>

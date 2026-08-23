@@ -8,6 +8,7 @@ import {
   getCommercialPartners,
   partnerOffers,
 } from "@/data/partners";
+import { COMMERCIAL_DISCLOSURE } from "@/lib/commercial-disclosure";
 import type { PartnerOffer, PartnerRelationship } from "@/data/types";
 import {
   companySummaries,
@@ -132,9 +133,12 @@ export function partnerRel(isCommercial: boolean): string {
 /**
  * Central earnings disclosure shown next to any commercial partner CTA.
  * Keep in sync with the About FAQ and Privacy Notice.
+ *
+ * Lives in its own leaf module (re-exported here for compatibility) so
+ * client components that only render the sentence don't pull the partner
+ * resolution graph into their bundle.
  */
-export const COMMERCIAL_DISCLOSURE =
-  "Disclosure: some links on this page are affiliate links — we may earn a commission at no extra cost to you when you purchase or sign up through them. This never affects our editorial ratings, rankings, or pricing comparisons.";
+export { COMMERCIAL_DISCLOSURE };
 
 /** True when at least one partner currently has a commercial relationship. */
 export function hasCommercialOffers(): boolean {
