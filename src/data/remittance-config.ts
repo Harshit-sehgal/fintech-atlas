@@ -1,8 +1,9 @@
 /**
  * Cross-border FX / remittance calculator — currency & provider data.
  *
- * Exchange rates are mid-market snapshots and will diverge from live rates over
- * time. Update the `rate` values periodically or wire the calculator to a live
+ * Exchange rates are mid-market snapshots and will diverge from live rates
+ * over time. Refresh with `npm run rates:fetch` (ECB reference via Frankfurter,
+ * guarded by build-time staleness checks) — or wire the calculator to a live
  * feed for production use. Provider fee models reflect publicly listed pricing
  * as of Q3 2026; they are indicative only.
  */
@@ -52,9 +53,9 @@ export const MAX_RATE_AGE_DAYS = 7;
 
 /** Available recipient currencies */
 export const CURRENCIES: CurrencyOption[] = [
-  { code: "EUR", symbol: "€", name: "Euro", rate: 0.855, source: RATES_SOURCE, sourceUrl: "https://www.ecb.europa.eu/stats/eurofxref/" },
-  { code: "GBP", symbol: "£", name: "British Pound", rate: 0.732, source: RATES_SOURCE, sourceUrl: "https://www.ecb.europa.eu/stats/eurofxref/" },
-  { code: "INR", symbol: "₹", name: "Indian Rupee", rate: 95.70, source: RATES_SOURCE, sourceUrl: "https://www.ecb.europa.eu/stats/eurofxref/" },
+  { code: "EUR", symbol: "€", name: "Euro", rate: 0.8548, source: RATES_SOURCE, sourceUrl: "https://www.ecb.europa.eu/stats/eurofxref/" },
+  { code: "GBP", symbol: "£", name: "British Pound", rate: 0.7323, source: RATES_SOURCE, sourceUrl: "https://www.ecb.europa.eu/stats/eurofxref/" },
+  { code: "INR", symbol: "₹", name: "Indian Rupee", rate: 95.7, source: RATES_SOURCE, sourceUrl: "https://www.ecb.europa.eu/stats/eurofxref/" },
   { code: "CAD", symbol: "CA$", name: "Canadian Dollar", rate: 1.374, source: RATES_SOURCE, sourceUrl: "https://www.ecb.europa.eu/stats/eurofxref/" },
   { code: "AUD", symbol: "A$", name: "Australian Dollar", rate: 1.395, source: RATES_SOURCE, sourceUrl: "https://www.ecb.europa.eu/stats/eurofxref/" },
   { code: "BRL", symbol: "R$", name: "Brazilian Real", rate: 5.173, source: RATES_SOURCE, sourceUrl: "https://www.ecb.europa.eu/stats/eurofxref/" },
