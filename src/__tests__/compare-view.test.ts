@@ -107,6 +107,11 @@ describe("honest verdict block (T107)", () => {
     };
     const [only] = verdictStatements([stripped, bySlug("wise")]);
     expect(only).toContain("does not yet document enough detail");
+
+    // Strength documented, tradeoff missing — third template branch.
+    const halfDocumented = { ...bySlug("stripe"), primaryWeakness: undefined };
+    const [half] = verdictStatements([halfDocumented, bySlug("wise")]);
+    expect(half).toContain("does not document a specific tradeoff");
   });
 
   it("is empty unless two or more companies are selected", () => {
