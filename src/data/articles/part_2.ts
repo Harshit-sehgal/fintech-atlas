@@ -213,7 +213,9 @@ export const part_2_Articles: Article[] = [
     category: "Cross-Border",
     regions: ["india"],
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
-    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india","receiving-1000-usd-from-us-client-in-india","receiving-5000-usd-from-us-client-in-india","best-payment-method-upwork-india","best-payment-method-fiverr-india","best-way-to-receive-usd-in-india"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india","receiving-1000-usd-from-us-client-in-india","receiving-5000-usd-from-us-client-in-india","best-payment-method-upwork-india","best-payment-method-fiverr-india","best-way-to-receive-usd-in-india",
+      "receive-international-client-payments-india",
+],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -319,7 +321,9 @@ export const part_2_Articles: Article[] = [
     category: "Cross-Border",
     regions: ["india"],
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
-    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india","receiving-1000-usd-from-us-client-in-india","receiving-5000-usd-from-us-client-in-india","payoneer-fees-india","wise-vs-revolut-international-transfers","international-payment-settlement-times","stablecoins-for-cross-border-payments","payment-gateway-fee-comparison-india","best-payment-method-upwork-india","best-payment-method-fiverr-india"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india","receiving-1000-usd-from-us-client-in-india","receiving-5000-usd-from-us-client-in-india","payoneer-fees-india","wise-vs-revolut-international-transfers","international-payment-settlement-times","stablecoins-for-cross-border-payments","payment-gateway-fee-comparison-india","best-payment-method-upwork-india","best-payment-method-fiverr-india",
+      "receive-international-client-payments-india",
+],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -907,7 +911,9 @@ export const part_2_Articles: Article[] = [
     category: "Cross-Border",
     regions: ["india"],
     relatedCompanySlugs: ["wise", "payoneer", "paypal", "revolut"],
-    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india","receiving-5000-usd-from-us-client-in-india","fira-vs-firc-payment-methods","quarterly-india-cross-border-fee-index","payoneer-fees-india","gusto-vs-adp-vs-paychex-us-payroll","best-payment-method-upwork-india","best-payment-method-fiverr-india","best-way-to-receive-usd-in-india","paypal-vs-payoneer-india"],
+    relatedArticleSlugs: ["receiving-500-usd-from-us-client-in-india","receiving-5000-usd-from-us-client-in-india","fira-vs-firc-payment-methods","quarterly-india-cross-border-fee-index","payoneer-fees-india","gusto-vs-adp-vs-paychex-us-payroll","best-payment-method-upwork-india","best-payment-method-fiverr-india","best-way-to-receive-usd-in-india","paypal-vs-payoneer-india",
+      "receive-international-client-payments-india",
+],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },

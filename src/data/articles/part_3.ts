@@ -564,7 +564,9 @@ export const part_3_Articles: Article[] = [
     category: "Cross-Border",
     regions: ["india"],
     relatedCompanySlugs: ["paypal", "payoneer", "wise"],
-    relatedArticleSlugs: ["best-way-to-receive-usd-in-india","payoneer-fees-india","receiving-1000-usd-from-us-client-in-india","wise-vs-payoneer-business-payouts","best-payment-method-fiverr-india","razorpay-international-payment-fees"],
+    relatedArticleSlugs: ["best-way-to-receive-usd-in-india","payoneer-fees-india","receiving-1000-usd-from-us-client-in-india","wise-vs-payoneer-business-payouts","best-payment-method-fiverr-india","razorpay-international-payment-fees",
+      "receive-international-client-payments-india",
+],
     ctas: [
       { slug: "paypal", label: "Visit PayPal", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -667,7 +669,9 @@ export const part_3_Articles: Article[] = [
     category: "Cross-Border",
     regions: ["india"],
     relatedCompanySlugs: ["wise", "paypal", "payoneer"],
-    relatedArticleSlugs: ["paypal-vs-payoneer-india","receiving-500-usd-from-us-client-in-india","receiving-1000-usd-from-us-client-in-india","receiving-5000-usd-from-us-client-in-india","payoneer-fees-india","fira-vs-firc-payment-methods","razorpay-international-payment-fees"],
+    relatedArticleSlugs: ["paypal-vs-payoneer-india","receiving-500-usd-from-us-client-in-india","receiving-1000-usd-from-us-client-in-india","receiving-5000-usd-from-us-client-in-india","payoneer-fees-india","fira-vs-firc-payment-methods","razorpay-international-payment-fees",
+      "receive-international-client-payments-india",
+],
     ctas: [
       { slug: "wise", label: "Open Wise", placement: "compare-vs" },
       { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
@@ -943,7 +947,9 @@ export const part_3_Articles: Article[] = [
     category: "Cross-Border",
     regions: ["india"],
     relatedCompanySlugs: ["razorpay","wise","payoneer","paypal"],
-    relatedArticleSlugs: ["razorpay-vs-stripe-payments-india","best-way-to-receive-usd-in-india","paypal-vs-payoneer-india","payoneer-fees-india","payment-gateway-fee-comparison-india"],
+    relatedArticleSlugs: ["razorpay-vs-stripe-payments-india","best-way-to-receive-usd-in-india","paypal-vs-payoneer-india","payoneer-fees-india","payment-gateway-fee-comparison-india",
+      "receive-international-client-payments-india",
+],
     ctas: [
       { slug: "razorpay", label: "See Razorpay pricing", placement: "compare-vs" },
       { slug: "wise", label: "Compare with Wise", placement: "compare-vs" },
@@ -1022,6 +1028,154 @@ export const part_3_Articles: Article[] = [
       {
         type: "p",
         text: "Editorial note: the up-to-3% international card rate, 2% domestic fee, and 18% GST on the platform fee are the site's published fee-index model (Razorpay pricing page, catalog vintage), consistent with the Fee Calculator and comparison guides. MoneySaver pricing is transaction-based and indicative — confirm the current schedule with Razorpay before relying on it. The rate in your provider account at confirmation is authoritative.",
+      },
+    ],
+  },
+  {
+    slug: "receive-international-client-payments-india",
+    title: "How to receive international client payments in India (2026)",
+    description:
+      "Every legal way to receive client money in India compared with verified fees — virtual accounts (Skydo, Wise, Payoneer), card gateways, PayPal and SWIFT wires — with INR settlement math at $500, $1,000 and $10,000.",
+    author: "FinTech Atlas editorial team",
+    publishedAt: "2026-08-23",
+    updatedAt: "2026-08-23",
+    category: "Cross-Border",
+    relatedCompanySlugs: ["wise", "payoneer", "paypal", "razorpay"],
+    regions: ["india"],
+    ctas: [
+      { slug: "wise", label: "Open Wise", placement: "compare-vs" },
+      { slug: "payoneer", label: "Visit Payoneer", placement: "compare-vs" },
+      { slug: "paypal", label: "Visit PayPal", placement: "compare-vs" },
+      { slug: "razorpay", label: "Visit Razorpay", placement: "compare-vs" },
+    ],
+    relatedTool: {
+      href: "/tools/exchange-rate-markup-calculator",
+      label: "Check any provider's rate against mid-market",
+    },
+    relatedArticleSlugs: [
+      "best-way-to-receive-usd-in-india",
+      "receiving-1000-usd-from-us-client-in-india",
+      "payoneer-fees-india",
+      "paypal-vs-payoneer-india",
+      "razorpay-international-payment-fees",
+      "fira-vs-firc-payment-methods",
+      "quarterly-india-cross-border-fee-index",
+    ],
+    body: [
+      {
+        type: "p",
+        text: "For most Indian freelancers and studios the decision is not whether a service works — it is how much of each invoice actually reaches your bank account, and whether the compliance paperwork (FIRA) arrives without a chase. This guide maps every mainstream channel for client payments — virtual multicurrency accounts (Skydo, Wise, Payoneer), card gateways such as Razorpay, PayPal, and a plain SWIFT wire — and runs the same invoices through each. The short version: for wire-paying B2B clients sending mid-to-large invoices, flat-fee virtual accounts are usually cheapest; for card-checkout clients you need a gateway; PayPal earns its cost only as a trust fallback. Last reviewed August 2026 · Region: India · Mid-market assumption ₹95.70/USD (ECB reference, 21 Aug 2026). Provider fees below are published standard rates as of this vintage — confirm at signup; the rate your provider confirms is authoritative.",
+      },
+      {
+        type: "h2",
+        text: "The four channels, in one table",
+      },
+      {
+        type: "table",
+        headers: ["Channel", "Fee model (published)", "FX markup", "FIRA"],
+        rows: [
+          ["Virtual account — Skydo", "$19 up to $2,000 · $29 to $10,000 · 0.3% above", "0% (mid-market)", "Free, instant, per payment"],
+          ["Virtual account — Wise Business", "≈ 0.43% + $0.50 (USD receiving)", "0% (mid-market)", "e-FIRC documentation via partner rails"],
+          ["Virtual account — Payoneer", "Receiving accounts free/fixed/1% by case; 1–4% withdrawal corridor to INR", "Embedded in corridor", "Yes, per transaction"],
+          ["Card gateway — Razorpay", "Up to ~3% international cards; ~1% MoneySaver bank-transfer route", "Bundled", "Via partner-bank FIRA / e-FIRC"],
+          ["PayPal", "4.40% + fixed fee ($0.30 USD) + conversion spread", "Spread on conversion", "Weekly digital FIRA (from Feb 2026)"],
+          ["Bank SWIFT wire", "₹500–₹2,000+ correspondent charges (bank-dependent)", "~1–3% typical bank markup", "e-FIRC from your bank"],
+        ],
+      },
+      {
+        type: "p",
+        text: "18% GST applies on most provider fees in India and is excluded from every row of the worked tables below so the channels stay comparable — add it mentally to whichever fee column applies. Payoneer also charges a $29.95 annual account fee when less than $6,000 was received in the trailing 12 months, which matters exactly once per year for smaller freelancers.",
+      },
+      {
+        type: "h2",
+        text: "What lands in your bank at three invoice sizes",
+      },
+      {
+        type: "table",
+        headers: ["Channel ($500 invoice)", "You receive (≈₹)"],
+        rows: [
+          ["Wise Business (0.43% + $0.50)", "₹47,597"],
+          ["Payoneer (2% corridor illustrated)", "₹46,893"],
+          ["Skydo ($19 flat)", "₹46,032"],
+          ["PayPal (4.4% + $0.30)", "₹45,716"],
+          ["SWIFT wire ($35 + 2% markup illustrated)", "₹43,626"],
+        ],
+      },
+      {
+        type: "p",
+        text: "At small invoices the fixed component dominates: Skydo's $19 minimum is nearly 4% of a $500 payment, which is why flat-fee receivers pair best with larger invoices. Wise's percentage-plus-small-fixed model wins this band.",
+      },
+      {
+        type: "table",
+        headers: ["Channel ($1,000 invoice)", "You receive (≈₹)"],
+        rows: [
+          ["Wise Business", "₹95,225"],
+          ["Payoneer (2% corridor illustrated)", "₹93,786"],
+          ["Skydo ($19 flat)", "₹93,872"],
+          ["PayPal", "₹91,441"],
+          ["SWIFT wire (illustrated)", "₹90,504"],
+        ],
+      },
+      {
+        type: "table",
+        headers: ["Channel ($10,000 invoice)", "You receive (≈₹)"],
+        rows: [
+          ["Skydo ($29 flat ≈ 0.29%)", "₹9,54,225"],
+          ["Wise Business", "₹9,52,877"],
+          ["SWIFT wire (illustrated)", "₹9,34,517"],
+          ["Payoneer (2% corridor illustrated)", "₹9,37,860"],
+          ["PayPal", "₹9,14,863"],
+        ],
+      },
+      {
+        type: "p",
+        text: "The ordering flips twice: percentage models lead when invoices are small, flat fees lead once the fixed charge amortises (Skydo's $29 caps out around 0.3% at five figures), and PayPal's percentage-plus-spread model is consistently the most expensive of the four at every size shown here.",
+      },
+      {
+        type: "h2",
+        text: "Scenario guide: pick by client behaviour, not by brand",
+      },
+      {
+        type: "table",
+        headers: ["Your situation", "Start with", "Why"],
+        rows: [
+          ["Wire-paying B2B clients, $2k+ invoices", "Skydo or Wise Business", "Flat fee / near-zero FX cost beats every percentage rail"],
+          ["Clients insist on paying by card", "Razorpay (international)", "Only a gateway gives checkout + 3D-Secure; use MoneySaver-style routes where eligible"],
+          ["Marketplace platforms (Upwork, Fiverr)", "Platform's own rails → Payoneer/bank", "The platform decides the rail; optimise the withdrawal leg only"],
+          ["First invoice from a wary new client", "PayPal as bridge, then migrate", "Trust premium buys the relationship; move recurring work to cheaper rails after"],
+          ["Many sub-$100 payments", "Gateway checkout", "Per-transaction fixed fees on virtual accounts would eat 5–20%"],
+        ],
+      },
+      {
+        type: "h2",
+        text: "Compliance: what each channel hands you at tax time",
+      },
+      {
+        type: "ul",
+        items: [
+          "Export of services income must be matched to Foreign Inward Remittance Advice documents. Virtual-account providers issue a FIRA per payment automatically (Skydo instant and free); banks issue e-FIRC against SWIFT credits; PayPal issues weekly digital FIRAs since February 2026.",
+          "Purpose codes matter more than people expect — P0802/P1007-class codes drive e-BRC matching against your GST/IT returns. Keep the invoice, the FIRA, and the bank credit as one folder per client.",
+          "Receiving accounts themselves are not taxable events; the income is taxed at your slab whether it arrives via Wise, Skydo, or SWIFT. GST registration depends on your aggregate turnover and export status (zero-rated with LUT), not on the channel.",
+          "If a provider cannot issue acceptable FIRA documentation for a payment, that missing paper costs more at filing time than any fee saving on the transaction.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "What this comparison does not include",
+      },
+      {
+        type: "ul",
+        items: [
+          "GST on provider fees (add 18% to the applicable fee column yourself).",
+          "Chargeback/dispute fees (relevant mainly to gateways and PayPal).",
+          "Annual account fees (Payoneer's $29.95 under-$6k rule) beyond the note above.",
+          "Promotional or negotiated rates; volume pricing changes the math materially above roughly $50k/month with most providers.",
+          "Any FX movement between invoice date and settlement date — all rows convert at one reference rate.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Editorial note: Skydo's fee bands ($19 ≤ $2,000 · $29 ≤ $10,000 · 0.3% above), zero-markup claim, free instant FIRA and RBI PA-CB authorisation reflect its published pricing and announcements as of this catalog vintage, corroborated across multiple independent reviews. Payoneer's 1–4% India withdrawal corridor, PayPal's 4.40% + fixed fee, and Razorpay's up-to-3% card rate match the figures used elsewhere on this site (see the Payoneer fees, PayPal vs Payoneer, and Razorpay international guides). All numbers are indicative, not quotes — the rate confirmed inside your provider account at transaction time is authoritative.",
       },
     ],
   }

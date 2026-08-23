@@ -876,7 +876,9 @@ export const part_1_Articles: Article[] = [
     category: "Cross-Border",
     regions: ["india"],
     relatedCompanySlugs: ["payoneer", "wise"],
-    relatedArticleSlugs: ["wise-vs-payoneer-business-payouts","receiving-1000-usd-from-us-client-in-india","quarterly-india-cross-border-fee-index","best-payment-method-upwork-india","best-payment-method-fiverr-india","best-way-to-receive-usd-in-india","paypal-vs-payoneer-india","razorpay-international-payment-fees"],
+    relatedArticleSlugs: ["wise-vs-payoneer-business-payouts","receiving-1000-usd-from-us-client-in-india","quarterly-india-cross-border-fee-index","best-payment-method-upwork-india","best-payment-method-fiverr-india","best-way-to-receive-usd-in-india","paypal-vs-payoneer-india","razorpay-international-payment-fees",
+      "receive-international-client-payments-india",
+],
     ctas: [
       { slug: "payoneer", label: "See Payoneer pricing", placement: "compare-vs" },
       { slug: "wise", label: "Compare with Wise", placement: "compare-vs" },

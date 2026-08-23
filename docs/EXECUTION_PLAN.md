@@ -361,7 +361,7 @@ Month 1 cluster: complete.
 12. ~~PayPal vs Payoneer India~~ ✅ shipped — `/articles/paypal-vs-payoneer-india/`
 13. ~~Best payment method for Upwork India~~ ✅ shipped — `/articles/best-payment-method-upwork-india/`
 14. ~~Best payment method for Fiverr India~~ ✅ shipped — `/articles/best-payment-method-fiverr-india/`
-15. Receive international client payments in India — **open**; partially covered by the receive-USD hub (item 9) and the amount-specific guides (items 17–19); decide whether it is a distinct page or a redirect target
+15. ~~Receive international client payments in India~~ ✅ shipped — `/articles/receive-international-client-payments-india/` (2026-08-23): resolved as a distinct page after all — the intent differs from the USD hub by covering every channel (virtual accounts incl. Skydo's flat bands, gateways, PayPal, SWIFT) with INR settlement math at $500/$1,000/$10,000 and FIRA documentation mapping; web-verified against provider-published pricing
 16. International payment fee calculator India — **open as a dedicated tool**; partial coverage via Cross-Border FX Estimator (`/tools/remittance`) + Exchange-Rate Markup Calculator; decide whether an INR-first combined calculator adds value or fragments existing tools
 
 Search results show active competition in this area, including provider pages, independent comparisons and dedicated calculators. Your content needs exact India-specific scenarios and original calculations rather than another broad list. ([Payoneer][10])
