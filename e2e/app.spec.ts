@@ -17,20 +17,23 @@ test.describe("critical flows", () => {
     // The most recently appended articles lead the section on same-day ties
     // (later array index first among equal updatedAt values).
     await expect(
-      latestSection.getByRole("link", { name: /Razorpay international payment fees/ }),
+      latestSection.getByRole("link", { name: /How to receive international client payments in India/ }),
+    ).toBeVisible();
+    await expect(
+      latestSection.getByRole("link", { name: /Best payment gateway for Indian startups/ }),
     ).toBeVisible();
     await expect(
       latestSection.getByRole("link", { name: /Best payment gateway for Indian SaaS/ }),
     ).toBeVisible();
     await expect(
-      latestSection.getByRole("link", { name: /Best payment gateway for Indian startups/ }),
+      latestSection.getByRole("link", { name: /Razorpay international payment fees/ }),
     ).toBeVisible();
     // Order contract: newest editorial additions come first, not array order.
     await expect(latestSection.locator("a").first()).toContainText(
-      "Razorpay international payment fees",
+      "How to receive international client payments in India",
     );
     await expect(latestSection.locator("a").nth(1)).toContainText(
-      "Best payment gateway for Indian SaaS",
+      "Best payment gateway for Indian startups",
     );
 
   });
