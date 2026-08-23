@@ -11,14 +11,26 @@ import {
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
+import { IconLink } from "@/components/ui/icons";
 import { useToast } from "@/lib/toast-context";
 import { animationPresets as animation } from "@/lib/animation";
-import { DEFAULT_COMPARE_SLUGS, parseCompareSlugs } from "@/lib/compare";
-import { formatHeadquartersCity, formatValuationForStats } from "@/lib/format-company";
+import { DEFAULT_COMPARE_SLUGS, parseCompareSlugs, writeLastCompareSlugs } from "@/lib/compare";
+import { fuzzyRank } from "@/lib/fuzzy";
+import {
+  COMPARE_ROWS,
+  keyDifferences,
+  rowsByGroup,
+  verificationNote,
+  verdictStatements,
+  visibleRows,
+} from "@/lib/compare-view";
 import { trackEvent } from "@/lib/analytics";
 
-import { PRESETS } from "@/data/compare-presets";
+import { PRESETS, SCENARIOS } from "@/data/compare-presets";
+import { categories } from "@/data/categories";
 import { PartnerCta } from "@/components/ui/partner-cta";
+
+const SELECTOR_SEARCH_LABEL = "Search companies to compare";
 
 function CompareContent() {
   const router = useRouter();
@@ -40,6 +52,9 @@ function CompareContent() {
   // Every slug is validated against the company list by parseCompareSlugs, so no
   // untrusted query string can surface an unknown slug in the render layer.
   const [selectedSlugs, setSelectedSlugs] = useState<string[]>(() => [...DEFAULT_COMPARE_SLUGS]);
+  const [activeScenarioId, setActiveScenarioId] = useState<string | null>(null);
+  const [showContext, setShowContext] = useState(false);
+  const [selectorQuery, setSelectorQuery] = useState("");
 
   // Reconcile once with the real URL after mount. A no-op for a bare /compare
   // (keeps the pristine default), but restores a shared link's selection.
@@ -59,8 +74,10 @@ function CompareContent() {
     return () => window.clearTimeout(id);
   }, []);
 
-  const updateUrl = (slugs: string[]) => {
+  const updateUrl = (slugs: string[], scenarioId: string | null = null) => {
     setSelectedSlugs(slugs);
+    setActiveScenarioId(scenarioId);
+    writeLastCompareSlugs(slugs);
     if (slugs.length > 0) {
       router.replace(`/compare?companies=${slugs.join(",")}`, { scroll: false });
     } else {
@@ -68,6 +85,12 @@ function CompareContent() {
       // bare-navigated /compare (which would fall back to the default selection).
       router.replace(`/compare?companies=`, { scroll: false });
     }
+  };
+
+  const applyScenario = (scenarioId: string) => {
+    const scenario = SCENARIOS.find((s) => s.id === scenarioId);
+    if (!scenario) return;
+    updateUrl([...scenario.slugs], scenario.id);
   };
 
   const toggleSelect = (slug: string) => {
@@ -89,20 +112,42 @@ function CompareContent() {
     .map((s) => companySummaries.find((c) => (c.slug as string) === s))
     .filter((c): c is CompanySummary => c !== undefined);
 
-  const rows = useMemo(
-    () => [
-      { label: "Tagline", fn: (c: CompanySummary) => c.tagline },
-      { label: "Founded & HQ", fn: (c: CompanySummary) => `${c.founded} — ${formatHeadquartersCity(c.headquarters)}` },
-      { label: "Employees (reported)", fn: (c: CompanySummary) => c.employees },
-      { label: "Valuation / market value", fn: (c: CompanySummary) => formatValuationForStats(c) },
-      { label: "Pricing Model", fn: (c: CompanySummary) => c.pricingModel },
-      { label: "Editorial sentiment", fn: (c: CompanySummary) => `${c.rating} / 5.0` },
-      { label: "Primary Advantage", fn: (c: CompanySummary) => c.primaryStrength ?? "None listed" },
-      { label: "Key Tradeoff", fn: (c: CompanySummary) => c.primaryWeakness ?? "None listed" },
-      { label: "Notable Customers", fn: (c: CompanySummary) => c.customers.join(", ") },
-    ],
-    []
+  // Difference-first rendering (T106): agreeing decision rows are hidden once
+  // two or more companies are selected.
+  const decideRows = useMemo(
+    () => visibleRows("decide", selectedCompanies),
+    [selectedCompanies],
   );
+  const verifyRows = rowsByGroup("verify");
+  const contextRows = useMemo(
+    () => visibleRows("context", selectedCompanies),
+    [selectedCompanies],
+  );
+  const differences = keyDifferences(selectedCompanies);
+  const verdicts = verdictStatements(selectedCompanies);
+
+  const emphasizedRowIds = useMemo(() => {
+    const scenario = SCENARIOS.find((s) => s.id === activeScenarioId);
+    return new Set(scenario?.emphasize ?? []);
+  }, [activeScenarioId]);
+
+  // Selector ranking (T108): fuzzy over name + profile search terms. With an
+  // empty query the natural catalog order is kept.
+  const rankedCompanies = useMemo(
+    () => fuzzyRankCompanies(selectorQuery),
+    [selectorQuery],
+  );
+
+  // Group the ranked list by each company's first category so the picker reads
+  // as a curated shelf rather than a flat 42-tile wall.
+  const selectorGroups = useMemo(() => {
+    return categories
+      .map((cat) => ({
+        cat,
+        items: rankedCompanies.filter((c) => (c.categories as readonly string[])[0] === cat.slug),
+      }))
+      .filter((g) => g.items.length > 0);
+  }, [rankedCompanies]);
 
   const shareLink = () => {
     const url = window.location.href;
@@ -119,85 +164,140 @@ function CompareContent() {
         headingLevel={1}
         eyebrow="Side-by-Side Analysis"
         title="Compare FinTech Companies"
-        description="Select up to 3 companies or choose a preset comparison. Values have different dates and methodologies, so use this as an orientation tool rather than a like-for-like benchmark."
+        description="Pick the decision you are making, then adjust the line-up. Values have different dates and methodologies, so use this as an orientation tool rather than a like-for-like benchmark."
       />
 
-      {/* Preset Quick Benchmark Buttons */}
-      <div className="mt-8 flex flex-wrap items-center gap-2">
+      {/* Scenario router (T105) — the primary entry point */}
+      <section aria-labelledby="scenario-router-heading" className="mt-10">
+        <h2 id="scenario-router-heading" className="eyebrow !text-[var(--muted-text)] !tracking-widest">
+          What are you deciding?
+        </h2>
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          {SCENARIOS.map((s) => {
+            const active = s.id === activeScenarioId;
+            return (
+              <button
+                key={s.id}
+                onClick={() => applyScenario(s.id)}
+                aria-pressed={active}
+                className={`rounded-lg border p-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+                  active
+                    ? "border-[var(--accent)] bg-[var(--accent-glow)]"
+                    : "border-[var(--border-color)] surface hover:border-[var(--border-strong)]"
+                }`}
+              >
+                <span className={`block text-sm font-bold ${active ? "text-[var(--accent)]" : "text-[var(--foreground)]"}`}>
+                  {s.question}
+                </span>
+                <span className="mt-1.5 block text-xs leading-relaxed text-[var(--muted-text)]">
+                  {s.description}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Preset benchmarks — secondary quick-starts */}
+      <div className="mt-6 flex flex-wrap items-center gap-2">
         <span className="text-xs font-semibold uppercase tracking-wider text-[var(--muted-text)] mr-2 font-mono">Presets:</span>
         {PRESETS.map((p) => (
           <button
             key={p.name}
-            onClick={() => updateUrl(p.slugs)}
-            className="rounded-full border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3.5 py-1.5 text-xs font-medium text-[var(--foreground)] transition-all hover:border-[var(--accent)]/40 hover:bg-[var(--subtle-bg)] hover:scale-105 focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+            onClick={() => updateUrl([...p.slugs])}
+            className="rounded-full border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3.5 py-1.5 text-xs font-medium text-[var(--foreground)] transition-colors hover:border-[var(--accent)]/40 hover:bg-[var(--subtle-bg)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
           >
             {p.name}
           </button>
         ))}
       </div>
 
-      {/* Selector Grid */}
-      <div className="surface mt-8 rounded-2xl border border-[var(--border-color)] p-6">
-        <div className="flex items-center justify-between mb-4">
+      {/* Selector panel (T108): fuzzy search + category grouping */}
+      <div className="surface mt-8 rounded-lg border border-[var(--border-color)] p-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
           <span className="eyebrow !text-[var(--muted-text)] !tracking-widest">
             Select Companies to Compare ({selectedSlugs.length}/3)
           </span>
-          {selectedSlugs.length > 0 && (
-            <button
-              onClick={() => updateUrl([])}
-              className="text-xs text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-[var(--ring)] rounded"
-            >
-              Clear selection
-            </button>
-          )}
+          <div className="flex items-center gap-3">
+            <input
+              type="search"
+              value={selectorQuery}
+              onChange={(e) => setSelectorQuery(e.target.value)}
+              placeholder="Filter companies…"
+              aria-label={SELECTOR_SEARCH_LABEL}
+              className="w-full sm:w-56 rounded-lg border border-[var(--border-color)] bg-[var(--background)] px-3 py-2 text-sm outline-none transition-colors placeholder:text-[var(--muted-text)] focus:border-[var(--accent)]"
+            />
+            {selectedSlugs.length > 0 && (
+              <button
+                onClick={() => updateUrl([])}
+                className="shrink-0 text-xs text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-[var(--ring)] rounded"
+              >
+                Clear selection
+              </button>
+            )}
+          </div>
         </div>
 
-        <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
-          {companySummaries.map((c) => {
-            const active = selectedSlugs.includes(c.slug);
-            return (
-              <motion.button
-                key={c.slug}
-                layout
-                onClick={() => toggleSelect(c.slug)}
-                whileTap={{ scale: 0.97 }}
-                aria-pressed={active}
-                style={{ ["--accent"]: c.accent } as CSSProperties}
-                className={`relative flex items-center justify-between rounded-xl border p-3 text-left transition-all overflow-hidden ${
-                  active
-                    ? "border-[var(--accent)] bg-[var(--background)] card-glow"
-                    : "border-[var(--border-color)] hover:border-[var(--border-strong)] text-[var(--muted-text)] hover:bg-[var(--background)]/40"
-                }`}
-              >
-                {active && (
-                  <motion.span
-                    layoutId={`compare-select-${c.slug}`}
-                    className="absolute inset-0 -z-10 rounded-xl bg-[var(--accent)]/8"
-                    transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                  />
-                )}
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <CompanyLogo slug={c.slug} name={c.name} size={28} />
-                  <span className="text-xs truncate text-[var(--foreground)]">{c.name}</span>
+        {/* Screen-reader announcements for selection + filter results */}
+        <p aria-live="polite" className="sr-only">
+          {selectedSlugs.length} of 3 companies selected.{" "}
+          {selectorQuery ? `${rankedCompanies.length} companies match the filter.` : ""}
+        </p>
+
+        {selectorGroups.length === 0 ? (
+          <p className="rounded-lg border border-dashed border-[var(--border-color)] p-6 text-center text-sm text-[var(--muted-text)]">
+            No companies match &ldquo;{selectorQuery}&rdquo;.{" "}
+            <button
+              onClick={() => setSelectorQuery("")}
+              className="text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-[var(--ring)] rounded"
+            >
+              Clear the filter
+            </button>
+          </p>
+        ) : (
+          <div className="space-y-5">
+            {selectorGroups.map(({ cat, items }) => (
+              <div key={cat.slug}>
+                <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-[var(--muted-text)] font-mono">
+                  {cat.name}
+                </p>
+                <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
+                  {items.map((c) => {
+                    const active = selectedSlugs.includes(c.slug);
+                    return (
+                      <motion.button
+                        key={c.slug}
+                        layout
+                        onClick={() => toggleSelect(c.slug)}
+                        whileTap={{ scale: 0.98 }}
+                        aria-pressed={active}
+                        style={{ ["--accent"]: c.accent } as CSSProperties}
+                        className={`relative flex items-center justify-between rounded-lg border p-3 text-left transition-colors overflow-hidden ${
+                          active
+                            ? "border-[var(--accent)] bg-[var(--background)]"
+                            : "border-[var(--border-color)] hover:border-[var(--border-strong)] text-[var(--muted-text)] hover:bg-[var(--background)]/40"
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <CompanyLogo slug={c.slug} name={c.name} size={28} />
+                          <span className="text-xs truncate text-[var(--foreground)]">{c.name}</span>
+                        </div>
+                        {active && (
+                          <span aria-hidden className="text-xs font-bold text-[var(--accent)]">
+                            ✓
+                          </span>
+                        )}
+                      </motion.button>
+                    );
+                  })}
                 </div>
-                <motion.span
-                  initial={false}
-                  animate={{
-                    scale: active ? 1 : 0,
-                    opacity: active ? 1 : 0,
-                  }}
-                  transition={{ duration: 0.2 }}
-                  className="text-xs font-bold text-[var(--accent)]"
-                >
-                  ✓
-                </motion.span>
-              </motion.button>
-            );
-          })}
-        </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Comparison table */}
+      {/* Comparison output */}
       <AnimatePresence mode="wait">
         {selectedCompanies.length > 0 ? (
           <motion.section
@@ -206,77 +306,115 @@ function CompareContent() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="mt-10 overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--background)] shadow-lg"
+            className="mt-10"
           >
-            {/* Header controls inside table */}
-            <div className="flex items-center justify-between border-b border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-6 py-3 text-xs text-[var(--muted-text)]">
-              <span>Orientation Matrix</span>
-              <button
-                onClick={shareLink}
-                className="flex items-center gap-1.5 btn-ghost text-xs px-3 py-1"
-              >
-                <span>🔗 Share comparison link</span>
-              </button>
-            </div>
+            {/* Key differences + verdict (T106/T107) — shown when comparing */}
+            {differences.length > 0 && (
+              <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6">
+                <h2 className="text-base font-bold tracking-tight text-[var(--foreground)]">Key differences</h2>
+                <ul className="mt-3 space-y-2">
+                  {differences.map((d) => (
+                    <li key={d} className="flex gap-2 text-sm leading-relaxed text-[var(--foreground)]">
+                      <span aria-hidden className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[var(--accent)]" />
+                      <span>{d}</span>
+                    </li>
+                  ))}
+                </ul>
+                {verdicts.length > 0 && (
+                  <div className="mt-5 border-t border-[var(--border-color)] pt-4">
+                    <h3 className="text-sm font-bold text-[var(--foreground)]">Where each option fits</h3>
+                    <ul className="mt-2 space-y-2">
+                      {verdicts.map((v) => (
+                        <li key={v} className="text-sm leading-relaxed text-[var(--muted-text)]">
+                          {v}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                <p className="mt-4 text-[11px] leading-relaxed text-[var(--muted-text)]">
+                  These notes are derived from each profile&rsquo;s documented strengths and weaknesses — not a score, and not a recommendation to pick one provider outright.
+                </p>
+              </div>
+            )}
 
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <caption>Comparison of selected companies across key dimensions</caption>
-                <thead>
-                  <tr className="border-b border-[var(--border-color)] bg-[var(--subtle-bg)]/20">
-                    <th scope="col" className="p-4 text-left text-xs font-bold uppercase tracking-wider text-[var(--muted-text)] w-1/4">
-                      Dimension
-                    </th>
-                    <AnimatePresence initial={false}>
-                      {selectedCompanies.map((c) => (
-                        <motion.th
-                          key={c.slug}
-                          scope="col"
-                          layout
-                          initial={{ opacity: 0, x: -12, width: 0 }}
-                          animate={{ opacity: 1, x: 0, width: "auto" }}
-                          exit={{ opacity: 0, x: -12, width: 0 }}
-                          transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-                          className="p-4 text-left min-w-[220px] overflow-hidden"
-                        >
-                          <div className="flex items-center justify-between gap-2">
-                            <div className="flex items-center gap-2.5 min-w-0">
-                              <CompanyLogo slug={c.slug} name={c.name} size={32} />
-                              <div className="min-w-0">
-                                <div className="font-bold text-base text-[var(--foreground)] truncate">{c.name}</div>
-                                <div className="text-[11px] font-normal text-[var(--muted-text)] truncate">
-                                  {c.categories.join(", ")}
-                                </div>
-                                <div className="mt-1.5">
-                                  <PartnerCta
-                                    slug={c.slug}
-                                    placement="compare"
-                                    label={`Visit ${c.name}`}
-                                    variant="link"
-                                    className="text-[11px]"
-                                  />
+            {/* Desktop table (T109: hidden below md, replaced by stacked cards) */}
+            <div className="hidden md:block mt-6 overflow-hidden rounded-lg border border-[var(--border-color)] bg-[var(--background)] shadow-lg">
+              {/* Header controls inside table */}
+              <div className="flex items-center justify-between border-b border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-6 py-3 text-xs text-[var(--muted-text)]">
+                <span>Orientation Matrix</span>
+                <button
+                  onClick={shareLink}
+                  className="flex items-center gap-1.5 btn-ghost text-xs px-3 py-1"
+                >
+                  <IconLink size={13} />
+                  <span>Share comparison link</span>
+                </button>
+              </div>
+
+              <div>
+                <table className="w-full text-sm">
+                  <caption>Comparison of selected companies across decision factors, sources and background</caption>
+                  <thead>
+                    <tr className="border-b border-[var(--border-color)] bg-[var(--subtle-bg)]/20">
+                      <th scope="col" className="p-4 text-left text-xs font-bold uppercase tracking-wider text-[var(--muted-text)] w-1/4">
+                        Dimension
+                      </th>
+                      <AnimatePresence initial={false}>
+                        {selectedCompanies.map((c) => (
+                          <motion.th
+                            key={c.slug}
+                            scope="col"
+                            layout
+                            initial={{ opacity: 0, x: -12, width: 0 }}
+                            animate={{ opacity: 1, x: 0, width: "auto" }}
+                            exit={{ opacity: 0, x: -12, width: 0 }}
+                            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                            className="p-4 text-left min-w-[220px] overflow-hidden"
+                          >
+                            <div className="flex items-start justify-between gap-2">
+                              <div className="flex items-center gap-2.5 min-w-0">
+                                <CompanyLogo slug={c.slug} name={c.name} size={32} />
+                                <div className="min-w-0">
+                                  <div className="font-bold text-base text-[var(--foreground)] truncate">{c.name}</div>
+                                  <div className="text-[11px] font-normal text-[var(--muted-text)] truncate">
+                                    {c.categories.join(", ")}
+                                  </div>
+                                  <div className="mt-1.5">
+                                    <PartnerCta
+                                      slug={c.slug}
+                                      placement="compare"
+                                      label={`Visit ${c.name}`}
+                                      variant="link"
+                                      className="text-[11px]"
+                                    />
+                                  </div>
                                 </div>
                               </div>
+                              <button
+                                onClick={() => toggleSelect(c.slug)}
+                                className="shrink-0 inline-flex h-9 w-9 items-center justify-center rounded-lg text-sm text-[var(--muted-text)] hover:text-danger-text hover:bg-[var(--subtle-bg)] focus-visible:text-danger-text focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+                                title="Remove from comparison"
+                                aria-label={`Remove ${c.name} from comparison`}
+                              >
+                                ✕
+                              </button>
                             </div>
-                            <button
-                              onClick={() => toggleSelect(c.slug)}
-                              className="shrink-0 text-xs text-[var(--muted-text)] hover:text-danger-text focus-visible:text-danger-text focus-visible:outline-none focus-visible:ring-[var(--ring)] rounded p-1"
-                              title="Remove from comparison"
-                              aria-label={`Remove ${c.name} from comparison`}
-                            >
-                              ✕
-                            </button>
-                          </div>
-                        </motion.th>
-                      ))}
-                    </AnimatePresence>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[var(--border-color)]">
-                  {rows.map((row) => (
-                    <tr key={row.label} className="hover:bg-[var(--subtle-bg)]/30 transition-colors">
+                          </motion.th>
+                        ))}
+                      </AnimatePresence>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[var(--border-color)]">
+                    {decideRows.map((row) => (
+                      <ComparisonRow key={row.id} row={row} companies={selectedCompanies} emphasized={emphasizedRowIds.has(row.id)} />
+                    ))}
+                    {verifyRows.map((row) => (
+                      <ComparisonRow key={row.id} row={row} companies={selectedCompanies} emphasized={false} />
+                    ))}
+                    <tr>
                       <th scope="row" className="p-4 text-xs font-bold uppercase tracking-wider text-[var(--muted-text)]">
-                        {row.label}
+                        Full Profile Link
                       </th>
                       <AnimatePresence initial={false}>
                         {selectedCompanies.map((c) => (
@@ -287,41 +425,137 @@ function CompareContent() {
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -10 }}
                             transition={animation.transition.layoutFast}
-                            className="p-4 text-sm leading-relaxed align-top"
+                            className="p-4 text-sm"
                           >
-                            {row.fn(c)}
+                            <Link
+                              href={`/companies/${c.slug}`}
+                              className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--accent)] hover:underline"
+                            >
+                              View {c.name} page →
+                            </Link>
                           </motion.td>
                         ))}
                       </AnimatePresence>
                     </tr>
-                  ))}
-                  <tr>
-                    <th scope="row" className="p-4 text-xs font-bold uppercase tracking-wider text-[var(--muted-text)]">
-                      Full Profile Link
-                    </th>
-                    <AnimatePresence initial={false}>
-                      {selectedCompanies.map((c) => (
-                        <motion.td
-                          key={c.slug}
-                          layout
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: -10 }}
-                          transition={animation.transition.layoutFast}
-                          className="p-4 text-sm"
+                  </tbody>
+                  {/* Context band (T102) — identity facts, collapsed by default */}
+                  <tbody>
+                    <tr className="border-t border-[var(--border-color)] bg-[var(--subtle-bg)]/30">
+                      <td colSpan={selectedCompanies.length + 1} className="px-4 py-2">
+                        <button
+                          onClick={() => setShowContext((v) => !v)}
+                          aria-expanded={showContext}
+                          className="mx-auto flex items-center gap-1.5 text-xs font-semibold text-[var(--muted-text)] hover:text-[var(--foreground)] focus-visible:outline-none focus-visible:ring-[var(--ring)] rounded px-2 py-1.5"
                         >
-                          <Link
-                            href={`/companies/${c.slug}`}
-                            className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--accent)] hover:underline"
-                          >
-                            View {c.name} page →
-                          </Link>
-                        </motion.td>
+                          <span aria-hidden>{showContext ? "−" : "+"}</span>
+                          {showContext ? "Hide company background" : "Show company background (founding, size, valuation)"}
+                        </button>
+                      </td>
+                    </tr>
+                    {showContext &&
+                      contextRows.map((row) => (
+                        <ComparisonRow key={row.id} row={row} companies={selectedCompanies} emphasized={false} muted />
                       ))}
-                    </AnimatePresence>
-                  </tr>
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
+              </div>
+
+              <p className="border-t border-[var(--border-color)] bg-[var(--subtle-bg)]/30 px-6 py-3 text-[11px] leading-relaxed text-[var(--muted-text)]">
+                {verificationNote()}
+              </p>
+            </div>
+
+            {/* Mobile stacked cards (T109): every cell readable without horizontal scroll */}
+            <div className="md:hidden mt-6 space-y-4">
+              <div className="flex items-center justify-between rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/40 px-4 py-2.5 text-xs text-[var(--muted-text)]">
+                <span>Orientation summary</span>
+                <button
+                  onClick={shareLink}
+                  className="flex items-center gap-1.5 rounded px-2 py-1.5 font-semibold text-[var(--accent)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+                >
+                  <IconLink size={13} />
+                  Share link
+                </button>
+              </div>
+
+              {differences.length > 0 && (
+                <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-4 text-sm">
+                  <h2 className="text-sm font-bold text-[var(--foreground)]">Key differences</h2>
+                  <ul className="mt-2 space-y-2">
+                    {differences.map((d) => (
+                      <li key={d} className="leading-relaxed text-[var(--muted-text)]">{d}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {selectedCompanies.map((c) => (
+                <div
+                  key={c.slug}
+                  style={{ ["--accent"]: c.accent } as CSSProperties}
+                  className="rounded-lg border border-[var(--border-color)] bg-[var(--background)]"
+                >
+                  <div className="flex items-center justify-between gap-3 border-b border-[var(--border-color)] p-4">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <CompanyLogo slug={c.slug} name={c.name} size={36} />
+                      <div className="min-w-0">
+                        <div className="truncate font-bold text-[var(--foreground)]">{c.name}</div>
+                        <div className="truncate text-[11px] text-[var(--muted-text)]">{c.categories.join(", ")}</div>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => toggleSelect(c.slug)}
+                      className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-sm text-[var(--muted-text)] hover:text-danger-text focus-visible:text-danger-text focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+                      title="Remove from comparison"
+                      aria-label={`Remove ${c.name} from comparison`}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                  <dl className="divide-y divide-[var(--border-color)] px-4">
+                    {[...decideRows, ...verifyRows].map((row) => (
+                      <div key={row.id} className="py-3">
+                        <dt className={`text-[10px] uppercase tracking-wider font-mono ${emphasizedRowIds.has(row.id) ? "text-[var(--accent)]" : "text-[var(--muted-text)]"}`}>
+                          {row.label}
+                        </dt>
+                        <dd className="mt-1 text-sm leading-relaxed text-[var(--foreground)]">{row.value(c)}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <details className="border-t border-[var(--border-color)] px-4 py-3">
+                    <summary className="cursor-pointer text-xs font-semibold text-[var(--muted-text)] marker:content-none hover:text-[var(--foreground)] focus-visible:outline-none focus-visible:ring-[var(--ring)] rounded">
+                      Company background
+                    </summary>
+                    <dl className="mt-2 divide-y divide-[var(--border-color)]">
+                      {contextRows.map((row) => (
+                        <div key={row.id} className="py-2.5">
+                          <dt className="text-[10px] uppercase tracking-wider font-mono text-[var(--muted-text)]">{row.label}</dt>
+                          <dd className="mt-0.5 text-sm leading-relaxed text-[var(--foreground)]">{row.value(c)}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </details>
+                  <div className="border-t border-[var(--border-color)] p-4">
+                    <PartnerCta
+                      slug={c.slug}
+                      placement="compare"
+                      label={`Visit ${c.name}`}
+                      variant="link"
+                      className="text-xs mr-4"
+                    />
+                    <Link
+                      href={`/companies/${c.slug}`}
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--accent)] hover:underline"
+                    >
+                      View full profile →
+                    </Link>
+                  </div>
+                </div>
+              ))}
+
+              <p className="px-1 text-[11px] leading-relaxed text-[var(--muted-text)]">
+                {verificationNote()}
+              </p>
             </div>
           </motion.section>
         ) : (
@@ -329,16 +563,71 @@ function CompareContent() {
             key="empty"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-12 rounded-2xl border border-dashed border-[var(--border-color)] p-12 text-center"
+            className="mt-12 rounded-lg border border-dashed border-[var(--border-color)] p-12 text-center"
           >
             <p className="text-sm text-[var(--muted-text)]">
-              Select 1 to 3 companies above or click a preset benchmark to start comparing.
+              Pick a scenario above, choose a preset benchmark, or select 1–3 companies below to start comparing.
             </p>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
   );
+}
+
+/**
+ * One desktop-table row. Decision-driver rows (from an active scenario) carry
+ * a quiet accent marker instead of a loud highlight — emphasis without
+ * turning the table into a scoreboard.
+ */
+function ComparisonRow({
+  row,
+  companies,
+  emphasized,
+  muted = false,
+}: {
+  row: (typeof COMPARE_ROWS)[number];
+  companies: CompanySummary[];
+  emphasized: boolean;
+  muted?: boolean;
+}) {
+  return (
+    <tr className="hover:bg-[var(--subtle-bg)]/30 transition-colors">
+      <th scope="row" className="p-4 align-top">
+        <span className={`block text-xs font-bold uppercase tracking-wider ${emphasized ? "text-[var(--accent)]" : "text-[var(--muted-text)]"} ${muted ? "!font-medium" : ""}`}>
+          {emphasized && <span aria-hidden className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-[var(--accent)] align-middle" />}
+          {row.label}
+        </span>
+        {emphasized && (
+          <span className="mt-1 block text-[10px] font-mono normal-case tracking-normal text-[var(--muted-text)]">
+            decision driver
+          </span>
+        )}
+      </th>
+      <AnimatePresence initial={false}>
+        {companies.map((c) => (
+          <motion.td
+            key={c.slug}
+            layout
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -10 }}
+            transition={animation.transition.layoutFast}
+            className={`p-4 align-top ${muted ? "text-xs" : "text-sm"} leading-relaxed ${emphasized ? "font-medium text-[var(--foreground)]" : ""}`}
+          >
+            {row.value(c)}
+          </motion.td>
+        ))}
+      </AnimatePresence>
+    </tr>
+  );
+}
+
+/** Fuzzy ranking over the summaries; empty query keeps catalog order. */
+function fuzzyRankCompanies(query: string): CompanySummary[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return [...companySummaries];
+  return fuzzyRank(companySummaries, q, (c) => [c.name, c.searchTerms], 20);
 }
 
 export default function ComparePageClient() {
