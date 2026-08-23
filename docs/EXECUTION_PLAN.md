@@ -330,14 +330,16 @@ Publish **two deeply researched pages per week** instead.
 
 Publish in this order:
 
-1. Razorpay fee calculator
-2. Razorpay vs Stripe for Indian businesses
-3. Razorpay vs Cashfree
+1. ~~Razorpay fee calculator~~ ✅ shipped — `/tools/razorpay-fee-calculator` (dedicated page: 2% domestic + 18% GST, international up to 3%, reverse-charge estimate)
+2. ~~Razorpay vs Stripe for Indian businesses~~ ✅ shipped — `/articles/razorpay-vs-stripe-payments-india/`
+3. ~~Razorpay vs Cashfree~~ ✅ shipped — `/articles/razorpay-vs-cashfree-indian-gateways/` (+ `razorpay-vs-cashfree-for-ecommerce` for plan item 22)
 4. ~~Best payment gateway for Indian startups~~ ✅ done — `/articles/best-payment-gateway-indian-startups/` (2026-08-15): Razorpay/Cashfree/Stripe (India)/Paytm compared on flat 2% + 18% GST, UPI as the zero-MDR default rail; relatedTool fee calculator
-5. Payment gateway fee comparison India
+5. ~~Payment gateway fee comparison India~~ ✅ shipped — `/articles/payment-gateway-fee-comparison-india/`
 6. ~~Best payment gateway for Indian SaaS~~ ✅ done — `/articles/best-payment-gateway-indian-saas/` (2026-08-15): INR subscriptions + USD revenue in one stack — Razorpay UPI-first vs Stripe Billing vs Cashfree payouts; relatedTool fee calculator
 7. ~~Razorpay international payment fees~~ ✅ done — `/articles/razorpay-international-payment-fees/` (2026-08-15): up-to-3% international cards, 18% GST on the fee (3.54% on ₹10,000), bundled conversion, MoneySaver export-account path; relatedTool exchange-rate markup calculator
-8. Best payment gateway for Shopify India
+8. ~~Best payment gateway for Shopify India~~ ✅ shipped — `/articles/best-payment-gateway-shopify-india/`
+
+Month 1 cluster: complete.
 
 ### Original value required
 
@@ -353,29 +355,29 @@ Publish in this order:
 
 ## Month 2: international freelancer payments
 
-9. Best way to receive USD in India
-10. Payoneer fees India
-11. Wise vs Payoneer for Indian freelancers
-12. PayPal vs Payoneer India
-13. Best payment method for Upwork India
-14. Best payment method for Fiverr India
-15. Receive international client payments in India
-16. International payment fee calculator India
+9. ~~Best way to receive USD in India~~ ✅ shipped — `/articles/best-way-to-receive-usd-in-india/` (decision hub)
+10. ~~Payoneer fees India~~ ✅ shipped — `/articles/payoneer-fees-india/`
+11. ~~Wise vs Payoneer for Indian freelancers~~ ✅ shipped — `/articles/wise-vs-payoneer-business-payouts/`
+12. ~~PayPal vs Payoneer India~~ ✅ shipped — `/articles/paypal-vs-payoneer-india/`
+13. ~~Best payment method for Upwork India~~ ✅ shipped — `/articles/best-payment-method-upwork-india/`
+14. ~~Best payment method for Fiverr India~~ ✅ shipped — `/articles/best-payment-method-fiverr-india/`
+15. Receive international client payments in India — **open**; partially covered by the receive-USD hub (item 9) and the amount-specific guides (items 17–19); decide whether it is a distinct page or a redirect target
+16. International payment fee calculator India — **open as a dedicated tool**; partial coverage via Cross-Border FX Estimator (`/tools/remittance`) + Exchange-Rate Markup Calculator; decide whether an INR-first combined calculator adds value or fragments existing tools
 
 Search results show active competition in this area, including provider pages, independent comparisons and dedicated calculators. Your content needs exact India-specific scenarios and original calculations rather than another broad list. ([Payoneer][10])
 
 ## Month 3: specialist long-tail content
 
-17. Receiving $500 from a US client in India
-18. Receiving $1,000 from a US client in India
-19. Receiving $5,000 from a US client in India
-20. Payment gateway for Indian subscription businesses
-21. Razorpay vs Stripe for developers
-22. Razorpay vs Cashfree for ecommerce
-23. International payment settlement times
+17. ~~Receiving $500 from a US client in India~~ ✅ shipped — `/articles/receiving-500-usd-from-us-client-in-india/`
+18. ~~Receiving $1,000 from a US client in India~~ ✅ shipped — `/articles/receiving-1000-usd-from-us-client-in-india/`
+19. ~~Receiving $5,000 from a US client in India~~ ✅ shipped — `/articles/receiving-5000-usd-from-us-client-in-india/`
+20. ~~Payment gateway for Indian subscription businesses~~ ✅ shipped — `/articles/payment-gateway-for-subscription-businesses/`
+21. ~~Razorpay vs Stripe for developers~~ ✅ shipped — `/articles/razorpay-vs-stripe-for-developers/`
+22. ~~Razorpay vs Cashfree for ecommerce~~ ✅ shipped — `/articles/razorpay-vs-cashfree-for-ecommerce/`
+23. ~~International payment settlement times~~ ✅ shipped — `/articles/international-payment-settlement-times/`
 24. ~~Exchange-rate markup calculator~~ ✅ done — `/tools/exchange-rate-markup-calculator` (2026-08-04): input-only mid-vs-offered rate tool with markup % and INR/USD loss for both directions; relatedTool on payoneer-fees-india, how-to-send-money-abroad-cheap, wise-vs-payoneer-business-payouts
-25. FIRA/FIRC payment-method comparison
-26. Quarterly India Cross-Border Payment Fee Index
+25. ~~FIRA/FIRC payment-method comparison~~ ✅ shipped — `/articles/fira-vs-firc-payment-methods/`
+26. ~~Quarterly India Cross-Border Payment Fee Index~~ ✅ shipped — `/articles/quarterly-india-cross-border-fee-index/` (+ Q3 2026 regulatory research report draft in `docs/research/quarterly-2026-q3.md`)
 
 The amount-specific pages should not be nearly identical. Each must have distinct calculations, explanation, provider eligibility and recommendations, or they risk being perceived as scaled low-value content.
 
