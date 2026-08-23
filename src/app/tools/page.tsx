@@ -64,13 +64,14 @@ export default function ToolsPage() {
               <div>
                 <div className="flex items-center justify-between">
                   {/* Editorial index numeral instead of an icon — the tool
-                      name carries the meaning (handoff P1-1). */}
+                      name carries the meaning (handoff P1-1). Accent text on
+                      a NEUTRAL surface keeps WCAG AA deterministic; the tint
+                      lives only in the border. */}
                   <span
                     aria-hidden
                     className="flex h-10 w-10 items-center justify-center rounded-lg border font-mono text-sm font-bold"
                     style={{
-                      borderColor: `color-mix(in srgb, ${accent} 33%, transparent)`,
-                      background: `color-mix(in srgb, ${accent} 10%, transparent)`,
+                      borderColor: `color-mix(in srgb, ${accent} 45%, transparent)`,
                       color: accent,
                     }}
                   >
@@ -78,7 +79,7 @@ export default function ToolsPage() {
                   </span>
                   <span
                     className="rounded-full border px-3 py-1 text-[11px] font-medium font-mono"
-                    style={{ borderColor: `color-mix(in srgb, ${accent} 33%, transparent)`, background: `color-mix(in srgb, ${accent} 10%, transparent)`, color: accent }}
+                    style={{ borderColor: `color-mix(in srgb, ${accent} 45%, transparent)`, color: accent }}
                   >
                     {tool.badge}
                   </span>
