@@ -675,6 +675,47 @@ Tasks:
 
 ---
 
+# 12b. UI usability & comparison redesign (T101–T112)
+
+Source audit: `docs/UI_USABILITY_HANDOFF.md` (2026-08-23). Goal: make the UI
+read as human-crafted and rebuild `/compare` around user intent.
+
+**Status: complete (2026-08-23).** All twelve tasks implemented; lint,
+typecheck, 507 unit tests, 75 e2e specs (axe zero-violations intact) and the
+Lighthouse CI gate all pass. The compressed-JS budget moved 450 KB → 475 KB to
+absorb ~26 KB of genuine new decision-surface code (measured against the
+pre-redesign tree); revisit at T095/T096 — see the history comment in
+`scripts/check-performance-budget.mjs`.
+
+## Phase 1 — high-leverage, low-risk
+
+| ID   | Task                                                                 | Status |
+| ---- | -------------------------------------------------------------------- | ------ |
+| T101 | Profile → Compare bridge ("Add to comparison" from every profile)    | ✅ done — `CompareBridgeLink` on every profile hero; deep-links `/compare?companies=<slug>`, upgrades to "Add to comparison" when a stored line-up can be joined (`lib/compare.ts` last-selection storage) |
+| T102 | Compare row regrouping: Decide → Verify → Context (collapsed)        | ✅ done — `lib/compare-view.ts` row groups; context band collapsed by default, expandable |
+| T103 | Emoji purge → inline-SVG/typographic system (handoff §P1-1 list)     | ✅ done — `ui/icons.tsx` inline-SVG set replaces 🧮💳🌍📈🏦📊🔥✨🔗⚡ etc.; geometric marks (★ ✓ ✕ ₹ →) retained as typographic system |
+| T104 | De-AI pass: solid scroll progress, no glow blobs, radius + hover discipline, one reveal-stagger per page | ✅ done — gradient scroll bar → solid, tools-hub glow blob removed, dead `.gradient-text` deleted, scale-pop hovers dropped, card radii pulled back to rounded-lg/xl |
+
+## Phase 2 — comparison redesign
+
+| ID   | Task                                                                 | Status |
+| ---- | -------------------------------------------------------------------- | ------ |
+| T105 | Scenario router as the primary compare entry point                   | ✅ done — "What are you deciding?" scenarios (`data/compare-presets.ts`) with per-scenario row emphasis; presets demoted to secondary quick-starts |
+| T106 | Difference-first rendering (hide agreeing rows, key-differences summary) | ✅ done — agreeing rows hidden for 2+ selections; auto-generated "Key differences" bullets above the table |
+| T107 | Honest verdict block derived from strengths/weaknesses               | ✅ done — "Where each option fits" lines templated from documented strengths/weaknesses only; hedged copy, no scores, no winners |
+| T108 | Selector fuzzy search + category grouping + aria-live announcements  | ✅ done — `fuzzyRank` over name/search terms, tiles grouped by category, polite aria-live selection/match announcements |
+| T109 | Mobile table rework (stacked cards, no horizontal scroll at 390px)   | ✅ done — per-company stacked cards below `md`; desktop table hidden there |
+
+## Phase 3 — consistency & recovery surfaces
+
+| ID   | Task                                                                 | Status |
+| ---- | -------------------------------------------------------------------- | ------ |
+| T110 | URL persistence for directory/india/radar filters                    | ✅ done — shared primitives in `lib/url-filters.ts` (+ round-trip tests); `?q/category/sort/view`, `?q/cluster/page` and full radar filter sets survive reload and are shareable |
+| T111 | Fuzzy search in directories + shared empty-state component           | ✅ done — fuzzy matching in companies + India directory search; shared `ui/empty-state.tsx` with mandatory clear-filters action used by all three filtered surfaces |
+| T112 | Saved hub consolidation (bookmarks · notes · tool sessions · radar)  | ✅ done — `/bookmarks` now lists private notes (`reviews_*`), restorable calculator sessions (`fintech_atlas_tool_*`) and radar watchlist/saved searches via lazily-imported `lib/saved-hub.ts`; Radar Activity/Review Queue/Watchlist added to More menu + command palette; CSV export on companies, India directory and radar result sets |
+
+---
+
 # 12. Ninety-day execution order
 
 ## Weeks 1–2: make it trustworthy
