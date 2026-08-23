@@ -54,6 +54,23 @@ describe("weekly digest", () => {
     expect(matchesFocus(events[1], { licences: ["PA"] })).toBe(false);
   });
 
+  it("focus filters by regulator with code fallback, and no-focus passes everything", () => {
+    // Licence codes are the RBI regulator strings here, so code "PA" passes.
+    expect(matchesFocus(events[0], { regulators: ["RBI"] })).toBe(false);
+    // Explicit regulator on the detail wins when present.
+    const withRegulator = { ...events[0], detail: { ...events[0].detail, regulator: "RBI" } };
+    expect(matchesFocus(withRegulator, { regulators: ["RBI"] })).toBe(true);
+    // …falling back to the licence code upper-cased otherwise.
+    expect(matchesFocus(events[0], { regulators: ["PA"] })).toBe(true);
+    expect(matchesFocus(events[1], { regulators: ["PA"] })).toBe(false);
+    // Events missing both fields are excluded by a regulator focus…
+    expect(matchesFocus({ ...events[0], detail: {} }, { regulators: ["RBI"] })).toBe(false);
+    // …and undefined focus admits every event.
+    expect(matchesFocus(events[0], undefined)).toBe(true);
+    // Empty filter arrays behave like no filter.
+    expect(matchesFocus(events[0], { licences: [], regulators: [] })).toBe(true);
+  });
+
   it("buildSections groups events by type in canonical order", () => {
     const sections = buildSections(events, companies);
     expect(sections).toHaveLength(1);
@@ -74,6 +91,28 @@ describe("weekly digest", () => {
     expect(body).toContain("**2 changes recorded.**");
     expect(body).toContain("## New licences");
     expect(body).toContain("- Razorpay — licence PA, status authorised, on 2026-08-15");
+  });
+
+  it("renderDigest renders the quiet no-changes path and singular grammar", () => {
+    const empty = renderDigest({
+      title: "Radar weekly",
+      weekLabel: "quiet week",
+      generatedAt: "2026-08-23",
+      events: [],
+      companies,
+    });
+    expect(empty).toContain("**0 changes recorded.**");
+    expect(empty).toContain("No changes recorded in this period.");
+    // happenedOn lives on the event (not detail), so a detail-less entry
+    // still renders the date bit — assert the bare-company form exactly.
+    const bare = renderDigest({
+      title: "Radar weekly",
+      weekLabel: "bare week",
+      generatedAt: "2026-08-23",
+      events: [{ ...events[0], detail: {} } as RadarEvent],
+      companies,
+    });
+    expect(bare).toContain("- Razorpay — on 2026-08-15");
   });
 
   it("digestForCompany isolates one company's events", () => {

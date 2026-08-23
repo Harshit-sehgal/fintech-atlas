@@ -30,7 +30,11 @@ export function decodeHtmlEntities(value: string): string {
       const body = match.slice(2, -1);
       const hex = body[0] === "x" || body[0] === "X";
       const code = parseInt(body.slice(hex ? 1 : 0), hex ? 16 : 10);
-      if (!Number.isNaN(code) && code >= 0) return String.fromCodePoint(code);
+      // Ceiling guard: fromCodePoint throws above 0x10FFFF, and a hostile or
+      // malformed page must degrade to the raw text, never crash ingestion.
+      if (!Number.isNaN(code) && code >= 0 && code <= 0x10ffff) {
+        return String.fromCodePoint(code);
+      }
     }
     return match;
   });

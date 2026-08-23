@@ -135,9 +135,28 @@ export function extractStoredRates(source: string): Record<string, number> {
   return rates;
 }
 
-async function main(): Promise<void> {
-  console.log(`Fetching ECB reference rates: ${RATES_URL}`);
-  const res = await fetch(RATES_URL, {
+export interface RatesFetchDeps {
+  fetchFn?: typeof fetch;
+  readConfig?: () => string;
+  writeConfig?: (source: string) => void;
+  url?: string;
+}
+
+/**
+ * Orchestration with injectable IO so the full happy path and every abort
+ * path are unit-testable without touching the real config file or network.
+ * `main()` below just calls this with production defaults.
+ */
+export async function runRatesFetch(deps: RatesFetchDeps = {}): Promise<void> {
+  const {
+    fetchFn = fetch,
+    readConfig = () => readFileSync(CONFIG_PATH, "utf8"),
+    writeConfig = (source: string) => writeFileSync(CONFIG_PATH, source),
+    url = RATES_URL,
+  } = deps;
+
+  console.log(`Fetching ECB reference rates: ${url}`);
+  const res = await fetchFn(url, {
     headers: { "user-agent": "FinTechAtlas/1.0 (fx snapshot refresher)" },
     signal: AbortSignal.timeout(30_000),
   });
@@ -146,7 +165,7 @@ async function main(): Promise<void> {
   }
   const { date, rates } = parseRatesResponse(await res.text());
 
-  const source = readFileSync(CONFIG_PATH, "utf8");
+  const source = readConfig();
   const previous = extractStoredRates(source);
   const bad = implausibleMoves(previous, rates);
   if (bad.length > 0) {
@@ -155,12 +174,16 @@ async function main(): Promise<void> {
     );
   }
 
-  writeFileSync(CONFIG_PATH, applyRatesToConfig(source, date, rates));
+  writeConfig(applyRatesToConfig(source, date, rates));
   console.log(`Snapshot updated to ${date}:`);
   for (const code of EXPECTED_CURRENCIES) {
     console.log(`  USD/${code} ${previous[code]} → ${formatRate(rates[code])}`);
   }
   console.log(`Written: ${CONFIG_PATH}`);
+}
+
+async function main(): Promise<void> {
+  await runRatesFetch();
 }
 
 const isMain =

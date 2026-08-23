@@ -69,7 +69,55 @@ describe("RBI company matching", () => {
     const match = matchCompany("A Company That Does Not Exist", companies);
     expect(match.companyId).toBeUndefined();
   });
+
+  it("matches via unique normalized form even when raw names differ", () => {
+    const synthetic = [
+      company("c1", "Zephyr", "Zephyr Technologies Private Limited"),
+      // A decoy that shares no normalized name with the query.
+      company("c2", "Totally Different Corp", "Totally Different Corporation"),
+    ];
+    const match = matchCompany("Zephyr Technologies Private Limited", synthetic);
+    expect(match.companyId).toBe("c1");
+    expect(match.ambiguous).toBe(false);
+    expect(match.matchedName).toBe("Zephyr");
+  });
+
+  it("flags near-tie fuzzy matches as ambiguous for the review queue", () => {
+    // Two distinct records share a normalized brand token while the entry's
+    // raw name matches neither exactly — exactly the review-queue case.
+    const twins = [
+      company("a", "Aurum Payments", "Aurum Ltd"),
+      company("b", "Aurum Payments", "Aurum Bancorp Ltd"),
+    ];
+    const match = matchCompany("Aurum Payments LLP", twins);
+    expect(match.companyId).toBe("a");
+    expect(match.ambiguous).toBe(true);
+  });
+
+  it("returns an empty match for an empty catalog and scores sub-threshold names out", () => {
+    expect(matchCompany("Razorpay", [])).toEqual({
+      companyName: "Razorpay",
+      score: 0,
+      ambiguous: false,
+    });
+    const weak = [company("w", "Qx", "Qx")];
+    const lowScore = matchCompany("Completely Unrelated Words Here", weak);
+    expect(lowScore.companyId).toBeUndefined();
+    expect(lowScore.score).toBeLessThan(40);
+  });
 });
+
+function company(id: string, displayName: string, legalName: string) {
+  return {
+    id,
+    displayName,
+    legalName,
+    cluster: "payments",
+    category: "payment-aggregator",
+    valuationOrStatus: "n/a",
+    status: "active",
+  };
+}
 
 describe("RBI ingestion pipeline", () => {
   const companies = loadCompanies();

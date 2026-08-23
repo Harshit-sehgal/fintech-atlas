@@ -5,6 +5,7 @@ import {
   formatRate,
   implausibleMoves,
   parseRatesResponse,
+  runRatesFetch,
 } from "../../scripts/fetch-rates";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -76,6 +77,67 @@ describe("applyRatesToConfig", () => {
     expect(() =>
       applyRatesToConfig(noEur, "2026-08-21", { EUR: 0.9, GBP: 0.7, INR: 90, CAD: 1.4, AUD: 1.4, BRL: 5, JPY: 150 }),
     ).toThrow(/anchor not found|No stored rate/);
+  });
+});
+
+describe("runRatesFetch (injected IO — full orchestration)", () => {
+  const config = () => configSource();
+  const okResponse = (body: string) =>
+    ({ ok: true, status: 200, text: async () => body }) as unknown as Response;
+
+  it("writes a refreshed config on the happy path", async () => {
+    const written: string[] = [];
+    await runRatesFetch({
+      fetchFn: (async () => okResponse(VALID_BODY)) as typeof fetch,
+      readConfig: config,
+      writeConfig: (s) => written.push(s),
+    });
+    expect(written).toHaveLength(1);
+    expect(written[0]).toContain('RATES_AS_OF = "2026-08-21T00:00:00.000Z"');
+    // Written output stays a valid, re-readable snapshot.
+    expect(extractStoredRates(written[0]).EUR).toBeCloseTo(0.8548, 3);
+  });
+
+  it("aborts without writing when the HTTP response is not ok", async () => {
+    const written: string[] = [];
+    await expect(
+      runRatesFetch({
+        fetchFn: (async () =>
+          ({ ok: false, status: 503, text: async () => "" }) as unknown as Response) as typeof fetch,
+        readConfig: config,
+        writeConfig: (s) => written.push(s),
+      }),
+    ).rejects.toThrow(/HTTP 503/);
+    expect(written).toHaveLength(0);
+  });
+
+  it("refuses to write an implausible move and leaves the config untouched", async () => {
+    const garbage = JSON.stringify({
+      base: "USD",
+      date: "2026-08-22",
+      rates: { EUR: 0.9, GBP: 0.7, INR: 9500, CAD: 1.4, AUD: 1.4, BRL: 5, JPY: 150 },
+    });
+    const written: string[] = [];
+    await expect(
+      runRatesFetch({
+        fetchFn: (async () => okResponse(garbage)) as typeof fetch,
+        readConfig: config,
+        writeConfig: (s) => written.push(s),
+      }),
+    ).rejects.toThrow(/Implausible move.*INR/);
+    expect(written).toHaveLength(0);
+  });
+
+  it("surfaces payload validation failures before any write", async () => {
+    const written: string[] = [];
+    await expect(
+      runRatesFetch({
+        fetchFn: (async () => okResponse("<html>blocked</html>")) as typeof fetch,
+        readConfig: config,
+        writeConfig: (s) => written.push(s),
+      }),
+    ).rejects.toThrow(/JSON/);
+    expect(written).toHaveLength(0);
   });
 });
 
