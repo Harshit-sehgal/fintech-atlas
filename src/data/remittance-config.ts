@@ -44,21 +44,21 @@ export interface RemittanceProviderConfig {
  * every time you refresh the rates. The UI surfaces it and flags stale data,
  * and `isRateSnapshotStale()` lets CI/build fail if it drifts too old.
  */
-export const RATES_AS_OF = "2026-08-12T00:00:00.000Z";
-export const RATES_SOURCE = "Mid-market snapshot 2026-08-12 (IMF/ECB/funding-rate references)";
+export const RATES_AS_OF = "2026-08-21T00:00:00.000Z";
+export const RATES_SOURCE = "ECB reference rates (USD base), 2026-08-21";
 
 /** Maximum age (days) before the rates snapshot is flagged as stale. */
 export const MAX_RATE_AGE_DAYS = 7;
 
 /** Available recipient currencies */
 export const CURRENCIES: CurrencyOption[] = [
-  { code: "EUR", symbol: "€", name: "Euro", rate: 0.87, source: RATES_SOURCE, sourceUrl: "https://www.imf.org/external/np/fin/data/rms_rep.aspx" },
-  { code: "GBP", symbol: "£", name: "British Pound", rate: 0.74, source: RATES_SOURCE, sourceUrl: "https://www.imf.org/external/np/fin/data/rms_rep.aspx" },
-  { code: "INR", symbol: "₹", name: "Indian Rupee", rate: 95.40, source: RATES_SOURCE, sourceUrl: "https://www.imf.org/external/np/fin/data/rms_rep.aspx" },
-  { code: "CAD", symbol: "CA$", name: "Canadian Dollar", rate: 1.39, source: RATES_SOURCE, sourceUrl: "https://www.federalreserve.gov/releases/h10/current/" },
-  { code: "AUD", symbol: "A$", name: "Australian Dollar", rate: 1.42, source: RATES_SOURCE, sourceUrl: "https://www.imf.org/external/np/fin/data/rms_rep.aspx" },
-  { code: "BRL", symbol: "R$", name: "Brazilian Real", rate: 5.16, source: RATES_SOURCE, sourceUrl: "https://www.imf.org/external/np/fin/data/rms_rep.aspx" },
-  { code: "JPY", symbol: "¥", name: "Japanese Yen", rate: 159.4, source: RATES_SOURCE, sourceUrl: "https://www.imf.org/external/np/fin/data/rms_rep.aspx" },
+  { code: "EUR", symbol: "€", name: "Euro", rate: 0.855, source: RATES_SOURCE, sourceUrl: "https://www.ecb.europa.eu/stats/eurofxref/" },
+  { code: "GBP", symbol: "£", name: "British Pound", rate: 0.732, source: RATES_SOURCE, sourceUrl: "https://www.ecb.europa.eu/stats/eurofxref/" },
+  { code: "INR", symbol: "₹", name: "Indian Rupee", rate: 95.70, source: RATES_SOURCE, sourceUrl: "https://www.ecb.europa.eu/stats/eurofxref/" },
+  { code: "CAD", symbol: "CA$", name: "Canadian Dollar", rate: 1.374, source: RATES_SOURCE, sourceUrl: "https://www.ecb.europa.eu/stats/eurofxref/" },
+  { code: "AUD", symbol: "A$", name: "Australian Dollar", rate: 1.395, source: RATES_SOURCE, sourceUrl: "https://www.ecb.europa.eu/stats/eurofxref/" },
+  { code: "BRL", symbol: "R$", name: "Brazilian Real", rate: 5.173, source: RATES_SOURCE, sourceUrl: "https://www.ecb.europa.eu/stats/eurofxref/" },
+  { code: "JPY", symbol: "¥", name: "Japanese Yen", rate: 158.7, source: RATES_SOURCE, sourceUrl: "https://www.ecb.europa.eu/stats/eurofxref/" },
 ];
 
 /** Default currency selector value */
