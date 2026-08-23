@@ -1,30 +1,92 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import Link from "next/link";
 import {
   indiaDirectoryClusterNames,
   indiaDirectorySummaries,
 } from "@/generated/india-directory-summaries";
+import { EmptyState } from "@/components/ui/empty-state";
+import { fuzzyMatchAny } from "@/lib/fuzzy";
+import { downloadCsv } from "@/lib/share";
+import { SITE_URL } from "@/lib/site-config";
+import { parseBoundedInt, writeUrlFilters } from "@/lib/url-filters";
 
 const PAGE_SIZE = 50;
+
+/** Download the current (filtered) India directory view as CSV (T112). */
+function exportIndiaDirectoryCsv(
+  rowsIn: ReadonlyArray<{ slug: string; name: string; category: string; clusterIndex: number }>,
+): void {
+  downloadCsv("fintech-atlas-india-directory.csv", [
+    ["Name", "Category", "Cluster", "Profile URL"],
+    ...rowsIn.map((s) => [
+      s.name,
+      s.category,
+      indiaDirectoryClusterNames[s.clusterIndex] ?? "",
+      `${SITE_URL}/india/directory/${s.slug}`,
+    ]),
+  ]);
+}
+
+/** Validate and apply `?q/cluster/page` filters shared via URL (T110). */
+export function readFiltersFromParams(params: URLSearchParams): {
+  query: string;
+  clusterIndex: number;
+  page: number;
+} | null {
+  if (!params.has("q") && !params.has("cluster") && !params.has("page")) return null;
+  return {
+    query: (params.get("q") ?? "").slice(0, 200),
+    clusterIndex: parseBoundedInt(
+      params.get("cluster"),
+      0,
+      indiaDirectoryClusterNames.length,
+      0,
+    ),
+    page: parseBoundedInt(params.get("page"), 1, 10_000, 1),
+  };
+}
 
 export function IndiaDirectoryClient() {
   const [query, setQuery] = useState("");
   const [clusterIndex, setClusterIndex] = useState(0);
   const [page, setPage] = useState(1);
 
+  // URL persistence (T110): restore once after mount (deferred past paint),
+  // then mirror every filter change back into the query string.
+  const hydratedRef = useRef(false);
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      const filters = readFiltersFromParams(new URLSearchParams(window.location.search));
+      if (filters) {
+        setQuery(filters.query);
+        setClusterIndex(filters.clusterIndex);
+        setPage(filters.page);
+      }
+      hydratedRef.current = true;
+    }, 0);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  useEffect(() => {
+    if (!hydratedRef.current) return;
+    writeUrlFilters({
+      q: query,
+      cluster: clusterIndex > 0 ? clusterIndex : null,
+      page: page > 1 ? page : null,
+    });
+  }, [query, clusterIndex, page]);
+
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = query.trim();
     return indiaDirectorySummaries.filter((summary) => {
       if (clusterIndex > 0 && summary.clusterIndex !== clusterIndex - 1) return false;
       if (!q) return true;
       const clusterName = indiaDirectoryClusterNames[summary.clusterIndex] ?? "";
-      return (
-        summary.name.toLowerCase().includes(q) ||
-        summary.category.toLowerCase().includes(q) ||
-        clusterName.toLowerCase().includes(q)
-      );
+      // Fuzzy match (T111): tolerates typos and partial words; exact
+      // substrings still rank highest.
+      return fuzzyMatchAny([summary.name, summary.category, clusterName], q);
     });
   }, [query, clusterIndex]);
 
@@ -87,11 +149,21 @@ export function IndiaDirectoryClient() {
         </select>
       </div>
 
-      <p className="mt-4 text-sm text-[var(--muted-text)]" aria-live="polite">
-        {filtered.length === indiaDirectorySummaries.length
-          ? `${filtered.length} companies`
-          : `${filtered.length} of ${indiaDirectorySummaries.length} companies`}
-        {query && <> matching &ldquo;{query}&rdquo;</>}
+      <p className="mt-4 flex flex-wrap items-center gap-4 text-sm text-[var(--muted-text)]" aria-live="polite">
+        <span>
+          {filtered.length === indiaDirectorySummaries.length
+            ? `${filtered.length} companies`
+            : `${filtered.length} of ${indiaDirectorySummaries.length} companies`}
+          {query && <> matching &ldquo;{query}&rdquo;</>}
+        </span>
+        {filtered.length > 0 && (
+          <button
+            onClick={() => exportIndiaDirectoryCsv(filtered)}
+            className="text-xs font-semibold text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-[var(--ring)] rounded"
+          >
+            Export CSV
+          </button>
+        )}
       </p>
 
       <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -114,11 +186,22 @@ export function IndiaDirectoryClient() {
       </ul>
 
       {pageItems.length === 0 && (
-        <div className="mt-6 rounded-xl border border-[var(--border-color)] bg-[var(--subtle-bg)]/40 p-10 text-center">
-          <p className="font-medium">No companies matched your criteria.</p>
-          <p className="mt-1 text-sm text-[var(--muted-text)]">
-            Try a different search term or cluster.
-          </p>
+        <div className="mt-6">
+          <EmptyState
+            title="No companies matched your criteria."
+            description="Try a different search term or cluster."
+            action={
+              <button
+                onClick={() => resetPage(() => {
+                  setQuery("");
+                  setClusterIndex(0);
+                })}
+                className="rounded-lg border border-[var(--border-color)] px-4 py-2 text-xs font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+              >
+                Clear all filters
+              </button>
+            }
+          />
         </div>
       )}
 

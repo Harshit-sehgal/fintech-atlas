@@ -11,6 +11,7 @@ import { articleSummaries } from "@/generated/article-summaries";
 import { fuzzyRank } from "@/lib/fuzzy";
 import { CompanyLogo } from "./company-logo";
 import { CategoryIcon } from "./category-icon";
+import { IconBook, IconSliders } from "@/components/ui/icons";
 
 interface CommandPaletteProps {
   open: boolean;
@@ -170,7 +171,10 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
     { name: "Exchange-Rate Markup Calculator", path: "/tools/exchange-rate-markup-calculator", desc: "Measure the hidden FX spread on any transfer, both directions" },
     { name: "FinTech Matchmaker Quiz", path: "/tools/matchmaker", desc: "Find the best financial tool suited for your business or personal needs" },
     { name: "Side-by-Side Comparison", path: "/compare", desc: "Compare companies side-by-side" },
-    { name: "Saved Bookmarks", path: "/bookmarks", desc: "View your bookmarked companies and glossary terms" },
+    { name: "Saved Hub", path: "/bookmarks", desc: "Bookmarks, private notes, calculator sessions and radar state" },
+    { name: "Radar Watchlist", path: "/radar/watchlist", desc: "Indian fintechs you are tracking for licence and funding changes" },
+    { name: "Radar Activity", path: "/radar/activity", desc: "Licence events and regulatory changes across Indian fintech" },
+    { name: "Radar Review Queue", path: "/radar/review", desc: "Research console for verifying radar entries against sources" },
     { name: "Gateway Selection Audit", path: "/services", desc: "Paid, independent gateway recommendations for Indian businesses" },
     { name: "Sample Audit Report", path: "/services/gateway-selection-report-sample", desc: "See exactly what the paid gateway audit delivers" },
     { name: "Gateway Implementation Checklist", path: "/services/payment-gateway-implementation-checklist", desc: "Pre-flight to go-live checklist with saved progress" },
@@ -288,8 +292,8 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
                     >
                       <div className="flex items-center gap-3 min-w-0">
                         {entry.type === "tool" && (
-                          <span className="flex h-7 w-7 items-center justify-center rounded bg-[var(--accent)]/10 text-[var(--accent)] text-xs font-bold shrink-0">
-                            ⚙️
+                          <span className="flex h-7 w-7 items-center justify-center rounded bg-[var(--accent)]/10 text-[var(--accent)] shrink-0">
+                            <IconSliders size={14} />
                           </span>
                         )}
                         {entry.type === "company" && (
@@ -299,8 +303,8 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
                           <CategoryIcon icon={entry.item.icon} color={entry.item.accent} size={28} />
                         )}
                         {entry.type === "glossary" && (
-                          <span className="flex h-7 w-7 items-center justify-center rounded bg-[var(--success)]/10 text-success-text font-mono text-xs font-bold shrink-0">
-                            📖
+                          <span className="flex h-7 w-7 items-center justify-center rounded bg-[var(--success)]/10 text-success-text shrink-0">
+                            <IconBook size={14} />
                           </span>
                         )}
                         {entry.type === "article" && (

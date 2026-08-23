@@ -29,6 +29,9 @@ export const moreNav: NavItem[] = [
   { href: "/glossary", label: "Glossary" },
   { href: "/services", label: "Services" },
   { href: "/bookmarks", label: "Saved" },
+  { href: "/radar/watchlist", label: "Radar Watchlist" },
+  { href: "/radar/activity", label: "Radar Activity" },
+  { href: "/radar/review", label: "Radar Review Queue" },
   { href: "/about", label: "About" },
   { href: "/changelog", label: "Changelog" },
 ];

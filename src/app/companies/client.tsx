@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, type CSSProperties } from "react";
+import { useEffect, useRef, useState, useMemo, useCallback, type CSSProperties } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { categories } from "@/data/categories";
@@ -11,12 +11,58 @@ import {
 } from "@/generated/company-summaries";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { CompanyLogo } from "@/components/ui/company-logo";
+import { EmptyState } from "@/components/ui/empty-state";
 import { useBookmarks } from "@/lib/bookmarks-context";
 import { useToast } from "@/lib/toast-context";
 import { formatValuationShort, formatHeadquartersCity, getValuationAmountUsd } from "@/lib/format-company";
 import { animationPresets as animation } from "@/lib/animation";
+import { fuzzyMatchAny } from "@/lib/fuzzy";
+import { downloadCsv } from "@/lib/share";
+import { SITE_URL } from "@/lib/site-config";
+import { oneOf, writeUrlFilters } from "@/lib/url-filters";
 
 type SortOption = "name" | "rating" | "valuation" | "founded";
+
+const SORT_OPTIONS = ["rating", "valuation", "name", "founded"] as const;
+const VIEW_OPTIONS = ["grid", "list"] as const;
+
+type ExportableCompany = CompanySummary & { valuationNum: number | null };
+
+/** Download the current (filtered) directory view as CSV (T112). */
+function exportCompaniesCsv(companies: readonly ExportableCompany[]): void {
+  const rows: string[][] = [
+    ["Name", "Founded", "Headquarters", "Employees", "Valuation USD", "Rating", "Categories", "Profile URL"],
+    ...companies.map((c) => [
+      c.name,
+      String(c.founded),
+      formatHeadquartersCity(c.headquarters),
+      c.employees,
+      c.valuationNum === null ? "" : String(c.valuationNum),
+      String(c.rating),
+      c.categories.join("; "),
+      `${SITE_URL}/companies/${c.slug}`,
+    ]),
+  ];
+  downloadCsv("fintech-atlas-directory.csv", rows);
+}
+
+/** Validate and apply `?q/category/sort/view` filters shared via URL (T110). */
+export function readFiltersFromParams(params: URLSearchParams): {
+  search: string;
+  selectedCategory: string;
+  sortBy: SortOption;
+  viewMode: "grid" | "list";
+} | null {
+  const categorySlugs = ["all", ...categories.map((c) => c.slug)] as const;
+  const next = {
+    search: (params.get("q") ?? "").slice(0, 200),
+    selectedCategory: oneOf(params.get("category"), categorySlugs, "all"),
+    sortBy: oneOf(params.get("sort"), SORT_OPTIONS, "rating"),
+    viewMode: oneOf(params.get("view"), VIEW_OPTIONS, "grid"),
+  };
+  const touched = params.has("q") || params.has("category") || params.has("sort") || params.has("view");
+  return touched ? next : null;
+}
 
 export function CompaniesClient() {
   const [search, setSearch] = useState("");
@@ -26,6 +72,34 @@ export function CompaniesClient() {
 
   const { isBookmarked, toggleBookmark } = useBookmarks();
   const { showToast } = useToast();
+
+  // URL persistence (T110): restore ?q/category/sort/view once after mount
+  // (deferred past paint like the tool clients), then mirror every change
+  // back into the query string so filtered views survive reload and sharing.
+  const hydratedRef = useRef(false);
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      const filters = readFiltersFromParams(new URLSearchParams(window.location.search));
+      if (filters) {
+        setSearch(filters.search);
+        setSelectedCategory(filters.selectedCategory);
+        setSortBy(filters.sortBy);
+        setViewMode(filters.viewMode);
+      }
+      hydratedRef.current = true;
+    }, 0);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  useEffect(() => {
+    if (!hydratedRef.current) return;
+    writeUrlFilters({
+      q: search,
+      category: selectedCategory === "all" ? null : selectedCategory,
+      sort: sortBy === "rating" ? null : sortBy,
+      view: viewMode === "grid" ? null : viewMode,
+    });
+  }, [search, selectedCategory, sortBy, viewMode]);
 
   // Precompute per-category company counts once so we don't filter the full
   // companies array per category pill on every render.
@@ -57,18 +131,17 @@ export function CompaniesClient() {
       valuationNum: getValuationAmountUsd(c),
     }));
 
-    // Filter and sort using precomputed values
+    // Filter and sort using precomputed values. Search is fuzzy (T111): a
+    // subsequence match like "stipe" still finds Stripe, while exact
+    // substrings keep scoring highest via fuzzyScore's ordering.
     return companiesWithVal
       .filter((c) => {
         const matchesCategory =
           selectedCategory === "all" || (c.categories as readonly string[]).includes(selectedCategory);
 
-        const query = search.trim().toLowerCase();
+        const query = search.trim();
         const matchesQuery =
-          query === "" ||
-          c.name.toLowerCase().includes(query) ||
-          c.tagline.toLowerCase().includes(query) ||
-          c.searchTerms.includes(query);
+          query === "" || fuzzyMatchAny([c.name, c.tagline, c.searchTerms], query);
 
         return matchesCategory && matchesQuery;
       })
@@ -250,17 +323,39 @@ export function CompaniesClient() {
       </div>
 
       {/* Results Header Counter */}
-      <div className="mt-6 flex items-center justify-between text-xs text-[var(--muted-text)] font-mono border-b border-[var(--border-color)] pb-3">
+      <div className="mt-6 flex items-center justify-between gap-3 text-xs text-[var(--muted-text)] font-mono border-b border-[var(--border-color)] pb-3">
         <span aria-live="polite">Showing <span className="text-[var(--foreground)] font-bold">{filteredCompanies.length}</span> of {companySummaries.length} companies</span>
-        {search && <span>Filtered by &ldquo;{search}&rdquo;</span>}
+        <span className="flex items-center gap-4">
+          {search && <span>Filtered by &ldquo;{search}&rdquo;</span>}
+          {filteredCompanies.length > 0 && (
+            <button
+              onClick={() => exportCompaniesCsv(filteredCompanies)}
+              className="shrink-0 font-semibold text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-[var(--ring)] rounded transition-colors"
+            >
+              Export CSV
+            </button>
+          )}
+        </span>
       </div>
 
       {/* Company Cards Grid / List */}
       <div id="company-results" className="mt-8">
         {filteredCompanies.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-[var(--border-color)] p-12 text-center text-sm text-[var(--muted-text)]">
-            No companies matched your criteria. Try adjusting your search query or category filter.
-          </div>
+          <EmptyState
+            title="No companies matched your criteria."
+            description="Try a shorter search term, or clear the filters to see the full directory."
+            action={
+              <button
+                onClick={() => {
+                  setSearch("");
+                  setSelectedCategory("all");
+                }}
+                className="rounded-lg border border-[var(--border-color)] px-4 py-2 text-xs font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+              >
+                Clear all filters
+              </button>
+            }
+          />
         ) : viewMode === "grid" ? (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <AnimatePresence>
@@ -294,7 +389,7 @@ export function CompaniesClient() {
                         <div>
                           <div className="flex items-start justify-between gap-3">
                             <div className="flex items-center gap-3">
-                              <div className="group-hover:scale-105 transition-transform duration-300">
+                              <div className="transition-transform duration-300">
                                 <CompanyLogo slug={c.slug} name={c.name} size={40} />
                               </div>
                               <div>
@@ -400,7 +495,7 @@ export function CompaniesClient() {
 
                       <div className="pointer-events-none relative z-0 flex flex-col sm:flex-row sm:items-center justify-between gap-4 w-full">
                         <div className="flex items-center gap-4">
-                          <div className="group-hover:scale-105 transition-transform duration-300">
+                          <div className="transition-transform duration-300">
                             <CompanyLogo slug={c.slug} name={c.name} size={40} />
                           </div>
                           <div>
