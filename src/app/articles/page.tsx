@@ -41,21 +41,32 @@ export default function ArticlesIndexPage() {
               b.article.updatedAt.localeCompare(a.article.updatedAt) || b.index - a.index,
           )
           .map(({ article: a }) => (
-            <Link
+            // Whole-card navigation uses an overlay link (same pattern as the
+            // companies directory): nesting the category <Link> inside a
+            // card-wide <Link> produces invalid nested anchors — the HTML
+            // parser closes the outer one early and strips its accessible
+            // name.
+            <div
               key={a.slug}
-              href={`/articles/${a.slug}`}
-              className="surface rounded-2xl border border-[var(--border-color)] p-5 hover:border-[var(--foreground)]/30 hover:-translate-y-0.5 transition-all"
+              className="group relative surface rounded-lg border border-[var(--border-color)] p-5 hover:border-[var(--foreground)]/30 hover:-translate-y-0.5 transition-all"
             >
               <Link
+                href={`/articles/${a.slug}`}
+                aria-label={`Read ${a.title}`}
+                className="absolute inset-0 z-10 rounded-lg focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+              >
+                <span className="sr-only">Read {a.title}</span>
+              </Link>
+              <Link
                 href={categoryHref(a.category)}
-                className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted-text)] hover:text-[var(--accent)] transition-colors"
+                className="relative z-20 inline-block rounded px-1.5 py-1.5 -mx-1.5 -my-1 align-top text-[10px] font-mono uppercase tracking-widest text-[var(--muted-text)] hover:text-[var(--accent)] transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)]"
               >
                 {a.category}
               </Link>
               <h2 className="mt-2 text-base font-bold text-[var(--foreground)]">{a.title}</h2>
               <p className="mt-2 text-xs leading-relaxed text-[var(--muted-text)]">{a.description}</p>
               <span className="mt-3 inline-block text-xs font-bold text-[var(--accent)]">Read →</span>
-            </Link>
+            </div>
           ))}
       </div>
     </div>
