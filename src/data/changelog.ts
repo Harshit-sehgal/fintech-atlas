@@ -19,6 +19,22 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    date: "2026-08-23",
+    kind: "article",
+    title: "Receive international client payments in India",
+    description:
+      "Every channel mapped with verified fees — virtual accounts (Skydo's flat bands, Wise, Payoneer), card gateways, PayPal and SWIFT wires — with INR settlement math at $500/$1,000/$10,000 and a FIRA documentation map.",
+    href: "/articles/receive-international-client-payments-india/",
+  },
+  {
+    date: "2026-08-23",
+    kind: "site",
+    title: "/compare rebuilt around decisions; catalog ships once",
+    description:
+      "Scenario router, difference-first rows, hedged verdicts and fuzzy selector on the comparison tool; profile pages gained an Add-to-comparison bridge. The 42-company catalog no longer ships twice in the JS bundle (articles dropped ~14KB gzip), and remittance rates refresh via npm run rates:fetch.",
+    href: "/compare/",
+  },
+  {
     date: "2026-08-15",
     kind: "article",
     title: "Best payment gateway for Indian startups (2026)",

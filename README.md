@@ -6,7 +6,7 @@ Built from public reference material and editorial summaries. Source URLs and ef
 
 ## Overview
 
-FinTech Atlas is a Next.js 16 static-export website that serves as both an educational directory and an interactive decision suite. It catalogs **42 real-world FinTech companies** across **12 industry categories**, a **53-term glossary**, **37 articles** focused on international payments for India, and **6 interactive tools**.
+FinTech Atlas is a Next.js 16 static-export website that serves as both an educational directory and an interactive decision suite. It catalogs **42 real-world FinTech companies** across **12 industry categories**, a **53-term glossary**, **38 articles** focused on international payments for India, and **6 interactive tools**.
 
 ### Features
 
@@ -36,7 +36,7 @@ fintech-website/
 │   ├── app/               # Next.js App Router pages & layouts
 │   │   ├── about/         # Mission, methodology, FAQ, feedback
 │   │   ├── affiliate-disclosure/
-│   │   ├── articles/[slug]  # 37 India-focused guides
+│   │   ├── articles/[slug]  # 38 India-focused guides
 │   │   ├── bookmarks/     # Saved companies & glossary terms
 │   │   ├── categories/    # 12 industry categories + drill-down
 │   │   ├── changelog/     # Site changelog (RSS)
@@ -57,7 +57,7 @@ fintech-website/
 │   │   ├── legal/         # Privacy/terms shared components
 │   │   ├── SEO/           # JSON-LD structured data, schemas, analytics
 │   │   └── ui/            # Reusable UI components (command palette, count-up, etc.)
-│   ├── data/              # 42 companies, 12 categories, 53 glossary terms, 37 articles, tool configs, provenance records
+│   ├── data/              # 42 companies, 12 categories, 53 glossary terms, 38 articles, tool configs, provenance records
 │   ├── generated/         # Client-safe article summaries (build-generated)
 │   ├── lib/               # Site config, canonical URLs, calculators, matchmaker, remittance, theme, bookmarks, focus-trap, analytics
 │   ├── __tests__/         # Cross-cutting integration tests (data integrity, deployment, heading hierarchy)
