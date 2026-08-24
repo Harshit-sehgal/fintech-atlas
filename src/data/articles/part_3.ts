@@ -1033,7 +1033,7 @@ export const part_3_Articles: Article[] = [
   },
   {
     slug: "receive-international-client-payments-india",
-    title: "How to receive international client payments in India (2026)",
+    title: "Receive international client payments in India",
     description:
       "Every legal way to receive client money in India compared with verified fees — virtual accounts (Skydo, Wise, Payoneer), card gateways, PayPal and SWIFT wires — with INR settlement math at $500, $1,000 and $10,000.",
     author: "FinTech Atlas editorial team",

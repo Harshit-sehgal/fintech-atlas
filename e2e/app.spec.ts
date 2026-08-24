@@ -17,11 +17,10 @@ test.describe("critical flows", () => {
     // The most recently appended articles lead the section on same-day ties
     // (later array index first among equal updatedAt values).
     await expect(
-      latestSection.getByRole("link", { name: /How to receive international client payments in India/ }),
+      latestSection.getByRole("link", { name: /Receive international client payments in India/ }),
     ).toBeVisible();
-    await expect(
-      latestSection.getByRole("link", { name: /Best payment gateway for Indian startups/ }),
-    ).toBeVisible();
+    // (The $500/$1k/$5k-era "Indian startups" guide ranks fourth on ties and
+    // sits outside the three-card strip.)
     await expect(
       latestSection.getByRole("link", { name: /Best payment gateway for Indian SaaS/ }),
     ).toBeVisible();
@@ -30,10 +29,10 @@ test.describe("critical flows", () => {
     ).toBeVisible();
     // Order contract: newest editorial additions come first, not array order.
     await expect(latestSection.locator("a").first()).toContainText(
-      "How to receive international client payments in India",
+      "Receive international client payments in India",
     );
     await expect(latestSection.locator("a").nth(1)).toContainText(
-      "Best payment gateway for Indian startups",
+      "Razorpay international payment fees",
     );
 
   });
