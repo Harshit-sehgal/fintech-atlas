@@ -35,7 +35,7 @@ jobs:
       - run: npm audit --production --audit-level=high
       - run: SITE_URL=https://ci.fintech-atlas.test npm run build
       - name: Archive verified static artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: fintech-atlas-static-${{ github.sha }}
           path: out
