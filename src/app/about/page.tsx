@@ -1,22 +1,15 @@
 import type { Metadata } from "next";
 import { AboutClient } from "./client";
-import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 
 const description =
   "How FinTech Atlas was built: methodology, data sources, and what this site does and doesn't claim to do.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/about",
   title: "About & Methodology",
   description,
-  alternates: { canonical: canonicalUrl("/about") },
-  openGraph: {
-    ...openGraphImage,
-    title: "About & Methodology — FinTech Atlas",
-    description,
-    url: canonicalUrl("/about"),
-  },
-};
+});
 
 export default function AboutPage() {
   return <AboutClient />;

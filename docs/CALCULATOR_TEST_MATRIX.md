@@ -92,7 +92,7 @@ Legend: ✅ covered · 🟡 partial · ❌ missing · 🚫 N/A
 | `FeeCalculatorPageClient` | `src/app/tools/calculator/calculator-client.test.tsx` | rendering, recompute on slider change, custom-contract caveat |
 | `MatchmakerQuizPageClient` | `src/app/tools/matchmaker/matchmaker-client.test.tsx` | quiz restoration, results panel |
 | `RemittanceCalculatorPageClient` | `src/app/tools/remittance/remittance-client.test.tsx` | inputs validated, snapshot-stale warning |
-| `CalculatorsClient` | none | ❌ missing |
+| `CalculatorsClient` | `src/app/tools/calculators/calculators-client.test.tsx` | ✅ catalog, panel switching, state restore, recomputation, completion analytics |
 
 ## Storage, URL and helper paths
 
@@ -123,10 +123,11 @@ Legend: ✅ covered · 🟡 partial · ❌ missing · 🚫 N/A
 
 ## Status of `CalculatorsClient` interaction tests
 
-❌ **Missing** — `src/app/tools/calculators/calculators-client.tsx` has no
-companion `*.test.tsx`. Behaviour covered by unit tests of the underlying
-`calculator-config.ts` data; per-component coverage is absent. Add when the
-multi-calculator interaction grows beyond the existing UI defaults.
+`CalculatorsClient` interaction coverage is present in
+`src/app/tools/calculators/calculators-client.test.tsx`: the suite covers the
+nine-tab catalog, panel switching, input recomputation, valid local-state
+restore, malformed-state tolerance, and the one-per-hydration completion-event
+contract. Keep extending it when the multi-calculator interaction grows.
 
 ## Cross-cutting assertions
 

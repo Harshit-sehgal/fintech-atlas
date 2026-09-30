@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { Company, Category } from "@/data";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { CategoryIcon } from "@/components/ui/category-icon";
+import { IconBolt, IconLink } from "@/components/ui/icons";
 import { Reveal } from "@/components/ui/reveal";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { CountUp } from "@/components/ui/count-up";
@@ -21,6 +22,7 @@ import { formatValuationForStats, formatHeadquartersCity } from "@/lib/format-co
 import { getFocusableElementsInDialog } from "@/lib/focus-trap";
 import { resolvePartnerCta, partnerRel, COMMERCIAL_DISCLOSURE } from "@/lib/partners";
 import { trackCtaClick } from "@/lib/analytics";
+import { readLastCompareSlugs } from "@/lib/compare";
 import { CorrectionReportLink } from "@/components/ui/correction-report-link";
 import type { OwnershipType } from "@/data";
 
@@ -78,11 +80,48 @@ function SectionHeader({ eyebrow, title }: { eyebrow: string; title: string }) {
 
 // CountUp from @/components/ui/count-up used below.
 
+/**
+ * Profile → Compare bridge (T101). Renders a static deep link that works
+ * without JS; after hydration it upgrades to "Add to comparison" when the
+ * visitor has a stored line-up this profile can join. Stored slugs are used
+ * as-is here (deduped + capped by readLastCompareSlugs) — the compare page's
+ * parser re-validates the final URL, so stale/unknown slugs are dropped there
+ * and can never reach the render layer.
+ */
+function CompareBridgeLink({ slug }: { slug: string }) {
+  const [joinSlugs, setJoinSlugs] = useState<string[] | null>(null);
+
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      setJoinSlugs(readLastCompareSlugs());
+    }, 0);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  const target =
+    joinSlugs && joinSlugs.length > 0 && joinSlugs.length < 3 && !joinSlugs.includes(slug)
+      ? [...joinSlugs, slug]
+      : [slug];
+  const joins = target.length > 1;
+
+  return (
+    <Link
+      href={`/compare?companies=${target.join(",")}`}
+      data-placement="profile-to-compare"
+      className="flex items-center gap-1.5 rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-1.5 text-xs font-semibold text-[var(--foreground)] hover:border-[var(--accent)]/40 hover:text-[var(--accent)] focus-visible:border-[var(--accent)]/40 focus-visible:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+      title={joins ? `Open /compare with ${target.length} companies` : `Compare side-by-side`}
+    >
+      <span>{joins ? "Add to comparison" : "Compare"}</span>
+    </Link>
+  );
+}
+
 export function CompanyPageClient({
   company: c,
   relatedCategories,
   relatedArticles,
   adjacent,
+  researchProfile,
 }: {
   company: Company;
   relatedCategories: Category[];
@@ -91,6 +130,7 @@ export function CompanyPageClient({
     previous: { slug: string; name: string } | null;
     next: { slug: string; name: string } | null;
   };
+  researchProfile: { slug: string; name: string } | null;
 }) {
   const { isBookmarked, toggleBookmark } = useBookmarks();
   const { showToast } = useToast();
@@ -297,16 +337,6 @@ export function CompanyPageClient({
 
   };
 
-  // Keep this section qualitative: the repository does not contain a
-  // reproducible benchmark dataset for numerical performance scores.
-  const assessment: { label: string; value: string }[] = [
-    { label: "Developer Experience / API", value: "Not independently assessed" },
-    { label: "Pricing Transparency", value: "Not independently assessed" },
-    { label: "Global Reach", value: "Not independently assessed" },
-    { label: "Reliability & Uptime", value: "Not independently assessed" },
-    { label: "Customer Support", value: "Editorial sentiment only" },
-  ];
-
   const ratingRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
   return (
@@ -317,15 +347,18 @@ export function CompanyPageClient({
       {/* Waitlayer-style grid backdrop — faint, radially faded, accent-tinted at top */}
       <GridBackdrop className="opacity-40" />
 
-      {/* Top Breadcrumb & Controls */}
-      <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-4 mb-8">
-        <div className="flex items-center gap-2 text-xs text-[var(--muted-text)] font-mono">
-          <Link href="/companies" className="hover:text-[var(--foreground)]">Companies</Link>
-          <span>/</span>
-          <span className="text-[var(--foreground)] font-medium">{c.name}</span>
-        </div>
-
-        <div className="flex items-center gap-2">
+      {/* Profile controls.
+          This row used to carry a *second*, hand-rolled breadcrumb beside the
+          controls — a duplicate `aria-label="Breadcrumb"` landmark (axe
+          landmark-unique) duplicating the canonical trail that page.tsx
+          renders above, and a rigid `justify-between` flex row whose two rigid
+          children measured ~355px of content in a 350px row at 390px. That
+          overflow was font-metric dependent, so it passed locally and failed
+          in CI. Dropping the duplicate trail and letting the controls wrap
+          fixes both. */}
+      <div className="mb-8 flex flex-wrap items-center justify-end gap-2 border-b border-[var(--border-color)] pb-4">
+        <div className="flex shrink-0 flex-wrap items-center gap-2">
+          <CompareBridgeLink slug={c.slug} />
           <button
             onClick={handleBookmark}
             className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
@@ -340,7 +373,8 @@ export function CompanyPageClient({
             onClick={handleShare}
             className="flex items-center gap-1.5 rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-1.5 text-xs font-semibold text-[var(--foreground)] hover:border-[var(--foreground)]/40 focus-visible:border-[var(--foreground)]/40 focus-visible:outline-none focus-visible:ring-[var(--ring)]"
           >
-            <span>🔗 Share</span>
+            <IconLink size={13} />
+            <span>Share</span>
           </button>
         </div>
       </div>
@@ -353,7 +387,7 @@ export function CompanyPageClient({
         className="relative flex flex-col md:flex-row items-start gap-6 pt-2"
       >
         <div className="relative group">
-          <div className="relative flex items-center justify-center rounded-2xl border border-[var(--border-color)] bg-[var(--card)] shadow-[var(--shadow-sm)] p-6">
+          <div className="relative flex items-center justify-center border border-[var(--border-color)] p-6">
             <CompanyLogo slug={c.slug} name={c.name} size={80} />
           </div>
         </div>
@@ -414,9 +448,30 @@ export function CompanyPageClient({
         </p>
       </Reveal>
 
-      {/* Quick stats grid */}
+      {/* Directory bridge — plan T053: link between the curated profile and the
+          India research directory when the company appears on both surfaces. */}
+      {researchProfile && (
+        <Reveal delay={0.05}>
+          <Link
+            href={`/india/directory/${researchProfile.slug}`}
+            data-placement="company-profile-to-research"
+            className="mt-4 flex items-center justify-between gap-3 border-y border-[var(--border-color)] py-3 text-sm transition-colors hover:border-[var(--foreground)]"
+          >
+            <span className="text-[var(--muted-text)]">
+              Also in the India research directory —{" "}
+              <span className="font-semibold text-[var(--foreground)]">{researchProfile.name}</span>
+            </span>
+            <span className="shrink-0 font-semibold text-[var(--accent)]" aria-hidden>
+              →
+            </span>
+          </Link>
+        </Reveal>
+      )}
+
+      {/* Quick stats — a hairline stat band (border-y + column rules), not a
+          boxed card: mirrors the hero's fact row and the directory's ledger. */}
       <Reveal delay={0.1}>
-        <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 rounded-2xl border border-[var(--border-color)] p-5 sm:grid-cols-3 lg:grid-cols-5 surface">
+        <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 border-y border-[var(--border-color)] py-6 sm:grid-cols-3 lg:grid-cols-5">
           {[
             { label: "Founded", value: String(c.founded) },
             { label: "Employees", value: c.employees },
@@ -424,26 +479,28 @@ export function CompanyPageClient({
             { label: "Valuation", value: formatValuationForStats(c) },
             { label: "Official Website", isLink: true, href: `https://${c.website}`, value: c.website },
           ].map(({ label, value, isLink, hint, href }) => (
-            <div key={label}>
-              <p className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted-text)]">{label}</p>
+            <div key={label} className="min-w-0">
+              <dt className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted-text)]">{label}</dt>
               {isLink ? (
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-1 inline-block text-sm font-bold text-[var(--accent)] hover:underline truncate max-w-full"
-                >
-                  {value} ↗
-                </a>
+                <dd className="mt-1">
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block truncate max-w-full text-sm font-bold text-[var(--accent-ink)] hover:underline"
+                  >
+                    {value} ↗
+                  </a>
+                </dd>
               ) : (
-                <p className="mt-1 text-sm font-bold tracking-tight text-[var(--foreground)]">
+                <dd className="mt-1 text-sm font-bold tracking-tight text-[var(--foreground)]">
                   {value}
                   {hint && <span className="sr-only"> {hint}</span>}
-                </p>
+                </dd>
               )}
             </div>
           ))}
-        </div>
+        </dl>
       </Reveal>
 
       {/* Overview */}
@@ -454,51 +511,59 @@ export function CompanyPageClient({
         </section>
       </Reveal>
 
-      {/* Offerings */}
+      {/* Offerings — a hairline list, not stacked boxes: one line per product
+          with a marker rule, matching the directory's editorial rows. */}
       <Reveal delay={0.15}>
         <section className="mt-12">
           <SectionHeader eyebrow="Product Line" title="Products & Services" />
-          <div className="grid gap-3">
+          <ul className="border-t border-[var(--border-color)]">
             {c.whatTheyOffer.map((offer) => (
-              <div key={offer.name} className="rounded-xl border border-[var(--border-color)] p-4 surface hover:border-[var(--accent)]/40 hover:-translate-y-0.5 transition-all">
+              <li
+                key={offer.name}
+                className="group relative border-b border-[var(--border-color)] py-4 pl-4"
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute left-0 top-0 h-full w-0.5 origin-top scale-y-0 bg-[var(--accent)] transition-transform duration-300 group-hover:scale-y-100"
+                />
                 <h3 className="text-sm font-bold text-[var(--foreground)]">{offer.name}</h3>
                 <p className="mt-1 text-sm leading-relaxed text-[var(--muted-text)]">{offer.description}</p>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
       </Reveal>
 
-      {/* Performance Scorecard */}
-      <Reveal delay={0.18}>
-        <section className="mt-12">
-          <SectionHeader eyebrow="Editorial context" title="Qualitative assessment" />
-          <div className="rounded-2xl border border-[var(--border-color)] p-6 space-y-4 surface">
-            {assessment.map((item) => (
-              <div key={item.label} className="flex items-start justify-between gap-4 border-b border-[var(--border-color)] pb-3 last:border-0 last:pb-0">
-                <span className="text-sm font-semibold text-[var(--foreground)]">{item.label}</span>
-                <span className="text-right text-sm font-medium text-[var(--accent)]">{item.value}</span>
-              </div>
-            ))}
-            <p className="border-t border-[var(--border-color)] pt-3 text-[11px] text-[var(--muted-text)]">
-              Qualitative editorial context based on the profile evidence shown on this page. It is not a measured benchmark, independently audited score, or procurement advice.
-            </p>
-          </div>
-        </section>
-      </Reveal>
-
-      {/* Pricing */}
+      {/* Pricing — definition-list ledger rows instead of a boxed card. */}
       <Reveal delay={0.2}>
         <section className="mt-12">
           <SectionHeader eyebrow="Pricing" title="Fee Structure" />
-          <div className="rounded-xl border border-[var(--border-color)] p-5 space-y-2 surface">
-            <p className="text-sm font-medium">Model: <span className="font-normal text-[var(--muted-text)]">{c.pricing.model}</span></p>
-            {c.pricing.monthly && <p className="text-sm"><span className="font-medium">Monthly:</span> {c.pricing.monthly}</p>}
-            {c.pricing.online && <p className="text-sm"><span className="font-medium">Online:</span> {c.pricing.online}</p>}
-            {c.pricing.inPerson && <p className="text-sm"><span className="font-medium">In-person:</span> {c.pricing.inPerson}</p>}
-            {c.pricing.international && <p className="text-sm"><span className="font-medium">International:</span> {c.pricing.international}</p>}
-            {c.pricing.notes && <p className="mt-3 text-xs leading-relaxed text-[var(--muted-text)] border-t border-[var(--border-color)] pt-3">{c.pricing.notes}</p>}
-          </div>
+          <dl className="mt-1 border-t border-[var(--border-color)]">
+            {[
+              ["Model", c.pricing.model],
+              ["Monthly", c.pricing.monthly],
+              ["Online", c.pricing.online],
+              ["In-person", c.pricing.inPerson],
+              ["International", c.pricing.international],
+            ]
+              .filter(([, v]) => Boolean(v))
+              .map(([label, value]) => (
+                <div
+                  key={label}
+                  className="grid grid-cols-[7rem_1fr] gap-4 border-b border-[var(--border-color)] py-3 sm:grid-cols-[10rem_1fr]"
+                >
+                  <dt className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted-text)] sm:pt-0.5">
+                    {label}
+                  </dt>
+                  <dd className="text-sm text-[var(--foreground)]">{value}</dd>
+                </div>
+              ))}
+          </dl>
+          {c.pricing.notes && (
+            <p className="mt-3 text-xs leading-relaxed text-[var(--muted-text)]">
+              {c.pricing.notes}
+            </p>
+          )}
 
           <div className="mt-4">
             <Link
@@ -507,34 +572,43 @@ export function CompanyPageClient({
                   ? "/tools/razorpay-fee-calculator"
                   : "/tools/calculator"
               }
-              className="inline-flex items-center gap-2 text-xs font-bold text-[var(--accent)] hover:underline"
+              className="inline-flex items-center gap-2 text-xs font-bold text-[var(--accent-ink)] hover:underline"
             >
-              <span>⚡ Calculate your estimated fees on our Fee Estimator →</span>
+              <IconBolt size={13} />
+              <span>Calculate your estimated fees on our Fee Estimator →</span>
             </Link>
           </div>
         </section>
       </Reveal>
 
-      {/* Geographic Availability (T010) */}
+      {/* Geographic Availability (T010) — definition-list ledger. */}
       {c.availability && (
         <Reveal delay={0.22}>
           <section className="mt-12">
             <SectionHeader eyebrow="Availability" title="Geographic availability" />
-            <div className="rounded-2xl border border-[var(--border-color)] p-6 surface space-y-4">
-              <div>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted-text)]">Supported regions</span>
-                <p className="mt-1 text-sm font-medium text-[var(--foreground)]">{c.availability.supportedRegions.join(" · ")}</p>
+            <dl className="mt-1 border-t border-[var(--border-color)]">
+              <div className="grid grid-cols-[7rem_1fr] gap-4 border-b border-[var(--border-color)] py-3 sm:grid-cols-[10rem_1fr]">
+                <dt className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted-text)] sm:pt-0.5">
+                  Regions
+                </dt>
+                <dd className="text-sm font-medium text-[var(--foreground)]">
+                  {c.availability.supportedRegions.join(" · ")}
+                </dd>
               </div>
               {c.availability.unavailableRegions.length > 0 && (
-                <div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted-text)]">Known exclusions</span>
-                  <p className="mt-1 text-sm text-[var(--muted-text)]">{c.availability.unavailableRegions.join(" · ")}</p>
+                <div className="grid grid-cols-[7rem_1fr] gap-4 border-b border-[var(--border-color)] py-3 sm:grid-cols-[10rem_1fr]">
+                  <dt className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted-text)] sm:pt-0.5">
+                    Exclusions
+                  </dt>
+                  <dd className="text-sm text-[var(--muted-text)]">
+                    {c.availability.unavailableRegions.join(" · ")}
+                  </dd>
                 </div>
               )}
-              <p className="text-[11px] text-[var(--muted-text)]">
-                Editorial snapshot as of {c.availability.asOf}. Verify current availability directly with the provider.
-              </p>
-            </div>
+            </dl>
+            <p className="mt-3 text-[11px] text-[var(--muted-text)]">
+              Editorial snapshot as of {c.availability.asOf}. Verify current availability directly with the provider.
+            </p>
           </section>
         </Reveal>
       )}
@@ -543,11 +617,11 @@ export function CompanyPageClient({
       <Reveal delay={0.24}>
         <section className="mt-12">
           <SectionHeader eyebrow="Traceability" title="Sources & effective dates" />
-          <div className="rounded-2xl border border-[var(--border-color)] p-6 surface">
-            <p className="text-xs leading-relaxed text-[var(--muted-text)]">
+          <div className="border-t border-[var(--border-color)] pt-5">
+            <p className="max-w-3xl text-sm leading-relaxed text-[var(--muted-text)]">
               These references identify the material used for the profile. A source label without a linked document is a research lead, not independently auditable evidence; verify volatile facts directly before relying on them.
             </p>
-            <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+            <ul className="mt-4 grid border-t border-[var(--border-color)] sm:grid-cols-2">
               {(c.sourceReferences?.length
                 ? c.sourceReferences.map((source) => ({
                     key: source.id,
@@ -566,9 +640,9 @@ export function CompanyPageClient({
                     effectiveAt: undefined,
                   }))
               ).map((source) => (
-                <li key={source.key} className="rounded-lg border border-[var(--border-color)] p-3 text-xs">
+                <li key={source.key} className="border-b border-[var(--border-color)] py-3 pr-6 text-sm">
                   {source.url ? (
-                    <a href={source.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--accent)] hover:underline">
+                    <a href={source.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--accent-ink)] hover:underline">
                       {source.label} ↗
                     </a>
                   ) : (
@@ -594,30 +668,30 @@ export function CompanyPageClient({
       <Reveal delay={0.25}>
         <section className="mt-12">
           <SectionHeader eyebrow="Analysis" title="Strengths & Tradeoffs" />
-          <div className="grid gap-6 sm:grid-cols-2">
-          <div className="rounded-xl border border-[var(--success)]/30 bg-[var(--success)]/5 p-5">
-            <h3 className="text-sm font-bold text-success-text flex items-center gap-2">
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--success)]/20 text-[10px]">✓</span>
+          <div className="grid border-t border-[var(--border-color)] sm:grid-cols-2">
+          <div className="border-b border-[var(--border-color)] py-6 sm:border-r sm:border-[var(--border-color)] sm:pr-8">
+            <h3 className="flex items-center gap-2 text-sm font-bold text-success-text">
+              <span aria-hidden className="font-mono">✓</span>
               Core Strengths
             </h3>
-            <ul className="mt-3 space-y-2 reveal-stagger">
+            <ul className="mt-3 space-y-2">
               {c.strengths.map((s) => (
                 <li key={s} className="flex items-start gap-2 text-sm leading-relaxed text-[var(--foreground)]">
-                  <span className="mt-0.5 shrink-0 text-success-text font-bold">✓</span>
+                  <span className="mt-0.5 shrink-0 font-bold text-success-text">✓</span>
                   <span>{s}</span>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="rounded-xl border border-[var(--danger)]/30 bg-[var(--danger)]/5 p-5">
-            <h3 className="text-sm font-bold text-danger-text flex items-center gap-2">
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--danger)]/20 text-[10px]">✕</span>
+          <div className="border-b border-[var(--border-color)] py-6 sm:pl-8">
+            <h3 className="flex items-center gap-2 text-sm font-bold text-danger-text">
+              <span aria-hidden className="font-mono">✕</span>
               Known Weaknesses
             </h3>
-            <ul className="mt-3 space-y-2 reveal-stagger">
+            <ul className="mt-3 space-y-2">
               {c.weaknesses.map((w) => (
                 <li key={w} className="flex items-start gap-2 text-sm leading-relaxed text-[var(--foreground)]">
-                  <span className="mt-0.5 shrink-0 text-danger-text font-bold">✕</span>
+                  <span className="mt-0.5 shrink-0 font-bold text-danger-text">✕</span>
                   <span>{w}</span>
                 </li>
               ))}
@@ -640,12 +714,12 @@ export function CompanyPageClient({
             </button>
           </div>
 
-          <div className="mt-4 rounded-2xl border border-[var(--border-color)] p-6 surface shadow-sm">
+          <div className="mt-4 border-t border-[var(--border-color)] pt-6">
             <div className="flex items-center gap-3">
-              <span className="rounded-lg bg-[var(--success)]/20 px-3 py-1 text-lg font-bold font-mono text-success-text border border-[var(--success)]/20 tabular-nums">
+              <span className="font-mono text-lg font-bold tabular-nums text-success-text">
                 ★ <CountUp target={c.userReviews.rating} decimals={2} duration={1.1} /> / 5.0
               </span>
-              <p className="text-xs text-[var(--muted-text)]">Editorial sentiment summary. Notes below are saved only in this browser and are not added to this rating.</p>
+              <p className="text-sm text-[var(--muted-text)]">Editorial sentiment summary. Notes below are saved only in this browser and are not added to this rating.</p>
             </div>
             <p className="mt-3 text-[11px] leading-relaxed text-[var(--muted-text)]">
               {c.userReviews.methodology ?? `Editorially synthesized from the provenance record shown below. Ratings are qualitative editorial context — not a statistically weighted community average, independently audited score, or procurement recommendation.`}
@@ -657,7 +731,7 @@ export function CompanyPageClient({
             <div className="mt-5 grid gap-4 sm:grid-cols-2 pt-4 border-t border-[var(--border-color)]">
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider text-success-text">What users like</h3>
-                <ul className="mt-2 space-y-1 reveal-stagger">
+                <ul className="mt-2 space-y-1">
                   {c.userReviews.pros.map((p) => (
                     <li key={p} className="text-xs text-[var(--muted-text)]">+ {p}</li>
                   ))}
@@ -665,7 +739,7 @@ export function CompanyPageClient({
               </div>
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider text-danger-text">What users complain about</h3>
-                <ul className="mt-2 space-y-1 reveal-stagger">
+                <ul className="mt-2 space-y-1">
                   {c.userReviews.cons.map((p) => (
                     <li key={p} className="text-xs text-[var(--muted-text)]">– {p}</li>
                   ))}
@@ -678,12 +752,12 @@ export function CompanyPageClient({
                   Notes saved on this device ({userReviews.length})
                 </h3>
                 {userReviews.map((rev) => (
-                  <div key={rev.id} className="rounded-lg border border-[var(--border-color)] p-4 surface space-y-1">
+                  <div key={rev.id} className="space-y-1 border-b border-[var(--border-color)] pb-3">
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-bold text-[var(--foreground)]">{rev.author} <span className="font-normal text-[var(--muted-text)]">({rev.role})</span></span>
                       <span className="font-mono text-success-text">★ {rev.rating}/5 · {rev.date}</span>
                     </div>
-                    <p className="text-xs text-[var(--muted-text)] leading-relaxed pt-1">{rev.text}</p>
+                    <p className="pt-1 text-sm leading-relaxed text-[var(--muted-text)]">{rev.text}</p>
                   </div>
                 ))}
               </div>
@@ -696,17 +770,14 @@ export function CompanyPageClient({
       <Reveal delay={0.35}>
         <section className="mt-12">
           <SectionHeader eyebrow="Adoption" title="Notable Customer Segments" />
-          <div className="flex flex-wrap gap-2">
-            {c.whoUses.map((w) => (
-              <span
-                key={w}
-                className="rounded-lg border border-[var(--border-color)] surface px-3 py-1.5 text-xs font-medium transition-all hover:-translate-y-0.5 hover:border-[var(--accent)]/40 hover:shadow-[var(--accent-glow)]"
-                style={{ ["--accent"]: c.accent } as React.CSSProperties}
-              >
-                {w}
+          <p className="border-t border-[var(--border-color)] pt-4 text-sm leading-relaxed text-[var(--muted-text)]">
+            {c.whoUses.map((w, i) => (
+              <span key={w}>
+                {i > 0 && <span aria-hidden className="px-2 text-[var(--border-strong)]">·</span>}
+                <span className="text-[var(--foreground)]">{w}</span>
               </span>
             ))}
-          </div>
+          </p>
         </section>
       </Reveal>
 
@@ -714,16 +785,16 @@ export function CompanyPageClient({
       <Reveal delay={0.4}>
         <section className="mt-12">
           <SectionHeader eyebrow="Explore" title="Related Categories" />
-          <div className="flex flex-wrap gap-3 reveal-stagger">
+          <div className="flex flex-wrap gap-x-6 gap-y-3 border-t border-[var(--border-color)] pt-4">
             {relatedCategories.map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/categories/${cat.slug}`}
                 style={{ ["--accent"]: cat.accent } as React.CSSProperties}
-                className="flex items-center gap-2.5 rounded-xl border border-[var(--border-color)] surface px-4 py-2.5 transition-all hover:border-[var(--accent)]/40 hover:-translate-y-0.5 hover:shadow-md hover:shadow-[var(--accent-glow)]"
+                className="flex items-center gap-2.5 text-sm font-semibold text-[var(--foreground)] transition-colors hover:text-[var(--accent)]"
               >
-                <CategoryIcon icon={cat.icon} color={cat.accent} size={24} />
-                <span className="text-sm font-semibold">{cat.name}</span>
+                <CategoryIcon icon={cat.icon} color={cat.accent} size={22} />
+                <span>{cat.name}</span>
               </Link>
             ))}
           </div>
@@ -735,12 +806,12 @@ export function CompanyPageClient({
         <Reveal delay={0.45}>
           <section className="mt-12">
             <SectionHeader eyebrow="Explore" title="Related Articles & Guides" />
-            <ul className="grid gap-2 sm:grid-cols-2">
+            <ul className="grid border-t border-[var(--border-color)] sm:grid-cols-2">
               {relatedArticles.map((a) => (
                 <li key={a.slug}>
                   <Link
                     href={`/articles/${a.slug}`}
-                    className="block rounded-xl border border-[var(--border-color)] surface px-4 py-3 text-sm transition-all hover:border-[var(--accent)]/40 hover:-translate-y-0.5 hover:shadow-md hover:shadow-[var(--accent-glow)]"
+                    className="block border-b border-[var(--border-color)] py-3 pr-6 text-sm transition-colors hover:bg-[var(--subtle-bg)]/40"
                   >
                     <span className="block text-[11px] font-mono uppercase tracking-wider text-[var(--muted-text)]">
                       {a.category}
@@ -760,7 +831,7 @@ export function CompanyPageClient({
           <>
             <span>
               {adjacent.previous ? (
-                <Link href={`/companies/${adjacent.previous.slug}`} className="text-[var(--accent)] hover:underline">
+                <Link href={`/companies/${adjacent.previous.slug}`} className="text-[var(--accent-ink)] hover:underline">
                   ← {adjacent.previous.name}
                 </Link>
               ) : (
@@ -769,7 +840,7 @@ export function CompanyPageClient({
             </span>
             <span>
               {adjacent.next ? (
-                <Link href={`/companies/${adjacent.next.slug}`} className="text-[var(--accent)] hover:underline">
+                <Link href={`/companies/${adjacent.next.slug}`} className="text-[var(--accent-ink)] hover:underline">
                   {adjacent.next.name} →
                 </Link>
               ) : (
@@ -802,7 +873,7 @@ export function CompanyPageClient({
               role="dialog"
               aria-modal="true"
               aria-labelledby="review-modal-title"
-              className="relative z-10 w-full max-w-lg overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--background)] p-6 shadow-2xl space-y-4"
+              className="relative z-10 w-full max-w-lg space-y-4 overflow-hidden border border-[var(--border-color)] bg-[var(--background)] p-6"
             >
               <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-3">
                 <h3 id="review-modal-title" className="text-lg font-bold">Add a private note for {c.name}</h3>

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { articles, getArticleBySlug } from "./articles";
+import { articles, getArticleBySlug, articleCategories, getArticleCategory, categoryHref } from "./articles";
 import { companies } from "./companies";
 
 describe("articles catalog", () => {
@@ -8,8 +8,23 @@ describe("articles catalog", () => {
     expect(getArticleBySlug("does-not-exist")).toBeUndefined();
   });
 
-  it("has unique slugs", () => {
-    const slugs = articles.map((a) => a.slug);
+  it("uses only categories from the controlled vocabulary", () => {
+    const categoryNames = new Set(articleCategories.map((c) => c.name));
+    for (const article of articles) {
+      expect(
+        categoryNames.has(article.category),
+        `${article.slug} uses uncontrolled category "${article.category}"`,
+      ).toBe(true);
+      expect(
+        categoryHref(article.category).startsWith("/articles/category/"),
+        `${article.slug} categoryHref should be a real category route`,
+      ).toBe(true);
+      expect(getArticleCategory(article.category)).toBeDefined();
+    }
+  });
+
+  it("has unique category slugs", () => {
+    const slugs = articleCategories.map((c) => c.slug);
     expect(new Set(slugs).size).toBe(slugs.length);
   });
 

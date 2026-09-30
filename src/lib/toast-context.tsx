@@ -9,6 +9,7 @@ import React, {
   useEffect,
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { IconCheckCircle, IconErrorCircle, IconInfoCircle } from "@/components/ui/icons";
 
 interface Toast {
   id: string;
@@ -110,7 +111,7 @@ function ToastItem({
       onMouseLeave={() => setIsPaused(false)}
       onFocus={() => setIsPaused(true)}
       onBlur={() => setIsPaused(false)}
-      className={`pointer-events-auto flex items-center gap-3 rounded-lg border px-4 py-3 text-sm font-medium shadow-xl backdrop-blur-md ${
+      className={`pointer-events-auto flex items-center gap-3 rounded-md border px-4 py-3 text-sm font-medium backdrop-blur-md ${
         toast.type === "error"
           ? "border-[var(--danger)]/30 bg-[var(--danger)]/10 text-[var(--foreground)]"
           : toast.type === "info"
@@ -118,8 +119,14 @@ function ToastItem({
           : "border-[var(--success)]/30 bg-[var(--success)]/10 text-[var(--foreground)]"
       }`}
     >
-      <span>
-        {toast.type === "error" ? "❌" : toast.type === "info" ? "ℹ️" : "✨"}
+      <span className="shrink-0">
+        {toast.type === "error" ? (
+          <IconErrorCircle size={16} className="text-danger-text" />
+        ) : toast.type === "info" ? (
+          <IconInfoCircle size={16} className="text-[var(--accent)]" />
+        ) : (
+          <IconCheckCircle size={16} className="text-success-text" />
+        )}
       </span>
       <span>{toast.message}</span>
       <button

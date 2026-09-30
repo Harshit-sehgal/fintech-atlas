@@ -21,6 +21,49 @@ export const MAX_COMPARE = 3;
 export const DEFAULT_COMPARE_SLUGS: string[] = ["stripe", "adyen"];
 
 /**
+ * localStorage key holding the last comparison selection (JSON array of
+ * validated slugs). Written by the compare client on every change and read by
+ * the profile → compare bridge (T101) so "Add to comparison" can join the
+ * user's most recent line-up.
+ */
+export const LAST_COMPARE_STORAGE_KEY = "fintech_atlas_compare_last";
+
+/**
+ * Read the last stored comparison selection. When a company list is provided,
+ * every slug is validated against it; otherwise raw (type-checked, deduped,
+ * capped) slugs are returned for cheap callers like the profile bridge — the
+ * compare page re-validates the final URL through {@link parseCompareSlugs}
+ * regardless, so an unknown stored slug can never reach the render layer.
+ */
+export function readLastCompareSlugs(
+  companies?: ReadonlyArray<{ slug: string }>,
+): string[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = window.localStorage.getItem(LAST_COMPARE_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    const strings = parsed.filter((s): s is string => typeof s === "string");
+    const isValid = companies ? makeSlugValidator(companies) : () => true;
+    return normalizeSlugs(strings, isValid);
+  } catch {
+    return [];
+  }
+}
+
+/** Persist the selection for the profile bridge. Best-effort; never throws. */
+export function writeLastCompareSlugs(slugs: string[]): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(LAST_COMPARE_STORAGE_KEY, JSON.stringify(slugs));
+  } catch {
+    // Storage unavailable (private mode etc.) — the bridge then simply falls
+    // back to starting a fresh single-company comparison.
+  }
+}
+
+/**
  * A minimal read-only view over the search params the parser needs. Mirrors the
  * methods from {@link URLSearchParams} / Next.js' `useSearchParams()` so the
  * parser is agnostic to its source — trivial to unit-test with a plain

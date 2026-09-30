@@ -1,43 +1,26 @@
 import Link from "next/link";
 import { companySummaries } from "@/generated/company-summaries";
+import { indiaDirectorySummaries } from "@/generated/india-directory-summaries";
 import { DATA_AS_OF } from "@/lib/site-config";
+import { footerExploreLinks, footerAboutLinks } from "@/lib/site-nav";
+import { tools } from "@/data/tools";
 import { NewsletterOptIn } from "@/components/ui/newsletter-opt-in";
 
-const exploreLinks = [
-  { href: "/india", label: "India — Payments & Gateways" },
-  { href: "/india/directory", label: "India FinTech Directory (1,386)" },
-  { href: "/services", label: "Services & Consulting" },
-  { href: "/companies", label: "Companies Directory" },
-  { href: "/categories", label: "Industry Categories" },
-  { href: "/compare", label: "Side-by-Side Comparison" },
-  { href: "/glossary", label: "FinTech Glossary" },
-  { href: "/articles", label: "Guides & Comparisons" },
-  { href: "/changelog", label: "Site Changelog" },
-  { href: "/bookmarks", label: "Saved Bookmarks" },
-];
+// Explore column from the shared nav registry, with the directory count
+// derived from data so it never goes stale.
+const exploreLinks = footerExploreLinks.map((l) =>
+  l.href === "/india/directory"
+    ? { ...l, label: `India FinTech Directory (${indiaDirectorySummaries.length.toLocaleString()})` }
+    : l,
+);
 
-const toolsLinks = [
-  { href: "/tools", label: "Tools Overview" },
-  { href: "/tools/calculators", label: "Personal Finance Calculators" },
-  { href: "/tools/calculator", label: "Fee Estimator" },
-  { href: "/tools/razorpay-fee-calculator", label: "Razorpay Fee Calculator (India)" },
-  { href: "/tools/remittance", label: "Cross-Border FX Tool" },
-  { href: "/tools/exchange-rate-markup-calculator", label: "Exchange-Rate Markup Calculator" },
-  { href: "/tools/matchmaker", label: "Matchmaker Quiz" },
-];
+// The tools hub itself is reached from the Explore column (it is a primary
+// destination), so this column lists only the individual tools. Previously
+// "/tools" appeared in both columns, which made the footer look like it had
+// two competing entries for the same page.
+const toolsLinks = tools.map((t) => ({ href: t.href, label: t.name }));
 
-const aboutLinks = [
-  { href: "/about", label: "Methodology & Sources" },
-  { href: "/about#faq", label: "Frequently Asked Questions" },
-  { href: "/about#disclaimer", label: "Educational Disclaimer" },
-  { href: "/affiliate-disclosure", label: "Affiliate Disclosure" },
-  { href: "/privacy", label: "Privacy Notice" },
-  { href: "/terms", label: "Terms of Use" },
-  {
-    href: "https://github.com/Harshit-sehgal/fintech-atlas/issues/new/choose",
-    label: "Feedback & Issues",
-  },
-];
+const aboutLinks = footerAboutLinks;
 
 export function SiteFooter() {
   return (
@@ -47,7 +30,7 @@ export function SiteFooter() {
           {/* Brand block */}
           <div className="md:col-span-1 space-y-4">
             <Link href="/" className="group inline-flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--foreground)] text-[var(--background)] transition-transform duration-300 group-hover:rotate-6 group-hover:scale-105">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--foreground)] text-[var(--background)] ">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                   <path d="M2 3.5h12M2 8h12M2 12.5h7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
                 </svg>
@@ -92,7 +75,7 @@ export function SiteFooter() {
           <p>
             Data compiled from public reference labels and editorial research. See{" "}
             <Link className="text-[var(--foreground)] underline decoration-[var(--accent)]/40 underline-offset-4 hover:decoration-[var(--accent)]" href="/about">
-              /about
+              methodology &amp; sources
             </Link>
             .
           </p>

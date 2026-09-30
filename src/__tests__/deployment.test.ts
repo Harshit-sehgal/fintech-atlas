@@ -89,19 +89,32 @@ describe("Static deployment contracts", () => {
     const headers = read("public/_headers");
     expect(headers).not.toContain("Content-Security-Policy:");
     expect(headers).toContain("Strict-Transport-Security:");
-    expect(read("src/app/layout.tsx")).toContain('assetPath("/theme-init.js")');
-    expect(read("src/app/layout.tsx")).toContain('strategy="beforeInteractive"');
-    expect(existsSync(resolve(root, "public/theme-init.js"))).toBe(true);
+    // Pre-paint preference scripts (theme + UI mode) are inlined in <head> and
+    // hash-allowlisted per page, rather than fetched as beforeInteractive
+    // assets. An external pre-paint script blocks the parser on a network
+    // round-trip, which Lighthouse's `render-blocking-resources` assertion
+    // (maxLength 0) fails on. Inlining keeps the flash-free behaviour, removes
+    // the request entirely, and stays CSP-safe because the generator hashes
+    // every executable inline script.
+    const layout = read("src/app/layout.tsx");
+    expect(layout).toContain('setAttribute("data-theme"');
+    expect(layout).toContain('setAttribute("data-ui-mode"');
+    // No external pre-paint asset, and no <Script strategy="beforeInteractive">
+    // reintroduced for them.
+    expect(existsSync(resolve(root, "public/theme-init.js"))).toBe(false);
+    expect(existsSync(resolve(root, "public/ui-mode-init.js"))).toBe(false);
+    expect(layout).not.toContain('strategy="beforeInteractive"');
   });
 
   it("publishes the legal and incident-readiness surfaces", () => {
     expect(existsSync(resolve(root, "src/app/privacy/page.tsx"))).toBe(true);
     expect(existsSync(resolve(root, "src/app/terms/page.tsx"))).toBe(true);
-    expect(read("src/components/layout/site-footer.tsx")).toContain('href: "/privacy"');
-    expect(read("src/components/layout/site-footer.tsx")).toContain('href: "/terms"');
+    // Footer About links now come from the shared nav registry.
+    expect(read("src/lib/site-nav.ts")).toContain('href: "/privacy"');
+    expect(read("src/lib/site-nav.ts")).toContain('href: "/terms"');
     expect(existsSync(resolve(root, "docs/incident-runbook.md"))).toBe(true);
-    expect(read("src/app/privacy/page.tsx")).toContain("openGraph:");
-    expect(read("src/app/terms/page.tsx")).toContain("openGraph:");
+    expect(read("src/app/privacy/page.tsx")).toContain("pageMetadata(");
+    expect(read("src/app/terms/page.tsx")).toContain("pageMetadata(");
     expect(privacyMetadata.openGraph).toMatchObject({
       title: "Privacy Notice — FinTech Atlas",
       url: expect.stringContaining("/privacy/"),

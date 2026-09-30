@@ -4,23 +4,16 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { GatewayChecklist, type ChecklistGroup } from "@/components/ui/gateway-checklist";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 
 const description =
   "The FinTech Atlas payment gateway implementation checklist: pre-flight, integration, testing, go-live and reconciliation — with progress saved in your browser.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/services/payment-gateway-implementation-checklist",
   title: "Payment Gateway Implementation Checklist",
   description,
-  alternates: { canonical: canonicalUrl("/services/payment-gateway-implementation-checklist") },
-  openGraph: {
-    ...openGraphImage,
-    title: "Payment Gateway Implementation Checklist — FinTech Atlas",
-    description,
-    url: canonicalUrl("/services/payment-gateway-implementation-checklist"),
-  },
-};
+});
 
 const GROUPS: ChecklistGroup[] = [
   {
@@ -103,7 +96,7 @@ export default function ImplementationChecklistPage() {
         <GatewayChecklist groups={GROUPS} />
       </div>
 
-      <div className="mt-12 flex flex-wrap items-center gap-3 rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-5">
+      <div className="mt-12 flex flex-wrap items-center gap-3 rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-5">
         <p className="text-sm text-[var(--muted-text)]">
           Stuck on a step, or want this done for you?{" "}
           <Link href="/services" className="font-semibold text-[var(--accent-ink)] underline decoration-[var(--accent)]/40 underline-offset-4 hover:decoration-[var(--accent)]">

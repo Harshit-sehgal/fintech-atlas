@@ -2,10 +2,11 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
-import { PartnerCta } from "@/components/ui/partner-cta";
+import { ResolvedPartnerCtaLink } from "@/components/ui/resolved-partner-cta-link";
+import { resolvePartnerCta, partnerRel } from "@/lib/partners";
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
-import { articles, getArticleBySlug, type ArticleBlock } from "@/data/articles";
+import { articles, getArticleBySlug, type ArticleBlock, categoryHref } from "@/data/articles";
 import { getCompanyBySlug } from "@/data";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
@@ -139,7 +140,8 @@ export default async function ArticlePage({
   const breadcrumbItems = [
     { name: "Home", href: "/" },
     { name: "Articles", href: "/articles" },
-    { name: article.category, href: `/articles/${article.slug}` },
+    { name: article.category, href: categoryHref(article.category) },
+    { name: article.title, href: `/articles/${article.slug}` },
   ];
 
   return (
@@ -198,7 +200,7 @@ export default async function ArticlePage({
       {article.relatedArticleSlugs && article.relatedArticleSlugs.length > 0 && (
         <div className="mt-12">
           <h2 className="text-lg font-bold text-[var(--foreground)]">Related guides</h2>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          <div className="mt-3 grid border-t border-[var(--border-color)] sm:grid-cols-2">
             {article.relatedArticleSlugs.map((s) => {
               const relatedArticle = getArticleBySlug(s);
               if (!relatedArticle) return null;
@@ -206,12 +208,12 @@ export default async function ArticlePage({
                 <Link
                   key={s}
                   href={`/articles/${s}`}
-                  className="surface rounded-2xl border border-[var(--border-color)] p-4 transition-all hover:border-[var(--foreground)]/30 hover:-translate-y-0.5"
+                  className="group border-b border-[var(--border-color)] py-4 transition-colors sm:odd:border-r sm:odd:pr-6 sm:even:pl-6"
                 >
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--muted-text)]">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted-text)]">
                     {relatedArticle.category}
                   </span>
-                  <h3 className="mt-1.5 text-sm font-bold leading-snug text-[var(--foreground)]">
+                  <h3 className="mt-1.5 text-sm font-bold leading-snug text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
                     {relatedArticle.title}
                   </h3>
                   <span className="mt-2 inline-block text-xs font-bold text-[var(--accent)]">Read →</span>
@@ -224,25 +226,36 @@ export default async function ArticlePage({
 
       {article.ctas.length > 0 && (
         <Suspense fallback={null}>
-          <div className="surface mt-12 rounded-2xl border border-[var(--border-color)] p-5">
+          <div className="mt-12 border-t border-[var(--border-color)] pt-5">
             <h2 className="text-sm font-bold text-[var(--foreground)]">Compare these providers yourself</h2>
             <div className="mt-3 flex flex-wrap gap-3">
-              {article.ctas.map((cta) => (
-                <PartnerCta
-                  key={`${cta.slug}-${cta.placement}`}
-                  slug={cta.slug}
-                  placement={cta.placement}
-                  label={cta.label}
-                  variant="compact"
-                />
-              ))}
+              {article.ctas.map((cta) => {
+                // Resolve server-side: keeps lib/partners (and the company
+                // catalog it reads) out of this route's client bundle.
+                const resolved = resolvePartnerCta(cta.slug, cta.placement);
+                if (!resolved) return null;
+                return (
+                  <ResolvedPartnerCtaLink
+                    key={`${cta.slug}-${cta.placement}`}
+                    href={resolved.href}
+                    label={cta.label ?? resolved.label}
+                    rel={partnerRel(resolved.isCommercial)}
+                    isCommercial={resolved.isCommercial}
+                    companySlug={cta.slug}
+                    placement={cta.placement}
+                    relationship={resolved.relationship}
+                    trackingId={resolved.trackingId}
+                    variant="compact"
+                  />
+                );
+              })}
             </div>
           </div>
         </Suspense>
       )}
 
       {article.relatedTool && (
-        <div className="mt-6 rounded-2xl border border-[var(--accent)]/30 bg-[var(--accent-glow)] p-5">
+        <div className="mt-6 rounded-lg border border-[var(--accent)]/30 bg-[var(--accent-glow)] p-5">
           <h2 className="text-sm font-bold text-[var(--foreground)]">Try the calculator</h2>
           <p className="mt-1 text-xs leading-relaxed text-[var(--muted-text)]">
             Run the numbers for your own volume and mix before you choose.

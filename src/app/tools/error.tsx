@@ -19,7 +19,7 @@ export default function ToolsError({
       <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--danger-text)]">
         Tool error
       </p>
-      <h1 className="text-4xl font-bold tracking-tight gradient-text">Tool failed to load</h1>
+      <h1 className="text-4xl font-bold tracking-tight">Tool failed to load</h1>
       <p className="mt-4 max-w-md text-base leading-relaxed text-[var(--muted-text)]">
         Something went wrong while rendering this tool. Try again, or return to the tools overview.
       </p>

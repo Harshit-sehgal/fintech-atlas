@@ -53,3 +53,11 @@ next-env.d.ts
 
 # Lighthouse CI artifacts
 .lighthouseci/
+
+# Radar private-platform staging (ADR-002) — never commit to the public repo
+/data-platform/staging/
+# Generated platform artifacts (canonical.json / seed.sql / rbi-*.json) —
+# produced by npm run platform:import / platform:ingest-rbi
+/data-platform/out/
+# Concierge-sales tracker (real prospect data — local only, Phase 6)
+/docs/sales/prospects.csv

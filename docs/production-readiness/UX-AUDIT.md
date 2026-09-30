@@ -3,8 +3,9 @@
 > Executed **2026-08-15** against the live origin
 > `https://harshit-sehgal.github.io/fintech-atlas` (issue #18). Covers
 > cross-browser, slow-connection, mobile, and screen-reader-oriented semantic
-> checks. The automated suites (80 e2e incl. keyboard + axe on 36 routes)
-> remain the primary gates; this report records the manual/live pass.
+> checks. The automated suites (89 e2e incl. keyboard + axe on 47 routes —
+> 31 light + 16 dark) remain the primary gates; this report records the
+> manual/live pass.
 
 ## 1. Cross-browser smoke (Playwright, live origin, 2026-08-15)
 

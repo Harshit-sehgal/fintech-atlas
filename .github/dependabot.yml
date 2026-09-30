@@ -8,6 +8,12 @@ updates:
     # Security advisories are always raised regardless of versioning strategy.
     versioning-strategy: increase
     open-pull-requests-limit: 10
+    # eslint 10 is blocked upstream: eslint-config-next ≤16.3.2 vendors an
+    # eslint-plugin-react that crashes under eslint 10's rule-context API.
+    # Ignore until config-next ships real support (see ISSUES-AND-GAPS).
+    ignore:
+      - dependency-name: "eslint"
+        versions: [">=10"]
     groups:
       next:
         patterns: ["next", "eslint-config-next"]

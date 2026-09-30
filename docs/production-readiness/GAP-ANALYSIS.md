@@ -12,7 +12,7 @@
 
 | Capability | Where |
 |---|---|
-| Company directory (42 companies, 12 categories, 29-term glossary) | `src/data/*`, `/companies`, `/categories`, `/glossary` |
+| Company directory (42 companies, 12 categories, 53-term glossary) | `src/data/*`, `/companies`, `/categories`, `/glossary` |
 | Interactive tools (fee estimator, FX remittance, matchmaker quiz, personal finance calculators) | `src/app/tools/*` |
 | Local-only bookmarks + ⌘K command palette | `src/lib/bookmarks-context.tsx`, `command-palette.tsx` |
 | SEO (metadata, canonical, OG, JSON-LD, sitemap, robots) | `src/app/layout.tsx`, `src/components/SEO/*`, `scripts/generate-sitemap.ts` |

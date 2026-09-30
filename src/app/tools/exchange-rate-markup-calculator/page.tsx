@@ -2,23 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { MarkupCalculatorClient } from "./markup-calculator-client";
-import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 
 const description =
   "Measure the hidden exchange-rate markup on any international transfer: enter the mid-market rate and your provider's rate, see the markup percentage and the rupee cost of the spread — for both receiving INR (USD → INR) and sending INR (INR → USD).";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/tools/exchange-rate-markup-calculator",
   title: "Exchange-Rate Markup Calculator — hidden FX fees",
+  ogTitle: "Exchange-Rate Markup Calculator",
   description,
-  alternates: { canonical: canonicalUrl("/tools/exchange-rate-markup-calculator") },
-  openGraph: {
-    ...openGraphImage,
-    title: "Exchange-Rate Markup Calculator — FinTech Atlas",
-    description,
-    url: canonicalUrl("/tools/exchange-rate-markup-calculator"),
-  },
-};
+});
 
 export default function ExchangeRateMarkupCalculatorPage() {
   return (
@@ -122,7 +116,7 @@ export default function ExchangeRateMarkupCalculatorPage() {
       </div>
 
       <section className="mx-auto max-w-5xl px-5 pb-16">
-        <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6">
+        <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6">
           <h2 className="text-sm font-bold uppercase tracking-wider text-[var(--muted-text)]">Related comparisons</h2>
           <div className="mt-3 flex flex-wrap gap-3">
             <Link href="/articles/payoneer-fees-india" className="btn-ghost text-xs">Payoneer fees in India (receiving USD)</Link>

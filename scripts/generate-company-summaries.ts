@@ -24,6 +24,7 @@ function jsLiteral(value: unknown): string {
   if (value === undefined) return "undefined";
   if (typeof value === "string") return JSON.stringify(value);
   if (typeof value === "number") return String(value);
+  if (typeof value === "boolean") return String(value);
   if (Array.isArray(value)) {
     const items = value.map((v) => jsLiteral(v));
     return items.length === 0 ? "[]" : `[${items.join(", ")}]`;
@@ -55,6 +56,7 @@ const summaries = companies.map((c) => ({
     : {}),
   categories: c.categories,
   accent: c.accent,
+  ...(c.indiaFocus ? { indiaFocus: true } : {}),
   rating: c.userReviews.rating,
   pricingModel: c.pricing.model,
   employees: c.employees,
@@ -102,6 +104,8 @@ const lines = [
   "  valuationAmountUsd?: number;",
   "  categories: string[];",
   "  accent: string;",
+  "  /** Editorial India-relevance flag (drives the directory's India-first facet). */",
+  "  indiaFocus?: boolean;",
   "  /** Editorial sentiment rating, not a community aggregate (see methodology). */",
   "  rating: number;",
   "  pricingModel: string;",

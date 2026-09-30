@@ -33,6 +33,15 @@ const ACCENT_VARS = [
   "--acc-5", "--acc-6", "--acc-7", "--acc-8",
 ];
 
+// Group the calculator strip by the life decision it serves, so users pick by
+// intent ("Plan & grow investments") instead of scanning a horizontal row.
+const CALC_CLUSTERS: { id: string; title: string; blurb: string; calcIds: string[] }[] = [
+  { id: "invest", title: "Plan & grow investments", blurb: "Project returns and compound growth.", calcIds: ["sip", "swp", "cagr"] },
+  { id: "retire", title: "Retirement & FIRE", blurb: "Corpus, drawdown and early-retirement math.", calcIds: ["retirement", "fire"] },
+  { id: "debt", title: "Borrow & inflation", blurb: "Loan costs and purchasing-power erosion.", calcIds: ["emi", "inflation"] },
+  { id: "net", title: "Wealth & safety net", blurb: "Net worth and emergency buffers.", calcIds: ["emergency", "networth"] },
+];
+
 function defaultValuesFor(calc: (typeof CALCULATORS)[number]): CalcValues {
   return calc.inputs.reduce<CalcValues>((acc, input) => {
     acc[input.key] = input.default;
@@ -142,15 +151,17 @@ export default function CalculatorsClient() {
   const accent = ACCENT_VARS[CALCULATORS.findIndex((c) => c.id === activeCalc.id) % ACCENT_VARS.length];
   const outputs = activeCalc.compute(activeValues);
 
-  // Fire tool_complete once hydrated with computed results.
+  // Fire one completion event when a calculator becomes ready. `outputs` is
+  // intentionally excluded: compute() returns a new array on every slider
+  // render, and a slider change is not a new completed session.
   useEffect(() => {
-    if (hydrated && outputs) {
+    if (hydrated) {
       trackEvent("tool_complete", {
         tool: "calculator",
         calc_id: activeCalc.id,
       });
     }
-  }, [hydrated, outputs, activeCalc.id]);
+  }, [hydrated, activeCalc.id]);
 
   const setValue = (calcId: string, key: string, value: number) => {
     setValuesByCalc((prev) => ({
@@ -223,30 +234,48 @@ export default function CalculatorsClient() {
         description="Quick, illustrative calculators for investing, loans, inflation, retirement, and net worth. Results are educational estimates — not financial advice."
       />
 
-      <div className="mt-10 flex flex-wrap gap-2" role="tablist" aria-label="Choose a calculator">
-        {CALCULATORS.map((calc, index) => {
-          const active = calc.id === activeCalc.id;
-          const cAccent = ACCENT_VARS[index % ACCENT_VARS.length];
-          return (
-            <button
-              key={calc.id}
-              role="tab"
-              id={`tab-${calc.id}`}
-              aria-selected={active}
-              aria-controls={`panel-${calc.id}`}
-              onClick={() => setActiveId(calc.id)}
-              className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-all focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
-                active
-                  ? "border-transparent text-[var(--background)]"
-                  : "border-[var(--border-color)] text-[var(--muted-text)] hover:border-[var(--border-strong)] hover:text-[var(--foreground)]"
-              }`}
-              style={active ? ({ background: `var(${cAccent})` } as CSSProperties) : undefined}
-            >
-              <span className="text-base">{calc.icon}</span>
-              <span className="font-medium">{calc.name}</span>
-            </button>
-          );
-        })}
+      <div className="mt-10 space-y-7" role="tablist" aria-label="Choose a calculator">
+        {CALC_CLUSTERS.map((cluster) => (
+          <div key={cluster.id}>
+            <div className="mb-3 max-w-2xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
+                {cluster.title}
+              </p>
+              <p className="mt-0.5 text-xs leading-relaxed text-[var(--muted-text)]">{cluster.blurb}</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {cluster.calcIds.map((id) => {
+                const calc = CALCULATORS.find((c) => c.id === id);
+                if (!calc) return null;
+                const active = calc.id === activeCalc.id;
+                const index = CALCULATORS.findIndex((c) => c.id === calc.id);
+                const cAccent = ACCENT_VARS[index % ACCENT_VARS.length];
+                return (
+                  <button
+                    key={calc.id}
+                    role="tab"
+                    id={`tab-${calc.id}`}
+                    aria-selected={active}
+                    aria-controls={`panel-${calc.id}`}
+                    onClick={() => setActiveId(calc.id)}
+                    className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-all focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+                      active
+                        ? "border-transparent text-[var(--background)]"
+                        : "border-[var(--border-color)] text-[var(--muted-text)] hover:border-[var(--border-strong)] hover:text-[var(--foreground)]"
+                    }`}
+                    style={active ? ({ background: `var(${cAccent})` } as CSSProperties) : undefined}
+                  >
+                    {/* Editorial index numeral instead of an emoji marker (P1-1) */}
+                    <span aria-hidden className="font-mono text-xs font-bold">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="font-medium">{calc.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
 
       <AnimatePresence mode="wait">
@@ -261,7 +290,7 @@ export default function CalculatorsClient() {
           style={{ ["--accent"]: `var(${accent})` } as CSSProperties}
           className="mt-8 grid gap-8 lg:grid-cols-12"
         >
-          <div className="surface rounded-2xl border border-[var(--border-color)] p-6 lg:col-span-5 print:break-inside-avoid">
+          <div className="surface rounded-lg border border-[var(--border-color)] p-6 lg:col-span-5 min-w-0 print:break-inside-avoid">
             <div className="border-b border-[var(--border-color)] pb-3">
               <h2 className="text-base font-semibold text-[var(--foreground)]">{activeCalc.name}</h2>
               <p className="mt-1 text-xs text-[var(--muted-text)]">{activeCalc.tagline}</p>
@@ -301,8 +330,8 @@ export default function CalculatorsClient() {
             </div>
           </div>
 
-          <div className="space-y-6 lg:col-span-7">
-            <div className="surface rounded-2xl border border-[var(--border-color)] p-6 print:break-inside-avoid">
+          <div className="space-y-6 lg:col-span-7 min-w-0">
+            <div className="surface rounded-lg border border-[var(--border-color)] p-6 print:break-inside-avoid">
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border-color)] pb-4">
                 <span className="eyebrow !text-[var(--muted-text)]">Results</span>
                 <div className="flex flex-wrap gap-2 print:hidden">

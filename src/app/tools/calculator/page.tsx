@@ -1,24 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import FeeCalculatorPageClient from "./calculator-client";
-import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 import { breadcrumbJsonLd } from "@/components/breadcrumbs";
 
 const description =
   "Compare total monthly processing fees across Stripe, PayPal, Square, and Adyen based on your transaction volume, average order size, and international mix.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/tools/calculator",
   title: "Payment Gateway Fee Calculator",
   description,
-  alternates: { canonical: canonicalUrl("/tools/calculator") },
-  openGraph: {
-    ...openGraphImage,
-    title: "Payment Gateway Fee Calculator — FinTech Atlas",
-    description,
-    url: canonicalUrl("/tools/calculator"),
-  },
-};
+});
 
 export default function FeeCalculatorPage() {
   return (
@@ -37,7 +30,7 @@ export default function FeeCalculatorPage() {
       />
       <FeeCalculatorPageClient />
       <section className="mx-auto max-w-5xl px-5 pb-16">
-        <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6">
+        <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6">
           <h2 className="text-sm font-bold uppercase tracking-wider text-[var(--muted-text)]">Related comparisons</h2>
           <div className="mt-3 flex flex-wrap gap-3">
             <Link href="/articles/razorpay-vs-stripe-payments-india" className="btn-ghost text-xs">Razorpay vs Stripe (India)</Link>

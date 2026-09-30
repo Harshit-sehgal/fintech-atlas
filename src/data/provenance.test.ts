@@ -22,6 +22,10 @@ const baseCompany: Company = {
     asOf: "2026-07-31",
     sourceIds: ["official-profile"],
   },
+  availability: {
+    ...companies[0].availability!,
+    sourceIds: ["official-profile"],
+  },
 };
 
 describe("company provenance", () => {

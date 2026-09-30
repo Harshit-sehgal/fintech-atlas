@@ -27,7 +27,6 @@ export const valuationAmountUsdBySlug: Record<string, number> = {
   chime: 25_000_000_000,
   robinhood: 12_000_000_000,
   klarna: 7_500_000_000,
-  afterpay: 29_000_000_000,
   monzo: 4_500_000_000,
   n26: 9_000_000_000,
   adp: 100_000_000_000,

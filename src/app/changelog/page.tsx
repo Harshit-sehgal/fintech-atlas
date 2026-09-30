@@ -1,30 +1,25 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
-import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 import { changelog, changelogKindLabels } from "@/data/changelog";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/changelog",
   title: "Site Changelog",
   description:
     "What changed on FinTech Atlas and when: new guides, tools, fee updates, and fixes — the site's own update log, also available as an RSS feed.",
-  alternates: {
-    canonical: canonicalUrl("/changelog"),
+  ogDescription:
+    "New guides, tools, fee updates, and fixes on FinTech Atlas — the site's update log, also available as an RSS feed.",
+  extraAlternates: {
     types: {
       "application/rss+xml": [
         { url: "/changelog.xml", title: "FinTech Atlas — Site Changelog" },
       ],
     },
   },
-  openGraph: {
-    ...openGraphImage,
-    title: "Site Changelog — FinTech Atlas",
-    description:
-      "New guides, tools, fee updates, and fixes on FinTech Atlas — the site's update log, also available as an RSS feed.",
-    url: canonicalUrl("/changelog"),
-  },
-};
+});
 
 const kindDot: Record<string, string> = {
   tool: "bg-[var(--accent-strong)]",
@@ -36,11 +31,12 @@ export default function ChangelogPage() {
   return (
     <div className="relative mx-auto max-w-4xl px-5 py-20 md:py-28">
       <GridBackdrop />
-      <nav className="mb-6 flex items-center gap-2 text-xs text-[var(--muted-text)] font-mono">
-        <Link href="/" className="hover:text-[var(--foreground)] transition-colors">Home</Link>
-        <span>/</span>
-        <span className="text-[var(--foreground)] font-medium">Changelog</span>
-      </nav>
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Changelog", href: "/changelog" },
+        ]}
+      />
 
       <h1 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl text-[var(--foreground)]">
         Site Changelog
@@ -57,11 +53,11 @@ export default function ChangelogPage() {
         .
       </p>
 
-      <ol className="mt-10 space-y-4">
+      <ol className="mt-8 border-t border-[var(--border-color)]">
         {changelog.map((entry) => (
           <li
             key={entry.href + entry.title}
-            className="surface rounded-2xl border border-[var(--border-color)] p-5"
+            className="border-b border-[var(--border-color)] py-5"
           >
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
               <span

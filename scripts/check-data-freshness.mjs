@@ -29,6 +29,12 @@ function daysOld(isoDate) {
   return (now - Date.parse(isoDate)) / (24 * 60 * 60 * 1000);
 }
 
+function quarterStart(label) {
+  const match = label.match(/^(\d{4})-Q([1-4])$/);
+  if (!match) return null;
+  return new Date(Number(match[1]), (Number(match[2]) - 1) * 3, 1).getTime();
+}
+
 function warnOrFail(label, age, max, severity) {
   const msg = `${label}: ${age.toFixed(1)}d old (max ${max}d).`;
   if (age > max) {
@@ -74,11 +80,13 @@ if (fs.existsSync(avPath)) {
   const matches = [...avSource.matchAll(/asOf:\s*["']([^"']+)["']/g)];
   const MAX_AVAILABILITY_AGE = 120;
   for (const m of matches) {
-    const label = m[1]; // "2026-Qs" style — if it's an ISO date, parse it
-    const d = Date.parse(label);
-    if (!Number.isNaN(d)) {
-      const age = (now - d) / (24 * 60 * 60 * 1000);
+    const label = m[1];
+    const timestamp = quarterStart(label) ?? Date.parse(label);
+    if (!Number.isNaN(timestamp) && timestamp !== null) {
+      const age = (now - timestamp) / (24 * 60 * 60 * 1000);
       warnOrFail("Availability snapshot (" + label + ")", age, MAX_AVAILABILITY_AGE, "warn");
+    } else {
+      throw new Error(`Availability snapshot has an invalid asOf value: ${label}`);
     }
   }
 }

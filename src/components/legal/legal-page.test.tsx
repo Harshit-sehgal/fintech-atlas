@@ -11,6 +11,7 @@ describe("LegalPage", () => {
         title="Example notice"
         description="A short description"
         effectiveDate="2026-08-03"
+        pathname="/example"
       >
         <p>Example legal content</p>
       </LegalPage>,

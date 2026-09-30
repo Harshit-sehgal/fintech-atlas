@@ -3,24 +3,18 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 import { gatewayEstimates, SAMPLE_MERCHANT } from "@/lib/services-report";
 
 const description =
   "A public sample of the FinTech Atlas gateway-selection audit: a fictional merchant, real published India fee schedules (2% + 18% GST), and the reasoning behind the recommendation.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/services/gateway-selection-report-sample",
   title: "Sample Gateway Selection Report (public sample)",
+  ogTitle: "Sample Gateway Selection Report",
   description,
-  alternates: { canonical: canonicalUrl("/services/gateway-selection-report-sample") },
-  openGraph: {
-    ...openGraphImage,
-    title: "Sample Gateway Selection Report — FinTech Atlas",
-    description,
-    url: canonicalUrl("/services/gateway-selection-report-sample"),
-  },
-};
+});
 
 const CURRENCY = new Intl.NumberFormat("en-IN", {
   style: "currency",
@@ -119,7 +113,7 @@ export default function SampleReportPage() {
       {/* Recommendation */}
       <section aria-labelledby="rpt-rec" className="mt-12">
         <h2 id="rpt-rec" className="text-lg font-bold tracking-tight">3 · Recommendation</h2>
-        <div className="mt-4 rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6">
+        <div className="mt-4 rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6">
           <p className="text-sm leading-relaxed text-[var(--foreground)]">
             <strong>Recommendation: {best.name}</strong> — but only just. At this volume the monthly fee
             difference between the India gateways is under a few hundred rupees; the decision should be made

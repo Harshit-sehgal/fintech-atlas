@@ -85,7 +85,7 @@ is deterministic: `npm ci && npm run build` with the commit's env).
 The repository-level automated evidence below reflects the current working-tree
 validation run (record the release SHA and timestamp when promoting it):
 
-- `npm run test:e2e`: 80/80 Playwright journeys passed (axe, keyboard, and
+- `npm run test:e2e`: 89/89 Playwright journeys passed (axe, keyboard, and
   interactive specs across accessibility, app, and keyboard suites).
 - `npm run check:provenance`: 42/42 company records validate.
 - `npm audit --production --audit-level=high`: 0 shipped vulnerabilities.

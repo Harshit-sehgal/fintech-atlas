@@ -7,7 +7,9 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useBookmarks } from "@/lib/bookmarks-context";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { UiModeToggle } from "@/components/ui/ui-mode-toggle";
 import { animationPresets as animation } from "@/lib/animation";
+import { primaryNav, moreNav, moreNavGroups, bottomNav } from "@/lib/site-nav";
 
 // Lazy-load the command palette so its heavy data import (the full companies /
 // categories / glossary catalogue) is NOT shipped on every page's initial
@@ -16,36 +18,6 @@ const CommandPalette = dynamic(
   () => import("@/components/ui/command-palette").then((m) => m.CommandPalette),
   { ssr: false },
 );
-
-// Primary navigation — the five decision surfaces. Everything else lives in
-// "More" so the bar stays calm and scannable (proven comparison-site pattern).
-const primaryNav = [
-  { href: "/india", label: "India" },
-  { href: "/companies", label: "Companies" },
-  { href: "/compare", label: "Compare" },
-  { href: "/tools", label: "Tools" },
-  { href: "/articles", label: "Guides" },
-];
-
-const moreNav = [
-  { href: "/categories", label: "Categories" },
-  { href: "/glossary", label: "Glossary" },
-  { href: "/services", label: "Services" },
-  { href: "/bookmarks", label: "Saved" },
-  { href: "/about", label: "About" },
-  { href: "/changelog", label: "Changelog" },
-];
-
-// App-like bottom navigation for touch screens (hidden on lg+ where the
-// desktop bar shows everything). Kept to the five highest-value destinations
-// so each target stays thumb-sized on a 360px viewport.
-const bottomNav = [
-  { href: "/", label: "Home" },
-  { href: "/companies", label: "Companies" },
-  { href: "/compare", label: "Compare" },
-  { href: "/tools", label: "Tools" },
-  { href: "/bookmarks", label: "Saved" },
-];
 
 const isActive = (pathname: string, href: string) =>
   href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -118,15 +90,13 @@ export function SiteHeader() {
   return (
     <>
       <header
-        className={`sticky top-0 z-40 glass border-b transition-colors duration-300 ${
-          scrolled
-            ? "border-[var(--border-color)] shadow-[0_1px_0_rgba(0,0,0,0.03)]"
-            : "border-[var(--border-color)]"
+        className={`sticky top-0 z-40 glass border-b border-[var(--border-color)] transition-colors duration-300 ${
+          scrolled ? "border-[var(--border-strong)]" : ""
         }`}
       >
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
           <Link href="/" className="group flex items-center gap-2.5" onClick={() => setOpen(false)}>
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--foreground)] text-[var(--background)] transition-transform duration-300 group-hover:rotate-6">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--foreground)] text-[var(--background)] transition-colors duration-300 group-hover:bg-[var(--accent)]">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path d="M2 3.5h12M2 8h12M2 12.5h7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
               </svg>
@@ -198,32 +168,50 @@ export function SiteHeader() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 6 }}
                     transition={animation.transition.reveal}
-                    className="absolute right-0 top-full z-50 mt-2 w-52 rounded-xl border border-[var(--border-color)] bg-[var(--card)] p-1.5 shadow-[var(--shadow-md)]"
+                    className="absolute right-0 top-full z-50 mt-2 w-[34rem] max-w-[calc(100vw-3rem)] border border-[var(--border-color)] bg-[var(--card)] p-4"
                   >
-                    {moreNav.map((item) => {
-                      const active = isActive(pathname, item.href);
-                      return (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          role="menuitem"
-                          onClick={() => setMoreOpen(false)}
-                          aria-current={active ? "page" : undefined}
-                          className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors ${
-                            active
-                              ? "bg-[var(--subtle-bg)] font-medium text-[var(--foreground)]"
-                              : "text-[var(--muted-text)] hover:bg-[var(--subtle-bg)] hover:text-[var(--foreground)]"
-                          }`}
-                        >
-                          <span>{item.label}</span>
-                          {item.href === "/bookmarks" && totalSaved > 0 && (
-                            <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--accent)] text-[10px] font-bold text-white">
-                              {totalSaved}
-                            </span>
-                          )}
-                        </Link>
-                      );
-                    })}
+                    {/* Groups are laid out two-up so the whole menu fits a
+                        short viewport without scrolling, and each destination
+                        carries the one-line clarifier that says why it exists —
+                        several surfaces answer the same reader question. */}
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-5">
+                      {moreNavGroups.map((group) => (
+                        <div key={group.heading} role="group" aria-label={group.heading}>
+                          <p className="eyebrow mb-1.5 px-3">{group.heading}</p>
+                          {group.items.map((item) => {
+                            const active = isActive(pathname, item.href);
+                            return (
+                              <Link
+                                key={item.href}
+                                href={item.href}
+                                role="menuitem"
+                                onClick={() => setMoreOpen(false)}
+                                aria-current={active ? "page" : undefined}
+                                className={`block rounded-lg px-3 py-2 transition-colors ${
+                                  active
+                                    ? "bg-[var(--subtle-bg)] text-[var(--foreground)]"
+                                    : "text-[var(--muted-text)] hover:bg-[var(--subtle-bg)] hover:text-[var(--foreground)]"
+                                }`}
+                              >
+                                <span className="flex items-center justify-between gap-2 text-sm font-medium">
+                                  {item.label}
+                                  {item.href === "/bookmarks" && totalSaved > 0 && (
+                                    <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-[var(--accent)] px-1 text-[10px] font-bold text-white">
+                                      {totalSaved}
+                                    </span>
+                                  )}
+                                </span>
+                                {item.description && (
+                                  <span className="mt-0.5 block text-xs leading-snug text-[var(--muted-text)]">
+                                    {item.description}
+                                  </span>
+                                )}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      ))}
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -231,7 +219,10 @@ export function SiteHeader() {
           </nav>
 
           {/* Search Trigger & Mobile Controls */}
-          <div className="flex items-center gap-2">
+          {/* `shrink-0` is load-bearing: these are fixed-size hit targets and
+              flex would otherwise compress them when the primary bar is wide,
+              pushing the row past the container's right edge. */}
+          <div className="flex shrink-0 items-center gap-2">
             <button
               onClick={() => setCmdOpen(true)}
               className="flex items-center gap-2 rounded-lg border border-[var(--border-color)] bg-[var(--card)] py-1.5 pl-3 pr-1.5 text-xs text-[var(--muted-text)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--foreground)] focus-visible:text-[var(--foreground)] focus-visible:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
@@ -247,7 +238,8 @@ export function SiteHeader() {
               </kbd>
             </button>
 
-            <ThemeToggle className="hidden lg:flex" />
+            <ThemeToggle className="hidden shrink-0 lg:flex" />
+            <UiModeToggle className="hidden shrink-0 sm:flex" />
 
             {/* Mobile menu toggle */}
             <button
@@ -293,7 +285,16 @@ export function SiteHeader() {
               className="overflow-hidden border-t border-[var(--border-color)] lg:hidden"
             >
               <div className="mx-auto flex max-w-6xl flex-col px-5 py-2">
-                {[...primaryNav, ...moreNav].map((item) => {
+                {/* Mobile control row: surface the theme + UI-mode toggles that
+                    are desktop-only in the header so phones can reach them. */}
+                <div className="flex items-center justify-between gap-2 border-b border-[var(--border-color)] py-3">
+                  <span className="text-xs font-medium text-[var(--muted-text)]">Appearance</span>
+                  <div className="flex items-center gap-2">
+                    <ThemeToggle />
+                    <UiModeToggle />
+                  </div>
+                </div>
+                {primaryNav.map((item) => {
                   const active = isActive(pathname, item.href);
                   return (
                     <Link
@@ -306,14 +307,47 @@ export function SiteHeader() {
                       }`}
                     >
                       <span>{item.label}</span>
-                      {item.href === "/bookmarks" && totalSaved > 0 && (
-                        <span className="rounded-full bg-[var(--accent)] px-2 py-0.5 text-xs text-white">
-                          {totalSaved}
-                        </span>
-                      )}
                     </Link>
                   );
                 })}
+
+                {/* Secondary sections repeat the grouped structure of the
+                    desktop menu so the hierarchy is identical on both. */}
+                {moreNavGroups.map((group) => (
+                  <div key={group.heading} className="border-t border-[var(--border-color)] pt-2 mt-2">
+                    <p className="eyebrow px-1 pb-1 pt-2">{group.heading}</p>
+                    {group.items.map((item) => {
+                      const active = isActive(pathname, item.href);
+                      return (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          onClick={() => setOpen(false)}
+                          aria-current={active ? "page" : undefined}
+                          className={`block py-2 text-sm ${
+                            active
+                              ? "font-semibold text-[var(--foreground)]"
+                              : "text-[var(--muted-text)]"
+                          }`}
+                        >
+                          <span className="flex items-center justify-between">
+                            {item.label}
+                            {item.href === "/bookmarks" && totalSaved > 0 && (
+                              <span className="rounded-full bg-[var(--accent)] px-2 py-0.5 text-xs text-white">
+                                {totalSaved}
+                              </span>
+                            )}
+                          </span>
+                          {item.description && (
+                            <span className="mt-0.5 block text-xs leading-snug text-[var(--muted-text)]">
+                              {item.description}
+                            </span>
+                          )}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                ))}
               </div>
             </motion.nav>
           )}

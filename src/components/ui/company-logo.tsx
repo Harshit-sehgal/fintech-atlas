@@ -697,7 +697,7 @@ export function CompanyLogo({
 
     return (
       <span
-        className="inline-flex items-center justify-center rounded-xl overflow-hidden shrink-0 transition-transform duration-300 group-hover:scale-105"
+        className="inline-flex items-center justify-center rounded-xl overflow-hidden shrink-0 transition-colors duration-300"
         {...hiddenAria}
         style={{
           width: size,
@@ -764,7 +764,7 @@ export function CompanyLogo({
 
   return (
     <span
-      className="inline-flex items-center justify-center rounded-xl overflow-hidden shrink-0 transition-transform duration-300 group-hover:scale-105"
+      className="inline-flex items-center justify-center rounded-xl overflow-hidden shrink-0 transition-colors duration-300"
       {...hiddenAria}
       style={{
         width: size,

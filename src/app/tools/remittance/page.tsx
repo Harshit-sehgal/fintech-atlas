@@ -1,24 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import RemittanceCalculatorPageClient from "./remittance-client";
-import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 import { breadcrumbJsonLd } from "@/components/breadcrumbs";
 
 const description =
   "Compare illustrative reference FX rates, exchange markups, and upfront transfer fees across Wise, Revolut, PayPal, and a hypothetical bank-wire baseline.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/tools/remittance",
   title: "Cross-Border FX & Transfer Calculator",
   description,
-  alternates: { canonical: canonicalUrl("/tools/remittance") },
-  openGraph: {
-    ...openGraphImage,
-    title: "Cross-Border FX & Transfer Calculator — FinTech Atlas",
-    description,
-    url: canonicalUrl("/tools/remittance"),
-  },
-};
+});
 
 export default function RemittanceCalculatorPage() {
   return (
@@ -37,7 +30,7 @@ export default function RemittanceCalculatorPage() {
       />
       <RemittanceCalculatorPageClient />
       <section className="mx-auto max-w-5xl px-5 pb-16">
-        <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6">
+        <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6">
           <h2 className="text-sm font-bold uppercase tracking-wider text-[var(--muted-text)]">Related comparisons</h2>
           <div className="mt-3 flex flex-wrap gap-3">
             <Link href="/tools/exchange-rate-markup-calculator" className="btn-ghost text-xs">Measure a rate markup</Link>

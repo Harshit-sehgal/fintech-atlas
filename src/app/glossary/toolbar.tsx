@@ -46,6 +46,13 @@ export function GlossaryToolbar({
     }
     const empty = document.getElementById("glossary-empty");
     if (empty) empty.hidden = visible > 0;
+
+    // Hide any letter section left with no visible card so filtered views
+    // don't show orphaned A–Z headings.
+    for (const section of document.querySelectorAll<HTMLElement>("[data-glossary-section]")) {
+      const hasVisible = section.querySelector('[data-glossary-card]:not([hidden])');
+      section.hidden = !hasVisible;
+    }
   };
 
   return (

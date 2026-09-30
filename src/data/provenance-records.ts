@@ -125,6 +125,14 @@ export const sourceReferencesBySlug: Partial<Record<string, SourceReference[]>> 
       sourceType: "official-documentation",
       supports: ["company-profile", "products", "pricing", "customers"],
     },
+    {
+      id: "funding-report",
+      publisher: "Revolut",
+      title: "Revolut funding and valuation report",
+      accessedAt: PROVENANCE_ACCESSED_AT,
+      sourceType: "editorial-reference",
+      supports: ["valuation"],
+    },
   ],
   plaid: [
     {

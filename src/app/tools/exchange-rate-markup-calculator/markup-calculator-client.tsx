@@ -134,7 +134,7 @@ export function MarkupCalculatorClient() {
       : "How many rupees are being converted to USD.";
 
   return (
-    <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6 md:p-8">
+    <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6 md:p-8">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <h2 className="text-lg font-bold text-[var(--foreground)]">Measure the rate markup</h2>
         <div className="flex gap-2 print:hidden">

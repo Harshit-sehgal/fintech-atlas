@@ -45,6 +45,7 @@ describe("changelog data", () => {
         "/tools/matchmaker/",
         "/services/",
         "/companies/",
+        "/compare/",
         "/changelog/",
       ];
       const isKnownRoute =

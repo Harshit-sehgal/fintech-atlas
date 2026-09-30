@@ -1,24 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import MatchmakerQuizPageClient from "./matchmaker-client";
-import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { pageMetadata } from "@/lib/shared-metadata";
 import { breadcrumbJsonLd } from "@/components/breadcrumbs";
 
 const description =
   "Answer 4 quick questions about your business or personal finance needs to get a tailored recommendation of top FinTech platforms.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/tools/matchmaker",
   title: "FinTech Matchmaker Quiz",
   description,
-  alternates: { canonical: canonicalUrl("/tools/matchmaker") },
-  openGraph: {
-    ...openGraphImage,
-    title: "FinTech Matchmaker Quiz — FinTech Atlas",
-    description,
-    url: canonicalUrl("/tools/matchmaker"),
-  },
-};
+});
 
 export default function MatchmakerQuizPage() {
   return (
@@ -37,7 +30,7 @@ export default function MatchmakerQuizPage() {
       />
       <MatchmakerQuizPageClient />
       <section className="mx-auto max-w-5xl px-5 pb-16">
-        <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-6">
+        <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6">
           <h2 className="text-sm font-bold uppercase tracking-wider text-[var(--muted-text)]">Related comparisons</h2>
           <div className="mt-3 flex flex-wrap gap-3">
             <Link href="/articles/best-payment-gateway-small-business" className="btn-ghost text-xs">Best payment gateway for small business</Link>

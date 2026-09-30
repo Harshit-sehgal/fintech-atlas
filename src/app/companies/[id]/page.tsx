@@ -4,6 +4,7 @@ import { getCompanyBySlug, companies, categories } from "@/data";
 import { articles } from "@/data/articles";
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
+import { getResearchProfileForCompany, getResearchProfileName } from "@/lib/company-directory-links";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CompanyPageClient } from "./client";
 
@@ -56,6 +57,13 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
     .filter((a) => a.relatedCompanySlugs.includes(company.slug))
     .map((a) => ({ slug: a.slug, title: a.title, category: a.category }));
 
+  // Directory bridge: when this curated company also exists in the research
+  // directory, surface a link so visitors can move between the two surfaces.
+  const researchProfileSlug = getResearchProfileForCompany(company.slug);
+  const researchProfile = researchProfileSlug
+    ? { slug: researchProfileSlug, name: getResearchProfileName(researchProfileSlug) }
+    : null;
+
   const breadcrumbItems = [
     { name: "Home", href: "/" },
     { name: "Companies", href: "/companies" },
@@ -75,6 +83,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
         relatedCategories={relatedCategories}
         relatedArticles={relatedArticles}
         adjacent={adjacent}
+        researchProfile={researchProfile}
       />
     </>
   );

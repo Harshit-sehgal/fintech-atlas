@@ -72,7 +72,7 @@ export function GatewayChecklist({ groups }: { groups: ChecklistGroup[] }) {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-4">
         <div className="flex items-center gap-3">
           <div
             role="progressbar"
@@ -109,7 +109,7 @@ export function GatewayChecklist({ groups }: { groups: ChecklistGroup[] }) {
           <section
             key={group.id}
             aria-labelledby={`chk-${group.id}`}
-            className="rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-5"
+            className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-5"
           >
             <h2 id={`chk-${group.id}`} className="flex items-center justify-between text-sm font-bold text-[var(--foreground)]">
               {group.title}

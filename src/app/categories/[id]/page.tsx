@@ -6,6 +6,7 @@ import { getCategoryBySlug, categories, getCompaniesByCategory, glossary, catego
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
 import { formatValuationShort } from "@/lib/format-company";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CategoryIcon } from "@/components/ui/category-icon";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { Reveal } from "@/components/ui/reveal";
@@ -57,21 +58,23 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
       {/* Soft grid backdrop so the page feels alive without dominating */}
       <GridBackdrop />
 
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Categories", href: "/categories" },
+          { name: cat.name, href: `/categories/${cat.slug}` },
+        ]}
+      />
+
       {/* Category Header */}
       <Reveal>
-        <div className="flex items-center gap-2 text-xs text-[var(--muted-text)] mb-6">
-          <Link href="/categories" className="hover:text-[var(--foreground)] transition-colors">Categories</Link>
-          <span className="text-[var(--muted-text)]">/</span>
-          <span className="text-[var(--foreground)] font-medium">{cat.name}</span>
-        </div>
-
         <div
-          className="relative overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--card)] p-7"
+          className="relative overflow-hidden rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-7"
           style={{ ["--accent"]: cat.accent } as CSSProperties}
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative z-10">
             <div className="flex items-center gap-5">
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[var(--accent-glow)]">
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-[var(--accent-glow)]">
                 <CategoryIcon icon={cat.icon} color={cat.accent} size={40} />
               </div>
               <div>
@@ -96,9 +99,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
 
       {/* Description */}
       <Reveal delay={0.1}>
-        <div className="surface mt-8 rounded-2xl p-6 leading-relaxed text-sm text-[var(--foreground)]">
+        <div className="mt-8 border-t border-[var(--border-color)] pt-5 text-sm leading-relaxed text-[var(--foreground)]">
           <h2 className="eyebrow mb-3">Domain Overview</h2>
-          <p>{cat.description}</p>
+          <p className="max-w-3xl">{cat.description}</p>
         </div>
       </Reveal>
 
@@ -112,41 +115,41 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
           </div>
 
           {companyList.length > 0 ? (
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 reveal-stagger">
+            <div className="mt-4 grid border-t border-[var(--border-color)] sm:grid-cols-2">
               {companyList.map((c) => (
                 <Link
                   key={c.slug}
                   href={`/companies/${c.slug}`}
-                  className="group relative flex flex-col justify-between rounded-xl border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
+                  className="group relative flex flex-col justify-between border-b border-[var(--border-color)] py-5 transition-colors sm:odd:border-r sm:odd:pr-6 sm:even:pl-6"
                   style={{ ["--accent"]: c.accent } as CSSProperties}
                 >
                   <div>
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3">
-                        <div className="group-hover:scale-105 transition-transform duration-300">
+                        <div>
                           <CompanyLogo slug={c.slug} name={c.name} size={40} />
                         </div>
                         <div>
-                          <h3 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent-ink)] transition-colors">{c.name}</h3>
-                          <p className="text-xs text-[var(--muted-text)]">{formatValuationShort(c.valuation)}</p>
+                          <h3 className="text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent-ink)]">{c.name}</h3>
+                          <p className="text-sm text-[var(--muted-text)]">{formatValuationShort(c.valuation)}</p>
                         </div>
                       </div>
-                      <span className="shrink-0 rounded-lg bg-[var(--success)]/10 px-2.5 py-1 text-xs font-semibold text-success-text border border-[var(--success)]/20">
+                      <span className="shrink-0 font-mono text-sm font-semibold text-success-text">
                         ★ {c.userReviews.rating}
                       </span>
                     </div>
-                    <p className="mt-3 text-xs leading-relaxed text-[var(--muted-text)] line-clamp-2">{c.tagline}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-[var(--muted-text)] line-clamp-2">{c.tagline}</p>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-[var(--border-color)] flex items-center justify-between text-xs font-semibold text-[var(--accent-ink)]">
+                  <div className="mt-4 flex items-center justify-between border-t border-[var(--border-color)] pt-3 text-xs font-semibold text-[var(--accent-ink)]">
                     <span>View company breakdown</span>
-                    <span className="group-hover:translate-x-0.5 transition-transform">→</span>
+                    <span className="transition-transform group-hover:translate-x-0.5">→</span>
                   </div>
                 </Link>
               ))}
             </div>
           ) : (
-            <div className="mt-6 rounded-xl border border-dashed border-[var(--border-color)] p-8 text-center text-sm text-[var(--muted-text)]">
+            <div className="mt-6 border-y border-dashed border-[var(--border-color)] py-8 text-center text-sm text-[var(--muted-text)]">
               No company profiles have been added to this category yet. It exists as a reference domain.
             </div>
           )}
@@ -160,15 +163,15 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
             <h2 className="border-b border-[var(--border-color)] pb-3 text-xl font-semibold tracking-tight text-[var(--foreground)]">
               Key Domain Terminology
             </h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2 reveal-stagger">
+            <div className="mt-4 grid border-t border-[var(--border-color)] sm:grid-cols-2">
               {relatedGlossary.map((g) => (
                 <Link
                   key={g.slug}
                   href={`/glossary#${g.slug}`}
-                  className="group surface rounded-xl border border-[var(--border-color)] p-4 hover:border-[var(--accent)]/40 transition-all hover:-translate-y-0.5"
+                  className="group border-b border-[var(--border-color)] py-4 transition-colors sm:odd:border-r sm:odd:pr-6 sm:even:pl-6"
                 >
-                  <span className="font-bold text-sm text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">{g.term}</span>
-                  <p className="mt-1 text-xs text-[var(--muted-text)] leading-relaxed">{g.short}</p>
+                  <span className="text-sm font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">{g.term}</span>
+                  <p className="mt-1 text-sm leading-relaxed text-[var(--muted-text)]">{g.short}</p>
                 </Link>
               ))}
             </div>
@@ -180,12 +183,12 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
       <Reveal delay={0.25}>
         <section className="mt-16 border-t border-[var(--border-color)] pt-8">
           <h3 className="eyebrow mb-4 text-[var(--muted-text)]">Explore Other Categories</h3>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-x-6">
             {categories.filter((c) => c.slug !== cat.slug).map((c) => (
               <Link
                 key={c.slug}
                 href={`/categories/${c.slug}`}
-                className="flex items-center gap-2 rounded-lg border border-[var(--border-color)] surface px-3.5 py-2 text-xs font-medium hover:border-[var(--accent)]/40 hover:text-[var(--accent)] transition-all hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 border-b border-[var(--border-color)] py-3 text-sm font-medium text-[var(--muted-text)] transition-colors hover:text-[var(--accent)]"
               >
                 <CategoryIcon icon={c.icon} color={c.accent} size={18} />
                 <span>{c.name}</span>

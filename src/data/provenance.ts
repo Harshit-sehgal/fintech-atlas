@@ -18,6 +18,7 @@ export const PROVENANCE_FIELDS = new Set([
 ]);
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d{3})?(?:Z|[+-]\d{2}:\d{2}))?$/;
+const QUARTER_DATE = /^\d{4}-Q[1-4]$/;
 
 function validDate(value: string | undefined): boolean {
   return Boolean(value && ISO_DATE.test(value) && !Number.isNaN(Date.parse(value)));
@@ -60,6 +61,29 @@ export function validateCompanyProvenance(company: Company): string[] {
     if (referenceIds.has(source.id)) issues.push(`duplicate source id: ${source.id}`);
     referenceIds.add(source.id);
   });
+
+  if (company.availability) {
+    const availability = company.availability;
+    if (availability.supportedRegions.length === 0) {
+      issues.push("availability.supportedRegions must not be empty");
+    }
+    if (availability.unavailableRegions.some((region) => !region.trim())) {
+      issues.push("availability.unavailableRegions must not contain empty regions");
+    }
+    if (!QUARTER_DATE.test(availability.asOf) && !validDate(availability.asOf)) {
+      issues.push("availability.asOf must be an ISO date or quarter");
+    }
+    if (availability.sourceIds.length === 0) {
+      issues.push("availability.sourceIds must not be empty");
+    }
+    for (const sourceId of availability.sourceIds) {
+      if (!referenceIds.has(sourceId)) {
+        issues.push(`availability references unknown source id: ${sourceId}`);
+      }
+    }
+  } else {
+    issues.push("availability is required for published companies");
+  }
 
   const sourcedValues = [
     ["employeesSourced", company.employeesSourced],
