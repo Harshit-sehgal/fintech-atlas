@@ -237,7 +237,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
           role="dialog"
           aria-modal="true"
           aria-label="Search"
-          className="relative z-10 w-full max-w-2xl overflow-hidden rounded-xl border border-[var(--border-color)] bg-[var(--background)] shadow-2xl"
+          className="relative z-10 w-full max-w-2xl overflow-hidden border border-[var(--border-color)] bg-[var(--background)]"
         >
           {/* Input field */}
           <div className="flex items-center border-b border-[var(--border-color)] px-4 py-3.5">

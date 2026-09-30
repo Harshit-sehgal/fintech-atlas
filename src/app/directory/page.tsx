@@ -3,6 +3,7 @@ import Link from "next/link";
 import { companies } from "@/data";
 import { indiaDirectorySummaries } from "@/generated/india-directory-summaries";
 import { pageMetadata } from "@/lib/shared-metadata";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { Reveal } from "@/components/ui/reveal";
 
@@ -48,6 +49,13 @@ export default async function DirectoryPage() {
     <div className="relative mx-auto max-w-4xl px-5 py-20 md:py-28">
       <GridBackdrop />
 
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "All directories", href: "/directory" },
+        ]}
+      />
+
       <Reveal>
         <header className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-7">
           <span className="eyebrow">FinTech Atlas directory</span>
@@ -63,29 +71,29 @@ export default async function DirectoryPage() {
         </header>
       </Reveal>
 
-      <div className="mt-8 grid gap-5 md:grid-cols-2">
+      <div className="mt-8 grid border-t border-[var(--border-color)] md:grid-cols-2">
         <Reveal delay={0.1}>
           <Link
             href="/companies"
             data-placement="directory-curated"
-            className="group flex h-full flex-col rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6 transition-all duration-300 card-glow"
+            className="group flex h-full flex-col border-b border-[var(--border-color)] py-7 transition-colors md:border-r md:pr-10"
           >
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--accent-glow)]">
+              <div className="shrink-0 text-[var(--accent)]">
                 <DirectoryIcon tier="curated" />
               </div>
               <div>
                 <h2 className="text-lg font-bold text-[var(--foreground)]">Curated profiles</h2>
-                <p className="text-xs text-[var(--muted-text)]">{curatedCount} companies</p>
+                <p className="text-sm text-[var(--muted-text)]">{curatedCount} companies</p>
               </div>
             </div>
-            <p className="mt-4 text-sm leading-relaxed text-[var(--muted-text)]">
+            <p className="mt-4 max-w-lg text-sm leading-relaxed text-[var(--muted-text)]">
               Editorial breakdowns of the gateways, banks and fintech companies
               that matter most — with reviews, pricing, availability and India
               ratings, researched and written by the FinTech Atlas team.
             </p>
-            <span className="mt-auto pt-5 text-sm font-semibold text-[var(--accent-ink)] inline-flex items-center gap-1.5">
-              Browse curated profiles <span className="group-hover:translate-x-0.5 transition-transform">→</span>
+            <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-[var(--accent-ink)]">
+              Browse curated profiles <span className="transition-transform group-hover:translate-x-0.5">→</span>
             </span>
           </Link>
         </Reveal>
@@ -94,33 +102,33 @@ export default async function DirectoryPage() {
           <Link
             href="/india/directory"
             data-placement="directory-research"
-            className="group flex h-full flex-col rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6 transition-all duration-300 card-glow"
+            className="group flex h-full flex-col border-b border-[var(--border-color)] py-7 transition-colors md:pl-10"
           >
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--accent-glow)]">
+              <div className="shrink-0 text-[var(--accent)]">
                 <DirectoryIcon tier="research" />
               </div>
               <div>
                 <h2 className="text-lg font-bold text-[var(--foreground)]">India research directory</h2>
-                <p className="text-xs text-[var(--muted-text)]">
+                <p className="text-sm text-[var(--muted-text)]">
                   {indiaDirectorySummaries.length.toLocaleString("en-IN")} companies
                 </p>
               </div>
             </div>
-            <p className="mt-4 text-sm leading-relaxed text-[var(--muted-text)]">
+            <p className="mt-4 max-w-lg text-sm leading-relaxed text-[var(--muted-text)]">
               The data-driven index of Indian fintech — payments, lending,
               cross-border, wealth and more — with founding dates, funding,
               valuation and regulatory licence notes. Searchable and filterable.
             </p>
-            <span className="mt-auto pt-5 text-sm font-semibold text-[var(--accent-ink)] inline-flex items-center gap-1.5">
-              Browse research profiles <span className="group-hover:translate-x-0.5 transition-transform">→</span>
+            <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-[var(--accent-ink)]">
+              Browse research profiles <span className="transition-transform group-hover:translate-x-0.5">→</span>
             </span>
           </Link>
         </Reveal>
       </div>
 
       <Reveal delay={0.2}>
-        <section className="mt-10 rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6">
+        <section className="mt-10 border-t border-[var(--border-color)] pt-6">
           <h2 className="eyebrow mb-3">Which tier should I use?</h2>
           <ul className="space-y-3 text-sm leading-relaxed text-[var(--muted-text)]">
             <li>

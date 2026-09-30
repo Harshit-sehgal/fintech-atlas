@@ -1,34 +1,36 @@
 "use client";
 
-import { useEffect, useRef, useState, useMemo, useCallback, type CSSProperties } from "react";
+import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 import { categories } from "@/data/categories";
-import type { Category } from "@/data/types";
 import {
   companySummaries,
+  categoryNames,
   type CompanySummary,
 } from "@/generated/company-summaries";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { EmptyState } from "@/components/ui/empty-state";
+import { Reveal } from "@/components/ui/reveal";
 import { useBookmarks } from "@/lib/bookmarks-context";
 import { useToast } from "@/lib/toast-context";
 import { formatValuationShort, formatHeadquartersCity, getValuationAmountUsd } from "@/lib/format-company";
-import { animationPresets as animation } from "@/lib/animation";
 import { fuzzyMatchAny } from "@/lib/fuzzy";
 import { downloadCsv } from "@/lib/share";
 import { SITE_URL } from "@/lib/site-config";
 import { oneOf, writeUrlFilters } from "@/lib/url-filters";
+import { useUiMode } from "@/lib/ui-mode-context";
 
 type SortOption = "name" | "rating" | "valuation" | "founded";
 
 const SORT_OPTIONS = ["rating", "valuation", "name", "founded"] as const;
-const VIEW_OPTIONS = ["grid", "list"] as const;
+const REGION_OPTIONS = ["all", "india", "global"] as const;
+type RegionOption = (typeof REGION_OPTIONS)[number];
 
 type ExportableCompany = CompanySummary & { valuationNum: number | null };
 
-/** Download the current (filtered) directory view as CSV (T112). */
+/** Download the current (filtered) directory view as CSV. */
 function exportCompaniesCsv(companies: readonly ExportableCompany[]): void {
   const rows: string[][] = [
     ["Name", "Founded", "Headquarters", "Employees", "Valuation USD", "Rating", "Categories", "Profile URL"],
@@ -46,36 +48,423 @@ function exportCompaniesCsv(companies: readonly ExportableCompany[]): void {
   downloadCsv("fintech-atlas-directory.csv", rows);
 }
 
-/** Validate and apply `?q/category/sort/view` filters shared via URL (T110). */
+/** Validate and apply `?q/category/region/sort` filters shared via URL. */
 export function readFiltersFromParams(params: URLSearchParams): {
   search: string;
   selectedCategory: string;
+  region: RegionOption;
   sortBy: SortOption;
-  viewMode: "grid" | "list";
 } | null {
   const categorySlugs = ["all", ...categories.map((c) => c.slug)] as const;
   const next = {
     search: (params.get("q") ?? "").slice(0, 200),
     selectedCategory: oneOf(params.get("category"), categorySlugs, "all"),
+    region: oneOf(params.get("region"), REGION_OPTIONS, "all"),
     sortBy: oneOf(params.get("sort"), SORT_OPTIONS, "rating"),
-    viewMode: oneOf(params.get("view"), VIEW_OPTIONS, "grid"),
   };
-  const touched = params.has("q") || params.has("category") || params.has("sort") || params.has("view");
+  const touched =
+    params.has("q") || params.has("category") || params.has("region") || params.has("sort");
   return touched ? next : null;
+}
+
+/**
+ * Boring directory — a from-scratch, monochrome, fully-structured register.
+ * No brand colour, no icons, no hover-lift. Companies are grouped by category
+ * into a plain numbered ledger; each row reveals as it scrolls into view
+ * (vertical motion only) and the layout never overflows horizontally.
+ */
+function BoringIndex({ companies }: { companies: readonly CompanySummary[] }) {
+  const groups = useMemo(() => {
+    const byCat = new Map<string, CompanySummary[]>();
+    for (const c of companies) {
+      const key = c.categories[0] ?? "other";
+      if (!byCat.has(key)) byCat.set(key, []);
+      byCat.get(key)!.push(c);
+    }
+    return categories
+      .filter((cat) => byCat.has(cat.slug))
+      .map((cat) => ({ cat, items: byCat.get(cat.slug)! }));
+  }, [companies]);
+
+  if (companies.length === 0) {
+    return (
+      <EmptyState
+        title="No companies matched your criteria."
+        description="Try a shorter search term, or clear the filters to see the full directory."
+        action={
+          <button
+            onClick={() => {
+              const ev = new CustomEvent("boring-clear-filters");
+              window.dispatchEvent(ev);
+            }}
+            className="rounded border border-[var(--border-strong)] px-4 py-2 text-xs font-semibold text-[var(--foreground)] hover:bg-[var(--subtle-bg)]"
+          >
+            Clear all filters
+          </button>
+        }
+      />
+    );
+  }
+
+  return (
+    <div className="space-y-10">
+      {groups.map(({ cat, items }) => (
+        <section key={cat.slug} aria-labelledby={`boring-cat-${cat.slug}`}>
+          <h2
+            id={`boring-cat-${cat.slug}`}
+            className="flex items-baseline gap-2 border-b-2 border-[var(--foreground)] pb-1 text-sm font-bold uppercase tracking-wider text-[var(--foreground)]"
+          >
+            <span>{categoryNames[cat.slug] ?? cat.name}</span>
+            <span className="font-normal text-[var(--muted-text)]">({items.length})</span>
+          </h2>
+          <ol className="mt-1">
+            {items.map((c, i) => (
+              <Reveal
+                as="li"
+                key={c.slug}
+                y={12}
+                className="border-b border-[var(--border)]"
+              >
+                <div className="flex items-baseline gap-3 py-2.5">
+                  <span
+                    aria-hidden="true"
+                    className="w-6 shrink-0 text-right font-mono text-xs tabular-nums text-[var(--muted-text)]"
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <Link
+                    href={`/companies/${c.slug}`}
+                    className="text-[var(--foreground)] underline-offset-2 hover:underline focus-visible:underline"
+                  >
+                    {c.name}
+                  </Link>
+                  <span className="ml-auto font-mono text-xs tabular-nums text-[var(--muted-text)]">
+                    {c.rating.toFixed(1)}
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-x-4 gap-y-0.5 pb-2.5 pl-9 font-mono text-[11px] leading-relaxed text-[var(--muted-text)]">
+                  <span>Founded {c.founded}</span>
+                  <span>{formatHeadquartersCity(c.headquarters)}</span>
+                  <span className="max-w-full truncate">{c.pricingModel}</span>
+                  <span>{formatValuationShort(c.valuation)}</span>
+                </div>
+              </Reveal>
+            ))}
+          </ol>
+        </section>
+      ))}
+    </div>
+  );
+}
+
+/** A single labelled spec field used inside the editorial directory row. */
+function Spec({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="min-w-0">
+      <dt className="font-mono text-[9px] uppercase tracking-[0.12em] text-[var(--muted-text)]">
+        {label}
+      </dt>
+      <dd className="mt-0.5 truncate text-xs font-medium text-[var(--foreground)]">{value}</dd>
+    </div>
+  );
+}
+
+/**
+ * Standard directory row — an editorial "ledger" entry rather than a floating
+ * card. A hairline rule separates entries; the company name sits in the
+ * display serif, a monospace index anchors the list, and a quiet spec table
+ * carries the facts. Reveals on scroll; hover only shifts the name to the
+ * accent and reveals a "View" cue — no lift, no shadow.
+ */
+function DirectoryRow({
+  c,
+  index,
+  bookmarked,
+  onToggle,
+}: {
+  c: CompanySummary;
+  index: number;
+  bookmarked: boolean;
+  onToggle: (e: React.MouseEvent, c: CompanySummary) => void;
+}) {
+  return (
+    <Reveal
+      as="article"
+      y={14}
+      className="group relative border-b border-[var(--border-color)]"
+    >
+      {/* Editorial marker rule — draws down from the top on hover, the one
+          bit of motion on the row. No lift, no shadow. */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 left-0 w-0.5 origin-top scale-y-0 bg-[var(--accent)] transition-transform duration-300 ease-out group-hover:scale-y-100"
+      />
+      {/* Whole-row navigation link — sibling of the bookmark button. */}
+      <Link
+        href={`/companies/${c.slug}`}
+        aria-label={`View ${c.name}`}
+        className="absolute inset-0 z-10 rounded-sm focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+      >
+        <span className="sr-only">View {c.name}</span>
+      </Link>
+
+      <div className="flex items-start gap-3 py-5 sm:gap-4">
+        <span
+          aria-hidden="true"
+          className="hidden w-7 shrink-0 pt-1 text-right font-mono text-xs tabular-nums text-[var(--muted-dim)] sm:block"
+        >
+          {String(index).padStart(2, "0")}
+        </span>
+
+        <span className="mt-0.5 block">
+          <CompanyLogo slug={c.slug} name={c.name} size={40} />
+        </span>
+
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+            <h2 className="font-serif text-lg font-bold leading-tight text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
+              {c.name}
+            </h2>
+            <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--muted-text)]">
+              {categoryNames[c.categories[0]] ?? c.categories[0]}
+            </span>
+          </div>
+          <p className="mt-1 truncate text-sm text-[var(--muted-text)]">{c.tagline}</p>
+
+          <dl className="mt-3 grid grid-cols-2 gap-x-5 gap-y-2 sm:grid-cols-4">
+            <Spec label="Founded" value={String(c.founded)} />
+            <Spec label="HQ" value={formatHeadquartersCity(c.headquarters)} />
+            <Spec label="Pricing" value={c.pricingModel} />
+            <Spec label="Valuation" value={formatValuationShort(c.valuation)} />
+          </dl>
+        </div>
+
+        <div className="flex shrink-0 flex-col items-end justify-between gap-3 pl-2">
+          <button
+            onClick={(e) => onToggle(e, c)}
+            className={`pointer-events-auto relative z-20 rounded-full p-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+              bookmarked
+                ? "text-[var(--foreground)]"
+                : "text-[var(--muted-text)] hover:text-[var(--foreground)]"
+            }`}
+            aria-label={bookmarked ? `${c.name} bookmarked` : `Bookmark ${c.name}`}
+          >
+            {bookmarked ? "★" : "☆"}
+          </button>
+          <div className="text-right">
+            <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[var(--muted-text)]">
+              Rating
+            </p>
+            <p className="font-mono text-sm font-bold text-[var(--foreground)]">
+              ★ {c.rating.toFixed(1)}
+            </p>
+            <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.12em] text-[var(--accent-ink)]">
+              {editorialVerdict(c.rating)}
+            </p>
+          </div>
+        </div>
+      </div>
+    </Reveal>
+  );
+}
+
+/**
+ * Editor's spotlight — an asymmetric composition, not a uniform card row:
+ * the highest-rated provider gets a large "lead" card with its documented
+ * strength/weakness and why it leads; the runners-up sit beside it as
+ * compact entries. Deliberate imbalance reads as hand-set, not templated.
+ */
+function Spotlight({
+  companies,
+  isBookmarked,
+  onToggle,
+}: {
+  companies: readonly CompanySummary[];
+  isBookmarked: (slug: string) => boolean;
+  onToggle: (e: React.MouseEvent, c: CompanySummary) => void;
+}) {
+  const [lead, ...runners] = companies;
+  if (!lead) return null;
+
+  return (
+    <section aria-label="Editor's spotlight" className="mt-12">
+      <div className="flex items-baseline justify-between border-b border-[var(--border-strong)] pb-2">
+        <h2 className="font-serif text-xl font-bold text-[var(--foreground)]">
+          Editor&rsquo;s spotlight
+        </h2>
+        <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--muted-text)]">
+          Our three highest-rated
+        </span>
+      </div>
+
+      <div className="mt-5 grid gap-8 lg:grid-cols-5">
+        {/* Lead entry — 3-of-5 columns, the visual anchor. No box: a heavy
+            top rule and the serif name carry the emphasis. */}
+        <Reveal
+          as="article"
+          className="group relative flex flex-col justify-between border-t-2 border-[var(--foreground)] pt-6 lg:col-span-3"
+        >
+          <Link
+            href={`/companies/${lead.slug}`}
+            aria-label={`View ${lead.name}`}
+            className="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+          >
+            <span className="sr-only">View {lead.name}</span>
+          </Link>
+          <span
+            aria-hidden="true"
+            className="absolute left-0 top-0 h-full w-1 origin-top scale-y-0 bg-[var(--accent)] transition-transform duration-300 group-hover:scale-y-100"
+          />
+          <div>
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <CompanyLogo slug={lead.slug} name={lead.name} size={56} />
+                <div>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--accent-ink)]">
+                    {editorialVerdict(lead.rating)}
+                  </p>
+                  <h3 className="mt-0.5 font-serif text-2xl font-bold leading-tight text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
+                    {lead.name}
+                  </h3>
+                </div>
+              </div>
+              <span className="shrink-0 font-mono text-sm font-bold text-[var(--foreground)]">
+                ★ {lead.rating.toFixed(1)}
+              </span>
+            </div>
+            <p className="mt-4 max-w-md font-serif text-base leading-relaxed text-[var(--muted)]">
+              {lead.tagline}
+            </p>
+            {lead.primaryStrength && (
+              <dl className="mt-5 grid gap-4 border-t border-[var(--border-color)] pt-4 sm:grid-cols-2">
+                <div>
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-success-text">
+                    Where it wins
+                  </dt>
+                  <dd className="mt-1 text-xs leading-relaxed text-[var(--foreground)]">
+                    {lead.primaryStrength}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--muted-text)]">
+                    Where it doesn&rsquo;t
+                  </dt>
+                  <dd className="mt-1 text-xs leading-relaxed text-[var(--muted-text)]">
+                    {lead.primaryWeakness ?? "Not documented yet."}
+                  </dd>
+                </div>
+              </dl>
+            )}
+          </div>
+          <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--accent)] opacity-0 transition-opacity group-hover:opacity-100">
+            Read the full profile &rarr;
+          </p>
+          <button
+            onClick={(e) => onToggle(e, lead)}
+            className={`pointer-events-auto absolute right-3 top-3 z-20 rounded-full p-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+              isBookmarked(lead.slug)
+                ? "text-[var(--foreground)]"
+                : "text-[var(--muted-text)] hover:text-[var(--foreground)]"
+            }`}
+            aria-label={isBookmarked(lead.slug) ? `${lead.name} bookmarked` : `Bookmark ${lead.name}`}
+          >
+            {isBookmarked(lead.slug) ? "★" : "☆"}
+          </button>
+        </Reveal>
+
+        {/* Runners-up — compact stacked entries beside the lead. */}
+        <div className="flex flex-col divide-y divide-[var(--border-color)] border-t border-[var(--border-color)] lg:col-span-2">
+          {runners.map((c) => (
+            <Reveal
+              as="article"
+              key={c.slug}
+              delay={0.08}
+              className="group relative flex flex-1 flex-col justify-between py-4"
+            >
+              <Link
+                href={`/companies/${c.slug}`}
+                aria-label={`View ${c.name}`}
+                className="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+              >
+                <span className="sr-only">View {c.name}</span>
+              </Link>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex min-w-0 items-center gap-3">
+                  <CompanyLogo slug={c.slug} name={c.name} size={36} />
+                  <div className="min-w-0">
+                    <h3 className="truncate font-serif text-base font-bold leading-tight text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
+                      {c.name}
+                    </h3>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--accent-ink)]">
+                      {editorialVerdict(c.rating)}
+                    </p>
+                  </div>
+                </div>
+                <span className="shrink-0 font-mono text-xs font-bold text-[var(--foreground)]">
+                  ★ {c.rating.toFixed(1)}
+                </span>
+              </div>
+              {c.primaryStrength && (
+                <p className="mt-3 border-t border-[var(--border-color)] pt-3 text-sm leading-relaxed text-[var(--muted-text)]">
+                  <span className="font-semibold text-[var(--foreground)]">Wins:</span>{" "}
+                  {c.primaryStrength}
+                </p>
+              )}
+              <button
+                onClick={(e) => onToggle(e, c)}
+                className={`pointer-events-auto absolute right-2 top-2 z-20 rounded-full p-1 text-sm transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+                  isBookmarked(c.slug)
+                    ? "text-[var(--foreground)]"
+                    : "text-[var(--muted-text)] hover:text-[var(--foreground)]"
+                }`}
+                aria-label={isBookmarked(c.slug) ? `${c.name} bookmarked` : `Bookmark ${c.name}`}
+              >
+                {isBookmarked(c.slug) ? "★" : "☆"}
+              </button>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Group companies by their primary (first) category, preserving the
+ *  canonical category order so the directory reads like a curated index. */
+function groupByPrimaryCategory(list: readonly CompanySummary[]) {
+  const byCat = new Map<string, CompanySummary[]>();
+  for (const c of list) {
+    const key = c.categories[0] ?? "other";
+    if (!byCat.has(key)) byCat.set(key, []);
+    byCat.get(key)!.push(c);
+  }
+  return categories
+    .filter((cat) => byCat.has(cat.slug))
+    .map((cat) => ({ cat, items: byCat.get(cat.slug)! }));
+}
+
+/** A short editorial verdict — a human opinion, not a number — derived from
+ *  our own rating. Opinionated on purpose: a safe word like "Recommended"
+ *  is what a template would say. */
+function editorialVerdict(rating: number): string {
+  if (rating >= 4.5) return "Our favourite";
+  if (rating >= 4.2) return "Strong pick";
+  if (rating >= 4.0) return "Good, with caveats";
+  return "Read the fine print";
 }
 
 export function CompaniesClient() {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [region, setRegion] = useState<RegionOption>("all");
   const [sortBy, setSortBy] = useState<SortOption>("rating");
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   const { isBookmarked, toggleBookmark } = useBookmarks();
   const { showToast } = useToast();
+  const { uiMode } = useUiMode();
 
-  // URL persistence (T110): restore ?q/category/sort/view once after mount
-  // (deferred past paint like the tool clients), then mirror every change
-  // back into the query string so filtered views survive reload and sharing.
+  // URL persistence: restore ?q/category/region/sort once after mount, then
+  // mirror every change back into the query string.
   const hydratedRef = useRef(false);
   useEffect(() => {
     const id = window.setTimeout(() => {
@@ -83,8 +472,8 @@ export function CompaniesClient() {
       if (filters) {
         setSearch(filters.search);
         setSelectedCategory(filters.selectedCategory);
+        setRegion(filters.region);
         setSortBy(filters.sortBy);
-        setViewMode(filters.viewMode);
       }
       hydratedRef.current = true;
     }, 0);
@@ -96,13 +485,23 @@ export function CompaniesClient() {
     writeUrlFilters({
       q: search,
       category: selectedCategory === "all" ? null : selectedCategory,
+      region: region === "all" ? null : region,
       sort: sortBy === "rating" ? null : sortBy,
-      view: viewMode === "grid" ? null : viewMode,
     });
-  }, [search, selectedCategory, sortBy, viewMode]);
+  }, [search, selectedCategory, region, sortBy]);
 
-  // Precompute per-category company counts once so we don't filter the full
-  // companies array per category pill on every render.
+  // Let the boring directory's "clear all filters" button reset this view.
+  useEffect(() => {
+    const onClear = () => {
+      setSearch("");
+      setSelectedCategory("all");
+      setRegion("all");
+    };
+    window.addEventListener("boring-clear-filters", onClear);
+    return () => window.removeEventListener("boring-clear-filters", onClear);
+  }, []);
+
+  // Precompute per-category company counts once.
   const categoryCounts = useMemo(() => {
     const counts = new Map<string, number>();
     for (const c of companySummaries) {
@@ -113,37 +512,21 @@ export function CompaniesClient() {
     return counts;
   }, []);
 
-  // Create a map for O(1) category lookup by slug instead of using .find()
-  const categoriesMap = useMemo(() => {
-    const map = new Map<string, Category>();
-    for (const category of categories) {
-      map.set(category.slug, category);
-    }
-    return map;
-  }, []);
-
   const filteredCompanies = useMemo(() => {
-    // Precompute valuation numbers once to avoid repeated lookups when sorting.
-    // Valuation uses the structured numeric `valuationAmountUsd` (audit #37)
-    // rather than parsing the human-readable `valuation` display string.
     const companiesWithVal = companySummaries.map((c) => ({
       ...c,
       valuationNum: getValuationAmountUsd(c),
     }));
 
-    // Filter and sort using precomputed values. Search is fuzzy (T111): a
-    // subsequence match like "stipe" still finds Stripe, while exact
-    // substrings keep scoring highest via fuzzyScore's ordering.
     return companiesWithVal
       .filter((c) => {
         const matchesCategory =
           selectedCategory === "all" || (c.categories as readonly string[]).includes(selectedCategory);
-
+        const matchesRegion =
+          region === "all" || (region === "india" ? c.indiaFocus === true : c.indiaFocus !== true);
         const query = search.trim();
-        const matchesQuery =
-          query === "" || fuzzyMatchAny([c.name, c.tagline, c.searchTerms], query);
-
-        return matchesCategory && matchesQuery;
+        const matchesQuery = query === "" || fuzzyMatchAny([c.name, c.tagline, c.searchTerms], query);
+        return matchesCategory && matchesRegion && matchesQuery;
       })
       .sort((a, b) => {
         if (sortBy === "name") return a.name.localeCompare(b.name);
@@ -156,12 +539,39 @@ export function CompaniesClient() {
         if (sortBy === "founded") return b.founded - a.founded;
         return 0;
       });
-  }, [search, selectedCategory, sortBy]);
+  }, [search, selectedCategory, region, sortBy]);
+
+  const indiaCount = useMemo(
+    () => companySummaries.filter((c) => c.indiaFocus === true).length,
+    [],
+  );
+
+  // Editor's spotlight: the three highest-rated providers, shown only on the
+  // unfiltered directory so it reads as a human curation rather than a filter
+  // artefact. Those three are then removed from the main list to avoid dupes.
+  const showSpotlight =
+    search === "" && selectedCategory === "all" && region === "all";
+  const spotlight = useMemo(() => {
+    if (!showSpotlight) return [];
+    return [...companySummaries].sort((a, b) => b.rating - a.rating).slice(0, 3);
+  }, [showSpotlight]);
+  const spotlightSlugs = useMemo(
+    () => new Set(spotlight.map((s) => s.slug)),
+    [spotlight],
+  );
+  const listedCompanies = useMemo(
+    () =>
+      showSpotlight
+        ? filteredCompanies.filter((c) => !spotlightSlugs.has(c.slug))
+        : filteredCompanies,
+    [filteredCompanies, showSpotlight, spotlightSlugs],
+  );
+  const groupedCompanies = useMemo(
+    () => groupByPrimaryCategory(listedCompanies),
+    [listedCompanies],
+  );
 
   const handleBookmarkToggle = useCallback((e: React.MouseEvent, c: CompanySummary) => {
-    // The bookmark button sits inside a card-wrapping <Link>. Without
-    // stopping propagation the click bubbles up and navigates to the company
-    // page, so the user clicks "Save" and unexpectedly leaves the directory.
     e.preventDefault();
     e.stopPropagation();
     const bookmarked = isBookmarked(c.slug);
@@ -174,6 +584,12 @@ export function CompaniesClient() {
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Companies", href: "/companies" },
+        ]}
+      />
       <SectionHeading
         headingLevel={1}
         eyebrow="Directory Index"
@@ -181,10 +597,9 @@ export function CompaniesClient() {
         description="Search, filter, and compare top financial technology companies worldwide."
       />
 
-      {/* Control Bar: Search, Filters, Sorting & View toggle */}
+      {/* Control Bar: Search, Filters, Sorting */}
       <div className="mt-10 space-y-4">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          {/* Search bar */}
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="relative flex-1">
             <svg
               className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--muted-text)]"
@@ -201,27 +616,53 @@ export function CompaniesClient() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               aria-label="Search companies"
-              className="w-full surface rounded-xl py-2.5 pl-10 pr-4 text-sm outline-none transition-all focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/40"
+              className="w-full surface rounded-md py-2.5 pl-10 pr-12 text-sm outline-none focus:border-[var(--foreground)] focus:ring-1 focus:ring-[var(--foreground)]"
             />
             {search && (
               <button
                 onClick={() => setSearch("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[var(--muted-text)] hover:text-[var(--foreground)] focus-visible:text-[var(--foreground)] focus-visible:outline-none focus-visible:ring-[var(--ring)] rounded transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[var(--muted-text)] hover:text-[var(--foreground)] focus-visible:text-[var(--foreground)] focus-visible:outline-none focus-visible:ring-[var(--ring)] rounded"
               >
                 Clear
               </button>
             )}
           </div>
 
-          {/* Sort & View options */}
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
+            <div
+              className="flex rounded-md border border-[var(--border-strong)] p-0.5"
+              role="group"
+              aria-label="Filter by region"
+            >
+              {(
+                [
+                  ["all", `All ${companySummaries.length}`],
+                  ["india", `India ${indiaCount}`],
+                  ["global", `Global ${companySummaries.length - indiaCount}`],
+                ] as const
+              ).map(([value, label]) => (
+                <button
+                  key={value}
+                  onClick={() => setRegion(value)}
+                  aria-pressed={region === value}
+                  className={`rounded px-2.5 py-1 text-xs font-medium focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+                    region === value
+                      ? "bg-[var(--foreground)] text-[var(--background)]"
+                      : "text-[var(--muted-text)] hover:text-[var(--foreground)]"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+
             <div className="flex items-center gap-2">
               <span className="text-xs text-[var(--muted-text)] hidden sm:inline">Sort:</span>
               <select
                 aria-label="Sort companies"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as SortOption)}
-                className="rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-xs font-medium text-[var(--foreground)] outline-none transition-colors hover:border-[var(--border-strong)]"
+                className="rounded-md border border-[var(--border-strong)] bg-[var(--subtle-bg)] px-3 py-2 text-xs font-medium text-[var(--foreground)] outline-none hover:border-[var(--foreground)]"
               >
                 <option value="rating">Rating (Highest)</option>
                 <option value="valuation">Valuation (Highest)</option>
@@ -229,68 +670,20 @@ export function CompaniesClient() {
                 <option value="founded">Founded (Newest)</option>
               </select>
             </div>
-
-            {/* Grid / List View Toggle */}
-            <div className="flex rounded-lg border border-[var(--border-color)] p-0.5 bg-[var(--subtle-bg)]/50 relative">
-              {viewMode === "grid" && (
-                <motion.span
-                  layoutId="view-toggle"
-                  className="absolute inset-y-0.5 left-0.5 right-1/2 rounded bg-[var(--background)] shadow-xs"
-                  transition={animation.transition.springDefault}
-                />
-              )}
-              {viewMode === "list" && (
-                <motion.span
-                  layoutId="view-toggle"
-                  className="absolute inset-y-0.5 left-1/2 right-0.5 rounded bg-[var(--background)] shadow-xs"
-                  transition={animation.transition.springDefault}
-                />
-              )}
-              <button
-                onClick={() => setViewMode("grid")}
-                aria-pressed={viewMode === "grid"}
-                aria-controls="company-results"
-                className={`relative z-10 rounded px-2.5 py-1 text-xs font-medium transition-colors ${
-                  viewMode === "grid" ? "text-[var(--foreground)]" : "text-[var(--muted-text)] hover:text-[var(--foreground)] focus-visible:text-[var(--foreground)]"
-                } focus-visible:outline-none focus-visible:ring-[var(--ring)]`}
-                aria-label="Grid view"
-              >
-                Grid
-              </button>
-              <button
-                onClick={() => setViewMode("list")}
-                aria-pressed={viewMode === "list"}
-                aria-controls="company-results"
-                className={`relative z-10 rounded px-2.5 py-1 text-xs font-medium transition-colors ${
-                  viewMode === "list" ? "text-[var(--foreground)]" : "text-[var(--muted-text)] hover:text-[var(--foreground)] focus-visible:text-[var(--foreground)]"
-                } focus-visible:outline-none focus-visible:ring-[var(--ring)]`}
-                aria-label="List view"
-              >
-                List
-              </button>
-            </div>
           </div>
         </div>
 
         {/* Category Pill Filters */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+        <div className="js-category-pills flex items-center gap-2 overflow-x-auto pb-2">
           <button
             onClick={() => setSelectedCategory("all")}
             aria-pressed={selectedCategory === "all"}
-            aria-controls="company-results"
-            className={`relative shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+            className={`relative shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
               selectedCategory === "all"
-                ? "text-[var(--background)]"
-                : "border border-[var(--border-color)] text-[var(--muted-text)] hover:text-[var(--foreground)] hover:border-[var(--border-strong)]"
+                ? "bg-[var(--foreground)] text-[var(--background)]"
+                : "border border-[var(--border-strong)] text-[var(--muted-text)] hover:text-[var(--foreground)] hover:border-[var(--foreground)]"
             }`}
           >
-            {selectedCategory === "all" && (
-              <motion.span
-                layoutId="cat-pill"
-                className="absolute inset-0 rounded-full bg-[var(--foreground)] -z-10"
-                transition={animation.transition.springBouncier}
-              />
-            )}
             All Companies ({companySummaries.length})
           </button>
           {categories.map((cat) => {
@@ -301,20 +694,12 @@ export function CompaniesClient() {
                 key={cat.slug}
                 onClick={() => setSelectedCategory(cat.slug)}
                 aria-pressed={active}
-                aria-controls="company-results"
-                className={`relative shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+                className={`relative shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
                   active
-                    ? "text-[var(--background)]"
-                    : "border border-[var(--border-color)] text-[var(--muted-text)] hover:text-[var(--foreground)] hover:border-[var(--border-strong)]"
+                    ? "bg-[var(--foreground)] text-[var(--background)]"
+                    : "border border-[var(--border-strong)] text-[var(--muted-text)] hover:text-[var(--foreground)] hover:border-[var(--foreground)]"
                 }`}
               >
-                {active && (
-                  <motion.span
-                    layoutId="cat-pill"
-                    className="absolute inset-0 rounded-full bg-[var(--foreground)] -z-10"
-                    transition={animation.transition.springBouncier}
-                  />
-                )}
                 {cat.name} ({count})
               </button>
             );
@@ -323,14 +708,17 @@ export function CompaniesClient() {
       </div>
 
       {/* Results Header Counter */}
-      <div className="mt-6 flex items-center justify-between gap-3 text-xs text-[var(--muted-text)] font-mono border-b border-[var(--border-color)] pb-3">
-        <span aria-live="polite">Showing <span className="text-[var(--foreground)] font-bold">{filteredCompanies.length}</span> of {companySummaries.length} companies</span>
+      <div className="mt-6 flex items-center justify-between gap-3 border-b border-[var(--border-strong)] pb-3 text-xs font-mono text-[var(--muted-text)]">
+        <span aria-live="polite">
+          Showing <span className="font-bold text-[var(--foreground)]">{filteredCompanies.length}</span> of{" "}
+          {companySummaries.length} companies
+        </span>
         <span className="flex items-center gap-4">
           {search && <span>Filtered by &ldquo;{search}&rdquo;</span>}
           {filteredCompanies.length > 0 && (
             <button
               onClick={() => exportCompaniesCsv(filteredCompanies)}
-              className="shrink-0 font-semibold text-[var(--accent)] hover:underline focus-visible:outline-none focus-visible:ring-[var(--ring)] rounded transition-colors"
+              className="shrink-0 font-semibold underline-offset-2 hover:underline focus-visible:underline focus-visible:outline-none focus-visible:ring-[var(--ring)] rounded"
             >
               Export CSV
             </button>
@@ -338,9 +726,11 @@ export function CompaniesClient() {
         </span>
       </div>
 
-      {/* Company Cards Grid / List */}
+      {/* Company results */}
       <div id="company-results" className="mt-8">
-        {filteredCompanies.length === 0 ? (
+        {uiMode === "boring" ? (
+          <BoringIndex companies={filteredCompanies} />
+        ) : filteredCompanies.length === 0 ? (
           <EmptyState
             title="No companies matched your criteria."
             description="Try a shorter search term, or clear the filters to see the full directory."
@@ -350,188 +740,90 @@ export function CompaniesClient() {
                   setSearch("");
                   setSelectedCategory("all");
                 }}
-                className="rounded-lg border border-[var(--border-color)] px-4 py-2 text-xs font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+                className="rounded-md border border-[var(--border-strong)] px-4 py-2 text-xs font-semibold text-[var(--foreground)] hover:bg-[var(--subtle-bg)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
               >
                 Clear all filters
               </button>
             }
           />
-        ) : viewMode === "grid" ? (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <AnimatePresence>
-              {filteredCompanies.map((c, i) => {
-                const bookmarked = isBookmarked(c.slug);
-
-                return (
-                  <motion.div
-                    key={c.slug}
-                    initial={false}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    <article
-                      className="group relative flex flex-col justify-between rounded-xl border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
-                      style={{ ["--accent"]: c.accent } as CSSProperties}
-                    >
-                      {/* Whole-card navigation link — a sibling of the bookmark
-                          button, so no interactive element is nested inside
-                          another (the card is no longer a wrapping <Link>). */}
-                      <Link
-                        href={`/companies/${c.slug}`}
-                        aria-label={`View ${c.name}`}
-                        className="absolute inset-0 z-10 rounded-xl focus-visible:outline-none focus-visible:ring-[var(--ring)]"
-                      >
-                        <span className="sr-only">View {c.name}</span>
-                      </Link>
-
-                      <div className="pointer-events-none relative z-0 flex flex-col justify-between h-full">
-                        <div>
-                          <div className="flex items-start justify-between gap-3">
-                            <div className="flex items-center gap-3">
-                              <div className="transition-transform duration-300">
-                                <CompanyLogo slug={c.slug} name={c.name} size={40} />
-                              </div>
-                              <div>
-                                <h2 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
-                                  {c.name}
-                                </h2>
-                                <p className="text-xs text-[var(--muted-text)] font-mono">
-                                  {c.founded} · {formatHeadquartersCity(c.headquarters)}
-                                </p>
-                              </div>
-                            </div>
-
-                            {/* Bookmark Button — sibling of the nav link, above it */}
-                            <button
-                              onClick={(e) => handleBookmarkToggle(e, c)}
-                              className={`pointer-events-auto relative z-20 rounded-full p-2 text-sm transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
-                                bookmarked ? "text-warning-text bg-warning/10" : "text-[var(--muted-text)] hover:text-[var(--foreground)] hover:bg-[var(--subtle-bg)] focus-visible:bg-[var(--subtle-bg)] focus-visible:text-[var(--foreground)]"
-                              }`}
-                              title={bookmarked ? "Remove Bookmark" : "Save Bookmark"}
-                              aria-label={bookmarked ? `${c.name} bookmarked` : `Bookmark ${c.name}`}
-                            >
-                              {bookmarked ? "★" : "☆"}
-                            </button>
-                          </div>
-
-                          <p className="mt-4 text-xs leading-relaxed text-[var(--muted-text)] line-clamp-2">
-                            {c.tagline}
-                          </p>
-                        </div>
-
-                        <div className="mt-5 space-y-3">
-                          <div className="flex items-center justify-between text-xs font-mono pt-3 border-t border-[var(--border-color)]">
-                            <span className="rounded-lg bg-[var(--success)]/10 border border-[var(--success)]/20 px-2 py-0.5 font-bold text-success-text">
-                              ★ {c.rating}
-                            </span>
-                            <span className="text-[var(--muted-text)]">{formatValuationShort(c.valuation)}</span>
-                          </div>
-
-                          {/* Animated rating meter — fills from 0 → rating on view, per-company accent */}
-                          <div className="flex items-center gap-2">
-                            <div className="h-1 flex-1 overflow-hidden rounded-full bg-[var(--border-color)]">
-                              <motion.div
-                                initial={{ width: 0 }}
-                                whileInView={{ width: `${(c.rating / 5) * 100}%` }}
-                                viewport={{ once: true, margin: "-40px" }}
-                                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: Math.min(i * 0.02, 0.3) }}
-                                className="h-full rounded-full"
-                                style={{ background: `linear-gradient(to right, ${c.accent}, ${c.accent}cc)` }}
-                              />
-                            </div>
-                            <span className="text-[10px] font-mono text-[var(--muted-text)]">/5</span>
-                          </div>
-
-                          <div className="flex flex-wrap gap-1.5">
-                            {c.categories.map((cs) => {
-                              const cat = categoriesMap.get(cs);
-                              return cat ? (
-                                <span
-                                  key={cs}
-                                  className="rounded-full border border-[var(--border-color)] px-2.5 py-0.5 text-[10px] font-medium text-[var(--muted-text)] group-hover:border-[var(--accent)]/30 transition-colors"
-                                >
-                                  {cat.name}
-                                </span>
-                              ) : null;
-                            })}
-                          </div>
-                        </div>
-                      </div>
-                    </article>
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-          </div>
         ) : (
-          /* List View */
-          <div className="space-y-3">
-            <AnimatePresence>
-              {filteredCompanies.map((c) => {
-                const bookmarked = isBookmarked(c.slug);
+          <>
+            {/* Editorial lede — a human note, not marketing copy. */}
+            <p className="mt-3 max-w-2xl font-serif text-base leading-relaxed text-[var(--muted)]">
+              A working index of every payment and fintech provider we cover —
+              ranked by our own editorial rating, never by ad spend. Open a name
+              for the full, sourced profile.
+            </p>
 
-                return (
-                  <motion.div
-                    key={c.slug}
-                    initial={false}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.98 }}
-                    transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    <article
-                      className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-[var(--border-color)] p-4 transition-all duration-300 card-glow h-full"
-                      style={{ ["--accent"]: c.accent } as CSSProperties}
-                    >
-                      {/* Whole-card navigation link — sibling of the bookmark
-                          button, so no interactive element is nested. */}
-                      <Link
-                        href={`/companies/${c.slug}`}
-                        aria-label={`View ${c.name}`}
-                        className="absolute inset-0 z-10 rounded-xl focus-visible:outline-none focus-visible:ring-[var(--ring)]"
-                      >
-                        <span className="sr-only">View {c.name}</span>
-                      </Link>
+            {spotlight.length > 0 && (
+              <Spotlight
+                companies={spotlight}
+                isBookmarked={isBookmarked}
+                onToggle={handleBookmarkToggle}
+              />
+            )}
 
-                      <div className="pointer-events-none relative z-0 flex flex-col sm:flex-row sm:items-center justify-between gap-4 w-full">
-                        <div className="flex items-center gap-4">
-                          <div className="transition-transform duration-300">
-                            <CompanyLogo slug={c.slug} name={c.name} size={40} />
-                          </div>
-                          <div>
-                            <div className="flex items-center gap-2">
-                              <h2 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">{c.name}</h2>
-                              <span className="rounded-lg bg-[var(--success)]/10 border border-[var(--success)]/20 px-2 py-0.5 text-[10px] font-mono font-bold text-success-text">
-                                ★ {c.rating}
+            <div className={spotlight.length > 0 ? "mt-14" : "mt-8"}>
+              <div className="lg:flex lg:gap-10">
+                {groupedCompanies.length > 1 && (
+                  <aside className="hidden lg:block w-44 shrink-0">
+                    <nav aria-label="Directory sections" className="sticky top-24">
+                      <p className="eyebrow mb-3">Sections</p>
+                      <ul className="border-l border-[var(--border-color)]">
+                        {groupedCompanies.map(({ cat, items }) => (
+                          <li key={cat.slug}>
+                            <a
+                              href={`#cat-${cat.slug}`}
+                              className="block border-l-2 border-l-transparent py-1.5 pl-3 text-sm text-[var(--muted-text)] transition-colors hover:border-l-[var(--accent)] hover:text-[var(--foreground)]"
+                            >
+                              <span className="block leading-tight">
+                                {categoryNames[cat.slug] ?? cat.name}
                               </span>
-                            </div>
-                            <p className="text-xs text-[var(--muted-text)]">{c.tagline}</p>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-4 sm:gap-6 font-mono text-xs text-[var(--muted-text)]">
-                          <div className="text-right hidden md:block">
-                            <div className="text-[var(--foreground)] font-bold">{formatValuationShort(c.valuation)}</div>
-                            <div>{c.employees} emp</div>
-                          </div>
-
-                          <button
-                            onClick={(e) => handleBookmarkToggle(e, c)}
-                            className={`pointer-events-auto relative z-20 rounded-full p-2 text-base transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
-                              bookmarked ? "text-warning-text bg-warning/10" : "text-[var(--muted-text)] hover:text-[var(--foreground)] hover:bg-[var(--subtle-bg)] focus-visible:bg-[var(--subtle-bg)] focus-visible:text-[var(--foreground)]"
-                            }`}
-                            aria-label={bookmarked ? `${c.name} bookmarked` : `Bookmark ${c.name}`}
-                          >
-                            {bookmarked ? "★" : "☆"}
-                          </button>
-                        </div>
+                              <span className="font-mono text-[10px]">
+                                {items.length}
+                              </span>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </nav>
+                  </aside>
+                )}
+                <div className="min-w-0 flex-1">
+                  {groupedCompanies.map(({ cat, items }) => (
+                    <section
+                      key={cat.slug}
+                      aria-labelledby={`cat-${cat.slug}`}
+                      className="mb-10"
+                    >
+                      <h2
+                        id={`cat-${cat.slug}`}
+                        className="flex items-baseline gap-2 border-b border-[var(--border-strong)] pb-2"
+                      >
+                        <span className="font-serif text-base font-bold text-[var(--foreground)]">
+                          {categoryNames[cat.slug] ?? cat.name}
+                        </span>
+                        <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--muted-text)]">
+                          {items.length}
+                        </span>
+                      </h2>
+                      <div className="mt-1">
+                        {items.map((c, i) => (
+                          <DirectoryRow
+                            key={c.slug}
+                            c={c}
+                            index={i + 1}
+                            bookmarked={isBookmarked(c.slug)}
+                            onToggle={handleBookmarkToggle}
+                          />
+                        ))}
                       </div>
-                    </article>
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-          </div>
+                    </section>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </>
         )}
       </div>
     </div>

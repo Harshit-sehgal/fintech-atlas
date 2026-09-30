@@ -111,7 +111,7 @@ function ToastItem({
       onMouseLeave={() => setIsPaused(false)}
       onFocus={() => setIsPaused(true)}
       onBlur={() => setIsPaused(false)}
-      className={`pointer-events-auto flex items-center gap-3 rounded-lg border px-4 py-3 text-sm font-medium shadow-xl backdrop-blur-md ${
+      className={`pointer-events-auto flex items-center gap-3 rounded-md border px-4 py-3 text-sm font-medium backdrop-blur-md ${
         toast.type === "error"
           ? "border-[var(--danger)]/30 bg-[var(--danger)]/10 text-[var(--foreground)]"
           : toast.type === "info"

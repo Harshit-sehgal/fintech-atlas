@@ -19,6 +19,7 @@ export default function PrivacyPage() {
       title="Privacy Notice"
       description="FinTech Atlas is a static educational site. This notice explains what the site does and does not collect in its current architecture."
       effectiveDate={LEGAL_EFFECTIVE_DATE}
+      pathname="/privacy"
     >
       <section>
         <h2 className="text-xl font-semibold text-[var(--foreground)]">Affiliate links and sponsored placements</h2>

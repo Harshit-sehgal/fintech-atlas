@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/lib/theme-context";
+import { UiModeProvider } from "@/lib/ui-mode-context";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
@@ -97,6 +98,7 @@ export default function RootLayout({
     >
       <head>
         <Script src={assetPath("/theme-init.js")} strategy="beforeInteractive" />
+        <Script src={assetPath("/ui-mode-init.js")} strategy="beforeInteractive" />
         <AnalyticsScript />
         {/* RSS autodiscovery (metadata `alternates.types` is not emitted by
             this Next build for static exports, so the link is literal). */}
@@ -124,6 +126,7 @@ export default function RootLayout({
         <ErrorBoundary>
           <MotionConfig reducedMotion="user">
           <ThemeProvider>
+           <UiModeProvider>
             <ToastProvider>
               <BookmarksProvider>
                 <ScrollProgress />
@@ -132,6 +135,7 @@ export default function RootLayout({
                 <SiteFooter />
               </BookmarksProvider>
             </ToastProvider>
+           </UiModeProvider>
           </ThemeProvider>
           </MotionConfig>
         </ErrorBoundary>

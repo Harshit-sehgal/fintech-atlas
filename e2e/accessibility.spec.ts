@@ -57,6 +57,7 @@ const DARK_ROUTES: Array<[string, string]> = [
   ["calculators suite", "/tools/calculators/"],
   ["markup calculator", "/tools/exchange-rate-markup-calculator/"],
   ["company profile (bright brand)", "/companies/stripe/"],
+  ["company profile", "/companies/payoneer/"],
   ["changelog", "/changelog/"],
   ["article with tables + related guides", "/articles/receiving-5000-usd-from-us-client-in-india/"],
   ["services", "/services/"],

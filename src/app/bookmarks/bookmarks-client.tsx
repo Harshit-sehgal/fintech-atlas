@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useBookmarks } from "@/lib/bookmarks-context";
 import { glossary } from "@/data/glossary";
 import { companySummaries } from "@/generated/company-summaries";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { IconStar } from "@/components/ui/icons";
@@ -67,6 +68,12 @@ export default function BookmarksPageClient() {
     <div className="relative mx-auto max-w-6xl px-5 py-20 md:py-28">
       <GridBackdrop />
 
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Saved", href: "/bookmarks" },
+        ]}
+      />
       <SectionHeading
         headingLevel={1}
         eyebrow="Personal Knowledge Base"
@@ -106,7 +113,7 @@ export default function BookmarksPageClient() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.3 }}
-                className="flex items-center justify-between rounded-xl border border-[var(--accent)]/30 bg-[var(--accent-glow)] p-4 text-sm"
+                className="flex items-center justify-between border-y border-[var(--accent)]/30 py-4 text-sm"
               >
                 <div className="flex items-center gap-2 text-[var(--foreground)] font-medium">
                   <span>You have {savedCompanies.length} saved companies — ready to compare?</span>
@@ -129,12 +136,12 @@ export default function BookmarksPageClient() {
                 <span className="ml-2 text-xs font-mono text-[var(--muted-text)]">({savedCompanies.length})</span>
               </h2>
 
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 reveal-stagger">
+              <div className="grid border-t border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
                 {savedCompanies.map((c) => (
                   <div
                     key={c.slug}
                     style={{ ["--accent"]: c.accent } as CSSProperties}
-                    className="group relative flex flex-col justify-between rounded-xl border border-[var(--border-color)] p-5 surface card-glow"
+                    className="group relative flex flex-col justify-between border-b border-[var(--border-color)] py-5 transition-colors sm:pr-6"
                   >
                     <div>
                       <div className="flex items-start justify-between gap-2">
@@ -180,11 +187,11 @@ export default function BookmarksPageClient() {
                 <span className="ml-2 text-xs font-mono text-[var(--muted-text)]">({savedGlossary.length})</span>
               </h2>
 
-              <div className="grid gap-3 sm:grid-cols-2">
+              <div className="grid border-t border-[var(--border-color)] sm:grid-cols-2">
                 {savedGlossary.map((g) => (
                   <div
                     key={g.slug}
-                    className="flex items-start justify-between gap-4 rounded-xl border border-[var(--border-color)] p-4 surface hover:border-[var(--accent)]/30 transition-all"
+                    className="flex items-start justify-between gap-4 border-b border-[var(--border-color)] py-4 transition-colors sm:pr-6"
                   >
                     <div>
                       <Link
@@ -219,14 +226,14 @@ export default function BookmarksPageClient() {
               <p className="text-xs leading-relaxed text-[var(--muted-text)] max-w-2xl">
                 Notes you wrote on provider profiles. They stay on this device and are never published.
               </p>
-              <div className="grid gap-3 sm:grid-cols-2">
+              <div className="grid border-t border-[var(--border-color)] sm:grid-cols-2">
                 {notes.map((n) => {
                   const body = (
                     <>
-                      <span className="font-bold text-sm text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
+                      <span className="text-sm font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
                         {n.name}
                       </span>
-                      <span className="mt-1 block text-xs text-[var(--muted-text)] font-mono">
+                      <span className="mt-1 block font-mono text-sm text-[var(--muted-text)]">
                         {n.count} note{ n.count === 1 ? "" : "s" }
                         {n.latestDate ? ` · last ${n.latestDate}` : ""}
                       </span>
@@ -236,15 +243,15 @@ export default function BookmarksPageClient() {
                     <Link
                       key={n.slug}
                       href={n.href}
-                      className="group flex items-start justify-between gap-4 rounded-lg border border-[var(--border-color)] p-4 surface hover:border-[var(--accent)]/30 transition-all"
+                      className="group flex items-start justify-between gap-4 border-b border-[var(--border-color)] py-4 transition-colors sm:pr-6"
                     >
                       {body}
-                      <span aria-hidden className="shrink-0 text-xs text-[var(--muted-text)] group-hover:text-[var(--accent)] transition-colors">→</span>
+                      <span aria-hidden className="shrink-0 text-xs text-[var(--muted-text)] transition-colors group-hover:text-[var(--accent)]">→</span>
                     </Link>
                   ) : (
                     <div
                       key={n.slug}
-                      className="flex items-start justify-between gap-4 rounded-lg border border-dashed border-[var(--border-color)] p-4"
+                      className="flex items-start justify-between gap-4 border-b border-dashed border-[var(--border-color)] py-4 sm:pr-6"
                     >
                       {body}
                     </div>
@@ -261,17 +268,17 @@ export default function BookmarksPageClient() {
                 Calculator Sessions
                 <span className="ml-2 text-xs font-mono text-[var(--muted-text)]">({toolSessions.length})</span>
               </h2>
-              <div className="grid gap-3 sm:grid-cols-2">
+              <div className="grid border-t border-[var(--border-color)] sm:grid-cols-2">
                 {toolSessions.map((s) => (
                   <Link
                     key={s.key}
                     href={s.href}
-                    className="group flex items-center justify-between gap-4 rounded-lg border border-[var(--border-color)] p-4 surface hover:border-[var(--accent)]/30 transition-all"
+                    className="group flex items-center justify-between gap-4 border-b border-[var(--border-color)] py-4 transition-colors sm:pr-6"
                   >
-                    <span className="font-bold text-sm text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
+                    <span className="text-sm font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
                       {s.label}
                     </span>
-                    <span aria-hidden className="shrink-0 text-xs text-[var(--muted-text)] group-hover:text-[var(--accent)] transition-colors">→</span>
+                    <span aria-hidden className="shrink-0 text-xs text-[var(--muted-text)] transition-colors group-hover:text-[var(--accent)]">→</span>
                   </Link>
                 ))}
               </div>
@@ -287,16 +294,16 @@ export default function BookmarksPageClient() {
                   ({radarCounts.watchlistCount + radarCounts.savedSearchCount})
                 </span>
               </h2>
-              <div className="grid gap-3 sm:grid-cols-2">
+              <div className="grid border-t border-[var(--border-color)] sm:grid-cols-2">
                 {radarCounts.watchlistCount > 0 && (
                   <Link
                     href="/radar/watchlist"
-                    className="group flex items-center justify-between gap-4 rounded-lg border border-[var(--border-color)] p-4 surface hover:border-[var(--accent)]/30 transition-all"
+                    className="group flex items-center justify-between gap-4 border-b border-[var(--border-color)] py-4 transition-colors sm:pr-6"
                   >
-                    <span className="font-bold text-sm text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
+                    <span className="text-sm font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
                       Watchlist
                     </span>
-                    <span className="shrink-0 text-xs text-[var(--muted-text)] font-mono">
+                    <span className="shrink-0 font-mono text-sm text-[var(--muted-text)]">
                       {radarCounts.watchlistCount} watched
                     </span>
                   </Link>
@@ -304,12 +311,12 @@ export default function BookmarksPageClient() {
                 {radarCounts.savedSearchCount > 0 && (
                   <Link
                     href="/radar"
-                    className="group flex items-center justify-between gap-4 rounded-lg border border-[var(--border-color)] p-4 surface hover:border-[var(--accent)]/30 transition-all"
+                    className="group flex items-center justify-between gap-4 border-b border-[var(--border-color)] py-4 transition-colors sm:pl-6"
                   >
-                    <span className="font-bold text-sm text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
+                    <span className="text-sm font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
                       Saved Searches
                     </span>
-                    <span className="shrink-0 text-xs text-[var(--muted-text)] font-mono">
+                    <span className="shrink-0 font-mono text-sm text-[var(--muted-text)]">
                       {radarCounts.savedSearchCount} saved
                     </span>
                   </Link>

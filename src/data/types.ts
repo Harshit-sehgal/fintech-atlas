@@ -130,6 +130,12 @@ export interface Company {
    * is unreliable, and a wrong mapping is worse than no mapping.
    */
   researchProfileSlug?: string;
+  /**
+   * Editorial flag: this provider is directly relevant to Indian users
+   * (India HQ, major India corridor, or primary India use case). Drives the
+   * directory's India-first facet and mirrors the /india hub curation.
+   */
+  indiaFocus?: boolean;
   /** Structured evidence required for every published catalog record. */
   sourceReferences: SourceReference[];
   employeesSourced?: SourcedValue<string>;

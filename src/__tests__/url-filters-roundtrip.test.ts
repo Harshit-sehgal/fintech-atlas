@@ -17,19 +17,20 @@ import {
  * out-of-range facets.
  */
 
-describe("directory (?q/category/sort/view)", () => {
+describe("directory (?q/category/region/sort)", () => {
   it("round-trips a full filter set", () => {
     const query = buildFilterQuery("", {
       q: "pay",
       category: categories[0].slug,
+      region: "india",
       sort: "founded",
     });
     const filters = readDirectoryFilters(new URLSearchParams(query));
     expect(filters).toEqual({
       search: "pay",
       selectedCategory: categories[0].slug,
+      region: "india",
       sortBy: "founded",
-      viewMode: "grid",
     });
   });
 
@@ -37,13 +38,13 @@ describe("directory (?q/category/sort/view)", () => {
     expect(readDirectoryFilters(new URLSearchParams(""))).toBeNull();
   });
 
-  it("rejects unknown category/sort/view values", () => {
+  it("rejects unknown category/region/sort values", () => {
     const filters = readDirectoryFilters(
-      new URLSearchParams("category=not-a-cat&sort=newest&view=dots"),
+      new URLSearchParams("category=not-a-cat&region=mars&sort=newest"),
     );
     expect(filters?.selectedCategory).toBe("all");
+    expect(filters?.region).toBe("all");
     expect(filters?.sortBy).toBe("rating");
-    expect(filters?.viewMode).toBe("grid");
   });
 
   it("caps runaway query strings", () => {

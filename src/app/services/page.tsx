@@ -152,9 +152,9 @@ export default function ServicesPage() {
       />
 
       {/* Two service lines */}
-      <div className="mt-12 grid gap-6 lg:grid-cols-2">
+      <div className="mt-12 grid lg:grid-cols-2">
         {/* Selection audit */}
-        <section aria-labelledby="svc-audit" className="surface flex flex-col rounded-lg border border-[var(--border-color)] p-6 sm:p-8">
+        <section aria-labelledby="svc-audit" className="flex flex-col border-t border-[var(--border-color)] py-8 lg:border-r lg:pr-10">
           <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">Payment gateway selection audit</p>
           <h2 id="svc-audit" className="mt-2 text-xl font-bold tracking-tight">Which gateway should you actually use?</h2>
           <p className="mt-3 text-sm leading-relaxed text-[var(--muted-text)]">
@@ -169,12 +169,12 @@ export default function ServicesPage() {
                 </span>
                 <span className="text-[var(--foreground)]">
                   {f.label}
-                  {f.note && <span className="ml-2 rounded-full border border-[var(--border-color)] px-2 py-0.5 text-[11px] text-[var(--muted-text)]">{f.note}</span>}
+                  {f.note && <span className="ml-2 font-mono text-[11px] text-[var(--muted-text)]">{f.note}</span>}
                 </span>
               </li>
             ))}
           </ul>
-          <div className="mt-6 rounded-xl border border-[var(--border-color)] bg-[var(--subtle-bg)]/60 p-4">
+          <div className="mt-6 border-t border-[var(--border-color)] pt-4">
             <p className="text-xs font-bold uppercase tracking-wider text-[var(--muted-text)]">Proposed price</p>
             <p className="mt-1 text-2xl font-bold tracking-tight">
               ₹999–₹1,999 <span className="text-sm font-normal text-[var(--muted-text)]">basic</span>
@@ -185,7 +185,7 @@ export default function ServicesPage() {
         </section>
 
         {/* Integration */}
-        <section aria-labelledby="svc-integration" className="surface flex flex-col rounded-lg border border-[var(--border-color)] p-6 sm:p-8">
+        <section aria-labelledby="svc-integration" className="flex flex-col border-t border-[var(--border-color)] py-8 lg:pl-10">
           <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">Payment gateway integration</p>
           <h2 id="svc-integration" className="mt-2 text-xl font-bold tracking-tight">Get the checkout actually built</h2>
           <p className="mt-3 text-sm leading-relaxed text-[var(--muted-text)]">
@@ -200,12 +200,12 @@ export default function ServicesPage() {
                 </span>
                 <span className="text-[var(--foreground)]">
                   {f.label}
-                  {f.note && <span className="ml-2 rounded-full border border-[var(--border-color)] px-2 py-0.5 text-[11px] text-[var(--muted-text)]">{f.note}</span>}
+                  {f.note && <span className="ml-2 font-mono text-[11px] text-[var(--muted-text)]">{f.note}</span>}
                 </span>
               </li>
             ))}
           </ul>
-          <div className="mt-6 rounded-xl border border-[var(--border-color)] bg-[var(--subtle-bg)]/60 p-4">
+          <div className="mt-6 border-t border-[var(--border-color)] pt-4">
             <p className="text-xs font-bold uppercase tracking-wider text-[var(--muted-text)]">Proposed price</p>
             <p className="mt-1 text-2xl font-bold tracking-tight">
               ₹3,000–₹8,000 <span className="text-sm font-normal text-[var(--muted-text)]">basic checkout</span>
@@ -218,7 +218,7 @@ export default function ServicesPage() {
       </div>
 
       {/* Market research */}
-      <section aria-labelledby="svc-research" className="surface mt-6 rounded-lg border border-[var(--border-color)] p-6 sm:p-8">
+      <section aria-labelledby="svc-research" className="mt-6 border-t border-[var(--border-color)] py-8">
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">FinTech market research</p>
         <h2 id="svc-research" className="mt-2 text-xl font-bold tracking-tight">
           A verified map of Indian fintech companies that fit your ICP
@@ -238,12 +238,12 @@ export default function ServicesPage() {
               </span>
               <span className="text-[var(--foreground)]">
                 {f.label}
-                {f.note && <span className="ml-2 rounded-full border border-[var(--border-color)] px-2 py-0.5 text-[11px] text-[var(--muted-text)]">{f.note}</span>}
+                {f.note && <span className="ml-2 font-mono text-[11px] text-[var(--muted-text)]">{f.note}</span>}
               </span>
             </div>
           ))}
         </div>
-        <div className="mt-6 rounded-xl border border-[var(--border-color)] bg-[var(--subtle-bg)]/60 p-4">
+        <div className="mt-6 border-t border-[var(--border-color)] pt-4">
           <p className="text-xs font-bold uppercase tracking-wider text-[var(--muted-text)]">Deliverable format</p>
           <p className="mt-2 text-sm text-[var(--muted-text)]">
             A CSV / sheet with one company per row:
@@ -252,7 +252,7 @@ export default function ServicesPage() {
             {RESEARCH_COLUMNS.join(" · ")}
           </p>
         </div>
-        <div className="mt-6 rounded-xl border border-[var(--border-color)] bg-[var(--subtle-bg)]/60 p-4">
+        <div className="mt-6 border-t border-[var(--border-color)] pt-4">
           <p className="text-xs font-bold uppercase tracking-wider text-[var(--muted-text)]">Proposed price</p>
           <p className="mt-1 text-2xl font-bold tracking-tight">
             from ₹10,000 <span className="text-sm font-normal text-[var(--muted-text)]">per project</span>
@@ -266,12 +266,12 @@ export default function ServicesPage() {
       {/* How it works */}
       <section aria-labelledby="svc-how" className="mt-16">
         <h2 id="svc-how" className="text-xl font-bold tracking-tight sm:text-2xl">How it works</h2>
-        <ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-6 grid border-t border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-4">
           {STEPS.map((step, index) => (
-            <li key={step.title} className="surface rounded-lg border border-[var(--border-color)] p-5">
+            <li key={step.title} className="border-b border-[var(--border-color)] py-5 lg:border-r lg:pr-6 lg:[&:last-child]:border-r-0">
               <span className="font-mono text-xs text-[var(--accent-ink)]">0{index + 1}</span>
               <h3 className="mt-2 text-sm font-bold">{step.title}</h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-[var(--muted-text)]">{step.text}</p>
+              <p className="mt-1.5 text-sm leading-relaxed text-[var(--muted-text)]">{step.text}</p>
             </li>
           ))}
         </ol>
@@ -286,23 +286,23 @@ export default function ServicesPage() {
             verified list of. We reply with scope, price, and a date — no
             obligation, and no gateway will ever know you asked.
           </p>
-          <div className="mt-6 space-y-3">
-            <Link href="/services/gateway-selection-report-sample" className="block rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-4 transition-colors hover:border-[var(--accent)]/50">
+          <div className="mt-6 border-t border-[var(--border-color)]">
+            <Link href="/services/gateway-selection-report-sample" className="block border-b border-[var(--border-color)] py-4 transition-colors hover:border-[var(--foreground)]">
               <p className="text-sm font-bold">See a sample audit report →</p>
-              <p className="mt-1 text-xs text-[var(--muted-text)]">
+              <p className="mt-1 text-sm text-[var(--muted-text)]">
                 A fictional merchant, real published rates — exactly the format you&apos;d receive.
               </p>
             </Link>
-            <Link href="/services/payment-gateway-implementation-checklist" className="block rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-4 transition-colors hover:border-[var(--accent)]/50">
+            <Link href="/services/payment-gateway-implementation-checklist" className="block border-b border-[var(--border-color)] py-4 transition-colors hover:border-[var(--foreground)]">
               <p className="text-sm font-bold">Get the implementation checklist →</p>
-              <p className="mt-1 text-xs text-[var(--muted-text)]">
+              <p className="mt-1 text-sm text-[var(--muted-text)]">
                 Pre-flight → go-live → reconciliation, with progress saved in your browser.
               </p>
             </Link>
           </div>
         </div>
         <div className="lg:col-span-3">
-          <div className="surface rounded-lg border border-[var(--border-color)] p-6 sm:p-8">
+          <div className="border-t border-[var(--border-color)] pt-6 sm:pt-8">
             <ServicesContactForm />
           </div>
         </div>

@@ -19,6 +19,7 @@ export default function TermsPage() {
       title="Terms of Use"
       description="These terms describe the permitted and intended use of FinTech Atlas in its current static, educational form."
       effectiveDate={LEGAL_EFFECTIVE_DATE}
+      pathname="/terms"
     >
       <section>
         <h2 className="text-xl font-semibold text-[var(--foreground)]">Educational information only</h2>

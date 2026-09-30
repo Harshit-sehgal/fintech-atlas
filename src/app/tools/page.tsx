@@ -51,7 +51,7 @@ export default function ToolsPage() {
         description="Data-driven tools to help you calculate real costs, compare exchange rates, and choose the right fintech services."
       />
 
-      <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4 reveal-stagger">
+      <div className="mt-12 border-t border-[var(--border-color)]">
         {toolsList.map((tool, index) => {
           const accent = TOOL_ACCENTS[tool.id] ?? "var(--tool-acc-calculator)";
           return (
@@ -59,53 +59,45 @@ export default function ToolsPage() {
               key={tool.id}
               href={tool.href}
               style={{ ["--accent"]: accent } as CSSProperties}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-lg border border-[var(--border-color)] surface p-6 transition-all duration-300 card-glow"
+              className="group grid gap-4 border-b border-[var(--border-color)] py-7 transition-colors md:grid-cols-[auto_1fr_auto] md:items-start md:gap-8"
             >
-              <div>
-                <div className="flex items-center justify-between">
-                  {/* Editorial index numeral instead of an icon — the tool
-                      name carries the meaning (handoff P1-1). Accent text on
-                      a NEUTRAL surface keeps WCAG AA deterministic; the tint
-                      lives only in the border. */}
-                  <span
-                    aria-hidden
-                    className="flex h-10 w-10 items-center justify-center rounded-lg border font-mono text-sm font-bold"
-                    style={{
-                      borderColor: `color-mix(in srgb, ${accent} 45%, transparent)`,
-                      color: accent,
-                    }}
-                  >
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span
-                    className="rounded-full border px-3 py-1 text-[11px] font-medium font-mono"
-                    style={{ borderColor: `color-mix(in srgb, ${accent} 45%, transparent)`, color: accent }}
-                  >
+              {/* Editorial index numeral instead of an icon — the tool name
+                  carries the meaning. Neutral surface; accent lives in the
+                  numeral and the "Launch" affordance only. */}
+              <span
+                aria-hidden
+                className="font-mono text-sm font-bold tabular-nums"
+                style={{ color: accent }}
+              >
+                {String(index + 1).padStart(2, "0")}
+              </span>
+
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <h2 className="text-xl font-bold tracking-tight text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
+                    {tool.name}
+                  </h2>
+                  <span className="rounded-full border border-[var(--border-color)] px-2.5 py-0.5 font-mono text-[11px] text-[var(--muted-text)]">
                     {tool.badge}
                   </span>
                 </div>
-
-                <h2 className="mt-5 text-xl font-bold tracking-tight text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
-                  {tool.name}
-                </h2>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--muted-text)]">
+                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--muted-text)]">
                   {tool.description}
                 </p>
-
-                <div className="mt-6 space-y-2 border-t border-[var(--border-color)] pt-4">
-                  {tool.features.map((feat) => (
-                    <div key={feat} className="flex items-center gap-2 text-xs text-[var(--foreground)]/80">
-                      <span className="text-success-text" aria-hidden>✓</span>
-                      <span>{feat}</span>
-                    </div>
+                <p className="mt-3 max-w-2xl text-xs leading-relaxed text-[var(--muted-text)]">
+                  {tool.features.map((feat, i) => (
+                    <span key={feat}>
+                      {i > 0 && <span aria-hidden className="px-2 text-[var(--border-strong)]">·</span>}
+                      {feat}
+                    </span>
                   ))}
-                </div>
+                </p>
               </div>
 
-              <div className="mt-8 flex items-center gap-2 text-sm font-bold text-[var(--accent)] group-hover:translate-x-1 transition-transform">
-                <span>Launch tool</span>
-                <span>→</span>
-              </div>
+              <span className="inline-flex items-center gap-2 text-sm font-bold text-[var(--accent)] transition-transform group-hover:translate-x-1 md:justify-self-end">
+                <span>Launch</span>
+                <span aria-hidden>→</span>
+              </span>
             </Link>
           );
         })}
@@ -113,7 +105,7 @@ export default function ToolsPage() {
 
       {/* Services cross-link (plan: internal links from existing pages) */}
       <section aria-labelledby="tools-services-cta" className="mt-10">
-        <div className="flex flex-col items-start justify-between gap-4 rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6 sm:flex-row sm:items-center">
+        <div className="flex flex-col items-start justify-between gap-4 border-y border-[var(--border-color)] py-6 sm:flex-row sm:items-center">
           <div>
             <h2 id="tools-services-cta" className="text-base font-bold tracking-tight">Need a human to do the analysis?</h2>
             <p className="mt-1 text-sm text-[var(--muted-text)]">

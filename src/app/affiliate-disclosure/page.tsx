@@ -22,6 +22,7 @@ export default function AffiliateDisclosurePage() {
       title="Affiliate Disclosure"
       description="We keep independent editorial content separate from commercial inventory, and we tell you when a link may earn us money."
       effectiveDate={LEGAL_EFFECTIVE_DATE}
+      pathname="/affiliate-disclosure"
     >
       <section>
         <h2 className="text-xl font-semibold text-[var(--foreground)]">Affiliate links</h2>

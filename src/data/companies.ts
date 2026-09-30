@@ -2,12 +2,14 @@ import { Company } from "./types";
 import { valuationAmountUsdBySlug } from "./financial-values";
 import { sourceReferencesBySlug } from "./provenance-records";
 import { companyAvailabilityBySlug } from "./company-availability";
+import { validateCompanyProvenance } from "./provenance";
 
 type BaseCompany = Omit<Company, "sourceReferences">;
 
 const baseCompanies: BaseCompany[] = [
   {
     slug: "stripe",
+    indiaFocus: true,
     researchProfileSlug: "stripe-india",
     ownershipType: "private",
     name: "Stripe",
@@ -38,6 +40,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "paypal",
+    indiaFocus: true,
     researchProfileSlug: "paypal-india",
     ownershipType: "public",
     name: "PayPal",
@@ -125,6 +128,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "wise",
+    indiaFocus: true,
     researchProfileSlug: "wise-india",
     ownershipType: "public",
     name: "Wise",
@@ -361,7 +365,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "afterpay", name: "Afterpay", tagline: "BNPL, simplified.", founded: 2014,
-    founders: ["Nick Molnar", "Anthony Eisen"], headquarters: "Sydney, Australia", employees: "1700+", ownershipType: "acquired", valuation: "$29B", website: "afterpay.com", categories: ["bnpl"], logo: "afterpay", accent: "#B2FCE4",
+    founders: ["Nick Molnar", "Anthony Eisen"], headquarters: "Sydney, Australia", employees: "1700+", ownershipType: "acquired", valuation: "N/A (part of Block)", website: "afterpay.com", categories: ["bnpl"], logo: "afterpay", accent: "#B2FCE4",
     oneLiner: "Buy now, pay later — split purchases over four interest-free installment payments.", whatIsIt: "Afterpay is a BNPL pioneer that lets consumers split retail purchases into 4 installment periods, zero-interest; the merchant gets paid in full at the time of sale, and Afterpay collects from the consumer.",
     whatTheyOffer: [{ name: "Pay-in-4", description: "Split an approved purchase into four equal interest-free installments paid every two weeks." }, { name: "Merchant Solutions", description: "Integrate Afterpay into checkout to support conversion and average order value." }],
     whoUses: ["Fashion and lifestyle shoppers", "Millennials and Gen Z shoppers wanting to try before fully paying", "Merchants wanting a lift in average order value"],
@@ -835,6 +839,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "cashfree",
+    indiaFocus: true,
     researchProfileSlug: "cashfree-payments",
     ownershipType: "private",
     name: "Cashfree Payments",
@@ -882,6 +887,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "payoneer",
+    indiaFocus: true,
     ownershipType: "public",
     name: "Payoneer",
     tagline: "Commerce without borders.",
@@ -911,6 +917,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "paytm",
+    indiaFocus: true,
     researchProfileSlug: "paytm-payment-gateway-one97-communications",
     ownershipType: "public",
     name: "Paytm",
@@ -941,6 +948,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "phonepe",
+    indiaFocus: true,
     researchProfileSlug: "phonepe",
     ownershipType: "private",
     name: "PhonePe",
@@ -1061,6 +1069,7 @@ const baseCompanies: BaseCompany[] = [
   },
   {
     slug: "razorpay",
+    indiaFocus: true,
     researchProfileSlug: "razorpay",
     ownershipType: "private",
     name: "Razorpay",
@@ -1293,12 +1302,20 @@ export const companies: Company[] = baseCompanies.map((company) => {
   if (!sourceReferences?.length) {
     throw new Error(`Missing structured provenance for company: ${company.slug}`);
   }
-  return {
+  const availability = company.availability ?? companyAvailabilityBySlug[company.slug];
+  if (!availability) {
+    throw new Error(`Missing availability audit for company: ${company.slug}`);
+  }
+  const assembledCompany = {
     ...company,
     valuationAmountUsd:
       company.valuationAmountUsd ?? valuationAmountUsdBySlug[company.slug],
-    availability:
-      company.availability ?? companyAvailabilityBySlug[company.slug],
+    availability,
     sourceReferences,
-  };
+  } satisfies Company;
+  const provenanceIssues = validateCompanyProvenance(assembledCompany);
+  if (provenanceIssues.length > 0) {
+    throw new Error(`Invalid provenance for ${company.slug}: ${provenanceIssues.join("; ")}`);
+  }
+  return assembledCompany;
 });

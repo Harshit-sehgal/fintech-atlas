@@ -64,12 +64,6 @@ export default function IndiaLandingPage() {
   const featured = [...INDIA_ARTICLES]
     .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
     .slice(0, 4);
-  // "Recently verified" block: the three next-newest India articles, excluding
-  // the ones already shown in "Head to head" so the two sections stay distinct.
-  const recentlyUpdated = [...INDIA_ARTICLES]
-    .filter((a) => !featured.some((f) => f.slug === a.slug))
-    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
-    .slice(0, 3);
 
   return (
     <div className="relative mx-auto max-w-6xl px-5 py-20 md:py-28">
@@ -96,35 +90,35 @@ export default function IndiaLandingPage() {
       {/* Primary decision CTAs — the two India-first calculators. */}
       <section aria-labelledby="india-start-here" className="mt-12">
         <h2 id="india-start-here" className="eyebrow mb-4">Start here</h2>
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="grid border-t border-[var(--border-color)] md:grid-cols-2">
           <Link
             href="/tools/calculator"
-            className="group relative overflow-hidden rounded-lg border border-[var(--border-color)] surface p-6 transition-all duration-300 card-glow hover:-translate-y-1"
+            className="group flex flex-col border-b border-[var(--border-color)] py-7 transition-colors md:border-r md:pr-8"
           >
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">Calculate fees</p>
-            <h3 className="mt-2 text-xl font-bold tracking-tight text-[var(--foreground)]">
+            <h3 className="mt-2 text-xl font-bold tracking-tight text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
               How much do the gateways take?
             </h3>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--muted-text)]">
+            <p className="mt-2 max-w-md text-sm leading-relaxed text-[var(--muted-text)]">
               Run your monthly volume, order value and international mix through the fee estimator for a GST-inclusive bottom line.
             </p>
-            <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)] group-hover:translate-x-1 transition-transform">
+            <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)] transition-transform group-hover:translate-x-1">
               Open the gateway fee estimator <span aria-hidden>→</span>
             </span>
           </Link>
 
           <Link
             href="/tools/remittance"
-            className="group relative overflow-hidden rounded-lg border border-[var(--border-color)] surface p-6 transition-all duration-300 card-glow hover:-translate-y-1"
+            className="group flex flex-col border-b border-[var(--border-color)] py-7 transition-colors md:pl-8"
           >
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">What lands in INR</p>
-            <h3 className="mt-2 text-xl font-bold tracking-tight text-[var(--foreground)]">
+            <h3 className="mt-2 text-xl font-bold tracking-tight text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
               What does a USD payment really deliver?
             </h3>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--muted-text)]">
+            <p className="mt-2 max-w-md text-sm leading-relaxed text-[var(--muted-text)]">
               Compare Wise, Revolut, PayPal and a bank wire after fees, FX markup and the days in between.
             </p>
-            <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)] group-hover:translate-x-1 transition-transform">
+            <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)] transition-transform group-hover:translate-x-1">
               Open the cross-border estimator <span aria-hidden>→</span>
             </span>
           </Link>
@@ -134,21 +128,21 @@ export default function IndiaLandingPage() {
       {/* Tools rail */}
       <section aria-labelledby="india-tools" className="mt-14">
         <h2 id="india-tools" className="eyebrow mb-4">India calculators</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="border-t border-[var(--border-color)]">
           {INDIA_TOOLS.map((tool) => (
             <Link
               key={tool.href}
               href={tool.href}
-              className="group flex items-start gap-4 rounded-xl border border-[var(--border-color)] surface p-5 transition-all duration-300 card-glow hover:-translate-y-0.5"
+              className="group flex items-start gap-4 border-b border-[var(--border-color)] py-5 transition-colors"
             >
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)] font-mono text-base font-bold text-[var(--accent)]">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center font-mono text-base font-bold text-[var(--accent)]">
                 <span aria-hidden>₹</span>
               </div>
               <div className="min-w-0">
-                <h3 className="text-base font-bold tracking-tight text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
+                <h3 className="text-base font-bold tracking-tight text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
                   {tool.name}
                 </h3>
-                <p className="mt-1 text-sm leading-relaxed text-[var(--muted-text)]">{tool.description}</p>
+                <p className="mt-1 max-w-2xl text-sm leading-relaxed text-[var(--muted-text)]">{tool.description}</p>
               </div>
             </Link>
           ))}
@@ -166,20 +160,20 @@ export default function IndiaLandingPage() {
             All comparisons →
           </Link>
         </div>
-        <div className="mt-5 grid gap-5 md:grid-cols-2">
+        <div className="mt-5 grid border-t border-[var(--border-color)] md:grid-cols-2">
           {featured.slice(0, 4).map((article) => (
             <Link
               key={article.slug}
               href={`/articles/${article.slug}`}
-              className="group flex flex-col justify-between rounded-lg border border-[var(--border-color)] surface p-6 transition-all duration-300 card-glow hover:-translate-y-1"
+              className="group flex flex-col justify-between border-b border-[var(--border-color)] py-6 transition-colors md:odd:border-r md:odd:pr-8 md:even:pl-8"
             >
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--muted-text)]">{article.category}</p>
-                <h3 className="mt-2 text-lg font-bold tracking-tight text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
+                <h3 className="mt-2 text-lg font-bold tracking-tight text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
                   {article.title}
                 </h3>
               </div>
-              <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)] group-hover:translate-x-1 transition-transform">
+              <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)] transition-transform group-hover:translate-x-1">
                 Read the comparison <span aria-hidden>→</span>
               </span>
             </Link>
@@ -212,29 +206,18 @@ export default function IndiaLandingPage() {
         </div>
       </section>
 
-      {/* Recently verified */}
-      <section aria-labelledby="india-recently" className="mt-14">
-        <h2 id="india-recently" className="eyebrow mb-4">Recently verified</h2>
-        <ul className="space-y-2">
-          {recentlyUpdated.map((article) => (
-            <li key={article.slug}>
-              <Link
-                href={`/articles/${article.slug}`}
-                className="inline-flex items-baseline gap-2 text-sm text-[var(--fg-dim)] transition-colors hover:text-[var(--accent)]"
-              >
-                <span className="text-[var(--muted-text)]">→</span>
-                <span>{article.title}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* All India comparisons */}
+      {/* All India comparisons — the complete index (featured above are also
+          listed here; a hub should surface every region-tagged guide rather
+          than hiding the long tail behind a partial preview). */}
       <section aria-labelledby="india-all" className="mt-14 border-t border-[var(--border-color)] pt-8">
-        <h2 id="india-all" className="eyebrow mb-4">All India guides</h2>
-        <ul className="grid gap-x-8 gap-y-2.5 sm:grid-cols-2">
-          {featured.map((article) => (
+        <div className="flex items-end justify-between gap-4">
+          <h2 id="india-all" className="eyebrow mb-1">All {INDIA_ARTICLES.length} India guides</h2>
+          <Link href="/articles" className="hidden text-sm font-semibold text-[var(--accent)] hover:underline underline-offset-4 sm:inline">
+            All guides →
+          </Link>
+        </div>
+        <ul className="mt-5 grid gap-x-8 gap-y-2.5 sm:grid-cols-2">
+          {INDIA_ARTICLES.map((article) => (
             <li key={article.slug}>
               <Link
                 href={`/articles/${article.slug}`}

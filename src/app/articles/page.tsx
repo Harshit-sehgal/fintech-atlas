@@ -3,7 +3,7 @@ import Link from "next/link";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { pageMetadata } from "@/lib/shared-metadata";
-import { articles, categoryHref } from "@/data/articles";
+import { articles, getArticleCategory } from "@/data/articles";
 
 export const metadata: Metadata = pageMetadata({
   pathname: "/articles",
@@ -14,14 +14,31 @@ export const metadata: Metadata = pageMetadata({
     "Plain-language comparisons and explainers of FinTech fees and providers, with free calculators.",
 });
 
+// Group every guide by its primary category (the article's own taxonomy,
+// resolved through `getArticleCategory`) so the index reads as a topical hub
+// instead of one long reverse-chronological wall. Order follows first appearance
+// in the catalog, which keeps the most-established clusters near the top.
+const articlesByCategory = (() => {
+  const groups = new Map<string, typeof articles>();
+  for (const a of articles) {
+    if (!groups.has(a.category)) groups.set(a.category, []);
+    groups.get(a.category)!.push(a);
+  }
+  return [...groups.entries()].map(([name, items]) => ({
+    category: getArticleCategory(name) ?? null,
+    name,
+    items: [...items].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)),
+  }));
+})();
+
 export default function ArticlesIndexPage() {
   return (
-    <div className="relative mx-auto max-w-4xl px-5 py-20 md:py-28">
+    <div className="relative mx-auto max-w-5xl px-5 py-20 md:py-28">
       <GridBackdrop />
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
-          { name: "Articles", href: "/articles" },
+          { name: "Guides", href: "/articles" },
         ]}
       />
 
@@ -29,45 +46,68 @@ export default function ArticlesIndexPage() {
         Guides &amp; Comparisons
       </h1>
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--muted-text)]">
-        Long-form comparisons and explainers that go with our interactive tools. Fees shown are
-        illustrative published-rate assumptions from the catalog vintage, not live quotes.
+        Long-form comparisons and explainers that go with our interactive tools, grouped by the
+        decision they help with. Fees shown are illustrative published-rate assumptions from the
+        catalog vintage, not live quotes.
       </p>
 
-      <div className="mt-10 grid gap-4 sm:grid-cols-2">
-        {articles
-          .map((article, index) => ({ article, index }))
-          .sort(
-            (a, b) =>
-              b.article.updatedAt.localeCompare(a.article.updatedAt) || b.index - a.index,
-          )
-          .map(({ article: a }) => (
-            // Whole-card navigation uses an overlay link (same pattern as the
-            // companies directory): nesting the category <Link> inside a
-            // card-wide <Link> produces invalid nested anchors — the HTML
-            // parser closes the outer one early and strips its accessible
-            // name.
-            <div
-              key={a.slug}
-              className="group relative surface rounded-lg border border-[var(--border-color)] p-5 hover:border-[var(--foreground)]/30 hover:-translate-y-0.5 transition-all"
-            >
-              <Link
-                href={`/articles/${a.slug}`}
-                aria-label={`Read ${a.title}`}
-                className="absolute inset-0 z-10 rounded-lg focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+      <div className="mt-12 space-y-14">
+        {articlesByCategory.map(({ category, name, items }) => {
+          const anchor = category?.slug ?? name;
+          return (
+          <section key={anchor} aria-labelledby={`articles-${anchor}`}>
+            <div className="flex items-end justify-between gap-4 border-b border-[var(--border-color)] pb-3">
+              <h2
+                id={`articles-${anchor}`}
+                className="text-xl font-bold tracking-tight text-[var(--foreground)]"
               >
-                <span className="sr-only">Read {a.title}</span>
-              </Link>
-              <Link
-                href={categoryHref(a.category)}
-                className="relative z-20 inline-block rounded px-1.5 py-1.5 -mx-1.5 -my-1 align-top text-[10px] font-mono uppercase tracking-widest text-[var(--muted-text)] hover:text-[var(--accent)] transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)]"
-              >
-                {a.category}
-              </Link>
-              <h2 className="mt-2 text-base font-bold text-[var(--foreground)]">{a.title}</h2>
-              <p className="mt-2 text-xs leading-relaxed text-[var(--muted-text)]">{a.description}</p>
-              <span className="mt-3 inline-block text-xs font-bold text-[var(--accent)]">Read →</span>
+                {category?.name ?? name}
+                <span className="ml-2 align-middle text-sm font-normal text-[var(--muted-text)]">
+                  {items.length}
+                </span>
+              </h2>
+              {category && (
+                <Link
+                  href={`/articles/category/${category.slug}`}
+                  className="hidden text-sm font-semibold text-[var(--accent)] hover:underline underline-offset-4 sm:inline"
+                >
+                  View category →
+                </Link>
+              )}
             </div>
-          ))}
+
+            <div className="mt-4 border-t border-[var(--border-color)]">
+              {items.map((a) => (
+                // Whole-row navigation uses an overlay link (same pattern as
+                // the companies directory): nesting the category <Link> inside
+                // a row-wide <Link> produces invalid nested anchors — the HTML
+                // parser closes the outer one early and strips its accessible
+                // name.
+                <div
+                  key={a.slug}
+                  className="group relative border-b border-[var(--border-color)] py-5"
+                >
+                  <Link
+                    href={`/articles/${a.slug}`}
+                    aria-label={`Read ${a.title}`}
+                    className="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+                  >
+                    <span className="sr-only">Read {a.title}</span>
+                  </Link>
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted-text)]">
+                    Last verified {new Date(a.updatedAt).toLocaleDateString("en-IN", { year: "numeric", month: "short" })}
+                  </p>
+                  <h3 className="mt-1.5 pr-8 text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
+                    {a.title}
+                  </h3>
+                  <p className="mt-1.5 max-w-3xl text-sm leading-relaxed text-[var(--muted-text)]">{a.description}</p>
+                  <span className="mt-2 inline-block text-xs font-bold text-[var(--accent)]">Read →</span>
+                </div>
+              ))}
+            </div>
+          </section>
+          );
+        })}
       </div>
     </div>
   );

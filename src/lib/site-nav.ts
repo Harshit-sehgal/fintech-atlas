@@ -9,11 +9,39 @@
 export interface NavItem {
   href: string;
   label: string;
+  /**
+   * One-line clarifier shown next to the label in the grouped "More" menu.
+   *
+   * This exists because several surfaces legitimately answer the same question
+   * ("show me fintech companies"). The URL alone cannot explain the difference,
+   * so the menu carries the distinction instead of leaving the reader to guess:
+   *
+   *   /companies        42 curated worldwide profiles
+   *   /india/directory  full searchable list of Indian firms
+   *   /directory        hub linking both tiers together
+   *   /categories       the same companies grouped by industry instead
+   */
+  description?: string;
 }
 
 /**
- * Primary navigation — the five decision surfaces. Everything else lives in
+ * A named cluster of secondary destinations.
+ *
+ * A flat ten-item menu is a list, not a structure: readers scan it, find nothing
+ * that matches what they want, and conclude the site is disorganised. Grouping
+ * turns "where do I look?" into a two-step decision.
+ */
+export interface NavGroup {
+  heading: string;
+  items: NavItem[];
+}
+
+/**
+ * Primary navigation — the six decision surfaces. Everything else lives in
  * "More" so the bar stays calm and scannable (proven comparison-site pattern).
+ *
+ * These stay short because they sit in a single horizontal row at every
+ * breakpoint; the grouped menu below is where nuance lives.
  */
 export const primaryNav: NavItem[] = [
   { href: "/india", label: "India" },
@@ -24,17 +52,95 @@ export const primaryNav: NavItem[] = [
   { href: "/articles", label: "Guides" },
 ];
 
-export const moreNav: NavItem[] = [
-  { href: "/categories", label: "Categories" },
-  { href: "/glossary", label: "Glossary" },
-  { href: "/services", label: "Services" },
-  { href: "/bookmarks", label: "Saved" },
-  { href: "/radar/watchlist", label: "Radar Watchlist" },
-  { href: "/radar/activity", label: "Radar Activity" },
-  { href: "/radar/review", label: "Radar Review Queue" },
-  { href: "/about", label: "About" },
-  { href: "/changelog", label: "Changelog" },
+/**
+ * Secondary navigation, grouped. Order is deliberate: "Browse" first because
+ * looking something up is the most common intent, "Saved" late because it is
+ * personal rather than exploratory.
+ */
+export const moreNavGroups: NavGroup[] = [
+  {
+    heading: "Browse",
+    items: [
+      {
+        href: "/categories",
+        label: "By industry",
+        description: "Payments, banking, lending and more",
+      },
+      {
+        href: "/india/directory",
+        label: "India directory",
+        description: "Full searchable list of Indian firms",
+      },
+      {
+        href: "/directory",
+        label: "All directories",
+        description: "Curated profiles plus the research list",
+      },
+      {
+        href: "/glossary",
+        label: "Glossary",
+        description: "Plain-language fintech terms",
+      },
+    ],
+  },
+  {
+    heading: "Tools & data",
+    items: [
+      {
+        href: "/services",
+        label: "Services",
+        description: "Consulting and implementation help",
+      },
+      {
+        href: "/bookmarks",
+        label: "Saved",
+        description: "Bookmarks, notes and calculator sessions",
+      },
+    ],
+  },
+  {
+    heading: "Radar",
+    items: [
+      {
+        href: "/radar/watchlist",
+        label: "Watchlist",
+        description: "Companies you are tracking",
+      },
+      {
+        href: "/radar/activity",
+        label: "Activity",
+        description: "Licence and regulatory events",
+      },
+      {
+        href: "/radar/review",
+        label: "Review queue",
+        description: "Regulatory changes to review",
+      },
+    ],
+  },
+  {
+    heading: "Site",
+    items: [
+      {
+        href: "/about",
+        label: "About",
+        description: "Methodology and sources",
+      },
+      {
+        href: "/changelog",
+        label: "Changelog",
+        description: "What changed and when",
+      },
+    ],
+  },
 ];
+
+/**
+ * Flat view of {@link moreNavGroups}, for surfaces that render one list (the
+ * mobile drawer, active-state checks). Derived rather than hand-maintained so
+ * the grouped menu stays the only place entries are declared.
+ */
+export const moreNav: NavItem[] = moreNavGroups.flatMap((group) => group.items);
 
 /**
  * App-like bottom navigation for touch screens (hidden on lg+ where the
@@ -49,23 +155,19 @@ export const bottomNav: NavItem[] = [
   { href: "/bookmarks", label: "Saved" },
 ];
 
-/** Footer "Explore" column — the broad site map. */
+/**
+ * Footer "Explore" column — the broad site map.
+ *
+ * Derived from the same registry the header uses, so a destination is called
+ * one thing across the whole site. This column used to restate every entry by
+ * hand with different wording ("Companies" in the bar, "Companies Directory"
+ * here; "Radar Review Queue (research console)" here and nowhere else), which
+ * made the footer read as a second, competing navigation rather than a
+ * backstop. `/about` is dropped because footerAboutLinks already owns it.
+ */
 export const footerExploreLinks: NavItem[] = [
-  { href: "/india", label: "India — Payments & Gateways" },
-  { href: "/radar", label: "FinTech Radar (intelligence view)" },
-  { href: "/radar/activity", label: "Radar Activity (licence events)" },
-  { href: "/radar/watchlist", label: "Radar Watchlist" },
-  { href: "/radar/review", label: "Radar Review Queue (research console)" },
-  { href: "/india/directory", label: "India FinTech Directory" },
-  { href: "/directory", label: "FinTech Directory (all tiers)" },
-  { href: "/services", label: "Services & Consulting" },
-  { href: "/companies", label: "Companies Directory" },
-  { href: "/categories", label: "Industry Categories" },
-  { href: "/compare", label: "Side-by-Side Comparison" },
-  { href: "/glossary", label: "FinTech Glossary" },
-  { href: "/articles", label: "Guides & Comparisons" },
-  { href: "/changelog", label: "Site Changelog" },
-  { href: "/bookmarks", label: "Saved Bookmarks" },
+  ...primaryNav,
+  ...moreNav.filter((item) => item.href !== "/about"),
 ];
 
 export const footerAboutLinks: NavItem[] = [

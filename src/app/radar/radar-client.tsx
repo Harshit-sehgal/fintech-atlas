@@ -664,7 +664,7 @@ export function RadarClient() {
             </div>
           </div>
 
-          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+          <ul className="mt-6 grid border-t border-[var(--border-color)] sm:grid-cols-2">
             {pageItems.map((index) => {
               const summary = indiaDirectorySummaries[index];
               const founded = radarFoundedYears[index];
@@ -674,7 +674,7 @@ export function RadarClient() {
                   <Link
                     href={`/india/directory/${summary.slug}`}
                     data-placement="radar-result"
-                    className="flex h-full flex-col gap-2 rounded-xl border border-[var(--border-color)] bg-[var(--card)] p-4 shadow-[var(--shadow-sm)] transition-colors hover:border-[var(--accent)]"
+                    className="flex h-full flex-col gap-2 border-b border-[var(--border-color)] py-4 pr-6 transition-colors hover:bg-[var(--subtle-bg)]/40"
                   >
                     <span className="font-semibold text-[var(--foreground)]">
                       {summary.name}

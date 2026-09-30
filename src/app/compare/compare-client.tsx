@@ -9,6 +9,7 @@ import {
   type CompanySummary,
 } from "@/generated/company-summaries";
 import { CompanyLogo } from "@/components/ui/company-logo";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { IconLink } from "@/components/ui/icons";
@@ -160,6 +161,12 @@ function CompareContent() {
   return (
     <div className="relative mx-auto max-w-6xl px-5 py-20 md:py-28">
       <GridBackdrop fullBleed />
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Compare", href: "/compare" },
+        ]}
+      />
       <SectionHeading
         headingLevel={1}
         eyebrow="Side-by-Side Analysis"
@@ -213,7 +220,7 @@ function CompareContent() {
       </div>
 
       {/* Selector panel (T108): fuzzy search + category grouping */}
-      <div className="surface mt-8 rounded-lg border border-[var(--border-color)] p-6">
+      <div className="mt-8 border-y border-[var(--border-color)] py-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
           <span className="eyebrow !text-[var(--muted-text)] !tracking-widest">
             Select Companies to Compare ({selectedSlugs.length}/3)
@@ -339,7 +346,7 @@ function CompareContent() {
             )}
 
             {/* Desktop table (T109: hidden below md, replaced by stacked cards) */}
-            <div className="hidden md:block mt-6 overflow-hidden rounded-lg border border-[var(--border-color)] bg-[var(--background)] shadow-lg">
+            <div className="mt-6 hidden overflow-hidden border border-[var(--border-color)] md:block">
               {/* Header controls inside table */}
               <div className="flex items-center justify-between border-b border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-6 py-3 text-xs text-[var(--muted-text)]">
                 <span>Orientation Matrix</span>

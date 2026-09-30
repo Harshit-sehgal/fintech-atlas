@@ -4,17 +4,14 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { useMemo } from "react";
 import { categories } from "@/data/categories";
-import { glossarySummaries } from "@/generated/glossary-summaries";
 import {
   companySummaries,
-  companySummaryCountByCategory,
   getCompanySummaryBySlug,
 } from "@/generated/company-summaries";
 import { PRESETS } from "@/data/compare-presets";
 import { DATA_AS_OF } from "@/lib/site-config";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { CompanyLogo } from "@/components/ui/company-logo";
-import { CategoryIcon } from "@/components/ui/category-icon";
 import { Reveal } from "@/components/ui/reveal";
 import { HomeHero } from "@/components/home/hero";
 import { LogoMarquee } from "@/components/ui/logo-marquee";
@@ -24,6 +21,88 @@ import { formatValuationShort } from "@/lib/format-company";
 // India-first featured providers (plan §7: "India-specific provider
 // directory"). Curated order so the homepage leads with the Indian market.
 const FEATURED_SLUGS: readonly string[] = ["razorpay", "cashfree", "payoneer", "wise", "phonepe", "paytm"];
+
+// The homepage's primary axis (plan §7 #1: "Choose what you are trying to do").
+// Each card routes to the most relevant tool, comparison or guide rather than
+// a generic listing.
+const INTENTS: {
+  title: string;
+  desc: string;
+  href: string;
+  cta: string;
+  svg: React.ReactNode;
+}[] = [
+  {
+    title: "Choose a payment gateway",
+    desc: "Razorpay, Stripe, Cashfree or Paytm — compare fees, models and fit side by side.",
+    href: "/compare",
+    cta: "Open comparison",
+    svg: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="16" rx="2" />
+        <path d="M3 9h18M8 14h8" />
+      </svg>
+    ),
+  },
+  {
+    title: "Calculate gateway fees",
+    desc: "Enter volume and method mix to see the real settlement after every fee and GST.",
+    href: "/tools/calculator",
+    cta: "Launch fee estimator",
+    svg: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+        <rect x="4" y="2" width="16" height="20" rx="2" />
+        <path d="M8 6h8M8 10h2M8 14h2M8 18h2M14 10h2v8h-2z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Receive money from abroad",
+    desc: "Compare Wise, Payoneer and bank routes to land the most INR from a $500–$10,000 client payment.",
+    href: "/articles/best-way-to-receive-usd-in-india",
+    cta: "See the breakdown",
+    svg: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" />
+      </svg>
+    ),
+  },
+  {
+    title: "Check FX markup on transfers",
+    desc: "See exactly how much a provider's exchange-rate spread costs you on both directions.",
+    href: "/tools/exchange-rate-markup-calculator",
+    cta: "Measure the markup",
+    svg: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+        <path d="M4 8h13l-3-3M20 16H7l3 3" />
+      </svg>
+    ),
+  },
+  {
+    title: "Compare two providers",
+    desc: "Pick any two fintechs and get a difference-first verdict across pricing, features and fit.",
+    href: "/compare?companies=razorpay,stripe",
+    cta: "Start a comparison",
+    svg: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+        <path d="M12 3v18M5 8l-2 4 2 4M19 8l2 4-2 4" />
+      </svg>
+    ),
+  },
+  {
+    title: "Find the right provider for India",
+    desc: "Gateways, payouts, neobanks and compliance — browse the India decision hub.",
+    href: "/india",
+    cta: "Explore the hub",
+    svg: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+        <path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z" />
+        <circle cx="12" cy="10" r="2.5" />
+      </svg>
+    ),
+  },
+];
 
 export default function HomePageClient({
   recentArticles,
@@ -46,7 +125,7 @@ export default function HomePageClient({
   // Precompute marquee logos to avoid mapping on every render
   const marqueeLogos = useMemo(() => marquee.map((c) => ({
     slug: c.slug,
-    name: c.name
+    name: c.name,
   })), [marquee]);
 
   // Precompute featured company categories to avoid nested mapping and finding
@@ -59,14 +138,73 @@ export default function HomePageClient({
     }));
   }, [featured]);
 
-  // Precompute glossary slice to avoid slicing on every render
-  const glossaryPreview = useMemo(() => glossarySummaries.slice(0, 12), []);
-
   return (
     <>
-      <HomeHero glossaryCount={glossarySummaries.length} articleCount={articleCount} />
+      <HomeHero articleCount={articleCount} />
 
-      {/* Brand wall — auto-scrolling, hover-to-pause logo marquee */}
+      {/* Proof band — the Mercury/Stripe move: honest, checkable specifics
+          instead of vanity metrics. Numbers a human editor would defend. */}
+      <section data-placement="proof-band" className="border-y border-[var(--border-color)] bg-[var(--subtle-bg)]/40">
+        <div className="mx-auto max-w-6xl px-5">
+          <div className="grid gap-px sm:grid-cols-3">
+            {[
+              {
+                stat: "Every number dated",
+                note: "Each fee figure on the site carries the date we checked it. Anything older than 60 days gets re-verified or flagged.",
+              },
+              {
+                stat: "Formulas in the open",
+                note: "The calculators show their work — inputs, tax treatment, exclusions — so you can dispute our arithmetic, not just read it.",
+              },
+              {
+                stat: "No pay-to-rank",
+                note: "Commercial relationships are disclosed on the page where they exist, and they never move a rating or a ranking.",
+              },
+            ].map((item) => (
+              <div key={item.stat} className="py-8 sm:px-8 sm:first:pl-0 sm:last:pr-0">
+                <p className="font-serif text-lg font-bold text-[var(--foreground)]">{item.stat}</p>
+                <p className="mt-2 max-w-xs text-xs leading-relaxed text-[var(--muted-text)]">{item.note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Intent chooser — plan §7 #1: "Choose what you are trying to do".
+          The homepage's primary navigation axis; each card routes to a
+          concrete tool, comparison or guide rather than a generic listing. */}
+      <section data-placement="intent-chooser" className="mx-auto max-w-6xl px-5 pb-16 md:pb-24">
+        <SectionHeading
+          eyebrow="Start here"
+          title="What are you trying to do?"
+          description="Pick the decision you're facing — every entry opens the tool, comparison or guide built for it."
+        />
+        <div className="mt-8 grid border-t border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
+          {INTENTS.map((intent) => (
+            <Link
+              key={intent.title}
+              href={intent.href}
+              className="group flex flex-col border-b border-[var(--border-color)] py-6 pr-6 transition-colors sm:odd:border-r sm:odd:pr-8 lg:border-r lg:pr-8 lg:[&:nth-child(3n)]:border-r-0"
+            >
+              <div className="flex h-9 w-9 items-center justify-center text-[var(--accent)]">
+                {intent.svg}
+              </div>
+              <h3 className="mt-4 text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
+                {intent.title}
+              </h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-[var(--muted-text)]">
+                {intent.desc}
+              </p>
+              <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[var(--accent)]">
+                {intent.cta}
+                <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Brand wall — auto-scrolling, hover-to-pause logo marquee (credibility strip) */}
       <section data-placement="brand-wall" className="relative border-y border-[var(--border-color)] bg-[var(--subtle-bg)]/30 py-10 overflow-hidden">
         <div className="mx-auto max-w-6xl px-5">
           <Reveal>
@@ -86,10 +224,10 @@ export default function HomePageClient({
         <LogoMarquee logos={marqueeLogos} />
       </section>
 
-      {/* Interactive Tools Teaser */}
+      {/* Interactive Tools Teaser — a ruled band, not a boxed panel. */}
       <section data-placement="tools-teaser" className="mx-auto max-w-6xl px-5 py-16 md:py-24">
         <Reveal>
-          <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-8 md:p-12">
+          <div className="border-y border-[var(--border-color)] py-10 md:py-14">
             <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
               <div className="max-w-xl space-y-3">
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
@@ -131,22 +269,22 @@ export default function HomePageClient({
           title="Popular Comparisons"
           description="Jump straight into a side-by-side benchmark — pick a preset and compare fees, pricing models, and platform fit in one view."
         />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 reveal-stagger">
+        <div className="mt-8 grid border-t border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
           {PRESETS.map((preset) => (
             <Link
               key={preset.name}
               href={`/compare?companies=${preset.slugs.join(",")}`}
-              className="group block rounded-lg border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
+              className="group flex flex-col border-b border-[var(--border-color)] py-6 pr-6 transition-colors sm:odd:border-r sm:odd:pr-8 lg:border-r lg:pr-8 lg:[&:nth-child(3n)]:border-r-0"
             >
               <div className="flex items-center gap-2">
                 {preset.slugs.map((slug) => (
                   <CompanyLogo key={slug} slug={slug} name={slug} size={28} decorative />
                 ))}
               </div>
-              <h3 className="mt-4 text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
+              <h3 className="mt-4 text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
                 {preset.name}
               </h3>
-              <p className="mt-1 text-xs text-[var(--muted-text)]">Open the side-by-side comparison →</p>
+              <p className="mt-1 text-sm text-[var(--muted-text)]">Open the side-by-side comparison →</p>
             </Link>
           ))}
         </div>
@@ -171,155 +309,77 @@ export default function HomePageClient({
           title="Latest Guides & Comparisons"
           description="The newest researched articles, with the dates they were last verified."
         />
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
+        <div className="mt-8 grid border-t border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
           {recentArticles.map((a) => (
             <Link
               key={a.slug}
               href={`/articles/${a.slug}`}
-              className="group block rounded-lg border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
+              className="group flex flex-col border-b border-[var(--border-color)] py-6 pr-6 transition-colors sm:odd:border-r sm:odd:pr-8 lg:border-r lg:pr-8 lg:[&:nth-child(3n)]:border-r-0"
             >
-              <p className="text-[11px] font-mono uppercase tracking-wider text-[var(--muted-text)]">
+              <p className="font-mono text-[11px] uppercase tracking-wider text-[var(--muted-text)]">
                 {a.category} · {a.displayDate}
               </p>
-              <h3 className="mt-2 text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
+              <h3 className="mt-2 text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
                 {a.title}
               </h3>
-              <p className="mt-2 text-xs text-[var(--muted-text)]">Read the guide →</p>
+              <p className="mt-2 text-sm text-[var(--muted-text)]">Read the guide →</p>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* What is FinTech */}
-      <section data-placement="what-is-fintech" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
-        <SectionHeading
-          eyebrow="The Big Picture"
-          title="What is FinTech?"
-          description="'FinTech' — short for Financial Technology — is software-powered financial services: the app you use to pay a friend, the API that charges a card on a website, the digital-only bank in your pocket. In India it means UPI instant payments, QR-first checkouts, and gateways like Razorpay moving hundreds of millions of transactions every month."
-        />
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {[
-            {
-              title: "Speed & Automation",
-                desc: "Transactions that used to take days now clear in seconds. Accounts open in minutes instead of weeks.",
-                svg: (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
-                    <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" />
-                  </svg>
-                ),
-              },
-              {
-                title: "Financial Inclusion",
-                desc: "FinTechs serve populations traditional banks ignored: thin-file borrowers, gig workers, immigrants, and startups.",
-                svg: (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
-                    <rect x="3" y="11" width="18" height="11" rx="2" />
-                    <path d="M7 11V7a5 5 0 0110 0v4" />
-                  </svg>
-                ),
-              },
-              {
-                title: "Pricing Transparency",
-                desc: "Hidden bank markups are replaced by transparent pricing, mid-market FX rates, and clear breakdowns.",
-                svg: (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
-                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-                    <path d="M14 2v6h6M9 13h6M9 17h4" />
-                  </svg>
-                ),
-              },
-            ].map((item) => (
-              <div key={item.title} className="surface rounded-lg border border-[var(--border-color)] p-6 card-glow group">
-                <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[var(--accent-glow)] text-[var(--accent)] transition-colors duration-300 group-hover:bg-[var(--accent)]/20">
-                  {item.svg}
-                </div>
-                <h3 className="mt-4 text-base font-bold text-[var(--foreground)]">{item.title}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-[var(--muted-text)]">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-      {/* Categories */}
-      <section data-placement="categories" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
-        <SectionHeading
-          eyebrow="Navigate by Domain"
-          title="Industry Categories"
-          description="FinTech spans many specialized domains. Each category addresses a distinct problem in global finance."
-        />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {categories.map((cat) => (
-            <Link
-              key={cat.slug}
-              href={`/categories/${cat.slug}`}
-              style={{ ["--accent"]: cat.accent } as CSSProperties}
-              className="group block rounded-lg border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[var(--accent-glow)] transition-colors duration-300 group-hover:bg-[var(--accent)]/20">
-                  <CategoryIcon icon={cat.icon} color={cat.accent} size={28} />
-                </div>
-                <div className="min-w-0">
-                  <h3 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">{cat.name}</h3>
-                  <p className="mt-1 text-xs leading-relaxed text-[var(--muted-text)] line-clamp-2">{cat.short}</p>
-                  {(() => {
-                    const count = companySummaryCountByCategory(cat.slug);
-                    return count > 0 ? (
-                      <p className="mt-3 text-xs font-medium text-[var(--muted-text)]">
-                        {count} compan{count === 1 ? "y" : "ies"}
-                      </p>
-                    ) : null;
-                  })()}
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Featured companies */}
+      {/* Featured companies — a ledger, not a card grid: mirrors the
+          directory's editorial rows so the site reads with one voice.
+          Each entry carries the facts a chooser actually compares on. */}
       <section data-placement="india-first" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
         <SectionHeading
           eyebrow="India-First"
           title="India-First Providers"
           description="Profiles of the payment gateways and FX services Indian freelancers and businesses choose most — fee structures, strengths, weaknesses, and editorial sentiment."
         />
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 border-t border-[var(--border-color)]">
           {featuredWithCategories.map((c) => (
-              <Link
-                key={c.slug}
-                href={`/companies/${c.slug}`}
-                style={{ ["--accent"]: c.accent } as CSSProperties}
-                className="group flex flex-col justify-between rounded-lg border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <CompanyLogo slug={c.slug} name={c.name} size={40} />
-                      <div className="min-w-0">
-                        <h3 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">{c.name}</h3>
-                        <p className="mt-0.5 truncate text-xs text-[var(--muted-text)]">{formatValuationShort(c.valuation)}</p>
-                      </div>
-                    </div>
-                    <span className="shrink-0 rounded-lg bg-[var(--success)]/10 px-2.5 py-1 text-xs font-semibold text-success-text border border-[var(--success)]/20">
-                      ★ {c.rating}
-                    </span>
-                  </div>
-                  <p className="mt-3 text-xs text-[var(--muted-text)] leading-relaxed line-clamp-2">{c.tagline}</p>
+            <Link
+              key={c.slug}
+              href={`/companies/${c.slug}`}
+              style={{ ["--accent"]: c.accent } as CSSProperties}
+              className="group relative flex flex-col gap-3 border-b border-[var(--border-color)] py-5 transition-colors sm:flex-row sm:items-center sm:gap-6"
+            >
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-y-0 left-0 hidden w-0.5 origin-top scale-y-0 bg-[var(--accent)] transition-transform duration-300 group-hover:scale-y-100 sm:block"
+              />
+              <div className="flex min-w-0 items-center gap-4 sm:w-[30%]">
+                <CompanyLogo slug={c.slug} name={c.name} size={44} />
+                <div className="min-w-0">
+                  <h3 className="truncate text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
+                    {c.name}
+                  </h3>
+                  <p className="mt-0.5 truncate font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--muted-text)]">
+                    {c.categoryObjects[0]?.name ?? "Fintech"}
+                  </p>
                 </div>
-
-                <div className="mt-4 flex flex-wrap gap-1.5 pt-3 border-t border-[var(--border-color)]">
-                  {c.categoryObjects.map((cat) => (
-                    cat ? (
-                      <span key={cat.slug} className="rounded-full border border-[var(--border-color)] px-2.5 py-0.5 text-[10px] font-medium text-[var(--muted-text)] group-hover:border-[var(--accent)]/30 transition-colors">
-                        {cat.name}
-                      </span>
-                    ) : null
-                  ))}
+              </div>
+              <p className="min-w-0 flex-1 text-xs leading-relaxed text-[var(--muted-text)] sm:truncate">
+                {c.tagline}
+              </p>
+              <div className="flex shrink-0 items-center gap-6 sm:justify-end">
+                <div className="text-right">
+                  <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[var(--muted-text)]">Pricing</p>
+                  <p className="mt-0.5 max-w-[10rem] truncate text-xs text-[var(--foreground)]">{c.pricingModel}</p>
                 </div>
-              </Link>
-            ))}
-          </div>
+                <div className="text-right">
+                  <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[var(--muted-text)]">Valuation</p>
+                  <p className="mt-0.5 font-mono text-xs font-bold text-[var(--foreground)]">{formatValuationShort(c.valuation)}</p>
+                </div>
+                <div className="text-right">
+                  <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[var(--muted-text)]">Rating</p>
+                  <p className="mt-0.5 font-mono text-xs font-bold text-[var(--foreground)]">★ {c.rating.toFixed(1)}</p>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
         <div className="mt-8 text-center">
           <Link href="/companies" className="btn-ghost text-xs">
             View all {companySummaries.length} companies
@@ -327,124 +387,60 @@ export default function HomePageClient({
         </div>
       </section>
 
-      {/* Glossary teaser */}
-      <section data-placement="glossary" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+      {/* Trust & independence — plan §7 #6 + #7, merged into one band so the
+          homepage reads as a single credibility statement rather than two
+          separate marketing blocks. */}
+      <section data-placement="trust" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
         <SectionHeading
-          eyebrow="Jargon Decoder"
-          title="Glossary &amp; Terms"
-          description="Every term explained simply. Hover or click to decode financial jargon."
-        />
-        <div className="mt-8 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {glossaryPreview.map((g) => (
-              <Link
-                key={g.slug}
-                href={`/glossary#${g.slug}`}
-                className="surface rounded-xl border border-[var(--border-color)] p-3.5 text-xs transition-all hover:border-[var(--accent)]/40 hover:-translate-y-0.5 flex flex-col gap-1 group"
-              >
-                <div className="font-bold flex items-center justify-between">
-                  <span className="group-hover:text-[var(--accent)] transition-colors">{g.term}</span>
-                </div>
-                <span className="text-[var(--muted-text)] text-[11px] truncate">{g.short}</span>
-              </Link>
-            ))}
-          </div>
-        <div className="mt-6 text-center">
-          <Link href="/glossary" className="btn-ghost text-xs">
-            Browse all {glossarySummaries.length} terms
-          </Link>
-        </div>
-      </section>
-
-      {/* How FinTech Atlas makes money (plan §7 homepage section 6) */}
-      <section data-placement="monetization" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
-        <SectionHeading
-          eyebrow="Independence"
-          title="How FinTech Atlas Makes Money"
+          eyebrow="Independence & Method"
+          title="How FinTech Atlas Stays Trustworthy"
           description="The site stays free because it is honest about how it is funded — and keeps editorial choices separate from commercial inventory."
         />
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
+        <div className="mt-8 grid border-t border-[var(--border-color)] md:grid-cols-3">
           {[
             {
-              title: "Affiliate links",
-                desc: "When you sign up through a link we earn a commission at no cost to you. These links carry rel=\"sponsored\" and are disclosed on every page where they appear.",
-              },
-              {
-                title: "Sponsored placements",
-                desc: "Clearly-labeled paid promotions live in dedicated slots, visually distinct from editorial ratings and comparisons. Ratings are never bought.",
-              },
-              {
-                title: "Never pay-to-rank",
-                desc: "A commercial relationship never buys a rating, a ranking, or an editorial claim. Our fee comparisons and methodology are independent of sponsors.",
-              },
-            ].map((item) => (
-              <div key={item.title} className="surface rounded-lg border border-[var(--border-color)] p-6 card-glow">
-                <h3 className="text-base font-bold text-[var(--foreground)]">{item.title}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-[var(--muted-text)]">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        <div className="mt-8">
-          <Link href="/about" className="text-xs font-semibold text-[var(--accent)] hover:underline underline-offset-4">
-            Read the full disclosure on the About page →
-          </Link>
-        </div>
-      </section>
-
-      {/* Methodology (plan §7 homepage section 7) */}
-      <section data-placement="methodology" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
-        <SectionHeading
-          eyebrow="How We Research"
-          title="Transparent Methodology"
-          description="Every comparison, fee figure, and rating traces back to a documented source and a verifiable date. No figures are invented; nothing is locked behind a subscription."
-        />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {[
+              title: "Transparent methodology",
+              desc: "Every fee figure, rating and claim traces back to a documented source with a verification date. Nothing is invented; nothing is paywalled.",
+              href: "/about#methodology",
+              cta: "See the sourcing & scoring method",
+            },
             {
-              title: "Sourced pricing",
-              desc: "Fee structures come from published pricing pages and are captured with a verification date on each article.",
+              title: "Honest monetisation",
+              desc: "Affiliate links carry rel=\"sponsored\" and are disclosed on every page. Sponsored placements are clearly labelled and never buy a rating or ranking.",
+              href: "/affiliate-disclosure",
+              cta: "Read the full disclosure",
             },
             {
               title: "Independent calculators",
-              desc: "Tool formulas are open and documented — you can see what is included, what is excluded, and how each number is derived.",
+              desc: "Tool formulas are open and documented — see what is included, what is excluded, and how every number is derived before you decide.",
+              href: "/tools/calculator",
+              cta: "Try the fee estimator",
             },
-            {
-              title: "Regular re-checks",
-              desc: "Currency snapshots and pricing pages are re-verified on a schedule; stale rates are flagged by automated build-time checks.",
-            },
-          ].map((item) => (
+          ].map((item, i) => (
             <Link
               key={item.title}
-              href="/about#methodology"
-              className="group block rounded-lg border border-[var(--border-color)] p-5 transition-all duration-300 card-glow h-full"
+              href={item.href}
+              className={`group flex flex-col border-b border-[var(--border-color)] py-6 transition-colors ${
+                i < 2 ? "md:border-r md:pr-8" : ""
+              } ${i > 0 ? "md:pl-8" : ""}`}
             >
-              <h3 className="text-base font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
+              <h3 className="text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
                 {item.title}
               </h3>
-              <p className="mt-2 text-xs leading-relaxed text-[var(--muted-text)]">{item.desc}</p>
-              <p className="mt-3 text-xs text-[var(--accent)]">See the sourcing &amp; scoring method →</p>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--muted-text)]">
+                {item.desc}
+              </p>
+              <p className="mt-3 text-xs font-semibold text-[var(--accent)]">
+                {item.cta} →
+              </p>
             </Link>
           ))}
         </div>
-        <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-[var(--border-color)] pt-8 md:flex-row md:items-center">
-          <p className="max-w-xl text-xs leading-relaxed text-[var(--muted-text)]">
-            Every guide, profile, and calculator is authored and verified by
-            FinTech Atlas — no figures are invented, and nothing is locked
-            behind a subscription.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/about" className="btn-primary text-xs">
-              About &amp; Methodology
-            </Link>
-            <Link href="/about#feedback" className="btn-ghost text-xs">
-              Send Feedback
-            </Link>
-          </div>
-        </div>
       </section>
 
-      {/* Newsletter (plan §7 homepage section 8) */}
+      {/* Newsletter (plan §7 homepage section 8) — a ruled band, not a box. */}
       <section data-placement="newsletter" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
-        <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-8 md:p-12">
+        <div className="border-b border-[var(--border-color)] pb-14">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
               Newsletter
@@ -462,22 +458,22 @@ export default function HomePageClient({
         </div>
       </section>
 
-      {/* Compare CTA */}
-      <section data-placement="compare-cta" className="mx-auto max-w-6xl px-5 py-16 md:py-24">
-        <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-8 text-center md:p-14">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
-            Side-by-Side
-          </p>
-          <h2 className="text-2xl font-semibold tracking-tight md:text-4xl text-[var(--foreground)]">
-            Compare Side-by-Side
+      {/* Compare CTA — a closing statement, not a box: big serif line, the
+          two concrete next actions, and the honest cost of being wrong. */}
+      <section data-placement="compare-cta" className="border-t border-[var(--border-color)]">
+        <div className="mx-auto max-w-3xl px-5 py-20 text-center md:py-28">
+          <h2 className="text-balance font-serif text-3xl font-bold leading-tight text-[var(--foreground)] md:text-4xl">
+            The wrong gateway quietly costs 1–3% of every rupee you earn.
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-[var(--muted-text)]">
-            Select up to 3 companies to see how they stack up across pricing,
-            ratings, core features, strengths, and weaknesses — all in one view.
+          <p className="mx-auto mt-4 max-w-xl text-pretty text-sm leading-relaxed text-[var(--muted-text)]">
+            That is a rounding error on one invoice and a rounding error you
+            never notice again. Spend ten minutes here before you sign up
+            anywhere.
           </p>
-          <Link href="/compare" className="btn-primary mt-7">
-            Open Comparison Matrix
-          </Link>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <Link href="/compare" className="btn-primary">Compare payment gateways</Link>
+            <Link href="/tools/calculator" className="btn-ghost">Run your numbers first</Link>
+          </div>
         </div>
       </section>
     </>

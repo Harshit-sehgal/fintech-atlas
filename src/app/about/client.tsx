@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
@@ -38,6 +39,12 @@ export function AboutClient() {
     <div className="relative mx-auto max-w-4xl px-5 py-20 md:py-28">
       <GridBackdrop />
 
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "About", href: "/about" },
+        ]}
+      />
       <SectionHeading
         headingLevel={1}
         eyebrow="Behind the Atlas"
@@ -48,7 +55,7 @@ export function AboutClient() {
       {/* Purpose & Mission */}
       <Reveal delay={0.1}>
         <section className="mt-10 space-y-6 text-sm leading-relaxed text-[var(--muted-text)]">
-          <div className="surface rounded-lg border border-[var(--border-color)] p-6 space-y-3">
+          <div className="border-t border-[var(--border-color)] pt-6 space-y-3">
             <h2 className="text-lg font-bold text-[var(--foreground)]">Our Mission</h2>
             <p className="text-[var(--foreground)]">
               FinTech Atlas was created to demystify financial software. Financial technology can often feel shrouded in jargon, hidden FX markups, and complex API pricing. We build transparent calculators, plain-language guides, and objective benchmarks so consumers, developers, and founders can make informed decisions.
@@ -60,7 +67,7 @@ export function AboutClient() {
               Data Sources & Synthesizing Methodology
             </h2>
             <p className="mt-3">The information across our company profiles, tool calculators, and glossary is compiled from:</p>
-            <ul className="mt-4 grid gap-2 sm:grid-cols-2 text-xs reveal-stagger">
+            <ul className="mt-4 grid gap-x-6 sm:grid-cols-2">
               {[
                 "Official SEC Filings (10-K, 20-F) & Official Company Docs",
                 `CNBC & Statista World's Top Fintech Companies ${DATA_AS_OF.split(" ")[1] || "2026"}`,
@@ -71,9 +78,9 @@ export function AboutClient() {
                 "Review platforms such as Trustpilot, App Store, and G2 (where referenced)",
                 "Community discussions used as editorial context, where referenced",
               ].map((src) => (
-                <li key={src} className="flex items-center gap-2 surface rounded-lg border border-[var(--border-color)] p-3 hover:border-[var(--accent)]/30 transition-colors">
-                  <span className="text-success-text font-bold">✓</span>
-                  <span className="text-[var(--foreground)]">{src}</span>
+                <li key={src} className="flex items-start gap-2 border-b border-[var(--border-color)] py-2.5">
+                  <span className="font-bold text-success-text">✓</span>
+                  <span className="text-sm text-[var(--foreground)]">{src}</span>
                 </li>
               ))}
             </ul>
@@ -84,16 +91,16 @@ export function AboutClient() {
             <h2 className="eyebrow !text-[var(--muted-text)] !tracking-widest border-b border-[var(--border-color)] pb-2 pt-6 text-lg font-bold text-[var(--foreground)]">
               Our Guarantees
             </h2>
-            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+            <div className="mt-2 grid sm:grid-cols-3">
               {[
                 { icon: <IconShield size={18} />, title: "No Paid Bias", desc: "No company can pay to rank higher or receive a positive review." },
                 { icon: <IconChart size={18} />, title: "Transparent Math", desc: "Our fee calculators show raw mathematical breakdowns with no hidden numbers." },
                 { icon: <IconBook size={18} />, title: "No Jargon", desc: "Every complex financial term has interactive glossary cross-references." },
-              ].map((g) => (
-                <div key={g.title} className="surface rounded-lg border border-[var(--border-color)] p-5 card-glow group">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--accent-glow)] text-[var(--accent)] transition-colors duration-300 group-hover:bg-[var(--accent)]/20">{g.icon}</span>
+              ].map((g, i) => (
+                <div key={g.title} className={`border-b border-[var(--border-color)] py-5 ${i < 2 ? "sm:border-r sm:pr-6" : ""} ${i > 0 ? "sm:pl-6" : ""}`}>
+                  <span className="text-[var(--accent)]">{g.icon}</span>
                   <h3 className="mt-3 text-sm font-bold text-[var(--foreground)]">{g.title}</h3>
-                  <p className="mt-1 text-xs text-[var(--muted-text)] leading-relaxed">{g.desc}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-[var(--muted-text)]">{g.desc}</p>
                 </div>
               ))}
             </div>
@@ -108,17 +115,17 @@ export function AboutClient() {
             Frequently Asked Questions
           </h2>
 
-          <div className="space-y-3">
+          <div className="border-t border-[var(--border-color)]">
             {faqs.map((faq, idx) => {
               const isOpen = openFaq === idx;
               return (
                 <div
                   key={faq.q}
-                  className="surface rounded-xl border border-[var(--border-color)] overflow-hidden transition-colors"
+                  className="border-b border-[var(--border-color)] transition-colors"
                 >
                   <button
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="flex w-full items-center justify-between p-4 text-left text-sm font-bold text-[var(--foreground)] hover:text-[var(--accent)] focus-visible:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-[var(--ring)] rounded-xl transition-colors"
+                    className="flex w-full items-center justify-between py-4 text-left text-sm font-bold text-[var(--foreground)] transition-colors hover:text-[var(--accent)] focus-visible:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
                     aria-expanded={isOpen}
                     aria-controls={`faq-answer-${idx}`}
                   >
@@ -126,7 +133,7 @@ export function AboutClient() {
                     <motion.span
                       animate={{ rotate: isOpen ? 180 : 0 }}
                       transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                      className="text-xs font-mono text-[var(--muted-text)]"
+                      className="font-mono text-xs text-[var(--muted-text)]"
                       aria-hidden="true"
                     >
                       ▾
@@ -144,7 +151,7 @@ export function AboutClient() {
                         id={`faq-answer-${idx}`}
                         role="region"
                       >
-                        <div className="border-t border-[var(--border-color)] px-4 py-3 text-xs leading-relaxed text-[var(--muted-text)]">
+                        <div className="pb-4 pr-6 text-sm leading-relaxed text-[var(--muted-text)]">
                           {faq.a}
                         </div>
                       </motion.div>
@@ -159,9 +166,9 @@ export function AboutClient() {
 
       {/* Feedback status */}
       <Reveal delay={0.25}>
-        <section className="surface mt-16 rounded-lg border border-[var(--border-color)] p-6 sm:p-8">
+        <section className="mt-16 border-t border-[var(--border-color)] pt-6">
           <h2 id="feedback" className="text-lg font-bold text-[var(--foreground)]">Have Feedback or Suggestions?</h2>
-          <p className="mt-1 text-xs leading-relaxed text-[var(--muted-text)]">
+          <p className="mt-1 max-w-3xl text-sm leading-relaxed text-[var(--muted-text)]">
             This is a static demo with no in-app contact form. Please open a GitHub issue for product
             feedback, or use private vulnerability reporting for security concerns (see{" "}
             <code className="text-[var(--foreground)]">SECURITY.md</code>).

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
 import {
@@ -30,12 +30,16 @@ function generateDirectoryMetadata(): Metadata {
 export default function IndiaDirectoryPage() {
   return (
     <div className="mx-auto max-w-6xl px-5 py-14 md:py-20">
-      <Link
-        href="/india/"
-        className="inline-flex items-center gap-1 text-sm text-[var(--muted-text)] transition-colors hover:text-[var(--accent)]"
-      >
-        <span aria-hidden>←</span> Back to India hub
-      </Link>
+      {/* Was an ad-hoc "← Back to India hub" link. The breadcrumb states the same
+          hierarchy (this page is a child of /india) and adds the missing
+          JSON-LD, so the relationship is legible to readers and crawlers alike. */}
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "India", href: "/india" },
+          { name: "Directory", href: "/india/directory" },
+        ]}
+      />
 
       <header className="mt-6 max-w-2xl">
         <h1 className="text-3xl font-bold tracking-tight md:text-4xl">

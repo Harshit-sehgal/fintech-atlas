@@ -14,10 +14,11 @@ const exploreLinks = footerExploreLinks.map((l) =>
     : l,
 );
 
-const toolsLinks = [
-  { href: "/tools", label: "Tools Overview" },
-  ...tools.map((t) => ({ href: t.href, label: t.name })),
-];
+// The tools hub itself is reached from the Explore column (it is a primary
+// destination), so this column lists only the individual tools. Previously
+// "/tools" appeared in both columns, which made the footer look like it had
+// two competing entries for the same page.
+const toolsLinks = tools.map((t) => ({ href: t.href, label: t.name }));
 
 const aboutLinks = footerAboutLinks;
 
@@ -74,7 +75,7 @@ export function SiteFooter() {
           <p>
             Data compiled from public reference labels and editorial research. See{" "}
             <Link className="text-[var(--foreground)] underline decoration-[var(--accent)]/40 underline-offset-4 hover:decoration-[var(--accent)]" href="/about">
-              /about
+              methodology &amp; sources
             </Link>
             .
           </p>

@@ -234,15 +234,15 @@ export default function MatchmakerQuizPageClient() {
                   className="space-y-4"
                 >
                   <h2 className="text-xl font-bold">{q.title}</h2>
-                  <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="grid border-t border-[var(--border-color)] sm:grid-cols-2">
                     {q.options.map((opt) => (
                       <button
                         key={opt.id}
                         onClick={() => handleSelect(q.id, opt.id)}
-                        className="flex flex-col items-start rounded-xl border border-[var(--border-color)] p-5 text-left transition-all hover:border-[var(--accent)]/40 focus-visible:border-[var(--accent)]/60 focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+                        className="flex flex-col items-start border-b border-[var(--border-color)] py-5 text-left transition-colors sm:odd:border-r sm:odd:pr-6 sm:even:pl-6 hover:bg-[var(--subtle-bg)]/40 focus-visible:outline-none focus-visible:ring-[var(--ring)]"
                       >
-                        <span className="font-semibold text-base text-[var(--foreground)]">{opt.title}</span>
-                        <span className="mt-1 text-xs text-[var(--muted-text)]">{opt.description}</span>
+                        <span className="text-base font-semibold text-[var(--foreground)]">{opt.title}</span>
+                        <span className="mt-1 text-sm text-[var(--muted-text)]">{opt.description}</span>
                       </button>
                     ))}
                   </div>
@@ -259,7 +259,7 @@ export default function MatchmakerQuizPageClient() {
               animate={{ opacity: 1, y: 0 }}
               className="space-y-6"
             >
-              <div className="surface rounded-lg border border-[var(--border-color)] p-8">
+              <div className="border-y border-[var(--border-color)] py-8">
                 <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-4">
                   <div>
                     <span className="eyebrow">Initial Shortlist</span>
@@ -273,9 +273,9 @@ export default function MatchmakerQuizPageClient() {
                   </button>
                 </div>
 
-                <div className="mt-8 space-y-4 reveal-stagger">
+                <div className="mt-8 border-t border-[var(--border-color)]">
                   {topScore === 0 && (
-                    <div className="rounded-xl border border-[var(--warning)]/30 bg-[var(--warning)]/10 px-4 py-3 text-xs leading-relaxed text-[var(--foreground)]">
+                    <div className="border-b border-[var(--border-color)] bg-[var(--warning)]/5 px-4 py-3 text-sm leading-relaxed text-[var(--foreground)]">
                       There is not enough evidence to rank companies from these answers. Try changing a preference for a more specific shortlist.
                     </div>
                   )}
@@ -298,7 +298,7 @@ export default function MatchmakerQuizPageClient() {
                       <div
                         key={c.slug}
                         style={{ ["--accent"]: c.accent } as CSSProperties}
-                        className="group flex flex-col gap-4 rounded-xl border border-[var(--border-color)] p-5 surface card-glow"
+                        className="group flex flex-col gap-4 border-b border-[var(--border-color)] py-6 transition-colors"
                       >
                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full">
                           <div className="flex items-center gap-4">
