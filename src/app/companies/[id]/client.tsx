@@ -347,15 +347,17 @@ export function CompanyPageClient({
       {/* Waitlayer-style grid backdrop — faint, radially faded, accent-tinted at top */}
       <GridBackdrop className="opacity-40" />
 
-      {/* Top Breadcrumb & Controls */}
-      <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-4 mb-8">
-        <div className="flex items-center gap-2 text-xs text-[var(--muted-text)] font-mono">
-          <Link href="/companies" className="hover:text-[var(--foreground)]">Companies</Link>
-          <span>/</span>
-          <span className="text-[var(--foreground)] font-medium">{c.name}</span>
-        </div>
-
-        <div className="flex items-center gap-2">
+      {/* Profile controls.
+          This row used to carry a *second*, hand-rolled breadcrumb beside the
+          controls — a duplicate `aria-label="Breadcrumb"` landmark (axe
+          landmark-unique) duplicating the canonical trail that page.tsx
+          renders above, and a rigid `justify-between` flex row whose two rigid
+          children measured ~355px of content in a 350px row at 390px. That
+          overflow was font-metric dependent, so it passed locally and failed
+          in CI. Dropping the duplicate trail and letting the controls wrap
+          fixes both. */}
+      <div className="mb-8 flex flex-wrap items-center justify-end gap-2 border-b border-[var(--border-color)] pb-4">
+        <div className="flex shrink-0 flex-wrap items-center gap-2">
           <CompareBridgeLink slug={c.slug} />
           <button
             onClick={handleBookmark}

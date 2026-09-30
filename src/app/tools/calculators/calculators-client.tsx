@@ -290,7 +290,7 @@ export default function CalculatorsClient() {
           style={{ ["--accent"]: `var(${accent})` } as CSSProperties}
           className="mt-8 grid gap-8 lg:grid-cols-12"
         >
-          <div className="surface rounded-lg border border-[var(--border-color)] p-6 lg:col-span-5 print:break-inside-avoid">
+          <div className="surface rounded-lg border border-[var(--border-color)] p-6 lg:col-span-5 min-w-0 print:break-inside-avoid">
             <div className="border-b border-[var(--border-color)] pb-3">
               <h2 className="text-base font-semibold text-[var(--foreground)]">{activeCalc.name}</h2>
               <p className="mt-1 text-xs text-[var(--muted-text)]">{activeCalc.tagline}</p>
@@ -330,7 +330,7 @@ export default function CalculatorsClient() {
             </div>
           </div>
 
-          <div className="space-y-6 lg:col-span-7">
+          <div className="space-y-6 lg:col-span-7 min-w-0">
             <div className="surface rounded-lg border border-[var(--border-color)] p-6 print:break-inside-avoid">
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border-color)] pb-4">
                 <span className="eyebrow !text-[var(--muted-text)]">Results</span>

@@ -11,6 +11,11 @@ export interface BreadcrumbItem {
  * Server component — safe to use on any statically exported page. The last
  * item renders as the current page (aria-current) and points at the page URL
  * in the structured data, per Google's breadcrumb guidance.
+ *
+ * The trail wraps rather than scrolling. A long final crumb (a company name,
+ * a glossary category) on a 390px viewport otherwise pushes the row past the
+ * edge by a pixel or two, which is font-metric dependent and therefore fails
+ * intermittently in CI rather than locally.
  */
 export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
   const jsonLd = breadcrumbJsonLd(items);
@@ -22,7 +27,7 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
       />
       <nav
         aria-label="Breadcrumb"
-        className="mb-6 flex items-center gap-2 font-mono text-xs text-[var(--muted-text)]"
+        className="mb-6 flex flex-wrap items-center gap-2 font-mono text-xs text-[var(--muted-text)]"
       >
         {items.map((item, index) => (
           <span key={item.href} className="flex items-center gap-2">

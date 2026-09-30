@@ -244,7 +244,7 @@ export default function FeeCalculatorPageClient({
 
       <div className="mt-10 grid gap-8 lg:grid-cols-12">
         {/* Input Controls */}
-        <div className="surface lg:col-span-5 space-y-6 rounded-lg border border-[var(--border-color)] p-6">
+        <div className="surface min-w-0 lg:col-span-5 space-y-6 rounded-lg border border-[var(--border-color)] p-6">
           <h2 className="text-base font-semibold text-[var(--foreground)] border-b border-[var(--border-color)] pb-3">
             Business Parameters
           </h2>
@@ -390,7 +390,7 @@ export default function FeeCalculatorPageClient({
         </div>
 
         {/* Results & Bar Comparison */}
-        <div className="lg:col-span-7 space-y-6">
+        <div className="min-w-0 lg:col-span-7 space-y-6">
           <Reveal>
             <div className="surface rounded-lg border border-[var(--border-color)] p-6">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[var(--border-color)] pb-4">
