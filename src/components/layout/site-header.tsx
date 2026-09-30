@@ -219,7 +219,10 @@ export function SiteHeader() {
           </nav>
 
           {/* Search Trigger & Mobile Controls */}
-          <div className="flex items-center gap-2">
+          {/* `shrink-0` is load-bearing: these are fixed-size hit targets and
+              flex would otherwise compress them when the primary bar is wide,
+              pushing the row past the container's right edge. */}
+          <div className="flex shrink-0 items-center gap-2">
             <button
               onClick={() => setCmdOpen(true)}
               className="flex items-center gap-2 rounded-lg border border-[var(--border-color)] bg-[var(--card)] py-1.5 pl-3 pr-1.5 text-xs text-[var(--muted-text)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--foreground)] focus-visible:text-[var(--foreground)] focus-visible:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
@@ -235,8 +238,8 @@ export function SiteHeader() {
               </kbd>
             </button>
 
-            <ThemeToggle className="hidden lg:flex" />
-            <UiModeToggle className="hidden sm:flex" />
+            <ThemeToggle className="hidden shrink-0 lg:flex" />
+            <UiModeToggle className="hidden shrink-0 sm:flex" />
 
             {/* Mobile menu toggle */}
             <button

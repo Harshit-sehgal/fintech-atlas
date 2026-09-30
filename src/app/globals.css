@@ -353,6 +353,12 @@ h1, h2, h3 {
   background: transparent;
   color: var(--foreground);
   border: 1px solid var(--border);
+  /* The box is a fixed 36px. Without clipping, any child wider than that
+     paints outside the button and intercepts pointer events from whatever
+     sits next to it in the row — an icon-label overflow once made the theme
+     toggle unclickable at 1280px. Clip so a control can never reach outside
+     its own hit area. */
+  overflow: hidden;
   transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s var(--ease-out-expo);
 }
 .btn-icon:hover {
