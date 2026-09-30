@@ -89,9 +89,21 @@ describe("Static deployment contracts", () => {
     const headers = read("public/_headers");
     expect(headers).not.toContain("Content-Security-Policy:");
     expect(headers).toContain("Strict-Transport-Security:");
-    expect(read("src/app/layout.tsx")).toContain('assetPath("/theme-init.js")');
-    expect(read("src/app/layout.tsx")).toContain('strategy="beforeInteractive"');
-    expect(existsSync(resolve(root, "public/theme-init.js"))).toBe(true);
+    // Pre-paint preference scripts (theme + UI mode) are inlined in <head> and
+    // hash-allowlisted per page, rather than fetched as beforeInteractive
+    // assets. An external pre-paint script blocks the parser on a network
+    // round-trip, which Lighthouse's `render-blocking-resources` assertion
+    // (maxLength 0) fails on. Inlining keeps the flash-free behaviour, removes
+    // the request entirely, and stays CSP-safe because the generator hashes
+    // every executable inline script.
+    const layout = read("src/app/layout.tsx");
+    expect(layout).toContain('setAttribute("data-theme"');
+    expect(layout).toContain('setAttribute("data-ui-mode"');
+    // No external pre-paint asset, and no <Script strategy="beforeInteractive">
+    // reintroduced for them.
+    expect(existsSync(resolve(root, "public/theme-init.js"))).toBe(false);
+    expect(existsSync(resolve(root, "public/ui-mode-init.js"))).toBe(false);
+    expect(layout).not.toContain('strategy="beforeInteractive"');
   });
 
   it("publishes the legal and incident-readiness surfaces", () => {

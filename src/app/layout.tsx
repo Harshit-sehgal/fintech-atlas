@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/lib/theme-context";
 import { UiModeProvider } from "@/lib/ui-mode-context";
@@ -97,8 +96,25 @@ export default function RootLayout({
       className="h-full antialiased"
     >
       <head>
-        <Script src={assetPath("/theme-init.js")} strategy="beforeInteractive" />
-        <Script src={assetPath("/ui-mode-init.js")} strategy="beforeInteractive" />
+        {/* Both pre-paint preference scripts are inlined rather than loaded as
+            beforeInteractive <Script> tags. External scripts here block the
+            parser on a network round-trip before first paint, and lhci's preset
+            asserts `render-blocking-resources` is 0 — theme-init.js alone was
+            failing that on every URL. Inlining removes the fetch entirely, so
+            the attributes are set sooner, not later, and it is the pattern
+            next-themes uses. `scripts/generate-security-headers.mjs` hashes
+            every executable inline script per page, so each page's CSP meta
+            tag is regenerated with the right hashes at build time. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(()=>{try{var s=localStorage.getItem("theme");var t=s==="light"||s==="dark"||s==="system"?s:"system";var r=t==="system"?(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):t;document.documentElement.setAttribute("data-theme",r)}catch(e){}})();`,
+          }}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(()=>{try{var s=localStorage.getItem("ui-mode");document.documentElement.setAttribute("data-ui-mode",s==="boring"||s==="standard"?s:"standard")}catch(e){}})();`,
+          }}
+        />
         <AnalyticsScript />
         {/* RSS autodiscovery (metadata `alternates.types` is not emitted by
             this Next build for static exports, so the link is literal). */}

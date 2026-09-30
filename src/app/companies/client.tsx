@@ -242,7 +242,7 @@ function DirectoryRow({
         <div className="flex shrink-0 flex-col items-end justify-between gap-3 pl-2">
           <button
             onClick={(e) => onToggle(e, c)}
-            className={`pointer-events-auto relative z-20 rounded-full p-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+            className={`pointer-events-auto relative z-20 inline-flex h-7 w-7 items-center justify-center rounded-full text-sm transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
               bookmarked
                 ? "text-[var(--foreground)]"
                 : "text-[var(--muted-text)] hover:text-[var(--foreground)]"
@@ -361,7 +361,7 @@ function Spotlight({
           </p>
           <button
             onClick={(e) => onToggle(e, lead)}
-            className={`pointer-events-auto absolute right-3 top-3 z-20 rounded-full p-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+            className={`pointer-events-auto absolute right-3 top-3 z-20 inline-flex h-7 w-7 items-center justify-center rounded-full text-sm transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
               isBookmarked(lead.slug)
                 ? "text-[var(--foreground)]"
                 : "text-[var(--muted-text)] hover:text-[var(--foreground)]"
@@ -412,7 +412,7 @@ function Spotlight({
               )}
               <button
                 onClick={(e) => onToggle(e, c)}
-                className={`pointer-events-auto absolute right-2 top-2 z-20 rounded-full p-1 text-sm transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+                className={`pointer-events-auto absolute right-2 top-2 z-20 inline-flex h-7 w-7 items-center justify-center rounded-full text-sm transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
                   isBookmarked(c.slug)
                     ? "text-[var(--foreground)]"
                     : "text-[var(--muted-text)] hover:text-[var(--foreground)]"
