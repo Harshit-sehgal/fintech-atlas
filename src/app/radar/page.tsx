@@ -20,7 +20,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function RadarPage() {
   return (
-    <div className="mx-auto max-w-7xl px-5 py-14 md:py-20">
+    <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
