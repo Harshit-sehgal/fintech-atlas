@@ -3,6 +3,7 @@ import HomePageClient from "./home-client";
 import { SITE_URL } from "@/lib/site-config";
 import { openGraphImage } from "@/lib/shared-metadata";
 import { articles } from "@/data/articles";
+import { glossary } from "@/data/glossary";
 
 const description =
   "Compare Razorpay, Stripe, Cashfree, Wise, Payoneer and other payment services. Calculate fees, settlement amounts and provider differences for India.";
@@ -47,5 +48,16 @@ export default function HomePage() {
   // the page fully at build time. A Suspense boundary around a client component
   // causes Next.js to defer rendering and ship only the fallback skeleton,
   // triggering React hydration error #418 on mount.
-  return <HomePageClient recentArticles={recentArticles} articleCount={articles.length} />;
+  // `glossaryCount` is resolved here rather than imported in the client
+  // component: the hero's stat band took a `glossaryCount` prop with a default
+  // of 0 that nothing ever passed, so the homepage advertised "0 Glossary
+  // terms" while the glossary had 53. Passing it server-side keeps the fix free
+  // of client-bundle cost (the generated glossary summaries are 53 entries).
+  return (
+    <HomePageClient
+      recentArticles={recentArticles}
+      articleCount={articles.length}
+      glossaryCount={glossary.length}
+    />
+  );
 }

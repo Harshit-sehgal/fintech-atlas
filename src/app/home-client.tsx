@@ -107,9 +107,11 @@ const INTENTS: {
 export default function HomePageClient({
   recentArticles,
   articleCount,
+  glossaryCount,
 }: {
   recentArticles: { slug: string; title: string; category: string; displayDate: string }[];
   articleCount: number;
+  glossaryCount: number;
 }) {
   const featured = useMemo(
     () =>
@@ -140,7 +142,7 @@ export default function HomePageClient({
 
   return (
     <>
-      <HomeHero articleCount={articleCount} />
+      <HomeHero articleCount={articleCount} glossaryCount={glossaryCount} />
 
       {/* Proof band — the Mercury/Stripe move: honest, checkable specifics
           instead of vanity metrics. Numbers a human editor would defend. */}
