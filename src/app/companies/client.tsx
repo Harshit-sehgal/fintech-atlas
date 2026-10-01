@@ -288,7 +288,7 @@ function Spotlight({
 
   return (
     <section aria-label="Editor's spotlight" className="mt-12">
-      <div className="flex items-baseline justify-between border-b border-[var(--border-strong)] pb-2">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-[var(--border-strong)] pb-2">
         <h2 className="font-serif text-xl font-bold text-[var(--foreground)]">
           Editor&rsquo;s spotlight
         </h2>
@@ -673,8 +673,15 @@ export function CompaniesClient() {
           </div>
         </div>
 
-        {/* Category Pill Filters */}
-        <div className="js-category-pills flex items-center gap-2 overflow-x-auto pb-2">
+        {/* Category Pill Filters
+            Thirteen pills measured 2,404px of content inside a 1,112px row
+            (350px on a phone) with overlay scrollbars, so six of them were
+            invisible on desktop and ten on mobile with no cue that the row
+            scrolled at all. From `md` up (tablet and desktop) there is room to
+            simply show every filter, so the row wraps and nothing is hidden;
+            below that a single scrolling line is the right trade for a phone,
+            but it gets an edge fade so it reads as continuing. */}
+        <div className="js-category-pills -mx-1 flex items-center gap-2 overflow-x-auto px-1 pb-2 [mask-image:linear-gradient(to_right,#000_calc(100%-2.5rem),transparent)] md:mx-0 md:flex-wrap md:overflow-x-visible md:px-0 md:[mask-image:none]">
           <button
             onClick={() => setSelectedCategory("all")}
             aria-pressed={selectedCategory === "all"}
