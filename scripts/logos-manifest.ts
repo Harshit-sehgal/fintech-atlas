@@ -73,7 +73,10 @@ export const LOGO_MANIFEST: Record<string, LogoEntry> = {
   splitit: { si: null },
 
   // ── Cross-border / FX (real) ──
-  wise: { si: "wise", bg: "#9FE870" },
+  // Dark green field, not #9FE870: simple-icons ships Wise's glyph in
+  // Wise light green, so a light-green tile rendered the mark invisible
+  // (measured contrast 1.00 — a blank green square).
+  wise: { si: "wise", bg: "#163300" },
   remitly: { si: null },
   xe: { si: null },
   ofx: { si: null },
