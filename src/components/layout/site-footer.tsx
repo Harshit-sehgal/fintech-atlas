@@ -112,7 +112,7 @@ function FooterColumn({
                   <span>{l.label}</span>
                   <span
                     aria-hidden
-                    className="opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 text-[var(--accent)]"
+                    className="opacity-0 transition-opacity duration-150 group-hover:opacity-100 text-[var(--accent)]"
                   >
                     →
                   </span>
@@ -122,7 +122,7 @@ function FooterColumn({
                   <span>{l.label}</span>
                   <span
                     aria-hidden
-                    className="opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 text-[var(--accent)]"
+                    className="opacity-0 transition-opacity duration-150 group-hover:opacity-100 text-[var(--accent)]"
                   >
                     →
                   </span>

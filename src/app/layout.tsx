@@ -4,7 +4,6 @@ import { ThemeProvider } from "@/lib/theme-context";
 import { UiModeProvider } from "@/lib/ui-mode-context";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
-import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { BookmarksProvider } from "@/lib/bookmarks-context";
 import { ToastProvider } from "@/lib/toast-context";
 import StructuredDataLite from "@/components/SEO/StructuredDataLite";
@@ -145,7 +144,6 @@ export default function RootLayout({
            <UiModeProvider>
             <ToastProvider>
               <BookmarksProvider>
-                <ScrollProgress />
                 <SiteHeader />
                 <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">{children}</main>
                 <SiteFooter />

@@ -1,21 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import {
   companySummaries,
   categoryNames,
   getCompanySummaryBySlug,
 } from "@/generated/company-summaries";
 import { DATA_AS_OF } from "@/lib/site-config";
-import { CountUp } from "@/components/ui/count-up";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { formatValuationShort } from "@/lib/format-company";
 
 /**
- * The hero showcases a rotating selection of real catalog entries in a quiet
- * "directory index card". It deliberately avoids terminal/CLI styling - the
- * goal is an editorial, human reference driven by live data.
+ * The hero shows one real catalog entry in a quiet "directory index card".
+ * It deliberately avoids terminal/CLI styling - the goal is an editorial,
+ * human reference driven by live data.
  */
 const HERO_PROFILE_SLUGS = [
   "razorpay",
@@ -31,38 +29,13 @@ const heroProfiles = HERO_PROFILE_SLUGS.map((slug) =>
   getCompanySummaryBySlug(slug),
 ).filter((c): c is NonNullable<typeof c> => Boolean(c));
 
-/* Hook that rotates through heroProfiles every few seconds. The rotation
- * freezes on the first interaction with the directory card (pointer/touch/
- * focus) so a tapped "View full profile" never changes target mid-gesture,
- * and it never runs under prefers-reduced-motion. */
-function useRotatingProfile(interval = 5000) {
-  const [index, setIndex] = useState(0);
-  useEffect(() => {
-    if (heroProfiles.length <= 1) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = window.setInterval(
-      () => setIndex((i) => (i + 1) % heroProfiles.length),
-      interval,
-    );
-    let stopped = false;
-    const stop = () => {
-      if (stopped) return;
-      stopped = true;
-      window.clearInterval(id);
-    };
-    const card = document.querySelector("[data-hero-card]");
-    card?.addEventListener("pointerdown", stop, { passive: true });
-    card?.addEventListener("touchstart", stop, { passive: true });
-    card?.addEventListener("focusin", stop);
-    return () => {
-      window.clearInterval(id);
-      card?.removeEventListener("pointerdown", stop);
-      card?.removeEventListener("touchstart", stop);
-      card?.removeEventListener("focusin", stop);
-    };
-  }, [interval]);
-  return heroProfiles[index] ?? heroProfiles[0];
-}
+/* One fixed entry, not a rotation. This used to cycle every 5s, which meant the
+   card's contents, logo, stats and destination all changed underneath the
+   reader — including mid-click, which is why the old code had to cancel the
+   timer on pointerdown/touchstart/focusin. A rotating hero also re-ran the
+   entry animation every few seconds. Naming a single company makes the block
+   stable, readable, and safe to click. */
+const heroProfile = heroProfiles[0];
 
 export function HomeHero({
   glossaryCount = 0,
@@ -71,7 +44,7 @@ export function HomeHero({
   glossaryCount?: number;
   articleCount?: number;
 }) {
-  const activeProfile = useRotatingProfile();
+  const activeProfile = heroProfile;
   const categoryName =
     activeProfile.categories.map((slug) => categoryNames[slug]).find(Boolean) ??
     activeProfile.categories?.[0] ??
@@ -112,7 +85,7 @@ export function HomeHero({
           ].map(({ value, label }) => (
             <div key={label} className="px-3 py-6 text-center">
               <div className="font-display text-3xl font-semibold tabular-nums text-[var(--foreground)] md:text-4xl">
-                {label === "Data as of" ? DATA_AS_OF : <CountUp target={value} />}
+                {label === "Data as of" ? DATA_AS_OF : value}
               </div>
               <div className="mt-1 text-[11px] font-medium uppercase tracking-wider text-[var(--muted-text)]">
                 {label}
@@ -124,28 +97,14 @@ export function HomeHero({
 
       {/* Directory index card - the human, paper-like counterpart to a terminal. */}
       <div className="mx-auto mt-14 max-w-xl">
-        <div className="mb-3 flex items-center justify-between px-1">
+        <div className="mb-3 px-1">
           <span className="text-[11px] font-medium uppercase tracking-wider text-[var(--muted-text)]">
             From the directory
           </span>
-          <div className="flex items-center gap-1.5">
-            {heroProfiles.map((p) => (
-              <span
-                key={p.slug}
-                className="h-1.5 w-1.5 rounded-full transition-colors duration-300"
-                style={{
-                  background:
-                    p.slug === activeProfile.slug
-                      ? "var(--accent)"
-                      : "var(--border-strong)",
-                }}
-              />
-            ))}
-          </div>
         </div>
 
-        <div className="border-t border-[var(--border-color)] pt-6" data-hero-card>
-          <div key={activeProfile.slug} className="page-in">
+        <div className="border-t border-[var(--border-color)] pt-6">
+          <div>
             <div className="flex items-center gap-4">
               <div className="flex h-14 w-14 shrink-0 items-center justify-center">
                 <CompanyLogo slug={activeProfile.slug} name={activeProfile.name} size={40} />

@@ -9,7 +9,6 @@ import { CategoryIcon } from "@/components/ui/category-icon";
 import { IconBolt, IconLink } from "@/components/ui/icons";
 import { Reveal } from "@/components/ui/reveal";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
-import { CountUp } from "@/components/ui/count-up";
 import { useBookmarks } from "@/lib/bookmarks-context";
 import { useToast } from "@/lib/toast-context";
 import {
@@ -78,7 +77,6 @@ function SectionHeader({ eyebrow, title }: { eyebrow: string; title: string }) {
    );
  }
 
-// CountUp from @/components/ui/count-up used below.
 
 /**
  * Profile → Compare bridge (T101). Renders a static deep link that works
@@ -717,7 +715,7 @@ export function CompanyPageClient({
           <div className="mt-4 border-t border-[var(--border-color)] pt-6">
             <div className="flex items-center gap-3">
               <span className="font-mono text-lg font-bold tabular-nums text-success-text">
-                ★ <CountUp target={c.userReviews.rating} decimals={2} duration={1.1} /> / 5.0
+                ★ {c.userReviews.rating.toFixed(2)} / 5.0
               </span>
               <p className="text-sm text-[var(--muted-text)]">Editorial sentiment summary. Notes below are saved only in this browser and are not added to this rating.</p>
             </div>
