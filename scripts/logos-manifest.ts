@@ -31,7 +31,7 @@ export const LOGO_MANIFEST: Record<string, LogoEntry> = {
   adyen: { si: "adyen" },
   square: { si: "square" },
   "cash-app": { si: "cashapp" },
-  "apple-pay": { si: "applepay", bg: "#000000" },
+  "apple-pay": { si: "applepay" },
   "google-pay": { si: "googlepay" },
   "visa-direct": { si: "visa" },
   "mastercard-send": { si: "mastercard" },

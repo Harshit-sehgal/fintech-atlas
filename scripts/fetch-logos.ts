@@ -95,7 +95,7 @@ function svgFill(svg: string): string | null {
  * legible on the dark UI:
  *  - `bg` set in the manifest → use that exact branded surface (Apple Pay =>
  *    black tile, Wise => green tile, Klarna => pink tile, Brex => orange).
- *  - else, if the mark's fill is DARK (luminance < ~0.3) it would vanish on the
+ *  - else, if the mark's fill is DARK (luminance < ~0.35) it would vanish on the
  *    dark neutral tile — so wrap it in a white inset mini-tile (`light`).
  *  - else the bright/light fill shows fine directly on the dark neutral tile
  *    (`dark` — transparent inset, mark floats on the brand-appropriate dark
@@ -107,7 +107,7 @@ function tileFor(slug: string): { bg?: string; tile?: "light" | "dark" } {
   try {
     const svg = readFileSync(join(LOGOS_DIR, `${slug}.svg`), "utf8");
     const fill = svgFill(svg);
-    if (fill && luminance(fill) < 0.3) return { tile: "light" };
+    if (fill && luminance(fill) < 0.35) return { tile: "light" };
   } catch {
     /* treat as unknown */
   }
