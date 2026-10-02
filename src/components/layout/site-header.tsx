@@ -122,7 +122,7 @@ export function SiteHeader() {
                     <motion.span
                       layoutId="nav-underline"
                       className="absolute inset-x-3 -bottom-px h-px bg-[var(--foreground)]"
-                      transition={animation.transition.springDefault}
+                      transition={animation.transition.underline}
                     />
                   )}
                 </Link>
@@ -164,10 +164,10 @@ export function SiteHeader() {
                   <motion.div
                     role="menu"
                     aria-label="More sections"
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 6 }}
-                    transition={animation.transition.reveal}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={animation.transition.dropdown}
                     className="absolute right-0 top-full z-50 mt-2 w-[34rem] max-w-[calc(100vw-3rem)] border border-[var(--border-color)] bg-[var(--card)] p-4"
                   >
                     {/* Groups are laid out two-up so the whole menu fits a

@@ -14,7 +14,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { Reveal } from "@/components/ui/reveal";
 import { HomeHero } from "@/components/home/hero";
-import { LogoMarquee } from "@/components/ui/logo-marquee";
+import { BrandWall } from "@/components/ui/brand-wall";
 import { NewsletterOptIn } from "@/components/ui/newsletter-opt-in";
 import { formatValuationShort } from "@/lib/format-company";
 
@@ -206,8 +206,8 @@ export default function HomePageClient({
         </div>
       </section>
 
-      {/* Brand wall — auto-scrolling, hover-to-pause logo marquee (credibility strip) */}
-      <section data-placement="brand-wall" className="relative border-y border-[var(--border-color)] bg-[var(--subtle-bg)]/30 py-10 overflow-hidden">
+      {/* Brand wall — the full catalog as a static ruled grid (credibility strip). */}
+      <section data-placement="brand-wall" className="relative border-b border-[var(--border-color)] bg-[var(--subtle-bg)]/30 py-10">
         <div className="mx-auto max-w-6xl px-5">
           <Reveal>
             <div className="mb-6 flex items-center justify-between">
@@ -223,7 +223,7 @@ export default function HomePageClient({
             </div>
           </Reveal>
         </div>
-        <LogoMarquee logos={marqueeLogos} />
+        <BrandWall logos={marqueeLogos} />
       </section>
 
       {/* Interactive Tools Teaser — a ruled band, not a boxed panel. */}
