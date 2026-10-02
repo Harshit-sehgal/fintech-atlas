@@ -208,7 +208,7 @@ function DirectoryRow({
         <span className="sr-only">View {c.name}</span>
       </Link>
 
-      <div className="flex items-start gap-3 py-5 sm:gap-4">
+      <div className="flex items-start gap-3 py-4 sm:gap-4">
         <span
           aria-hidden="true"
           className="hidden w-7 shrink-0 pt-1 text-right font-mono text-xs tabular-nums text-[var(--muted-dim)] sm:block"
@@ -231,7 +231,7 @@ function DirectoryRow({
           </div>
           <p className="mt-1 truncate text-sm text-[var(--muted-text)]">{c.tagline}</p>
 
-          <dl className="mt-3 grid grid-cols-2 gap-x-5 gap-y-2 sm:grid-cols-4">
+          <dl className="mt-2.5 grid grid-cols-2 gap-x-5 gap-y-1.5 sm:grid-cols-4">
             <Spec label="Founded" value={String(c.founded)} />
             <Spec label="HQ" value={formatHeadquartersCity(c.headquarters)} />
             <Spec label="Pricing" value={c.pricingModel} />
@@ -512,6 +512,16 @@ export function CompaniesClient() {
     return counts;
   }, []);
 
+  // Only categories that actually contain a provider are offered as filters.
+  // The results list below is grouped by category and never renders an empty
+  // group, so a zero-count pill is a dead control that resolves to a blank
+  // page. Keeping them out also stops the wrapped pill row ending on a lonely
+  // orphan chip.
+  const populatedCategories = useMemo(
+    () => categories.filter((cat) => (categoryCounts.get(cat.slug) ?? 0) > 0),
+    [categoryCounts],
+  );
+
   const filteredCompanies = useMemo(() => {
     const companiesWithVal = companySummaries.map((c) => ({
       ...c,
@@ -680,20 +690,38 @@ export function CompaniesClient() {
             scrolled at all. From `md` up (tablet and desktop) there is room to
             simply show every filter, so the row wraps and nothing is hidden;
             below that a single scrolling line is the right trade for a phone,
-            but it gets an edge fade so it reads as continuing. */}
-        <div className="js-category-pills -mx-1 flex items-center gap-2 overflow-x-auto px-1 pb-2 [mask-image:linear-gradient(to_right,#000_calc(100%-2.5rem),transparent)] md:mx-0 md:flex-wrap md:overflow-x-visible md:px-0 md:[mask-image:none]">
+            but it gets an edge fade so it reads as continuing.
+
+            The row is labelled and rule-separated rather than left as a loose
+            bag of pills floating under the search field: a hairline plus a
+            small-caps label reads as a deliberate filter block, and it states
+            how many categories are actually offered so the wrapping above is
+            self-explanatory. */}
+        <div className="border-t border-[var(--border-color)] pt-4">
+          <div className="mb-3 flex items-baseline justify-between gap-3">
+            <span className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-[var(--muted-text)]">
+              Filter by category
+            </span>
+            {/* --muted, not --muted-dim: #a29c90 is only ~2.6:1 on the cream
+                surface and fails WCAG AA at this size. --muted-dim is reserved
+                for aria-hidden decorative numerals, which axe skips. */}
+            <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--muted)]">
+              {populatedCategories.length} categories
+            </span>
+          </div>
+          <div className="js-category-pills -mx-1 flex items-center gap-2 overflow-x-auto px-1 pb-2 [mask-image:linear-gradient(to_right,#000_calc(100%-2.5rem),transparent)] md:mx-0 md:flex-wrap md:overflow-x-visible md:px-0 md:[mask-image:none]">
           <button
             onClick={() => setSelectedCategory("all")}
             aria-pressed={selectedCategory === "all"}
-            className={`relative shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+            className={`relative shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-medium focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
               selectedCategory === "all"
-                ? "bg-[var(--foreground)] text-[var(--background)]"
-                : "border border-[var(--border-strong)] text-[var(--muted-text)] hover:text-[var(--foreground)] hover:border-[var(--foreground)]"
+                ? "border-transparent bg-[var(--foreground)] text-[var(--background)]"
+                : "border-[var(--border-strong)] text-[var(--muted-text)] hover:text-[var(--foreground)] hover:border-[var(--foreground)]"
             }`}
           >
             All Companies ({companySummaries.length})
           </button>
-          {categories.map((cat) => {
+          {populatedCategories.map((cat) => {
             const count = categoryCounts.get(cat.slug) ?? 0;
             const active = selectedCategory === cat.slug;
             return (
@@ -701,16 +729,17 @@ export function CompaniesClient() {
                 key={cat.slug}
                 onClick={() => setSelectedCategory(cat.slug)}
                 aria-pressed={active}
-                className={`relative shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+                className={`relative shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-medium focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
                   active
-                    ? "bg-[var(--foreground)] text-[var(--background)]"
-                    : "border border-[var(--border-strong)] text-[var(--muted-text)] hover:text-[var(--foreground)] hover:border-[var(--foreground)]"
+                    ? "border-transparent bg-[var(--foreground)] text-[var(--background)]"
+                    : "border-[var(--border-strong)] text-[var(--muted-text)] hover:text-[var(--foreground)] hover:border-[var(--foreground)]"
                 }`}
               >
                 {cat.name} ({count})
               </button>
             );
           })}
+          </div>
         </div>
       </div>
 
