@@ -5,6 +5,7 @@ import type { CSSProperties } from "react";
 import { useMemo } from "react";
 import { categories } from "@/data/categories";
 import {
+  categoryNames,
   companySummaries,
   getCompanySummaryBySlug,
 } from "@/generated/company-summaries";
@@ -17,6 +18,11 @@ import { HomeHero } from "@/components/home/hero";
 import { BrandWall } from "@/components/ui/brand-wall";
 import { NewsletterOptIn } from "@/components/ui/newsletter-opt-in";
 import { formatValuationShort } from "@/lib/format-company";
+
+/* slug -> human category label, for the preset cards' meta row. */
+const CATEGORY_BY_COMPANY: Record<string, string> = Object.fromEntries(
+  companySummaries.map((c) => [c.slug, categoryNames[c.categories?.[0] ?? ""] ?? ""]),
+);
 
 // India-first featured providers (plan §7: "India-specific provider
 // directory"). Curated order so the homepage leads with the Indian market.
@@ -181,12 +187,12 @@ export default function HomePageClient({
           title="What are you trying to do?"
           description="Pick the decision you're facing — every entry opens the tool, comparison or guide built for it."
         />
-        <div className="mt-8 grid border-t border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid border-t border-l border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
           {INTENTS.map((intent) => (
             <Link
               key={intent.title}
               href={intent.href}
-              className="group flex flex-col border-b border-[var(--border-color)] py-6 pr-6 transition-colors sm:odd:border-r sm:odd:pr-8 lg:border-r lg:pr-8 lg:[&:nth-child(3n)]:border-r-0"
+              className="group flex flex-col border-b border-r border-[var(--border-color)] p-5 transition-colors hover:bg-[var(--subtle-bg)]/50"
             >
               <div className="flex h-9 w-9 items-center justify-center text-[var(--accent)]">
                 {intent.svg}
@@ -197,7 +203,7 @@ export default function HomePageClient({
               <p className="mt-1.5 text-sm leading-relaxed text-[var(--muted-text)]">
                 {intent.desc}
               </p>
-              <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[var(--accent)]">
+              <span className="mt-auto inline-flex items-center gap-1 pt-4 text-xs font-semibold text-[var(--accent)]">
                 {intent.cta}
                 <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
               </span>
@@ -271,34 +277,65 @@ export default function HomePageClient({
           title="Popular Comparisons"
           description="Jump straight into a side-by-side benchmark — pick a preset and compare fees, pricing models, and platform fit in one view."
         />
-        <div className="mt-8 grid border-t border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
+
+        {/* Preset grid.
+            The old version gave every cell a `border-b` and put the column rule
+            on via `sm:odd:border-r` / `lg:[&:nth-child(3n)]:border-r-0`, with
+            the gutter carried only by `pr-*`. Two things were visibly wrong:
+
+            1. The divider sat flush against the text in the middle and right
+               columns — only the left side of each cell had padding — so the
+               rule ran right through the descenders of every title.
+            2. Seven cards in a 3-up grid leaves one card in the last row, and
+               the right-hand divider of that card kept drawing past its own
+               content: a rule hanging in empty space beside nothing.
+
+            Both are structural, so the fix is structural. The rules now live on
+            the GRID (`border-t border-l`) and each cell closes itself with
+            `border-r border-b` plus its own padding, so every cell is a
+            complete box. The column count is now a plain 1 / 2 / 3 by
+            breakpoint, with no sibling-counting rules left to get wrong. */}
+        <div className="mt-8 grid border-t border-l border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
           {PRESETS.map((preset) => (
             <Link
               key={preset.name}
               href={`/compare?companies=${preset.slugs.join(",")}`}
-              className="group flex flex-col border-b border-[var(--border-color)] py-6 pr-6 transition-colors sm:odd:border-r sm:odd:pr-8 lg:border-r lg:pr-8 lg:[&:nth-child(3n)]:border-r-0"
+              className="group flex flex-col border-b border-r border-[var(--border-color)] p-5 transition-colors hover:bg-[var(--subtle-bg)]/50 focus-visible:outline-none focus-visible:ring-[var(--ring)]"
             >
               <div className="flex items-center gap-2">
                 {preset.slugs.map((slug) => (
                   <CompanyLogo key={slug} slug={slug} name={slug} size={28} decorative />
                 ))}
               </div>
-              <h3 className="mt-4 text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
+              <h3 className="mt-4 text-base font-bold leading-snug text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
                 {preset.name}
               </h3>
-              <p className="mt-1 text-sm text-[var(--muted-text)]">Open the side-by-side comparison →</p>
+              {/* This row used to repeat "Open the side-by-side comparison →"
+                  seven times, which told the reader nothing they could not see
+                  from the card being a link. The category is the useful fact
+                  instead. `mt-auto` pins it to the cell floor so it aligns
+                  across a row even where one title wraps to two lines and its
+                  neighbours do not. */}
+              <p className="mt-auto pt-3 text-xs text-[var(--muted-text)]">
+                {preset.slugs
+                  .map((slug) => CATEGORY_BY_COMPANY[slug])
+                  .filter(Boolean)
+                  .filter((v, i, a) => a.indexOf(v) === i)
+                  .join(" · ") || "Comparison preset"}
+              </p>
             </Link>
           ))}
         </div>
+
         <div className="mt-8">
           <Link
             href="/india"
-            className="group inline-flex items-center gap-2.5 rounded-lg border border-[var(--border-color)] bg-[var(--card)] px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
+            className="group inline-flex items-center gap-2.5 text-sm font-semibold text-[var(--foreground)] transition-colors hover:text-[var(--accent)]"
           >
-            <span aria-hidden className="rounded border border-[var(--border-color)] bg-[var(--subtle-bg)] px-1.5 py-0.5 font-mono text-[10px] tracking-wider text-[var(--muted-text)] group-hover:text-[var(--accent)]">
+            <span aria-hidden className="rounded-sm border border-[var(--border-color)] px-1.5 py-0.5 font-mono text-[10px] tracking-wider text-[var(--muted-text)]">
               IN
             </span>
-            <span>Payment gateways & international payments for India</span>
+            <span>Browse every payment gateway &amp; international payments option for India</span>
             <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
           </Link>
         </div>
@@ -311,12 +348,12 @@ export default function HomePageClient({
           title="Latest Guides & Comparisons"
           description="The newest researched articles, with the dates they were last verified."
         />
-        <div className="mt-8 grid border-t border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid border-t border-l border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
           {recentArticles.map((a) => (
             <Link
               key={a.slug}
               href={`/articles/${a.slug}`}
-              className="group flex flex-col border-b border-[var(--border-color)] py-6 pr-6 transition-colors sm:odd:border-r sm:odd:pr-8 lg:border-r lg:pr-8 lg:[&:nth-child(3n)]:border-r-0"
+              className="group flex flex-col border-b border-r border-[var(--border-color)] p-5 transition-colors hover:bg-[var(--subtle-bg)]/50"
             >
               <p className="font-mono text-[11px] uppercase tracking-wider text-[var(--muted-text)]">
                 {a.category} · {a.displayDate}
@@ -324,7 +361,7 @@ export default function HomePageClient({
               <h3 className="mt-2 text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
                 {a.title}
               </h3>
-              <p className="mt-2 text-sm text-[var(--muted-text)]">Read the guide →</p>
+              <p className="mt-auto pt-2 text-sm text-[var(--muted-text)]">Read the guide →</p>
             </Link>
           ))}
         </div>
