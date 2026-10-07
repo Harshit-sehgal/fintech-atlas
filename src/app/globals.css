@@ -422,12 +422,14 @@ h1, h2, h3 {
 }
 
 /* ── Boxed card — opaque fill + ink hairline, for company
-       list cards (radar results and similar surfaces) where
-       each entry must read as its own object, clearly
-       separated from its neighbours ── */
+       list cards (directory, India directory, radar, compare)
+       where each entry must read as its own object, clearly
+       separated from its neighbours. Radius is baked in so
+       every surface using it is uniform by construction. ── */
 .box-card {
   background: var(--card);
   border: 1px solid color-mix(in oklab, var(--foreground) 12%, transparent);
+  border-radius: var(--radius-md);
   transition: border-color 0.2s ease;
 }
 

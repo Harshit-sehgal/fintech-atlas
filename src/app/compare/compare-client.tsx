@@ -483,7 +483,7 @@ function CompareContent() {
             {/* Mobile stacked cards (T109): every cell readable without horizontal scroll.
                 No boxes: one open entry per company, separated by
                 a marker stroke. */}
-            <div className="md:hidden mt-8 space-y-10">
+            <div className="md:hidden mt-8 space-y-6">
               <div className="flex items-center justify-between py-2.5 text-xs text-[var(--muted-text)]">
                 <span className="font-mono uppercase tracking-wider">Orientation summary</span>
                 <button
@@ -508,17 +508,17 @@ function CompareContent() {
                 </div>
               )}
 
-              {selectedCompanies.map((c, companyIndex) => (
+              {selectedCompanies.map((c) => (
                 <div
                   key={c.slug}
                   style={{ ["--accent"]: c.accent } as CSSProperties}
+                  className="box-card p-4"
                 >
-                  {companyIndex > 0 && <MarkerRule className="mb-8" />}
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0">
                       <CompanyLogo slug={c.slug} name={c.name} size={36} />
                       <div className="min-w-0">
-                        <div className="truncate font-bold text-[var(--foreground)]">{c.name}</div>
+                        <div className="hl-link truncate font-bold text-[var(--foreground)]">{c.name}</div>
                         <div className="truncate text-[11px] text-[var(--muted-text)]">{c.categories.join(", ")}</div>
                       </div>
                     </div>

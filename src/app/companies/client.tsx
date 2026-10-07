@@ -189,21 +189,21 @@ function DirectoryRow({
   onToggle: (e: React.MouseEvent, c: CompanySummary) => void;
 }) {
   return (
-    <Reveal
-      as="article"
-      y={14}
-      className="group relative"
-    >
+      <Reveal
+        as="article"
+        y={14}
+        className="box-card group relative p-4 sm:p-5"
+      >
       {/* Whole-row navigation link — sibling of the bookmark button. */}
       <Link
         href={`/companies/${c.slug}`}
         aria-label={`View ${c.name}`}
-        className="absolute inset-0 z-10 rounded-sm focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+        className="absolute inset-0 z-10 rounded-md focus-visible:outline-none focus-visible:ring-[var(--ring)]"
       >
         <span className="sr-only">View {c.name}</span>
       </Link>
 
-      <div className="flex items-start gap-3 py-4 sm:gap-4">
+      <div className="flex items-start gap-3 sm:gap-4">
         <span
           aria-hidden="true"
           className="hidden w-7 shrink-0 pt-1 text-right font-mono text-xs tabular-nums text-[var(--muted-dim)] sm:block"
@@ -293,16 +293,16 @@ function Spotlight({
       </div>
 
       <div className="mt-5 grid gap-8 lg:grid-cols-5">
-        {/* Lead entry — 3-of-5 columns, the visual anchor. No box, no
-            top rule: the hand-marked name carries the emphasis. */}
+        {/* Lead entry — 3-of-5 columns, the visual anchor. The
+            hand-marked name still carries the emphasis. */}
         <Reveal
           as="article"
-          className="group relative flex flex-col justify-between lg:col-span-3"
+          className="box-card group relative flex flex-col justify-between p-5 lg:col-span-3"
         >
           <Link
             href={`/companies/${lead.slug}`}
             aria-label={`View ${lead.name}`}
-            className="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+            className="absolute inset-0 z-10 rounded-md focus-visible:outline-none focus-visible:ring-[var(--ring)]"
           >
             <span className="sr-only">View {lead.name}</span>
           </Link>
@@ -363,20 +363,19 @@ function Spotlight({
           </button>
         </Reveal>
 
-        {/* Runners-up — compact stacked entries beside the lead.
-            No rules: breathing room separates them. */}
-        <div className="flex flex-col lg:col-span-2">
+        {/* Runners-up — compact boxed entries beside the lead. */}
+        <div className="flex flex-col gap-3 lg:col-span-2">
           {runners.map((c) => (
             <Reveal
               as="article"
               key={c.slug}
               delay={0.08}
-              className="group relative flex flex-1 flex-col justify-between py-4"
+              className="box-card group relative flex flex-1 flex-col justify-between p-4"
             >
               <Link
                 href={`/companies/${c.slug}`}
                 aria-label={`View ${c.name}`}
-                className="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+                className="absolute inset-0 z-10 rounded-md focus-visible:outline-none focus-visible:ring-[var(--ring)]"
               >
                 <span className="sr-only">View {c.name}</span>
               </Link>
@@ -824,7 +823,7 @@ export function CompaniesClient() {
                           {items.length}
                         </span>
                       </h2>
-                      <div className="mt-1">
+                      <div className="mt-1 flex flex-col gap-3">
                         {items.map((c, i) => (
                           <DirectoryRow
                             key={c.slug}

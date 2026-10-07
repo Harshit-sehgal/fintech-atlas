@@ -680,7 +680,7 @@ export function RadarClient() {
                   <Link
                     href={`/india/directory/${summary.slug}`}
                     data-placement="radar-result"
-                    className="box-card flex flex-1 flex-col gap-2 rounded-md px-4 py-4"
+                    className="box-card flex flex-1 flex-col gap-2 p-4"
                   >
                     <span className="hl-link font-semibold text-[var(--foreground)]">
                       {summary.name}
