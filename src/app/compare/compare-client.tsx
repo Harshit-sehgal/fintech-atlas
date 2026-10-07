@@ -531,7 +531,7 @@ function CompareContent() {
                       ✕
                     </button>
                   </div>
-                  <dl className="mt-2 px-1">
+                  <dl className="mt-2">
                     {[...decideRows, ...verifyRows].map((row) => (
                       <div key={row.id} className="py-3">
                         <dt className={`text-[10px] uppercase tracking-wider font-mono ${emphasizedRowIds.has(row.id) ? "text-[var(--accent)]" : "text-[var(--muted-text)]"}`}>
@@ -541,7 +541,7 @@ function CompareContent() {
                       </div>
                     ))}
                   </dl>
-                  <details className="px-1 py-3">
+                  <details className="py-3">
                     <summary className="cursor-pointer text-xs font-semibold text-[var(--muted-text)] marker:content-none hover:text-[var(--foreground)] focus-visible:outline-none focus-visible:ring-[var(--ring)] rounded">
                       Company background
                     </summary>
@@ -554,7 +554,7 @@ function CompareContent() {
                       ))}
                     </dl>
                   </details>
-                  <div className="flex items-center gap-4 px-1 py-4">
+                  <div className="flex items-center gap-4 py-4">
                     <PartnerCta
                       slug={c.slug}
                       placement="compare"
@@ -572,7 +572,7 @@ function CompareContent() {
                 </div>
               ))}
 
-              <p className="px-1 text-[11px] leading-relaxed text-[var(--muted-text)]">
+              <p className="text-[11px] leading-relaxed text-[var(--muted-text)]">
                 {verificationNote()}
               </p>
             </div>

@@ -140,12 +140,12 @@ export default function BookmarksPageClient() {
                 <span className="ml-2 text-xs font-mono text-[var(--muted-text)]">({savedCompanies.length})</span>
               </h2>
 
-              <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {savedCompanies.map((c) => (
                   <div
                     key={c.slug}
                     style={{ ["--accent"]: c.accent } as CSSProperties}
-                    className="group relative flex flex-col justify-between"
+                    className="box-card group relative flex flex-col justify-between p-4"
                   >
                     <div>
                       <div className="flex items-start justify-between gap-2">

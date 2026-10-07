@@ -115,12 +115,12 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
           </div>
 
           {companyList.length > 0 ? (
-            <div className="mt-4 grid border-t border-[var(--border-color)] sm:grid-cols-2">
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {companyList.map((c) => (
                 <Link
                   key={c.slug}
                   href={`/companies/${c.slug}`}
-                  className="group relative flex flex-col justify-between border-b border-[var(--border-color)] py-5 transition-colors sm:odd:border-r sm:odd:pr-6 sm:even:pl-6"
+                  className="box-card group relative flex flex-col justify-between p-4"
                   style={{ ["--accent"]: c.accent } as CSSProperties}
                 >
                   <div>
@@ -130,7 +130,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
                           <CompanyLogo slug={c.slug} name={c.name} size={40} />
                         </div>
                         <div>
-                          <h3 className="text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent-ink)]">{c.name}</h3>
+                          <h3 className="text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent-ink)]">
+                            <span className="hl-link">{c.name}</span>
+                          </h3>
                           <p className="text-sm text-[var(--muted-text)]">{formatValuationShort(c.valuation)}</p>
                         </div>
                       </div>
