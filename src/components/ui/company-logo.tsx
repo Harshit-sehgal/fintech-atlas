@@ -695,11 +695,9 @@ export function CompanyLogo({
     // (Wise was literally 1.00 — its #9FE870 glyph on a #9FE870 tile). A
     // fixed pair removes the flip entirely, so a tile is legible in both.
     let outerBg = "#ffffff";
-    let tileBorder = "var(--border-color)";
     if (real.bg) {
       // Explicit brand surface (Wise dark green, Brex orange).
       outerBg = real.bg;
-      tileBorder = "transparent";
     } else if (real.tile === "ink") {
       // Bright glyphs. #23201a sits clearly darker than the cream page and
       // clearly lighter than the near-black page, so the chip reads as a chip
@@ -716,13 +714,13 @@ export function CompanyLogo({
 
     return (
       <span
-        className="inline-flex items-center justify-center rounded-md overflow-hidden shrink-0 transition-colors duration-300"
+        className="inline-flex items-center justify-center overflow-hidden shrink-0 transition-colors duration-300"
         {...hiddenAria}
         style={{
           width: size,
           height: size,
           background: outerBg,
-          border: `1px solid ${tileBorder}`,
+          borderRadius: Math.max(6, Math.round(size * 0.22)),
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -757,7 +755,7 @@ export function CompanyLogo({
       .toUpperCase();
     return (
       <span
-        className="inline-flex items-center justify-center rounded-md bg-[var(--surface-raised)] font-mono font-bold uppercase tracking-wider text-[var(--foreground)] border border-[var(--border-color)]"
+        className="inline-flex items-center justify-center font-mono font-bold uppercase tracking-wider text-[var(--foreground)]"
         {...hiddenAria}
         style={{ width: size, height: size, fontSize: Math.max(10, size * 0.32) }}
       >
@@ -771,7 +769,6 @@ export function CompanyLogo({
   // `--surface-raised` tile so they read cleanly across the whole dark catalog.
   const isBrandedSurface = !!s.bg;
   const tileBg = isBrandedSurface ? (s.bg as string) : "var(--surface-raised)";
-  const tileBorder = isBrandedSurface ? "transparent" : "var(--border-color)";
   // Resolve `currentColor` inside the inline SVG to the brand color regardless
   // of tile. The older branded-surface marks (wise, ramp, mercury, deel…)
   // hardcode their path colours and ignore currentColor, so this is a no-op for
@@ -783,13 +780,13 @@ export function CompanyLogo({
 
   return (
     <span
-      className="inline-flex items-center justify-center rounded-md overflow-hidden shrink-0 transition-colors duration-300"
+      className="inline-flex items-center justify-center overflow-hidden shrink-0 transition-colors duration-300"
       {...hiddenAria}
       style={{
         width: size,
         height: size,
         backgroundColor: tileBg,
-        border: `1px solid ${tileBorder}`,
+        borderRadius: Math.max(6, Math.round(size * 0.22)),
         color: markColor,
       }}
       dangerouslySetInnerHTML={{

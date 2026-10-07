@@ -4,6 +4,7 @@ import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { pageMetadata } from "@/lib/shared-metadata";
 import { articles, getArticleCategory } from "@/data/articles";
+import { Highlight } from "@/components/ui/highlight";
 
 export const metadata: Metadata = pageMetadata({
   pathname: "/articles",
@@ -43,7 +44,7 @@ export default function ArticlesIndexPage() {
       />
 
       <h1 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl text-[var(--foreground)]">
-        Guides &amp; Comparisons
+        Guides &amp; <span className="font-serif italic text-[var(--accent)]">Comparisons</span>
       </h1>
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--muted-text)]">
         Long-form comparisons and explainers that go with our interactive tools, grouped by the
@@ -56,7 +57,7 @@ export default function ArticlesIndexPage() {
           const anchor = category?.slug ?? name;
           return (
           <section key={anchor} aria-labelledby={`articles-${anchor}`}>
-            <div className="flex items-end justify-between gap-4 border-b border-[var(--border-color)] pb-3">
+            <div className="flex items-end justify-between gap-4 pb-3">
               <h2
                 id={`articles-${anchor}`}
                 className="text-xl font-bold tracking-tight text-[var(--foreground)]"
@@ -71,12 +72,12 @@ export default function ArticlesIndexPage() {
                   href={`/articles/category/${category.slug}`}
                   className="hidden text-sm font-semibold text-[var(--accent)] hover:underline underline-offset-4 sm:inline"
                 >
-                  View category →
+                  <span className="hl-link">View category →</span>
                 </Link>
               )}
             </div>
 
-            <div className="mt-4 border-t border-[var(--border-color)]">
+            <div className="mt-4">
               {items.map((a) => (
                 // Whole-row navigation uses an overlay link (same pattern as
                 // the companies directory): nesting the category <Link> inside
@@ -85,7 +86,7 @@ export default function ArticlesIndexPage() {
                 // name.
                 <div
                   key={a.slug}
-                  className="group relative border-b border-[var(--border-color)] py-5"
+                  className="group relative py-5"
                 >
                   <Link
                     href={`/articles/${a.slug}`}
@@ -95,13 +96,15 @@ export default function ArticlesIndexPage() {
                     <span className="sr-only">Read {a.title}</span>
                   </Link>
                   <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted-text)]">
-                    Last verified {new Date(a.updatedAt).toLocaleDateString("en-IN", { year: "numeric", month: "short" })}
+                    Last verified <Highlight color="yellow" animate={false}>{new Date(a.updatedAt).toLocaleDateString("en-IN", { year: "numeric", month: "short" })}</Highlight>
                   </p>
-                  <h3 className="mt-1.5 pr-8 text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
-                    {a.title}
+                  <h3 className="mt-1.5 pr-8 text-base font-bold text-[var(--foreground)]">
+                    <span className="hl-link">{a.title}</span>
                   </h3>
                   <p className="mt-1.5 max-w-3xl text-sm leading-relaxed text-[var(--muted-text)]">{a.description}</p>
-                  <span className="mt-2 inline-block text-xs font-bold text-[var(--accent)]">Read →</span>
+                  <span className="mt-2 inline-block text-xs font-bold text-[var(--accent)]">
+                    <span className="hl-link">Read →</span>
+                  </span>
                 </div>
               ))}
             </div>

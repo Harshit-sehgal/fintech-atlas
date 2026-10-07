@@ -78,7 +78,7 @@ export default function RadarActivityPage() {
                   return (
                     <li
                       key={`${event.companyId}-${event.code}-${event.happenedOn}`}
-                      className="rounded-xl border border-[var(--border-color)] bg-[var(--card)] p-4"
+                      className="py-3"
                     >
                       <div className="flex flex-wrap items-center gap-2">
                         {record ? (
@@ -87,15 +87,15 @@ export default function RadarActivityPage() {
                             data-placement="radar-activity-event"
                             className="font-semibold text-[var(--accent)] transition-colors hover:underline"
                           >
-                            {record.name}
+                            <span className="hl-link">{record.name}</span>
                           </Link>
                         ) : (
                           <span className="font-semibold">{event.companyId}</span>
                         )}
-                        <span className="inline-flex w-fit rounded-full border border-[var(--accent)]/30 bg-[var(--accent-glow)] px-2.5 py-0.5 text-xs text-[var(--accent-ink)]">
+                        <span className="inline-flex w-fit rounded-full bg-[var(--accent-glow)] px-2.5 py-0.5 text-xs text-[var(--accent-ink)]">
                           {event.label}
                         </span>
-                        <span className="inline-flex w-fit rounded-full border border-[var(--border-color)] px-2.5 py-0.5 text-xs text-[var(--muted-text)]">
+                        <span className="inline-flex w-fit rounded-full px-2.5 py-0.5 text-xs text-[var(--muted-text)]">
                           {statusWord(event.status)}
                         </span>
                       </div>
@@ -114,7 +114,7 @@ export default function RadarActivityPage() {
         )}
       </section>
 
-      <section className="mt-12 border-t border-[var(--border-color)] pt-6">
+      <section className="mt-12">
         <Link
           href="/radar"
           className="inline-flex items-center gap-1 text-sm text-[var(--muted-text)] transition-colors hover:text-[var(--accent)]"

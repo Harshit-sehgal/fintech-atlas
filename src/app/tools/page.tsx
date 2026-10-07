@@ -6,6 +6,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { pageMetadata } from "@/lib/shared-metadata";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { Highlight, MarkerRule } from "@/components/ui/highlight";
 
 const description =
   "Estimate payment gateway processing costs, compare reference FX scenarios, or build an initial fintech shortlist with our interactive tools.";
@@ -51,7 +52,9 @@ export default function ToolsPage() {
         description="Data-driven tools to help you calculate real costs, compare exchange rates, and choose the right fintech services."
       />
 
-      <div className="mt-12 border-t border-[var(--border-color)]">
+      {/* The tool index — no rules: each entry breathes, the numeral
+          carries the accent, the name sweeps a marker on hover. */}
+      <div className="mt-12">
         {toolsList.map((tool, index) => {
           const accent = TOOL_ACCENTS[tool.id] ?? "var(--tool-acc-calculator)";
           return (
@@ -59,7 +62,7 @@ export default function ToolsPage() {
               key={tool.id}
               href={tool.href}
               style={{ ["--accent"]: accent } as CSSProperties}
-              className="group grid gap-4 border-b border-[var(--border-color)] py-7 transition-colors md:grid-cols-[auto_1fr_auto] md:items-start md:gap-8"
+              className="group grid gap-4 py-7 transition-colors md:grid-cols-[auto_1fr_auto] md:items-start md:gap-8"
             >
               {/* Editorial index numeral instead of an icon — the tool name
                   carries the meaning. Neutral surface; accent lives in the
@@ -74,10 +77,10 @@ export default function ToolsPage() {
 
               <div className="min-w-0">
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                  <h2 className="text-xl font-bold tracking-tight text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
-                    {tool.name}
+                  <h2 className="text-xl font-bold tracking-tight text-[var(--foreground)]">
+                    <span className="hl-link">{tool.name}</span>
                   </h2>
-                  <span className="rounded-full border border-[var(--border-color)] px-2.5 py-0.5 font-mono text-[11px] text-[var(--muted-text)]">
+                  <span className="font-mono text-[11px] text-[var(--muted-text)]">
                     {tool.badge}
                   </span>
                 </div>
@@ -87,7 +90,7 @@ export default function ToolsPage() {
                 <p className="mt-3 max-w-2xl text-xs leading-relaxed text-[var(--muted-text)]">
                   {tool.features.map((feat, i) => (
                     <span key={feat}>
-                      {i > 0 && <span aria-hidden className="px-2 text-[var(--border-strong)]">·</span>}
+                      {i > 0 && <span aria-hidden className="px-2 text-[var(--muted-dim)]">·</span>}
                       {feat}
                     </span>
                   ))}
@@ -95,7 +98,7 @@ export default function ToolsPage() {
               </div>
 
               <span className="inline-flex items-center gap-2 text-sm font-bold text-[var(--accent)] transition-transform group-hover:translate-x-1 md:justify-self-end">
-                <span>Launch</span>
+                <span className="hl-link">Launch</span>
                 <span aria-hidden>→</span>
               </span>
             </Link>
@@ -105,9 +108,12 @@ export default function ToolsPage() {
 
       {/* Services cross-link (plan: internal links from existing pages) */}
       <section aria-labelledby="tools-services-cta" className="mt-10">
-        <div className="flex flex-col items-start justify-between gap-4 border-y border-[var(--border-color)] py-6 sm:flex-row sm:items-center">
+        <MarkerRule color="green" />
+        <div className="flex flex-col items-start justify-between gap-4 pt-6 sm:flex-row sm:items-center">
           <div>
-            <h2 id="tools-services-cta" className="text-base font-bold tracking-tight">Need a human to do the analysis?</h2>
+            <h2 id="tools-services-cta" className="text-base font-bold tracking-tight">
+              Need a human to do the <Highlight color="yellow">analysis</Highlight>?
+            </h2>
             <p className="mt-1 text-sm text-[var(--muted-text)]">
               Gateway selection audits and integration work for Indian businesses — independent of any provider.
             </p>

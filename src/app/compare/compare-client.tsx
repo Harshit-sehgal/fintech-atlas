@@ -13,6 +13,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { IconLink } from "@/components/ui/icons";
+import { Highlight, MarkerRule } from "@/components/ui/highlight";
 import { useToast } from "@/lib/toast-context";
 import { animationPresets as animation } from "@/lib/animation";
 import { DEFAULT_COMPARE_SLUGS, parseCompareSlugs, writeLastCompareSlugs } from "@/lib/compare";
@@ -174,7 +175,8 @@ function CompareContent() {
         description="Pick the decision you are making, then adjust the line-up. Values have different dates and methodologies, so use this as an orientation tool rather than a like-for-like benchmark."
       />
 
-      {/* Scenario router (T105) — the primary entry point */}
+      {/* Scenario router (T105) — the primary entry point.
+          No boxes: each scenario is ink + a marker wash when active. */}
       <section aria-labelledby="scenario-router-heading" className="mt-10">
         <h2 id="scenario-router-heading" className="eyebrow !text-[var(--muted-text)] !tracking-widest">
           What are you deciding?
@@ -187,14 +189,12 @@ function CompareContent() {
                 key={s.id}
                 onClick={() => applyScenario(s.id)}
                 aria-pressed={active}
-                className={`rounded-lg border p-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
-                  active
-                    ? "border-[var(--accent)] bg-[var(--accent-glow)]"
-                    : "border-[var(--border-color)] surface hover:border-[var(--border-strong)]"
+                className={`rounded-sm p-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+                  active ? "bg-[var(--accent-glow)]" : "hover:bg-[var(--surface)]"
                 }`}
               >
-                <span className={`block text-sm font-bold ${active ? "text-[var(--accent)]" : "text-[var(--foreground)]"}`}>
-                  {s.question}
+                <span className={`block text-sm font-bold ${active ? "text-[var(--accent-strong)]" : "text-[var(--foreground)]"}`}>
+                  {active ? <Highlight color="green">{s.question}</Highlight> : <span className="hl-link">{s.question}</span>}
                 </span>
                 <span className="mt-1.5 block text-xs leading-relaxed text-[var(--muted-text)]">
                   {s.description}
@@ -205,22 +205,25 @@ function CompareContent() {
         </div>
       </section>
 
-      {/* Preset benchmarks — secondary quick-starts */}
-      <div className="mt-6 flex flex-wrap items-center gap-2">
+      {/* Preset benchmarks — secondary quick-starts. No pill borders:
+          plain text buttons that sweep a marker on hover. */}
+      <div className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1.5">
         <span className="text-xs font-semibold uppercase tracking-wider text-[var(--muted-text)] mr-2 font-mono">Presets:</span>
         {PRESETS.map((p) => (
           <button
             key={p.name}
             onClick={() => updateUrl([...p.slugs])}
-            className="rounded-full border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3.5 py-1.5 text-xs font-medium text-[var(--foreground)] transition-colors hover:border-[var(--accent)]/40 hover:bg-[var(--subtle-bg)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+            className="rounded-sm px-2 py-1 text-xs font-medium text-[var(--muted-text)] transition-colors hover:text-[var(--foreground)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
           >
-            {p.name}
+            <span className="hl-link">{p.name}</span>
           </button>
         ))}
       </div>
 
-      {/* Selector panel (T108): fuzzy search + category grouping */}
-      <div className="mt-8 border-y border-[var(--border-color)] py-6">
+      {/* Selector panel (T108): fuzzy search + category grouping.
+          No band, no rules — breathing room separates it from the
+          scenario router above. */}
+      <div className="mt-10">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
           <span className="eyebrow !text-[var(--muted-text)] !tracking-widest">
             Select Companies to Compare ({selectedSlugs.length}/3)
@@ -232,7 +235,7 @@ function CompareContent() {
               onChange={(e) => setSelectorQuery(e.target.value)}
               placeholder="Filter companies…"
               aria-label={SELECTOR_SEARCH_LABEL}
-              className="w-full sm:w-56 rounded-lg border border-[var(--border-color)] bg-[var(--background)] px-3 py-2 text-sm outline-none transition-colors placeholder:text-[var(--muted-text)] focus:border-[var(--accent)]"
+              className="w-full sm:w-56 rounded-sm border border-[var(--border-color)] bg-[var(--background)] px-3 py-2 text-sm outline-none transition-colors placeholder:text-[var(--muted-text)] focus:border-[var(--accent)]"
             />
             {selectedSlugs.length > 0 && (
               <button
@@ -252,7 +255,7 @@ function CompareContent() {
         </p>
 
         {selectorGroups.length === 0 ? (
-          <p className="rounded-lg border border-dashed border-[var(--border-color)] p-6 text-center text-sm text-[var(--muted-text)]">
+          <p className="py-6 text-center text-sm text-[var(--muted-text)]">
             No companies match &ldquo;{selectorQuery}&rdquo;.{" "}
             <button
               onClick={() => setSelectorQuery("")}
@@ -279,10 +282,10 @@ function CompareContent() {
                         whileTap={{ scale: 0.98 }}
                         aria-pressed={active}
                         style={{ ["--accent"]: c.accent } as CSSProperties}
-                        className={`relative flex items-center justify-between rounded-lg border p-3 text-left transition-colors overflow-hidden ${
+                        className={`relative flex items-center justify-between rounded-sm p-3 text-left transition-colors overflow-hidden ${
                           active
-                            ? "border-[var(--accent)] bg-[var(--background)]"
-                            : "border-[var(--border-color)] hover:border-[var(--border-strong)] text-[var(--muted-text)] hover:bg-[var(--background)]/40"
+                            ? "bg-[var(--accent-glow)]"
+                            : "text-[var(--muted-text)] hover:bg-[var(--surface)]"
                         }`}
                       >
                         <div className="flex items-center gap-2.5 min-w-0">
@@ -290,7 +293,7 @@ function CompareContent() {
                           <span className="text-xs truncate text-[var(--foreground)]">{c.name}</span>
                         </div>
                         {active && (
-                          <span aria-hidden className="text-xs font-bold text-[var(--accent)]">
+                          <span aria-hidden className="text-xs font-bold text-[var(--accent-strong)]">
                             ✓
                           </span>
                         )}
@@ -315,10 +318,13 @@ function CompareContent() {
             transition={{ duration: 0.4 }}
             className="mt-10"
           >
-            {/* Key differences + verdict (T106/T107) — shown when comparing */}
+            {/* Key differences + verdict (T106/T107) — shown when comparing.
+                No panel: open paper, the heading hand-marked. */}
             {differences.length > 0 && (
-              <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6">
-                <h2 className="text-base font-bold tracking-tight text-[var(--foreground)]">Key differences</h2>
+              <div>
+                <h2 className="text-base font-bold tracking-tight text-[var(--foreground)]">
+                  <Highlight color="yellow">Key differences</Highlight>
+                </h2>
                 <ul className="mt-3 space-y-2">
                   {differences.map((d) => (
                     <li key={d} className="flex gap-2 text-sm leading-relaxed text-[var(--foreground)]">
@@ -328,7 +334,7 @@ function CompareContent() {
                   ))}
                 </ul>
                 {verdicts.length > 0 && (
-                  <div className="mt-5 border-t border-[var(--border-color)] pt-4">
+                  <div className="mt-6">
                     <h3 className="text-sm font-bold text-[var(--foreground)]">Where each option fits</h3>
                     <ul className="mt-2 space-y-2">
                       {verdicts.map((v) => (
@@ -345,11 +351,13 @@ function CompareContent() {
               </div>
             )}
 
-            {/* Desktop table (T109: hidden below md, replaced by stacked cards) */}
-            <div className="mt-6 hidden overflow-hidden border border-[var(--border-color)] md:block">
+            {/* Desktop table (T109: hidden below md, replaced by stacked cards).
+                No boxed shell: the matrix sits on open paper, rows
+                separated by breathing room. */}
+            <div className="mt-8 hidden md:block">
               {/* Header controls inside table */}
-              <div className="flex items-center justify-between border-b border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-6 py-3 text-xs text-[var(--muted-text)]">
-                <span>Orientation Matrix</span>
+              <div className="flex items-center justify-between py-3 text-xs text-[var(--muted-text)]">
+                <span className="font-mono uppercase tracking-wider">Orientation Matrix</span>
                 <button
                   onClick={shareLink}
                   className="flex items-center gap-1.5 btn-ghost text-xs px-3 py-1"
@@ -363,8 +371,8 @@ function CompareContent() {
                 <table className="w-full text-sm">
                   <caption>Comparison of selected companies across decision factors, sources and background</caption>
                   <thead>
-                    <tr className="border-b border-[var(--border-color)] bg-[var(--subtle-bg)]/20">
-                      <th scope="col" className="p-4 text-left text-xs font-bold uppercase tracking-wider text-[var(--muted-text)] w-1/4">
+                    <tr>
+                      <th scope="col" className="p-4 pl-0 text-left text-xs font-bold uppercase tracking-wider text-[var(--muted-text)] w-1/4">
                         Dimension
                       </th>
                       <AnimatePresence initial={false}>
@@ -412,7 +420,7 @@ function CompareContent() {
                       </AnimatePresence>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[var(--border-color)]">
+                  <tbody>
                     {decideRows.map((row) => (
                       <ComparisonRow key={row.id} row={row} companies={selectedCompanies} emphasized={emphasizedRowIds.has(row.id)} />
                     ))}
@@ -420,7 +428,7 @@ function CompareContent() {
                       <ComparisonRow key={row.id} row={row} companies={selectedCompanies} emphasized={false} />
                     ))}
                     <tr>
-                      <th scope="row" className="p-4 text-xs font-bold uppercase tracking-wider text-[var(--muted-text)]">
+                      <th scope="row" className="p-4 pl-0 text-xs font-bold uppercase tracking-wider text-[var(--muted-text)]">
                         Full Profile Link
                       </th>
                       <AnimatePresence initial={false}>
@@ -447,8 +455,8 @@ function CompareContent() {
                   </tbody>
                   {/* Context band (T102) — identity facts, collapsed by default */}
                   <tbody>
-                    <tr className="border-t border-[var(--border-color)] bg-[var(--subtle-bg)]/30">
-                      <td colSpan={selectedCompanies.length + 1} className="px-4 py-2">
+                    <tr>
+                      <td colSpan={selectedCompanies.length + 1} className="px-4 py-2 pl-0">
                         <button
                           onClick={() => setShowContext((v) => !v)}
                           aria-expanded={showContext}
@@ -467,15 +475,17 @@ function CompareContent() {
                 </table>
               </div>
 
-              <p className="border-t border-[var(--border-color)] bg-[var(--subtle-bg)]/30 px-6 py-3 text-[11px] leading-relaxed text-[var(--muted-text)]">
+              <p className="py-3 text-[11px] leading-relaxed text-[var(--muted-text)]">
                 {verificationNote()}
               </p>
             </div>
 
-            {/* Mobile stacked cards (T109): every cell readable without horizontal scroll */}
-            <div className="md:hidden mt-6 space-y-4">
-              <div className="flex items-center justify-between rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/40 px-4 py-2.5 text-xs text-[var(--muted-text)]">
-                <span>Orientation summary</span>
+            {/* Mobile stacked cards (T109): every cell readable without horizontal scroll.
+                No boxes: one open entry per company, separated by
+                a marker stroke. */}
+            <div className="md:hidden mt-8 space-y-10">
+              <div className="flex items-center justify-between py-2.5 text-xs text-[var(--muted-text)]">
+                <span className="font-mono uppercase tracking-wider">Orientation summary</span>
                 <button
                   onClick={shareLink}
                   className="flex items-center gap-1.5 rounded px-2 py-1.5 font-semibold text-[var(--accent)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
@@ -486,8 +496,10 @@ function CompareContent() {
               </div>
 
               {differences.length > 0 && (
-                <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-4 text-sm">
-                  <h2 className="text-sm font-bold text-[var(--foreground)]">Key differences</h2>
+                <div className="text-sm">
+                  <h2 className="text-sm font-bold text-[var(--foreground)]">
+                    <Highlight color="yellow">Key differences</Highlight>
+                  </h2>
                   <ul className="mt-2 space-y-2">
                     {differences.map((d) => (
                       <li key={d} className="leading-relaxed text-[var(--muted-text)]">{d}</li>
@@ -496,13 +508,13 @@ function CompareContent() {
                 </div>
               )}
 
-              {selectedCompanies.map((c) => (
+              {selectedCompanies.map((c, companyIndex) => (
                 <div
                   key={c.slug}
                   style={{ ["--accent"]: c.accent } as CSSProperties}
-                  className="rounded-lg border border-[var(--border-color)] bg-[var(--background)]"
                 >
-                  <div className="flex items-center justify-between gap-3 border-b border-[var(--border-color)] p-4">
+                  {companyIndex > 0 && <MarkerRule className="mb-8" />}
+                  <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0">
                       <CompanyLogo slug={c.slug} name={c.name} size={36} />
                       <div className="min-w-0">
@@ -519,7 +531,7 @@ function CompareContent() {
                       ✕
                     </button>
                   </div>
-                  <dl className="divide-y divide-[var(--border-color)] px-4">
+                  <dl className="mt-2 px-1">
                     {[...decideRows, ...verifyRows].map((row) => (
                       <div key={row.id} className="py-3">
                         <dt className={`text-[10px] uppercase tracking-wider font-mono ${emphasizedRowIds.has(row.id) ? "text-[var(--accent)]" : "text-[var(--muted-text)]"}`}>
@@ -529,11 +541,11 @@ function CompareContent() {
                       </div>
                     ))}
                   </dl>
-                  <details className="border-t border-[var(--border-color)] px-4 py-3">
+                  <details className="px-1 py-3">
                     <summary className="cursor-pointer text-xs font-semibold text-[var(--muted-text)] marker:content-none hover:text-[var(--foreground)] focus-visible:outline-none focus-visible:ring-[var(--ring)] rounded">
                       Company background
                     </summary>
-                    <dl className="mt-2 divide-y divide-[var(--border-color)]">
+                    <dl className="mt-2">
                       {contextRows.map((row) => (
                         <div key={row.id} className="py-2.5">
                           <dt className="text-[10px] uppercase tracking-wider font-mono text-[var(--muted-text)]">{row.label}</dt>
@@ -542,13 +554,13 @@ function CompareContent() {
                       ))}
                     </dl>
                   </details>
-                  <div className="border-t border-[var(--border-color)] p-4">
+                  <div className="flex items-center gap-4 px-1 py-4">
                     <PartnerCta
                       slug={c.slug}
                       placement="compare"
                       label={`Visit ${c.name}`}
                       variant="link"
-                      className="text-xs mr-4"
+                      className="text-xs"
                     />
                     <Link
                       href={`/companies/${c.slug}`}
@@ -570,11 +582,12 @@ function CompareContent() {
             key="empty"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-12 rounded-lg border border-dashed border-[var(--border-color)] p-12 text-center"
+            className="mt-16 py-10 text-center"
           >
-            <p className="text-sm text-[var(--muted-text)]">
+            <p className="mx-auto max-w-md text-sm text-[var(--muted-text)]">
               Pick a scenario above, choose a preset benchmark, or select 1–3 companies below to start comparing.
             </p>
+            <MarkerRule className="mt-8" color="pink" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -599,8 +612,8 @@ function ComparisonRow({
   muted?: boolean;
 }) {
   return (
-    <tr className="hover:bg-[var(--subtle-bg)]/30 transition-colors">
-      <th scope="row" className="p-4 align-top">
+    <tr className="transition-colors">
+      <th scope="row" className="p-4 pl-0 align-top">
         <span className={`block text-xs font-bold uppercase tracking-wider ${emphasized ? "text-[var(--accent)]" : "text-[var(--muted-text)]"} ${muted ? "!font-medium" : ""}`}>
           {emphasized && <span aria-hidden className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-[var(--accent)] align-middle" />}
           {row.label}

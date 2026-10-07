@@ -6,6 +6,7 @@ import { pageMetadata } from "@/lib/shared-metadata";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { Reveal } from "@/components/ui/reveal";
+import { MarkerRule } from "@/components/ui/highlight";
 
 function DirectoryIcon({ tier }: { tier: "curated" | "research" }) {
   return (
@@ -57,10 +58,10 @@ export default async function DirectoryPage() {
       />
 
       <Reveal>
-        <header className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-7">
+        <header>
           <span className="eyebrow">FinTech Atlas directory</span>
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--foreground)]">
-            The FinTech Directory
+            The FinTech <span className="font-serif italic text-[var(--accent)]">Directory</span>
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--muted-text)]">
             Every company on FinTech Atlas lives in one of two tiers. The curated
@@ -71,19 +72,21 @@ export default async function DirectoryPage() {
         </header>
       </Reveal>
 
-      <div className="mt-8 grid border-t border-[var(--border-color)] md:grid-cols-2">
+      <div className="mt-8 grid gap-x-10 gap-y-8 md:grid-cols-2">
         <Reveal delay={0.1}>
           <Link
             href="/companies"
             data-placement="directory-curated"
-            className="group flex h-full flex-col border-b border-[var(--border-color)] py-7 transition-colors md:border-r md:pr-10"
+            className="group flex h-full flex-col py-2 transition-colors"
           >
             <div className="flex items-center gap-3">
               <div className="shrink-0 text-[var(--accent)]">
                 <DirectoryIcon tier="curated" />
               </div>
               <div>
-                <h2 className="text-lg font-bold text-[var(--foreground)]">Curated profiles</h2>
+                <h2 className="text-lg font-bold text-[var(--foreground)]">
+                  <span className="hl-link">Curated profiles</span>
+                </h2>
                 <p className="text-sm text-[var(--muted-text)]">{curatedCount} companies</p>
               </div>
             </div>
@@ -93,7 +96,7 @@ export default async function DirectoryPage() {
               ratings, researched and written by the FinTech Atlas team.
             </p>
             <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-[var(--accent-ink)]">
-              Browse curated profiles <span className="transition-transform group-hover:translate-x-0.5">→</span>
+              <span className="hl-link">Browse curated profiles</span> <span className="transition-transform group-hover:translate-x-0.5">→</span>
             </span>
           </Link>
         </Reveal>
@@ -102,14 +105,16 @@ export default async function DirectoryPage() {
           <Link
             href="/india/directory"
             data-placement="directory-research"
-            className="group flex h-full flex-col border-b border-[var(--border-color)] py-7 transition-colors md:pl-10"
+            className="group flex h-full flex-col py-2 transition-colors"
           >
             <div className="flex items-center gap-3">
               <div className="shrink-0 text-[var(--accent)]">
                 <DirectoryIcon tier="research" />
               </div>
               <div>
-                <h2 className="text-lg font-bold text-[var(--foreground)]">India research directory</h2>
+                <h2 className="text-lg font-bold text-[var(--foreground)]">
+                  <span className="hl-link">India research directory</span>
+                </h2>
                 <p className="text-sm text-[var(--muted-text)]">
                   {indiaDirectorySummaries.length.toLocaleString("en-IN")} companies
                 </p>
@@ -121,15 +126,16 @@ export default async function DirectoryPage() {
               valuation and regulatory licence notes. Searchable and filterable.
             </p>
             <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-[var(--accent-ink)]">
-              Browse research profiles <span className="transition-transform group-hover:translate-x-0.5">→</span>
+              <span className="hl-link">Browse research profiles</span> <span className="transition-transform group-hover:translate-x-0.5">→</span>
             </span>
           </Link>
         </Reveal>
       </div>
 
       <Reveal delay={0.2}>
-        <section className="mt-10 border-t border-[var(--border-color)] pt-6">
-          <h2 className="eyebrow mb-3">Which tier should I use?</h2>
+        <section className="mt-12">
+          <MarkerRule color="green" />
+          <h2 className="eyebrow mb-3 mt-6">Which tier should I use?</h2>
           <ul className="space-y-3 text-sm leading-relaxed text-[var(--muted-text)]">
             <li>
               <span className="font-semibold text-[var(--foreground)]">Compare gateways or services</span>{" "}

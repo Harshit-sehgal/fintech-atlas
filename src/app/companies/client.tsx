@@ -13,6 +13,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Reveal } from "@/components/ui/reveal";
+import { Highlight } from "@/components/ui/highlight";
 import { useBookmarks } from "@/lib/bookmarks-context";
 import { useToast } from "@/lib/toast-context";
 import { formatValuationShort, formatHeadquartersCity, getValuationAmountUsd } from "@/lib/format-company";
@@ -92,15 +93,15 @@ function BoringIndex({ companies }: { companies: readonly CompanySummary[] }) {
         title="No companies matched your criteria."
         description="Try a shorter search term, or clear the filters to see the full directory."
         action={
-          <button
-            onClick={() => {
-              const ev = new CustomEvent("boring-clear-filters");
-              window.dispatchEvent(ev);
-            }}
-            className="rounded border border-[var(--border-strong)] px-4 py-2 text-xs font-semibold text-[var(--foreground)] hover:bg-[var(--subtle-bg)]"
-          >
-            Clear all filters
-          </button>
+            <button
+              onClick={() => {
+                const ev = new CustomEvent("boring-clear-filters");
+                window.dispatchEvent(ev);
+              }}
+              className="btn-ghost rounded-sm px-4 py-2 text-xs"
+            >
+              Clear all filters
+            </button>
         }
       />
     );
@@ -112,9 +113,9 @@ function BoringIndex({ companies }: { companies: readonly CompanySummary[] }) {
         <section key={cat.slug} aria-labelledby={`boring-cat-${cat.slug}`}>
           <h2
             id={`boring-cat-${cat.slug}`}
-            className="flex items-baseline gap-2 border-b-2 border-[var(--foreground)] pb-1 text-sm font-bold uppercase tracking-wider text-[var(--foreground)]"
+            className="flex items-baseline gap-2 pb-1 text-sm font-bold uppercase tracking-wider text-[var(--foreground)]"
           >
-            <span>{categoryNames[cat.slug] ?? cat.name}</span>
+            <span><Highlight color="yellow" animate={false}>{categoryNames[cat.slug] ?? cat.name}</Highlight></span>
             <span className="font-normal text-[var(--muted-text)]">({items.length})</span>
           </h2>
           <ol className="mt-1">
@@ -170,11 +171,11 @@ function Spec({ label, value }: { label: string; value: string }) {
 }
 
 /**
- * Standard directory row — an editorial "ledger" entry rather than a floating
- * card. A hairline rule separates entries; the company name sits in the
- * display serif, a monospace index anchors the list, and a quiet spec table
- * carries the facts. Reveals on scroll; hover only shifts the name to the
- * accent and reveals a "View" cue — no lift, no shadow.
+ * Standard directory row — an editorial "ledger" entry rather than a
+ * floating card. No rules, no side-bars: breathing room separates
+ * entries, the company name sweeps a marker on hover, and a quiet
+ * spec table carries the facts. Reveals on scroll; hover only sweeps
+ * the name — no lift, no shadow.
  */
 function DirectoryRow({
   c,
@@ -191,14 +192,8 @@ function DirectoryRow({
     <Reveal
       as="article"
       y={14}
-      className="group relative border-b border-[var(--border-color)]"
+      className="group relative"
     >
-      {/* Editorial marker rule — draws down from the top on hover, the one
-          bit of motion on the row. No lift, no shadow. */}
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-0 w-0.5 origin-top scale-y-0 bg-[var(--accent)] transition-transform duration-300 ease-out group-hover:scale-y-100"
-      />
       {/* Whole-row navigation link — sibling of the bookmark button. */}
       <Link
         href={`/companies/${c.slug}`}
@@ -222,8 +217,8 @@ function DirectoryRow({
 
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-            <h2 className="font-serif text-lg font-bold leading-tight text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
-              {c.name}
+            <h2 className="font-serif text-lg font-bold leading-tight text-[var(--foreground)]">
+              <span className="hl-link">{c.name}</span>
             </h2>
             <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--muted-text)]">
               {categoryNames[c.categories[0]] ?? c.categories[0]}
@@ -288,9 +283,9 @@ function Spotlight({
 
   return (
     <section aria-label="Editor's spotlight" className="mt-12">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-[var(--border-strong)] pb-2">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h2 className="font-serif text-xl font-bold text-[var(--foreground)]">
-          Editor&rsquo;s spotlight
+          Editor&rsquo;s <Highlight color="green">spotlight</Highlight>
         </h2>
         <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--muted-text)]">
           Our three highest-rated
@@ -298,11 +293,11 @@ function Spotlight({
       </div>
 
       <div className="mt-5 grid gap-8 lg:grid-cols-5">
-        {/* Lead entry — 3-of-5 columns, the visual anchor. No box: a heavy
-            top rule and the serif name carry the emphasis. */}
+        {/* Lead entry — 3-of-5 columns, the visual anchor. No box, no
+            top rule: the hand-marked name carries the emphasis. */}
         <Reveal
           as="article"
-          className="group relative flex flex-col justify-between border-t-2 border-[var(--foreground)] pt-6 lg:col-span-3"
+          className="group relative flex flex-col justify-between lg:col-span-3"
         >
           <Link
             href={`/companies/${lead.slug}`}
@@ -311,20 +306,16 @@ function Spotlight({
           >
             <span className="sr-only">View {lead.name}</span>
           </Link>
-          <span
-            aria-hidden="true"
-            className="absolute left-0 top-0 h-full w-1 origin-top scale-y-0 bg-[var(--accent)] transition-transform duration-300 group-hover:scale-y-100"
-          />
           <div>
-            <div className="flex items-start justify-between gap-4">
+            <div className="flex items-start justify-between gap-4 pr-12">
               <div className="flex items-center gap-4">
                 <CompanyLogo slug={lead.slug} name={lead.name} size={56} />
                 <div>
                   <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--accent-ink)]">
                     {editorialVerdict(lead.rating)}
                   </p>
-                  <h3 className="mt-0.5 font-serif text-2xl font-bold leading-tight text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
-                    {lead.name}
+                  <h3 className="mt-0.5 font-serif text-2xl font-bold leading-tight text-[var(--foreground)]">
+                    <Highlight color="yellow">{lead.name}</Highlight>
                   </h3>
                 </div>
               </div>
@@ -336,7 +327,7 @@ function Spotlight({
               {lead.tagline}
             </p>
             {lead.primaryStrength && (
-              <dl className="mt-5 grid gap-4 border-t border-[var(--border-color)] pt-4 sm:grid-cols-2">
+              <dl className="mt-5 grid gap-4 sm:grid-cols-2">
                 <div>
                   <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-success-text">
                     Where it wins
@@ -356,8 +347,8 @@ function Spotlight({
               </dl>
             )}
           </div>
-          <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--accent)] opacity-0 transition-opacity group-hover:opacity-100">
-            Read the full profile &rarr;
+          <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--accent)]">
+            <span className="hl-link">Read the full profile &rarr;</span>
           </p>
           <button
             onClick={(e) => onToggle(e, lead)}
@@ -372,8 +363,9 @@ function Spotlight({
           </button>
         </Reveal>
 
-        {/* Runners-up — compact stacked entries beside the lead. */}
-        <div className="flex flex-col divide-y divide-[var(--border-color)] border-t border-[var(--border-color)] lg:col-span-2">
+        {/* Runners-up — compact stacked entries beside the lead.
+            No rules: breathing room separates them. */}
+        <div className="flex flex-col lg:col-span-2">
           {runners.map((c) => (
             <Reveal
               as="article"
@@ -388,12 +380,12 @@ function Spotlight({
               >
                 <span className="sr-only">View {c.name}</span>
               </Link>
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center justify-between gap-3 pr-10">
                 <div className="flex min-w-0 items-center gap-3">
                   <CompanyLogo slug={c.slug} name={c.name} size={36} />
                   <div className="min-w-0">
-                    <h3 className="truncate font-serif text-base font-bold leading-tight text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
-                      {c.name}
+                    <h3 className="truncate font-serif text-base font-bold leading-tight text-[var(--foreground)]">
+                      <span className="hl-link">{c.name}</span>
                     </h3>
                     <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--accent-ink)]">
                       {editorialVerdict(c.rating)}
@@ -405,7 +397,7 @@ function Spotlight({
                 </span>
               </div>
               {c.primaryStrength && (
-                <p className="mt-3 border-t border-[var(--border-color)] pt-3 text-sm leading-relaxed text-[var(--muted-text)]">
+                <p className="mt-3 text-sm leading-relaxed text-[var(--muted-text)]">
                   <span className="font-semibold text-[var(--foreground)]">Wins:</span>{" "}
                   {c.primaryStrength}
                 </p>
@@ -640,7 +632,7 @@ export function CompaniesClient() {
 
           <div className="flex flex-wrap items-center gap-3">
             <div
-              className="flex rounded-md border border-[var(--border-strong)] p-0.5"
+              className="flex rounded-sm p-0.5"
               role="group"
               aria-label="Filter by region"
             >
@@ -655,7 +647,7 @@ export function CompaniesClient() {
                   key={value}
                   onClick={() => setRegion(value)}
                   aria-pressed={region === value}
-                  className={`rounded px-2.5 py-1 text-xs font-medium focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+                  className={`rounded-sm px-2.5 py-1 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
                     region === value
                       ? "bg-[var(--foreground)] text-[var(--background)]"
                       : "text-[var(--muted-text)] hover:text-[var(--foreground)]"
@@ -672,7 +664,7 @@ export function CompaniesClient() {
                 aria-label="Sort companies"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as SortOption)}
-                className="rounded-md border border-[var(--border-strong)] bg-[var(--subtle-bg)] px-3 py-2 text-xs font-medium text-[var(--foreground)] outline-none hover:border-[var(--foreground)]"
+                className="rounded-sm bg-[var(--surface)] px-3 py-2 text-xs font-medium text-[var(--foreground)] outline-none"
               >
                 <option value="rating">Rating (Highest)</option>
                 <option value="valuation">Valuation (Highest)</option>
@@ -683,21 +675,11 @@ export function CompaniesClient() {
           </div>
         </div>
 
-        {/* Category Pill Filters
-            Thirteen pills measured 2,404px of content inside a 1,112px row
-            (350px on a phone) with overlay scrollbars, so six of them were
-            invisible on desktop and ten on mobile with no cue that the row
-            scrolled at all. From `md` up (tablet and desktop) there is room to
-            simply show every filter, so the row wraps and nothing is hidden;
-            below that a single scrolling line is the right trade for a phone,
-            but it gets an edge fade so it reads as continuing.
-
-            The row is labelled and rule-separated rather than left as a loose
-            bag of pills floating under the search field: a hairline plus a
-            small-caps label reads as a deliberate filter block, and it states
-            how many categories are actually offered so the wrapping above is
-            self-explanatory. */}
-        <div className="border-t border-[var(--border-color)] pt-4">
+        {/* Category filters. The row is labelled and separated by
+            breathing room rather than a rule: a small-caps label reads
+            as a deliberate filter block, and it states how many
+            categories are actually offered. */}
+        <div className="pt-4">
           <div className="mb-3 flex items-baseline justify-between gap-3">
             <span className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-[var(--muted-text)]">
               Filter by category
@@ -713,10 +695,10 @@ export function CompaniesClient() {
           <button
             onClick={() => setSelectedCategory("all")}
             aria-pressed={selectedCategory === "all"}
-            className={`relative shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-medium focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+            className={`relative shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
               selectedCategory === "all"
-                ? "border-transparent bg-[var(--foreground)] text-[var(--background)]"
-                : "border-[var(--border-strong)] text-[var(--muted-text)] hover:text-[var(--foreground)] hover:border-[var(--foreground)]"
+                ? "bg-[var(--foreground)] text-[var(--background)]"
+                : "text-[var(--muted-text)] hover:text-[var(--foreground)]"
             }`}
           >
             All Companies ({companySummaries.length})
@@ -729,10 +711,10 @@ export function CompaniesClient() {
                 key={cat.slug}
                 onClick={() => setSelectedCategory(cat.slug)}
                 aria-pressed={active}
-                className={`relative shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-medium focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+                className={`relative shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
                   active
-                    ? "border-transparent bg-[var(--foreground)] text-[var(--background)]"
-                    : "border-[var(--border-strong)] text-[var(--muted-text)] hover:text-[var(--foreground)] hover:border-[var(--foreground)]"
+                    ? "bg-[var(--foreground)] text-[var(--background)]"
+                    : "text-[var(--muted-text)] hover:text-[var(--foreground)]"
                 }`}
               >
                 {cat.name} ({count})
@@ -744,7 +726,7 @@ export function CompaniesClient() {
       </div>
 
       {/* Results Header Counter */}
-      <div className="mt-6 flex items-center justify-between gap-3 border-b border-[var(--border-strong)] pb-3 text-xs font-mono text-[var(--muted-text)]">
+      <div className="mt-6 flex items-center justify-between gap-3 pb-1 text-xs font-mono text-[var(--muted-text)]">
         <span aria-live="polite">
           Showing <span className="font-bold text-[var(--foreground)]">{filteredCompanies.length}</span> of{" "}
           {companySummaries.length} companies
@@ -776,7 +758,7 @@ export function CompaniesClient() {
                   setSearch("");
                   setSelectedCategory("all");
                 }}
-                className="rounded-md border border-[var(--border-strong)] px-4 py-2 text-xs font-semibold text-[var(--foreground)] hover:bg-[var(--subtle-bg)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+                className="btn-ghost rounded-sm px-4 py-2 text-xs"
               >
                 Clear all filters
               </button>
@@ -787,7 +769,7 @@ export function CompaniesClient() {
             {/* Editorial lede — a human note, not marketing copy. */}
             <p className="mt-3 max-w-2xl font-serif text-base leading-relaxed text-[var(--muted)]">
               A working index of every payment and fintech provider we cover —
-              ranked by our own editorial rating, never by ad spend. Open a name
+              ranked by our own editorial rating, <Highlight color="green">never by ad spend</Highlight>. Open a name
               for the full, sourced profile.
             </p>
 
@@ -805,17 +787,16 @@ export function CompaniesClient() {
                   <aside className="hidden lg:block w-44 shrink-0">
                     <nav aria-label="Directory sections" className="sticky top-24">
                       <p className="eyebrow mb-3">Sections</p>
-                      <ul className="border-l border-[var(--border-color)]">
+                      <ul>
                         {groupedCompanies.map(({ cat, items }) => (
                           <li key={cat.slug}>
                             <a
                               href={`#cat-${cat.slug}`}
-                              className="block border-l-2 border-l-transparent py-1.5 pl-3 text-sm text-[var(--muted-text)] transition-colors hover:border-l-[var(--accent)] hover:text-[var(--foreground)]"
+                              className="block py-1.5 pl-3 text-sm text-[var(--muted-text)] transition-colors hover:text-[var(--foreground)]"
                             >
-                              <span className="block leading-tight">
-                                {categoryNames[cat.slug] ?? cat.name}
-                              </span>
+                              <span className="hl-link">{categoryNames[cat.slug] ?? cat.name}</span>
                               <span className="font-mono text-[10px]">
+                                {" "}
                                 {items.length}
                               </span>
                             </a>
@@ -834,7 +815,7 @@ export function CompaniesClient() {
                     >
                       <h2
                         id={`cat-${cat.slug}`}
-                        className="flex items-baseline gap-2 border-b border-[var(--border-strong)] pb-2"
+                        className="flex items-baseline gap-2 pb-2"
                       >
                         <span className="font-serif text-base font-bold text-[var(--foreground)]">
                           {categoryNames[cat.slug] ?? cat.name}

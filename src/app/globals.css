@@ -75,7 +75,7 @@
   /* Text hierarchy */
   --fg-dim: #3d3a33;
   --muted: #5c574e;
-  --muted-dim: #a29c90;
+  --muted-dim: #6e6860;
   --muted-text: var(--muted);
 
   /* Accent — deep forest green. Deliberately not the indigo/purple of every
@@ -156,6 +156,10 @@
   --fg-dim: #c9c4b8;
   --muted: #a29c90;
   --muted-text: var(--muted);
+  /* Dimmer accent for decorative numerals; kept light enough to
+     clear AA on the charcoal background (inherited light-theme
+     value is tuned for paper, not for dark). */
+  --muted-dim: #a29c90;
 
   --accent: #6fc39c;
   --accent-strong: #8ad4b2;
@@ -294,23 +298,32 @@ h1, h2, h3 {
   border-bottom: 1px solid var(--border);
 }
 
-/* ── Button system (consistent CTAs across the site) ── */
+/* ── Button system (consistent CTAs across the site) ──
+    No boxes, no pills: both variants are ink + marker. Primary rests on a
+    warm marker wash and sweeps full on hover; ghost starts bare and sweeps
+    on hover. The "filled" moment is a highlighter stroke, not a solid. */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: var(--radius-md);
-  background: var(--foreground);
-  color: var(--background);
-  font-weight: 600;
+  border-radius: 2px;
+  background-color: transparent;
+  background-image: linear-gradient(100deg, var(--hl-yellow-edge), var(--hl-yellow) 25%, var(--hl-yellow) 75%, var(--hl-yellow-edge));
+  background-repeat: no-repeat;
+  background-size: 88% 78%;
+  background-position: 50% 62%;
+  color: var(--foreground);
+  font-weight: 700;
   font-size: 0.875rem;
-  padding: 0.625rem 1.25rem;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  padding: 0.7rem 1.1rem;
+  transition: background-size 0.32s var(--ease-out-expo), color 0.2s ease;
 }
 .btn-primary:hover {
-  background: var(--accent);
-  color: #fff;
+  background-color: transparent;
+  color: var(--foreground);
+  background-size: 100% 88%;
+  transform: none;
 }
 .btn-primary:active { transform: none; }
 .btn-primary:focus-visible {
@@ -323,18 +336,21 @@ h1, h2, h3 {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: var(--radius-md);
+  border-radius: 2px;
   background: transparent;
   color: var(--foreground);
-  border: 1px solid var(--border-strong);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.875rem;
-  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  padding: 0.7rem 1.1rem;
+  background-image: linear-gradient(100deg, var(--hl-yellow-edge), var(--hl-yellow) 25%, var(--hl-yellow) 75%, var(--hl-yellow-edge));
+  background-repeat: no-repeat;
+  background-size: 0% 72%;
+  background-position: 50% 62%;
+  transition: background-size 0.32s var(--ease-out-expo), color 0.2s ease;
 }
 .btn-ghost:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--surface);
+  color: var(--foreground);
+  background-size: 100% 72%;
 }
 .btn-ghost:focus-visible {
   outline: none;
@@ -345,24 +361,23 @@ h1, h2, h3 {
   width: 36px;
   height: 36px;
   padding: 0;
-  border-radius: var(--radius-md);
+  border-radius: 999px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: transparent;
   color: var(--foreground);
-  border: 1px solid var(--border);
+  border: none;
   /* The box is a fixed 36px. Without clipping, any child wider than that
      paints outside the button and intercepts pointer events from whatever
      sits next to it in the row — an icon-label overflow once made the theme
      toggle unclickable at 1280px. Clip so a control can never reach outside
      its own hit area. */
   overflow: hidden;
-  transition: border-color 0.2s ease, background 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 .btn-icon:hover {
-  border-color: var(--border-strong);
-  background: var(--subtle-bg);
+  background: var(--surface);
 }
 .btn-icon:focus-visible {
   outline: none;
@@ -412,16 +427,419 @@ h1, h2, h3 {
   font-size: 0.8125rem;
 }
 
+/* ── Site-wide unboxing — the "no boxes, no lines" redesign ──
+   Every inner page still carries `rounded-*` + `border-*` + card-fill
+   utilities from the old ruled-document language (compare cards, tool
+   panels, article rows, directory pills, radar filters, skeleton cards...).
+   Rather than hand-editing ~60 files, neutralise the language at the token +
+   utility layer so depth comes from spacing + highlighter emphasis instead:
+
+   1. Border tokens go transparent on flat paper: any
+      `border-[var(--border-color)]` or `border-[var(--border-strong)]`
+      utility resolves to no visible line, in both themes.
+   2. `divide-*` utilities (divide-[var(--border-color)]) go transparent too.
+   3. Flat-paper card/panel fills (`bg-[var(--card)]`,
+      `bg-[var(--subtle-bg)]`) flatten to the page background so panels stop
+      reading as boxes.
+   4. `rounded-*` box radii flatten site-wide to near-square: nothing reads
+      as a pill, chip, or floating card. Form fields keep a quiet surface so
+      they stay recognisable + tappable. Focus rings are untouched.
+   5. Floating overlays (header dropdown, command palette, error fallback)
+      KEEP a solid reading surface — no border, no shadow, no rounding —
+      so text stays legible over page content.
+
+   Boring mode + reduced-motion keep their existing guarantees below. */
+:root {
+  --border: transparent;
+  --border-strong: transparent;
+  --border-color: transparent;
+  --card: var(--background);
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+  --radius-2xl: 2px;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-xl: none;
+  --shadow-2xl: none;
+}
+:root[data-theme="dark"] {
+  --border: transparent;
+  --border-strong: transparent;
+  --border-color: transparent;
+  --card: var(--background);
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-xl: none;
+  --shadow-2xl: none;
+}
+
+/* Belt-and-braces: catch hardcoded `border` color utilities Tailwind may
+   have generated from the old tokens (e.g. `border-[var(--border)]`),
+   plus the ink/accent rules the older pages drew by hand
+   (`border-[var(--foreground)]`, the 2px editorial rules). No page
+   draws a line: structure is spacing + highlighter emphasis. */
+[class*="border-[var(--border"],
+[class*="divide-[var(--border"],
+[class*="border-[var(--accent)"],
+[class*="border-[var(--foreground)"],
+[class*="border-[var(--border-strong)"],
+[class*="border-b-2"],
+[class*="border-t-2"],
+[class*="border-l-2"],
+[class*="border-r-2"],
+[class*="border-x-2"],
+[class*="border-y-2"] {
+  border-color: transparent !important;
+}
+[class*="divide-[var(--border"] > * {
+  border-color: transparent !important;
+}
+
+/* Flatten flat-paper panel fills that used to read as boxes. Floating
+   overlays keep their solid reading surface (see `.overlay-paper`). */
+[class*="bg-[var(--card)]"]:not(.overlay-paper):not(.overlay-paper *),
+[class*="bg-[var(--subtle-bg)]"]:not(.overlay-paper):not(.overlay-paper *) {
+  background-color: transparent !important;
+}
+
+/* Floating overlays: solid paper, no border, no shadow, no rounding — the
+   only "containers" left, kept purely for legibility over content. */
+.overlay-paper,
+header .absolute[class*="bg-[var(--card)]"],
+[role="dialog"][class*="bg-[var(--background)]"],
+[role="alert"][class*="bg-[var(--card)]"] {
+  background-color: var(--background) !important;
+  border-color: transparent !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+}
+
+/* Un-pill every box radius: pills, chips, cards, fields all sit near-square
+   so the only "highlight" language left is the marker wash. */
+[class*="rounded-full"],
+[class*="rounded-2xl"],
+[class*="rounded-xl"],
+[class*="rounded-lg"],
+[class*="rounded-md"],
+[class*="rounded-sm"],
+[class*="rounded-["] {
+  border-radius: 2px !important;
+}
+
+/* No floating cards: drop utility shadows + card-glow borders entirely. */
+[class*="shadow-"],
+.card-glow,
+.card-glow:hover {
+  box-shadow: none !important;
+}
+.card-glow {
+  border-color: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Flatten the remaining surface tints that read as boxes: neutral pills,
+   chips, and translucent washes dissolve into plain paper — except inside
+   floating overlays, which keep a solid reading surface. Highlighter
+   fills (`bg-[var(--accent-glow)]`, success/warning danger tints) survive —
+   they are the marker language, not boxes. */
+[class*="bg-[var(--surface)]"]:not(.overlay-paper):not(.overlay-paper *),
+[class*="bg-[var(--surface-raised)]"]:not(.overlay-paper):not(.overlay-paper *),
+[class*="bg-[var(--muted-bg)]"]:not(.overlay-paper):not(.overlay-paper *),
+[class*="bg-[var(--border-color)]"]:not(.overlay-paper):not(.overlay-paper *),
+[class*="hover:bg-[var(--subtle-bg)]"] {
+  background-color: transparent !important;
+}
+
+/* `border` (no color suffix) utilities still draw 1px currentColor rules in
+   a few places (category pills, table shells). Collapse them too — spacing +
+   marker emphasis carries the structure now. */
+[class*="rounded-full border"],
+[class*="rounded-lg border"],
+[class*="rounded-xl border"],
+[class*="rounded-md border"],
+[class*="border border-[var"] {
+  border-color: transparent !important;
+}
+
+/* Form fields keep a quiet surface so they remain recognisable + tappable. */
+input:not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+  background-color: var(--surface) !important;
+  border-color: transparent !important;
+  border-radius: 2px !important;
+}
+input:not([type="checkbox"]):not([type="radio"]):focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent) !important;
+}
+
+/* Brand tiles + interactive thumb/indicator dots keep their shape: flattening
+   `rounded-full` above must not turn notification counts, progress knobs, or
+   logo chips into squares. Art-directed logo tiles (company-logo.tsx) keep
+   their inline radius — no override here. */
+[class*="min-w-4"],
+[class*="min-w-3.5"],
+[class*="h-1.5 w-1.5"],
+[class*="h-2 w-2"],
+[class*="h-3.5"],
+[class*="overflow-hidden rounded-full"],
+[class*="rounded-full bg-[var(--border"],
+[class*="rounded-full bg-[var(--accent)"],
+[class*="rounded-full bg-[var(--success)"] {
+  border-radius: 999px !important;
+}
+
+/* Table + list rules dissolve into whitespace. */
+table [class*="border-"],
+ul[class*="border-"],
+ol[class*="border-"] {
+  border-color: transparent !important;
+}
+
+
+/* Highlighter respects calm modes: boring = plain ink, no marker wash;
+   reduced-motion = marks just appear, no sweep. */
+:root[data-ui-mode="boring"] .hl,
+:root[data-ui-mode="boring"] .hl-link {
+  background-image: none !important;
+}
+:root[data-ui-mode="boring"] .marker-rule {
+  background-image: none !important;
+  background: #111 !important;
+  height: 1px;
+  opacity: 1;
+}
+:root[data-ui-mode="boring"] .hl-animate {
+  animation: none !important;
+  transition: none !important;
+  background-size: 100% 82%, 100% 94% !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hl-animate {
+    animation: none;
+    background-size: 100% 82%, 100% 94%;
+  }
+  .hl-link {
+    transition: none;
+  }
+}
 
 /* ── Row interaction (kept under the old `card-glow` name) ──
-   No lift, no shadow, no tinted fill: an interactive row simply darkens its
-   rule and its title on hover (the `group-hover` colour shifts live in the
-   markup). This keeps the page flat and document-like. */
+   No lift, no shadow, no tinted fill: an interactive row simply sweeps a
+   marker behind its title on hover (the `hl-link` span lives in the markup).
+   This keeps the page flat, warm, and hand-marked. */
 .card-glow {
   transition: border-color 0.24s ease, background-color 0.24s ease;
 }
 .card-glow:hover {
   border-color: color-mix(in oklab, var(--foreground) 28%, var(--border-strong));
+}
+
+/* ── Highlighter system — hand-marked emphasis, zero boxes or rules ──
+   Warm marker swipes on warm paper. The mark sits *behind* the ink
+   (background layer) with soft feathered edges and a fainter second
+   pass at a slightly different angle, like a real highlighter drawn
+   twice. Three tints:
+      yellow — default, warm butter (#ffe58a family)
+      green  — forest-tinted wash, for money/verified moments
+      pink   — soft rose, for warnings / second emphasis
+   Light theme only: dark paper drops the wash (see the dark
+   overrides after .hl-link) and emphasises with ink + colour. */
+:root {
+  --hl-yellow: rgba(255, 214, 64, 0.55);
+  --hl-yellow-edge: rgba(255, 214, 64, 0.28);
+  --hl-green: rgba(46, 160, 100, 0.28);
+  --hl-green-edge: rgba(46, 160, 100, 0.14);
+  --hl-pink: rgba(244, 114, 182, 0.30);
+  --hl-pink-edge: rgba(244, 114, 182, 0.14);
+  --hl-skew: -1.2deg;
+}
+:root[data-theme="dark"] {
+  --hl-yellow: rgba(255, 205, 60, 0.38);
+  --hl-yellow-edge: rgba(255, 205, 60, 0.16);
+  --hl-green: rgba(74, 200, 130, 0.30);
+  --hl-green-edge: rgba(74, 200, 130, 0.14);
+  --hl-pink: rgba(244, 114, 182, 0.32);
+  --hl-pink-edge: rgba(244, 114, 182, 0.14);
+}
+
+.hl {
+  position: relative;
+  display: inline;
+  padding: 0 0.18em;
+  margin: 0 -0.06em;
+  white-space: normal;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  background-repeat: no-repeat;
+  background-size: 100% 82%, 100% 94%;
+  background-position: 0 58%, 0 50%;
+  border-radius: 2px;
+}
+.hl-yellow, .hl.hl-yellow {
+  background-image:
+    linear-gradient(
+      100deg,
+      var(--hl-yellow-edge) 0%,
+      var(--hl-yellow) 4%,
+      var(--hl-yellow) 91%,
+      var(--hl-yellow-edge) 100%
+    ),
+    linear-gradient(
+      97deg,
+      transparent 0%,
+      var(--hl-yellow-edge) 38%,
+      transparent 66%
+    );
+}
+.hl-green, .hl.hl-green {
+  background-image:
+    linear-gradient(
+      100deg,
+      var(--hl-green-edge) 0%,
+      var(--hl-green) 4%,
+      var(--hl-green) 91%,
+      var(--hl-green-edge) 100%
+    ),
+    linear-gradient(
+      97deg,
+      transparent 0%,
+      var(--hl-green-edge) 38%,
+      transparent 66%
+    );
+}
+.hl-pink, .hl.hl-pink {
+  background-image:
+    linear-gradient(
+      100deg,
+      var(--hl-pink-edge) 0%,
+      var(--hl-pink) 4%,
+      var(--hl-pink) 91%,
+      var(--hl-pink-edge) 100%
+    ),
+    linear-gradient(
+      97deg,
+      transparent 0%,
+      var(--hl-pink-edge) 38%,
+      transparent 66%
+    );
+}
+/* Animated sweep: the marker draws left→right when scrolled into view,
+   with a slight overshoot at the end so it reads as a hand swipe that
+   settles, not a mechanical wipe. Two layers sweep together. */
+.hl-animate {
+  background-size: 0% 82%, 0% 94%;
+}
+.hl-animate.is-inview {
+  animation: hl-sweep 0.75s var(--ease-out-expo) both;
+}
+@keyframes hl-sweep {
+  0%   { background-size: 0% 82%, 0% 94%; }
+  62%  { background-size: 103% 82%, 106% 94%; }
+  100% { background-size: 100% 82%, 102% 94%; }
+}
+
+/* Hand-drawn divider: one slightly-wobbly marker stroke. Replaces border-t rules. */
+.marker-rule {
+  display: block;
+  height: 8px;
+  width: min(220px, 60%);
+  margin-inline: auto;
+  border-radius: 999px;
+  opacity: 0.85;
+  /* wobble via layered radii + gradient stops, not an image asset */
+  background-image: linear-gradient(100deg, var(--hl-yellow-edge), var(--hl-yellow) 30%, var(--hl-yellow) 70%, var(--hl-yellow-edge));
+  transform: rotate(-0.6deg);
+}
+.marker-rule-green {
+  background-image: linear-gradient(100deg, var(--hl-green-edge), var(--hl-green) 30%, var(--hl-green) 70%, var(--hl-green-edge));
+}
+.marker-rule-pink {
+  background-image: linear-gradient(100deg, var(--hl-pink-edge), var(--hl-pink) 30%, var(--hl-pink) 70%, var(--hl-pink-edge));
+}
+
+/* Marker link: text links get a marker swipe on hover instead of an underline shift. */
+.hl-link {
+  background-image: linear-gradient(100deg, var(--hl-yellow-edge), var(--hl-yellow) 25%, var(--hl-yellow) 75%, var(--hl-yellow-edge));
+  background-repeat: no-repeat;
+  background-size: 0% 76%;
+  background-position: 0 62%;
+  transition: background-size 0.32s var(--ease-out-expo);
+  padding: 0 0.12em;
+  margin: 0 -0.04em;
+  border-radius: 2px;
+}
+a:hover > .hl-link, a:hover.hl-link, .hl-link:hover,
+.group:hover .hl-link {
+  background-size: 100% 76%;
+}
+
+/* ── Dark theme: no marker wash ──
+   Light ink over a translucent warm mark washes out and reads
+   as a smudge, so the highlighter language is light-theme only.
+   Emphasis falls back to ink + semantic colour (green/pink keep
+   their meaning), and the hand-drawn divider dissolves into the
+   whitespace that carries structure on dark paper. */
+:root[data-theme="dark"] .hl,
+:root[data-theme="dark"] .hl-yellow,
+:root[data-theme="dark"] .hl.hl-yellow,
+:root[data-theme="dark"] .hl-green,
+:root[data-theme="dark"] .hl.hl-green,
+:root[data-theme="dark"] .hl-pink,
+:root[data-theme="dark"] .hl.hl-pink {
+  background-image: none;
+  background-color: transparent;
+}
+:root[data-theme="dark"] .hl-green,
+:root[data-theme="dark"] .hl.hl-green {
+  color: var(--success-text);
+}
+:root[data-theme="dark"] .hl-pink,
+:root[data-theme="dark"] .hl.hl-pink {
+  color: var(--danger-text);
+}
+:root[data-theme="dark"] .hl-animate {
+  animation: none;
+  background-size: 100% 82%, 100% 94%;
+}
+:root[data-theme="dark"] .hl-link {
+  background-image: none;
+  transition: color 0.2s ease;
+}
+:root[data-theme="dark"] a:hover > .hl-link,
+:root[data-theme="dark"] a:hover.hl-link,
+:root[data-theme="dark"] .hl-link:hover,
+:root[data-theme="dark"] .group:hover .hl-link {
+  color: var(--accent);
+}
+:root[data-theme="dark"] .marker-rule {
+  display: none;
+}
+/* The small accent-tint chips (licence/status/event pills) are
+   highlighter fills too — on dark paper they dissolve to plain
+   ink-coloured text, same as every other marker. */
+:root[data-theme="dark"] [class*="bg-[var(--accent-glow)]"] {
+  background-color: transparent !important;
+}
+/* Buttons carry the same marker wash in light theme; on dark paper
+   that wash is the leftover highlighter slop, so the filled moment
+   becomes plain ink + a quiet surface on hover instead. */
+:root[data-theme="dark"] .btn-primary,
+:root[data-theme="dark"] .btn-ghost {
+  background-image: none;
+  background-color: transparent;
+}
+:root[data-theme="dark"] .btn-primary:hover,
+:root[data-theme="dark"] .btn-ghost:hover {
+  background-image: none;
+  background-color: var(--surface);
+  background-size: 0% 0%;
 }
 
 /* ── Selection ── */

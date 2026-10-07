@@ -24,13 +24,13 @@ const aboutLinks = footerAboutLinks;
 
 export function SiteFooter() {
   return (
-    <footer id="footer" className="relative mt-24 border-t border-[var(--border-color)] bg-[var(--subtle-bg)]/50 overflow-hidden">
+    <footer id="footer" className="relative mt-24 overflow-hidden">
       <div className="mx-auto max-w-6xl px-5 py-14">
         <div className="grid gap-10 md:grid-cols-4">
           {/* Brand block */}
           <div className="md:col-span-1 space-y-4">
             <Link href="/" className="group inline-flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--foreground)] text-[var(--background)] ">
+              <span className="flex h-9 w-9 items-center justify-center text-[var(--foreground)]">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                   <path d="M2 3.5h12M2 8h12M2 12.5h7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
                 </svg>
@@ -70,12 +70,12 @@ export function SiteFooter() {
         </div>
 
         {/* Bottom strip */}
-        <div className="mt-12 flex flex-col gap-3 border-t border-[var(--border-color)] pt-6 text-xs text-[var(--muted-text)] sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-3 pt-2 text-xs text-[var(--muted-text)] sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} FinTech Atlas. Educational directory & decision suite.</p>
           <p>
             Data compiled from public reference labels and editorial research. See{" "}
-            <Link className="text-[var(--foreground)] underline decoration-[var(--accent)]/40 underline-offset-4 hover:decoration-[var(--accent)]" href="/about">
-              methodology &amp; sources
+            <Link className="text-[var(--foreground)]" href="/about">
+              <span className="hl-link">methodology &amp; sources</span>
             </Link>
             .
           </p>
@@ -99,7 +99,7 @@ function FooterColumn({
         {links.map((l) => {
           const external = l.href.startsWith("http");
           const className =
-            "inline-flex items-center gap-1.5 text-[var(--foreground)]/85 transition-colors hover:text-[var(--accent)] group";
+            "group";
           return (
             <li key={l.href}>
               {external ? (
@@ -109,23 +109,11 @@ function FooterColumn({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span>{l.label}</span>
-                  <span
-                    aria-hidden
-                    className="opacity-0 transition-opacity duration-150 group-hover:opacity-100 text-[var(--accent)]"
-                  >
-                    →
-                  </span>
+                  <span className="hl-link text-[var(--foreground)]/85">{l.label}</span>
                 </a>
               ) : (
                 <Link className={className} href={l.href}>
-                  <span>{l.label}</span>
-                  <span
-                    aria-hidden
-                    className="opacity-0 transition-opacity duration-150 group-hover:opacity-100 text-[var(--accent)]"
-                  >
-                    →
-                  </span>
+                  <span className="hl-link text-[var(--foreground)]/85">{l.label}</span>
                 </Link>
               )}
             </li>

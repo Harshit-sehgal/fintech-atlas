@@ -10,10 +10,12 @@ const icons: Record<string, string> = {
 export function CategoryIcon({ icon, size = 40, color }: { icon: string; size?: number; color?: string }) {
   const svg = icons[icon];
   if (!svg) return null;
+  // No tile, no border: the glyph sits directly on paper in its brand ink
+  // (or the page foreground), matching the highlighter language.
   return (
     <span
-      className={`inline-flex items-center justify-center rounded-lg surface ${color ? '' : 'border'}`}
-      style={{ width: size, height: size, backgroundColor: color ? `${color}10` : undefined, color: color }}
+      className="inline-flex items-center justify-center"
+      style={{ width: size, height: size, color: color ?? "var(--foreground)" }}
       dangerouslySetInnerHTML={{
         __html: `<svg width="${size}" height="${size}" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">${svg}</svg>`,
       }}

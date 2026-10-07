@@ -91,7 +91,7 @@ export function GlossaryToolbar({
         )}
       </div>
 
-      <div className="flex flex-wrap items-center gap-1.5 pt-2 border-b border-[var(--border-color)] pb-4">
+      <div className="flex flex-wrap items-center gap-1.5 pt-2 pb-4">
         {LETTERS.map((letter) => {
           const hasTerms =
             letter === "ALL" || availableLetters.includes(letter);
@@ -110,7 +110,7 @@ export function GlossaryToolbar({
                   ? "text-[var(--background)]"
                   : hasTerms
                     ? "text-[var(--foreground)] hover:bg-[var(--subtle-bg)] focus-visible:bg-[var(--subtle-bg)]"
-                    : "text-[var(--border-color)] cursor-not-allowed opacity-60"
+                    : "text-[var(--muted-text)] cursor-not-allowed opacity-60"
               }`}
             >
               {active && (

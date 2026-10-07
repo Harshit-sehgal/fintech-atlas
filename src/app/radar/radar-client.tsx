@@ -670,11 +670,11 @@ export function RadarClient() {
               const founded = radarFoundedYears[index];
               const funding = formatFunding(radarFundingUsdM[index]);
               return (
-                <li key={summary.slug}>
+                <li key={summary.slug} className="flex flex-col">
                   <Link
                     href={`/india/directory/${summary.slug}`}
                     data-placement="radar-result"
-                    className="flex h-full flex-col gap-2 border-b border-[var(--border-color)] py-4 pr-6 transition-colors hover:bg-[var(--subtle-bg)]/40"
+                    className="flex flex-1 flex-col gap-2 border-b border-[var(--border-color)] py-4 pr-6 transition-colors hover:bg-[var(--subtle-bg)]/40"
                   >
                     <span className="font-semibold text-[var(--foreground)]">
                       {summary.name}

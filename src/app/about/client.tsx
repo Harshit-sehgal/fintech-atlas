@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { IconBook, IconChart, IconShield } from "@/components/ui/icons";
+import { Highlight, MarkerRule } from "@/components/ui/highlight";
 import { DATA_AS_OF } from "@/lib/site-config";
 
 const faqs = [
@@ -54,17 +55,19 @@ export function AboutClient() {
 
       {/* Purpose & Mission */}
       <Reveal delay={0.1}>
-        <section className="mt-10 space-y-6 text-sm leading-relaxed text-[var(--muted-text)]">
-          <div className="border-t border-[var(--border-color)] pt-6 space-y-3">
-            <h2 className="text-lg font-bold text-[var(--foreground)]">Our Mission</h2>
+        <section className="mt-10 space-y-8 text-sm leading-relaxed text-[var(--muted-text)]">
+          <div className="space-y-3">
+            <h2 className="text-lg font-bold text-[var(--foreground)]">
+              Our <Highlight color="yellow">Mission</Highlight>
+            </h2>
             <p className="text-[var(--foreground)]">
-              FinTech Atlas was created to demystify financial software. Financial technology can often feel shrouded in jargon, hidden FX markups, and complex API pricing. We build transparent calculators, plain-language guides, and objective benchmarks so consumers, developers, and founders can make informed decisions.
+              FinTech Atlas was created to demystify financial software. Financial technology can often feel shrouded in jargon, <Highlight color="green">hidden FX markups</Highlight>, and complex API pricing. We build transparent calculators, plain-language guides, and objective benchmarks so consumers, developers, and founders can make informed decisions.
             </p>
           </div>
 
           <div>
-            <h2 id="methodology" className="eyebrow !text-[var(--muted-text)] !tracking-widest border-b border-[var(--border-color)] pb-2 pt-4 text-lg font-bold text-[var(--foreground)]">
-              Data Sources & Synthesizing Methodology
+            <h2 id="methodology" className="eyebrow !text-[var(--muted-text)] !tracking-widest pt-4 text-lg font-bold text-[var(--foreground)]">
+              Data Sources &amp; Synthesizing Methodology
             </h2>
             <p className="mt-3">The information across our company profiles, tool calculators, and glossary is compiled from:</p>
             <ul className="mt-4 grid gap-x-6 sm:grid-cols-2">
@@ -78,7 +81,7 @@ export function AboutClient() {
                 "Review platforms such as Trustpilot, App Store, and G2 (where referenced)",
                 "Community discussions used as editorial context, where referenced",
               ].map((src) => (
-                <li key={src} className="flex items-start gap-2 border-b border-[var(--border-color)] py-2.5">
+                <li key={src} className="flex items-start gap-2 py-2.5">
                   <span className="font-bold text-success-text">✓</span>
                   <span className="text-sm text-[var(--foreground)]">{src}</span>
                 </li>
@@ -88,18 +91,20 @@ export function AboutClient() {
 
           {/* Guarantees */}
           <div>
-            <h2 className="eyebrow !text-[var(--muted-text)] !tracking-widest border-b border-[var(--border-color)] pb-2 pt-6 text-lg font-bold text-[var(--foreground)]">
+            <h2 className="eyebrow !text-[var(--muted-text)] !tracking-widest pt-6 text-lg font-bold text-[var(--foreground)]">
               Our Guarantees
             </h2>
-            <div className="mt-2 grid sm:grid-cols-3">
+            <div className="mt-2 grid gap-y-6 sm:grid-cols-3 sm:gap-x-8">
               {[
                 { icon: <IconShield size={18} />, title: "No Paid Bias", desc: "No company can pay to rank higher or receive a positive review." },
                 { icon: <IconChart size={18} />, title: "Transparent Math", desc: "Our fee calculators show raw mathematical breakdowns with no hidden numbers." },
                 { icon: <IconBook size={18} />, title: "No Jargon", desc: "Every complex financial term has interactive glossary cross-references." },
-              ].map((g, i) => (
-                <div key={g.title} className={`border-b border-[var(--border-color)] py-5 ${i < 2 ? "sm:border-r sm:pr-6" : ""} ${i > 0 ? "sm:pl-6" : ""}`}>
+              ].map((g) => (
+                <div key={g.title}>
                   <span className="text-[var(--accent)]">{g.icon}</span>
-                  <h3 className="mt-3 text-sm font-bold text-[var(--foreground)]">{g.title}</h3>
+                  <h3 className="mt-3 text-sm font-bold text-[var(--foreground)]">
+                    <Highlight color="yellow">{g.title}</Highlight>
+                  </h3>
                   <p className="mt-1 text-sm leading-relaxed text-[var(--muted-text)]">{g.desc}</p>
                 </div>
               ))}
@@ -111,17 +116,17 @@ export function AboutClient() {
       {/* FAQ Accordion */}
       <Reveal delay={0.2}>
         <section className="mt-16 space-y-4" id="faq">
-          <h2 className="text-xl font-bold tracking-tight border-b border-[var(--border-color)] pb-3">
-            Frequently Asked Questions
+          <h2 className="text-xl font-bold tracking-tight">
+            Frequently Asked <Highlight color="green">Questions</Highlight>
           </h2>
 
-          <div className="border-t border-[var(--border-color)]">
+          <div>
             {faqs.map((faq, idx) => {
               const isOpen = openFaq === idx;
               return (
                 <div
                   key={faq.q}
-                  className="border-b border-[var(--border-color)] transition-colors"
+                  className="transition-colors"
                 >
                   <button
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
@@ -166,7 +171,7 @@ export function AboutClient() {
 
       {/* Feedback status */}
       <Reveal delay={0.25}>
-        <section className="mt-16 border-t border-[var(--border-color)] pt-6">
+        <section className="mt-16 pt-6">
           <h2 id="feedback" className="text-lg font-bold text-[var(--foreground)]">Have Feedback or Suggestions?</h2>
           <p className="mt-1 max-w-3xl text-sm leading-relaxed text-[var(--muted-text)]">
             This is a static demo with no in-app contact form. Please open a GitHub issue for product
@@ -186,7 +191,8 @@ export function AboutClient() {
 
       {/* Disclaimer */}
       <Reveal delay={0.3}>
-        <section className="mt-16 text-xs text-[var(--muted-text)] border-t border-[var(--border-color)] pt-6 space-y-2" id="disclaimer">
+        <section className="mt-16 text-xs text-[var(--muted-text)] pt-6 space-y-2" id="disclaimer">
+          <MarkerRule color="pink" />
           <h3 className="font-bold text-[var(--foreground)] uppercase tracking-wider font-mono">Educational Disclaimer</h3>
           <p>
             FinTech Atlas is an educational resource. All logos and product names are trademarks of their respective owners. Information reported is based on data as of {DATA_AS_OF}. Always verify directly with official product documentation before making financial or engineering decisions.

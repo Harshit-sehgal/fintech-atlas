@@ -14,6 +14,7 @@ import {
   shareOrCopy,
 } from "@/lib/share";
 import { useToast } from "@/lib/toast-context";
+import { Highlight } from "@/components/ui/highlight";
 
 /**
  * Exchange-rate markup calculator client island.
@@ -134,9 +135,11 @@ export function MarkupCalculatorClient() {
       : "How many rupees are being converted to USD.";
 
   return (
-    <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6 md:p-8">
+    <div>
       <div className="flex flex-wrap items-start justify-between gap-3">
-        <h2 className="text-lg font-bold text-[var(--foreground)]">Measure the rate markup</h2>
+        <h2 className="text-lg font-bold text-[var(--foreground)]">
+          Measure the <Highlight color="yellow">rate markup</Highlight>
+        </h2>
         <div className="flex gap-2 print:hidden">
           <button type="button" onClick={handleShare} className="btn-ghost text-xs px-3 py-1.5" disabled={!hydrated}>
             Share link
@@ -150,7 +153,7 @@ export function MarkupCalculatorClient() {
         </div>
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+      <div className="mt-6 grid gap-8 lg:grid-cols-2">
         {/* Inputs */}
         <div className="space-y-5">
           <div>
@@ -172,13 +175,13 @@ export function MarkupCalculatorClient() {
                     role="radio"
                     aria-checked={active}
                     onClick={() => setState((prev) => ({ ...prev, direction: option.value }))}
-                    className={`rounded-lg border px-3 py-2 text-left transition-colors ${
+                    className={`rounded-sm px-3 py-2 text-left transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
                       active
-                        ? "border-[var(--accent)] bg-[var(--accent)]/10"
-                        : "border-[var(--border-color)] hover:border-[var(--foreground)]"
+                        ? "bg-[var(--accent-glow)]"
+                        : "text-[var(--muted-text)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]"
                     }`}
                   >
-                    <span className={`block text-xs font-semibold ${active ? "text-[var(--foreground)]" : "text-[var(--muted-text)]"}`}>
+                    <span className={`block text-xs font-semibold ${active ? "text-[var(--accent-strong)]" : ""}`}>
                       {option.label}
                     </span>
                     <span className="block text-[10px] text-[var(--muted-text)]">{option.sub}</span>
@@ -245,8 +248,8 @@ export function MarkupCalculatorClient() {
           </div>
         </div>
 
-        {/* Results */}
-        <div className="rounded-xl border border-[var(--border-color)] bg-[var(--surface)] p-5">
+        {/* Results — open paper; the big number does the talking */}
+        <div>
           <div className="flex items-baseline justify-between">
             <span className="text-xs font-bold uppercase tracking-wider text-[var(--muted-text)]">Markup vs mid-market</span>
             <span
@@ -254,7 +257,7 @@ export function MarkupCalculatorClient() {
                 result.worseThanMid ? "text-[var(--danger, #ef4444)]" : "text-[var(--accent)]"
               }`}
             >
-              {result.markupPercent.toFixed(2)}%
+              <Highlight color={result.worseThanMid ? "pink" : "green"}>{result.markupPercent.toFixed(2)}%</Highlight>
             </span>
           </div>
           <p className="mt-2 text-[11px] leading-relaxed text-[var(--muted-text)]">
@@ -266,7 +269,7 @@ export function MarkupCalculatorClient() {
           </p>
 
           {state.amount > 0 && (
-            <div className="mt-5 space-y-3 border-t border-[var(--border-color)] pt-4 text-sm">
+            <div className="mt-5 space-y-3 text-sm">
               <div className="flex justify-between">
                 <span className="text-[var(--muted-text)]">Expected at mid-market</span>
                 <span className="font-semibold tabular-nums text-[var(--foreground)]">
@@ -283,7 +286,7 @@ export function MarkupCalculatorClient() {
                     : formatUsd(result.actualTarget)}
                 </span>
               </div>
-              <div className="flex justify-between border-t border-[var(--border-color)] pt-3">
+              <div className="flex justify-between pt-3">
                 <span className="text-[var(--muted-text)]">You lose (markup cost)</span>
                 <span className="font-bold tabular-nums text-[var(--danger, #ef4444)]">
                   {result.worseThanMid
@@ -296,7 +299,7 @@ export function MarkupCalculatorClient() {
             </div>
           )}
 
-          <div className="mt-5 rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-3 text-[11px] leading-relaxed text-[var(--muted-text)]">
+          <div className="mt-5 text-[11px] leading-relaxed text-[var(--muted-text)]">
             The markup percentage is the same regardless of amount — it is the
             hidden spread. Add any upfront transfer fee on top to get the total
             cost. Rates are user-entered; this tool never claims to know today&apos;s

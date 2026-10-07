@@ -33,7 +33,7 @@ const VARIANT_CLASSES: Record<NonNullable<PartnerCtaProps["variant"]>, string> =
   link:
     "inline-flex items-center gap-1 text-sm font-bold text-[var(--accent)] hover:underline",
   compact:
-    "inline-flex items-center gap-1.5 rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-1.5 text-xs font-semibold text-[var(--foreground)] hover:border-[var(--foreground)]/40 focus-visible:outline-none focus-visible:ring-[var(--ring)]",
+    "inline-flex items-center gap-1.5 px-1 py-1 text-xs font-semibold text-[var(--foreground)] focus-visible:outline-none focus-visible:ring-[var(--ring)]",
 };
 
 export function PartnerCta({

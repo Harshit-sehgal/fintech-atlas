@@ -98,7 +98,7 @@ export default function CategoriesPage() {
               <p className="mt-1 text-sm leading-relaxed text-[var(--muted-text)]">{group.blurb}</p>
             </div>
 
-            <div className="grid border-t border-[var(--border-color)] md:grid-cols-2">
+            <div className="grid md:grid-cols-2">
               {group.items.map((cat) => {
                 const count = companies.filter((c) => c.categories.includes(cat.slug)).length;
                 return (
@@ -106,7 +106,7 @@ export default function CategoriesPage() {
                     key={cat.slug}
                     href={`/categories/${cat.slug}`}
                     style={{ ["--accent"]: cat.accent } as CSSProperties}
-                    className="group relative block border-b border-[var(--border-color)] py-6 transition-colors md:odd:border-r md:odd:pr-8 md:even:pl-8"
+                    className="group relative block py-6 transition-colors md:odd:pr-8 md:even:pl-8"
                   >
                     <div className="flex items-start gap-4">
                       <div className="flex h-8 w-8 shrink-0 items-center justify-center">
@@ -114,7 +114,9 @@ export default function CategoriesPage() {
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-2">
-                          <h3 className="text-lg font-bold tracking-tight text-[var(--foreground)] transition-colors group-hover:text-[var(--accent-ink)]">{cat.name}</h3>
+                          <h3 className="text-lg font-bold tracking-tight text-[var(--foreground)]">
+                            <span className="hl-link">{cat.name}</span>
+                          </h3>
                           <span className="shrink-0 font-mono text-[10px] font-semibold uppercase tracking-wider text-[var(--muted-text)]">
                             {count} compan{count === 1 ? "y" : "ies"}
                           </span>

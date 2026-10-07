@@ -17,6 +17,7 @@ import {
 import { MAX_RATE_AGE_DAYS } from "@/data/remittance-config";
 import { animationPresets as animation } from "@/lib/animation";
 import { PartnerCta } from "@/components/ui/partner-cta";
+import { Highlight } from "@/components/ui/highlight";
 import {
   downloadCsv,
   encodeToolParams,
@@ -172,11 +173,11 @@ export default function RemittanceCalculatorPageClient() {
         <button type="button" onClick={handlePrintPdf} className="btn-ghost text-xs px-3 py-1.5">Save as PDF</button>
       </div>
 
-      <div className="mt-10 grid gap-8 lg:grid-cols-12">
-        {/* Controls */}
-        <div className="surface min-w-0 lg:col-span-5 space-y-6 rounded-lg border border-[var(--border-color)] p-6">
-          <h2 className="text-base font-semibold text-[var(--foreground)] border-b border-[var(--border-color)] pb-3">
-            Transfer Details
+      <div className="mt-10 grid gap-10 lg:grid-cols-12">
+        {/* Controls — open paper, no panel box */}
+        <div className="surface min-w-0 lg:col-span-5 space-y-8">
+          <h2 className="text-base font-semibold text-[var(--foreground)]">
+            <Highlight color="yellow">Transfer Details</Highlight>
           </h2>
 
           {/* Amount slider */}
@@ -255,16 +256,16 @@ export default function RemittanceCalculatorPageClient() {
                         setCurrencyCode(c.code);
                       }
                     }}
-                    className={`relative flex items-center justify-between rounded-lg border p-3 text-left transition-all overflow-hidden focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+                    className={`relative flex items-center justify-between rounded-sm p-3 text-left transition-all overflow-hidden focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
                       active
-                        ? "border-[var(--accent)] text-[var(--foreground)] font-bold"
-                        : "border-[var(--border-color)] hover:border-[var(--border-strong)] focus-visible:border-[var(--border-strong)] text-[var(--muted-text)] focus-visible:text-[var(--foreground)]"
+                        ? "bg-[var(--accent-glow)] text-[var(--accent-strong)] font-bold"
+                        : "text-[var(--muted-text)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]"
                     }`}
                   >
                     {active && (
                       <motion.span
                         layoutId="fx-currency"
-                        className="absolute inset-0 -z-10 bg-[var(--accent)]/10"
+                        className="absolute inset-0 -z-10 bg-[var(--accent-glow)]"
                         transition={{ type: "spring", stiffness: 380, damping: 32 }}
                       />
                     )}
@@ -278,8 +279,8 @@ export default function RemittanceCalculatorPageClient() {
             </div>
           </div>
 
-          {/* FX Benchmark */}
-          <div className="surface rounded-xl border border-[var(--border-color)] p-4 text-xs space-y-1">
+          {/* FX Benchmark — a quiet reference note, not a boxed card */}
+          <div className="text-xs space-y-1">
             <div className="text-[var(--muted-text)] uppercase font-mono tracking-wider text-[10px]">Reference Mid-Market Rate</div>
             <div className="font-mono font-bold text-sm text-[var(--foreground)]">
               1 USD = {targetCurr.rate} {targetCurr.code}
@@ -290,18 +291,18 @@ export default function RemittanceCalculatorPageClient() {
           </div>
         </div>
 
-        {/* Comparison output */}
+        {/* Comparison output — open paper */}
         <div className="min-w-0 lg:col-span-7 space-y-6">
           <Reveal>
-            <div className="surface rounded-lg border border-[var(--border-color)] p-6">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[var(--border-color)] pb-4">
+            <div>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4">
                 <div>
                   <span className="eyebrow !text-[var(--muted-text)]">Maximum Received</span>
                   <h3 className="mt-1 text-lg font-bold text-[var(--foreground)]">
-                    {bestProvider.name} leads in this illustrative model
+                    <Highlight color="green">{bestProvider.name}</Highlight> leads in this illustrative model
                   </h3>
                 </div>
-                <div className="rounded-xl bg-[var(--success)]/10 border border-[var(--success)]/30 px-4 py-2 text-right">
+                <div className="rounded-sm bg-[var(--success)]/10 px-4 py-2 text-right">
                   <div className="text-xs text-success-text">Illustrative difference</div>
                   <div className="text-lg font-bold font-mono text-success-text">
                     {targetCurr.symbol}{Math.round(savings).toLocaleString()} {targetCurr.code}
@@ -323,10 +324,9 @@ export default function RemittanceCalculatorPageClient() {
                   return (
                     <div
                       key={p.name}
-                      className={`rounded-xl border p-4 transition-all ${
-                        isBest
-                          ? "border-[var(--success)]/50 bg-[var(--success)]/5 ring-1 ring-[var(--success)]/20"
-                          : "border-[var(--border-color)] surface"
+                      data-placement="remittance-provider"
+                      className={`transition-all ${
+                        isBest ? "bg-[var(--accent-glow)]" : ""
                       }`}
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
@@ -335,7 +335,7 @@ export default function RemittanceCalculatorPageClient() {
                             {p.slug !== "bank" && <CompanyLogo slug={p.slug} name={p.name} size={24} />}
                             <span className="font-bold text-base text-[var(--foreground)]">{p.name}</span>
                             {isBest && (
-                              <span className="rounded bg-[var(--success)]/20 border border-[var(--success)]/30 px-2 py-0.5 text-[10px] font-bold text-success-text">
+                              <span className="rounded-sm bg-[var(--success)]/20 px-2 py-0.5 text-[10px] font-bold text-success-text">
                                 Highest illustrative payout
                               </span>
                             )}
@@ -358,7 +358,7 @@ export default function RemittanceCalculatorPageClient() {
                       </div>
 
                       {/* Animated payout bar */}
-                      <div className="mt-3 h-2 w-full rounded-full bg-[var(--border-color)] overflow-hidden">
+                      <div className="mt-3 h-2 w-full rounded-full bg-[var(--surface)] overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${barWidth}%` }}
@@ -371,7 +371,7 @@ export default function RemittanceCalculatorPageClient() {
                         />
                       </div>
 
-                      <div className="mt-3 flex flex-wrap items-center justify-between border-t border-[var(--border-color)] pt-2 text-xs text-[var(--muted-text)]">
+                      <div className="mt-3 flex flex-wrap items-center justify-between pt-2 text-xs text-[var(--muted-text)]">
                         <span>Upfront Fee: <strong className="text-[var(--foreground)] font-mono">${p.fee.toFixed(2)}</strong></span>
                         <span>Exchange Markup: <strong className={p.fxMargin > 0 ? "text-warning-text font-mono" : "text-success-text font-mono"}>{p.fxMargin}%</strong></span>
                         <span>Rate: <strong className="text-[var(--foreground)] font-mono">{p.rate.toFixed(4)}</strong></span>
@@ -394,9 +394,9 @@ export default function RemittanceCalculatorPageClient() {
           </Reveal>
 
           {/* Note on estimates — referenced by the SectionHeading description ("see note below") */}
-          <div className="surface rounded-xl border border-[var(--border-color)] p-4 text-xs leading-relaxed text-[var(--muted-text)]">
+          <div className="text-xs leading-relaxed text-[var(--muted-text)]">
             <strong className="text-[var(--foreground)]">Illustrative model:</strong> This tool uses reference FX snapshots and simplified example fee models, not route-specific live quotes. Actual payouts depend on sending and receiving countries, currency pair, funding method, payout method, amount, account tier, and current market conditions. The difference shown is only between the example models displayed here; verify a provider&apos;s current quote before sending money.
-            <div className={isRateSnapshotStale() ? "mt-2 rounded bg-[var(--warning)]/10 border border-[var(--warning)]/30 px-3 py-2 text-warning-text" : "mt-2 font-mono text-[var(--muted-text)]"}>
+            <div className={isRateSnapshotStale() ? "mt-2 rounded-sm bg-[var(--warning)]/10 px-3 py-2 text-warning-text" : "mt-2 font-mono text-[var(--muted-text)]"}>
               {isRateSnapshotStale()
                 ? `⚠ Rates snapshot (${ratesAsOfLabel()}) is older than ${MAX_RATE_AGE_DAYS} days — treat as illustrative only.`
                 : `Rates retrieved ${ratesAsOfLabel()} (reference snapshot, not a live quote).`}
