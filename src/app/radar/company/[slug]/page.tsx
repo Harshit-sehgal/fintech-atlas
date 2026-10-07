@@ -111,7 +111,7 @@ function formatFunding(usdM: number): string {
 
 function Stat({ label, value }: { label: string; value: string | number | null }) {
   return (
-    <div className="rounded-xl border border-[var(--border-color)] bg-[var(--card)] p-4">
+    <div className="rounded-sm border border-[var(--border-color)] bg-[var(--card)] p-4">
       <dt className="text-xs font-medium uppercase tracking-wide text-[var(--muted-text)]">
         {label}
       </dt>
@@ -219,7 +219,7 @@ export default async function RadarCompanyProfilePage({
               return (
                 <li
                   key={`${licence.code}-${licence.regulator}`}
-                  className="rounded-xl border border-[var(--border-color)] bg-[var(--card)] p-4"
+                  className="rounded-sm border border-[var(--border-color)] bg-[var(--card)] p-4"
                 >
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="font-semibold">{licence.label}</span>
@@ -260,7 +260,7 @@ export default async function RadarCompanyProfilePage({
           {freshness.fields.map((field) => (
             <li
               key={field.family}
-              className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-[var(--border-color)] bg-[var(--card)] px-4 py-2.5 text-sm"
+              className="flex flex-wrap items-center justify-between gap-2 rounded-sm border border-[var(--border-color)] bg-[var(--card)] px-4 py-2.5 text-sm"
             >
               <span className="font-medium">{field.label}</span>
               <span className="flex items-center gap-2">

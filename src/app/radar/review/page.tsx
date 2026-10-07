@@ -50,7 +50,7 @@ function stateTone(state: string): string {
 
 function Stat({ label, value }: { label: string; value: number | string }) {
   return (
-    <div className="rounded-xl border border-[var(--border-color)] bg-[var(--card)] p-4">
+    <div className="rounded-sm border border-[var(--border-color)] bg-[var(--card)] p-4">
       <dt className="text-xs font-medium uppercase tracking-wide text-[var(--muted-text)]">
         {label}
       </dt>
@@ -162,7 +162,7 @@ export default function RadarReviewQueuePage() {
               return (
                 <details
                   key={key}
-                  className="group rounded-xl border border-[var(--border-color)] bg-[var(--card)] open:pb-2"
+                  className="group rounded-sm border border-[var(--border-color)] bg-[var(--card)] open:pb-2"
                 >
                   <summary className="flex flex-wrap items-center gap-x-3 gap-y-1 px-4 py-3 text-sm cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                     {record ? (
@@ -241,7 +241,7 @@ export default function RadarReviewQueuePage() {
               return (
                 <li
                   key={`${row.companyId}-${row.family}`}
-                  className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-[var(--border-color)] bg-[var(--card)] px-4 py-2.5 text-sm"
+                  className="flex flex-wrap items-center justify-between gap-2 rounded-sm border border-[var(--border-color)] bg-[var(--card)] px-4 py-2.5 text-sm"
                 >
                   <span className="font-medium">{record?.name ?? row.companyId}</span>
                   <span className="text-xs text-[var(--muted-text)]">
@@ -273,7 +273,7 @@ export default function RadarReviewQueuePage() {
           readOnly
           rows={10}
           aria-label="Review queue apply-batch JSON"
-          className="mt-4 w-full rounded-lg border border-[var(--border-color)] bg-[var(--background)] px-3.5 py-3 font-mono text-xs leading-relaxed text-[var(--foreground)]"
+          className="mt-4 w-full rounded-sm border border-[var(--border-color)] bg-[var(--background)] px-3.5 py-3 font-mono text-xs leading-relaxed text-[var(--foreground)]"
           value={worksheet}
         />
       </section>

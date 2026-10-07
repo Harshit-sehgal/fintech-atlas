@@ -182,7 +182,7 @@ function FacetGroup({
 }
 
 const numberInputClass =
-  "w-full rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-sm outline-none transition-colors hover:border-[var(--border-strong)] focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/40";
+  "w-full rounded-sm border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-sm outline-none transition-colors hover:border-[var(--border-strong)] focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/40";
 
 export function RadarClient() {
   const [query, setQuery] = useState("");
@@ -479,7 +479,7 @@ export function RadarClient() {
             setPage(1);
           }}
           aria-label="Search Indian fintech companies"
-          className="w-full rounded-xl border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 py-2.5 pl-10 pr-4 text-sm outline-none transition-colors hover:border-[var(--border-strong)] focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/40"
+          className="w-full rounded-sm border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 py-2.5 pl-10 pr-4 text-sm outline-none transition-colors hover:border-[var(--border-strong)] focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/40"
         />
         {query && (
           <button
@@ -652,7 +652,7 @@ export function RadarClient() {
                     setSort(e.target.value as SortKey);
                     setPage(1);
                   }}
-                  className="rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-sm font-medium text-[var(--foreground)] outline-none transition-colors hover:border-[var(--border-strong)]"
+                  className="rounded-sm border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-sm font-medium text-[var(--foreground)] outline-none transition-colors hover:border-[var(--border-strong)]"
                 >
                   {SORT_OPTIONS.map((option) => (
                     <option key={option.value} value={option.value}>
@@ -729,7 +729,7 @@ export function RadarClient() {
                   hasActiveFilters ? (
                     <button
                       onClick={clearAll}
-                      className="rounded-lg border border-[var(--border-color)] px-3.5 py-2 text-sm font-medium transition-colors hover:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+                      className="rounded-sm border border-[var(--border-color)] px-3.5 py-2 text-sm font-medium transition-colors hover:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
                     >
                       Clear all filters
                     </button>
@@ -747,7 +747,7 @@ export function RadarClient() {
               <button
                 onClick={() => goToPage(safePage - 1)}
                 disabled={safePage <= 1}
-                className="rounded-lg border border-[var(--border-color)] px-3.5 py-2 text-sm font-medium transition-colors hover:border-[var(--border-strong)] disabled:pointer-events-none disabled:opacity-40"
+                className="rounded-sm border border-[var(--border-color)] px-3.5 py-2 text-sm font-medium transition-colors hover:border-[var(--border-strong)] disabled:pointer-events-none disabled:opacity-40"
               >
                 ← Previous
               </button>
@@ -757,7 +757,7 @@ export function RadarClient() {
               <button
                 onClick={() => goToPage(safePage + 1)}
                 disabled={safePage >= totalPages}
-                className="rounded-lg border border-[var(--border-color)] px-3.5 py-2 text-sm font-medium transition-colors hover:border-[var(--border-strong)] disabled:pointer-events-none disabled:opacity-40"
+                className="rounded-sm border border-[var(--border-color)] px-3.5 py-2 text-sm font-medium transition-colors hover:border-[var(--border-strong)] disabled:pointer-events-none disabled:opacity-40"
               >
                 Next →
               </button>

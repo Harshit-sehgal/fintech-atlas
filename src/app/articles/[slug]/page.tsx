@@ -68,7 +68,7 @@ function Block({ block }: { block: ArticleBlock }) {
       );
     case "table":
       return (
-        <div className="mt-4 overflow-x-auto rounded-xl border border-[var(--border-color)]">
+        <div className="mt-4 overflow-x-auto rounded-sm border border-[var(--border-color)]">
           <table className="w-full text-left text-sm">
             <thead>
               <tr className="border-b border-[var(--border-color)] bg-[var(--subtle-bg)]/40">

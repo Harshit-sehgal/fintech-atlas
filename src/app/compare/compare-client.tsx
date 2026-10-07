@@ -408,7 +408,7 @@ function CompareContent() {
                               </div>
                               <button
                                 onClick={() => toggleSelect(c.slug)}
-                                className="shrink-0 inline-flex h-9 w-9 items-center justify-center rounded-lg text-sm text-[var(--muted-text)] hover:text-danger-text hover:bg-[var(--subtle-bg)] focus-visible:text-danger-text focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+                                className="shrink-0 inline-flex h-9 w-9 items-center justify-center rounded-sm text-sm text-[var(--muted-text)] hover:text-danger-text hover:bg-[var(--subtle-bg)] focus-visible:text-danger-text focus-visible:outline-none focus-visible:ring-[var(--ring)]"
                                 title="Remove from comparison"
                                 aria-label={`Remove ${c.name} from comparison`}
                               >
@@ -524,7 +524,7 @@ function CompareContent() {
                     </div>
                     <button
                       onClick={() => toggleSelect(c.slug)}
-                      className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-sm text-[var(--muted-text)] hover:text-danger-text focus-visible:text-danger-text focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+                      className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-sm text-sm text-[var(--muted-text)] hover:text-danger-text focus-visible:text-danger-text focus-visible:outline-none focus-visible:ring-[var(--ring)]"
                       title="Remove from comparison"
                       aria-label={`Remove ${c.name} from comparison`}
                     >

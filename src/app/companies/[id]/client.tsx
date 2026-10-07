@@ -936,7 +936,7 @@ export function CompanyPageClient({
 
                       onChange={(e) => setNewAuthor(e.target.value)}
 
-                      className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-xs outline-none"
+                      className="w-full rounded-sm border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-xs outline-none"
                       aria-invalid={formErrors.author ? "true" : "false"}
                       aria-describedby="author-error"
                     />
@@ -954,7 +954,7 @@ export function CompanyPageClient({
                       placeholder="e.g. Founder at TechCo"
                       value={newRole}
                       onChange={(e) => setNewRole(e.target.value)}
-                      className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-xs outline-none"
+                      className="w-full rounded-sm border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-xs outline-none"
                       autoComplete="organization"
                     />
                   </div>
@@ -969,7 +969,7 @@ export function CompanyPageClient({
                     placeholder="Save a note about your experience on this device..."
                     value={newText}
                     onChange={(e) => setNewText(e.target.value)}
-                    className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 p-3 text-xs outline-none"
+                    className="w-full rounded-sm border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 p-3 text-xs outline-none"
                     aria-invalid={formErrors.text ? "true" : "false"}
                     aria-describedby="feedback-error"
                   />
@@ -984,7 +984,7 @@ export function CompanyPageClient({
                   <button
                     type="button"
                     onClick={() => setReviewModalOpen(false)}
-                    className="rounded-lg border border-[var(--border-color)] px-4 py-2 text-xs text-[var(--muted-text)] hover:text-[var(--foreground)] hover:border-[var(--border-strong)] focus-visible:text-[var(--foreground)] focus-visible:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+                    className="rounded-sm border border-[var(--border-color)] px-4 py-2 text-xs text-[var(--muted-text)] hover:text-[var(--foreground)] hover:border-[var(--border-strong)] focus-visible:text-[var(--foreground)] focus-visible:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
                   >
                     Cancel
                   </button>

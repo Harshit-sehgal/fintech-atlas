@@ -128,13 +128,13 @@ export default function RootLayout({
         <AnalyticsTracker />
         <a
           href="#main-content"
-          className="sr-only focus:fixed focus:w-auto focus:h-auto focus:[clip:auto] focus:m-0 focus:px-4 focus:py-2 focus:top-4 focus:left-4 focus:z-50 focus:rounded-lg focus:bg-[var(--accent)] focus:text-white focus:font-semibold focus:outline-none"
+          className="sr-only focus:fixed focus:w-auto focus:h-auto focus:[clip:auto] focus:m-0 focus:px-4 focus:py-2 focus:top-4 focus:left-4 focus:z-50 focus:rounded-sm focus:bg-[var(--accent)] focus:text-white focus:font-semibold focus:outline-none"
         >
           Skip to main content
         </a>
         <a
           href="#footer"
-          className="sr-only focus:fixed focus:w-auto focus:h-auto focus:[clip:auto] focus:m-0 focus:px-4 focus:py-2 focus:top-4 focus:left-4 focus:z-50 focus:rounded-lg focus:bg-[var(--accent)] focus:text-white focus:font-semibold focus:outline-none"
+          className="sr-only focus:fixed focus:w-auto focus:h-auto focus:[clip:auto] focus:m-0 focus:px-4 focus:py-2 focus:top-4 focus:left-4 focus:z-50 focus:rounded-sm focus:bg-[var(--accent)] focus:text-white focus:font-semibold focus:outline-none"
         >
           Skip to footer
         </a>

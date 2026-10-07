@@ -203,7 +203,7 @@ export function MarkupCalculatorClient() {
               step="0.01"
               value={state.midRate || ""}
               onChange={(e) => setField("midRate", e.target.value)}
-              className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--accent)] focus:outline-none"
+              className="w-full rounded-sm border border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--accent)] focus:outline-none"
             />
             <p className="mt-1.5 text-[11px] leading-relaxed text-[var(--muted-text)]">
               The real interbank rate (example: ₹95.40 per US$). Look it up on a rate
@@ -223,7 +223,7 @@ export function MarkupCalculatorClient() {
               step="0.01"
               value={state.offeredRate || ""}
               onChange={(e) => setField("offeredRate", e.target.value)}
-              className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--accent)] focus:outline-none"
+              className="w-full rounded-sm border border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--accent)] focus:outline-none"
             />
             <p className="mt-1.5 text-[11px] leading-relaxed text-[var(--muted-text)]">
               The rate the provider shows you at checkout — including any hidden spread.
@@ -242,7 +242,7 @@ export function MarkupCalculatorClient() {
               step="100"
               value={state.amount || ""}
               onChange={(e) => setField("amount", e.target.value)}
-              className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--accent)] focus:outline-none"
+              className="w-full rounded-sm border border-[var(--border-color)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--accent)] focus:outline-none"
             />
             <p className="mt-1.5 text-[11px] leading-relaxed text-[var(--muted-text)]">{amountHint}</p>
           </div>

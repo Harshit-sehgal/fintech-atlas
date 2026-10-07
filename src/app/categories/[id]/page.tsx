@@ -69,12 +69,12 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
       {/* Category Header */}
       <Reveal>
         <div
-          className="relative overflow-hidden rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-7"
+          className="relative overflow-hidden rounded-sm border border-[var(--border-color)] bg-[var(--card)] p-7"
           style={{ ["--accent"]: cat.accent } as CSSProperties}
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative z-10">
             <div className="flex items-center gap-5">
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-[var(--accent-glow)]">
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-sm bg-[var(--accent-glow)]">
                 <CategoryIcon icon={cat.icon} color={cat.accent} size={40} />
               </div>
               <div>

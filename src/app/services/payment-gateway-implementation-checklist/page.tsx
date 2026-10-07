@@ -96,7 +96,7 @@ export default function ImplementationChecklistPage() {
         <GatewayChecklist groups={GROUPS} />
       </div>
 
-      <div className="mt-12 flex flex-wrap items-center gap-3 rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-5">
+      <div className="mt-12 flex flex-wrap items-center gap-3 rounded-sm border border-[var(--border-color)] bg-[var(--card)] p-5">
         <p className="text-sm text-[var(--muted-text)]">
           Stuck on a step, or want this done for you?{" "}
           <Link href="/services" className="font-semibold text-[var(--accent-ink)] underline decoration-[var(--accent)]/40 underline-offset-4 hover:decoration-[var(--accent)]">

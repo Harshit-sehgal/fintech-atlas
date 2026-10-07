@@ -47,7 +47,7 @@ export default function ExchangeRateMarkupCalculatorPage() {
         </p>
 
         <h2 className="mt-10 text-xl font-bold">Published reference corridors (India, 2026)</h2>
-        <div className="mt-4 overflow-x-auto rounded-xl border border-[var(--border-color)]">
+        <div className="mt-4 overflow-x-auto rounded-sm border border-[var(--border-color)]">
           <table className="w-full border-collapse text-left text-sm">
             <thead>
               <tr className="border-b border-[var(--border-color)] bg-[var(--surface)]">
@@ -116,7 +116,7 @@ export default function ExchangeRateMarkupCalculatorPage() {
       </div>
 
       <section className="mx-auto max-w-5xl px-5 pb-16">
-        <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6">
+        <div className="rounded-sm border border-[var(--border-color)] bg-[var(--card)] p-6">
           <h2 className="text-sm font-bold uppercase tracking-wider text-[var(--muted-text)]">Related comparisons</h2>
           <div className="mt-3 flex flex-wrap gap-3">
             <Link href="/articles/payoneer-fees-india" className="btn-ghost text-xs">Payoneer fees in India (receiving USD)</Link>

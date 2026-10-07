@@ -76,7 +76,7 @@ export function GlossaryToolbar({
             applyFilters(e.target.value, selectedLetter);
           }}
           aria-label="Search glossary terms"
-          className="w-full surface rounded-xl border border-[var(--border-color)] py-2.5 pl-10 pr-4 text-sm outline-none transition-all focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/40"
+          className="w-full surface rounded-sm border border-[var(--border-color)] py-2.5 pl-10 pr-4 text-sm outline-none transition-all focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/40"
         />
         {query && (
           <button

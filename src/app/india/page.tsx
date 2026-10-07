@@ -233,7 +233,7 @@ export default function IndiaLandingPage() {
 
       {/* Cross-sell services (monetization track 1) */}
       <section aria-labelledby="india-services" className="mt-14">
-        <div className="flex flex-col items-start justify-between gap-4 rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6 sm:flex-row sm:items-center">
+        <div className="flex flex-col items-start justify-between gap-4 rounded-sm border border-[var(--border-color)] bg-[var(--card)] p-6 sm:flex-row sm:items-center">
           <div>
             <h2 id="india-services" className="text-base font-bold tracking-tight">Want a human to run the numbers?</h2>
             <p className="mt-1 text-sm text-[var(--muted-text)]">

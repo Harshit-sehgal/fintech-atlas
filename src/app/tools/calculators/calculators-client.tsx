@@ -290,7 +290,7 @@ export default function CalculatorsClient() {
           style={{ ["--accent"]: `var(${accent})` } as CSSProperties}
           className="mt-8 grid gap-8 lg:grid-cols-12"
         >
-          <div className="surface rounded-lg border border-[var(--border-color)] p-6 lg:col-span-5 min-w-0 print:break-inside-avoid">
+          <div className="surface rounded-sm border border-[var(--border-color)] p-6 lg:col-span-5 min-w-0 print:break-inside-avoid">
             <div className="border-b border-[var(--border-color)] pb-3">
               <h2 className="text-base font-semibold text-[var(--foreground)]">{activeCalc.name}</h2>
               <p className="mt-1 text-xs text-[var(--muted-text)]">{activeCalc.tagline}</p>
@@ -331,7 +331,7 @@ export default function CalculatorsClient() {
           </div>
 
           <div className="space-y-6 lg:col-span-7 min-w-0">
-            <div className="surface rounded-lg border border-[var(--border-color)] p-6 print:break-inside-avoid">
+            <div className="surface rounded-sm border border-[var(--border-color)] p-6 print:break-inside-avoid">
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border-color)] pb-4">
                 <span className="eyebrow !text-[var(--muted-text)]">Results</span>
                 <div className="flex flex-wrap gap-2 print:hidden">
@@ -375,7 +375,7 @@ export default function CalculatorsClient() {
                   return (
                     <div
                       key={output.label}
-                      className={`rounded-xl border p-4 ${
+                      className={`rounded-sm border p-4 ${
                         isWarning
                           ? "border-[var(--warning)]/40 bg-[var(--warning)]/10"
                           : isPrimary
@@ -406,7 +406,7 @@ export default function CalculatorsClient() {
               )}
             </div>
 
-            <div className="surface rounded-xl border border-[var(--border-color)] p-4 text-xs leading-relaxed text-[var(--muted-text)]">
+            <div className="surface rounded-sm border border-[var(--border-color)] p-4 text-xs leading-relaxed text-[var(--muted-text)]">
               <strong className="text-[var(--foreground)]">How to read this:</strong> These are simplified, illustrative models.
               They do not account for taxes, fund fees, transaction costs, inflation-adjusted contributions, or the variability of
               actual returns. Results should be used for orientation and planning only — verify with a qualified financial advisor
