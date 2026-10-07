@@ -83,7 +83,7 @@ export default function GlobalError({
               .ge-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
               .ge-btn {
                 display: inline-flex; align-items: center; gap: 0.5rem;
-                padding: 0.75rem 1.25rem; border-radius: 0.75rem;
+                padding: 0.75rem 1.25rem; border-radius: 0.125rem;
                 font-size: 0.875rem; font-weight: 600; border: 1px solid var(--border);
                 background: var(--accent); color: #fff; cursor: pointer; text-decoration: none;
                 transition: opacity 0.15s;
