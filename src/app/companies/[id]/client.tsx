@@ -393,9 +393,9 @@ export function CompanyPageClient({
         </div>
         <div className="flex-1">
           <div className="flex flex-wrap items-center gap-2 mb-2">
-            <span className="eyebrow text-[10px] py-0.5 px-2 rounded-full bg-[var(--accent)]/10 text-[var(--accent)]">
-              Company profile
-            </span>
+             <span className="eyebrow text-[10px]">
+               Company profile
+             </span>
             <span className="text-[10px] font-mono text-[var(--muted-text)]">
               Founded {c.founded} · {formatHeadquartersCity(c.headquarters)}
             </span>

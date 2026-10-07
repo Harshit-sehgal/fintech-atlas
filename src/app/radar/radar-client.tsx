@@ -669,6 +669,7 @@ export function RadarClient() {
               const summary = indiaDirectorySummaries[index];
               const founded = radarFoundedYears[index];
               const funding = formatFunding(radarFundingUsdM[index]);
+              const licences = licenceIndexesFor(radarLicenceMasks[index]);
               return (
                 <li key={summary.slug} className="flex flex-col">
                   <Link
@@ -682,32 +683,28 @@ export function RadarClient() {
                     <span className="text-sm text-[var(--fg-dim)]">
                       {summary.category}
                     </span>
-                    <div className="mt-auto flex flex-wrap gap-1.5 pt-1">
-                      <span className="inline-flex w-fit rounded-full border border-[var(--border-color)] px-2.5 py-0.5 text-xs text-[var(--muted-text)]">
-                        {radarSectorNames[radarSectorIndexes[index]]}
-                      </span>
-                      <span className="inline-flex w-fit rounded-full border border-[var(--border-color)] px-2.5 py-0.5 text-xs text-[var(--muted-text)]">
-                        {radarRegulatorNames[radarRegulatorIndexes[index]]}
-                      </span>
-                      {founded !== UNKNOWN && (
-                        <span className="inline-flex w-fit rounded-full border border-[var(--border-color)] px-2.5 py-0.5 text-xs text-[var(--muted-text)]">
-                          Founded {founded}
-                        </span>
+                      <div className="mt-auto flex flex-wrap gap-x-2 gap-y-0.5 pt-1 text-[11px] font-mono text-[var(--muted-text)]">
+                        <span>{radarSectorNames[radarSectorIndexes[index]]}</span>
+                        <span aria-hidden className="text-[var(--muted-dim)]">·</span>
+                        <span>{radarRegulatorNames[radarRegulatorIndexes[index]]}</span>
+                        {founded !== UNKNOWN && (
+                          <>
+                            <span aria-hidden className="text-[var(--muted-dim)]">·</span>
+                            <span>Founded {founded}</span>
+                          </>
+                        )}
+                        {funding && (
+                          <>
+                            <span aria-hidden className="text-[var(--muted-dim)]">·</span>
+                            <span>{funding} raised</span>
+                          </>
+                        )}
+                      </div>
+                      {licences.length > 0 && (
+                        <p className="pt-0.5 text-[11px] font-mono text-[var(--accent-ink)]">
+                          {licences.map((licence) => radarLicenceNames[licence]).join(" · ")}
+                        </p>
                       )}
-                      {funding && (
-                        <span className="inline-flex w-fit rounded-full border border-[var(--border-color)] px-2.5 py-0.5 text-xs text-[var(--muted-text)]">
-                          {funding} raised
-                        </span>
-                      )}
-                      {licenceIndexesFor(radarLicenceMasks[index]).map((licence) => (
-                        <span
-                          key={licence}
-                          className="inline-flex w-fit rounded-full border border-[var(--accent)]/30 bg-[var(--accent-glow)] px-2.5 py-0.5 text-xs text-[var(--accent-ink)]"
-                        >
-                          {radarLicenceNames[licence]}
-                        </span>
-                      ))}
-                    </div>
                   </Link>
                   <div className="mt-1 px-1">
                     <Link

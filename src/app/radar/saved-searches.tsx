@@ -125,16 +125,9 @@ export function SavedSearchBar({
               <div className="min-w-0">
                 <p className="truncate text-sm font-medium">{search.name}</p>
                 {chipsFor(search.state).length > 0 && (
-                  <div className="mt-1 flex flex-wrap gap-1">
-                    {chipsFor(search.state).map((chip) => (
-                      <span
-                        key={chip}
-                        className="inline-flex w-fit rounded-full border border-[var(--border-color)] px-2 py-0.5 text-[10px] text-[var(--muted-text)]"
-                      >
-                        {chip}
-                      </span>
-                    ))}
-                  </div>
+                  <p className="mt-0.5 truncate font-mono text-[10px] text-[var(--muted-text)]">
+                    {chipsFor(search.state).join(" · ")}
+                  </p>
                 )}
               </div>
               <div className="flex shrink-0 gap-2">

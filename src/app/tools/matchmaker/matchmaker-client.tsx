@@ -344,15 +344,13 @@ export default function MatchmakerQuizPageClient() {
                             <div className="text-[10px] font-mono uppercase tracking-wider text-[var(--muted-text)]">
                               Why it matched · {bd!.score} pts
                             </div>
-                            <div className="mt-2 flex flex-wrap gap-1.5">
+                            <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[11px] text-[var(--muted-text)]">
                               {reasons.map((r) => (
                                 <span
                                   key={r.key}
                                   title={r.question}
-                                  className="rounded-full border border-[var(--border-color)] bg-[var(--subtle-bg)] px-2.5 py-1 text-[11px] text-[var(--muted-text)]"
                                 >
-                                  <span className="font-medium text-[var(--foreground)]">{r.option}</span>
-                                  <span className="ml-1">+{r.points}</span>
+                                  <span className="font-medium text-[var(--foreground)]">{r.option}</span> +{r.points}
                                 </span>
                               ))}
                             </div>

@@ -111,9 +111,9 @@ export default function RadarReviewQueuePage() {
       />
 
       <header className="mt-8">
-        <span className="inline-flex w-fit rounded-full border border-[var(--border-color)] px-3 py-1 text-xs font-medium text-[var(--muted-text)]">
+        <p className="font-mono text-xs text-[var(--muted-text)]">
           Research console · {radarReviewSnapshotId}
-        </span>
+        </p>
         <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">
           Radar review queue
         </h1>
@@ -136,13 +136,10 @@ export default function RadarReviewQueuePage() {
         <Stat label="Rejected" value={radarReviewSummary.rejected} />
       </dl>
 
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs font-mono">
         {actions.map((action) => (
-          <span
-            key={action}
-            className="inline-flex w-fit items-center gap-1.5 rounded-full border border-[var(--border-color)] px-3 py-1 text-xs text-[var(--muted-text)]"
-          >
-            {ACTION_LABELS[action] ?? action}
+          <span key={action} className="text-[var(--muted-text)]">
+            {ACTION_LABELS[action] ?? action}{" "}
             <span className="font-semibold text-[var(--foreground)]">
               {radarReviewSummary.byAction[action]}
             </span>

@@ -11,6 +11,7 @@ import { getCompanyBySlug } from "@/data";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CorrectionReportLink } from "@/components/ui/correction-report-link";
+import { Highlight } from "@/components/ui/highlight";
 
 export function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
@@ -183,14 +184,14 @@ export default async function ArticlePage({
       {related.length > 0 && (
         <div className="mt-12">
           <h2 className="text-lg font-bold text-[var(--foreground)]">Related profiles</h2>
-          <div className="mt-3 flex flex-wrap gap-2">
+          <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
             {related.map((c) => (
               <Link
                 key={c.slug}
                 href={`/companies/${c.slug}`}
-                className="rounded-full border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-1.5 text-xs font-semibold text-[var(--foreground)] hover:border-[var(--foreground)]/40 transition-colors"
+                className="group text-sm font-semibold text-[var(--foreground)]"
               >
-                {c.name}
+                <span className="hl-link">{c.name}</span>
               </Link>
             ))}
           </div>
@@ -213,9 +214,9 @@ export default async function ArticlePage({
                   <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted-text)]">
                     {relatedArticle.category}
                   </span>
-                  <h3 className="mt-1.5 text-sm font-bold leading-snug text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
-                    {relatedArticle.title}
-                  </h3>
+                   <h3 className="mt-1.5 text-sm font-bold leading-snug text-[var(--foreground)]">
+                     <span className="hl-link">{relatedArticle.title}</span>
+                   </h3>
                   <span className="mt-2 inline-block text-xs font-bold text-[var(--accent)]">Read →</span>
                 </Link>
               );
@@ -255,8 +256,10 @@ export default async function ArticlePage({
       )}
 
       {article.relatedTool && (
-        <div className="mt-6 rounded-lg border border-[var(--accent)]/30 bg-[var(--accent-glow)] p-5">
-          <h2 className="text-sm font-bold text-[var(--foreground)]">Try the calculator</h2>
+        <div className="mt-6 border-t border-[var(--border-color)] pt-5">
+          <h2 className="text-sm font-bold text-[var(--foreground)]">
+            <Highlight color="yellow">Try the calculator</Highlight>
+          </h2>
           <p className="mt-1 text-xs leading-relaxed text-[var(--muted-text)]">
             Run the numbers for your own volume and mix before you choose.
           </p>

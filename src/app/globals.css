@@ -674,7 +674,6 @@ ol[class*="border-"] {
   --hl-green-edge: rgba(46, 160, 100, 0.1);
   --hl-pink: rgba(244, 114, 182, 0.24);
   --hl-pink-edge: rgba(244, 114, 182, 0.1);
-  --hl-skew: -1.2deg;
 }
 :root[data-theme="dark"] {
   --hl-yellow: rgba(255, 205, 60, 0.3);

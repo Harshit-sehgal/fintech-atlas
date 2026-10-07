@@ -180,9 +180,9 @@ export default async function RadarCompanyProfilePage({
       <Breadcrumbs items={breadcrumbItems} />
 
       <header className="mt-8">
-        <span className="inline-flex w-fit rounded-full border border-[var(--border-color)] px-3 py-1 text-xs font-medium text-[var(--muted-text)]">
+        <p className="font-mono text-xs uppercase tracking-widest text-[var(--muted-text)]">
           {record.cluster}
-        </span>
+        </p>
         <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">
           {record.name}
         </h1>

@@ -258,12 +258,12 @@ export default function CalculatorsClient() {
                     aria-selected={active}
                     aria-controls={`panel-${calc.id}`}
                     onClick={() => setActiveId(calc.id)}
-                    className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-all focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+                    className={`flex items-center gap-2 rounded-sm px-3 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
                       active
-                        ? "border-transparent text-[var(--background)]"
-                        : "border-[var(--border-color)] text-[var(--muted-text)] hover:border-[var(--border-strong)] hover:text-[var(--foreground)]"
+                        ? "font-semibold text-[var(--foreground)]"
+                        : "text-[var(--muted-text)] hover:text-[var(--foreground)]"
                     }`}
-                    style={active ? ({ background: `var(${cAccent})` } as CSSProperties) : undefined}
+                    style={active ? ({ background: `color-mix(in oklab, var(${cAccent}) 14%, transparent)` } as CSSProperties) : undefined}
                   >
                     {/* Editorial index numeral instead of an emoji marker (P1-1) */}
                     <span aria-hidden className="font-mono text-xs font-bold">

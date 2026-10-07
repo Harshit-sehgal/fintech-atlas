@@ -92,11 +92,11 @@ export default function RadarActivityPage() {
                         ) : (
                           <span className="font-semibold">{event.companyId}</span>
                         )}
-                        <span className="inline-flex w-fit rounded-full bg-[var(--accent-glow)] px-2.5 py-0.5 text-xs text-[var(--accent-ink)]">
+                        <span className="font-mono text-xs text-[var(--accent-ink)]">
                           {event.label}
                         </span>
-                        <span className="inline-flex w-fit rounded-full px-2.5 py-0.5 text-xs text-[var(--muted-text)]">
-                          {statusWord(event.status)}
+                        <span className="text-xs text-[var(--muted-text)]">
+                          · {statusWord(event.status)}
                         </span>
                       </div>
                       <p className="mt-2 text-sm text-[var(--fg-dim)]">
