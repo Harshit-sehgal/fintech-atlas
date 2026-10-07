@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { openGraphImage, clampDescription, htmlAttrLength } from "@/lib/shared-metadata";
 import { getCompanyForResearchProfile, getCompanyName } from "@/lib/company-directory-links";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import {
@@ -133,9 +133,14 @@ export async function generateMetadata({
   const record = getIndiaDirectoryRecordBySlug(slug);
   if (!record) return { title: "Not Found" };
   const title = titleFor(record.name);
+  // The suffix carries the page's intent, so the raw description is
+  // budgeted (on its HTML-escaped length) to fit under the 155-char
+  // SERP display limit together with it — trimmed on a word boundary,
+  // never mid-word.
+  const suffix = ` — regulatory intelligence for ${record.name} in the ${record.cluster} cluster.`;
   const description =
     record.description && record.description !== "n/a"
-      ? `${record.description.slice(0, 140)} — regulatory intelligence for ${record.name} in the ${record.cluster} cluster.`
+      ? clampDescription(record.description, 155 - htmlAttrLength(suffix)) + suffix
       : `Radar regulatory intelligence for ${record.name} in the ${record.cluster} cluster: licences, regulator, confidence and sources.`;
   return {
     title,

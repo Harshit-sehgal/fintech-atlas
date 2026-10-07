@@ -101,7 +101,7 @@ export default function RazorpayFeeCalculatorPage() {
       </article>
 
       <div className="mx-auto mt-12 max-w-5xl">
-        <FeeCalculatorPageClient defaultCurrency="INR" showBreadcrumb={false} />
+        <FeeCalculatorPageClient defaultCurrency="INR" showBreadcrumb={false} headingLevel={2} />
       </div>
       <section className="mx-auto max-w-5xl px-5 pb-16">
         <MarkerRule color="pink" />

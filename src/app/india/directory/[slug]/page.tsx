@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { openGraphImage, clampDescription } from "@/lib/shared-metadata";
 import { getCompanyForResearchProfile, getCompanyName } from "@/lib/company-directory-links";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import {
@@ -40,9 +40,14 @@ export async function generateMetadata({
   const record = getIndiaDirectoryRecordBySlug(slug);
   if (!record) return { title: "Not Found" };
   const title = titleFor(record.name);
+  // Intent-led description (per SERP CTR guidance): name + the
+  // research-directory intent first, the one-liner second, then a
+  // facts teaser — clamped to the 155-char display budget.
   const description =
     record.description && !UNVERIFIED.has(record.description)
-      ? record.description.slice(0, 155)
+      ? clampDescription(
+          `${record.name} — India research directory profile: ${record.description} Founders, funding, valuation and licence notes.`,
+        )
       : `${record.name} — Indian fintech profile in the ${record.cluster} cluster: founders, funding, valuation, licences, and website.`;
   return {
     title,

@@ -5,7 +5,7 @@ import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { ResolvedPartnerCtaLink } from "@/components/ui/resolved-partner-cta-link";
 import { resolvePartnerCta, partnerRel } from "@/lib/partners";
 import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { openGraphImage, clampDescription } from "@/lib/shared-metadata";
 import { articles, getArticleBySlug, type ArticleBlock, categoryHref } from "@/data/articles";
 import { getCompanyBySlug } from "@/data";
 import Link from "next/link";
@@ -25,18 +25,18 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = getArticleBySlug(slug);
   if (!article) return { title: "Not Found" };
-  return {
-    title: article.title,
-    description: article.description,
-    alternates: { canonical: canonicalUrl(`/articles/${article.slug}`) },
-    openGraph: {
-      ...openGraphImage,
-      type: "article",
+    return {
       title: article.title,
-      description: article.description,
-      url: canonicalUrl(`/articles/${article.slug}`),
-    },
-  };
+      description: clampDescription(article.description),
+      alternates: { canonical: canonicalUrl(`/articles/${article.slug}`) },
+      openGraph: {
+        ...openGraphImage,
+        type: "article",
+        title: article.title,
+        description: clampDescription(article.description),
+        url: canonicalUrl(`/articles/${article.slug}`),
+      },
+    };
 }
 
 function formatDate(iso: string): string {

@@ -4,7 +4,7 @@ import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import { getCategoryBySlug, categories, getCompaniesByCategory, glossary, categoryGlossaryMap } from "@/data";
 import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { openGraphImage, clampDescription } from "@/lib/shared-metadata";
 import { formatValuationShort } from "@/lib/format-company";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CategoryIcon } from "@/components/ui/category-icon";
@@ -24,17 +24,24 @@ export async function generateMetadata({
   const { id } = await params;
   const cat = getCategoryBySlug(id);
   if (!cat) return { title: "Not Found" };
+  // Intent-led description: the category's one-liner is ~60 chars on
+  // its own — lead with the comparison intent and the curated count
+  // so the snippet says what the page does, clamped to the SERP budget.
+  const companyCount = getCompaniesByCategory(id).length;
+  const description = clampDescription(
+    `${cat.name} companies in India — ${cat.short} Compare ${companyCount} curated ${cat.name} profiles with fees, ratings and India availability on FinTech Atlas.`,
+  );
   // Page-level openGraph is required: Next.js shallowly replaces the inherited
   // root openGraph — without this the OG card would show the homepage's
   // title/description/url for every category share.
   return {
     title: cat.name,
-    description: cat.short,
+    description,
     alternates: { canonical: canonicalUrl(`/categories/${cat.slug}`) },
     openGraph: {
       ...openGraphImage,
       title: `${cat.name} — FinTech Category Guide`,
-      description: cat.short,
+      description,
       url: canonicalUrl(`/categories/${cat.slug}`),
     },
   };

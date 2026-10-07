@@ -98,11 +98,14 @@ function formatFeeMoney(value: number, currency: FeeCurrency): string {
 export default function FeeCalculatorPageClient({
   defaultCurrency = DEFAULT_FEE_CURRENCY,
   showBreadcrumb = true,
+  headingLevel = 1,
 }: {
   /** Preselected currency for pages that target one market (e.g. INR for the Razorpay calculator). */
   defaultCurrency?: FeeCurrency;
   /** Pages that already render their own breadcrumb (e.g. the Razorpay page) hide the island's nav to avoid duplicate landmarks. */
   showBreadcrumb?: boolean;
+  /** Pages that already carry the document h1 (e.g. the Razorpay calculator page) demote the island's heading to an h2 so the document keeps exactly one h1. */
+  headingLevel?: 1 | 2;
 }) {
   const { showToast } = useToast();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -222,7 +225,7 @@ export default function FeeCalculatorPageClient({
       )}
 
       <SectionHeading
-        headingLevel={1}
+        headingLevel={headingLevel}
         eyebrow="Cost Estimator"
         title="Payment Gateway Fee Calculator"
         description="Adjust your monthly revenue, order size, and sales mix to estimate transaction fees across leading payment providers."
