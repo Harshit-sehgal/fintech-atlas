@@ -115,12 +115,12 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
           </div>
 
           {companyList.length > 0 ? (
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
               {companyList.map((c) => (
                 <Link
                   key={c.slug}
                   href={`/companies/${c.slug}`}
-                  className="box-card group relative flex flex-col justify-between p-4"
+                  className="box-card group relative flex flex-col justify-between p-5"
                   style={{ ["--accent"]: c.accent } as CSSProperties}
                 >
                   <div>

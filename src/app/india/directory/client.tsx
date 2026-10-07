@@ -166,12 +166,12 @@ export function IndiaDirectoryClient() {
         )}
       </p>
 
-      <ul className="mt-6 grid gap-3 border-t border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-6 grid gap-4 border-t border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
         {pageItems.map((summary) => (
           <li key={summary.slug}>
             <Link
               href={`/india/directory/${summary.slug}`}
-              className="box-card flex h-full flex-col gap-1 p-4"
+              className="box-card flex h-full flex-col gap-1 p-5"
             >
               <span className="hl-link font-semibold text-[var(--foreground)]">
                 {summary.name}

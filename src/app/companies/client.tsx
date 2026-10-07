@@ -192,7 +192,7 @@ function DirectoryRow({
       <Reveal
         as="article"
         y={14}
-        className="box-card group relative p-4 sm:p-5"
+        className="box-card group relative p-5 sm:p-6"
       >
       {/* Whole-row navigation link — sibling of the bookmark button. */}
       <Link
@@ -297,7 +297,7 @@ function Spotlight({
             hand-marked name still carries the emphasis. */}
         <Reveal
           as="article"
-          className="box-card group relative flex flex-col justify-between p-5 lg:col-span-3"
+          className="box-card group relative flex flex-col justify-between p-6 lg:col-span-3"
         >
           <Link
             href={`/companies/${lead.slug}`}
@@ -364,13 +364,13 @@ function Spotlight({
         </Reveal>
 
         {/* Runners-up — compact boxed entries beside the lead. */}
-        <div className="flex flex-col gap-3 lg:col-span-2">
+        <div className="flex flex-col gap-4 lg:col-span-2">
           {runners.map((c) => (
             <Reveal
               as="article"
               key={c.slug}
               delay={0.08}
-              className="box-card group relative flex flex-1 flex-col justify-between p-4"
+              className="box-card group relative flex flex-1 flex-col justify-between p-5"
             >
               <Link
                 href={`/companies/${c.slug}`}
@@ -823,7 +823,7 @@ export function CompaniesClient() {
                           {items.length}
                         </span>
                       </h2>
-                      <div className="mt-1 flex flex-col gap-3">
+                      <div className="mt-1 flex flex-col gap-4">
                         {items.map((c, i) => (
                           <DirectoryRow
                             key={c.slug}

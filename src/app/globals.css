@@ -428,13 +428,13 @@ h1, h2, h3 {
        every surface using it is uniform by construction. ── */
 .box-card {
   background: var(--card);
-  border: 1px solid color-mix(in oklab, var(--foreground) 12%, transparent);
+  border: 1px solid color-mix(in oklab, var(--foreground) 8%, transparent);
   border-radius: var(--radius-md);
   transition: border-color 0.2s ease;
 }
 
 .box-card:hover {
-  border-color: color-mix(in oklab, var(--foreground) 24%, transparent);
+  border-color: color-mix(in oklab, var(--foreground) 16%, transparent);
 }
 
 /* ── Quiet metadata accent retained for data-heavy surfaces ── */
@@ -668,21 +668,21 @@ ol[class*="border-"] {
    Light theme only: dark paper drops the wash (see the dark
    overrides after .hl-link) and emphasises with ink + colour. */
 :root {
-  --hl-yellow: rgba(255, 214, 64, 0.55);
-  --hl-yellow-edge: rgba(255, 214, 64, 0.28);
-  --hl-green: rgba(46, 160, 100, 0.28);
-  --hl-green-edge: rgba(46, 160, 100, 0.14);
-  --hl-pink: rgba(244, 114, 182, 0.30);
-  --hl-pink-edge: rgba(244, 114, 182, 0.14);
+  --hl-yellow: rgba(255, 214, 64, 0.38);
+  --hl-yellow-edge: rgba(255, 214, 64, 0.18);
+  --hl-green: rgba(46, 160, 100, 0.22);
+  --hl-green-edge: rgba(46, 160, 100, 0.1);
+  --hl-pink: rgba(244, 114, 182, 0.24);
+  --hl-pink-edge: rgba(244, 114, 182, 0.1);
   --hl-skew: -1.2deg;
 }
 :root[data-theme="dark"] {
-  --hl-yellow: rgba(255, 205, 60, 0.38);
-  --hl-yellow-edge: rgba(255, 205, 60, 0.16);
-  --hl-green: rgba(74, 200, 130, 0.30);
-  --hl-green-edge: rgba(74, 200, 130, 0.14);
-  --hl-pink: rgba(244, 114, 182, 0.32);
-  --hl-pink-edge: rgba(244, 114, 182, 0.14);
+  --hl-yellow: rgba(255, 205, 60, 0.3);
+  --hl-yellow-edge: rgba(255, 205, 60, 0.12);
+  --hl-green: rgba(74, 200, 130, 0.24);
+  --hl-green-edge: rgba(74, 200, 130, 0.1);
+  --hl-pink: rgba(244, 114, 182, 0.26);
+  --hl-pink-edge: rgba(244, 114, 182, 0.1);
 }
 
 .hl {

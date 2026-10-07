@@ -626,13 +626,7 @@ export function RadarClient() {
           </fieldset>
         </aside>
 
-        <section aria-label="Radar results" className="relative">
-          {/* Frosted-glass board: a soft tonal wash behind the
-              results gives the glass tiles something to blur. */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 -z-10 rounded-sm bg-[var(--subtle-bg)]/40"
-          />
+        <section aria-label="Radar results">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-[var(--muted-text)]" aria-live="polite">
               {sortedIndexes.length === indiaDirectorySummaries.length
@@ -670,7 +664,7 @@ export function RadarClient() {
             </div>
           </div>
 
-          <ul className="mt-6 grid gap-3 border-t border-[var(--border-color)] sm:grid-cols-2">
+          <ul className="mt-6 grid gap-4 border-t border-[var(--border-color)] sm:grid-cols-2">
             {pageItems.map((index) => {
               const summary = indiaDirectorySummaries[index];
               const founded = radarFoundedYears[index];
@@ -680,7 +674,7 @@ export function RadarClient() {
                   <Link
                     href={`/india/directory/${summary.slug}`}
                     data-placement="radar-result"
-                    className="box-card flex flex-1 flex-col gap-2 p-4"
+                    className="box-card flex flex-1 flex-col gap-2 p-5"
                   >
                     <span className="hl-link font-semibold text-[var(--foreground)]">
                       {summary.name}

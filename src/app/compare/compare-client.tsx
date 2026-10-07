@@ -512,7 +512,7 @@ function CompareContent() {
                 <div
                   key={c.slug}
                   style={{ ["--accent"]: c.accent } as CSSProperties}
-                  className="box-card p-4"
+                  className="box-card p-5"
                 >
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0">
