@@ -8,6 +8,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { IconBook, IconChart, IconShield } from "@/components/ui/icons";
 import { Highlight, MarkerRule } from "@/components/ui/highlight";
+import { faqSchema, sanitiseJsonLd } from "@/components/SEO/schemas";
 import { DATA_AS_OF } from "@/lib/site-config";
 
 const faqs = [
@@ -112,6 +113,14 @@ export function AboutClient() {
           </div>
         </section>
       </Reveal>
+
+      {/* FAQPage structured data — built from the same `faqs`
+          array that renders the accordion, so the rich-result
+          payload can never drift from the visible content. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: sanitiseJsonLd(faqSchema(faqs)) }}
+      />
 
       {/* FAQ Accordion */}
       <Reveal delay={0.2}>

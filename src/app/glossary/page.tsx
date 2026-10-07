@@ -7,6 +7,10 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { GlossaryToolbar } from "./toolbar";
 import { TermActions } from "./term-actions";
+import {
+  glossaryItemListSchema,
+  sanitiseJsonLd,
+} from "@/components/SEO/schemas";
 
 const description =
   "Plain-language definitions of the FinTech terms used on this site — UPI and payment aggregators to FEMA, FIRCs, and RBI licences.";
@@ -42,6 +46,14 @@ export default function GlossaryPage() {
 
   return (
     <div className="relative mx-auto max-w-4xl px-5 py-20 md:py-28">
+      {/* ItemList over the A–Z index: each term is an anchor on
+          this page, so the item URLs carry the term fragment. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: sanitiseJsonLd(glossaryItemListSchema(glossary)),
+        }}
+      />
       <GridBackdrop />
 
       <Breadcrumbs
