@@ -421,6 +421,20 @@ h1, h2, h3 {
   -webkit-backdrop-filter: blur(var(--glass-blur));
 }
 
+/* ── Boxed card — opaque fill + ink hairline, for company
+       list cards (radar results and similar surfaces) where
+       each entry must read as its own object, clearly
+       separated from its neighbours ── */
+.box-card {
+  background: var(--card);
+  border: 1px solid color-mix(in oklab, var(--foreground) 12%, transparent);
+  transition: border-color 0.2s ease;
+}
+
+.box-card:hover {
+  border-color: color-mix(in oklab, var(--foreground) 24%, transparent);
+}
+
 /* ── Quiet metadata accent retained for data-heavy surfaces ── */
 .mono-accent {
   color: var(--accent);
