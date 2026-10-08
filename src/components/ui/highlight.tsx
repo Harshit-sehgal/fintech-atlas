@@ -77,12 +77,53 @@ export function Highlight({
   );
 }
 
-/** Small hand-drawn divider: a single marker stroke, centered. Replaces `border-t` section rules. */
-export function MarkerRule({ className = "", color = "yellow" }: { className?: string; color?: HighlightColor }) {
+/**
+ * Small hand-drawn divider: a single marker stroke, centered. Replaces
+ * `border-t` section rules. With `animate`, the stroke draws left→right when
+ * it scrolls into view (respects reduced-motion and boring mode).
+ */
+export function MarkerRule({
+  className = "",
+  color = "yellow",
+  animate = false,
+}: {
+  className?: string;
+  color?: HighlightColor;
+  animate?: boolean;
+}) {
+  const ref = useRef<HTMLSpanElement | null>(null);
+  const [inView, setInView] = useState(!animate);
+
+  useEffect(() => {
+    if (!animate) return;
+    const el = ref.current;
+    if (!el) return;
+    if (typeof IntersectionObserver === "undefined") {
+      const t = requestAnimationFrame(() => setInView(true));
+      return () => cancelAnimationFrame(t);
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setInView(true);
+            io.disconnect();
+          }
+        }
+      },
+      { threshold: 0.2 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [animate]);
+
   return (
     <span
+      ref={ref}
       aria-hidden="true"
-      className={`marker-rule marker-rule-${color}${className ? ` ${className}` : ""}`}
+      className={`marker-rule marker-rule-${color}${animate ? " marker-rule-animate" : ""}${
+        inView ? " is-inview" : ""
+      }${className ? ` ${className}` : ""}`}
     />
   );
 }

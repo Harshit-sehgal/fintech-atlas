@@ -779,6 +779,52 @@ ol[class*="border-"] {
   background-image: linear-gradient(100deg, var(--hl-pink-edge), var(--hl-pink) 30%, var(--hl-pink) 70%, var(--hl-pink-edge));
 }
 
+/* ── Landing-page motion (T160) ──
+   A deliberately narrow exception to the "nothing animates on arrival" policy,
+   scoped to the homepage. Three on-brand motions, all marker-based:
+     1. `.rise` — a short staggered settle (6px + fade) for the lead and portals.
+     2. `.marker-rule-animate` — the hand-drawn divider draws left→right on view.
+     3. the highlighter sweep already used by <Highlight animate> for numerals.
+   Kept small and fast so it reads as the page landing, not a cascade. Boring
+   mode and prefers-reduced-motion disable all three (content stays visible). */
+@keyframes rise-settle {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+.rise {
+  animation: rise-settle 0.5s var(--ease-out-expo) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+@keyframes marker-draw {
+  from { transform: rotate(-0.6deg) scaleX(0); }
+  to   { transform: rotate(-0.6deg) scaleX(1); }
+}
+.marker-rule-animate {
+  transform: rotate(-0.6deg) scaleX(0);
+  transform-origin: left center;
+  opacity: 0;
+}
+.marker-rule-animate.is-inview {
+  opacity: 0.85;
+  animation: marker-draw 0.6s var(--ease-out-expo) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise { animation: none; }
+  .marker-rule-animate {
+    transform: rotate(-0.6deg) scaleX(1);
+    opacity: 0.85;
+  }
+  .marker-rule-animate.is-inview { animation: none; }
+}
+:root[data-ui-mode="boring"] .rise { animation: none !important; }
+:root[data-ui-mode="boring"] .marker-rule-animate {
+  transform: none !important;
+  opacity: 1;
+  animation: none !important;
+}
+
 /* Marker link: text links get a marker swipe on hover instead of an underline shift. */
 .hl-link {
   background-image: linear-gradient(100deg, var(--hl-yellow-edge), var(--hl-yellow) 25%, var(--hl-yellow) 75%, var(--hl-yellow-edge));
