@@ -62,7 +62,7 @@ export const moreNavGroups: NavGroup[] = [
     heading: "Companies",
     items: [
       {
-        href: "/categories",
+        href: "/global-directory?by=industry",
         label: "By industry",
         description: "The same companies grouped by sector",
       },

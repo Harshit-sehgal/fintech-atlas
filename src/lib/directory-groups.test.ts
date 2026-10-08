@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { groupDirectory, splitClusterName } from "./directory-groups";
+import { groupByCategory, groupDirectory, splitClusterName } from "./directory-groups";
 
 describe("splitClusterName", () => {
   it("splits a region — country cluster", () => {
@@ -40,5 +40,19 @@ describe("groupDirectory", () => {
   it("ignores rows whose cluster index is out of range", () => {
     const regions = groupDirectory(names, [{ slug: "x", cluster: 99 }], (r) => r.cluster);
     expect(regions).toEqual([]);
+  });
+});
+
+describe("groupByCategory", () => {
+  it("groups by label, largest first then alphabetical, trimming blanks to Other", () => {
+    const rows = [
+      { name: "a", cat: "Bank" },
+      { name: "b", cat: "Bank" },
+      { name: "c", cat: "Payments" },
+      { name: "d", cat: "  " },
+    ];
+    const groups = groupByCategory(rows, (r) => r.cat);
+    expect(groups.map((g) => g.name)).toEqual(["Bank", "Other", "Payments"]);
+    expect(groups[0].items.map((i) => i.name)).toEqual(["a", "b"]);
   });
 });
