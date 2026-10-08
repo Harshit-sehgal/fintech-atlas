@@ -104,12 +104,31 @@ export function renderCoaMarkdown(
   return lines.join("\n");
 }
 
-async function main(): Promise<void> {
-  const snapshotId = `payment-aggregators-coa-${new Date().toISOString().slice(0, 10)}`;
+export interface RbiCoaFetchDeps {
+  fetchFn?: typeof fetch;
+  writeFile?: (path: string, data: string) => void;
+  url?: string;
+  now?: () => Date;
+}
+
+/**
+ * Orchestration with injectable IO so the happy path and every abort path are
+ * unit-testable without the network or filesystem.
+ */
+export async function runRbiCoaFetch(
+  deps: RbiCoaFetchDeps = {},
+): Promise<{ rows: CoaRow[]; markdown: string; outPath: string }> {
+  const {
+    fetchFn = fetch,
+    writeFile = (path: string, data: string) => writeFileSync(path, data),
+    url = COA_URL,
+    now = () => new Date(),
+  } = deps;
+  const snapshotId = `payment-aggregators-coa-${now().toISOString().slice(0, 10)}`;
   const outPath = resolve(OUT_DIR, `${snapshotId}.md`);
 
-  console.log(`Fetching RBI CoA holder list: ${COA_URL}`);
-  const res = await fetch(COA_URL, {
+  console.log(`Fetching RBI CoA holder list: ${url}`);
+  const res = await fetchFn(url, {
     headers: { "user-agent": "FinTechAtlas/1.0 (radar change monitor)" },
     signal: AbortSignal.timeout(45_000),
   });
@@ -126,9 +145,14 @@ async function main(): Promise<void> {
   const systems = rows.reduce((n, r) => n + r.systems.filter((s) => /PA\s*-|PA-/.test(s)).length, 0);
   console.log(`PA CoA lines: ${systems}`);
 
-  const markdown = renderCoaMarkdown(snapshotId, COA_URL, new Date().toISOString().slice(0, 10), rows);
-  writeFileSync(outPath, markdown);
+  const markdown = renderCoaMarkdown(snapshotId, url, now().toISOString().slice(0, 10), rows);
+  writeFile(outPath, markdown);
   console.log(`Snapshot written: ${outPath}`);
+  return { rows, markdown, outPath };
+}
+
+async function main(): Promise<void> {
+  await runRbiCoaFetch();
 }
 
 const isMain =
