@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { getCompanySummaryBySlug } from "@/generated/company-summaries";
+import { companySummaries } from "@/generated/company-summaries";
 import { Highlight, MarkerRule } from "@/components/ui/highlight";
 import { CountUp } from "@/components/ui/count-up";
+import { BrandWall } from "@/components/ui/brand-wall";
 
 interface HomeProps {
   regions: { name: string; total: number; countries: number }[];
@@ -14,9 +15,6 @@ interface HomeProps {
   articleCount: number;
   glossaryCount: number;
 }
-
-/** Featured entries — global household names, resolved from the catalog. */
-const FEATURED_SLUGS = ["stripe", "wise", "revolut", "nubank", "adyen", "paypal", "coinbase", "chime"];
 
 const TOOLS: { label: string; href: string }[] = [
   { label: "Payment fee estimator", href: "/tools/calculator" },
@@ -116,23 +114,19 @@ export default function HomePageClient({
   articleCount,
   glossaryCount,
 }: HomeProps) {
-  const featured = FEATURED_SLUGS.map((slug) => getCompanySummaryBySlug(slug)).filter(
-    (c): c is NonNullable<typeof c> => Boolean(c),
-  );
+  const maxRegion = Math.max(...regions.map((r) => r.total));
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-10 md:py-14">
       {/* Lead */}
-      <header className="rise border-b border-[var(--border-color)] pb-7">
+      <header className="border-b border-[var(--border-color)] pb-7">
         <h1 className="font-serif text-3xl font-bold tracking-tight text-[var(--foreground)] md:text-4xl">
           FinTech Atlas
         </h1>
         <p className="mt-3 max-w-2xl text-pretty text-sm leading-relaxed text-[var(--muted-text)] md:text-base">
-          An open reference to the companies reshaping finance —{" "}
-          <Highlight color="green">
-            <CountUp value={companiesCount} /> firms
-          </Highlight>{" "}
-          listed by region and country, with comparisons, calculators and plain-language guides.
+          An open reference to the companies reshaping finance — a worldwide
+          directory of banks, neobanks, payments and fintech, plus comparisons,
+          calculators and plain-language guides.
         </p>
         <HomeSearch />
       </header>
@@ -177,16 +171,60 @@ export default function HomePageClient({
             ]}
           />
         </Portal>
-
-        <Portal title="Featured" href="/global-directory" cta="Directory" delayMs={240}>
-          <LinkList
-            items={featured.map((c) => ({
-              label: c.name,
-              href: `/global-directory/${c.slug}`,
-            }))}
-          />
-        </Portal>
       </div>
+
+      {/* Visual band — real brand marks, then the geographic distribution. */}
+      <section className="rise mt-10" style={{ "--rise-delay": "260ms" } as React.CSSProperties}>
+        <div className="flex items-baseline justify-between gap-3 border-b border-[var(--border-color)] pb-1.5">
+          <h2 className="font-serif text-lg font-bold tracking-tight text-[var(--foreground)]">
+            Brands in the atlas
+          </h2>
+          <Link href="/companies" className="shrink-0 text-xs font-medium text-[var(--accent)]">
+            <span className="hl-link">All profiles</span> <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+        <div className="mt-5">
+          <BrandWall logos={companySummaries.slice(0, 24).map((c) => ({ slug: c.slug, name: c.name }))} />
+        </div>
+      </section>
+
+      <section className="rise mt-10" style={{ "--rise-delay": "300ms" } as React.CSSProperties}>
+        <div className="flex items-baseline justify-between gap-3 border-b border-[var(--border-color)] pb-1.5">
+          <h2 className="font-serif text-lg font-bold tracking-tight text-[var(--foreground)]">
+            Where the companies are
+          </h2>
+          <span className="shrink-0 text-xs text-[var(--muted-text)]">
+            <Highlight color="green">
+              <CountUp value={companiesCount} />
+            </Highlight>{" "}
+            companies
+          </span>
+        </div>
+        <ul className="mt-4 space-y-2">
+          {regions.map((r) => (
+            <li
+              key={r.name}
+              className="grid grid-cols-[minmax(6rem,11rem)_1fr_auto] items-center gap-3 text-sm"
+            >
+              <Link
+                href={`/global-directory/?region=${encodeURIComponent(r.name)}`}
+                className="truncate text-[var(--accent)] hover:underline"
+              >
+                {r.name}
+              </Link>
+              <span aria-hidden="true" className="h-2 overflow-hidden rounded-full bg-[var(--subtle-bg)]">
+                <span
+                  className="block h-full rounded-full bg-[var(--accent)]"
+                  style={{ width: `${Math.round((r.total / maxRegion) * 100)}%` }}
+                />
+              </span>
+              <span className="font-mono text-xs tabular-nums text-[var(--muted-text)]">
+                {r.total.toLocaleString()}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <MarkerRule className="mt-4" animate />
 
