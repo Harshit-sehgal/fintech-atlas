@@ -65,3 +65,30 @@ export function groupDirectory<T>(
   });
   return order.map((name) => byName.get(name)!);
 }
+
+export interface NamedGroup<T> {
+  name: string;
+  items: T[];
+}
+
+/**
+ * Group rows by an arbitrary category label (the other browse axis). Groups are
+ * ordered by size (largest first), then alphabetically, so the biggest sectors
+ * lead — the reverse of {@link groupDirectory}'s geographic order, which keeps
+ * the generator's region ordering.
+ */
+export function groupByCategory<T>(
+  rows: readonly T[],
+  categoryOf: (row: T) => string,
+): NamedGroup<T>[] {
+  const map = new Map<string, T[]>();
+  for (const row of rows) {
+    const key = categoryOf(row).trim() || "Other";
+    const bucket = map.get(key);
+    if (bucket) bucket.push(row);
+    else map.set(key, [row]);
+  }
+  return [...map.entries()]
+    .map(([name, items]) => ({ name, items }))
+    .sort((a, b) => b.items.length - a.items.length || a.name.localeCompare(b.name));
+}
