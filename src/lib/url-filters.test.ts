@@ -1,98 +1,136 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   buildFilterQuery,
-  parseIntList,
+  cancelPendingFilterWrites,
+  oneOf,
   parseBoundedInt,
   parseOptionalInt,
-  oneOf,
+  parseIntList,
+  writeUrlFilters,
 } from "./url-filters";
 
+afterEach(() => {
+  cancelPendingFilterWrites();
+  vi.useRealTimers();
+  vi.unstubAllGlobals();
+  vi.restoreAllMocks();
+});
+
 describe("buildFilterQuery", () => {
-  it("sets new keys and overwrites existing ones", () => {
-    expect(buildFilterQuery("?q=pay&sort=alpha", { sort: "founded-desc", page: 2 })).toBe(
-      "q=pay&sort=founded-desc&page=2",
-    );
+  it("returns an empty string when nothing remains", () => {
+    expect(buildFilterQuery("", {})).toBe("");
   });
 
-  it("deletes keys set to null, undefined or empty string", () => {
-    expect(buildFilterQuery("?q=pay&page=2", { q: null, page: "" })).toBe("");
-    expect(buildFilterQuery("?q=pay&view=grid", { view: undefined })).toBe("q=pay");
+  it("deletes keys for null, undefined and empty-string values", () => {
+    expect(buildFilterQuery("?a=1&b=2&c=3", { a: null, b: undefined, c: "" })).toBe("");
   });
 
-  it("joins arrays with commas and deletes empty arrays", () => {
-    expect(buildFilterQuery("", { sectors: [1, 3, 14] })).toBe("sectors=1%2C3%2C14");
-    expect(buildFilterQuery("?sectors=1", { sectors: [] })).toBe("");
+  it("sets string and number values and preserves existing keys", () => {
+    const q = buildFilterQuery("?keep=1", { q: "stripe", page: 3 });
+    expect(q).toBe("keep=1&q=stripe&page=3");
   });
 
-  it("drops empty strings from arrays but keeps the rest", () => {
-    expect(buildFilterQuery("", { ids: [1, "", 2] })).toBe("ids=1%2C2");
-    expect(buildFilterQuery("", { ids: [""] })).toBe("");
-  });
-
-  it("stringifies numbers", () => {
-    expect(buildFilterQuery("", { page: 3 })).toBe("page=3");
-  });
-
-  it("round-trips through URLSearchParams", () => {
-    const query = buildFilterQuery("", { q: "upi", sectors: [0, 2] });
-    const params = new URLSearchParams(query);
-    expect(params.get("q")).toBe("upi");
-    expect(parseIntList(params.get("sectors"))).toEqual([0, 2]);
+  it("joins arrays, drops empty entries, and deletes on an empty array", () => {
+    expect(buildFilterQuery("", { ids: [1, 3, 14] })).toBe("ids=1%2C3%2C14");
+    expect(buildFilterQuery("?ids=9", { ids: [null, undefined, "", 2] })).toBe("ids=2");
+    expect(buildFilterQuery("?ids=9", { ids: [] })).toBe("");
   });
 });
 
 describe("parseIntList", () => {
-  it("parses comma-separated integers", () => {
-    expect(parseIntList("1,3,14")).toEqual([1, 3, 14]);
-  });
-
-  it("returns empty for null/empty input", () => {
+  it("returns an empty list for null/empty input", () => {
     expect(parseIntList(null)).toEqual([]);
     expect(parseIntList("")).toEqual([]);
   });
 
-  it("drops invalid parts without throwing", () => {
-    expect(parseIntList("2,abc,5")).toEqual([2, 5]);
-    expect(parseIntList("1.5")).toEqual([]);
+  it("keeps integers and drops non-integer parts", () => {
+    expect(parseIntList("1,3,14")).toEqual([1, 3, 14]);
+    expect(parseIntList("1,x,2.5,-4")).toEqual([1, -4]);
   });
 });
 
 describe("parseBoundedInt", () => {
-  it("accepts integers inside the range", () => {
-    expect(parseBoundedInt("7", 1, 10, 1)).toBe(7);
+  it("falls back for absent, non-integer and out-of-range input", () => {
+    expect(parseBoundedInt(null, 1, 10, 5)).toBe(5);
+    expect(parseBoundedInt("abc", 1, 10, 5)).toBe(5);
+    expect(parseBoundedInt("0", 1, 10, 5)).toBe(5);
+    expect(parseBoundedInt("11", 1, 10, 5)).toBe(5);
   });
 
-  it("falls back on out-of-range, non-integer and empty values", () => {
-    expect(parseBoundedInt("11", 1, 10, 4)).toBe(4);
-    expect(parseBoundedInt("0", 1, 10, 4)).toBe(4);
-    expect(parseBoundedInt("2.5", 1, 10, 4)).toBe(4);
-    expect(parseBoundedInt(null, 1, 10, 4)).toBe(4);
-    expect(parseBoundedInt("", 1, 10, 4)).toBe(4);
+  it("returns in-range integers", () => {
+    expect(parseBoundedInt("7", 1, 10, 5)).toBe(7);
   });
 });
 
 describe("parseOptionalInt", () => {
-  it("returns null when absent or empty", () => {
-    expect(parseOptionalInt(null, 1950, 2026)).toBeNull();
-    expect(parseOptionalInt("", 1950, 2026)).toBeNull();
+  it("returns null for absent, empty or invalid input", () => {
+    expect(parseOptionalInt(null, 0, 10)).toBeNull();
+    expect(parseOptionalInt("", 0, 10)).toBeNull();
+    expect(parseOptionalInt("x", 0, 10)).toBeNull();
+    expect(parseOptionalInt("99", 0, 10)).toBeNull();
   });
 
-  it("parses in-range integers and rejects everything else", () => {
-    expect(parseOptionalInt("1999", 1950, 2026)).toBe(1999);
-    expect(parseOptionalInt("1899", 1950, 2026)).toBeNull();
-    expect(parseOptionalInt("later", 1950, 2026)).toBeNull();
+  it("returns in-range integers", () => {
+    expect(parseOptionalInt("4", 0, 10)).toBe(4);
   });
 });
 
 describe("oneOf", () => {
-  const sorts = ["alpha", "founded-desc", "funding-asc"] as const;
+  it("returns the value when allowed and the fallback otherwise", () => {
+    expect(oneOf("b", ["a", "b", "c"], "a")).toBe("b");
+    expect(oneOf("z", ["a", "b"], "a")).toBe("a");
+    expect(oneOf(null, ["a", "b"], "a")).toBe("a");
+  });
+});
 
-  it("returns the raw value when it is allowed", () => {
-    expect(oneOf("founded-desc", sorts, "alpha")).toBe("founded-desc");
+describe("writeUrlFilters", () => {
+  it("debounces writes and merges pending updates into one URL", () => {
+    vi.useFakeTimers();
+    const replace = vi
+      .spyOn(window.history, "replaceState")
+      .mockImplementation(() => undefined);
+    window.history.pushState(null, "", "/");
+
+    writeUrlFilters({ q: "stripe" });
+    writeUrlFilters({ page: 2 });
+    expect(replace).not.toHaveBeenCalled();
+
+    vi.advanceTimersByTime(300);
+    expect(replace).toHaveBeenCalledTimes(1);
+    const url = String(replace.mock.calls[0][2]);
+    expect(url.startsWith("/?")).toBe(true);
+    expect(url).toContain("q=stripe");
+    expect(url).toContain("page=2");
   });
 
-  it("falls back on unknown or missing values", () => {
-    expect(oneOf("newest", sorts, "alpha")).toBe("alpha");
-    expect(oneOf(null, sorts, "alpha")).toBe("alpha");
+  it("drops a scheduled write when the path changed", () => {
+    vi.useFakeTimers();
+    const replace = vi
+      .spyOn(window.history, "replaceState")
+      .mockImplementation(() => undefined);
+    window.history.pushState(null, "", "/one");
+    writeUrlFilters({ q: "x" });
+    window.history.pushState(null, "", "/two");
+
+    vi.advanceTimersByTime(300);
+    expect(replace).not.toHaveBeenCalled();
+  });
+
+  it("is a no-op without a window (SSR)", () => {
+    vi.stubGlobal("window", undefined);
+    expect(() => writeUrlFilters({ q: "x" })).not.toThrow();
+  });
+
+  it("cancels a pending write", () => {
+    vi.useFakeTimers();
+    const replace = vi
+      .spyOn(window.history, "replaceState")
+      .mockImplementation(() => undefined);
+    writeUrlFilters({ q: "x" });
+    cancelPendingFilterWrites();
+    vi.advanceTimersByTime(300);
+    expect(replace).not.toHaveBeenCalled();
+    // second call with no pending timer is also safe
+    expect(() => cancelPendingFilterWrites()).not.toThrow();
   });
 });

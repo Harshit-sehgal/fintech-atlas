@@ -37,8 +37,11 @@ export function makeEventId(parts: Array<string | undefined>): string {
       h2 = Math.imul(h2 ^ c, 0x01000193) >>> 0;
     }
   }
-  const a = (h1 ^ (h2 >>> 13)).toString(16).padStart(6, "0");
-  const b = (h2 ^ (h1 >>> 13)).toString(16).padStart(6, "0");
+  // Coerce the XOR results back to unsigned before formatting: JavaScript
+  // `^` yields a signed 32-bit int, so a negative value would otherwise render
+  // as "-…" and break the "12-hex-character id" contract.
+  const a = ((h1 ^ (h2 >>> 13)) >>> 0).toString(16).padStart(6, "0");
+  const b = ((h2 ^ (h1 >>> 13)) >>> 0).toString(16).padStart(6, "0");
   return (a + b).slice(0, 12);
 }
 

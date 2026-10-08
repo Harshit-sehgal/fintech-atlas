@@ -77,6 +77,15 @@ describe("analytics helpers", () => {
     expect(gtag).toHaveBeenCalledWith("event", "tool_start", { tool: "calculator" });
   });
 
+  it("sends an empty props object to gtag when none are supplied", () => {
+    const gtag = vi.fn();
+    vi.stubGlobal("window", { gtag });
+
+    trackEvent("compare_view");
+
+    expect(gtag).toHaveBeenCalledWith("event", "compare_view", {});
+  });
+
   it("is a no-op when neither analytics global is present", () => {
     vi.stubGlobal("window", {});
     expect(() => trackEvent("compare_view")).not.toThrow();
