@@ -33,20 +33,24 @@ export default function PrivacyPage() {
           arrived from this site, according to their own privacy practices.
         </p>
         <p className="mt-3">
-          Where analytics is enabled (you can opt out at the site level), we may count outbound link
-          clicks to measure which resources are useful. This uses no cookies, no fingerprinting, and
-          no personal data — see &ldquo;Analytics&rdquo; below.
+          Where a cookieless analytics service is enabled (you can opt out at the site level), we
+          may count outbound link clicks to measure which resources are useful. That configuration
+          uses no cookies, no fingerprinting, and no personal data — see &ldquo;Analytics&rdquo; below,
+          which also covers the optional cookie-based configuration.
         </p>
       </section>
 
       <section>
         <h2 className="text-xl font-semibold text-[var(--foreground)]">Analytics</h2>
         <p className="mt-3">
-          The site may use a privacy-friendly analytics service (for example, Plausible or Fathom)
-          that aggregates page views and outbound-click counts without cookies, fingerprinting, or
-          storing personal data. Analytics is disabled by default unless the site operator enables it,
-          and can be switched off by the visitor. We do not use advertising networks, tracking pixels,
-          or cross-site trackers.
+          Analytics is disabled by default. When the site operator enables it, one of two
+          configurations may run. A privacy-friendly service (for example, Plausible or Fathom)
+          aggregates page views and outbound-click counts without cookies, fingerprinting, or
+          storing personal data. Alternatively, Google Analytics 4 (GA4) may be enabled; GA4 sets
+          cookies and processes usage data on Google&apos;s infrastructure under Google&apos;s own privacy
+          terms, and visitors can block or delete those cookies through their browser settings or
+          Google&apos;s opt-out mechanisms. We do not use advertising networks, tracking pixels, or
+          cross-site advertising trackers in either configuration.
         </p>
       </section>
 

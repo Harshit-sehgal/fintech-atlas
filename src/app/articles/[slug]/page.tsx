@@ -36,6 +36,12 @@ export async function generateMetadata({
         title: article.title,
         description: clampDescription(article.description),
         url: canonicalUrl(`/articles/${article.slug}`),
+        // Article OG fields (schema.org Article / Google News signals):
+        // published time, last-modified time, author and section.
+        publishedTime: `${article.publishedAt}T00:00:00Z`,
+        modifiedTime: `${article.updatedAt}T00:00:00Z`,
+        authors: [article.author],
+        section: article.category,
       },
     };
 }

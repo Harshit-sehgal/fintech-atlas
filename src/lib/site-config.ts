@@ -72,3 +72,27 @@ export const WAITLIST_ENDPOINT: string | undefined =
  */
 export const ANALYTICS_DOMAIN: string | undefined =
   process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN?.trim() || undefined;
+
+/**
+ * Optional Google Analytics 4 measurement ID (e.g. "G-XXXXXXXXXX").
+ *
+ * When set, the root layout renders the gtag.js loader directly in the <head>
+ * and `scripts/generate-security-headers.mjs` permits the Google Tag Manager /
+ * Analytics origins in the per-page CSP. Unset by default: no third-party
+ * script loads and `trackEvent` stays a no-op.
+ *
+ * NEXT_PUBLIC_* so the value is inlined into the static export at build time —
+ * both the script tags and the CSP must agree, so set it during `npm run build`.
+ */
+export const GA_MEASUREMENT_ID: string | undefined =
+  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || undefined;
+
+/**
+ * Optional Google Search Console ownership-verification token (the value of the
+ * `google-site-verification` meta tag). Unset by default; when present it is
+ * emitted in the root layout's metadata.
+ */
+export const GOOGLE_SITE_VERIFICATION: string | undefined =
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim() ||
+  process.env.GOOGLE_SITE_VERIFICATION?.trim() ||
+  undefined;

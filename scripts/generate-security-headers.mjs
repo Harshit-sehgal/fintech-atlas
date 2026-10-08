@@ -45,6 +45,14 @@ const analyticsDomain = (
   process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN || ""
 ).trim();
 
+// Google Analytics 4 measurement ID. When set, the root layout renders the
+// gtag.js loader and inline bootstrap, so the loader origin must be allowed by
+// script-src and the collect endpoints by connect-src. Both env var and CSP
+// are read at postbuild, so they always agree with the rendered tags.
+const gaMeasurementId = (
+  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ""
+).trim();
+
 // Newsletter provider form endpoint (Phase 3). When set, its origin must be
 // permitted for both connect-src (fetch POST) and form-action (native submit)
 // or the CSP will block the subscription request.
@@ -61,9 +69,15 @@ if (newsletterAction) {
   }
 }
 
-const scriptSrcExtras = analyticsDomain ? "https://plausible.io" : "";
+const scriptSrcExtras = [
+  analyticsDomain ? "https://plausible.io" : "",
+  gaMeasurementId ? "https://www.googletagmanager.com" : "",
+].filter(Boolean).join(" ");
 const connectSrcExtras = [
   analyticsDomain ? "https://plausible.io" : "",
+  gaMeasurementId
+    ? "https://www.googletagmanager.com https://*.google-analytics.com https://analytics.google.com"
+    : "",
   newsletterOrigin,
 ].filter(Boolean).join(" ");
 const formActionExtras = newsletterOrigin || "";
