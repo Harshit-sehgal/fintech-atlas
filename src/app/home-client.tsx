@@ -119,16 +119,14 @@ export default function HomePageClient({
   return (
     <div className="mx-auto max-w-5xl px-5 py-10 md:py-14">
       {/* Lead */}
-      <header className="rise border-b border-[var(--border-color)] pb-7">
+      <header className="border-b border-[var(--border-color)] pb-7">
         <h1 className="font-serif text-3xl font-bold tracking-tight text-[var(--foreground)] md:text-4xl">
           FinTech Atlas
         </h1>
         <p className="mt-3 max-w-2xl text-pretty text-sm leading-relaxed text-[var(--muted-text)] md:text-base">
-          An open reference to the companies reshaping finance —{" "}
-          <Highlight color="green">
-            <CountUp value={companiesCount} /> firms
-          </Highlight>{" "}
-          listed by region and country, with comparisons, calculators and plain-language guides.
+          An open reference to the companies reshaping finance — a worldwide
+          directory of banks, neobanks, payments and fintech, plus comparisons,
+          calculators and plain-language guides.
         </p>
         <HomeSearch />
       </header>
@@ -186,15 +184,21 @@ export default function HomePageClient({
           </Link>
         </div>
         <div className="mt-5">
-          <BrandWall logos={companySummaries.map((c) => ({ slug: c.slug, name: c.name }))} />
+          <BrandWall logos={companySummaries.slice(0, 24).map((c) => ({ slug: c.slug, name: c.name }))} />
         </div>
       </section>
 
       <section className="rise mt-10" style={{ "--rise-delay": "300ms" } as React.CSSProperties}>
-        <div className="border-b border-[var(--border-color)] pb-1.5">
+        <div className="flex items-baseline justify-between gap-3 border-b border-[var(--border-color)] pb-1.5">
           <h2 className="font-serif text-lg font-bold tracking-tight text-[var(--foreground)]">
             Where the companies are
           </h2>
+          <span className="shrink-0 text-xs text-[var(--muted-text)]">
+            <Highlight color="green">
+              <CountUp value={companiesCount} />
+            </Highlight>{" "}
+            companies
+          </span>
         </div>
         <ul className="mt-4 space-y-2">
           {regions.map((r) => (
