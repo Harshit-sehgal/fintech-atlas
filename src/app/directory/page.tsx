@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { companies } from "@/data";
 import { globalDirectorySummaries } from "@/generated/global-directory-summaries";
-import { indiaDirectorySummaries } from "@/generated/india-directory-summaries";
 import { pageMetadata } from "@/lib/shared-metadata";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { Reveal } from "@/components/ui/reveal";
 import { MarkerRule } from "@/components/ui/highlight";
 
-function DirectoryIcon({ tier }: { tier: "curated" | "research" }) {
+function SurfaceIcon({ kind }: { kind: "directory" | "industry" }) {
   return (
     <svg
       aria-hidden="true"
@@ -21,16 +19,16 @@ function DirectoryIcon({ tier }: { tier: "curated" | "research" }) {
       strokeLinejoin="round"
       className="h-5 w-5 text-[var(--accent-ink)]"
     >
-      {tier === "curated" ? (
-        <>
-          <path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" />
-          <path d="M9 7h6M9 11h6M9 15h4" />
-        </>
-      ) : (
+      {kind === "directory" ? (
         <>
           <path d="M12 3l8 4.5-8 4.5-8-4.5z" />
           <path d="M4 12l8 4.5 8-4.5" />
           <path d="M4 16.5L12 21l8-4.5" />
+        </>
+      ) : (
+        <>
+          <path d="M4 6h16M4 12h16M4 18h16" />
+          <path d="M8 6v12" />
         </>
       )}
     </svg>
@@ -41,12 +39,10 @@ export const metadata: Metadata = pageMetadata({
   pathname: "/directory",
   title: "FinTech Directory",
   description:
-    "Three tiers of fintech profiles: curated editorial breakdowns, the worldwide research directory, and the full research directory of India fintech companies.",
+    "One searchable index of fintech companies worldwide — organised by region and country, and grouped by industry.",
 });
 
-export default async function DirectoryPage() {
-  const curatedCount = companies.length;
-
+export default function DirectoryPage() {
   return (
     <div className="relative mx-auto max-w-4xl px-5 py-20 md:py-28">
       <GridBackdrop />
@@ -65,45 +61,16 @@ export default async function DirectoryPage() {
             The FinTech <span className="font-serif italic text-[var(--accent)]">Directory</span>
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--muted-text)]">
-            Every company on FinTech Atlas lives in one of three tiers. The
-            curated profiles are editorial breakdowns — reviews, pricing,
-            availability, ratings. The research directories are data-driven
-            indexes: one worldwide, one India-specific, with funding,
-            licences and verification notes.
+            One index of every company on FinTech Atlas —{" "}
+            {globalDirectorySummaries.length.toLocaleString()} fintech firms and
+            financial institutions worldwide. Browse it geographically, or group
+            the same set by industry instead.
           </p>
         </header>
       </Reveal>
 
-      <div className="mt-8 grid gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-8 grid gap-x-10 gap-y-8 md:grid-cols-2">
         <Reveal delay={0.1}>
-          <Link
-            href="/companies"
-            data-placement="directory-curated"
-            className="group flex h-full flex-col py-2 transition-colors"
-          >
-            <div className="flex items-center gap-3">
-              <div className="shrink-0 text-[var(--accent)]">
-                <DirectoryIcon tier="curated" />
-              </div>
-              <div>
-                <h2 className="text-lg font-bold text-[var(--foreground)]">
-                  <span className="hl-link">Curated profiles</span>
-                </h2>
-                <p className="text-sm text-[var(--muted-text)]">{curatedCount} companies</p>
-              </div>
-            </div>
-            <p className="mt-4 max-w-lg text-sm leading-relaxed text-[var(--muted-text)]">
-              Editorial breakdowns of the gateways, banks and fintech companies
-              that matter most — with reviews, pricing, availability and India
-              ratings, researched and written by the FinTech Atlas team.
-            </p>
-            <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-[var(--accent-ink)]">
-              <span className="hl-link">Browse curated profiles</span> <span className="transition-transform group-hover:translate-x-0.5">→</span>
-            </span>
-          </Link>
-        </Reveal>
-
-        <Reveal delay={0.15}>
           <Link
             href="/global-directory"
             data-placement="directory-global-research"
@@ -111,79 +78,74 @@ export default async function DirectoryPage() {
           >
             <div className="flex items-center gap-3">
               <div className="shrink-0 text-[var(--accent)]">
-                <DirectoryIcon tier="research" />
+                <SurfaceIcon kind="directory" />
               </div>
               <div>
                 <h2 className="text-lg font-bold text-[var(--foreground)]">
-                  <span className="hl-link">Global research directory</span>
+                  <span className="hl-link">Directory</span>
                 </h2>
                 <p className="text-sm text-[var(--muted-text)]">
-                  {globalDirectorySummaries.length.toLocaleString()} companies
+                  {globalDirectorySummaries.length.toLocaleString()} companies · by region and country
                 </p>
               </div>
             </div>
             <p className="mt-4 max-w-lg text-sm leading-relaxed text-[var(--muted-text)]">
-              The data-driven index of fintech worldwide — payments, neobanks,
-              lending, infrastructure and more across every region — with
-              founding dates, funding, valuation and regulatory notes.
-              Searchable and filterable.
+              The full index, organised as an atlas: open a region, expand a
+              country, and drill into founding dates, funding, valuation and
+              regulatory notes. Searchable end to end.
             </p>
             <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-[var(--accent-ink)]">
-              <span className="hl-link">Browse global research profiles</span>{" "}
+              <span className="hl-link">Browse the directory</span>{" "}
               <span className="transition-transform group-hover:translate-x-0.5">→</span>
             </span>
           </Link>
         </Reveal>
 
-        <Reveal delay={0.2}>
+        <Reveal delay={0.15}>
           <Link
-            href="/india/directory"
-            data-placement="directory-research"
+            href="/categories"
+            data-placement="directory-categories"
             className="group flex h-full flex-col py-2 transition-colors"
           >
             <div className="flex items-center gap-3">
               <div className="shrink-0 text-[var(--accent)]">
-                <DirectoryIcon tier="research" />
+                <SurfaceIcon kind="industry" />
               </div>
               <div>
                 <h2 className="text-lg font-bold text-[var(--foreground)]">
-                  <span className="hl-link">India research directory</span>
+                  <span className="hl-link">By industry</span>
                 </h2>
-                <p className="text-sm text-[var(--muted-text)]">
-                  {indiaDirectorySummaries.length.toLocaleString("en-IN")} companies
-                </p>
+                <p className="text-sm text-[var(--muted-text)]">Payments, banking, lending and more</p>
               </div>
             </div>
             <p className="mt-4 max-w-lg text-sm leading-relaxed text-[var(--muted-text)]">
-              The data-driven index of Indian fintech — payments, lending,
-              cross-border, wealth and more — with founding dates, funding,
-              valuation and regulatory licence notes. Searchable and filterable.
+              The same companies grouped by sector instead of geography — useful
+              when you know the category you want rather than the market.
             </p>
             <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-[var(--accent-ink)]">
-              <span className="hl-link">Browse research profiles</span> <span className="transition-transform group-hover:translate-x-0.5">→</span>
+              <span className="hl-link">Browse by industry</span>{" "}
+              <span className="transition-transform group-hover:translate-x-0.5">→</span>
             </span>
           </Link>
         </Reveal>
       </div>
 
-      <Reveal delay={0.25}>
+      <Reveal delay={0.2}>
         <section className="mt-12">
           <MarkerRule color="green" />
-          <h2 className="eyebrow mb-3 mt-6">Which tier should I use?</h2>
+          <h2 className="eyebrow mb-3 mt-6">How to use it</h2>
           <ul className="space-y-3 text-sm leading-relaxed text-[var(--muted-text)]">
             <li>
-              <span className="font-semibold text-[var(--foreground)]">Compare gateways or services</span>{" "}
-              — use curated profiles, which include pricing, reviews and ratings.
+              <span className="font-semibold text-[var(--foreground)]">Know the market?</span>{" "}
+              open the directory by region and country.
             </li>
             <li>
-              <span className="font-semibold text-[var(--foreground)]">Research a market or discover companies</span>{" "}
-              — use the research directories (global or India) to browse by
-              cluster and category, with funding and regulatory notes.
+              <span className="font-semibold text-[var(--foreground)]">Know the sector?</span>{" "}
+              group the companies by industry instead.
             </li>
             <li>
-              <span className="font-semibold text-[var(--foreground)]">You spot one name on more than one tier</span>{" "}
-              — each profile links to its counterpart, so you can move between
-              the editorial breakdown and the research profile.
+              <span className="font-semibold text-[var(--foreground)]">Know the name?</span>{" "}
+              search the directory — matches are marked as you type.
             </li>
           </ul>
         </section>

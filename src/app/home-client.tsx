@@ -210,10 +210,10 @@ export default function HomePageClient({
                 <Highlight color="green">{companySummaries.length} companies</Highlight> · Updated {DATA_AS_OF}
               </p>
               <Link
-                href="/companies"
+                href="/global-directory"
                 className="hidden text-xs font-semibold text-[var(--accent)] sm:inline"
               >
-                <span className="hl-link">View all {companySummaries.length}</span>
+                <span className="hl-link">Browse the directory</span>
               </Link>
             </div>
           </Reveal>
@@ -381,8 +381,8 @@ export default function HomePageClient({
         </div>
         <MarkerRule className="mt-12" color="green" />
         <div className="mt-10 text-center">
-          <Link href="/companies" className="btn-ghost text-xs">
-            View all {companySummaries.length} companies
+          <Link href="/global-directory" className="btn-ghost text-xs">
+            Browse the directory
           </Link>
         </div>
       </section>
