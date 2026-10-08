@@ -16,11 +16,12 @@ export interface NavItem {
    * ("show me fintech companies"). The URL alone cannot explain the difference,
    * so the menu carries the distinction instead of leaving the reader to guess:
    *
-   *   /companies        42 curated worldwide profiles
-   *   /india/directory  full searchable list of Indian firms
-   *   /directory        hub linking both tiers together
-   *   /categories       the same companies grouped by industry instead
-   */
+ *   /companies          42 curated worldwide profiles
+ *   /global-directory   research directory of firms worldwide
+ *   /india/directory     full searchable list of Indian firms
+ *   /directory          hub linking every tier together
+ *   /categories         the same companies grouped by industry instead
+ */
   description?: string;
 }
 
@@ -67,6 +68,11 @@ export const moreNavGroups: NavGroup[] = [
         description: "Payments, banking, lending and more",
       },
       {
+        href: "/global-directory",
+        label: "Global directory",
+        description: "Research directory of firms worldwide",
+      },
+      {
         href: "/india/directory",
         label: "India directory",
         description: "Full searchable list of Indian firms",
@@ -74,7 +80,7 @@ export const moreNavGroups: NavGroup[] = [
       {
         href: "/directory",
         label: "All directories",
-        description: "Curated profiles plus the research list",
+        description: "Curated profiles plus every research list",
       },
       {
         href: "/glossary",

@@ -12,11 +12,17 @@ import {
 
 const UNVERIFIED = new Set(["n/a", "~", "", "-"]);
 
-/** Escape-aware title: `&` renders as `&amp;` (+4 chars), so the 65-char
- *  title gate must budget for the escaped form. */
+/** Escape-aware title: entities (`&amp;`, `&#x27;`, …) inflate the rendered
+ *  length, so the 65-char title gate must budget for the escaped form. */
 function titleFor(name: string): string {
   const escapedLength = (value: string) =>
-    value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").length;
+    value
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#x27;")
+      .length;
   if (escapedLength(name) <= 49) return name;
   let cut = name.length;
   while (cut > 0 && escapedLength(name.slice(0, cut)) + 1 > 46) cut -= 1;

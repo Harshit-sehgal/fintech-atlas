@@ -1,18 +1,29 @@
 import Link from "next/link";
 import { companySummaries } from "@/generated/company-summaries";
 import { indiaDirectorySummaries } from "@/generated/india-directory-summaries";
+import { globalDirectorySummaries } from "@/generated/global-directory-summaries";
 import { DATA_AS_OF } from "@/lib/site-config";
 import { footerExploreLinks, footerAboutLinks } from "@/lib/site-nav";
 import { tools } from "@/data/tools";
 import { NewsletterOptIn } from "@/components/ui/newsletter-opt-in";
 
-// Explore column from the shared nav registry, with the directory count
-// derived from data so it never goes stale.
-const exploreLinks = footerExploreLinks.map((l) =>
-  l.href === "/india/directory"
-    ? { ...l, label: `India FinTech Directory (${indiaDirectorySummaries.length.toLocaleString()})` }
-    : l,
-);
+// Explore column from the shared nav registry, with the directory counts
+// derived from data so they never go stale.
+const directoryCounts: Record<string, number> = {
+  "/global-directory": globalDirectorySummaries.length,
+  "/india/directory": indiaDirectorySummaries.length,
+};
+const exploreLinks = footerExploreLinks.map((l) => {
+  const count = directoryCounts[l.href];
+  if (count === undefined) return l;
+  const prefix = l.href === "/global-directory" ? "Global" : "India";
+  return { ...l, label: `${prefix} FinTech Directory (${count.toLocaleString()})` };
+});
+
+// Research records across both research directories (curated profiles are a
+// separate, much smaller editorial layer).
+const researchRecordCount =
+  globalDirectorySummaries.length + indiaDirectorySummaries.length;
 
 // The tools hub itself is reached from the Explore column (it is a primary
 // destination), so this column lists only the individual tools. Previously
@@ -44,7 +55,8 @@ export function SiteFooter() {
 
             {/* Small, quiet source note (no fake "live" status dot) */}
             <p className="text-[11px] text-[var(--muted-text)]">
-              {companySummaries.length} companies profiled · Updated {DATA_AS_OF}.
+              {companySummaries.length} curated profiles ·{" "}
+              {researchRecordCount.toLocaleString()} research records · Updated {DATA_AS_OF}.
             </p>
 
             {/* Newsletter opt-in (Phase 3 — audience capture) */}

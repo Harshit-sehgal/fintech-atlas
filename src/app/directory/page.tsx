@@ -181,7 +181,7 @@ export default async function DirectoryPage() {
               cluster and category, with funding and regulatory notes.
             </li>
             <li>
-              <span className="font-semibold text-[var(--foreground)]">You spot one name on two tiers</span>{" "}
+              <span className="font-semibold text-[var(--foreground)]">You spot one name on more than one tier</span>{" "}
               — each profile links to its counterpart, so you can move between
               the editorial breakdown and the research profile.
             </li>

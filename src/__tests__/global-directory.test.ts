@@ -13,6 +13,7 @@ import {
   globalDirectoryRecords,
 } from "@/generated/global-directory";
 import {
+  globalDirectoryCategoryNames,
   globalDirectoryClusterNames,
   globalDirectorySummaries,
 } from "@/generated/global-directory-summaries";
@@ -71,7 +72,7 @@ describe("global directory (generated from research markdown)", () => {
       const record = bySlug.get(summary.slug);
       expect(record, `summary for unknown slug ${summary.slug}`).toBeDefined();
       expect(summary.name).toBe(record!.name);
-      expect(summary.category).toBe(record!.category);
+      expect(globalDirectoryCategoryNames[summary.categoryIndex]).toBe(record!.category);
       expect(globalDirectoryClusterNames[summary.clusterIndex]).toBe(record!.cluster);
     }
   });
@@ -80,9 +81,14 @@ describe("global directory (generated from research markdown)", () => {
     for (const summary of globalDirectorySummaries) {
       expect(summary.clusterIndex).toBeGreaterThanOrEqual(0);
       expect(summary.clusterIndex).toBeLessThan(globalDirectoryClusterNames.length);
+      expect(summary.categoryIndex).toBeGreaterThanOrEqual(0);
+      expect(summary.categoryIndex).toBeLessThan(globalDirectoryCategoryNames.length);
     }
     expect(new Set(globalDirectoryClusterNames)).toEqual(
       new Set(globalDirectoryClusters.map((c) => c.name)),
+    );
+    expect(new Set(globalDirectoryCategoryNames)).toEqual(
+      new Set(freshRecords.map((r) => r.category)),
     );
   });
 

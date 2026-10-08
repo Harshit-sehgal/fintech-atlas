@@ -1,7 +1,7 @@
 # Global FinTech Company Directory (2026)
 
 > Compiled 2026-10-08 from public sources. A region-by-region financial encyclopedia of the world:
-> 2413 fintech companies and financial institutions across 12 regions, organised by country.
+> 2699 fintech companies and financial institutions across 12 regions, organised by country.
 > Columns: Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description.
 > Fields marked n/a could not be verified publicly; ~ marks approximate values.
 > Companies headquartered in India are indexed separately in the India research directory.
@@ -9,12 +9,12 @@
 ## Coverage stats
 | Metric | Value |
 | --- | --- |
-| Companies | 2413 |
-| Websites found | 2413 (100%) |
-| Founders identified | 644 (27%) |
-| Funding data | 692 (29%) |
-| Valuation/status | 2098 (87%) |
-| Regulatory data | 1834 (76%) |
+| Companies | 2699 |
+| Websites found | 2699 (100%) |
+| Founders identified | 650 (24%) |
+| Funding data | 706 (26%) |
+| Valuation/status | 2384 (88%) |
+| Regulatory data | 2120 (79%) |
 
 ## Contents
 - NORTH AMERICA — United States (459)
@@ -26,8 +26,14 @@
 - LATIN AMERICA & CARIBBEAN — Chile (27)
 - LATIN AMERICA & CARIBBEAN — Peru (21)
 - LATIN AMERICA & CARIBBEAN — Uruguay (13)
+- LATIN AMERICA & CARIBBEAN — Paraguay (11)
+- LATIN AMERICA & CARIBBEAN — Venezuela (11)
+- LATIN AMERICA & CARIBBEAN — Bolivia (9)
 - LATIN AMERICA & CARIBBEAN — Ecuador (9)
+- LATIN AMERICA & CARIBBEAN — Honduras (7)
 - LATIN AMERICA & CARIBBEAN — Panama (7)
+- LATIN AMERICA & CARIBBEAN — Nicaragua (6)
+- LATIN AMERICA & CARIBBEAN — Puerto Rico (6)
 - LATIN AMERICA & CARIBBEAN — Costa Rica (4)
 - LATIN AMERICA & CARIBBEAN — Dominican Republic (4)
 - LATIN AMERICA & CARIBBEAN — El Salvador (3)
@@ -44,12 +50,14 @@
 - WESTERN EUROPE — Italy (25)
 - WESTERN EUROPE — Netherlands (24)
 - WESTERN EUROPE — Ireland (17)
+- WESTERN EUROPE — Greece (16)
 - WESTERN EUROPE — Spain (14)
 - WESTERN EUROPE — Austria (9)
 - WESTERN EUROPE — Portugal (9)
 - WESTERN EUROPE — Belgium (7)
 - WESTERN EUROPE — Luxembourg (6)
 - NORTHERN EUROPE — Sweden (23)
+- NORTHERN EUROPE — Iceland (12)
 - NORTHERN EUROPE — Denmark (8)
 - NORTHERN EUROPE — Norway (7)
 - NORTHERN EUROPE — Finland (5)
@@ -65,30 +73,52 @@
 - CENTRAL & EASTERN EUROPE — Lithuania (8)
 - CENTRAL & EASTERN EUROPE — Slovakia (8)
 - CENTRAL & EASTERN EUROPE — Kazakhstan (7)
+- CENTRAL & EASTERN EUROPE — Kyrgyzstan (7)
 - CENTRAL & EASTERN EUROPE — Serbia (6)
 - CENTRAL & EASTERN EUROPE — Slovenia (6)
+- CENTRAL & EASTERN EUROPE — Tajikistan (6)
 - CENTRAL & EASTERN EUROPE — Georgia (5)
 - CENTRAL & EASTERN EUROPE — Armenia (4)
 - CENTRAL & EASTERN EUROPE — Latvia (4)
+- CENTRAL & EASTERN EUROPE — Turkmenistan (4)
 - CENTRAL & EASTERN EUROPE — Azerbaijan (3)
 - MIDDLE EAST — United Arab Emirates (29)
 - MIDDLE EAST — Saudi Arabia (25)
 - MIDDLE EAST — Turkey (23)
 - MIDDLE EAST — Israel (20)
+- MIDDLE EAST — Jordan (12)
+- MIDDLE EAST — Kuwait (11)
+- MIDDLE EAST — Iraq (9)
+- MIDDLE EAST — Lebanon (9)
+- MIDDLE EAST — Qatar (9)
+- MIDDLE EAST — Oman (8)
 - MIDDLE EAST — Bahrain (2)
 - AFRICA — Nigeria (32)
 - AFRICA — South Africa (28)
 - AFRICA — Kenya (24)
 - AFRICA — Egypt (13)
+- AFRICA — Ivory Coast (13)
+- AFRICA — Tunisia (10)
 - AFRICA — Ghana (9)
+- AFRICA — Botswana (8)
 - AFRICA — Morocco (8)
+- AFRICA — Algeria (7)
+- AFRICA — Cameroon (7)
 - AFRICA — Zimbabwe (7)
+- AFRICA — Angola (6)
+- AFRICA — Mauritius (6)
+- AFRICA — Namibia (6)
 - AFRICA — Rwanda (6)
 - AFRICA — Tanzania (6)
+- AFRICA — DR Congo (5)
+- AFRICA — Madagascar (5)
+- AFRICA — Mozambique (5)
 - AFRICA — Zambia (5)
 - AFRICA — Ethiopia (4)
+- AFRICA — Libya (4)
+- AFRICA — Senegal (4)
+- AFRICA — Sudan (4)
 - AFRICA — Uganda (4)
-- AFRICA — Senegal (3)
 - AFRICA — Mali (2)
 - AFRICA — Gabon (1)
 - AFRICA — Togo (1)
@@ -96,6 +126,9 @@
 - SOUTH ASIA — Nepal (19)
 - SOUTH ASIA — Bangladesh (18)
 - SOUTH ASIA — Sri Lanka (18)
+- SOUTH ASIA — Bhutan (7)
+- SOUTH ASIA — Afghanistan (5)
+- SOUTH ASIA — Maldives (4)
 - SOUTHEAST ASIA — Indonesia (55)
 - SOUTHEAST ASIA — Singapore (46)
 - SOUTHEAST ASIA — Vietnam (43)
@@ -111,9 +144,15 @@
 - EAST ASIA — Hong Kong (42)
 - EAST ASIA — South Korea (38)
 - EAST ASIA — Taiwan (30)
+- EAST ASIA — Mongolia (10)
+- EAST ASIA — Macau (7)
 - OCEANIA — Australia (63)
 - OCEANIA — New Zealand (30)
 - OCEANIA — Fiji (4)
+- OCEANIA — Vanuatu (4)
+- OCEANIA — Samoa (3)
+- OCEANIA — Solomon Islands (3)
+- OCEANIA — Tonga (3)
 - OCEANIA — Papua New Guinea (2)
 - GLOBAL — CROSS-BORDER PAYMENTS, REMITTANCES & CRYPTO (29)
 - GLOBAL — DEVELOPMENT BANKS & STANDARD SETTERS (23)
@@ -949,6 +988,49 @@
 | Midinero | Digital wallet | 2013 | Montevideo, UY | n/a | n/a | Private | Payment institution (Uruguay) | midinero.com.uy | Uruguayan prepaid card and wallet. |
 | Banred | Payments network | 1996 | Montevideo, UY | n/a | n/a | Private | Payment network (Uruguay) | banred.com.uy | Uruguayan ATM and payments network. |
 
+## LATIN AMERICA & CARIBBEAN — Paraguay (11)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Banco Continental Paraguay | Bank | 1981 | Asunción, PY | n/a | n/a | Private | Banking licence (Paraguay) | bancontinental.com.py | Major Paraguayan bank. |
+| Banco Itaú Paraguay | Bank | 1979 | Asunción, PY | n/a | n/a | Subsidiary of Itaú | Banking licence (Paraguay) | itau.com.py | Paraguayan bank of Itaú. |
+| Banco Sudameris | Bank | 1981 | Asunción, PY | n/a | n/a | Private | Banking licence (Paraguay) | sudameris.com.py | Paraguayan bank. |
+| Banco Nacional de Fomento | Bank | 1961 | Asunción, PY | n/a | n/a | State-owned | State-owned bank (Paraguay) | bnf.gov.py | Paraguayan state development bank. |
+| Banco Atlas | Bank | 1980 | Asunción, PY | n/a | n/a | Private | Banking licence (Paraguay) | bancoatlas.com.py | Paraguayan bank. |
+| Banco Familiar | Bank | 1981 | Asunción, PY | n/a | n/a | Private | Banking licence (Paraguay) | familiar.com.py | Paraguayan bank. |
+| Ueno Bank | Neobank | 2020 | Asunción, PY | n/a | ~$30M | Private | Banking licence (Paraguay) | ueno.com.py | Paraguayan digital bank. |
+| Bancard | Payments | 1996 | Asunción, PY | n/a | n/a | Private | Payment network (Paraguay) | bancard.com.py | Paraguayan payment network. |
+| Tigo Money Paraguay | Digital wallet | 2009 | Asunción, PY | n/a | n/a | Subsidiary of Millicom | Payment licence (Paraguay) | tigomoney.com.py | Paraguayan mobile money service. |
+| Banco Central del Paraguay | Central bank | 1952 | Asunción, PY | n/a | n/a | Central bank | Central bank (Paraguay) | bcp.gov.py | Central bank of Paraguay. |
+| Bolsa de Valores de Asunción | Exchange | 1977 | Asunción, PY | n/a | n/a | Private | Exchange authorisation (Paraguay) | bva.com.py | Paraguayan stock exchange. |
+
+## LATIN AMERICA & CARIBBEAN — Venezuela (11)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Banco de Venezuela | Bank | 1880 | Caracas, VE | n/a | n/a | State-owned | State-owned bank (Venezuela) | bdv.com.ve | Largest state-owned bank in Venezuela. |
+| Banco Mercantil | Bank | 1925 | Caracas, VE | n/a | n/a | Private | Banking licence (Venezuela) | mercantil.com | Major Venezuelan private bank. |
+| BBVA Provincial | Bank | 1953 | Caracas, VE | n/a | n/a | Subsidiary of BBVA | Banking licence (Venezuela) | provincial.com | Venezuelan bank of BBVA. |
+| Banesco | Bank | 1992 | Caracas, VE | n/a | n/a | Private | Banking licence (Venezuela) | banesco.com | Venezuelan private bank. |
+| Banco Nacional de Crédito | Bank | 1977 | Caracas, VE | n/a | n/a | Private | Banking licence (Venezuela) | bncenlinea.com | Venezuelan private bank. |
+| Bancaribe | Bank | 1958 | Caracas, VE | n/a | n/a | Private | Banking licence (Venezuela) | bancaribe.com | Venezuelan private bank. |
+| Banco del Tesoro | Bank | 2005 | Caracas, VE | n/a | n/a | State-owned | State-owned bank (Venezuela) | bancodeltesoro.gob.ve | Venezuelan state bank. |
+| Banco Bicentenario | Bank | 2009 | Caracas, VE | n/a | n/a | State-owned | State-owned bank (Venezuela) | bancobicentenario.gob.ve | Venezuelan state bank. |
+| Banco Exterior | Bank | 1957 | Caracas, VE | n/a | n/a | Private | Banking licence (Venezuela) | bancoexterior.com | Venezuelan bank. |
+| Banco Central de Venezuela | Central bank | 1940 | Caracas, VE | n/a | n/a | Central bank | Central bank (Venezuela) | bcv.org.ve | Central bank of Venezuela. |
+| Bolsa de Valores de Caracas | Exchange | 1947 | Caracas, VE | n/a | n/a | Private | Exchange authorisation (Venezuela) | bolsadecaracas.com | Venezuelan stock exchange. |
+
+## LATIN AMERICA & CARIBBEAN — Bolivia (9)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Banco Mercantil Santa Cruz | Bank | 1963 | La Paz, BO | n/a | n/a | Private | Banking licence (Bolivia) | bmsc.com.bo | Largest bank in Bolivia. |
+| Banco Nacional de Bolivia | Bank | 1872 | Sucre, BO | n/a | n/a | Public: BBV: BNB | Banking licence (Bolivia) | bnb.com.bo | Bolivian bank. |
+| Banco de Crédito de Bolivia | Bank | 1990 | La Paz, BO | n/a | n/a | Subsidiary of BCP | Banking licence (Bolivia) | bcp.com.bo | Bolivian bank of Credicorp. |
+| Banco Unión | Bank | 1990 | La Paz, BO | n/a | n/a | State-owned | State-owned bank (Bolivia) | banconunion.com.bo | Bolivian state bank. |
+| Banco BISA | Bank | 1963 | La Paz, BO | n/a | n/a | Private | Banking licence (Bolivia) | bisa.com.bo | Bolivian bank. |
+| Banco Ganadero | Bank | 1966 | Santa Cruz, BO | n/a | n/a | Private | Banking licence (Bolivia) | bg.com.bo | Bolivian bank. |
+| BancoSol | Bank | 1992 | La Paz, BO | n/a | n/a | Private | Banking licence (Bolivia) | bancosol.com.bo | Bolivian microfinance bank. |
+| Banco Central de Bolivia | Central bank | 1928 | La Paz, BO | n/a | n/a | Central bank | Central bank (Bolivia) | bcb.gob.bo | Central bank of Bolivia. |
+| Bolsa Boliviana de Valores | Exchange | 1979 | La Paz, BO | n/a | n/a | Private | Exchange authorisation (Bolivia) | bbv.com.bo | Bolivian stock exchange. |
+
 ## LATIN AMERICA & CARIBBEAN — Ecuador (9)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -962,6 +1044,17 @@
 | Medianet | Payments | 2010 | Quito, EC | n/a | n/a | Private | Payment institution (Ecuador) | medianet.com.ec | Ecuadorian payment processor. |
 | Diners Club Ecuador | Cards | 1964 | Quito, EC | n/a | n/a | Private | Card issuer (Ecuador) | dinersclub.com.ec | Ecuadorian credit card issuer. |
 
+## LATIN AMERICA & CARIBBEAN — Honduras (7)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Banco Ficohsa | Bank | 1994 | Tegucigalpa, HN | n/a | n/a | Private | Banking licence (Honduras) | ficohsa.com | Honduran bank with regional presence. |
+| Banco Hondureño del Café | Bank | 2001 | Tegucigalpa, HN | n/a | n/a | Private | Banking licence (Honduras) | banhcafe.hn | Honduran coffee-sector bank. |
+| Banco Ficensa | Bank | 1967 | Tegucigalpa, HN | n/a | n/a | Private | Banking licence (Honduras) | ficensa.com | Honduran bank. |
+| Banco Central de Honduras | Central bank | 1950 | Tegucigalpa, HN | n/a | n/a | Central bank | Central bank (Honduras) | bch.hn | Central bank of Honduras. |
+| Bolsa Centroamericana de Valores | Exchange | 1992 | Tegucigalpa, HN | n/a | n/a | Private | Exchange authorisation (Honduras) | bcvd.com | Honduran securities exchange. |
+| Banco Atlántida | Bank | 1913 | Tegucigalpa, HN | n/a | n/a | Private | Banking licence (Honduras) | bancatlantida.com | Honduran bank. |
+| Banco de Occidente Honduras | Bank | 1957 | Tegucigalpa, HN | n/a | n/a | Private | Banking licence (Honduras) | bancodeoccidente.hn | Honduran bank. |
+
 ## LATIN AMERICA & CARIBBEAN — Panama (7)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -972,6 +1065,26 @@
 | Global Bank | Bank | 1994 | Panama City, PA | n/a | n/a | Private | Banking licence (Panama) | globalbank.com.pa | Panamanian private bank. |
 | Yappy | Digital wallet | 2019 | Panama City, PA | n/a | n/a | Subsidiary of Banco General | Payment institution (Panama) | yappy.com.pa | Panamanian mobile wallet from Banco General. |
 | Nequi Panama | Digital wallet | 2020 | Panama City, PA | n/a | n/a | Subsidiary of Banco General | Payment institution (Panama) | nequi.com.pa | Panamanian mobile wallet. |
+
+## LATIN AMERICA & CARIBBEAN — Nicaragua (6)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Banco de la Producción | Bank | 1980 | Managua, NI | n/a | n/a | Private | Banking licence (Nicaragua) | banpro.com.ni | Largest bank in Nicaragua. |
+| Banco de Crédito Centroamericano | Bank | 1983 | Managua, NI | n/a | n/a | Subsidiary of Grupo Acón | Banking licence (Nicaragua) | bancentro.com.ni | Nicaraguan bank. |
+| Banco de Finanzas | Bank | 1994 | Managua, NI | n/a | n/a | Private | Banking licence (Nicaragua) | bdfnet.com | Nicaraguan bank. |
+| Banco ProCredit Nicaragua | Bank | 2001 | Managua, NI | n/a | n/a | Subsidiary of ProCredit | Banking licence (Nicaragua) | bancoprocredit.com.ni | Nicaraguan bank for SMEs. |
+| Banco Central de Nicaragua | Central bank | 1960 | Managua, NI | n/a | n/a | Central bank | Central bank (Nicaragua) | bcn.gob.ni | Central bank of Nicaragua. |
+| Grupo Lafise | Financial group | 1985 | Managua, NI | n/a | n/a | Private | Banking licence (Central America) | lafise.com | Nicaraguan banking and remittance group. |
+
+## LATIN AMERICA & CARIBBEAN — Puerto Rico (6)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Banco Popular de Puerto Rico | Bank | 1893 | San Juan, PR | n/a | n/a | Subsidiary of Popular | Banking licence (Puerto Rico) | popular.com | Largest bank in Puerto Rico. |
+| FirstBank Puerto Rico | Bank | 1948 | San Juan, PR | n/a | n/a | Subsidiary of First BanCorp | Banking licence (Puerto Rico) | firstbankpr.com | Puerto Rican bank. |
+| Oriental Bank | Bank | 1960 | San Juan, PR | n/a | n/a | Public: NYSE: OFG | Banking licence (Puerto Rico) | orientalbank.com | Puerto Rican bank of OFG Bancorp. |
+| OFG Bancorp | Financial group | 1964 | San Juan, PR | n/a | n/a | Public: NYSE: OFG | Banking licence (Puerto Rico) | ofg.com | Puerto Rican financial holding company. |
+| Triple-S Management | Insurance | 1959 | San Juan, PR | n/a | n/a | Subsidiary of GuideWell | Insurance licence (Puerto Rico) | triplesalud.com | Largest Puerto Rican health insurer. |
+| FV Bank | Neobank | 2018 | San Juan, PR | n/a | n/a | Private | Banking licence (Puerto Rico) | fvbank.com | Puerto Rico-based digital bank for global clients. |
 
 ## LATIN AMERICA & CARIBBEAN — Costa Rica (4)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
@@ -1391,6 +1504,26 @@
 | FBD Insurance | Insurance | 1969 | Dublin, IE | n/a | n/a | Public: Euronext Dublin: FBD | Insurance licence (Ireland) | fbd.ie | Irish general insurer. |
 | Central Bank of Ireland | Central bank | 1943 | Dublin, IE | n/a | n/a | Central bank | Central bank (Ireland) | centralbank.ie | Central bank of Ireland. |
 
+## WESTERN EUROPE — Greece (16)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| National Bank of Greece | Bank | 1841 | Athens, GR | n/a | n/a | Public: ATHEX: ETE | Banking licence (Greece) | nbg.gr | Largest bank in Greece. |
+| Piraeus Bank | Bank | 1916 | Athens, GR | n/a | n/a | Public: ATHEX: TPEIR | Banking licence (Greece) | piraeusbank.gr | Major Greek bank. |
+| Alpha Bank | Bank | 1879 | Athens, GR | n/a | n/a | Public: ATHEX: ALPHA | Banking licence (Greece) | alpha.gr | Greek bank. |
+| Eurobank | Bank | 1990 | Athens, GR | n/a | n/a | Public: ATHEX: EUROB | Banking licence (Greece) | eurobank.gr | Greek bank. |
+| Attica Bank | Bank | 1925 | Athens, GR | n/a | n/a | Public: ATHEX: TATT | Banking licence (Greece) | atticabank.gr | Greek bank. |
+| Optima Bank | Bank | 2019 | Marousi, GR | n/a | n/a | Public: ATHEX: OPTIMA | Banking licence (Greece) | optimabank.gr | Greek digital-first bank. |
+| Aegean Baltic Bank | Bank | 2002 | Athens, GR | n/a | n/a | Private | Banking licence (Greece) | abbank.gr | Greek specialist bank for shipping. |
+| Bank of Greece | Central bank | 1927 | Athens, GR | n/a | n/a | Central bank | Central bank (Greece) | bankofgreece.gr | Central bank of Greece. |
+| Athens Exchange | Exchange | 1876 | Athens, GR | n/a | n/a | Private | Exchange authorisation (Greece) | athexgroup.gr | Greek stock exchange. |
+| Viva Wallet | Payments | 2000 | Athens, GR | Haris Karonis, Makis Antypas | n/a | Joint venture JPMorgan | Payment licence (Greece, EU) | vivawallet.com | Greek digital payment and neobanking platform. |
+| Cardlink | Payments | 1995 | Athens, GR | n/a | n/a | Private | Payment services (Greece) | cardlink.gr | Greek card processing and payment network. |
+| DIAS | Payments | 1989 | Athens, GR | n/a | n/a | Bank consortium | Payment infrastructure (Greece) | dias.com.gr | Greek interbank payment system. |
+| Interamerican | Insurance | 1969 | Athens, GR | n/a | n/a | Subsidiary of Achmea | Insurance licence (Greece) | interamerican.gr | Largest Greek private insurer. |
+| Ethniki Asfalistiki | Insurance | 1891 | Athens, GR | n/a | n/a | Subsidiary of CVC | Insurance licence (Greece) | ethniki-asfalistiki.gr | Greek insurer. |
+| Eurolife FFH | Insurance | 2000 | Athens, GR | n/a | n/a | Private | Insurance licence (Greece) | eurolife.gr | Greek life insurer of Fairfax. |
+| Generali Hellas | Insurance | 1893 | Athens, GR | n/a | n/a | Subsidiary of Generali | Insurance licence (Greece) | generali.gr | Greek arm of Generali. |
+
 ## WESTERN EUROPE — Spain (14)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1482,6 +1615,22 @@
 | Folksam | Insurance | 1906 | Stockholm, SE | n/a | n/a | Mutual | Insurance licence (Sweden) | folksam.se | Swedish mutual insurer. |
 | If | Insurance | 1825 | Stockholm, SE | n/a | n/a | Subsidiary of Sampo | Insurance licence (Nordics) | if.se | Nordic non-life insurer. |
 | Nasdaq Nordic | Exchange | 2003 | Stockholm, SE | n/a | n/a | Subsidiary of Nasdaq | Exchange authorisation (Nordics) | nasdaqomxnordic.com | Nordic and Baltic exchange operator. |
+
+## NORTHERN EUROPE — Iceland (12)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Landsbankinn | Bank | 1886 | Reykjavík, IS | n/a | n/a | Public: Nasdaq Iceland: LANDBANKI | Banking licence (Iceland) | landsbankinn.is | Largest bank in Iceland. |
+| Íslandsbanki | Bank | 2008 | Reykjavík, IS | n/a | n/a | Public: Nasdaq Iceland: ISB | Banking licence (Iceland) | islandsbanki.is | Icelandic bank. |
+| Arion banki | Bank | 2008 | Reykjavík, IS | n/a | n/a | Public: Nasdaq Iceland: ARION | Banking licence (Iceland) | arionbanki.is | Icelandic bank. |
+| Kvika banki | Bank | 2005 | Reykjavík, IS | n/a | n/a | Public: Nasdaq Iceland: KVIKA | Banking licence (Iceland) | kvika.is | Icelandic bank and asset manager. |
+| Seðlabanki Íslands | Central bank | 1961 | Reykjavík, IS | n/a | n/a | Central bank | Central bank (Iceland) | cb.is | Central bank of Iceland. |
+| Nasdaq Iceland | Exchange | 1985 | Reykjavík, IS | n/a | n/a | Subsidiary of Nasdaq | Exchange authorisation (Iceland) | nasdaqomxnordic.com | Icelandic stock exchange. |
+| Indó | Fintech | 2018 | Reykjavík, IS | n/a | ~$20M | Private | Payment licence (Iceland) | indo.is | Icelandic digital banking app. |
+| Íslandssjóðir | Asset management | 1998 | Reykjavík, IS | n/a | n/a | Private | Asset management (Iceland) | islandsjodir.is | Icelandic fund manager. |
+| Stefnir | Asset management | 1990 | Reykjavík, IS | n/a | n/a | Subsidiary of Arion | Asset management (Iceland) | stefnir.is | Icelandic fund manager. |
+| VÍS | Insurance | 1970 | Reykjavík, IS | n/a | n/a | Private | Insurance licence (Iceland) | vis.is | Icelandic insurer. |
+| Sjóvá | Insurance | 1918 | Reykjavík, IS | n/a | n/a | Public: Nasdaq Iceland: SJOVA | Insurance licence (Iceland) | sjova.is | Icelandic insurer. |
+| TM | Insurance | 1964 | Reykjavík, IS | n/a | n/a | Private | Insurance licence (Iceland) | tm.is | Icelandic insurer. |
 
 ## NORTHERN EUROPE — Denmark (8)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
@@ -1709,6 +1858,17 @@
 | Home Credit Kazakhstan | Lending | 2005 | Almaty, KZ | n/a | n/a | Subsidiary of Home Credit | Lending licence (Kazakhstan) | homecredit.kz | Kazakh consumer lender. |
 | Kazpost | Post & financial | 1993 | Astana, KZ | n/a | n/a | State-owned | State-owned (Kazakhstan) | kazpost.kz | Kazakh postal service with financial services. |
 
+## CENTRAL & EASTERN EUROPE — Kyrgyzstan (7)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Aiyl Bank | Bank | 1996 | Bishkek, KG | n/a | n/a | State-linked | Banking licence (Kyrgyzstan) | ab.kg | Kyrgyz bank for agriculture. |
+| RSK Bank | Bank | 1996 | Bishkek, KG | n/a | n/a | State-owned | State-owned bank (Kyrgyzstan) | rsk.kg | Kyrgyz state settlement bank. |
+| KICB | Bank | 2001 | Bishkek, KG | n/a | n/a | Private | Banking licence (Kyrgyzstan) | kicb.net | Kyrgyz investment and credit bank. |
+| Bakai Bank | Bank | 1998 | Bishkek, KG | n/a | n/a | Private | Banking licence (Kyrgyzstan) | bakai.kg | Kyrgyz bank. |
+| Kompanion Bank | Bank | 2004 | Bishkek, KG | n/a | n/a | Private | Banking licence (Kyrgyzstan) | kompanion.kg | Kyrgyz bank for microfinance. |
+| National Bank of the Kyrgyz Republic | Central bank | 1991 | Bishkek, KG | n/a | n/a | Central bank | Central bank (Kyrgyzstan) | nbkr.kg | Central bank of Kyrgyzstan. |
+| Kyrgyz Stock Exchange | Exchange | 1995 | Bishkek, KG | n/a | n/a | Private | Exchange authorisation (Kyrgyzstan) | kse.kg | Kyrgyz stock exchange. |
+
 ## CENTRAL & EASTERN EUROPE — Serbia (6)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1728,6 +1888,16 @@
 | Zavarovalnica Triglav | Insurance | 1900 | Ljubljana, SI | n/a | n/a | Public: LJSE: ZVTG | Insurance licence (Slovenia) | triglav.si | Largest Slovenian insurer. |
 | Sava Re | Insurance | 1973 | Ljubljana, SI | n/a | n/a | Public: LJSE: POSR | Insurance licence (Slovenia) | savare.si | Slovenian reinsurer. |
 | Ljubljana Stock Exchange | Exchange | 1989 | Ljubljana, SI | n/a | n/a | Private | Exchange authorisation (Slovenia) | ljse.si | Slovenian stock exchange. |
+
+## CENTRAL & EASTERN EUROPE — Tajikistan (6)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Amonatbank | Bank | 1992 | Dushanbe, TJ | n/a | n/a | State-owned | State-owned bank (Tajikistan) | amonatbank.tj | Largest bank in Tajikistan. |
+| Orienbonk | Bank | 1994 | Dushanbe, TJ | n/a | n/a | Private | Banking licence (Tajikistan) | orienbonk.tj | Tajik bank. |
+| Eskhata Bank | Bank | 1993 | Khujand, TJ | n/a | n/a | Private | Banking licence (Tajikistan) | eskhata.tj | Tajik bank. |
+| First Microfinance Bank Tajikistan | Bank | 2003 | Dushanbe, TJ | n/a | n/a | Private | Banking licence (Tajikistan) | fmfb.tj | Tajik microfinance bank. |
+| National Bank of Tajikistan | Central bank | 1991 | Dushanbe, TJ | n/a | n/a | Central bank | Central bank (Tajikistan) | nbt.tj | Central bank of Tajikistan. |
+| Alif | Fintech | 2014 | Dushanbe, TJ | Abdullo Kurbanov | ~$30M | Private | Payment licence (Tajikistan) | alif.tj | Tajik digital wallet and fintech platform. |
 
 ## CENTRAL & EASTERN EUROPE — Georgia (5)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
@@ -1753,6 +1923,14 @@
 | Mintos | Lending | 2015 | Riga, LV | Martins Sulte, Martins Valters | ~$30M | Private | Investment platform (Latvia) | mintos.com | Latvian alternative lending marketplace. |
 | Citadele | Bank | 2010 | Riga, LV | n/a | n/a | Private | Banking licence (Latvia) | citadele.lv | Latvian bank. |
 | Rietumu Banka | Bank | 1992 | Riga, LV | n/a | n/a | Private | Banking licence (Latvia) | rietumu.com | Latvian private bank. |
+
+## CENTRAL & EASTERN EUROPE — Turkmenistan (4)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| State Bank for Foreign Economic Affairs | Bank | 1992 | Ashgabat, TM | n/a | n/a | State-owned | State-owned bank (Turkmenistan) | tfeb.gov.tm | Turkmen state foreign trade bank. |
+| Dayhanbank | Bank | 1991 | Ashgabat, TM | n/a | n/a | State-owned | State-owned bank (Turkmenistan) | dayhanbank.gov.tm | Turkmen state agricultural bank. |
+| Rysgal Bank | Bank | 1992 | Ashgabat, TM | n/a | n/a | Private | Banking licence (Turkmenistan) | rysgalbank.tm | Turkmen bank. |
+| Central Bank of Turkmenistan | Central bank | 1991 | Ashgabat, TM | n/a | n/a | Central bank | Central bank (Turkmenistan) | cbt.tm | Central bank of Turkmenistan. |
 
 ## CENTRAL & EASTERN EUROPE — Azerbaijan (3)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
@@ -1874,6 +2052,88 @@
 | Menora Mivtachim | Insurance | 1935 | Tel Aviv, IL | n/a | n/a | Public: TASE: MMHD | Insurance licence (Israel) | menora.co.il | Israeli insurance and pension group. |
 | Phoenix Holdings | Insurance | 1949 | Givatayim, IL | n/a | n/a | Public: TASE: PHOE | Insurance licence (Israel) | fnx.co.il | Israeli insurance and financial group. |
 
+## MIDDLE EAST — Jordan (12)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Arab Bank | Bank | 1930 | Amman, JO | n/a | n/a | Public: ASE: ARBK | Banking licence (Jordan) | arabbank.com | Largest bank in Jordan with regional reach. |
+| Housing Bank for Trade and Finance | Bank | 1973 | Amman, JO | n/a | n/a | Public: ASE: THBK | Banking licence (Jordan) | hbtf.com | Jordanian bank. |
+| Bank al Etihad | Bank | 1978 | Amman, JO | n/a | n/a | Public: ASE: UBSI | Banking licence (Jordan) | bankaletihad.com | Jordanian bank. |
+| Jordan Ahli Bank | Bank | 1955 | Amman, JO | n/a | n/a | Public: ASE: AHLI | Banking licence (Jordan) | ahli.com | Jordanian bank. |
+| Bank of Jordan | Bank | 1960 | Amman, JO | n/a | n/a | Public: ASE: BOJX | Banking licence (Jordan) | bankofjordan.com | Jordanian bank. |
+| Capital Bank of Jordan | Bank | 1995 | Amman, JO | n/a | n/a | Public: ASE: CAPL | Banking licence (Jordan) | capitatbank.com | Jordanian bank. |
+| Central Bank of Jordan | Central bank | 1964 | Amman, JO | n/a | n/a | Central bank | Central bank (Jordan) | cbj.gov.jo | Central bank of Jordan. |
+| Amman Stock Exchange | Exchange | 1999 | Amman, JO | n/a | n/a | Private | Exchange authorisation (Jordan) | ase.com.jo | Jordanian stock exchange. |
+| MadfooatCom | Payments | 2013 | Amman, JO | Nasser Saleh | ~$20M | Private | Payment licence (Jordan) | madfooatcom.com | Jordanian electronic bill payment platform. |
+| Zain Cash | Digital wallet | 2015 | Amman, JO | n/a | n/a | Subsidiary of Zain | Payment licence (Jordan, Iraq) | zaincash.jo | Jordanian mobile wallet. |
+| Dinarak | Digital wallet | 2016 | Amman, JO | n/a | n/a | Private | Payment licence (Jordan) | dinarak.com | Jordanian mobile wallet. |
+| Middle East Insurance | Insurance | 1962 | Amman, JO | n/a | n/a | Public: ASE: MEIN | Insurance licence (Jordan) | mei.com.jo | Jordanian insurer. |
+
+## MIDDLE EAST — Kuwait (11)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| National Bank of Kuwait | Bank | 1952 | Kuwait City, KW | n/a | n/a | Public: Boursa Kuwait: NBK | Banking licence (Kuwait) | nbk.com | Largest bank in Kuwait. |
+| Kuwait Finance House | Bank | 1977 | Kuwait City, KW | n/a | n/a | Public: Boursa Kuwait: KFH | Islamic banking licence (Kuwait) | kfh.com | Kuwaiti Islamic bank. |
+| Gulf Bank | Bank | 1960 | Kuwait City, KW | n/a | n/a | Public: Boursa Kuwait: GBK | Banking licence (Kuwait) | e-gulfbank.com | Kuwaiti bank. |
+| Burgan Bank | Bank | 1975 | Kuwait City, KW | n/a | n/a | Public: Boursa Kuwait: BURG | Banking licence (Kuwait) | burgan.com | Kuwaiti bank. |
+| Boubyan Bank | Bank | 2004 | Kuwait City, KW | n/a | n/a | Public: Boursa Kuwait: BOUBYAN | Islamic banking licence (Kuwait) | bankboubyan.com | Kuwaiti Islamic bank. |
+| Central Bank of Kuwait | Central bank | 1969 | Kuwait City, KW | n/a | n/a | Central bank | Central bank (Kuwait) | cbk.gov.kw | Central bank of Kuwait. |
+| Boursa Kuwait | Exchange | 2014 | Kuwait City, KW | n/a | n/a | Private | Exchange authorisation (Kuwait) | boursakuwait.com.kw | Kuwaiti stock exchange. |
+| KNET | Payments network | 1992 | Kuwait City, KW | n/a | n/a | Bank consortium | Payment network (Kuwait) | knet.com.kw | Kuwaiti national payment network. |
+| Tap Payments | Payments | 2019 | Kuwait City, KW | Ali Abulhasan, Ahmed Al-Khaled | ~$30M | Private | Payment licences (GCC) | tap.company | Gulf online payments platform founded in Kuwait. |
+| MyFatoorah | Payments | 2015 | Kuwait City, KW | n/a | n/a | Private | Payment licences (GCC) | myfatoorah.com | Kuwaiti online payment gateway. |
+| Gulf Insurance Group | Insurance | 1962 | Kuwait City, KW | n/a | n/a | Public: Boursa Kuwait: GINS | Insurance licence (Kuwait) | gig.com.kw | Kuwaiti insurer with regional reach. |
+
+## MIDDLE EAST — Iraq (9)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Rafidain Bank | Bank | 1941 | Baghdad, IQ | n/a | n/a | State-owned | State-owned bank (Iraq) | rafidain-bank.gov.iq | Largest state-owned bank in Iraq. |
+| Rasheed Bank | Bank | 1988 | Baghdad, IQ | n/a | n/a | State-owned | State-owned bank (Iraq) | rasheedbank.gov.iq | Iraqi state bank. |
+| Trade Bank of Iraq | Bank | 2003 | Baghdad, IQ | n/a | n/a | State-owned | State-owned bank (Iraq) | tbi.com.iq | Iraqi trade finance bank. |
+| Bank of Baghdad | Bank | 1992 | Baghdad, IQ | n/a | n/a | Public: ISX: BBOB | Banking licence (Iraq) | bankofbaghdad.com | Iraqi bank. |
+| Gulf Commercial Bank | Bank | 1990 | Baghdad, IQ | n/a | n/a | Public: ISX: BGCB | Banking licence (Iraq) | gcb.iq | Iraqi bank. |
+| Central Bank of Iraq | Central bank | 1947 | Baghdad, IQ | n/a | n/a | Central bank | Central bank (Iraq) | cbi.iq | Central bank of Iraq. |
+| Iraq Stock Exchange | Exchange | 2004 | Baghdad, IQ | n/a | n/a | Private | Exchange authorisation (Iraq) | isx-iq.net | Iraqi stock exchange. |
+| Qi Card | Payments | 2007 | Baghdad, IQ | n/a | n/a | Private | Payment services (Iraq) | qi.iq | Iraqi national payment card scheme. |
+| ZainCash Iraq | Digital wallet | 2015 | Baghdad, IQ | n/a | n/a | Subsidiary of Zain | Payment licence (Iraq) | zaincash.iq | Iraqi mobile wallet. |
+
+## MIDDLE EAST — Lebanon (9)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Bank Audi | Bank | 1962 | Beirut, LB | n/a | n/a | Private | Banking licence (Lebanon) | bankaudi.com.lb | Largest Lebanese bank. |
+| Blom Bank | Bank | 1951 | Beirut, LB | n/a | n/a | Private | Banking licence (Lebanon) | blom.com.lb | Lebanese bank. |
+| Byblos Bank | Bank | 1956 | Beirut, LB | n/a | n/a | Private | Banking licence (Lebanon) | byblosbank.com | Lebanese bank. |
+| Bank of Beirut | Bank | 1963 | Beirut, LB | n/a | n/a | Private | Banking licence (Lebanon) | bankofbeirut.com | Lebanese bank. |
+| Fransabank | Bank | 1921 | Beirut, LB | n/a | n/a | Private | Banking licence (Lebanon) | fransabank.com | Lebanese bank. |
+| Banque du Liban | Central bank | 1963 | Beirut, LB | n/a | n/a | Central bank | Central bank (Lebanon) | bdl.gov.lb | Central bank of Lebanon. |
+| Beirut Stock Exchange | Exchange | 1920 | Beirut, LB | n/a | n/a | Private | Exchange authorisation (Lebanon) | bse.com.lb | Lebanese stock exchange. |
+| Pin Pay | Payments | 2017 | Beirut, LB | n/a | n/a | Private | Payment services (Lebanon) | pinpay.me | Lebanese digital payment wallet. |
+| Medgulf | Insurance | 1976 | Beirut, LB | n/a | n/a | Private | Insurance licence (Lebanon) | medgulf.com | Lebanese insurer with regional reach. |
+
+## MIDDLE EAST — Qatar (9)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Qatar National Bank | Bank | 1964 | Doha, QA | n/a | n/a | Public: QSE: QNBK | Banking licence (Qatar) | qnb.com | Largest bank in the Middle East and Africa. |
+| Doha Bank | Bank | 1978 | Doha, QA | n/a | n/a | Public: QSE: DHBK | Banking licence (Qatar) | dohabank.com.qa | Qatari bank. |
+| Commercial Bank of Qatar | Bank | 1975 | Doha, QA | n/a | n/a | Public: QSE: CBQK | Banking licence (Qatar) | cbq.com.qa | Qatari bank. |
+| Qatar Islamic Bank | Bank | 1982 | Doha, QA | n/a | n/a | Public: QSE: QIBK | Islamic banking licence (Qatar) | qib.com.qa | Largest Islamic bank in Qatar. |
+| Masraf Al Rayan | Bank | 2006 | Doha, QA | n/a | n/a | Public: QSE: MARK | Islamic banking licence (Qatar) | alrayan.com | Qatari Islamic bank. |
+| Qatar Central Bank | Central bank | 1993 | Doha, QA | n/a | n/a | Central bank | Central bank (Qatar) | qcb.gov.qa | Central bank of Qatar. |
+| Qatar Stock Exchange | Exchange | 1995 | Doha, QA | n/a | n/a | Private | Exchange authorisation (Qatar) | qe.com.qa | Qatari stock exchange. |
+| SkipCash | Payments | 2021 | Doha, QA | n/a | ~$10M | Private | Payment licence (Qatar) | skipcash.com | Qatari digital payment app. |
+| Qatar Insurance Company | Insurance | 1964 | Doha, QA | n/a | n/a | Public: QSE: QATI | Insurance licence (Qatar) | qic.online | Largest insurer in the Gulf. |
+
+## MIDDLE EAST — Oman (8)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Bank Muscat | Bank | 1982 | Muscat, OM | n/a | n/a | Public: MSX: BKMB | Banking licence (Oman) | bankmuscat.com | Largest bank in Oman. |
+| National Bank of Oman | Bank | 1973 | Muscat, OM | n/a | n/a | Public: MSX: NBOB | Banking licence (Oman) | nbo.om | Omani bank. |
+| Bank Dhofar | Bank | 1990 | Muscat, OM | n/a | n/a | Public: MSX: BKDB | Banking licence (Oman) | bankdhofar.com | Omani bank. |
+| Sohar International | Bank | 2007 | Muscat, OM | n/a | n/a | Public: MSX: BKSB | Banking licence (Oman) | soharinternational.com | Omani bank, absorbed HSBC Oman. |
+| Bank Nizwa | Bank | 2012 | Muscat, OM | n/a | n/a | Public: MSX: BKNZ | Islamic banking licence (Oman) | banknizwa.om | First Islamic bank in Oman. |
+| Central Bank of Oman | Central bank | 1974 | Muscat, OM | n/a | n/a | Central bank | Central bank (Oman) | cbo.gov.om | Central bank of Oman. |
+| Muscat Stock Exchange | Exchange | 1989 | Muscat, OM | n/a | n/a | Private | Exchange authorisation (Oman) | msx.om | Omani stock exchange. |
+| Thawani | Payments | 2017 | Muscat, OM | n/a | n/a | Private | Payment licence (Oman) | thawani.com | Omani digital payment platform. |
+
 ## MIDDLE EAST — Bahrain (2)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1993,6 +2253,37 @@
 | EFG Hermes | Investment bank | 1984 | Cairo, EG | n/a | n/a | Public: EGX: HRHO | Investment banking licence (Egypt) | efghermes.com | Leading Egyptian investment bank. |
 | Egyptian Exchange | Exchange | 1883 | Cairo, EG | n/a | n/a | Private | Exchange authorisation (Egypt) | egx.com.eg | Egyptian stock exchange. |
 
+## AFRICA — Ivory Coast (13)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Société Générale Côte d'Ivoire | Bank | 1962 | Abidjan, CI | n/a | n/a | Public: BRVM: SGBC | Banking licence (Ivory Coast) | societegenerale.ci | Major bank in Ivory Coast. |
+| NSIA Banque | Bank | 1996 | Abidjan, CI | n/a | n/a | Public: BRVM: NSBC | Banking licence (Ivory Coast) | nsiabanque.com | Ivorian bank of the NSIA group. |
+| Ecobank Côte d'Ivoire | Bank | 1990 | Abidjan, CI | n/a | n/a | Subsidiary of Ecobank | Banking licence (Ivory Coast) | ecobank.com | Ivorian arm of Ecobank. |
+| Bank of Africa Côte d'Ivoire | Bank | 1981 | Abidjan, CI | n/a | n/a | Subsidiary of Bank of Africa | Banking licence (Ivory Coast) | boanet.ci | Ivorian bank of Bank of Africa. |
+| Orabank Côte d'Ivoire | Bank | 1998 | Abidjan, CI | n/a | n/a | Private | Banking licence (Ivory Coast) | orabank.net | Ivorian bank of the Orabank group. |
+| Coris Bank Côte d'Ivoire | Bank | 2014 | Abidjan, CI | n/a | n/a | Subsidiary of Coris | Banking licence (Ivory Coast) | corisbank.ci | Ivorian bank of Burkina Faso's Coris. |
+| BRVM | Exchange | 1998 | Abidjan, CI | n/a | n/a | Private | Exchange authorisation (West Africa) | brvm.org | Regional stock exchange of West Africa. |
+| Orange Money Côte d'Ivoire | Mobile money | 2008 | Abidjan, CI | n/a | n/a | Subsidiary of Orange | Payment licence (Ivory Coast) | orange.ci | Ivorian mobile money service. |
+| Wave Côte d'Ivoire | Mobile money | 2018 | Abidjan, CI | n/a | n/a | Subsidiary of Wave | Payment licence (Ivory Coast) | wave.com | Ivorian mobile money service of Wave. |
+| Djamo | Neobank | 2020 | Abidjan, CI | Hassan Bourgi, Régis Bamba | ~$40M | Private | Payment licence (Ivory Coast) | djamo.co | Ivorian digital banking app. |
+| Julaya | Payments | 2018 | Abidjan, CI | Mathias Léopoldie, Charles Talbot | ~$20M | Private | Payment services (West Africa) | julaya.io | Ivorian B2B payments platform. |
+| Kkiapay | Payments | 2018 | Abidjan, CI | n/a | ~$10M | Private | Payment services (West Africa) | kkiapay.com | Ivorian online payment gateway. |
+| SUNU Assurances | Insurance | 1998 | Abidjan, CI | n/a | n/a | Public: BRVM: SVOC | Insurance licence (West Africa) | sunu-group.com | West African insurance group. |
+
+## AFRICA — Tunisia (10)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Société Tunisienne de Banque | Bank | 1957 | Tunis, TN | n/a | n/a | State-owned | State-owned bank (Tunisia) | stb.com.tn | Tunisian state bank. |
+| Banque Nationale Agricole | Bank | 1959 | Tunis, TN | n/a | n/a | State-owned | State-owned bank (Tunisia) | bna.tn | Tunisian agricultural bank. |
+| BIAT | Bank | 1976 | Tunis, TN | n/a | n/a | Public: BVMT: BIAT | Banking licence (Tunisia) | biat.com.tn | Largest private bank in Tunisia. |
+| Amen Bank | Bank | 1967 | Tunis, TN | n/a | n/a | Public: BVMT: AB | Banking licence (Tunisia) | amenbank.com.tn | Tunisian bank. |
+| Banque de Tunisie | Bank | 1884 | Tunis, TN | n/a | n/a | Public: BVMT: BT | Banking licence (Tunisia) | bt.com.tn | Oldest bank in Tunisia. |
+| Banque Centrale de Tunisie | Central bank | 1958 | Tunis, TN | n/a | n/a | Central bank | Central bank (Tunisia) | bct.gov.tn | Central bank of Tunisia. |
+| Bourse de Tunis | Exchange | 1969 | Tunis, TN | n/a | n/a | Private | Exchange authorisation (Tunisia) | bvmt.com.tn | Tunisian stock exchange. |
+| D17 | Payments | 2020 | Tunis, TN | n/a | ~$30M | Private | Payment licence (Tunisia) | d17.com | Tunisian digital payment app. |
+| Flouci | Neobank | 2021 | Tunis, TN | n/a | ~$20M | Private | Payment licence (Tunisia) | flouci.com | Tunisian digital wallet by Banque de Tunisie. |
+| STAR Assurances | Insurance | 1958 | Tunis, TN | n/a | n/a | Public: BVMT: STAR | Insurance licence (Tunisia) | star.com.tn | Largest Tunisian insurer. |
+
 ## AFRICA — Ghana (9)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -2006,6 +2297,18 @@
 | MTN MoMo | Mobile money | 2009 | Accra, GH | n/a | n/a | Subsidiary of MTN | Payment licence (Ghana) | momo.mtn.com | Pan-African mobile money service. |
 | MTN Mobile Money | Mobile money | 2009 | Accra, GH (regional) | n/a | n/a | Subsidiary of MTN | Payment licence (multiple) | mtn.com | MTN's mobile money service across Africa. |
 
+## AFRICA — Botswana (8)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| First National Bank Botswana | Bank | 1990 | Gaborone, BW | n/a | n/a | Public: BSE: FNBB | Banking licence (Botswana) | fnbbotswana.co.bw | Largest bank in Botswana. |
+| Absa Bank Botswana | Bank | 1950 | Gaborone, BW | n/a | n/a | Public: BSE: ABG | Banking licence (Botswana) | absa.co.bw | Botswana bank of Absa. |
+| Standard Chartered Botswana | Bank | 1897 | Gaborone, BW | n/a | n/a | Subsidiary of Standard Chartered | Banking licence (Botswana) | sc.com/bw | Botswana bank of Standard Chartered. |
+| Stanbic Bank Botswana | Bank | 1992 | Gaborone, BW | n/a | n/a | Subsidiary of Standard Bank | Banking licence (Botswana) | stanbicbank.co.bw | Botswana bank of Standard Bank. |
+| Bank of Botswana | Central bank | 1975 | Gaborone, BW | n/a | n/a | Central bank | Central bank (Botswana) | bankofbotswana.bw | Central bank of Botswana. |
+| Botswana Stock Exchange | Exchange | 1989 | Gaborone, BW | n/a | n/a | Private | Exchange authorisation (Botswana) | bse.co.bw | Botswanan stock exchange. |
+| Botswana Insurance Holdings | Insurance | 1975 | Gaborone, BW | n/a | n/a | Public: BSE: BIHL | Insurance licence (Botswana) | bihl.co.bw | Largest Botswanan insurer. |
+| Orange Money Botswana | Mobile money | 2011 | Gaborone, BW | n/a | n/a | Subsidiary of Orange | Payment licence (Botswana) | orange.co.bw | Botswanan mobile money service. |
+
 ## AFRICA — Morocco (8)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -2018,6 +2321,28 @@
 | Banque Centrale Populaire | Bank | 1961 | Casablanca, MA | n/a | n/a | Public: CSE: BCP | Banking licence (Morocco) | gbp.ma | Moroccan cooperative banking group. |
 | Casablanca Stock Exchange | Exchange | 1929 | Casablanca, MA | n/a | n/a | Private | Exchange authorisation (Morocco) | casablanca-bourse.com | Moroccan stock exchange. |
 
+## AFRICA — Algeria (7)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Banque Nationale d'Algérie | Bank | 1966 | Algiers, DZ | n/a | n/a | State-owned | State-owned bank (Algeria) | bna.dz | Algerian state bank. |
+| Banque Extérieure d'Algérie | Bank | 1967 | Algiers, DZ | n/a | n/a | State-owned | State-owned bank (Algeria) | bea.dz | Algerian state bank. |
+| Crédit Populaire d'Algérie | Bank | 1966 | Algiers, DZ | n/a | n/a | State-owned | State-owned bank (Algeria) | cpa-bank.dz | Algerian state bank. |
+| Banque de l'Agriculture et du Développement Rural | Bank | 1982 | Algiers, DZ | n/a | n/a | State-owned | State-owned bank (Algeria) | badr-bank.dz | Algerian agricultural bank. |
+| Banque d'Algérie | Central bank | 1962 | Algiers, DZ | n/a | n/a | Central bank | Central bank (Algeria) | bank-of-algeria.dz | Central bank of Algeria. |
+| Algiers Stock Exchange | Exchange | 1997 | Algiers, DZ | n/a | n/a | Private | Exchange authorisation (Algeria) | sgbv.dz | Algerian stock exchange. |
+| SATIM | Payments | 2001 | Algiers, DZ | n/a | n/a | Bank consortium | Payment network (Algeria) | satim.dz | Algerian electronic payment network. |
+
+## AFRICA — Cameroon (7)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Société Générale Cameroun | Bank | 1963 | Douala, CM | n/a | n/a | Public: BVMAC: SGCM | Banking licence (Cameroon) | societegenerale.cm | Cameroonian bank. |
+| Afriland First Bank | Bank | 1987 | Yaoundé, CM | n/a | n/a | Private | Banking licence (Cameroon) | afrilandfirstbank.com | Largest Cameroonian bank. |
+| BICEC | Bank | 1997 | Douala, CM | n/a | n/a | Subsidiary of BPCE | Banking licence (Cameroon) | bicec.com | Cameroonian bank of BPCE. |
+| UBA Cameroun | Bank | 2006 | Douala, CM | n/a | n/a | Subsidiary of UBA | Banking licence (Cameroon) | ubagroup.com | Cameroonian bank of UBA. |
+| BEAC | Central bank | 1972 | Yaoundé, CM | n/a | n/a | Central bank | Central bank (Central Africa) | beac.int | Central bank of the Central African monetary union. |
+| MTN MoMo Cameroun | Mobile money | 2010 | Douala, CM | n/a | n/a | Subsidiary of MTN | Payment licence (Cameroon) | mtn.cm | Cameroonian mobile money service. |
+| Orange Money Cameroun | Mobile money | 2011 | Douala, CM | n/a | n/a | Subsidiary of Orange | Payment licence (Cameroon) | orange.cm | Cameroonian mobile money service. |
+
 ## AFRICA — Zimbabwe (7)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -2028,6 +2353,36 @@
 | I& M Bank Zimbabwe | Bank | 1998 | Harare, ZW | n/a | n/a | Subsidiary of I&M | Banking licence (Zimbabwe) | imbzimbabwe.com | Zimbabwean bank. |
 | CBZ Bank | Bank | 1980 | Harare, ZW | n/a | n/a | Public: ZSE: CBZ | Banking licence (Zimbabwe) | cbz.co.zw | Largest bank in Zimbabwe. |
 | FBC Bank | Bank | 1997 | Harare, ZW | n/a | n/a | Public: ZSE: FBC | Banking licence (Zimbabwe) | fbc.co.zw | Zimbabwean bank. |
+
+## AFRICA — Angola (6)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Banco Angolano de Investimentos | Bank | 1996 | Luanda, AO | n/a | n/a | Public: BODIVA: BAI | Banking licence (Angola) | bai.ao | Largest private bank in Angola. |
+| Banco de Fomento Angola | Bank | 1993 | Luanda, AO | n/a | n/a | Subsidiary of Unitel | Banking licence (Angola) | bfa.ao | Angolan bank. |
+| Banco de Poupança e Crédito | Bank | 1956 | Luanda, AO | n/a | n/a | State-owned | State-owned bank (Angola) | bpc.ao | Angolan state bank. |
+| Banco Nacional de Angola | Central bank | 1926 | Luanda, AO | n/a | n/a | Central bank | Central bank (Angola) | bna.ao | Central bank of Angola. |
+| BODIVA | Exchange | 2016 | Luanda, AO | n/a | n/a | Private | Exchange authorisation (Angola) | bodiva.ao | Angolan securities exchange. |
+| Multicaixa Express | Payments | 2004 | Luanda, AO | n/a | n/a | Subsidiary of EMIS | Payment network (Angola) | emis.co.ao | Angolan electronic payment network. |
+
+## AFRICA — Mauritius (6)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Mauritius Commercial Bank | Bank | 1838 | Port Louis, MU | n/a | n/a | Public: SEM: MCBG | Banking licence (Mauritius) | mcb.mu | Largest bank in Mauritius. |
+| SBM Group | Bank | 1973 | Port Louis, MU | n/a | n/a | Public: SEM: SBMH | Banking licence (Mauritius) | sbmgroup.mu | Mauritian banking group. |
+| AfrAsia Bank | Bank | 2007 | Port Louis, MU | n/a | n/a | Private | Banking licence (Mauritius) | afrasiabank.com | Mauritian private bank. |
+| Bank of Mauritius | Central bank | 1967 | Port Louis, MU | n/a | n/a | Central bank | Central bank (Mauritius) | bom.mu | Central bank of Mauritius. |
+| Stock Exchange of Mauritius | Exchange | 1989 | Port Louis, MU | n/a | n/a | Private | Exchange authorisation (Mauritius) | stockexchangeofmauritius.com | Mauritian stock exchange. |
+| Swan Insurance | Insurance | 1852 | Port Louis, MU | n/a | n/a | Private | Insurance licence (Mauritius) | swanforlife.com | Mauritian insurer. |
+
+## AFRICA — Namibia (6)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| First National Bank Namibia | Bank | 1906 | Windhoek, NA | n/a | n/a | Subsidiary of FirstRand | Banking licence (Namibia) | fnbnamibia.com.na | Largest bank in Namibia. |
+| Standard Bank Namibia | Bank | 1915 | Windhoek, NA | n/a | n/a | Subsidiary of Standard Bank | Banking licence (Namibia) | standardbank.com.na | Namibian bank of Standard Bank. |
+| Bank Windhoek | Bank | 1982 | Windhoek, NA | n/a | n/a | Subsidiary of Capricorn | Banking licence (Namibia) | bankwindhoek.com.na | Namibian bank. |
+| Bank of Namibia | Central bank | 1990 | Windhoek, NA | n/a | n/a | Central bank | Central bank (Namibia) | bon.com.na | Central bank of Namibia. |
+| Namibian Stock Exchange | Exchange | 1992 | Windhoek, NA | n/a | n/a | Private | Exchange authorisation (Namibia) | nsx.com.na | Namibian stock exchange. |
+| MTC Money | Mobile money | 2014 | Windhoek, NA | n/a | n/a | Subsidiary of MTC | Payment licence (Namibia) | mtc.com.na | Namibian mobile money service. |
 
 ## AFRICA — Rwanda (6)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
@@ -2049,6 +2404,33 @@
 | Tigo Pesa | Mobile money | 2010 | Dar es Salaam, TZ | n/a | n/a | Subsidiary of Tigo | Payment licence (Tanzania) | tigo.co.tz | Tanzanian mobile money service. |
 | M-Pesa Tanzania | Mobile money | 2010 | Dar es Salaam, TZ | n/a | n/a | Subsidiary of Vodacom | Payment licence (Tanzania) | vodacom.co.tz | Tanzanian M-Pesa mobile money service. |
 
+## AFRICA — DR Congo (5)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Rawbank | Bank | 2002 | Kinshasa, CD | n/a | n/a | Private | Banking licence (DR Congo) | rawbank.com | Largest bank in DR Congo. |
+| Equity BCDC | Bank | 1969 | Kinshasa, CD | n/a | n/a | Subsidiary of Equity Group | Banking licence (DR Congo) | equitygroupholdings.com | Congolese bank of Equity Group. |
+| Trust Merchant Bank | Bank | 2004 | Lubumbashi, CD | n/a | n/a | Private | Banking licence (DR Congo) | tmb.cd | Congolese bank. |
+| Banque Centrale du Congo | Central bank | 1964 | Kinshasa, CD | n/a | n/a | Central bank | Central bank (DR Congo) | bcc.cd | Central bank of DR Congo. |
+| Vodacom M-Pesa DRC | Mobile money | 2012 | Kinshasa, CD | n/a | n/a | Subsidiary of Vodacom | Payment licence (DR Congo) | vodacom.cd | Congolese mobile money service. |
+
+## AFRICA — Madagascar (5)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| BNI Madagascar | Bank | 1976 | Antananarivo, MG | n/a | n/a | Private | Banking licence (Madagascar) | bni.mg | Largest bank in Madagascar. |
+| BFV Société Générale | Bank | 1977 | Antananarivo, MG | n/a | n/a | Subsidiary of Société Générale | Banking licence (Madagascar) | bfvsg.mg | Malagasy bank of Société Générale. |
+| Bank of Africa Madagascar | Bank | 1998 | Antananarivo, MG | n/a | n/a | Subsidiary of Bank of Africa | Banking licence (Madagascar) | boamadagascar.mg | Malagasy bank of Bank of Africa. |
+| Central Bank of Madagascar | Central bank | 1962 | Antananarivo, MG | n/a | n/a | Central bank | Central bank (Madagascar) | banque-centrale.mg | Central bank of Madagascar. |
+| MVola | Mobile money | 2010 | Antananarivo, MG | n/a | n/a | Subsidiary of Telma | Payment licence (Madagascar) | mvola.mg | Largest Malagasy mobile money service. |
+
+## AFRICA — Mozambique (5)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Millennium bim | Bank | 1995 | Maputo, MZ | n/a | n/a | Subsidiary of BCP | Banking licence (Mozambique) | millenniumbim.co.mz | Largest bank in Mozambique. |
+| Standard Bank Mozambique | Bank | 1894 | Maputo, MZ | n/a | n/a | Subsidiary of Standard Bank | Banking licence (Mozambique) | standardbank.co.mz | Mozambican bank of Standard Bank. |
+| Absa Bank Mozambique | Bank | 1975 | Maputo, MZ | n/a | n/a | Subsidiary of Absa | Banking licence (Mozambique) | absa.co.mz | Mozambican bank of Absa. |
+| Banco de Moçambique | Central bank | 1975 | Maputo, MZ | n/a | n/a | Central bank | Central bank (Mozambique) | bancomoc.mz | Central bank of Mozambique. |
+| M-Pesa Moçambique | Mobile money | 2013 | Maputo, MZ | n/a | n/a | Subsidiary of Vodacom | Payment licence (Mozambique) | vodacom.co.mz | Mozambican mobile money service. |
+
 ## AFRICA — Zambia (5)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -2066,6 +2448,30 @@
 | Dashen Bank | Bank | 1995 | Addis Ababa, ET | n/a | n/a | Private | Banking licence (Ethiopia) | dashenbanksc.com | Ethiopian private bank. |
 | Awash Bank | Bank | 1994 | Addis Ababa, ET | n/a | n/a | Private | Banking licence (Ethiopia) | awashbank.com | Ethiopian private bank. |
 
+## AFRICA — Libya (4)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Jumhouria Bank | Bank | 1969 | Tripoli, LY | n/a | n/a | State-owned | State-owned bank (Libya) | jbank.ly | Largest bank in Libya. |
+| National Commercial Bank Libya | Bank | 1970 | Tripoli, LY | n/a | n/a | State-owned | State-owned bank (Libya) | ncb.ly | Libyan state bank. |
+| Central Bank of Libya | Central bank | 1955 | Tripoli, LY | n/a | n/a | Central bank | Central bank (Libya) | cbl.gov.ly | Central bank of Libya. |
+| Libyan Stock Market | Exchange | 2006 | Tripoli, LY | n/a | n/a | Private | Exchange authorisation (Libya) | lsm.gov.ly | Libyan stock exchange. |
+
+## AFRICA — Senegal (4)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Wave Mobile Money | Mobile money | 2018 | Dakar, SN | Drew Durbin, Lincoln Quirk | ~$300M | Private | Payment licence (Senegal, Ivory Coast) | wave.com | Senegalese mobile money service across West Africa. |
+| Wari | Payments | 2008 | Dakar, SN | n/a | n/a | Private | Payment licence (Senegal) | wari.com | Senegalese digital payment network. |
+| Orange Money | Mobile money | 2007 | Dakar, SN (regional) | n/a | n/a | Subsidiary of Orange | Payment licence (multiple) | orange.com | Orange's mobile money service across Africa and the Middle East. |
+| BCEAO | Central bank | 1962 | Dakar, SN | n/a | n/a | Central bank | Central bank (West Africa) | bceao.int | Central bank of the West African Economic and Monetary Union. |
+
+## AFRICA — Sudan (4)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Bank of Khartoum | Bank | 1913 | Khartoum, SD | n/a | n/a | Private | Banking licence (Sudan) | bankofkhartoum.com | Largest bank in Sudan. |
+| Faisal Islamic Bank of Sudan | Bank | 1978 | Khartoum, SD | n/a | n/a | Public: KSE: FIBS | Islamic banking licence (Sudan) | fibs.sd | Sudanese Islamic bank. |
+| Bank of Sudan | Central bank | 1960 | Khartoum, SD | n/a | n/a | Central bank | Central bank (Sudan) | cbos.gov.sd | Central bank of Sudan. |
+| Khartoum Stock Exchange | Exchange | 1994 | Khartoum, SD | n/a | n/a | Private | Exchange authorisation (Sudan) | kse.com.sd | Sudanese stock exchange. |
+
 ## AFRICA — Uganda (4)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -2073,13 +2479,6 @@
 | Xente | Fintech | 2016 | Kampala, UG | n/a | ~$10M | Private | Payment services (Uganda) | xente.com | Ugandan digital wallet for businesses. |
 | Stanbic Uganda | Bank | 1906 | Kampala, UG | n/a | n/a | Subsidiary of Standard Bank | Banking licence (Uganda) | stanbicbank.co.ug | Ugandan bank of Standard Bank. |
 | Centenary Bank | Bank | 1985 | Kampala, UG | n/a | n/a | Private | Banking licence (Uganda) | centenarybank.co.ug | Ugandan microfinance-focused bank. |
-
-## AFRICA — Senegal (3)
-| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Wave Mobile Money | Mobile money | 2018 | Dakar, SN | Drew Durbin, Lincoln Quirk | ~$300M | Private | Payment licence (Senegal, Ivory Coast) | wave.com | Senegalese mobile money service across West Africa. |
-| Wari | Payments | 2008 | Dakar, SN | n/a | n/a | Private | Payment licence (Senegal) | wari.com | Senegalese digital payment network. |
-| Orange Money | Mobile money | 2007 | Dakar, SN (regional) | n/a | n/a | Subsidiary of Orange | Payment licence (multiple) | orange.com | Orange's mobile money service across Africa and the Middle East. |
 
 ## AFRICA — Mali (2)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
@@ -2193,6 +2592,34 @@
 | Ceylinco Life | Insurance | 1988 | Colombo, LK | n/a | n/a | Private | Insurance licence (Sri Lanka) | ceylincolife.com | Sri Lankan life insurer. |
 | Sri Lanka Insurance | Insurance | 1961 | Colombo, LK | n/a | n/a | State-owned | Insurance licence (Sri Lanka) | sli.lk | Sri Lankan state-owned insurer. |
 | AIA Insurance Lanka | Insurance | 1991 | Colombo, LK | n/a | n/a | Subsidiary of AIA | Insurance licence (Sri Lanka) | aialanka.com | Sri Lankan arm of AIA. |
+
+## SOUTH ASIA — Bhutan (7)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Bank of Bhutan | Bank | 1968 | Thimphu, BT | n/a | n/a | State-linked | Banking licence (Bhutan) | bob.bt | Largest bank in Bhutan. |
+| Bhutan National Bank | Bank | 1997 | Thimphu, BT | n/a | n/a | Private | Banking licence (Bhutan) | bnb.bt | Bhutanese bank. |
+| Druk PNB Bank | Bank | 2009 | Thimphu, BT | n/a | n/a | Joint venture | Banking licence (Bhutan) | drupnpnb.bt | Bhutanese bank joint venture with Punjab National Bank. |
+| National Bank of Bhutan | Bank | 2010 | Thimphu, BT | n/a | n/a | State-owned | Banking licence (Bhutan) | nbbl.bt | Bhutanese state bank. |
+| Royal Monetary Authority of Bhutan | Central bank | 1982 | Thimphu, BT | n/a | n/a | Central bank | Central bank (Bhutan) | rma.org.bt | Central bank of Bhutan. |
+| Royal Securities Exchange of Bhutan | Exchange | 1993 | Thimphu, BT | n/a | n/a | State-linked | Exchange authorisation (Bhutan) | rsebl.org.bt | Bhutanese stock exchange. |
+| Royal Insurance Corporation of Bhutan | Insurance | 1975 | Thimphu, BT | n/a | n/a | Public: RSEB: RICB | Insurance licence (Bhutan) | ricb.bt | Largest Bhutanese insurer. |
+
+## SOUTH ASIA — Afghanistan (5)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Da Afghanistan Bank | Central bank | 1939 | Kabul, AF | n/a | n/a | Central bank | Central bank (Afghanistan) | dab.gov.af | Central bank of Afghanistan. |
+| Afghanistan International Bank | Bank | 2004 | Kabul, AF | n/a | n/a | Private | Banking licence (Afghanistan) | aib.af | Afghan private bank. |
+| Azizi Bank | Bank | 2006 | Kabul, AF | n/a | n/a | Private | Banking licence (Afghanistan) | azizibank.af | Afghan private bank. |
+| Maiwand Bank | Bank | 2008 | Kabul, AF | n/a | n/a | Private | Banking licence (Afghanistan) | maiwandbank.com.af | Afghan private bank. |
+| M-Paisa | Mobile money | 2008 | Kabul, AF | n/a | n/a | Subsidiary of Roshan | Payment licence (Afghanistan) | roshan.af | Afghan mobile money service. |
+
+## SOUTH ASIA — Maldives (4)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Bank of Maldives | Bank | 1982 | Malé, MV | n/a | n/a | State-linked | Banking licence (Maldives) | bankofmaldives.com.mv | Largest bank in the Maldives. |
+| Maldives Islamic Bank | Bank | 2011 | Malé, MV | n/a | n/a | Private | Islamic banking licence (Maldives) | mib.com.mv | First Islamic bank in the Maldives. |
+| State Bank of India Maldives | Bank | 1974 | Malé, MV | n/a | n/a | Subsidiary of SBI | Banking licence (Maldives) | sbi.com.mv | Maldivian branch network of SBI. |
+| Maldives Monetary Authority | Central bank | 1981 | Malé, MV | n/a | n/a | Central bank | Central bank (Maldives) | mma.gov.mv | Central bank of the Maldives. |
 
 ## SOUTHEAST ASIA — Indonesia (55)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
@@ -2738,6 +3165,31 @@
 | Nan Shan Life | Insurance | 1963 | Taipei, TW | n/a | n/a | Private | Insurance licence (Taiwan) | nanshanlife.com.tw | Major Taiwanese life insurer. |
 | Taiwan Stock Exchange | Exchange | 1961 | Taipei, TW | n/a | n/a | Private | Exchange authorisation (Taiwan) | twse.com.tw | Taiwanese stock exchange. |
 
+## EAST ASIA — Mongolia (10)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Khan Bank | Bank | 1991 | Ulaanbaatar, MN | n/a | n/a | Private | Banking licence (Mongolia) | khanbank.com | Largest bank in Mongolia. |
+| Golomt Bank | Bank | 1992 | Ulaanbaatar, MN | n/a | n/a | Public: MSE: GLMT | Banking licence (Mongolia) | golomtbank.com | Mongolian bank. |
+| Trade and Development Bank of Mongolia | Bank | 1990 | Ulaanbaatar, MN | n/a | n/a | Public: MSE: TDB | Banking licence (Mongolia) | tdbm.mn | Mongolian bank. |
+| XacBank | Bank | 2001 | Ulaanbaatar, MN | n/a | n/a | Private | Banking licence (Mongolia) | xacbank.mn | Mongolian bank for SMEs and microfinance. |
+| Khas Bank | Bank | 1991 | Ulaanbaatar, MN | n/a | n/a | Private | Banking licence (Mongolia) | khasbank.mn | Mongolian bank. |
+| Central Bank of Mongolia | Central bank | 1991 | Ulaanbaatar, MN | n/a | n/a | Central bank | Central bank (Mongolia) | mongolbank.mn | Central bank of Mongolia. |
+| Mongolian Stock Exchange | Exchange | 1991 | Ulaanbaatar, MN | n/a | n/a | State-linked | Exchange authorisation (Mongolia) | mse.mn | Mongolian stock exchange. |
+| Toki | Fintech | 2021 | Ulaanbaatar, MN | n/a | ~$10M | Private | Payment services (Mongolia) | toki.mn | Mongolian social commerce and payments app. |
+| Storepay | BNPL | 2018 | Ulaanbaatar, MN | n/a | ~$10M | Private | Lending services (Mongolia) | storepay.mn | Mongolian buy now pay later platform. |
+| LendMN | Lending | 2017 | Ulaanbaatar, MN | n/a | ~$10M | Private | Lending services (Mongolia) | lendmn.mn | Mongolian digital microlending platform. |
+
+## EAST ASIA — Macau (7)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Banco Nacional Ultramarino | Bank | 1902 | Macau, MO | n/a | n/a | Subsidiary of Caixa Geral | Banking licence (Macau) | bnu.com.mo | Oldest bank in Macau and note issuer. |
+| Bank of China Macau | Bank | 1950 | Macau, MO | n/a | n/a | Subsidiary of Bank of China | Banking licence (Macau) | bocmacau.com | Leading bank in Macau. |
+| Banco Tai Fung | Bank | 1972 | Macau, MO | n/a | n/a | Private | Banking licence (Macau) | taifungbank.com | Macau bank. |
+| Luso International Banking | Bank | 1972 | Macau, MO | n/a | n/a | Private | Banking licence (Macau) | luso.com.mo | Macau bank. |
+| Monetary Authority of Macau | Central bank | 1999 | Macau, MO | n/a | n/a | Central bank | Central bank (Macau) | amcm.gov.mo | Central bank of Macau. |
+| MPay | Digital wallet | 1996 | Macau, MO | n/a | n/a | Subsidiary of Macau Pass | Payment licence (Macau) | mpay.com.mo | Leading Macau digital payment app. |
+| Fidelidade Macau | Insurance | 1984 | Macau, MO | n/a | n/a | Subsidiary of Fosun | Insurance licence (Macau) | fidelidade.com.mo | Macau insurer. |
+
 ## OCEANIA — Australia (63)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -2846,6 +3298,35 @@
 | Westpac Fiji | Bank | 1901 | Suva, FJ | n/a | n/a | Subsidiary of Westpac | Banking licence (Fiji) | westpac.com.fj | Fijian bank of Westpac. |
 | Reserve Bank of Fiji | Central bank | 1973 | Suva, FJ | n/a | n/a | Central bank | Central bank (Fiji) | rbf.gov.fj | Central bank of Fiji. |
 | Vodafone Fiji M-PAiSA | Mobile money | 2010 | Suva, FJ | n/a | n/a | Subsidiary of Vodafone | Payment licence (Fiji) | vodafone.com.fj | Fijian mobile money service. |
+
+## OCEANIA — Vanuatu (4)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Reserve Bank of Vanuatu | Central bank | 1981 | Port Vila, VU | n/a | n/a | Central bank | Central bank (Vanuatu) | rbv.gov.vu | Central bank of Vanuatu. |
+| National Bank of Vanuatu | Bank | 1991 | Port Vila, VU | n/a | n/a | State-owned | State-owned bank (Vanuatu) | nbv.vu | Vanuatu state bank. |
+| Bred Bank Vanuatu | Bank | 2009 | Port Vila, VU | n/a | n/a | Subsidiary of BRED | Banking licence (Vanuatu) | bredvanuatu.com | Vanuatu bank of France's BRED. |
+| ANZ Vanuatu | Bank | 1971 | Port Vila, VU | n/a | n/a | Subsidiary of ANZ | Banking licence (Vanuatu) | anz.com | Vanuatu bank of ANZ. |
+
+## OCEANIA — Samoa (3)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Central Bank of Samoa | Central bank | 1984 | Apia, WS | n/a | n/a | Central bank | Central bank (Samoa) | cbs.gov.ws | Central bank of Samoa. |
+| Samoa Commercial Bank | Bank | 2002 | Apia, WS | n/a | n/a | Private | Banking licence (Samoa) | scb.ws | Samoan bank. |
+| National Bank of Samoa | Bank | 2005 | Apia, WS | n/a | n/a | Private | Banking licence (Samoa) | nbs.ws | Samoan bank. |
+
+## OCEANIA — Solomon Islands (3)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| BSP Financial Group Solomon Islands | Bank | 1974 | Honiara, SB | n/a | n/a | Subsidiary of BSP | Banking licence (Solomon Islands) | bsp.com.sb | Solomon Islands arm of BSP. |
+| ANZ Solomon Islands | Bank | 1972 | Honiara, SB | n/a | n/a | Subsidiary of ANZ | Banking licence (Solomon Islands) | anz.com | Solomon Islands bank of ANZ. |
+| Central Bank of Solomon Islands | Central bank | 1984 | Honiara, SB | n/a | n/a | Central bank | Central bank (Solomon Islands) | cbsi.com.sb | Central bank of the Solomon Islands. |
+
+## OCEANIA — Tonga (3)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| National Reserve Bank of Tonga | Central bank | 1989 | Nuku'alofa, TO | n/a | n/a | Central bank | Central bank (Tonga) | resbank.to | Central bank of Tonga. |
+| Bank of Tonga | Bank | 1974 | Nuku'alofa, TO | n/a | n/a | Private | Banking licence (Tonga) | bankoftonga.to | Tongan bank. |
+| MBf Bank | Bank | 1993 | Nuku'alofa, TO | n/a | n/a | Private | Banking licence (Tonga) | mbfbank.to | Tongan bank. |
 
 ## OCEANIA — Papua New Guinea (2)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |

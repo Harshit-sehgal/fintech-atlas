@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useMemo } from "react";
 import Link from "next/link";
 import {
   globalDirectoryClusterNames,
+  globalDirectoryCategoryNames,
   globalDirectorySummaries,
 } from "@/generated/global-directory-summaries";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -16,13 +17,13 @@ const PAGE_SIZE = 50;
 
 /** Download the current (filtered) global directory view as CSV. */
 function exportGlobalDirectoryCsv(
-  rowsIn: ReadonlyArray<{ slug: string; name: string; category: string; clusterIndex: number }>,
+  rowsIn: ReadonlyArray<{ slug: string; name: string; categoryIndex: number; clusterIndex: number }>,
 ): void {
   downloadCsv("fintech-atlas-global-directory.csv", [
     ["Name", "Category", "Cluster", "Profile URL"],
     ...rowsIn.map((s) => [
       s.name,
-      s.category,
+      globalDirectoryCategoryNames[s.categoryIndex] ?? "",
       globalDirectoryClusterNames[s.clusterIndex] ?? "",
       `${SITE_URL}/global-directory/${s.slug}`,
     ]),
@@ -84,9 +85,10 @@ export function GlobalDirectoryClient() {
       if (clusterIndex > 0 && summary.clusterIndex !== clusterIndex - 1) return false;
       if (!q) return true;
       const clusterName = globalDirectoryClusterNames[summary.clusterIndex] ?? "";
+      const categoryName = globalDirectoryCategoryNames[summary.categoryIndex] ?? "";
       // Fuzzy match: tolerates typos and partial words; exact
       // substrings still rank highest.
-      return fuzzyMatchAny([summary.name, summary.category, clusterName], q);
+      return fuzzyMatchAny([summary.name, categoryName, clusterName], q);
     });
   }, [query, clusterIndex]);
 
@@ -176,7 +178,9 @@ export function GlobalDirectoryClient() {
               <span className="hl-link font-semibold text-[var(--foreground)]">
                 {summary.name}
               </span>
-              <span className="text-sm text-[var(--fg-dim)]">{summary.category}</span>
+              <span className="text-sm text-[var(--fg-dim)]">
+                {globalDirectoryCategoryNames[summary.categoryIndex]}
+              </span>
               <span className="mt-1 w-fit font-mono text-[11px] uppercase tracking-wider text-[var(--muted-text)]">
                 {globalDirectoryClusterNames[summary.clusterIndex]}
               </span>

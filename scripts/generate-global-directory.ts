@@ -18,6 +18,7 @@ import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import {
   clusterGroups,
+  distinctCategories,
   parseGlobalDirectory,
 } from "../src/lib/global-directory-parse";
 
@@ -53,6 +54,7 @@ function jsLiteral(value: unknown): string {
 
 const records = parseGlobalDirectory(readFileSync(markdownPath, "utf8"));
 const clusters = clusterGroups(records);
+const categories = distinctCategories(records);
 
 const fullLines = [
   "// GENERATED FILE — do not edit by hand.",
@@ -105,7 +107,7 @@ const summaryLines = [
   "export interface GlobalDirectorySummary {",
   "  slug: string;",
   "  name: string;",
-  "  category: string;",
+  "  categoryIndex: number;",
   "  clusterIndex: number;",
   "}",
   "",
@@ -113,9 +115,13 @@ const summaryLines = [
   ...clusters.map((c) => `  ${jsLiteral(c.name)},`),
   `];`,
   "",
+  `export const globalDirectoryCategoryNames: string[] = [`,
+  ...categories.map((c) => `  ${jsLiteral(c)},`),
+  `];`,
+  "",
   "export const globalDirectorySummaries: GlobalDirectorySummary[] = [",
   ...records.map((r) =>
-    `  { slug: ${jsLiteral(r.slug)}, name: ${jsLiteral(r.name)}, category: ${jsLiteral(r.category)}, clusterIndex: ${clusters.findIndex((c) => c.name === r.cluster)} },`,
+    `  { slug: ${jsLiteral(r.slug)}, name: ${jsLiteral(r.name)}, categoryIndex: ${categories.indexOf(r.category)}, clusterIndex: ${clusters.findIndex((c) => c.name === r.cluster)} },`,
   ),
   "];",
   "",
