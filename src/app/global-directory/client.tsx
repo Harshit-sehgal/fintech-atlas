@@ -12,6 +12,7 @@ import { Highlight, MarkerRule } from "@/components/ui/highlight";
 import { HighlightedText } from "@/components/ui/highlighted-text";
 import { Disclosure } from "@/components/ui/disclosure";
 import { groupByCategory, groupDirectory } from "@/lib/directory-groups";
+import { flagEmoji } from "@/lib/flags";
 import { fuzzyMatchAny } from "@/lib/fuzzy";
 import { downloadCsv } from "@/lib/share";
 import { SITE_URL } from "@/lib/site-config";
@@ -282,13 +283,18 @@ export function GlobalDirectoryClient() {
                           onToggle={() => toggle(setOpenClusters, `c:${block.key}`)}
                           className="mt-5 first:mt-0"
                           summaryClassName={`flex w-full items-baseline gap-3 rounded-sm text-left ${collapsible ? "cursor-pointer hover:opacity-90" : "cursor-default"} focus-visible:outline-none focus-visible:ring-[var(--ring)]`}
-                          summary={(expanded) => (
-                            <>
-                              <h3 className="text-sm font-semibold text-[var(--foreground)]"><HighlightedText text={block.label} query={q} /></h3>
-                              <span className="text-xs text-[var(--muted-text)]">{block.items.length}</span>
-                              {collapsible && <span className="ml-auto text-xs font-semibold text-[var(--accent)]">{expanded ? "Show less" : `See all ${block.items.length} →`}</span>}
-                            </>
-                          )}
+                            summary={(expanded) => (
+                              <>
+                                {flagEmoji(block.label) && (
+                                  <span aria-hidden="true" className="shrink-0 text-base leading-none">
+                                    {flagEmoji(block.label)}
+                                  </span>
+                                )}
+                                <h3 className="text-sm font-semibold text-[var(--foreground)]"><HighlightedText text={block.label} query={q} /></h3>
+                                <span className="text-xs text-[var(--muted-text)]">{block.items.length}</span>
+                                {collapsible && <span className="ml-auto text-xs font-semibold text-[var(--accent)]">{expanded ? "Show less" : `See all ${block.items.length} →`}</span>}
+                              </>
+                            )}
                         >
                           <ul className="mt-3 grid gap-x-8 gap-y-0.5 sm:grid-cols-2 lg:grid-cols-3">
                             {shown.map((row) => <CompanyRow key={row[0]} row={row} query={q} />)}
