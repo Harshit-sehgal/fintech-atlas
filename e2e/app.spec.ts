@@ -256,14 +256,14 @@ test.describe("critical flows", () => {
     ).toContainText("Wise");
 
     const wiseRow = page
-      .locator("div.rounded-xl.border.p-4", { hasText: "Wise" })
+      .locator('[data-placement="remittance-provider"]', { hasText: "Wise" })
       .filter({ hasText: "Upfront Fee" })
       .first();
     await expect(wiseRow).toContainText("Upfront Fee: $4.80");
     await expect(wiseRow).toContainText("Exchange Markup: 0%");
 
     const paypalRow = page
-      .locator("div.rounded-xl.border.p-4", { hasText: "PayPal" })
+      .locator('[data-placement="remittance-provider"]', { hasText: "PayPal" })
       .filter({ hasText: "Upfront Fee" })
       .first();
     await expect(paypalRow).toContainText("Exchange Markup: 3.5%");

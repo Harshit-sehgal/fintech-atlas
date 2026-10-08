@@ -27,7 +27,7 @@ export interface RadarReviewSummary {
 
 export const radarReviewItems: RadarReviewItem[] = [
   {
-    "id": "review-2e206ebd-7b1",
+    "id": "review-2e206ebd84e3",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "razorpay",
     "action": "add_license",
@@ -40,7 +40,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review-76e4ba33-545",
+    "id": "review-76e4ba33aba9",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "razorpay",
     "action": "add_license",
@@ -66,7 +66,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review-7a5ea954-1cd",
+    "id": "review-7a5ea954fe32",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "cashfree-payments",
     "action": "add_license",
@@ -79,7 +79,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--4acc3d4561c",
+    "id": "review-b533c2bb61c1",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "payu-payments-india",
     "action": "add_license",
@@ -131,7 +131,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--2f911a7f-73",
+    "id": "review-d06ee581f8ce",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "pine-labs",
     "action": "add_license",
@@ -144,7 +144,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review-39fbb723-6cd",
+    "id": "review-39fbb723932e",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "pine-labs",
     "action": "add_license",
@@ -157,7 +157,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review-13c063d9-25b",
+    "id": "review-13c063d9da44",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "easebuzz",
     "action": "add_license",
@@ -170,7 +170,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--755612c0623",
+    "id": "review-8aa9ed406233",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "easebuzz",
     "action": "add_license",
@@ -183,7 +183,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review-33c26342-158",
+    "id": "review-33c26342ea77",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "airpay-payment-services",
     "action": "add_license",
@@ -196,7 +196,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--3827405a113",
+    "id": "review-c7d8bfa61137",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "airpay-payment-services",
     "action": "add_license",
@@ -222,7 +222,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--566d22ec408",
+    "id": "review-a992dd14408c",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "mswipe-technologies",
     "action": "add_license",
@@ -235,7 +235,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--3a814a6e6c0",
+    "id": "review-c57eb5926c07",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "khatabook-technologies",
     "action": "add_license",
@@ -248,7 +248,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review-4229ea80-6c2",
+    "id": "review-4229ea8093d1",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "lyra-network-private-limited",
     "action": "add_license",
@@ -261,7 +261,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review-3113a796-4be",
+    "id": "review-3113a796b410",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "mmad-communications",
     "action": "add_license",
@@ -274,7 +274,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--bfaa3a439ee",
+    "id": "review-f4055c5c39ee",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "mmad-communications",
     "action": "add_license",
@@ -300,7 +300,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--2a9b3663484",
+    "id": "review-d564c99d484b",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "omniware-technologies",
     "action": "add_license",
@@ -326,7 +326,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--578a66d92e5",
+    "id": "review-a87599272e57",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "pay10-services",
     "action": "add_license",
@@ -339,7 +339,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review-299fbeb1-779",
+    "id": "review-299fbeb18865",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "pb-pay",
     "action": "add_license",
@@ -352,7 +352,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--69e867d1285",
+    "id": "review-9617982f2854",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "payment-gateway-solutions-pgs",
     "action": "add_license",
@@ -365,7 +365,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--1e27ae0d-11",
+    "id": "review-e1d851f3ee48",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "toucan-payments-india",
     "action": "add_license",
@@ -378,7 +378,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--20200bea22a",
+    "id": "review-dfdff41622a6",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "vay-network-services",
     "action": "add_license",
@@ -391,7 +391,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review-659418ee-8e2",
+    "id": "review-659418eef71d",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "vay-network-services",
     "action": "add_license",
@@ -417,7 +417,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--41222d22-11",
+    "id": "review-beddd2deeef1",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "zoho-payment-technologies",
     "action": "add_license",
@@ -430,7 +430,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--24713ce1160",
+    "id": "review-db8ec31f1601",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "adyen-india",
     "action": "add_license",
@@ -443,7 +443,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--1aa6f021-6f",
+    "id": "review-e5590fdf9080",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "adyen-india",
     "action": "add_license",
@@ -456,7 +456,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review-7310f445-5fe",
+    "id": "review-7310f445a013",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "amazon-pay-india",
     "action": "add_license",
@@ -469,7 +469,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review-5f4c40ee-428",
+    "id": "review-5f4c40eebd70",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "amazon-pay-india",
     "action": "add_license",
@@ -482,7 +482,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--71da07e5-1a",
+    "id": "review-8e25f81be51e",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "paypal-india",
     "action": "add_license",
@@ -495,7 +495,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--30d06758-27",
+    "id": "review-cf2f98a8d828",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "payoneer-india",
     "action": "add_license",
@@ -508,7 +508,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review-2d586764-40d",
+    "id": "review-2d586764bf2b",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "worldline-epayments-india",
     "action": "add_license",
@@ -534,7 +534,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review-323d17b9-700",
+    "id": "review-323d17b98ff8",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "unlimit-in-unlimint",
     "action": "add_license",
@@ -547,7 +547,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review-1e79eede-734",
+    "id": "review-1e79eede8cbe",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "unlimit-in-unlimint",
     "action": "add_license",
@@ -560,7 +560,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--52fc23b9647",
+    "id": "review-ad03dc476476",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "skydo",
     "action": "add_license",
@@ -573,7 +573,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--7dda16cb-40",
+    "id": "review-8225e935bf52",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "skydo",
     "action": "add_license",
@@ -586,7 +586,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--35b7d2eb59b",
+    "id": "review-ca482d1559b6",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "payglocal",
     "action": "add_license",
@@ -599,7 +599,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--4ea8846a-be",
+    "id": "review-b1577b96f410",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "payglocal",
     "action": "add_license",
@@ -612,7 +612,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review-6ebe5daa-2ff",
+    "id": "review-6ebe5daad007",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "xflow",
     "action": "add_license",
@@ -625,7 +625,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review-12e2b2c4-220",
+    "id": "review-12e2b2c4ddfb",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "briskpe-gobrisk",
     "action": "add_license",
@@ -638,7 +638,7 @@ export const radarReviewItems: RadarReviewItem[] = [
     "state": "pending"
   },
   {
-    "id": "review--39763fb4-56",
+    "id": "review-c689c04ca9c4",
     "snapshotId": "payment-aggregators-v1",
     "companyId": "eximpe",
     "action": "add_license",

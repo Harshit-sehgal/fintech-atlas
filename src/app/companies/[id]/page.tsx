@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { getCompanyBySlug, companies, categories } from "@/data";
 import { articles } from "@/data/articles";
 import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { openGraphImage, clampDescription } from "@/lib/shared-metadata";
 import { getResearchProfileForCompany, getResearchProfileName } from "@/lib/company-directory-links";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CompanyPageClient } from "./client";
@@ -20,17 +20,26 @@ export async function generateMetadata({
   const { id } = await params;
   const c = getCompanyBySlug(id);
   if (!c) return { title: "Not Found" };
+  // The oneLiner is the company's own voice — keep it verbatim
+  // when it already fills the SERP snippet budget; pad the rare
+  // short ones with the page's intent so no snippet looks stubby.
+  const description =
+    c.oneLiner.trim().length >= 70
+      ? c.oneLiner
+      : clampDescription(
+          `${c.name}: ${c.oneLiner} Fees, pricing model, strengths, tradeoffs and India availability in the full FinTech Atlas profile.`,
+        );
   // Page-level openGraph is required: Next.js shallowly replaces the inherited
   // root openGraph, so without this the OG card would fall back to the
   // homepage's title/description/url for every company share.
   return {
     title: `${c.name} — fees, features & review`,
-    description: c.oneLiner,
+    description,
     alternates: { canonical: canonicalUrl(`/companies/${c.slug}`) },
     openGraph: {
       ...openGraphImage,
       title: `${c.name} — ${c.tagline}`,
-      description: c.oneLiner,
+      description,
       url: canonicalUrl(`/companies/${c.slug}`),
     },
   };

@@ -26,7 +26,7 @@ const PAGES_WITHOUT_OWN_H1: { file: string; title: string }[] = [
 
 describe("heading hierarchy regression guard", () => {
   for (const { file, title } of PAGES_WITHOUT_OWN_H1) {
-    it(`${file}: primary SectionHeading uses headingLevel={1} (title "${title}")`, () => {
+    it(`${file}: primary SectionHeading renders an <h1> (title "${title}")`, () => {
       const src = readFileSync(resolve(process.cwd(), file), "utf8");
       // The page's SectionHeading must opt into an <h1>. Match the prop on the
       // SectionHeading that renders this title, so a future edit that drops it
@@ -35,7 +35,15 @@ describe("heading hierarchy regression guard", () => {
         new RegExp(`<SectionHeading[\\s\\S]*?title="${title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"[\\s\\S]*?/>`),
       );
       expect(sectionHeadingBlock, `SectionHeading for "${title}" not found in ${file}`).not.toBeNull();
-      expect(sectionHeadingBlock![0]).toContain("headingLevel={1}");
+      // Either the literal h1 opt-in, or a headingLevel prop whose
+      // destructured default is 1 — islands that host pages can demote
+      // (e.g. the Razorpay fee calculator page passes headingLevel={2}
+      // because its article already carries the document h1).
+      const usesProp = sectionHeadingBlock![0].includes("headingLevel={headingLevel}");
+      expect(
+        sectionHeadingBlock![0].includes("headingLevel={1}") ||
+          (usesProp && src.includes("headingLevel = 1")),
+      ).toBe(true);
     });
   }
 

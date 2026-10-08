@@ -801,6 +801,43 @@ Deliberately **not** changed, with reasons:
 
 ---
 
+# 12e. Global research directory, analytics & SEO (T146–T150)
+
+**Status: complete (2026-10-08).** A region-by-region "financial encyclopedia
+of the world" — fintechs plus banks, insurers, brokers, exchanges and central
+banks — built on the same markdown → parser → generated-module pipeline as the
+India directory, with GA4 search/analytics plumbing added alongside.
+
+| ID   | Task | Status |
+| ---- | ---- | ------ |
+| T146 | Global research directory | ✅ done — `docs/research/global-fintech-directory.md` (2,413 companies at first pass) with `lib/directory-parse.ts` extracted as the shared table engine, `lib/global-directory-parse.ts`, `scripts/generate-global-directory.ts`, generated full + summaries modules wired into `prebuild`, and `/global-directory` + `/global-directory/[slug]` pages. Directory hub promoted from two tiers to three; curated↔global profiles bridged by slug |
+| T147 | Expand to 2,699 + surface sitewide | ✅ done — ~286 more companies across 40 countries; Global directory registered in `site-nav.ts` (Browse group, with clarifier) so header/mobile/footer inherit it; footer shows both research-directory counts; title helper on all three profile pages fixed to budget for apostrophe entities (`&#x27;`) |
+| T148 | Compact client subset | ✅ done — global summaries emitted as `[slug, name, categoryIndex, clusterIndex]` tuples with pooled category names, cutting compressed JS from 472,876 → 468,984 bytes |
+| T149 | Google Analytics 4 + article OG + GSC | ✅ done — env-gated GA4 (`NEXT_PUBLIC_GA_MEASUREMENT_ID`) rendered as literal `<head>` scripts so the CSP generator hashes the inline bootstrap; CSP adds GTM/GA origins only when configured; `trackEvent` gains a `window.gtag` branch; articles emit og:type=article with publishedTime/modifiedTime/authors/section; `google-site-verification` meta emitted when set; Privacy Notice updated to disclose the optional cookie-based configuration |
+| T150 | Expand to 2,932 | ✅ done — ~233 more companies (Nordics, UK peer banks/insurers/comparison sites, Benelux/Iberia/Italy/Germany/Ireland institutions, Moldova, Albania, North Macedonia, Bosnia, Montenegro, US alt asset managers and cyber insurtechs) |
+| T151 | Expand to 3,020 + raise JS cap | ✅ done — ~88 more companies (US payments infra and partner banks, comparison sites, UK/EU fintech, Singapore/Vietnam/Brazil additions); compressed-JS cap raised 475,000 → 500,000 with a documented rationale (the client search subset is now ~3,000 genuinely searchable records, growing ~14 gzip-bytes each) |
+| T152 | Expand to 3,061 + restore coverage gate | ✅ done — ~41 more companies (US infrastructure/consumer-finance, UK/EU fintech, Middle East, Africa, Japan, LatAm); fixed `directory-parse.ts` to split rows on *unescaped* pipes so `\|` in a cell no longer corrupts the column count; added tests for the shared parser, the curated↔research bridges, the GA component, GA/GSC config and the `gtag` event path — **628** unit tests (77 files), branch coverage **75.2%** ≥ the 75% gate; Playwright **126/126** |
+| T153 | Coverage above 90% on every metric | ✅ done — branch-focused tests across the URL-filter/saved-search/saved-hub/watchlist/compare/fuzzy/matchmaker/partner/digest helpers, GA+GSC config/components, toast/bookmarks/ui-mode contexts, the shared parser, the investment calculators and the RBI event/review/parse pipeline; fixed a latent `makeEventId` signed-32-bit formatting bug the tests exposed. **827 tests / 107 files; statements 94.12%, branches 90.08%, functions 94.58%, lines 95.48%** |
+| T154 | Clear the CI audit gate | ✅ done — `npm audit --production --audit-level=high` was failing on a high advisory; `npm audit fix` bumped `source-map-js` to 1.2.2 (0 production vulnerabilities). This was the sole cause of the failing `verify` check on PR #75 |
+| T155 | Cover the live fetchers + wire deploy analytics | ✅ done — `fetch-rbi-pa`/`fetch-rbi-coa` refactored to injectable `runRbiPaFetch`/`runRbiCoaFetch` and fully covered alongside `runRatesFetch`; deploy workflow bakes `NEXT_PUBLIC_GA_MEASUREMENT_ID` + `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` from repository Variables. **Coverage: statements 96.31%, branches 92.39%, functions 95.41%, lines 97.36%** |
+
+Verification: typecheck + eslint clean, **827** unit tests green with the 75%
+branch gate satisfied, **126** Playwright tests green, and a full static export
+passing every postbuild gate — compressed-JS budget 473,473/500,000 across 46
+assets, structured-data over 17,934 JSON-LD blocks in **5,966** HTML files,
+internal-link verification across all files, title audit at 5,964 pages under
+65 chars, and the description gate across all 5,966 pages. The directory now
+indexes **3,061** companies across **145** country/thematic clusters in 12
+regions.
+
+Tracked in PR #75 (`feat/global-directory-analytics` → `main`).
+
+Constraint recorded: the compressed-JS subset grows ~14 gzip-bytes per company.
+The next large dataset must first cut payload (columnar encoding or virtualised
+server-rendered search) rather than raise the cap again.
+
+---
+
 # 12. Ninety-day execution order
 
 ## Weeks 1–2: make it trustworthy

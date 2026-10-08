@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-const description = "This page doesn't exist or has moved to a different route.";
+const description =
+  "This page doesn't exist or has moved to a different route. Head back to the FinTech Atlas home directory to keep browsing companies, tools and guides.";
 
 export const metadata: Metadata = {
   title: "Page Not Found",
@@ -27,7 +28,7 @@ export default function NotFound() {
       </p>
       <Link
         href="/"
-        className="mt-8 inline-flex items-center gap-2 rounded-xl bg-[var(--foreground)] px-5 py-3 text-sm font-semibold text-[var(--background)] transition-all hover:opacity-90"
+        className="mt-8 inline-flex items-center gap-2 rounded-sm bg-[var(--foreground)] px-5 py-3 text-sm font-semibold text-[var(--background)] transition-all hover:opacity-90"
       >
         ← Back to Home
       </Link>

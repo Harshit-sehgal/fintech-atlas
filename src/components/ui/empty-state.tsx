@@ -15,8 +15,10 @@ export function EmptyState({
   action?: ReactNode;
 }) {
   return (
-    <div className="rounded-lg border border-dashed border-[var(--border-color)] p-12 text-center">
-      <p className="text-sm font-medium text-[var(--foreground)]">{title}</p>
+    <div className="py-10 text-center">
+      <p className="mx-auto w-fit text-sm font-medium text-[var(--foreground)]">
+        <span className="hl hl-yellow">{title}</span>
+      </p>
       {description && (
         <p className="mx-auto mt-1 max-w-md text-sm leading-relaxed text-[var(--muted-text)]">
           {description}

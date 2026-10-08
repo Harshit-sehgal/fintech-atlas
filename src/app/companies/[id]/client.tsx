@@ -23,6 +23,7 @@ import { resolvePartnerCta, partnerRel, COMMERCIAL_DISCLOSURE } from "@/lib/part
 import { trackCtaClick } from "@/lib/analytics";
 import { readLastCompareSlugs } from "@/lib/compare";
 import { CorrectionReportLink } from "@/components/ui/correction-report-link";
+import { Highlight, MarkerRule } from "@/components/ui/highlight";
 import type { OwnershipType } from "@/data";
 
 function readReviews(slug: string): string {
@@ -106,7 +107,7 @@ function CompareBridgeLink({ slug }: { slug: string }) {
     <Link
       href={`/compare?companies=${target.join(",")}`}
       data-placement="profile-to-compare"
-      className="flex items-center gap-1.5 rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-1.5 text-xs font-semibold text-[var(--foreground)] hover:border-[var(--accent)]/40 hover:text-[var(--accent)] focus-visible:border-[var(--accent)]/40 focus-visible:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+      className="btn-ghost flex items-center gap-1.5 px-3 py-1.5 text-xs"
       title={joins ? `Open /compare with ${target.length} companies` : `Compare side-by-side`}
     >
       <span>{joins ? "Add to comparison" : "Compare"}</span>
@@ -354,22 +355,23 @@ export function CompanyPageClient({
           overflow was font-metric dependent, so it passed locally and failed
           in CI. Dropping the duplicate trail and letting the controls wrap
           fixes both. */}
-      <div className="mb-8 flex flex-wrap items-center justify-end gap-2 border-b border-[var(--border-color)] pb-4">
+      {/* Profile controls — no rule row: the buttons wrap with air. */}
+      <div className="mb-8 flex flex-wrap items-center justify-end gap-2">
         <div className="flex shrink-0 flex-wrap items-center gap-2">
           <CompareBridgeLink slug={c.slug} />
           <button
             onClick={handleBookmark}
-            className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
+            className={`flex items-center gap-1.5 rounded-sm px-3 py-1.5 text-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
               bookmarked
-                ? "border-warning/40 bg-warning/10 text-warning-text"
-                : "border-[var(--border-color)] bg-[var(--subtle-bg)]/50 text-[var(--foreground)] hover:border-[var(--foreground)]/40 focus-visible:border-[var(--foreground)]/40"
+                ? "bg-[var(--warning)]/10 text-warning-text"
+                : "text-[var(--muted-text)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]"
             }`}
           >
             <span>{bookmarked ? "★ Saved" : "☆ Save"}</span>
           </button>
           <button
             onClick={handleShare}
-            className="flex items-center gap-1.5 rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-1.5 text-xs font-semibold text-[var(--foreground)] hover:border-[var(--foreground)]/40 focus-visible:border-[var(--foreground)]/40 focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+            className="flex items-center gap-1.5 rounded-sm px-3 py-1.5 text-xs font-semibold text-[var(--muted-text)] transition-colors hover:text-[var(--foreground)] hover:bg-[var(--surface)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
           >
             <IconLink size={13} />
             <span>Share</span>
@@ -385,15 +387,15 @@ export function CompanyPageClient({
         className="relative flex flex-col md:flex-row items-start gap-6 pt-2"
       >
         <div className="relative group">
-          <div className="relative flex items-center justify-center border border-[var(--border-color)] p-6">
+          <div className="relative flex items-center justify-center p-2">
             <CompanyLogo slug={c.slug} name={c.name} size={80} />
           </div>
         </div>
         <div className="flex-1">
           <div className="flex flex-wrap items-center gap-2 mb-2">
-            <span className="eyebrow text-[10px] py-0.5 px-2 rounded-full bg-[var(--accent)]/10 text-[var(--accent)] border border-[var(--accent)]/20">
-              Company profile
-            </span>
+             <span className="eyebrow text-[10px]">
+               Company profile
+             </span>
             <span className="text-[10px] font-mono text-[var(--muted-text)]">
               Founded {c.founded} · {formatHeadquartersCity(c.headquarters)}
             </span>
@@ -425,7 +427,7 @@ export function CompanyPageClient({
                 {cta.label} ↗
               </a>
               {cta.sponsored && cta.sponsoredLabel && (
-                <span className="rounded-full border border-[var(--border-color)] bg-[var(--accent)]/10 px-2.5 py-1 text-[10px] font-mono uppercase tracking-wide text-[var(--accent)]">
+                <span className="rounded-full bg-[var(--accent)]/10 px-2.5 py-1 text-[10px] font-mono uppercase tracking-wide text-[var(--accent)]">
                   {cta.sponsoredLabel}
                 </span>
               )}
@@ -439,10 +441,11 @@ export function CompanyPageClient({
         </div>
       </motion.div>
 
-      {/* One-liner */}
+      {/* One-liner — no tinted block: plain ink with the key phrase marked */}
       <Reveal delay={0.05}>
-        <p className="mt-8 text-pretty text-base leading-relaxed text-[var(--foreground)] bg-[var(--subtle-bg)]/30 border-l-2 border-[var(--accent)] p-4 rounded-r-lg">
-          <strong className="font-semibold">{c.name}</strong> {c.oneLiner}
+        <p className="mt-8 text-pretty text-base leading-relaxed text-[var(--foreground)]">
+          <strong className="font-semibold">{c.name}</strong>{" "}
+          <Highlight color="yellow">{c.oneLiner}</Highlight>
         </p>
       </Reveal>
 
@@ -453,11 +456,11 @@ export function CompanyPageClient({
           <Link
             href={`/india/directory/${researchProfile.slug}`}
             data-placement="company-profile-to-research"
-            className="mt-4 flex items-center justify-between gap-3 border-y border-[var(--border-color)] py-3 text-sm transition-colors hover:border-[var(--foreground)]"
+            className="group mt-4 flex items-center justify-between gap-3 py-3 text-sm transition-colors"
           >
             <span className="text-[var(--muted-text)]">
               Also in the India research directory —{" "}
-              <span className="font-semibold text-[var(--foreground)]">{researchProfile.name}</span>
+              <span className="hl-link font-semibold text-[var(--foreground)]">{researchProfile.name}</span>
             </span>
             <span className="shrink-0 font-semibold text-[var(--accent)]" aria-hidden>
               →
@@ -466,10 +469,9 @@ export function CompanyPageClient({
         </Reveal>
       )}
 
-      {/* Quick stats — a hairline stat band (border-y + column rules), not a
-          boxed card: mirrors the hero's fact row and the directory's ledger. */}
+      {/* Quick stats — an open fact row, not a boxed band */}
       <Reveal delay={0.1}>
-        <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 border-y border-[var(--border-color)] py-6 sm:grid-cols-3 lg:grid-cols-5">
+        <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3 lg:grid-cols-5">
           {[
             { label: "Founded", value: String(c.founded) },
             { label: "Employees", value: c.employees },
@@ -509,22 +511,17 @@ export function CompanyPageClient({
         </section>
       </Reveal>
 
-      {/* Offerings — a hairline list, not stacked boxes: one line per product
-          with a marker rule, matching the directory's editorial rows. */}
+      {/* Offerings — an open list: one entry per product, the name
+          sweeping a marker on hover, breathing room between entries. */}
       <Reveal delay={0.15}>
         <section className="mt-12">
           <SectionHeader eyebrow="Product Line" title="Products & Services" />
-          <ul className="border-t border-[var(--border-color)]">
+          <ul className="mt-2">
             {c.whatTheyOffer.map((offer) => (
-              <li
-                key={offer.name}
-                className="group relative border-b border-[var(--border-color)] py-4 pl-4"
-              >
-                <span
-                  aria-hidden="true"
-                  className="absolute left-0 top-0 h-full w-0.5 origin-top scale-y-0 bg-[var(--accent)] transition-transform duration-300 group-hover:scale-y-100"
-                />
-                <h3 className="text-sm font-bold text-[var(--foreground)]">{offer.name}</h3>
+              <li key={offer.name} className="group relative py-4">
+                <h3 className="text-sm font-bold text-[var(--foreground)]">
+                  <span className="hl-link">{offer.name}</span>
+                </h3>
                 <p className="mt-1 text-sm leading-relaxed text-[var(--muted-text)]">{offer.description}</p>
               </li>
             ))}
@@ -536,7 +533,7 @@ export function CompanyPageClient({
       <Reveal delay={0.2}>
         <section className="mt-12">
           <SectionHeader eyebrow="Pricing" title="Fee Structure" />
-          <dl className="mt-1 border-t border-[var(--border-color)]">
+          <dl className="mt-1">
             {[
               ["Model", c.pricing.model],
               ["Monthly", c.pricing.monthly],
@@ -548,7 +545,7 @@ export function CompanyPageClient({
               .map(([label, value]) => (
                 <div
                   key={label}
-                  className="grid grid-cols-[7rem_1fr] gap-4 border-b border-[var(--border-color)] py-3 sm:grid-cols-[10rem_1fr]"
+                  className="grid grid-cols-[7rem_1fr] gap-4 py-3 sm:grid-cols-[10rem_1fr]"
                 >
                   <dt className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted-text)] sm:pt-0.5">
                     {label}
@@ -584,8 +581,8 @@ export function CompanyPageClient({
         <Reveal delay={0.22}>
           <section className="mt-12">
             <SectionHeader eyebrow="Availability" title="Geographic availability" />
-            <dl className="mt-1 border-t border-[var(--border-color)]">
-              <div className="grid grid-cols-[7rem_1fr] gap-4 border-b border-[var(--border-color)] py-3 sm:grid-cols-[10rem_1fr]">
+            <dl className="mt-1">
+              <div className="grid grid-cols-[7rem_1fr] gap-4 py-3 sm:grid-cols-[10rem_1fr]">
                 <dt className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted-text)] sm:pt-0.5">
                   Regions
                 </dt>
@@ -594,7 +591,7 @@ export function CompanyPageClient({
                 </dd>
               </div>
               {c.availability.unavailableRegions.length > 0 && (
-                <div className="grid grid-cols-[7rem_1fr] gap-4 border-b border-[var(--border-color)] py-3 sm:grid-cols-[10rem_1fr]">
+                <div className="grid grid-cols-[7rem_1fr] gap-4 py-3 sm:grid-cols-[10rem_1fr]">
                   <dt className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted-text)] sm:pt-0.5">
                     Exclusions
                   </dt>
@@ -615,11 +612,11 @@ export function CompanyPageClient({
       <Reveal delay={0.24}>
         <section className="mt-12">
           <SectionHeader eyebrow="Traceability" title="Sources & effective dates" />
-          <div className="border-t border-[var(--border-color)] pt-5">
+          <div className="pt-5">
             <p className="max-w-3xl text-sm leading-relaxed text-[var(--muted-text)]">
               These references identify the material used for the profile. A source label without a linked document is a research lead, not independently auditable evidence; verify volatile facts directly before relying on them.
             </p>
-            <ul className="mt-4 grid border-t border-[var(--border-color)] sm:grid-cols-2">
+            <ul className="mt-4 grid sm:grid-cols-2">
               {(c.sourceReferences?.length
                 ? c.sourceReferences.map((source) => ({
                     key: source.id,
@@ -638,7 +635,7 @@ export function CompanyPageClient({
                     effectiveAt: undefined,
                   }))
               ).map((source) => (
-                <li key={source.key} className="border-b border-[var(--border-color)] py-3 pr-6 text-sm">
+                <li key={source.key} className="py-3 pr-6 text-sm">
                   {source.url ? (
                     <a href={source.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--accent-ink)] hover:underline">
                       {source.label} ↗
@@ -666,8 +663,8 @@ export function CompanyPageClient({
       <Reveal delay={0.25}>
         <section className="mt-12">
           <SectionHeader eyebrow="Analysis" title="Strengths & Tradeoffs" />
-          <div className="grid border-t border-[var(--border-color)] sm:grid-cols-2">
-          <div className="border-b border-[var(--border-color)] py-6 sm:border-r sm:border-[var(--border-color)] sm:pr-8">
+          <div className="mt-2 grid gap-x-8 gap-y-6 sm:grid-cols-2">
+          <div>
             <h3 className="flex items-center gap-2 text-sm font-bold text-success-text">
               <span aria-hidden className="font-mono">✓</span>
               Core Strengths
@@ -681,7 +678,7 @@ export function CompanyPageClient({
               ))}
             </ul>
           </div>
-          <div className="border-b border-[var(--border-color)] py-6 sm:pl-8">
+          <div>
             <h3 className="flex items-center gap-2 text-sm font-bold text-danger-text">
               <span aria-hidden className="font-mono">✕</span>
               Known Weaknesses
@@ -712,7 +709,7 @@ export function CompanyPageClient({
             </button>
           </div>
 
-          <div className="mt-4 border-t border-[var(--border-color)] pt-6">
+          <div className="mt-4">
             <div className="flex items-center gap-3">
               <span className="font-mono text-lg font-bold tabular-nums text-success-text">
                 ★ {c.userReviews.rating.toFixed(2)} / 5.0
@@ -724,9 +721,9 @@ export function CompanyPageClient({
               {c.userReviews.asOf ? ` Reviewed ${c.userReviews.asOf}.` : ""}
             </p>
 
-            <p className="mt-4 text-sm leading-relaxed text-[var(--foreground)]">{c.userReviews.summary}</p>
+            <p className="mt-4 text-sm leading-relaxed text-[var(--muted-text)]">{c.userReviews.summary}</p>
 
-            <div className="mt-5 grid gap-4 sm:grid-cols-2 pt-4 border-t border-[var(--border-color)]">
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider text-success-text">What users like</h3>
                 <ul className="mt-2 space-y-1">
@@ -745,12 +742,12 @@ export function CompanyPageClient({
               </div>
             </div>              {/* Notes saved in this browser */}
             {userReviews.length > 0 && (
-              <div className="mt-6 pt-6 border-t border-[var(--border-color)] space-y-3">
+              <div className="mt-6 pt-6">
                 <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--foreground)]">
                   Notes saved on this device ({userReviews.length})
                 </h3>
                 {userReviews.map((rev) => (
-                  <div key={rev.id} className="space-y-1 border-b border-[var(--border-color)] pb-3">
+                  <div key={rev.id} className="space-y-1 py-3">
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-bold text-[var(--foreground)]">{rev.author} <span className="font-normal text-[var(--muted-text)]">({rev.role})</span></span>
                       <span className="font-mono text-success-text">★ {rev.rating}/5 · {rev.date}</span>
@@ -768,10 +765,10 @@ export function CompanyPageClient({
       <Reveal delay={0.35}>
         <section className="mt-12">
           <SectionHeader eyebrow="Adoption" title="Notable Customer Segments" />
-          <p className="border-t border-[var(--border-color)] pt-4 text-sm leading-relaxed text-[var(--muted-text)]">
+          <p className="pt-4 text-sm leading-relaxed text-[var(--muted-text)]">
             {c.whoUses.map((w, i) => (
               <span key={w}>
-                {i > 0 && <span aria-hidden className="px-2 text-[var(--border-strong)]">·</span>}
+                {i > 0 && <span aria-hidden className="px-2 text-[var(--muted-dim)]">·</span>}
                 <span className="text-[var(--foreground)]">{w}</span>
               </span>
             ))}
@@ -783,7 +780,7 @@ export function CompanyPageClient({
       <Reveal delay={0.4}>
         <section className="mt-12">
           <SectionHeader eyebrow="Explore" title="Related Categories" />
-          <div className="flex flex-wrap gap-x-6 gap-y-3 border-t border-[var(--border-color)] pt-4">
+          <div className="flex flex-wrap gap-x-6 gap-y-3 pt-4">
             {relatedCategories.map((cat) => (
               <Link
                 key={cat.slug}
@@ -804,17 +801,17 @@ export function CompanyPageClient({
         <Reveal delay={0.45}>
           <section className="mt-12">
             <SectionHeader eyebrow="Explore" title="Related Articles & Guides" />
-            <ul className="grid border-t border-[var(--border-color)] sm:grid-cols-2">
+            <ul className="mt-2 grid sm:grid-cols-2">
               {relatedArticles.map((a) => (
                 <li key={a.slug}>
                   <Link
                     href={`/articles/${a.slug}`}
-                    className="block border-b border-[var(--border-color)] py-3 pr-6 text-sm transition-colors hover:bg-[var(--subtle-bg)]/40"
+                    className="group block py-3 pr-6 text-sm transition-colors"
                   >
                     <span className="block text-[11px] font-mono uppercase tracking-wider text-[var(--muted-text)]">
                       {a.category}
                     </span>
-                    <span className="mt-0.5 block font-semibold leading-snug">{a.title}</span>
+                    <span className="hl-link mt-0.5 block font-semibold leading-snug">{a.title}</span>
                   </Link>
                 </li>
               ))}
@@ -825,7 +822,9 @@ export function CompanyPageClient({
 
       {/* Next / Previous Nav */}
       <Reveal delay={0.5}>
-        <div className="mt-16 flex justify-between border-t border-[var(--border-color)] pt-6 text-sm font-semibold">
+        <div className="mt-16">
+          <MarkerRule color="pink" />
+          <div className="flex justify-between pt-6 text-sm font-semibold">
           <>
             <span>
               {adjacent.previous ? (
@@ -846,6 +845,7 @@ export function CompanyPageClient({
               )}
             </span>
           </>
+          </div>
         </div>
       </Reveal>
 
@@ -936,7 +936,7 @@ export function CompanyPageClient({
 
                       onChange={(e) => setNewAuthor(e.target.value)}
 
-                      className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-xs outline-none"
+                      className="w-full rounded-sm border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-xs outline-none"
                       aria-invalid={formErrors.author ? "true" : "false"}
                       aria-describedby="author-error"
                     />
@@ -954,7 +954,7 @@ export function CompanyPageClient({
                       placeholder="e.g. Founder at TechCo"
                       value={newRole}
                       onChange={(e) => setNewRole(e.target.value)}
-                      className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-xs outline-none"
+                      className="w-full rounded-sm border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-xs outline-none"
                       autoComplete="organization"
                     />
                   </div>
@@ -969,7 +969,7 @@ export function CompanyPageClient({
                     placeholder="Save a note about your experience on this device..."
                     value={newText}
                     onChange={(e) => setNewText(e.target.value)}
-                    className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 p-3 text-xs outline-none"
+                    className="w-full rounded-sm border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 p-3 text-xs outline-none"
                     aria-invalid={formErrors.text ? "true" : "false"}
                     aria-describedby="feedback-error"
                   />
@@ -984,7 +984,7 @@ export function CompanyPageClient({
                   <button
                     type="button"
                     onClick={() => setReviewModalOpen(false)}
-                    className="rounded-lg border border-[var(--border-color)] px-4 py-2 text-xs text-[var(--muted-text)] hover:text-[var(--foreground)] hover:border-[var(--border-strong)] focus-visible:text-[var(--foreground)] focus-visible:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+                    className="rounded-sm border border-[var(--border-color)] px-4 py-2 text-xs text-[var(--muted-text)] hover:text-[var(--foreground)] hover:border-[var(--border-strong)] focus-visible:text-[var(--foreground)] focus-visible:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
                   >
                     Cancel
                   </button>

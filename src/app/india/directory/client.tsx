@@ -123,7 +123,7 @@ export function IndiaDirectoryClient() {
             value={query}
             onChange={(e) => resetPage(() => setQuery(e.target.value))}
             aria-label="Search India fintech directory"
-            className="w-full surface rounded-xl py-2.5 pl-10 pr-4 text-sm outline-none transition-all focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/40"
+            className="w-full surface rounded-sm py-2.5 pl-10 pr-4 text-sm outline-none transition-all focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/40"
           />
           {query && (
             <button
@@ -138,7 +138,7 @@ export function IndiaDirectoryClient() {
           aria-label="Filter by cluster"
           value={clusterIndex}
           onChange={(e) => resetPage(() => setClusterIndex(Number(e.target.value)))}
-          className="rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-sm font-medium text-[var(--foreground)] outline-none transition-colors hover:border-[var(--border-strong)] sm:max-w-64"
+          className="rounded-sm border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-sm font-medium text-[var(--foreground)] outline-none transition-colors hover:border-[var(--border-strong)] sm:max-w-64"
         >
           <option value={0}>All clusters ({indiaDirectorySummaries.length})</option>
           {indiaDirectoryClusterNames.map((name, index) => (
@@ -166,14 +166,14 @@ export function IndiaDirectoryClient() {
         )}
       </p>
 
-      <ul className="mt-6 grid border-t border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-6 grid gap-4 border-t border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
         {pageItems.map((summary) => (
           <li key={summary.slug}>
             <Link
               href={`/india/directory/${summary.slug}`}
-              className="flex h-full flex-col gap-1 border-b border-[var(--border-color)] py-4 pr-6 transition-colors hover:bg-[var(--subtle-bg)]/40"
+              className="box-card flex h-full flex-col gap-1 p-5"
             >
-              <span className="font-semibold text-[var(--foreground)]">
+              <span className="hl-link font-semibold text-[var(--foreground)]">
                 {summary.name}
               </span>
               <span className="text-sm text-[var(--fg-dim)]">{summary.category}</span>
@@ -196,7 +196,7 @@ export function IndiaDirectoryClient() {
                   setQuery("");
                   setClusterIndex(0);
                 })}
-                className="rounded-lg border border-[var(--border-color)] px-4 py-2 text-xs font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+                className="rounded-sm border border-[var(--border-color)] px-4 py-2 text-xs font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
               >
                 Clear all filters
               </button>
@@ -213,7 +213,7 @@ export function IndiaDirectoryClient() {
           <button
             onClick={() => goToPage(safePage - 1)}
             disabled={safePage <= 1}
-            className="rounded-lg border border-[var(--border-color)] px-3.5 py-2 text-sm font-medium transition-colors hover:border-[var(--border-strong)] disabled:pointer-events-none disabled:opacity-40"
+            className="rounded-sm border border-[var(--border-color)] px-3.5 py-2 text-sm font-medium transition-colors hover:border-[var(--border-strong)] disabled:pointer-events-none disabled:opacity-40"
           >
             ← Previous
           </button>
@@ -223,7 +223,7 @@ export function IndiaDirectoryClient() {
           <button
             onClick={() => goToPage(safePage + 1)}
             disabled={safePage >= totalPages}
-            className="rounded-lg border border-[var(--border-color)] px-3.5 py-2 text-sm font-medium transition-colors hover:border-[var(--border-strong)] disabled:pointer-events-none disabled:opacity-40"
+            className="rounded-sm border border-[var(--border-color)] px-3.5 py-2 text-sm font-medium transition-colors hover:border-[var(--border-strong)] disabled:pointer-events-none disabled:opacity-40"
           >
             Next →
           </button>

@@ -4,7 +4,7 @@ import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import { getCategoryBySlug, categories, getCompaniesByCategory, glossary, categoryGlossaryMap } from "@/data";
 import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { openGraphImage, clampDescription } from "@/lib/shared-metadata";
 import { formatValuationShort } from "@/lib/format-company";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CategoryIcon } from "@/components/ui/category-icon";
@@ -24,17 +24,24 @@ export async function generateMetadata({
   const { id } = await params;
   const cat = getCategoryBySlug(id);
   if (!cat) return { title: "Not Found" };
+  // Intent-led description: the category's one-liner is ~60 chars on
+  // its own — lead with the comparison intent and the curated count
+  // so the snippet says what the page does, clamped to the SERP budget.
+  const companyCount = getCompaniesByCategory(id).length;
+  const description = clampDescription(
+    `${cat.name} companies in India — ${cat.short} Compare ${companyCount} curated ${cat.name} profiles with fees, ratings and India availability on FinTech Atlas.`,
+  );
   // Page-level openGraph is required: Next.js shallowly replaces the inherited
   // root openGraph — without this the OG card would show the homepage's
   // title/description/url for every category share.
   return {
     title: cat.name,
-    description: cat.short,
+    description,
     alternates: { canonical: canonicalUrl(`/categories/${cat.slug}`) },
     openGraph: {
       ...openGraphImage,
       title: `${cat.name} — FinTech Category Guide`,
-      description: cat.short,
+      description,
       url: canonicalUrl(`/categories/${cat.slug}`),
     },
   };
@@ -69,12 +76,12 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
       {/* Category Header */}
       <Reveal>
         <div
-          className="relative overflow-hidden rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-7"
+          className="relative overflow-hidden rounded-sm border border-[var(--border-color)] bg-[var(--card)] p-7"
           style={{ ["--accent"]: cat.accent } as CSSProperties}
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative z-10">
             <div className="flex items-center gap-5">
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-[var(--accent-glow)]">
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-sm bg-[var(--accent-glow)]">
                 <CategoryIcon icon={cat.icon} color={cat.accent} size={40} />
               </div>
               <div>
@@ -115,12 +122,12 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
           </div>
 
           {companyList.length > 0 ? (
-            <div className="mt-4 grid border-t border-[var(--border-color)] sm:grid-cols-2">
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
               {companyList.map((c) => (
                 <Link
                   key={c.slug}
                   href={`/companies/${c.slug}`}
-                  className="group relative flex flex-col justify-between border-b border-[var(--border-color)] py-5 transition-colors sm:odd:border-r sm:odd:pr-6 sm:even:pl-6"
+                  className="box-card group relative flex flex-col justify-between p-5"
                   style={{ ["--accent"]: c.accent } as CSSProperties}
                 >
                   <div>
@@ -130,7 +137,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
                           <CompanyLogo slug={c.slug} name={c.name} size={40} />
                         </div>
                         <div>
-                          <h3 className="text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent-ink)]">{c.name}</h3>
+                          <h3 className="text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent-ink)]">
+                            <span className="hl-link">{c.name}</span>
+                          </h3>
                           <p className="text-sm text-[var(--muted-text)]">{formatValuationShort(c.valuation)}</p>
                         </div>
                       </div>

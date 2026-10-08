@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import type { CSSProperties } from "react";
 import { useMemo } from "react";
 import { categories } from "@/data/categories";
 import {
@@ -17,6 +16,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { HomeHero } from "@/components/home/hero";
 import { BrandWall } from "@/components/ui/brand-wall";
 import { NewsletterOptIn } from "@/components/ui/newsletter-opt-in";
+import { Highlight, MarkerRule } from "@/components/ui/highlight";
 import { formatValuationShort } from "@/lib/format-company";
 
 /* slug -> human category label, for the preset cards' meta row. */
@@ -150,81 +150,70 @@ export default function HomePageClient({
     <>
       <HomeHero articleCount={articleCount} glossaryCount={glossaryCount} />
 
-      {/* Proof band — the Mercury/Stripe move: honest, checkable specifics
-          instead of vanity metrics. Numbers a human editor would defend. */}
-      <section data-placement="proof-band" className="border-y border-[var(--border-color)] bg-[var(--subtle-bg)]/40">
-        <div className="mx-auto max-w-6xl px-5">
-          <div className="grid gap-px sm:grid-cols-3">
-            {[
-              {
-                stat: "Every number dated",
-                note: "Each fee figure on the site carries the date we checked it. Anything older than 60 days gets re-verified or flagged.",
-              },
-              {
-                stat: "Formulas in the open",
-                note: "The calculators show their work — inputs, tax treatment, exclusions — so you can dispute our arithmetic, not just read it.",
-              },
-              {
-                stat: "No pay-to-rank",
-                note: "Commercial relationships are disclosed on the page where they exist, and they never move a rating or a ranking.",
-              },
-            ].map((item) => (
-              <div key={item.stat} className="py-8 sm:px-8 sm:first:pl-0 sm:last:pr-0">
-                <p className="font-serif text-lg font-bold text-[var(--foreground)]">{item.stat}</p>
-                <p className="mt-2 max-w-xs text-xs leading-relaxed text-[var(--muted-text)]">{item.note}</p>
-              </div>
-            ))}
-          </div>
+      {/* Proof band — honest, checkable specifics instead of vanity metrics.
+          No band, no rules: three marked phrases on warm paper. */}
+      <section data-placement="proof-band" className="mx-auto max-w-6xl px-5 pt-4">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-sm leading-relaxed text-[var(--muted-text)]">
+            <Highlight color="yellow">Every number dated</Highlight> — re-verified or flagged after 60 days.
+            {" "}<Highlight color="green">Formulas in the open</Highlight> — dispute our arithmetic, not just read it.
+            {" "}<Highlight color="pink">No pay-to-rank</Highlight> — commercial ties never move a rating.
+          </p>
         </div>
+        <MarkerRule className="mt-10" color="green" />
       </section>
 
       {/* Intent chooser — plan §7 #1: "Choose what you are trying to do".
-          The homepage's primary navigation axis; each card routes to a
-          concrete tool, comparison or guide rather than a generic listing. */}
+          No boxes, no grid rules: ink numerals + titles that sweep a marker
+          on hover, breathing room doing the separating. */}
       <section data-placement="intent-chooser" className="mx-auto max-w-6xl px-5 pb-16 md:pb-24">
         <SectionHeading
           eyebrow="Start here"
           title="What are you trying to do?"
           description="Pick the decision you're facing — every entry opens the tool, comparison or guide built for it."
         />
-        <div className="mt-8 grid border-t border-l border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
-          {INTENTS.map((intent) => (
+        <div className="mt-10 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          {INTENTS.map((intent, i) => (
             <Link
               key={intent.title}
               href={intent.href}
-              className="group flex flex-col border-b border-r border-[var(--border-color)] p-5 transition-colors hover:bg-[var(--subtle-bg)]/50"
+              className="group block rounded-sm focus-visible:outline-none focus-visible:ring-[var(--ring)]"
             >
-              <div className="flex h-9 w-9 items-center justify-center text-[var(--accent)]">
-                {intent.svg}
+              <div className="flex items-start gap-3.5">
+                <span aria-hidden="true" className="font-display text-xl font-semibold tabular-nums text-[var(--muted-dim)] transition-colors group-hover:text-[var(--accent)]">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span>
+                  <span className="block text-base font-bold leading-snug text-[var(--foreground)]">
+                    <span className="hl-link">{intent.title}</span>
+                  </span>
+                  <span className="mt-1.5 block text-sm leading-relaxed text-[var(--muted-text)]">
+                    {intent.desc}
+                  </span>
+                  <span className="mt-2.5 block text-xs font-semibold text-[var(--accent)]">
+                    {intent.cta} →
+                  </span>
+                </span>
               </div>
-              <h3 className="mt-4 text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
-                {intent.title}
-              </h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-[var(--muted-text)]">
-                {intent.desc}
-              </p>
-              <span className="mt-auto inline-flex items-center gap-1 pt-4 text-xs font-semibold text-[var(--accent)]">
-                {intent.cta}
-                <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
-              </span>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* Brand wall — the full catalog as a static ruled grid (credibility strip). */}
-      <section data-placement="brand-wall" className="relative border-b border-[var(--border-color)] bg-[var(--subtle-bg)]/30 py-10">
+      {/* Brand wall — the full catalog as a breathing grid (credibility strip).
+          No band, no rules: logos on warm paper, names that mark on hover. */}
+      <section data-placement="brand-wall" className="relative py-10">
         <div className="mx-auto max-w-6xl px-5">
           <Reveal>
             <div className="mb-6 flex items-center justify-between">
               <p className="text-xs font-medium uppercase tracking-wider text-[var(--muted-text)]">
-                {companySummaries.length} companies · Updated {DATA_AS_OF}
+                <Highlight color="green">{companySummaries.length} companies</Highlight> · Updated {DATA_AS_OF}
               </p>
               <Link
                 href="/companies"
-                className="hidden text-xs font-semibold text-[var(--accent)] hover:underline underline-offset-4 sm:inline"
+                className="hidden text-xs font-semibold text-[var(--accent)] sm:inline"
               >
-                View all {companySummaries.length}
+                <span className="hl-link">View all {companySummaries.length}</span>
               </Link>
             </div>
           </Reveal>
@@ -232,17 +221,17 @@ export default function HomePageClient({
         <BrandWall logos={marqueeLogos} />
       </section>
 
-      {/* Interactive Tools Teaser — a ruled band, not a boxed panel. */}
+      {/* Interactive Tools Teaser — no band, no box: one highlighted promise + the tools. */}
       <section data-placement="tools-teaser" className="mx-auto max-w-6xl px-5 py-16 md:py-24">
         <Reveal>
-          <div className="border-y border-[var(--border-color)] py-10 md:py-14">
+          <div className="py-4">
             <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
               <div className="max-w-xl space-y-3">
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
                   Interactive decision suite
                 </p>
                 <h2 className="text-2xl font-semibold leading-tight text-[var(--foreground)] md:text-3xl">
-                  Calculate real costs &amp; compare services
+                  Calculate <Highlight>real costs</Highlight> &amp; compare services
                 </h2>
                 <p className="text-sm leading-relaxed text-[var(--muted-text)]">
                   Estimate payment processing fees, measure hidden FX
@@ -268,55 +257,35 @@ export default function HomePageClient({
             </div>
           </div>
         </Reveal>
+        <MarkerRule className="mt-12" color="pink" />
       </section>
 
-      {/* Popular comparisons — quick-start presets from the compare tool */}
-      <section data-placement="popular-comparisons" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+      {/* Popular comparisons — quick-start presets from the compare tool.
+          No boxed grid: a breathing list where each preset title sweeps a
+          marker on hover, logos leading the eye. */}
+      <section data-placement="popular-comparisons" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24">
         <SectionHeading
           eyebrow="Start With a Preset"
           title="Popular Comparisons"
           description="Jump straight into a side-by-side benchmark — pick a preset and compare fees, pricing models, and platform fit in one view."
         />
 
-        {/* Preset grid.
-            The old version gave every cell a `border-b` and put the column rule
-            on via `sm:odd:border-r` / `lg:[&:nth-child(3n)]:border-r-0`, with
-            the gutter carried only by `pr-*`. Two things were visibly wrong:
-
-            1. The divider sat flush against the text in the middle and right
-               columns — only the left side of each cell had padding — so the
-               rule ran right through the descenders of every title.
-            2. Seven cards in a 3-up grid leaves one card in the last row, and
-               the right-hand divider of that card kept drawing past its own
-               content: a rule hanging in empty space beside nothing.
-
-            Both are structural, so the fix is structural. The rules now live on
-            the GRID (`border-t border-l`) and each cell closes itself with
-            `border-r border-b` plus its own padding, so every cell is a
-            complete box. The column count is now a plain 1 / 2 / 3 by
-            breakpoint, with no sibling-counting rules left to get wrong. */}
-        <div className="mt-8 grid border-t border-l border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
           {PRESETS.map((preset) => (
             <Link
               key={preset.name}
               href={`/compare?companies=${preset.slugs.join(",")}`}
-              className="group flex flex-col border-b border-r border-[var(--border-color)] p-5 transition-colors hover:bg-[var(--subtle-bg)]/50 focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+              className="group block rounded-sm focus-visible:outline-none focus-visible:ring-[var(--ring)]"
             >
               <div className="flex items-center gap-2">
                 {preset.slugs.map((slug) => (
-                  <CompanyLogo key={slug} slug={slug} name={slug} size={28} decorative />
+                  <CompanyLogo key={slug} slug={slug} name={slug} size={26} decorative />
                 ))}
               </div>
-              <h3 className="mt-4 text-base font-bold leading-snug text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
-                {preset.name}
+              <h3 className="mt-3.5 text-base font-bold leading-snug text-[var(--foreground)]">
+                <span className="hl-link">{preset.name}</span>
               </h3>
-              {/* This row used to repeat "Open the side-by-side comparison →"
-                  seven times, which told the reader nothing they could not see
-                  from the card being a link. The category is the useful fact
-                  instead. `mt-auto` pins it to the cell floor so it aligns
-                  across a row even where one title wraps to two lines and its
-                  neighbours do not. */}
-              <p className="mt-auto pt-3 text-xs text-[var(--muted-text)]">
+              <p className="mt-1.5 text-xs text-[var(--muted-text)]">
                 {preset.slugs
                   .map((slug) => CATEGORY_BY_COMPANY[slug])
                   .filter(Boolean)
@@ -330,69 +299,60 @@ export default function HomePageClient({
         <div className="mt-8">
           <Link
             href="/india"
-            className="group inline-flex items-center gap-2.5 text-sm font-semibold text-[var(--foreground)] transition-colors hover:text-[var(--accent)]"
+            className="group inline-flex items-center gap-2.5 text-sm font-semibold text-[var(--foreground)]"
           >
-            <span aria-hidden className="rounded-sm border border-[var(--border-color)] px-1.5 py-0.5 font-mono text-[10px] tracking-wider text-[var(--muted-text)]">
-              IN
-            </span>
-            <span>Browse every payment gateway &amp; international payments option for India</span>
-            <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+            <span className="hl-link">Browse every payment gateway &amp; international payments option for India</span>
+            <span aria-hidden>→</span>
           </Link>
         </div>
       </section>
 
-      {/* Recently verified updates — plan §7 homepage section */}
-      <section data-placement="latest-guides" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+      {/* Recently verified updates — no boxes: each guide title marks on hover. */}
+      <section data-placement="latest-guides" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24">
         <SectionHeading
           eyebrow="Recently Verified"
           title="Latest Guides & Comparisons"
           description="The newest researched articles, with the dates they were last verified."
         />
-        <div className="mt-8 grid border-t border-l border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
           {recentArticles.map((a) => (
             <Link
               key={a.slug}
               href={`/articles/${a.slug}`}
-              className="group flex flex-col border-b border-r border-[var(--border-color)] p-5 transition-colors hover:bg-[var(--subtle-bg)]/50"
+              className="group block rounded-sm focus-visible:outline-none focus-visible:ring-[var(--ring)]"
             >
               <p className="font-mono text-[11px] uppercase tracking-wider text-[var(--muted-text)]">
-                {a.category} · {a.displayDate}
+                {a.category} · <Highlight color="yellow">{a.displayDate}</Highlight>
               </p>
-              <h3 className="mt-2 text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
-                {a.title}
+              <h3 className="mt-2 text-base font-bold leading-snug text-[var(--foreground)]">
+                <span className="hl-link">{a.title}</span>
               </h3>
-              <p className="mt-auto pt-2 text-sm text-[var(--muted-text)]">Read the guide →</p>
+              <p className="mt-2 text-sm text-[var(--muted-text)]">Read the guide →</p>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* Featured companies — a ledger, not a card grid: mirrors the
-          directory's editorial rows so the site reads with one voice.
-          Each entry carries the facts a chooser actually compares on. */}
-      <section data-placement="india-first" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+      {/* Featured companies — a marked ledger, not a card grid: logo, name that
+          sweeps a marker on hover, tagline, and the chooser facts. No rules. */}
+      <section data-placement="india-first" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24">
         <SectionHeading
           eyebrow="India-First"
           title="India-First Providers"
           description="Profiles of the payment gateways and FX services Indian freelancers and businesses choose most — fee structures, strengths, weaknesses, and editorial sentiment."
         />
-        <div className="mt-10 border-t border-[var(--border-color)]">
+        <div className="mt-10 space-y-9">
           {featuredWithCategories.map((c) => (
             <Link
               key={c.slug}
               href={`/companies/${c.slug}`}
-              style={{ ["--accent"]: c.accent } as CSSProperties}
-              className="group relative flex flex-col gap-3 border-b border-[var(--border-color)] py-5 transition-colors sm:flex-row sm:items-center sm:gap-6"
+              className="group flex flex-col gap-3 rounded-sm focus-visible:outline-none focus-visible:ring-[var(--ring)] sm:flex-row sm:items-center sm:gap-6"
             >
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-y-0 left-0 hidden w-0.5 origin-top scale-y-0 bg-[var(--accent)] transition-transform duration-300 group-hover:scale-y-100 sm:block"
-              />
               <div className="flex min-w-0 items-center gap-4 sm:w-[30%]">
-                <CompanyLogo slug={c.slug} name={c.name} size={44} />
+                <CompanyLogo slug={c.slug} name={c.name} size={40} />
                 <div className="min-w-0">
-                  <h3 className="truncate text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
-                    {c.name}
+                  <h3 className="truncate text-base font-bold text-[var(--foreground)]">
+                    <span className="hl-link">{c.name}</span>
                   </h3>
                   <p className="mt-0.5 truncate font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--muted-text)]">
                     {c.categoryObjects[0]?.name ?? "Fintech"}
@@ -419,23 +379,23 @@ export default function HomePageClient({
             </Link>
           ))}
         </div>
-        <div className="mt-8 text-center">
+        <MarkerRule className="mt-12" color="green" />
+        <div className="mt-10 text-center">
           <Link href="/companies" className="btn-ghost text-xs">
             View all {companySummaries.length} companies
           </Link>
         </div>
       </section>
 
-      {/* Trust & independence — plan §7 #6 + #7, merged into one band so the
-          homepage reads as a single credibility statement rather than two
-          separate marketing blocks. */}
-      <section data-placement="trust" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
+      {/* Trust & independence — plan §7 #6 + #7, merged into one statement.
+          No boxes, no ruled columns: proof lives in highlighted specifics. */}
+      <section data-placement="trust" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24">
         <SectionHeading
           eyebrow="Independence & Method"
           title="How FinTech Atlas Stays Trustworthy"
           description="The site stays free because it is honest about how it is funded — and keeps editorial choices separate from commercial inventory."
         />
-        <div className="mt-8 grid border-t border-[var(--border-color)] md:grid-cols-3">
+        <div className="mt-10 grid gap-x-10 gap-y-10 md:grid-cols-3">
           {[
             {
               title: "Transparent methodology",
@@ -455,37 +415,36 @@ export default function HomePageClient({
               href: "/tools/calculator",
               cta: "Try the fee estimator",
             },
-          ].map((item, i) => (
-            <Link
-              key={item.title}
-              href={item.href}
-              className={`group flex flex-col border-b border-[var(--border-color)] py-6 transition-colors ${
-                i < 2 ? "md:border-r md:pr-8" : ""
-              } ${i > 0 ? "md:pl-8" : ""}`}
-            >
-              <h3 className="text-base font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
-                {item.title}
+          ].map((item) => (
+            <div key={item.title}>
+              <h3 className="text-base font-bold text-[var(--foreground)]">
+                <Highlight color="yellow">{item.title}</Highlight>
               </h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--muted-text)]">
+              <p className="mt-2 text-sm leading-relaxed text-[var(--muted-text)]">
                 {item.desc}
               </p>
-              <p className="mt-3 text-xs font-semibold text-[var(--accent)]">
-                {item.cta} →
-              </p>
-            </Link>
+              <Link
+                href={item.href}
+                className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--accent)]"
+              >
+                <span className="hl-link">{item.cta}</span>
+                <span aria-hidden>→</span>
+              </Link>
+            </div>
           ))}
         </div>
       </section>
 
-      {/* Newsletter (plan §7 homepage section 8) — a ruled band, not a box. */}
-      <section data-placement="newsletter" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24 border-t border-[var(--border-color)]">
-        <div className="border-b border-[var(--border-color)] pb-14">
+      {/* Newsletter (plan §7 homepage section 8) — no box, no rules: one
+          highlighted invitation with a marker stroke beneath. */}
+      <section data-placement="newsletter" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24">
+        <div>
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
               Newsletter
             </p>
             <h2 className="mt-3 text-2xl font-semibold tracking-tight text-[var(--foreground)] md:text-3xl">
-              Fee Changes, New Calculators &amp; Research Notes
+              Fee changes &amp; <Highlight>new calculators</Highlight>, marked for you
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-[var(--muted-text)]">
               A low-frequency update when pricing changes, tools ship, or new
@@ -495,14 +454,15 @@ export default function HomePageClient({
             <NewsletterOptIn />
           </div>
         </div>
+        <MarkerRule className="mt-14" color="pink" />
       </section>
 
-      {/* Compare CTA — a closing statement, not a box: big serif line, the
-          two concrete next actions, and the honest cost of being wrong. */}
-      <section data-placement="compare-cta" className="border-t border-[var(--border-color)]">
+      {/* Compare CTA — a closing statement, not a box: big serif line with the
+          cost of being wrong highlighted, two concrete next actions. */}
+      <section data-placement="compare-cta" className="relative">
         <div className="mx-auto max-w-3xl px-5 py-20 text-center md:py-28">
           <h2 className="text-balance font-serif text-3xl font-bold leading-tight text-[var(--foreground)] md:text-4xl">
-            The wrong gateway quietly costs 1–3% of every rupee you earn.
+            The wrong gateway quietly costs <Highlight>1–3% of every rupee</Highlight> you earn.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-pretty text-sm leading-relaxed text-[var(--muted-text)]">
             That is a rounding error on one invoice and a rounding error you

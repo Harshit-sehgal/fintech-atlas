@@ -66,6 +66,47 @@ interface PageMetadataOptions {
 }
 
 /**
+ * HTML-escaped length of a string as it appears inside a
+ * double-quoted HTML attribute — `&`, `"`, `<` and `>` all
+ * expand, so a raw 150-char description can render over the
+ * 160-char SERP budget. The title builder budgets for the same
+ * expansion; descriptions must too. Exported so generators that
+ * concatenate a fixed suffix (radar company profiles) can
+ * budget the suffix accurately.
+ */
+export function htmlAttrLength(value: string): number {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .length;
+}
+
+/**
+ * SERP display budget: Google truncates meta descriptions around
+ * 155–160 characters. Trim to the last whole word at or under the
+ * budget so snippets never cut mid-word; descriptions already
+ * within budget pass through untouched. Used by every metadata
+ * builder so no page ships an over-long description.
+ */
+export function clampDescription(description: string, max = 155): string {
+  const d = description.trim();
+  if (htmlAttrLength(d) <= max) return d;
+  // Walk back to the longest prefix whose escaped form (plus the
+  // closing ellipsis) still fits the budget…
+  let cut = d.length;
+  while (cut > 0 && htmlAttrLength(d.slice(0, cut)) + 1 > max) cut -= 1;
+  // …then retreat to the last whole word so the snippet never
+  // breaks mid-word. A cut that short would leave a stub, so only
+  // retreat when the word boundary sits past the halfway mark.
+  const word = d.lastIndexOf(" ", cut);
+  if (word > max * 0.5) cut = word;
+  return `${d.slice(0, cut).replace(/[\s.,;:!?—–-]+$/, "")}…`;
+}
+
+/**
  * Builds a page's Metadata from the shared branded-OG fragment, eliminating
  * the 10-line canonical + openGraph boilerplate every page previously copied.
  * Pages with bespoke needs (articles, directory profiles) can still spread
@@ -84,7 +125,7 @@ export function pageMetadata({
 }: PageMetadataOptions): Metadata {
   return {
     title,
-    description,
+    description: clampDescription(description),
     alternates: {
       canonical: canonicalUrl(pathname),
       ...extraAlternates,
@@ -93,7 +134,7 @@ export function pageMetadata({
       ...openGraphImage,
       type,
       title: `${ogTitle} ${ogSeparator} FinTech Atlas`,
-      description: ogDescription,
+      description: clampDescription(ogDescription),
       url: canonicalUrl(pathname),
       ...extraOg,
     },

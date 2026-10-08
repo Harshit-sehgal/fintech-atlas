@@ -173,12 +173,32 @@ export function renderSnapshotMarkdown(
   return lines.join("\n");
 }
 
-async function main(): Promise<void> {
-  const snapshotId = `payment-aggregators-live-${new Date().toISOString().slice(0, 10)}`;
+export interface RbiPaFetchDeps {
+  fetchFn?: typeof fetch;
+  writeFile?: (path: string, data: string) => void;
+  url?: string;
+  now?: () => Date;
+}
+
+/**
+ * Orchestration with injectable IO so the full happy path and every abort path
+ * are unit-testable without touching the network or the filesystem. `main()`
+ * below just calls this with production defaults.
+ */
+export async function runRbiPaFetch(
+  deps: RbiPaFetchDeps = {},
+): Promise<{ entries: ReturnType<typeof buildSnapshot>["entries"]; markdown: string; outPath: string }> {
+  const {
+    fetchFn = fetch,
+    writeFile = (path: string, data: string) => writeFileSync(path, data),
+    url = LIVE_URL,
+    now = () => new Date(),
+  } = deps;
+  const snapshotId = `payment-aggregators-live-${now().toISOString().slice(0, 10)}`;
   const outPath = resolve(OUT_DIR, `${snapshotId}.md`);
 
-  console.log(`Fetching RBI PA status page: ${LIVE_URL}`);
-  const res = await fetch(LIVE_URL, {
+  console.log(`Fetching RBI PA status page: ${url}`);
+  const res = await fetchFn(url, {
     headers: { "user-agent": "FinTechAtlas/1.0 (radar change monitor)" },
     signal: AbortSignal.timeout(45_000),
   });
@@ -201,9 +221,14 @@ async function main(): Promise<void> {
   }
   console.log(`Tracked entries: ${entries.length} (PA ${entries.filter((e) => e.code === "PA").length}, PA-CB ${entries.filter((e) => e.code === "PA-CB").length}, PA-P ${entries.filter((e) => e.code === "PA-P").length})`);
 
-  const markdown = renderSnapshotMarkdown(snapshotId, LIVE_URL, new Date().toISOString().slice(0, 10), entries, asOn);
-  writeFileSync(outPath, markdown);
+  const markdown = renderSnapshotMarkdown(snapshotId, url, now().toISOString().slice(0, 10), entries, asOn);
+  writeFile(outPath, markdown);
   console.log(`Snapshot written: ${outPath}`);
+  return { entries, markdown, outPath };
+}
+
+async function main(): Promise<void> {
+  await runRbiPaFetch();
 }
 
 const isMain =

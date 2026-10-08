@@ -10,6 +10,7 @@ import {
   radarSectorNames,
 } from "@/generated/radar-facets";
 import { RadarClient } from "./radar-client";
+import { Highlight, MarkerRule } from "@/components/ui/highlight";
 
 export const metadata: Metadata = pageMetadata({
   pathname: "/radar",
@@ -45,8 +46,9 @@ export default function RadarPage() {
 
       <RadarClient />
 
-      <section className="mt-16 border-t border-[var(--border-color)] pt-8">
-        <h2 className="text-lg font-semibold">What filters mean</h2>
+      <section className="mt-16">
+        <MarkerRule color="green" />
+        <h2 className="mt-6 text-lg font-semibold">What filters mean</h2>
         <ul className="mt-4 grid gap-x-8 gap-y-2 text-sm text-[var(--fg-dim)] sm:grid-cols-2 lg:grid-cols-3">
           <li>
             <span className="font-medium text-[var(--foreground)]">Sector</span> —{" "}
@@ -75,8 +77,11 @@ export default function RadarPage() {
           >
             full directory
           </Link>{" "}
-          for the source records and methodology. {radarFacetCount.toLocaleString()}{" "}
-          companies covered.
+          for the source records and methodology.{" "}
+          <Highlight color="yellow" animate={false}>
+            {radarFacetCount.toLocaleString()} companies covered
+          </Highlight>
+          .
         </p>
       </section>
     </div>

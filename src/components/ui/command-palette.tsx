@@ -237,7 +237,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
           role="dialog"
           aria-modal="true"
           aria-label="Search"
-          className="relative z-10 w-full max-w-2xl overflow-hidden border border-[var(--border-color)] bg-[var(--background)]"
+          className="overlay-paper relative z-10 w-full max-w-2xl overflow-hidden"
         >
           {/* Input field */}
           <div className="flex items-center border-b border-[var(--border-color)] px-4 py-3.5">
@@ -283,7 +283,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
                       onMouseEnter={() => setSelectedIndex(idx)}
                       role="option"
                       aria-selected={isSelected}
-                      className={`flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-sm transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] focus-visible:bg-[var(--subtle-bg)] ${
+                      className={`flex w-full items-center justify-between rounded-sm px-3 py-2.5 text-left text-sm transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] focus-visible:bg-[var(--subtle-bg)] ${
                         isSelected
                           ? "bg-[var(--subtle-bg)] text-[var(--foreground)] font-medium"
                           : "text-[var(--muted-text)] hover:text-[var(--foreground)]"

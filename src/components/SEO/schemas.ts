@@ -16,6 +16,7 @@
  */
 
 import { SITE_URL } from "@/lib/site-config";
+import { canonicalUrl } from "@/lib/canonical-url";
 
 /** Stable IRI for the Organization entity so other schemas can reference it by `@id`. */
 export const ORGANIZATION_ID = `${SITE_URL}#organization`;
@@ -44,6 +45,47 @@ export const websiteSchema = {
   url: SITE_URL,
   publisher: { "@id": ORGANIZATION_ID },
 } as const;
+
+/**
+ * FAQPage schema for the About page's editorial FAQ. One
+ * Question/acceptedAnswer pair per entry — Google renders these
+ * as expandable rich results when the page earns them. Built
+ * from the same `faqs` array that renders the accordion, so the
+ * structured data can never drift from the visible content.
+ */
+export const faqSchema = (faqs: { q: string; a: string }[]) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: f.a,
+    },
+  })),
+});
+
+/**
+ * ItemList schema for the glossary index. Each term lives on the
+ * single glossary page under an anchor, so the item URL is the
+ * canonical glossary URL plus `#<term-slug>` — the same fragment
+ * the term headings use as their `id`.
+ */
+export const glossaryItemListSchema = (
+  terms: { slug: string; term: string }[],
+) => ({
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "FinTech Glossary",
+  numberOfItems: terms.length,
+  itemListElement: terms.map((g, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    url: `${canonicalUrl("/glossary")}#${g.slug}`,
+    name: g.term,
+  })),
+});
 
 /**
  * Serialize a JSON-LD payload and escape `<` to prevent tag-injection when the

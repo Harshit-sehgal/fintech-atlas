@@ -35,7 +35,7 @@ export function WatchlistView() {
 
   if (entries.length === 0) {
     return (
-      <div className="mt-10 rounded-xl border border-[var(--border-color)] bg-[var(--subtle-bg)]/40 p-10 text-center">
+      <div className="mt-10 rounded-sm border border-[var(--border-color)] bg-[var(--subtle-bg)]/40 p-10 text-center">
         <p className="font-medium">Your watchlist is empty.</p>
         <p className="mt-1 text-sm text-[var(--muted-text)]">
           Open a company&rsquo;s{" "}
@@ -71,7 +71,7 @@ export function WatchlistView() {
         {entries.map((summary) => (
           <li
             key={summary.slug}
-            className="flex flex-col gap-3 rounded-xl border border-[var(--border-color)] bg-[var(--card)] p-4"
+            className="flex flex-col gap-3 rounded-sm border border-[var(--border-color)] bg-[var(--card)] p-4"
           >
             <Link
               href={`/radar/company/${summary.slug}`}
@@ -89,7 +89,7 @@ export function WatchlistView() {
               <button
                 type="button"
                 onClick={() => handleRemove(summary.slug)}
-                className="rounded-lg border border-[var(--border-color)] px-3 py-1.5 text-xs text-[var(--muted-text)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--foreground)]"
+                className="rounded-sm border border-[var(--border-color)] px-3 py-1.5 text-xs text-[var(--muted-text)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--foreground)]"
               >
                 Remove
               </button>

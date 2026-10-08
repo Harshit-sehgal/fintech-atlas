@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { openGraphImage, clampDescription } from "@/lib/shared-metadata";
 import { getCompanyForResearchProfile, getCompanyName } from "@/lib/company-directory-links";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import {
@@ -12,11 +12,17 @@ import {
 
 const UNVERIFIED = new Set(["n/a", "~", "", "-"]);
 
-/** Escape-aware title: `&` renders as `&amp;` (+4 chars), so the 65-char
- *  title gate must budget for the escaped form. */
+/** Escape-aware title: entities (`&amp;`, `&#x27;`, …) inflate the rendered
+ *  length, so the 65-char title gate must budget for the escaped form. */
 function titleFor(name: string): string {
   const escapedLength = (value: string) =>
-    value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").length;
+    value
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#x27;")
+      .length;
   if (escapedLength(name) <= 49) return name;
   let cut = name.length;
   while (cut > 0 && escapedLength(name.slice(0, cut)) + 1 > 46) cut -= 1;
@@ -40,9 +46,14 @@ export async function generateMetadata({
   const record = getIndiaDirectoryRecordBySlug(slug);
   if (!record) return { title: "Not Found" };
   const title = titleFor(record.name);
+  // Intent-led description (per SERP CTR guidance): name + the
+  // research-directory intent first, the one-liner second, then a
+  // facts teaser — clamped to the 155-char display budget.
   const description =
     record.description && !UNVERIFIED.has(record.description)
-      ? record.description.slice(0, 155)
+      ? clampDescription(
+          `${record.name} — India research directory profile: ${record.description} Founders, funding, valuation and licence notes.`,
+        )
       : `${record.name} — Indian fintech profile in the ${record.cluster} cluster: founders, funding, valuation, licences, and website.`;
   return {
     title,
@@ -101,9 +112,9 @@ export default async function IndiaDirectoryProfilePage({
       <Breadcrumbs items={breadcrumbItems} />
 
       <header className="mt-8">
-        <span className="inline-flex w-fit rounded-full border border-[var(--border-color)] px-3 py-1 text-xs font-medium text-[var(--muted-text)]">
+        <p className="font-mono text-xs uppercase tracking-widest text-[var(--muted-text)]">
           {record.cluster}
-        </span>
+        </p>
         <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">
           {record.name}
         </h1>

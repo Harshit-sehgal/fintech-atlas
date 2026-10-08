@@ -30,6 +30,9 @@ declare global {
       event: string,
       options?: { props?: Record<string, string | number | boolean | undefined> },
     ) => void;
+    /** Google Analytics 4 global, injected by GoogleAnalytics when configured. */
+    gtag?: (command: string, ...args: unknown[]) => void;
+    dataLayer?: unknown[];
   }
 }
 
@@ -46,6 +49,9 @@ export function trackEvent(
   try {
     if (typeof window.plausible === "function") {
       window.plausible(name, props ? { props } : undefined);
+    } else if (typeof window.gtag === "function") {
+      // GA4 custom event. `anonymize_ip` is set in the layout bootstrap.
+      window.gtag("event", name, props ?? {});
     }
   } catch {
     // Analytics must never break product UX.

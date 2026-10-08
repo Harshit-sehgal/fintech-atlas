@@ -83,7 +83,7 @@ export function SkeletonCard({
   className?: string;
 }) {
   return (
-    <div className={`${className} rounded-xl border border-[var(--border-color)] p-6`}>
+    <div className={`${className} py-6`}>
       <div className="mb-4">
         <div className="flex items-center gap-4">
           <Skeleton width={avatarSize} height={avatarSize} className="rounded-full" />

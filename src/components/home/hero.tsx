@@ -8,6 +8,7 @@ import {
 } from "@/generated/company-summaries";
 import { DATA_AS_OF } from "@/lib/site-config";
 import { CompanyLogo } from "@/components/ui/company-logo";
+import { Highlight, MarkerRule } from "@/components/ui/highlight";
 import { formatValuationShort } from "@/lib/format-company";
 
 /**
@@ -74,16 +75,17 @@ export function HomeHero({
         </div>
       </div>
 
-      {/* Key facts - quiet editorial stat row (hairline-separated serif numerals). */}
-      <div className="mx-auto mt-12 max-w-2xl border-y border-[var(--border-color)] md:mt-16">
-        <div className="grid grid-cols-2 divide-x divide-[var(--border-color)] md:grid-cols-4">
+      {/* Key facts — no rules, no dividers: numerals sit on warm paper with a
+          single marker stroke underneath. Numbers do the talking. */}
+      <div className="mx-auto mt-12 max-w-3xl md:mt-16">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4">
           {[
             { value: companySummaries.length, label: "Company profiles" },
             { value: Object.keys(categoryNames).length, label: "Industry categories" },
             { value: glossaryCount, label: "Glossary terms" },
             { value: articleCount, label: "Guides & comparisons" },
           ].map(({ value, label }) => (
-            <div key={label} className="px-3 py-6 text-center">
+            <div key={label} className="text-center">
               <div className="font-display text-3xl font-semibold tabular-nums text-[var(--foreground)] md:text-4xl">
                 {label === "Data as of" ? DATA_AS_OF : value}
               </div>
@@ -93,58 +95,49 @@ export function HomeHero({
             </div>
           ))}
         </div>
+        <MarkerRule className="mt-10" />
       </div>
 
-      {/* Directory index card - the human, paper-like counterpart to a terminal. */}
-      <div className="mx-auto mt-14 max-w-xl">
-        <div className="mb-3 px-1">
+      {/* Directory spotlight — the human, paper-like counterpart to a terminal.
+          No card, no border: logo, ink, and one highlighted phrase. */}
+      <div className="mx-auto mt-14 max-w-xl text-center">
+        <div className="mb-5">
           <span className="text-[11px] font-medium uppercase tracking-wider text-[var(--muted-text)]">
             From the directory
           </span>
         </div>
 
-        <div className="border-t border-[var(--border-color)] pt-6">
-          <div>
-            <div className="flex items-center gap-4">
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center">
-                <CompanyLogo slug={activeProfile.slug} name={activeProfile.name} size={40} />
-              </div>
-              <div className="min-w-0">
-                <h2 className="text-lg font-semibold leading-tight text-[var(--foreground)]">
-                  {activeProfile.name}
-                </h2>
-                <p className="text-xs text-[var(--muted-text)]">{categoryName}</p>
-              </div>
+        <div>
+          <div className="flex items-center justify-center gap-4">
+            <CompanyLogo slug={activeProfile.slug} name={activeProfile.name} size={44} />
+            <div className="text-left">
+              <h2 className="text-lg font-semibold leading-tight text-[var(--foreground)]">
+                {activeProfile.name}
+              </h2>
+              <p className="text-xs text-[var(--muted-text)]">{categoryName}</p>
             </div>
+          </div>
 
-            <p className="mt-4 text-sm leading-relaxed text-[var(--fg-dim)]">
-              {activeProfile.tagline}
-            </p>
+          <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-[var(--fg-dim)]">
+            {activeProfile.tagline}
+          </p>
 
-            <div className="mt-5 grid grid-cols-3 border-y border-[var(--border-color)]">
-              <div className="border-r border-[var(--border-color)] py-3 pr-3">
-                <div className="text-[10px] font-medium uppercase tracking-wider text-[var(--muted-text)]">Founded</div>
-                <div className="mt-0.5 text-sm font-semibold tabular-nums text-[var(--foreground)]">{activeProfile.founded}</div>
-              </div>
-              <div className="border-r border-[var(--border-color)] px-3 py-3">
-                <div className="text-[10px] font-medium uppercase tracking-wider text-[var(--muted-text)]">Valuation</div>
-                <div className="mt-0.5 text-sm font-semibold tabular-nums text-[var(--foreground)]">{formatValuationShort(activeProfile.valuation)}</div>
-              </div>
-              <div className="py-3 pl-3">
-                <div className="text-[10px] font-medium uppercase tracking-wider text-[var(--muted-text)]">Rating</div>
-                <div className="mt-0.5 text-sm font-semibold tabular-nums text-[var(--foreground)]">★ {activeProfile.rating.toFixed(1)}</div>
-              </div>
-            </div>
+          <p className="mt-5 text-sm text-[var(--muted-text)]">
+            Founded <Highlight color="yellow">{String(activeProfile.founded)}</Highlight>
+            {" · "}
+            <Highlight color="green">{formatValuationShort(activeProfile.valuation)}</Highlight>
+            {" · ★ "}
+            {activeProfile.rating.toFixed(1)}
+          </p>
 
-            <div className="mt-5">
-              <Link
-                href={`/companies/${activeProfile.slug}`}
-                className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)] hover:underline underline-offset-4"
-              >
-                View full profile
-                <span aria-hidden>→</span>
-              </Link>
-            </div>
+          <div className="mt-5">
+            <Link
+              href={`/companies/${activeProfile.slug}`}
+              className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)]"
+            >
+              <span className="hl-link">View full profile</span>
+              <span aria-hidden>→</span>
+            </Link>
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import Link from "next/link";
 import FeeCalculatorPageClient from "../calculator/calculator-client";
 import { pageMetadata } from "@/lib/shared-metadata";
+import { Highlight, MarkerRule } from "@/components/ui/highlight";
 
 const description =
   "Estimate what Razorpay actually charges Indian businesses: 2% on all domestic payment instruments, 18% GST on top, and international fees up to 3%. Reverse-calculate the charge for a target payout.";
@@ -36,42 +37,42 @@ export default function RazorpayFeeCalculatorPage() {
         </p>
 
         <h2 className="mt-10 text-xl font-bold">Razorpay published India rates</h2>
-        <div className="mt-4 overflow-x-auto rounded-xl border border-[var(--border-color)]">
-          <table className="w-full border-collapse text-left text-sm">
-            <thead>
-              <tr className="border-b border-[var(--border-color)] bg-[var(--surface)]">
-                <th className="px-4 py-3 font-bold">Fee item</th>
-                <th className="px-4 py-3 font-bold">Published rate</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-b border-[var(--border-color)]">
-                <td className="px-4 py-3">All domestic instruments (cards, UPI, netbanking, wallets)</td>
-                <td className="px-4 py-3 font-medium">2%</td>
-              </tr>
-              <tr className="border-b border-[var(--border-color)]">
-                <td className="px-4 py-3">GST on platform fee</td>
-                <td className="px-4 py-3 font-medium">18% (added on top)</td>
-              </tr>
-              <tr className="border-b border-[var(--border-color)]">
-                <td className="px-4 py-3">All-in domestic rate</td>
-                <td className="px-4 py-3 font-medium">2.36%</td>
-              </tr>
-              <tr className="border-b border-[var(--border-color)]">
-                <td className="px-4 py-3">International cards</td>
-                <td className="px-4 py-3 font-medium">Up to 3%</td>
-              </tr>
-              <tr className="border-b border-[var(--border-color)]">
-                <td className="px-4 py-3">Setup cost / monthly fee</td>
-                <td className="px-4 py-3 font-medium">₹0</td>
-              </tr>
-              <tr>
-                <td className="px-4 py-3">Standard settlement</td>
-                <td className="px-4 py-3 font-medium">T+1</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        {/* Rate table — no boxed shell, no row rules: the figures
+            breathe, and the money numbers carry the marker. */}
+        <table className="mt-4 w-full border-collapse text-left text-sm">
+          <thead>
+            <tr>
+              <th className="py-3 pr-4 font-bold">Fee item</th>
+              <th className="py-3 font-bold">Published rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="py-3 pr-4">All domestic instruments (cards, UPI, netbanking, wallets)</td>
+              <td className="py-3 font-medium"><Highlight color="yellow" animate={false}>2%</Highlight></td>
+            </tr>
+            <tr>
+              <td className="py-3 pr-4">GST on platform fee</td>
+              <td className="py-3 font-medium"><Highlight color="yellow" animate={false}>18%</Highlight> (added on top)</td>
+            </tr>
+            <tr>
+              <td className="py-3 pr-4">All-in domestic rate</td>
+              <td className="py-3 font-medium"><Highlight color="green" animate={false}>2.36%</Highlight></td>
+            </tr>
+            <tr>
+              <td className="py-3 pr-4">International cards</td>
+              <td className="py-3 font-medium">Up to 3%</td>
+            </tr>
+            <tr>
+              <td className="py-3 pr-4">Setup cost / monthly fee</td>
+              <td className="py-3 font-medium">₹0</td>
+            </tr>
+            <tr>
+              <td className="py-3 pr-4">Standard settlement</td>
+              <td className="py-3 font-medium">T+1</td>
+            </tr>
+          </tbody>
+        </table>
 
         <h2 className="mt-10 text-xl font-bold">Worked example</h2>
         <p className="mt-3 text-[15px] leading-relaxed text-[var(--muted-text)]">
@@ -100,16 +101,15 @@ export default function RazorpayFeeCalculatorPage() {
       </article>
 
       <div className="mx-auto mt-12 max-w-5xl">
-        <FeeCalculatorPageClient defaultCurrency="INR" showBreadcrumb={false} />
+        <FeeCalculatorPageClient defaultCurrency="INR" showBreadcrumb={false} headingLevel={2} />
       </div>
       <section className="mx-auto max-w-5xl px-5 pb-16">
-        <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-[var(--muted-text)]">Related comparisons</h2>
-          <div className="mt-3 flex flex-wrap gap-3">
-            <Link href="/articles/razorpay-vs-stripe-payments-india" className="btn-ghost text-xs">Razorpay vs Stripe (India)</Link>
-            <Link href="/articles/razorpay-vs-cashfree-indian-gateways" className="btn-ghost text-xs">Razorpay vs Cashfree</Link>
-            <Link href="/articles/how-to-send-money-abroad-cheap" className="btn-ghost text-xs">Send money abroad: cost guide</Link>
-          </div>
+        <MarkerRule color="pink" />
+        <h2 className="mt-6 text-sm font-bold uppercase tracking-wider text-[var(--muted-text)]">Related comparisons</h2>
+        <div className="mt-3 flex flex-wrap gap-3">
+          <Link href="/articles/razorpay-vs-stripe-payments-india" className="btn-ghost text-xs">Razorpay vs Stripe (India)</Link>
+          <Link href="/articles/razorpay-vs-cashfree-indian-gateways" className="btn-ghost text-xs">Razorpay vs Cashfree</Link>
+          <Link href="/articles/how-to-send-money-abroad-cheap" className="btn-ghost text-xs">Send money abroad: cost guide</Link>
         </div>
       </section>
     </div>

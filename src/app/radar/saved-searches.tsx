@@ -69,7 +69,7 @@ export function SavedSearchBar({
   }, []);
 
   return (
-    <section className="mt-8 rounded-xl border border-[var(--border-color)] bg-[var(--subtle-bg)]/40 p-4">
+    <section className="mt-8 rounded-sm border border-[var(--border-color)] bg-[var(--subtle-bg)]/40 p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="text-sm font-semibold">Saved searches</h2>
         <button
@@ -77,7 +77,7 @@ export function SavedSearchBar({
           onClick={() => setShowForm((v) => !v)}
           disabled={!canSave}
           data-placement="radar-save-search-toggle"
-          className="rounded-lg border border-[var(--border-color)] px-3 py-1.5 text-xs font-medium transition-colors hover:border-[var(--border-strong)] disabled:cursor-not-allowed disabled:opacity-40"
+          className="rounded-sm border border-[var(--border-color)] px-3 py-1.5 text-xs font-medium transition-colors hover:border-[var(--border-strong)] disabled:cursor-not-allowed disabled:opacity-40"
         >
           {showForm ? "Cancel" : "Save current search"}
         </button>
@@ -94,14 +94,14 @@ export function SavedSearchBar({
             onKeyDown={(e) => {
               if (e.key === "Enter") handleSave();
             }}
-            className="flex-1 rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-sm outline-none transition-colors hover:border-[var(--border-strong)] focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/40"
+            className="flex-1 rounded-sm border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-sm outline-none transition-colors hover:border-[var(--border-strong)] focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/40"
           />
           <button
             type="button"
             onClick={handleSave}
             disabled={!name.trim()}
             data-placement="radar-save-search"
-            className="rounded-lg bg-[var(--accent)] px-3.5 py-2 text-sm font-medium text-[var(--on-accent)] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+            className="rounded-sm bg-[var(--accent)] px-3.5 py-2 text-sm font-medium text-[var(--on-accent)] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
           >
             Save
           </button>
@@ -120,21 +120,14 @@ export function SavedSearchBar({
           {saved.map((search) => (
             <li
               key={search.id}
-              className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-[var(--border-color)] bg-[var(--card)] px-3 py-2.5"
+              className="flex flex-wrap items-center justify-between gap-2 rounded-sm border border-[var(--border-color)] bg-[var(--card)] px-3 py-2.5"
             >
               <div className="min-w-0">
                 <p className="truncate text-sm font-medium">{search.name}</p>
                 {chipsFor(search.state).length > 0 && (
-                  <div className="mt-1 flex flex-wrap gap-1">
-                    {chipsFor(search.state).map((chip) => (
-                      <span
-                        key={chip}
-                        className="inline-flex w-fit rounded-full border border-[var(--border-color)] px-2 py-0.5 text-[10px] text-[var(--muted-text)]"
-                      >
-                        {chip}
-                      </span>
-                    ))}
-                  </div>
+                  <p className="mt-0.5 truncate font-mono text-[10px] text-[var(--muted-text)]">
+                    {chipsFor(search.state).join(" · ")}
+                  </p>
                 )}
               </div>
               <div className="flex shrink-0 gap-2">
@@ -142,7 +135,7 @@ export function SavedSearchBar({
                   type="button"
                   onClick={() => handleApply(search)}
                   data-placement="radar-apply-search"
-                  className="rounded-lg border border-[var(--accent)]/30 px-3 py-1.5 text-xs font-medium text-[var(--accent-ink)] transition-colors hover:bg-[var(--accent-glow)]"
+                  className="rounded-sm border border-[var(--accent)]/30 px-3 py-1.5 text-xs font-medium text-[var(--accent-ink)] transition-colors hover:bg-[var(--accent-glow)]"
                 >
                   Apply
                 </button>
@@ -150,7 +143,7 @@ export function SavedSearchBar({
                   type="button"
                   onClick={() => handleDelete(search.id)}
                   aria-label={`Delete saved search ${search.name}`}
-                  className="rounded-lg border border-[var(--border-color)] px-3 py-1.5 text-xs text-[var(--muted-text)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--foreground)]"
+                  className="rounded-sm border border-[var(--border-color)] px-3 py-1.5 text-xs text-[var(--muted-text)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--foreground)]"
                 >
                   Delete
                 </button>

@@ -33,6 +33,7 @@ import {
   type FeeInputs,
 } from "@/lib/fee-calculator";
 import { PartnerCta } from "@/components/ui/partner-cta";
+import { Highlight } from "@/components/ui/highlight";
 
 type FeeState = {
   monthlyRevenue: number;
@@ -97,11 +98,14 @@ function formatFeeMoney(value: number, currency: FeeCurrency): string {
 export default function FeeCalculatorPageClient({
   defaultCurrency = DEFAULT_FEE_CURRENCY,
   showBreadcrumb = true,
+  headingLevel = 1,
 }: {
   /** Preselected currency for pages that target one market (e.g. INR for the Razorpay calculator). */
   defaultCurrency?: FeeCurrency;
   /** Pages that already render their own breadcrumb (e.g. the Razorpay page) hide the island's nav to avoid duplicate landmarks. */
   showBreadcrumb?: boolean;
+  /** Pages that already carry the document h1 (e.g. the Razorpay calculator page) demote the island's heading to an h2 so the document keeps exactly one h1. */
+  headingLevel?: 1 | 2;
 }) {
   const { showToast } = useToast();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -221,7 +225,7 @@ export default function FeeCalculatorPageClient({
       )}
 
       <SectionHeading
-        headingLevel={1}
+        headingLevel={headingLevel}
         eyebrow="Cost Estimator"
         title="Payment Gateway Fee Calculator"
         description="Adjust your monthly revenue, order size, and sales mix to estimate transaction fees across leading payment providers."
@@ -242,11 +246,12 @@ export default function FeeCalculatorPageClient({
         </button>
       </div>
 
-      <div className="mt-10 grid gap-8 lg:grid-cols-12">
-        {/* Input Controls */}
-        <div className="surface min-w-0 lg:col-span-5 space-y-6 rounded-lg border border-[var(--border-color)] p-6">
-          <h2 className="text-base font-semibold text-[var(--foreground)] border-b border-[var(--border-color)] pb-3">
-            Business Parameters
+      <div className="mt-10 grid gap-10 lg:grid-cols-12">
+        {/* Input controls — no panel box: the form sits on open
+            paper, sections separated by breathing room. */}
+        <div className="surface min-w-0 lg:col-span-5 space-y-8">
+          <h2 className="text-base font-semibold text-[var(--foreground)]">
+            <Highlight color="yellow">Business Parameters</Highlight>
           </h2>
 
           {/* Currency / Region toggle */}
@@ -264,10 +269,10 @@ export default function FeeCalculatorPageClient({
                     role="radio"
                     aria-checked={active}
                     onClick={() => setCurrency(c)}
-                    className={`rounded-lg border px-3 py-2 text-xs font-semibold transition-colors ${
+                    className={`rounded-sm px-3 py-2 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-[var(--ring)] ${
                       active
-                        ? "border-[var(--accent)] bg-[var(--accent)]/10 text-[var(--foreground)]"
-                        : "border-[var(--border-color)] text-[var(--muted-text)] hover:border-[var(--foreground)]"
+                        ? "bg-[var(--accent-glow)] text-[var(--accent-strong)]"
+                        : "text-[var(--muted-text)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]"
                     }`}
                   >
                     {c === "USD" ? "USD — US providers" : "INR — India providers"}
@@ -366,8 +371,8 @@ export default function FeeCalculatorPageClient({
             />
           </div>
 
-          {/* Summary stats */}
-          <div className="surface rounded-xl border border-[var(--border-color)] p-4 space-y-2 text-xs">
+          {/* Summary stats — an open ledger, not a boxed card */}
+          <div className="space-y-2 text-xs">
             <div className="flex justify-between text-[var(--muted-text)]">
               <span>Estimated Monthly Transactions:</span>
               <span className="font-mono font-semibold text-[var(--foreground)]">{
@@ -389,18 +394,18 @@ export default function FeeCalculatorPageClient({
           </div>
         </div>
 
-        {/* Results & Bar Comparison */}
+        {/* Results & Bar Comparison — open paper, no panel box */}
         <div className="min-w-0 lg:col-span-7 space-y-6">
           <Reveal>
-            <div className="surface rounded-lg border border-[var(--border-color)] p-6">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[var(--border-color)] pb-4">
+            <div>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4">
                 <div>
                   <span className="eyebrow !text-[var(--muted-text)]">Recommendation</span>
                   <h3 className="mt-1 text-lg font-bold text-[var(--foreground)]">
-                    {lowestCost.name} has the lowest estimate among comparable published rates
+                    <Highlight color="green">{lowestCost.name}</Highlight> has the lowest estimate among comparable published rates
                   </h3>
                 </div>
-                <div className="rounded-xl bg-[var(--success)]/10 border border-[var(--success)]/30 px-4 py-2 text-right">
+                <div className="rounded-sm bg-[var(--success)]/10 px-4 py-2 text-right">
                   <div className="text-xs text-success-text">Lowest Est. Monthly Cost</div>
                   <div className="text-xl font-bold font-mono text-success-text">
                     {formatFeeMoney(lowestCost.cost, currency)}
@@ -425,16 +430,16 @@ export default function FeeCalculatorPageClient({
                           <Link href={`/companies/${p.slug}`} className="font-bold text-[var(--foreground)] hover:text-[var(--accent)] transition-colors">
                             {p.name}
                           </Link>
-                          {isBest && (
-                            <span className="rounded bg-[var(--success)]/20 border border-[var(--success)]/30 px-2 py-0.5 text-[10px] font-bold text-success-text">
-                              Lowest comparable estimate
-                            </span>
-                          )}
-                          {p.pricingModel !== "published-flat-rate" && (
-                            <span className="rounded bg-[var(--warning)]/10 border border-[var(--warning)]/30 px-2 py-0.5 text-[10px] font-semibold text-warning-text">
-                              {p.pricingModel === "custom-contract" ? "Custom contract" : "Illustrative estimate"}
-                            </span>
-                          )}
+                           {isBest && (
+                             <span className="rounded-sm bg-[var(--success)]/20 px-2 py-0.5 text-[10px] font-bold text-success-text">
+                               Lowest comparable estimate
+                             </span>
+                           )}
+                           {p.pricingModel !== "published-flat-rate" && (
+                             <span className="rounded-sm bg-[var(--warning)]/10 px-2 py-0.5 text-[10px] font-semibold text-warning-text">
+                               {p.pricingModel === "custom-contract" ? "Custom contract" : "Illustrative estimate"}
+                             </span>
+                           )}
                         </div>
                         <div className="flex items-center gap-3 font-mono text-xs">
                           <span className="text-[var(--muted-text)]">Effective {effectiveRate}%</span>
@@ -443,7 +448,7 @@ export default function FeeCalculatorPageClient({
                       </div>
 
                       {/* Brand-colored bar — uses the provider's actual logo hex */}
-                      <div className="h-3 w-full rounded-full bg-[var(--border-color)] overflow-hidden">
+                      <div className="h-3 w-full rounded-full bg-[var(--surface)] overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${barWidth}%` }}
@@ -469,7 +474,7 @@ export default function FeeCalculatorPageClient({
           </Reveal>
 
           {/* Important context notice */}
-          <div className="surface rounded-xl border border-[var(--border-color)] p-4 text-xs leading-relaxed text-[var(--muted-text)]">
+          <div className="text-xs leading-relaxed text-[var(--muted-text)]">
             <strong className="text-[var(--foreground)]">How to read this:</strong> Stripe, PayPal, and Square use the published flat-rate assumptions shown above. Adyen is a custom-contract provider represented by an illustrative blended estimate, so it is shown for context but not used for the comparable-rate recommendation. In India mode, Razorpay and Stripe (India) use their published domestic rates with 18% GST added on top. Actual pricing varies by region, payment method, volume, and contract; verify current terms before making a decision.
           </div>
         </div>

@@ -7,6 +7,11 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { GlossaryToolbar } from "./toolbar";
 import { TermActions } from "./term-actions";
+import {
+  glossaryItemListSchema,
+  sanitiseJsonLd,
+} from "@/components/SEO/schemas";
+import { EntityLinkedText } from "@/components/entity-linked-text";
 
 const description =
   "Plain-language definitions of the FinTech terms used on this site — UPI and payment aggregators to FEMA, FIRCs, and RBI licences.";
@@ -42,6 +47,14 @@ export default function GlossaryPage() {
 
   return (
     <div className="relative mx-auto max-w-4xl px-5 py-20 md:py-28">
+      {/* ItemList over the A–Z index: each term is an anchor on
+          this page, so the item URLs carry the term fragment. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: sanitiseJsonLd(glossaryItemListSchema(glossary)),
+        }}
+      />
       <GridBackdrop />
 
       <Breadcrumbs
@@ -63,7 +76,7 @@ export default function GlossaryPage() {
         availableLetters={availableLetters}
       />
 
-      <div className="mt-4 flex items-center justify-between text-xs text-[var(--muted-text)] font-mono border-b border-[var(--border-color)] pb-3">
+      <div className="mt-6 flex items-center justify-between text-xs text-[var(--muted-text)] font-mono pb-1">
         <span aria-live="polite" id="glossary-count">
           Showing {glossary.length} of {glossary.length} terms
         </span>
@@ -86,22 +99,24 @@ export default function GlossaryPage() {
             >
               {letter}
             </h2>
-            <div className="border-t border-[var(--border-color)]">
+            <div>
               {terms.map((g) => {
                 const fullName = g.full && g.full !== g.term ? g.full : undefined;
                 return (
                   <section
                     key={g.slug}
                     id={g.slug}
-                    className="scroll-mt-24"
+                    className="group scroll-mt-24"
                     data-glossary-card
                     data-letter={g.term.charAt(0).toUpperCase()}
                     data-search={buildSearchData(g)}
                   >
-                    <div className="group border-b border-[var(--border-color)] py-5">
+                    <div className="py-5">
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex items-baseline gap-2">
-                          <h3 className="text-base font-bold text-[var(--foreground)]">{g.term}</h3>
+                          <h3 className="text-base font-bold text-[var(--foreground)]">
+                            <span className="hl-link">{g.term}</span>
+                          </h3>
                           {fullName && (
                             <span className="font-mono text-xs text-[var(--muted-text)]">({fullName})</span>
                           )}
@@ -110,10 +125,15 @@ export default function GlossaryPage() {
                       </div>
 
                       <p className="mt-2 max-w-3xl text-sm font-medium leading-relaxed text-[var(--foreground)]">{g.short}</p>
-                      <p className="mt-2 max-w-3xl text-sm leading-relaxed text-[var(--muted-text)]">{g.long}</p>
+                      <p className="mt-2 max-w-3xl text-sm leading-relaxed text-[var(--muted-text)]">
+                        <EntityLinkedText
+                          text={g.long}
+                          excludeSlugs={new Set([g.slug])}
+                        />
+                      </p>
 
                       {g.related.length > 0 && (
-                        <div className="mt-3 border-t border-[var(--border-color)] pt-3 text-xs text-[var(--muted-text)]">
+                        <div className="mt-3 text-xs text-[var(--muted-text)]">
                           <span className="mr-1 font-semibold text-[var(--foreground)]">See also:</span>
                           {g.related.map((slug, idx) => {
                             const related = glossary.find((x) => x.slug === slug);
@@ -141,7 +161,7 @@ export default function GlossaryPage() {
         <div
           id="glossary-empty"
           hidden
-          className="border-y border-dashed border-[var(--border-color)] py-8 text-center text-sm text-[var(--muted-text)]"
+          className="py-8 text-center text-sm text-[var(--muted-text)]"
         >
           No terms found. Try another search term.
         </div>

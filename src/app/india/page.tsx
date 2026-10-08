@@ -198,7 +198,7 @@ export default function IndiaLandingPage() {
               key={provider.slug}
               href={`/companies/${provider.slug}`}
               style={{ "--accent": "var(--accent)" } as CSSProperties}
-              className="rounded-full border border-[var(--border-color)] bg-[var(--card)] px-4 py-2 text-sm font-medium text-[var(--foreground)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
+              className="box-card px-4 py-2 text-sm font-medium text-[var(--foreground)] hover:text-[var(--accent)]"
             >
               {provider.name}
             </Link>
@@ -233,7 +233,7 @@ export default function IndiaLandingPage() {
 
       {/* Cross-sell services (monetization track 1) */}
       <section aria-labelledby="india-services" className="mt-14">
-        <div className="flex flex-col items-start justify-between gap-4 rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6 sm:flex-row sm:items-center">
+        <div className="flex flex-col items-start justify-between gap-4 rounded-sm border border-[var(--border-color)] bg-[var(--card)] p-6 sm:flex-row sm:items-center">
           <div>
             <h2 id="india-services" className="text-base font-bold tracking-tight">Want a human to run the numbers?</h2>
             <p className="mt-1 text-sm text-[var(--muted-text)]">

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { canonicalUrl } from "@/lib/canonical-url";
-import { openGraphImage } from "@/lib/shared-metadata";
+import { openGraphImage, clampDescription, htmlAttrLength } from "@/lib/shared-metadata";
 import { getCompanyForResearchProfile, getCompanyName } from "@/lib/company-directory-links";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import {
@@ -15,12 +15,18 @@ import { recordFreshness } from "@/data-platform/freshness";
 import type { Confidence, LicenceRecord } from "@/data-platform/types";
 import { WatchButton } from "../../watch-button";
 
-/** Escape-aware title: `&` renders as `&amp;` (+4 chars), so the 65-char
- *  title gate must budget for the escaped form plus the site-name appender
- *  (" — FinTech Atlas"). Mirrors the directory profile page. */
+/** Escape-aware title: entities (`&amp;`, `&#x27;`, …) inflate the rendered
+ *  length, so the 65-char title gate must budget for the escaped form plus
+ *  the site-name appender (" — FinTech Atlas"). Mirrors the directory page. */
 function titleFor(name: string): string {
   const escapedLength = (value: string) =>
-    value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").length;
+    value
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#x27;")
+      .length;
   if (escapedLength(name) <= 49) return name;
   let cut = name.length;
   while (cut > 0 && escapedLength(name.slice(0, cut)) + 1 > 46) cut -= 1;
@@ -111,7 +117,7 @@ function formatFunding(usdM: number): string {
 
 function Stat({ label, value }: { label: string; value: string | number | null }) {
   return (
-    <div className="rounded-xl border border-[var(--border-color)] bg-[var(--card)] p-4">
+    <div className="rounded-sm border border-[var(--border-color)] bg-[var(--card)] p-4">
       <dt className="text-xs font-medium uppercase tracking-wide text-[var(--muted-text)]">
         {label}
       </dt>
@@ -133,9 +139,14 @@ export async function generateMetadata({
   const record = getIndiaDirectoryRecordBySlug(slug);
   if (!record) return { title: "Not Found" };
   const title = titleFor(record.name);
+  // The suffix carries the page's intent, so the raw description is
+  // budgeted (on its HTML-escaped length) to fit under the 155-char
+  // SERP display limit together with it — trimmed on a word boundary,
+  // never mid-word.
+  const suffix = ` — regulatory intelligence for ${record.name} in the ${record.cluster} cluster.`;
   const description =
     record.description && record.description !== "n/a"
-      ? `${record.description.slice(0, 140)} — regulatory intelligence for ${record.name} in the ${record.cluster} cluster.`
+      ? clampDescription(record.description, 155 - htmlAttrLength(suffix)) + suffix
       : `Radar regulatory intelligence for ${record.name} in the ${record.cluster} cluster: licences, regulator, confidence and sources.`;
   return {
     title,
@@ -180,9 +191,9 @@ export default async function RadarCompanyProfilePage({
       <Breadcrumbs items={breadcrumbItems} />
 
       <header className="mt-8">
-        <span className="inline-flex w-fit rounded-full border border-[var(--border-color)] px-3 py-1 text-xs font-medium text-[var(--muted-text)]">
+        <p className="font-mono text-xs uppercase tracking-widest text-[var(--muted-text)]">
           {record.cluster}
-        </span>
+        </p>
         <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">
           {record.name}
         </h1>
@@ -219,7 +230,7 @@ export default async function RadarCompanyProfilePage({
               return (
                 <li
                   key={`${licence.code}-${licence.regulator}`}
-                  className="rounded-xl border border-[var(--border-color)] bg-[var(--card)] p-4"
+                  className="rounded-sm border border-[var(--border-color)] bg-[var(--card)] p-4"
                 >
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="font-semibold">{licence.label}</span>
@@ -260,7 +271,7 @@ export default async function RadarCompanyProfilePage({
           {freshness.fields.map((field) => (
             <li
               key={field.family}
-              className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-[var(--border-color)] bg-[var(--card)] px-4 py-2.5 text-sm"
+              className="flex flex-wrap items-center justify-between gap-2 rounded-sm border border-[var(--border-color)] bg-[var(--card)] px-4 py-2.5 text-sm"
             >
               <span className="font-medium">{field.label}</span>
               <span className="flex items-center gap-2">

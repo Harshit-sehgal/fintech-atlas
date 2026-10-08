@@ -3,6 +3,7 @@ import Link from "next/link";
 import FeeCalculatorPageClient from "./calculator-client";
 import { pageMetadata } from "@/lib/shared-metadata";
 import { breadcrumbJsonLd } from "@/components/breadcrumbs";
+import { MarkerRule } from "@/components/ui/highlight";
 
 const description =
   "Compare total monthly processing fees across Stripe, PayPal, Square, and Adyen based on your transaction volume, average order size, and international mix.";
@@ -30,13 +31,12 @@ export default function FeeCalculatorPage() {
       />
       <FeeCalculatorPageClient />
       <section className="mx-auto max-w-5xl px-5 pb-16">
-        <div className="rounded-lg border border-[var(--border-color)] bg-[var(--card)] p-6">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-[var(--muted-text)]">Related comparisons</h2>
-          <div className="mt-3 flex flex-wrap gap-3">
-            <Link href="/articles/razorpay-vs-stripe-payments-india" className="btn-ghost text-xs">Razorpay vs Stripe (India)</Link>
-            <Link href="/articles/razorpay-vs-cashfree-indian-gateways" className="btn-ghost text-xs">Razorpay vs Cashfree</Link>
-            <Link href="/articles/stripe-vs-paypal-online-payments" className="btn-ghost text-xs">Stripe vs PayPal</Link>
-          </div>
+        <MarkerRule color="green" />
+        <h2 className="mt-6 text-sm font-bold uppercase tracking-wider text-[var(--muted-text)]">Related comparisons</h2>
+        <div className="mt-3 flex flex-wrap gap-3">
+          <Link href="/articles/razorpay-vs-stripe-payments-india" className="btn-ghost text-xs">Razorpay vs Stripe (India)</Link>
+          <Link href="/articles/razorpay-vs-cashfree-indian-gateways" className="btn-ghost text-xs">Razorpay vs Cashfree</Link>
+          <Link href="/articles/stripe-vs-paypal-online-payments" className="btn-ghost text-xs">Stripe vs PayPal</Link>
         </div>
       </section>
     </>

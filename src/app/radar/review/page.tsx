@@ -50,7 +50,7 @@ function stateTone(state: string): string {
 
 function Stat({ label, value }: { label: string; value: number | string }) {
   return (
-    <div className="rounded-xl border border-[var(--border-color)] bg-[var(--card)] p-4">
+    <div className="rounded-sm border border-[var(--border-color)] bg-[var(--card)] p-4">
       <dt className="text-xs font-medium uppercase tracking-wide text-[var(--muted-text)]">
         {label}
       </dt>
@@ -111,9 +111,9 @@ export default function RadarReviewQueuePage() {
       />
 
       <header className="mt-8">
-        <span className="inline-flex w-fit rounded-full border border-[var(--border-color)] px-3 py-1 text-xs font-medium text-[var(--muted-text)]">
+        <p className="font-mono text-xs text-[var(--muted-text)]">
           Research console · {radarReviewSnapshotId}
-        </span>
+        </p>
         <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">
           Radar review queue
         </h1>
@@ -136,13 +136,10 @@ export default function RadarReviewQueuePage() {
         <Stat label="Rejected" value={radarReviewSummary.rejected} />
       </dl>
 
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs font-mono">
         {actions.map((action) => (
-          <span
-            key={action}
-            className="inline-flex w-fit items-center gap-1.5 rounded-full border border-[var(--border-color)] px-3 py-1 text-xs text-[var(--muted-text)]"
-          >
-            {ACTION_LABELS[action] ?? action}
+          <span key={action} className="text-[var(--muted-text)]">
+            {ACTION_LABELS[action] ?? action}{" "}
             <span className="font-semibold text-[var(--foreground)]">
               {radarReviewSummary.byAction[action]}
             </span>
@@ -165,7 +162,7 @@ export default function RadarReviewQueuePage() {
               return (
                 <details
                   key={key}
-                  className="group rounded-xl border border-[var(--border-color)] bg-[var(--card)] open:pb-2"
+                  className="group rounded-sm border border-[var(--border-color)] bg-[var(--card)] open:pb-2"
                 >
                   <summary className="flex flex-wrap items-center gap-x-3 gap-y-1 px-4 py-3 text-sm cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                     {record ? (
@@ -244,7 +241,7 @@ export default function RadarReviewQueuePage() {
               return (
                 <li
                   key={`${row.companyId}-${row.family}`}
-                  className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-[var(--border-color)] bg-[var(--card)] px-4 py-2.5 text-sm"
+                  className="flex flex-wrap items-center justify-between gap-2 rounded-sm border border-[var(--border-color)] bg-[var(--card)] px-4 py-2.5 text-sm"
                 >
                   <span className="font-medium">{record?.name ?? row.companyId}</span>
                   <span className="text-xs text-[var(--muted-text)]">
@@ -276,7 +273,7 @@ export default function RadarReviewQueuePage() {
           readOnly
           rows={10}
           aria-label="Review queue apply-batch JSON"
-          className="mt-4 w-full rounded-lg border border-[var(--border-color)] bg-[var(--background)] px-3.5 py-3 font-mono text-xs leading-relaxed text-[var(--foreground)]"
+          className="mt-4 w-full rounded-sm border border-[var(--border-color)] bg-[var(--background)] px-3.5 py-3 font-mono text-xs leading-relaxed text-[var(--foreground)]"
           value={worksheet}
         />
       </section>

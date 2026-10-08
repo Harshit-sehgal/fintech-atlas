@@ -55,7 +55,7 @@ export function ServicesContactForm() {
   }
 
   const inputClasses =
-    "w-full rounded-lg border border-[var(--border-color)] bg-[var(--background)] px-3.5 py-2.5 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-strong)]";
+    "w-full rounded-sm border border-[var(--border-color)] bg-[var(--background)] px-3.5 py-2.5 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-strong)]";
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-4">

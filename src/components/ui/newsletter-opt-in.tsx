@@ -105,7 +105,7 @@ export function NewsletterOptIn() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
           autoComplete="email"
-          className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-xs text-[var(--foreground)] outline-none focus:border-[var(--foreground)]/40"
+          className="w-full px-1 py-2 text-xs text-[var(--foreground)] outline-none placeholder:text-[var(--muted-dim)]"
         />
         <button
           type="submit"

@@ -4,7 +4,6 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
 import { pageMetadata } from "@/lib/shared-metadata";
 import { changelog, changelogKindLabels } from "@/data/changelog";
-
 export const metadata: Metadata = pageMetadata({
   pathname: "/changelog",
   title: "Site Changelog",
@@ -39,7 +38,7 @@ export default function ChangelogPage() {
       />
 
       <h1 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl text-[var(--foreground)]">
-        Site Changelog
+        Site <span className="font-serif italic text-[var(--accent)]">Changelog</span>
       </h1>
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--muted-text)]">
         What changed on FinTech Atlas and when — new guides, tools, fee updates, and fixes. This
@@ -53,11 +52,13 @@ export default function ChangelogPage() {
         .
       </p>
 
-      <ol className="mt-8 border-t border-[var(--border-color)]">
+      {/* The update log — no rules: each entry breathes, the title
+          sweeps a marker on hover, the kind dot stays as a glyph. */}
+      <ol className="mt-8">
         {changelog.map((entry) => (
           <li
             key={entry.href + entry.title}
-            className="border-b border-[var(--border-color)] py-5"
+            className="group py-5"
           >
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
               <span
@@ -82,14 +83,14 @@ export default function ChangelogPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {entry.title} →
+                  <span className="hl-link">{entry.title}</span> <span aria-hidden>→</span>
                 </a>
               ) : (
                 <Link
                   className="transition-colors hover:text-[var(--accent)]"
                   href={entry.href}
                 >
-                  {entry.title} →
+                  <span className="hl-link">{entry.title}</span> <span aria-hidden>→</span>
                 </Link>
               )}
             </h2>

@@ -14,6 +14,7 @@ import type { NoteSummary, ToolSessionSummary } from "@/lib/saved-hub";
 import { formatValuationShort } from "@/lib/format-company";
 import { Reveal } from "@/components/ui/reveal";
 import { GridBackdrop } from "@/components/ui/grid-backdrop";
+import { Highlight, MarkerRule } from "@/components/ui/highlight";
 
 export default function BookmarksPageClient() {
   const { bookmarks, toggleBookmark, glossaryBookmarks, toggleGlossaryBookmark } = useBookmarks();
@@ -83,9 +84,11 @@ export default function BookmarksPageClient() {
 
       {totalCount === 0 ? (
         <Reveal>
-          <div className="mt-10 rounded-lg border border-dashed border-[var(--border-color)] p-12 text-center">
+          <div className="mt-10 py-12 text-center">
             <IconStar size={28} className="mx-auto text-warning-text" />
-            <h2 className="mt-4 text-lg font-bold text-[var(--foreground)]">Nothing saved yet</h2>
+            <h2 className="mt-4 text-lg font-bold text-[var(--foreground)]">
+              Nothing saved <Highlight color="yellow">yet</Highlight>
+            </h2>
             <p className="mt-2 text-sm text-[var(--muted-text)] max-w-md mx-auto">
               Star any company profile or glossary term, take notes on a provider, or start a
               calculator — everything you save on this device collects here.
@@ -101,6 +104,7 @@ export default function BookmarksPageClient() {
                 Browse Glossary
               </Link>
             </div>
+            <MarkerRule className="mt-10" color="pink" />
           </div>
         </Reveal>
       ) : (
@@ -113,10 +117,10 @@ export default function BookmarksPageClient() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.3 }}
-                className="flex items-center justify-between border-y border-[var(--accent)]/30 py-4 text-sm"
+                className="flex items-center justify-between py-4 text-sm"
               >
                 <div className="flex items-center gap-2 text-[var(--foreground)] font-medium">
-                  <span>You have {savedCompanies.length} saved companies — ready to compare?</span>
+                  <span>You have <Highlight color="green">{savedCompanies.length} saved companies</Highlight> — ready to compare?</span>
                 </div>
                 <Link
                   href={`/compare?companies=${savedCompanies.map((c) => c.slug).join(",")}`}
@@ -131,24 +135,26 @@ export default function BookmarksPageClient() {
           {/* Saved Companies */}
           {savedCompanies.length > 0 && (
             <section className="space-y-4">
-              <h2 className="text-xl font-bold text-[var(--foreground)] border-b border-[var(--border-color)] pb-2">
-                Saved Companies
+              <h2 className="text-xl font-bold text-[var(--foreground)]">
+                <Highlight color="yellow">Saved Companies</Highlight>
                 <span className="ml-2 text-xs font-mono text-[var(--muted-text)]">({savedCompanies.length})</span>
               </h2>
 
-              <div className="grid border-t border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {savedCompanies.map((c) => (
                   <div
                     key={c.slug}
                     style={{ ["--accent"]: c.accent } as CSSProperties}
-                    className="group relative flex flex-col justify-between border-b border-[var(--border-color)] py-5 transition-colors sm:pr-6"
+                    className="box-card group relative flex flex-col justify-between p-5"
                   >
                     <div>
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex items-center gap-3">
                           <CompanyLogo slug={c.slug} name={c.name} size={40} />
                           <div>
-                            <h3 className="font-bold text-base text-[var(--foreground)]">{c.name}</h3>
+                            <h3 className="font-bold text-base text-[var(--foreground)]">
+                              <span className="hl-link">{c.name}</span>
+                            </h3>
                             <p className="text-xs text-[var(--muted-text)] font-mono">{formatValuationShort(c.valuation)}</p>
                           </div>
                         </div>
@@ -165,7 +171,7 @@ export default function BookmarksPageClient() {
                       <p className="mt-3 text-xs leading-relaxed text-[var(--muted-text)]">{c.tagline}</p>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-[var(--border-color)] flex items-center justify-between">
+                    <div className="mt-4 flex items-center justify-between">
                       <Link
                         href={`/companies/${c.slug}`}
                         className="text-xs font-semibold text-[var(--accent)] hover:underline"
@@ -182,23 +188,23 @@ export default function BookmarksPageClient() {
           {/* Saved Glossary Terms */}
           {savedGlossary.length > 0 && (
             <section className="space-y-4">
-              <h2 className="text-xl font-bold text-[var(--foreground)] border-b border-[var(--border-color)] pb-2">
-                Saved Glossary Terms
+              <h2 className="text-xl font-bold text-[var(--foreground)]">
+                <Highlight color="yellow">Saved Glossary Terms</Highlight>
                 <span className="ml-2 text-xs font-mono text-[var(--muted-text)]">({savedGlossary.length})</span>
               </h2>
 
-              <div className="grid border-t border-[var(--border-color)] sm:grid-cols-2">
+              <div className="grid gap-x-8 gap-y-5 sm:grid-cols-2">
                 {savedGlossary.map((g) => (
                   <div
                     key={g.slug}
-                    className="flex items-start justify-between gap-4 border-b border-[var(--border-color)] py-4 transition-colors sm:pr-6"
+                    className="flex items-start justify-between gap-4"
                   >
                     <div>
                       <Link
                         href={`/glossary#${g.slug}`}
                         className="font-bold text-sm text-[var(--foreground)] hover:text-[var(--accent)] transition-colors"
                       >
-                        {g.term} {"full" in g && g.full && <span className="font-normal text-xs text-[var(--muted-text)]">({g.full})</span>}
+                        <span className="hl-link">{g.term}</span> {"full" in g && g.full && <span className="font-normal text-xs text-[var(--muted-text)]">({g.full})</span>}
                       </Link>
                       <p className="mt-1 text-xs text-[var(--muted-text)] leading-relaxed">{g.short}</p>
                     </div>
@@ -219,14 +225,14 @@ export default function BookmarksPageClient() {
           {/* Private notes (T112) — reviews_<slug> sets from profile pages */}
           {notes.length > 0 && (
             <section className="space-y-4">
-              <h2 className="text-xl font-bold text-[var(--foreground)] border-b border-[var(--border-color)] pb-2">
-                Private Notes
+              <h2 className="text-xl font-bold text-[var(--foreground)]">
+                <Highlight color="yellow">Private Notes</Highlight>
                 <span className="ml-2 text-xs font-mono text-[var(--muted-text)]">({notes.length})</span>
               </h2>
               <p className="text-xs leading-relaxed text-[var(--muted-text)] max-w-2xl">
                 Notes you wrote on provider profiles. They stay on this device and are never published.
               </p>
-              <div className="grid border-t border-[var(--border-color)] sm:grid-cols-2">
+              <div className="grid gap-x-8 gap-y-5 sm:grid-cols-2">
                 {notes.map((n) => {
                   const body = (
                     <>
@@ -243,7 +249,7 @@ export default function BookmarksPageClient() {
                     <Link
                       key={n.slug}
                       href={n.href}
-                      className="group flex items-start justify-between gap-4 border-b border-[var(--border-color)] py-4 transition-colors sm:pr-6"
+                      className="group flex items-start justify-between gap-4 py-2 transition-colors sm:pr-6"
                     >
                       {body}
                       <span aria-hidden className="shrink-0 text-xs text-[var(--muted-text)] transition-colors group-hover:text-[var(--accent)]">→</span>
@@ -251,7 +257,7 @@ export default function BookmarksPageClient() {
                   ) : (
                     <div
                       key={n.slug}
-                      className="flex items-start justify-between gap-4 border-b border-dashed border-[var(--border-color)] py-4 sm:pr-6"
+                      className="flex items-start justify-between gap-4 py-2 sm:pr-6"
                     >
                       {body}
                     </div>
@@ -264,18 +270,18 @@ export default function BookmarksPageClient() {
           {/* Restorable tool sessions (T112) */}
           {toolSessions.length > 0 && (
             <section className="space-y-4">
-              <h2 className="text-xl font-bold text-[var(--foreground)] border-b border-[var(--border-color)] pb-2">
-                Calculator Sessions
+              <h2 className="text-xl font-bold text-[var(--foreground)]">
+                <Highlight color="yellow">Calculator Sessions</Highlight>
                 <span className="ml-2 text-xs font-mono text-[var(--muted-text)]">({toolSessions.length})</span>
               </h2>
-              <div className="grid border-t border-[var(--border-color)] sm:grid-cols-2">
+              <div className="grid gap-x-8 gap-y-5 sm:grid-cols-2">
                 {toolSessions.map((s) => (
                   <Link
                     key={s.key}
                     href={s.href}
-                    className="group flex items-center justify-between gap-4 border-b border-[var(--border-color)] py-4 transition-colors sm:pr-6"
+                    className="group flex items-center justify-between gap-4 py-2 transition-colors sm:pr-6"
                   >
-                    <span className="text-sm font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
+                    <span className="hl-link text-sm font-bold text-[var(--foreground)]">
                       {s.label}
                     </span>
                     <span aria-hidden className="shrink-0 text-xs text-[var(--muted-text)] transition-colors group-hover:text-[var(--accent)]">→</span>
@@ -288,19 +294,19 @@ export default function BookmarksPageClient() {
           {/* Radar state (T112) — watchlist + named searches */}
           {(radarCounts.watchlistCount > 0 || radarCounts.savedSearchCount > 0) && (
             <section className="space-y-4">
-              <h2 className="text-xl font-bold text-[var(--foreground)] border-b border-[var(--border-color)] pb-2">
-                Radar
+              <h2 className="text-xl font-bold text-[var(--foreground)]">
+                <Highlight color="yellow">Radar</Highlight>
                 <span className="ml-2 text-xs font-mono text-[var(--muted-text)]">
                   ({radarCounts.watchlistCount + radarCounts.savedSearchCount})
                 </span>
               </h2>
-              <div className="grid border-t border-[var(--border-color)] sm:grid-cols-2">
+              <div className="grid gap-x-8 gap-y-5 sm:grid-cols-2">
                 {radarCounts.watchlistCount > 0 && (
                   <Link
                     href="/radar/watchlist"
-                    className="group flex items-center justify-between gap-4 border-b border-[var(--border-color)] py-4 transition-colors sm:pr-6"
+                    className="group flex items-center justify-between gap-4 py-2 transition-colors sm:pr-6"
                   >
-                    <span className="text-sm font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
+                    <span className="hl-link text-sm font-bold text-[var(--foreground)]">
                       Watchlist
                     </span>
                     <span className="shrink-0 font-mono text-sm text-[var(--muted-text)]">
@@ -311,9 +317,9 @@ export default function BookmarksPageClient() {
                 {radarCounts.savedSearchCount > 0 && (
                   <Link
                     href="/radar"
-                    className="group flex items-center justify-between gap-4 border-b border-[var(--border-color)] py-4 transition-colors sm:pl-6"
+                    className="group flex items-center justify-between gap-4 py-2 transition-colors sm:pl-6"
                   >
-                    <span className="text-sm font-bold text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
+                    <span className="hl-link text-sm font-bold text-[var(--foreground)]">
                       Saved Searches
                     </span>
                     <span className="shrink-0 font-mono text-sm text-[var(--muted-text)]">

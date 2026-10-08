@@ -44,6 +44,8 @@ const REQUIRED_PROPS = {
   BreadcrumbList: ["itemListElement"],
   WebSite: ["name", "url"],
   Organization: ["name"],
+  FAQPage: ["mainEntity"],
+  ItemList: ["itemListElement"],
 };
 
 for (const file of files) {

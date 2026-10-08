@@ -182,7 +182,7 @@ function FacetGroup({
 }
 
 const numberInputClass =
-  "w-full rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-sm outline-none transition-colors hover:border-[var(--border-strong)] focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/40";
+  "w-full rounded-sm border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-sm outline-none transition-colors hover:border-[var(--border-strong)] focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/40";
 
 export function RadarClient() {
   const [query, setQuery] = useState("");
@@ -479,7 +479,7 @@ export function RadarClient() {
             setPage(1);
           }}
           aria-label="Search Indian fintech companies"
-          className="w-full rounded-xl border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 py-2.5 pl-10 pr-4 text-sm outline-none transition-colors hover:border-[var(--border-strong)] focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/40"
+          className="w-full rounded-sm border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 py-2.5 pl-10 pr-4 text-sm outline-none transition-colors hover:border-[var(--border-strong)] focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/40"
         />
         {query && (
           <button
@@ -652,7 +652,7 @@ export function RadarClient() {
                     setSort(e.target.value as SortKey);
                     setPage(1);
                   }}
-                  className="rounded-lg border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-sm font-medium text-[var(--foreground)] outline-none transition-colors hover:border-[var(--border-strong)]"
+                  className="rounded-sm border border-[var(--border-color)] bg-[var(--subtle-bg)]/50 px-3 py-2 text-sm font-medium text-[var(--foreground)] outline-none transition-colors hover:border-[var(--border-strong)]"
                 >
                   {SORT_OPTIONS.map((option) => (
                     <option key={option.value} value={option.value}>
@@ -664,50 +664,47 @@ export function RadarClient() {
             </div>
           </div>
 
-          <ul className="mt-6 grid border-t border-[var(--border-color)] sm:grid-cols-2">
+          <ul className="mt-6 grid gap-4 border-t border-[var(--border-color)] sm:grid-cols-2">
             {pageItems.map((index) => {
               const summary = indiaDirectorySummaries[index];
               const founded = radarFoundedYears[index];
               const funding = formatFunding(radarFundingUsdM[index]);
+              const licences = licenceIndexesFor(radarLicenceMasks[index]);
               return (
-                <li key={summary.slug}>
+                <li key={summary.slug} className="flex flex-col">
                   <Link
                     href={`/india/directory/${summary.slug}`}
                     data-placement="radar-result"
-                    className="flex h-full flex-col gap-2 border-b border-[var(--border-color)] py-4 pr-6 transition-colors hover:bg-[var(--subtle-bg)]/40"
+                    className="box-card flex flex-1 flex-col gap-2 p-5"
                   >
-                    <span className="font-semibold text-[var(--foreground)]">
+                    <span className="hl-link font-semibold text-[var(--foreground)]">
                       {summary.name}
                     </span>
                     <span className="text-sm text-[var(--fg-dim)]">
                       {summary.category}
                     </span>
-                    <div className="mt-auto flex flex-wrap gap-1.5 pt-1">
-                      <span className="inline-flex w-fit rounded-full border border-[var(--border-color)] px-2.5 py-0.5 text-xs text-[var(--muted-text)]">
-                        {radarSectorNames[radarSectorIndexes[index]]}
-                      </span>
-                      <span className="inline-flex w-fit rounded-full border border-[var(--border-color)] px-2.5 py-0.5 text-xs text-[var(--muted-text)]">
-                        {radarRegulatorNames[radarRegulatorIndexes[index]]}
-                      </span>
-                      {founded !== UNKNOWN && (
-                        <span className="inline-flex w-fit rounded-full border border-[var(--border-color)] px-2.5 py-0.5 text-xs text-[var(--muted-text)]">
-                          Founded {founded}
-                        </span>
+                      <div className="mt-auto flex flex-wrap gap-x-2 gap-y-0.5 pt-1 text-[11px] font-mono text-[var(--muted-text)]">
+                        <span>{radarSectorNames[radarSectorIndexes[index]]}</span>
+                        <span aria-hidden className="text-[var(--muted-dim)]">·</span>
+                        <span>{radarRegulatorNames[radarRegulatorIndexes[index]]}</span>
+                        {founded !== UNKNOWN && (
+                          <>
+                            <span aria-hidden className="text-[var(--muted-dim)]">·</span>
+                            <span>Founded {founded}</span>
+                          </>
+                        )}
+                        {funding && (
+                          <>
+                            <span aria-hidden className="text-[var(--muted-dim)]">·</span>
+                            <span>{funding} raised</span>
+                          </>
+                        )}
+                      </div>
+                      {licences.length > 0 && (
+                        <p className="pt-0.5 text-[11px] font-mono text-[var(--accent-ink)]">
+                          {licences.map((licence) => radarLicenceNames[licence]).join(" · ")}
+                        </p>
                       )}
-                      {funding && (
-                        <span className="inline-flex w-fit rounded-full border border-[var(--border-color)] px-2.5 py-0.5 text-xs text-[var(--muted-text)]">
-                          {funding} raised
-                        </span>
-                      )}
-                      {licenceIndexesFor(radarLicenceMasks[index]).map((licence) => (
-                        <span
-                          key={licence}
-                          className="inline-flex w-fit rounded-full border border-[var(--accent)]/30 bg-[var(--accent-glow)] px-2.5 py-0.5 text-xs text-[var(--accent-ink)]"
-                        >
-                          {radarLicenceNames[licence]}
-                        </span>
-                      ))}
-                    </div>
                   </Link>
                   <div className="mt-1 px-1">
                     <Link
@@ -732,7 +729,7 @@ export function RadarClient() {
                   hasActiveFilters ? (
                     <button
                       onClick={clearAll}
-                      className="rounded-lg border border-[var(--border-color)] px-3.5 py-2 text-sm font-medium transition-colors hover:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
+                      className="rounded-sm border border-[var(--border-color)] px-3.5 py-2 text-sm font-medium transition-colors hover:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
                     >
                       Clear all filters
                     </button>
@@ -750,7 +747,7 @@ export function RadarClient() {
               <button
                 onClick={() => goToPage(safePage - 1)}
                 disabled={safePage <= 1}
-                className="rounded-lg border border-[var(--border-color)] px-3.5 py-2 text-sm font-medium transition-colors hover:border-[var(--border-strong)] disabled:pointer-events-none disabled:opacity-40"
+                className="rounded-sm border border-[var(--border-color)] px-3.5 py-2 text-sm font-medium transition-colors hover:border-[var(--border-strong)] disabled:pointer-events-none disabled:opacity-40"
               >
                 ← Previous
               </button>
@@ -760,7 +757,7 @@ export function RadarClient() {
               <button
                 onClick={() => goToPage(safePage + 1)}
                 disabled={safePage >= totalPages}
-                className="rounded-lg border border-[var(--border-color)] px-3.5 py-2 text-sm font-medium transition-colors hover:border-[var(--border-strong)] disabled:pointer-events-none disabled:opacity-40"
+                className="rounded-sm border border-[var(--border-color)] px-3.5 py-2 text-sm font-medium transition-colors hover:border-[var(--border-strong)] disabled:pointer-events-none disabled:opacity-40"
               >
                 Next →
               </button>

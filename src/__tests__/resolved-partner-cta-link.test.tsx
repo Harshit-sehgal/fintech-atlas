@@ -49,7 +49,9 @@ describe("ResolvedPartnerCtaLink", () => {
         className="text-xs"
       />,
     );
-    expect(html).toContain("rounded-lg border");
+    // Compact is boxless by design (no rounded/border chip): marker emphasis
+    // comes from the surrounding link context, not a container.
+    expect(html).not.toContain("rounded-lg border");
     expect(html).toContain("text-xs");
   });
 });

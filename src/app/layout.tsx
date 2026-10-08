@@ -8,8 +8,9 @@ import { BookmarksProvider } from "@/lib/bookmarks-context";
 import { ToastProvider } from "@/lib/toast-context";
 import StructuredDataLite from "@/components/SEO/StructuredDataLite";
 import { AnalyticsScript } from "@/components/SEO/AnalyticsScript";
+import { GoogleAnalytics } from "@/components/SEO/GoogleAnalytics";
 import { AnalyticsTracker } from "@/components/SEO/AnalyticsTracker";
-import { assetPath, SITE_URL } from "@/lib/site-config";
+import { assetPath, SITE_URL, GOOGLE_SITE_VERIFICATION } from "@/lib/site-config";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
 import { MotionConfig } from "framer-motion";
 import { ServiceWorkerRegister } from "@/components/ui/service-worker-register";
@@ -68,6 +69,11 @@ export const metadata: Metadata = {
     { rel: "icon", url: assetPath("/maskable-512.png"), sizes: "512x512", type: "image/png" },
   ],
   manifest: assetPath("/manifest.json"),
+  // Google Search Console ownership verification. Omitted entirely when the
+  // token is unconfigured so no empty meta tag ships.
+  ...(GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: GOOGLE_SITE_VERIFICATION } }
+    : {}),
   // robots is emitted as an explicit <meta> tag in the <head> of the layout
   // component body instead of via the `robots` export, because Next.js
   // deep-merges nested robots keys (e.g. the per-page `robots:` + root
@@ -115,6 +121,7 @@ export default function RootLayout({
           }}
         />
         <AnalyticsScript />
+        <GoogleAnalytics />
         {/* RSS autodiscovery (metadata `alternates.types` is not emitted by
             this Next build for static exports, so the link is literal). */}
         <link rel="alternate" type="application/rss+xml" title="FinTech Atlas — Articles &amp; Updates" href={assetPath("/feed.xml")} />
@@ -128,13 +135,13 @@ export default function RootLayout({
         <AnalyticsTracker />
         <a
           href="#main-content"
-          className="sr-only focus:fixed focus:w-auto focus:h-auto focus:[clip:auto] focus:m-0 focus:px-4 focus:py-2 focus:top-4 focus:left-4 focus:z-50 focus:rounded-lg focus:bg-[var(--accent)] focus:text-white focus:font-semibold focus:outline-none"
+          className="sr-only focus:fixed focus:w-auto focus:h-auto focus:[clip:auto] focus:m-0 focus:px-4 focus:py-2 focus:top-4 focus:left-4 focus:z-50 focus:rounded-sm focus:bg-[var(--accent)] focus:text-white focus:font-semibold focus:outline-none"
         >
           Skip to main content
         </a>
         <a
           href="#footer"
-          className="sr-only focus:fixed focus:w-auto focus:h-auto focus:[clip:auto] focus:m-0 focus:px-4 focus:py-2 focus:top-4 focus:left-4 focus:z-50 focus:rounded-lg focus:bg-[var(--accent)] focus:text-white focus:font-semibold focus:outline-none"
+          className="sr-only focus:fixed focus:w-auto focus:h-auto focus:[clip:auto] focus:m-0 focus:px-4 focus:py-2 focus:top-4 focus:left-4 focus:z-50 focus:rounded-sm focus:bg-[var(--accent)] focus:text-white focus:font-semibold focus:outline-none"
         >
           Skip to footer
         </a>
