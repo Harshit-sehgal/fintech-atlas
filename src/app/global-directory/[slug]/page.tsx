@@ -95,8 +95,7 @@ export default async function GlobalDirectoryProfilePage({
 
   const breadcrumbItems = [
     { name: "Home", href: "/" },
-    { name: "All directories", href: "/directory" },
-    { name: "Global directory", href: "/global-directory" },
+    { name: "Companies", href: "/global-directory" },
     { name: record.name, href: `/global-directory/${record.slug}` },
   ];
 

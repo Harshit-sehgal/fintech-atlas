@@ -272,17 +272,17 @@ export function GlobalDirectoryClient() {
                           </>
                         )}
                       >
-                        <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                        <ul className="mt-3 grid gap-x-8 gap-y-0.5 sm:grid-cols-2 lg:grid-cols-3">
                           {shown.map(([slug, name, categoryIndex]) => (
                             <li key={slug}>
                               <Link
                                 href={`/global-directory/${slug}`}
-                                className="box-card flex h-full flex-col gap-1 p-4"
+                                className="flex items-baseline justify-between gap-3 rounded-sm border-b border-[var(--border-color)] py-1.5 text-sm transition-colors hover:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-[var(--ring)]"
                               >
-                                <span className="font-semibold text-[var(--foreground)]">
+                                <span className="text-[var(--accent)] hover:underline">
                                   <HighlightedText text={name} query={q} />
                                 </span>
-                                <span className="text-xs text-[var(--fg-dim)]">
+                                <span className="shrink-0 font-mono text-[10px] uppercase tracking-wider text-[var(--muted-text)]">
                                   <HighlightedText
                                     text={globalDirectoryCategoryNames[categoryIndex] ?? ""}
                                     query={q}

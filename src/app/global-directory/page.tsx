@@ -30,8 +30,7 @@ export default function GlobalDirectoryPage() {
       <Breadcrumbs
         items={[
           { name: "Home", href: "/" },
-          { name: "All directories", href: "/directory" },
-          { name: "Global directory", href: "/global-directory" },
+          { name: "Companies", href: "/global-directory" },
         ]}
       />
 

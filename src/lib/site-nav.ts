@@ -37,57 +37,39 @@ export interface NavGroup {
 }
 
 /**
- * Primary navigation — the five decision surfaces. Everything else lives in
- * "More" so the bar stays calm and scannable (proven comparison-site pattern).
- *
- * "Directory" points at the global research directory, which is the single
- * company-browsing surface — there is no separate "Companies" entry, because
- * the curated profiles are already part of that directory.
+ * Primary navigation — four pillars. Everything else is reference material in
+ * "More". The site answers four questions: who is out there (Companies), how do
+ * they compare (Compare), what does it cost (Tools), and how does it work
+ * (Guides). Radar/watching is a *view of Companies*, not a pillar.
  *
  * These stay short because they sit in a single horizontal row at every
  * breakpoint; the grouped menu below is where nuance lives.
  */
 export const primaryNav: NavItem[] = [
-  { href: "/radar", label: "Radar" },
-  { href: "/global-directory", label: "Directory" },
+  { href: "/global-directory", label: "Companies" },
   { href: "/compare", label: "Compare" },
   { href: "/tools", label: "Tools" },
   { href: "/articles", label: "Guides" },
 ];
 
 /**
- * Secondary navigation, grouped. Order is deliberate: "Browse" first because
- * looking something up is the most common intent, "Saved" late because it is
- * personal rather than exploratory.
+ * Secondary navigation, grouped. "Companies" holds the other ways to slice the
+ * same index (industry, regulatory activity, saved); "Reference" holds the
+ * encyclopedic material.
  */
 export const moreNavGroups: NavGroup[] = [
   {
-    heading: "Browse",
+    heading: "Companies",
     items: [
       {
         href: "/categories",
         label: "By industry",
-        description: "Payments, banking, lending and more",
+        description: "The same companies grouped by sector",
       },
       {
-        href: "/directory",
-        label: "All directories",
-        description: "Hub linking the research and category surfaces",
-      },
-      {
-        href: "/glossary",
-        label: "Glossary",
-        description: "Plain-language fintech terms",
-      },
-    ],
-  },
-  {
-    heading: "Tools & data",
-    items: [
-      {
-        href: "/services",
-        label: "Services",
-        description: "Consulting and implementation help",
+        href: "/radar/activity",
+        label: "Regulatory changes",
+        description: "Licence and status events",
       },
       {
         href: "/bookmarks",
@@ -97,37 +79,32 @@ export const moreNavGroups: NavGroup[] = [
     ],
   },
   {
-    heading: "Radar",
+    heading: "Reference",
     items: [
       {
-        href: "/radar/watchlist",
-        label: "Watchlist",
-        description: "Companies you are tracking",
+        href: "/glossary",
+        label: "Glossary",
+        description: "Plain-language fintech terms",
       },
-      {
-        href: "/radar/activity",
-        label: "Activity",
-        description: "Licence and regulatory events",
-      },
-      {
-        href: "/radar/review",
-        label: "Review queue",
-        description: "Regulatory changes to review",
-      },
-    ],
-  },
-  {
-    heading: "Site",
-    items: [
       {
         href: "/about",
-        label: "About",
-        description: "Methodology and sources",
+        label: "About & method",
+        description: "Sourcing, scoring and independence",
       },
       {
         href: "/changelog",
         label: "Changelog",
         description: "What changed and when",
+      },
+    ],
+  },
+  {
+    heading: "Work with us",
+    items: [
+      {
+        href: "/services",
+        label: "Services",
+        description: "Consulting and implementation help",
       },
     ],
   },
@@ -147,7 +124,7 @@ export const moreNav: NavItem[] = moreNavGroups.flatMap((group) => group.items);
  */
 export const bottomNav: NavItem[] = [
   { href: "/", label: "Home" },
-  { href: "/global-directory", label: "Directory" },
+  { href: "/global-directory", label: "Companies" },
   { href: "/compare", label: "Compare" },
   { href: "/tools", label: "Tools" },
   { href: "/bookmarks", label: "Saved" },
