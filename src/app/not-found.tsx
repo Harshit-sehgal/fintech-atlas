@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-const description = "This page doesn't exist or has moved to a different route.";
+const description =
+  "This page doesn't exist or has moved to a different route. Head back to the FinTech Atlas home directory to keep browsing companies, tools and guides.";
 
 export const metadata: Metadata = {
   title: "Page Not Found",
