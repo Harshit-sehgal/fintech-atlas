@@ -83,6 +83,19 @@ describe("MarkerRule", () => {
     expect(el.className).not.toContain("undefined");
   });
 
+  it("draws in when animate is set and it scrolls into view", () => {
+    vi.stubGlobal("IntersectionObserver", FakeObserver);
+    const { container } = render(<MarkerRule animate />);
+    const el = container.querySelector(".marker-rule")!;
+    expect(el.className).toContain("marker-rule-animate");
+    expect(el.className).not.toContain("is-inview");
+
+    const io = FakeObserver.instances[0];
+    act(() => io.callback([{ isIntersecting: true }]));
+    expect(container.querySelector(".marker-rule")!.className).toContain("is-inview");
+    expect(io.disconnected).toBe(true);
+  });
+
   it("renders a decorative rule with the requested colour", () => {
     const { container } = render(<MarkerRule color="pink" className="mt-4" />);
     const el = container.querySelector(".marker-rule")!;
