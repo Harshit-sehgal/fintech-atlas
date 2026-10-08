@@ -801,6 +801,36 @@ Deliberately **not** changed, with reasons:
 
 ---
 
+# 12e. Global research directory, analytics & SEO (T146–T150)
+
+**Status: complete (2026-10-08).** A region-by-region "financial encyclopedia
+of the world" — fintechs plus banks, insurers, brokers, exchanges and central
+banks — built on the same markdown → parser → generated-module pipeline as the
+India directory, with GA4 search/analytics plumbing added alongside.
+
+| ID   | Task | Status |
+| ---- | ---- | ------ |
+| T146 | Global research directory | ✅ done — `docs/research/global-fintech-directory.md` (2,413 companies at first pass) with `lib/directory-parse.ts` extracted as the shared table engine, `lib/global-directory-parse.ts`, `scripts/generate-global-directory.ts`, generated full + summaries modules wired into `prebuild`, and `/global-directory` + `/global-directory/[slug]` pages. Directory hub promoted from two tiers to three; curated↔global profiles bridged by slug |
+| T147 | Expand to 2,699 + surface sitewide | ✅ done — ~286 more companies across 40 countries; Global directory registered in `site-nav.ts` (Browse group, with clarifier) so header/mobile/footer inherit it; footer shows both research-directory counts; title helper on all three profile pages fixed to budget for apostrophe entities (`&#x27;`) |
+| T148 | Compact client subset | ✅ done — global summaries emitted as `[slug, name, categoryIndex, clusterIndex]` tuples with pooled category names, cutting compressed JS from 472,876 → 468,984 bytes |
+| T149 | Google Analytics 4 + article OG + GSC | ✅ done — env-gated GA4 (`NEXT_PUBLIC_GA_MEASUREMENT_ID`) rendered as literal `<head>` scripts so the CSP generator hashes the inline bootstrap; CSP adds GTM/GA origins only when configured; `trackEvent` gains a `window.gtag` branch; articles emit og:type=article with publishedTime/modifiedTime/authors/section; `google-site-verification` meta emitted when set; Privacy Notice updated to disclose the optional cookie-based configuration |
+| T150 | Expand to 2,932 | ✅ done — ~233 more companies (Nordics, UK peer banks/insurers/comparison sites, Benelux/Iberia/Italy/Germany/Ireland institutions, Moldova, Albania, North Macedonia, Bosnia, Montenegro, US alt asset managers and cyber insurtechs) |
+
+Verification: typecheck + eslint clean, **608** unit tests green, and a full
+static export passing every postbuild gate — compressed-JS budget
+472,120/475,000 across 46 assets, structured-data over 17,547 JSON-LD blocks in
+**5,837** HTML files, internal-link verification across all files, title audit
+at 5,835 pages under 65 chars, and the description gate across all 5,837 pages.
+The directory now indexes **2,932** companies across **145** country/thematic
+clusters in 12 regions.
+
+Constraint recorded: the compressed-JS cap (475,000) now has ~3 KB headroom
+because the searchable client subset grows ~14 gzip-bytes per company. The next
+expansion needs either another payload reduction (columnar encoding) or a
+documented cap raise.
+
+---
+
 # 12. Ninety-day execution order
 
 ## Weeks 1–2: make it trustworthy
