@@ -6,17 +6,18 @@ import { articles } from "@/data/articles";
 import { glossary } from "@/data/glossary";
 
 const description =
-  "Compare Razorpay, Stripe, Cashfree, Wise, Payoneer and other payment services. Calculate fees, settlement amounts and provider differences for India.";
+  "Browse 3,000+ fintech companies and financial institutions worldwide, compare payment services, and calculate real fees in the open.";
 
 export const metadata: Metadata = {
-  title: "Payment Gateway & International Payment Comparisons India",
+  title: "FinTech Atlas — Global FinTech Directory & Tools",
   description,
   alternates: { canonical: "/" },
-  // Page-level openGraph keeps og:title in sync with <title> (the title template
-  // appends " — FinTech Atlas") and pins og:url to the homepage.
+  // Page-level openGraph keeps og:title in sync with <title> (Next.js renders
+  // the root page title verbatim, without the layout's template) and pins
+  // og:url to the homepage.
   openGraph: {
     ...openGraphImage,
-    title: "Payment Gateway & International Payment Comparisons India — FinTech Atlas",
+    title: "FinTech Atlas — Global FinTech Directory & Tools",
     description,
     url: SITE_URL,
   },

@@ -24,8 +24,8 @@ const CATEGORY_BY_COMPANY: Record<string, string> = Object.fromEntries(
   companySummaries.map((c) => [c.slug, categoryNames[c.categories?.[0] ?? ""] ?? ""]),
 );
 
-// India-first featured providers (plan §7: "India-specific provider
-// directory"). Curated order so the homepage leads with the Indian market.
+// Featured providers — a curated order so the homepage leads with the
+// household names readers arrive looking for.
 const FEATURED_SLUGS: readonly string[] = ["razorpay", "cashfree", "payoneer", "wise", "phonepe", "paytm"];
 
 // The homepage's primary axis (plan §7 #1: "Choose what you are trying to do").
@@ -97,14 +97,14 @@ const INTENTS: {
     ),
   },
   {
-    title: "Find the right provider for India",
-    desc: "Gateways, payouts, neobanks and compliance — browse the India decision hub.",
-    href: "/india",
-    cta: "Explore the hub",
+    title: "Explore the full directory",
+    desc: "3,000+ fintech companies and financial institutions, organised by region and country.",
+    href: "/global-directory",
+    cta: "Browse the directory",
     svg: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
-        <path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z" />
-        <circle cx="12" cy="10" r="2.5" />
+        <circle cx="12" cy="12" r="9" />
+        <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" />
       </svg>
     ),
   },
@@ -298,10 +298,10 @@ export default function HomePageClient({
 
         <div className="mt-8">
           <Link
-            href="/india"
+            href="/global-directory"
             className="group inline-flex items-center gap-2.5 text-sm font-semibold text-[var(--foreground)]"
           >
-            <span className="hl-link">Browse every payment gateway &amp; international payments option for India</span>
+            <span className="hl-link">Browse every company in the directory</span>
             <span aria-hidden>→</span>
           </Link>
         </div>
@@ -335,11 +335,11 @@ export default function HomePageClient({
 
       {/* Featured companies — a marked ledger, not a card grid: logo, name that
           sweeps a marker on hover, tagline, and the chooser facts. No rules. */}
-      <section data-placement="india-first" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24">
+      <section data-placement="featured-providers" className="relative mx-auto max-w-6xl px-5 py-16 md:py-24">
         <SectionHeading
-          eyebrow="India-First"
-          title="India-First Providers"
-          description="Profiles of the payment gateways and FX services Indian freelancers and businesses choose most — fee structures, strengths, weaknesses, and editorial sentiment."
+          eyebrow="Editor's Picks"
+          title="Featured Providers"
+          description="Profiles of the payment services and fintech companies readers look at most — fee structures, strengths, weaknesses, and editorial sentiment."
         />
         <div className="mt-10 space-y-9">
           {featuredWithCategories.map((c) => (
