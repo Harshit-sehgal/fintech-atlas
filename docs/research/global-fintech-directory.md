@@ -1,7 +1,7 @@
 # Global FinTech Company Directory (2026)
 
 > Compiled 2026-10-08 from public sources. A region-by-region financial encyclopedia of the world:
-> 2699 fintech companies and financial institutions across 12 regions, organised by country.
+> 2932 fintech companies and financial institutions across 12 regions, organised by country.
 > Columns: Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description.
 > Fields marked n/a could not be verified publicly; ~ marks approximate values.
 > Companies headquartered in India are indexed separately in the India research directory.
@@ -9,15 +9,15 @@
 ## Coverage stats
 | Metric | Value |
 | --- | --- |
-| Companies | 2699 |
-| Websites found | 2699 (100%) |
-| Founders identified | 650 (24%) |
-| Funding data | 706 (26%) |
-| Valuation/status | 2384 (88%) |
-| Regulatory data | 2120 (79%) |
+| Companies | 2932 |
+| Websites found | 2932 (100%) |
+| Founders identified | 680 (23%) |
+| Funding data | 748 (26%) |
+| Valuation/status | 2617 (89%) |
+| Regulatory data | 2353 (80%) |
 
 ## Contents
-- NORTH AMERICA — United States (459)
+- NORTH AMERICA — United States (475)
 - NORTH AMERICA — Canada (77)
 - LATIN AMERICA & CARIBBEAN — Brazil (75)
 - LATIN AMERICA & CARIBBEAN — Mexico (55)
@@ -43,24 +43,24 @@
 - LATIN AMERICA & CARIBBEAN — Jamaica (2)
 - LATIN AMERICA & CARIBBEAN — Bermuda (1)
 - LATIN AMERICA & CARIBBEAN — Trinidad and Tobago (1)
-- WESTERN EUROPE — United Kingdom (103)
-- WESTERN EUROPE — Germany (70)
+- WESTERN EUROPE — United Kingdom (141)
+- WESTERN EUROPE — Germany (85)
 - WESTERN EUROPE — France (62)
+- WESTERN EUROPE — Italy (37)
+- WESTERN EUROPE — Netherlands (37)
 - WESTERN EUROPE — Switzerland (31)
-- WESTERN EUROPE — Italy (25)
-- WESTERN EUROPE — Netherlands (24)
-- WESTERN EUROPE — Ireland (17)
+- WESTERN EUROPE — Spain (29)
+- WESTERN EUROPE — Ireland (26)
+- WESTERN EUROPE — Portugal (22)
+- WESTERN EUROPE — Belgium (20)
 - WESTERN EUROPE — Greece (16)
-- WESTERN EUROPE — Spain (14)
 - WESTERN EUROPE — Austria (9)
-- WESTERN EUROPE — Portugal (9)
-- WESTERN EUROPE — Belgium (7)
 - WESTERN EUROPE — Luxembourg (6)
-- NORTHERN EUROPE — Sweden (23)
+- NORTHERN EUROPE — Sweden (35)
+- NORTHERN EUROPE — Denmark (28)
+- NORTHERN EUROPE — Norway (21)
+- NORTHERN EUROPE — Finland (19)
 - NORTHERN EUROPE — Iceland (12)
-- NORTHERN EUROPE — Denmark (8)
-- NORTHERN EUROPE — Norway (7)
-- NORTHERN EUROPE — Finland (5)
 - CENTRAL & EASTERN EUROPE — Poland (27)
 - CENTRAL & EASTERN EUROPE — Czechia (19)
 - CENTRAL & EASTERN EUROPE — Romania (15)
@@ -72,12 +72,17 @@
 - CENTRAL & EASTERN EUROPE — Bulgaria (8)
 - CENTRAL & EASTERN EUROPE — Lithuania (8)
 - CENTRAL & EASTERN EUROPE — Slovakia (8)
+- CENTRAL & EASTERN EUROPE — Albania (7)
 - CENTRAL & EASTERN EUROPE — Kazakhstan (7)
 - CENTRAL & EASTERN EUROPE — Kyrgyzstan (7)
+- CENTRAL & EASTERN EUROPE — Moldova (6)
+- CENTRAL & EASTERN EUROPE — North Macedonia (6)
 - CENTRAL & EASTERN EUROPE — Serbia (6)
 - CENTRAL & EASTERN EUROPE — Slovenia (6)
 - CENTRAL & EASTERN EUROPE — Tajikistan (6)
+- CENTRAL & EASTERN EUROPE — Bosnia and Herzegovina (5)
 - CENTRAL & EASTERN EUROPE — Georgia (5)
+- CENTRAL & EASTERN EUROPE — Montenegro (5)
 - CENTRAL & EASTERN EUROPE — Armenia (4)
 - CENTRAL & EASTERN EUROPE — Latvia (4)
 - CENTRAL & EASTERN EUROPE — Turkmenistan (4)
@@ -158,7 +163,7 @@
 - GLOBAL — DEVELOPMENT BANKS & STANDARD SETTERS (23)
 - GLOBAL — DATA, RATINGS & MARKET INFRASTRUCTURE (19)
 
-## NORTH AMERICA — United States (459)
+## NORTH AMERICA — United States (475)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Stripe | Payment platform | 2010 | San Francisco, US | Patrick Collison, John Collison | ~$9B | $65B (2024) | n/a | stripe.com | Financial infrastructure platform for online payments, billing and payouts. |
@@ -539,6 +544,22 @@
 | Kount | Fraud prevention | 2007 | Boise, US | n/a | n/a | Acquired by Equifax (2021) | n/a | kount.com | US AI fraud prevention, owned by Equifax. |
 | Sift | Fraud prevention | 2011 | San Francisco, US | Jason Tan, Brandon Ball | ~$150M | n/a | n/a | sift.com | US machine learning fraud prevention. |
 | Signifyd | Fraud prevention | 2011 | San Jose, US | Rajesh Ramanand, Michael Libert | ~$200M | n/a | n/a | signifyd.com | US commerce fraud protection. |
+| Blackstone | Alternative asset manager | 1985 | New York, US | Stephen Schwarzman, Peter Peterson | n/a | Public: NYSE: BX | Asset management (US) | blackstone.com | World's largest alternative asset manager. |
+| Apollo Global Management | Alternative asset manager | 1990 | New York, US | Leon Black, Josh Harris | n/a | Public: NYSE: APO | Asset management (US) | apollo.com | US alternative investment manager and insurer. |
+| KKR | Alternative asset manager | 1976 | New York, US | Henry Kravis, George Roberts | n/a | Public: NYSE: KKR | Asset management (US) | kkr.com | Global private equity and credit firm. |
+| The Carlyle Group | Alternative asset manager | 1987 | Washington, US | David Rubenstein, William Conway | n/a | Public: NASDAQ: CG | Asset management (US) | carlyle.com | US alternative asset manager. |
+| Ares Management | Alternative asset manager | 1997 | Los Angeles, US | Antony Ressler | n/a | Public: NYSE: ARES | Asset management (US) | aresmgmt.com | US credit and private equity manager. |
+| Blue Owl Capital | Alternative asset manager | 2021 | New York, US | n/a | n/a | Public: NYSE: OWL | Asset management (US) | blueowl.com | US alternative asset manager in direct lending. |
+| TPG | Alternative asset manager | 1992 | Fort Worth, US | David Bonderman, Jim Coulter | n/a | Public: NASDAQ: TPG | Asset management (US) | tpg.com | Global private equity firm. |
+| Oaktree Capital | Alternative asset manager | 1995 | Los Angeles, US | Howard Marks | n/a | Subsidiary of Brookfield | Asset management (US) | oaktreecapital.com | US distressed-debt investment manager. |
+| Coalition | Insurtech | 2017 | San Francisco, US | Joshua Motta | ~$800M | Private | Insurance licence (US) | coalitioninc.com | US cyber insurance and security platform. |
+| At-Bay | Insurtech | 2016 | San Francisco, US | Rotem Iram, Roman Itskovich | ~$500M | Private | Insurance licence (US) | at-bay.com | US cyber insurance provider. |
+| Corvus Insurance | Insurtech | 2017 | Boston, US | Phil Edmundson | ~$200M | Acquired by Travellers | Insurance licence (US) | corvusinsurance.com | US cyber insurance MGA. |
+| Cowbell Cyber | Insurtech | 2019 | Pleasanton, US | Jack Kudale | ~$100M | Private | Insurance licence (US) | cowbell.insure | US cyber insurance for SMEs. |
+| Vouch Insurance | Insurtech | 2016 | San Francisco, US | Sam Hodges, Travis Hedge | ~$200M | Private | Insurance licence (US) | vouch.us | US insurance for startups. |
+| Embroker | Insurtech | 2015 | San Francisco, US | Matt Miller | ~$100M | Private | Insurance brokerage (US) | embroker.com | US digital business insurance broker. |
+| Newfront | Insurance brokerage | 2017 | San Francisco, US | Spike Lipkin, Gordon Wintrob | ~$300M | Private | Insurance brokerage (US) | newfront.com | US technology-enabled insurance brokerage. |
+| AgentSync | Insurtech | 2018 | Denver, US | Niji Sabharwal | ~$100M | Private | Compliance software (US) | agentsync.io | US insurance producer licensing platform. |
 | JPMorgan Chase | Bank | 1799 | New York, US | n/a | n/a | Public: NYSE: JPM | Banking licence (US) | jpmorganchase.com | Largest bank in the United States and the world by market cap. |
 | Bank of America | Bank | 1904 | Charlotte, US | n/a | n/a | Public: NYSE: BAC | Banking licence (US) | bankofamerica.com | Major US bank with Merrill Lynch and BofA Securities. |
 | Wells Fargo | Bank | 1852 | San Francisco, US | n/a | n/a | Public: NYSE: WFC | Banking licence (US) | wellsfargo.com | Major US bank. |
@@ -1144,7 +1165,7 @@
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Republic Financial Holdings | Financial group | 1837 | Port of Spain, TT | n/a | n/a | Public: TTSE: RFHL | Banking licence (Trinidad) | republictt.com | Trinidadian financial holding company. |
 
-## WESTERN EUROPE — United Kingdom (103)
+## WESTERN EUROPE — United Kingdom (141)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Thought Machine | Core banking | 2014 | London, UK | Paul Taylor | ~$500M | n/a | n/a | thoughtmachine.com | UK cloud-native core banking. |
@@ -1189,6 +1210,44 @@
 | Divido | BNPL | 2015 | London, UK | n/a | ~$30M | n/a | n/a | divido.com | UK BNPL platform for lenders and retailers. |
 | Tymit | BNPL | 2018 | London, UK | n/a | n/a | n/a | n/a | tymit.com | UK BNPL for credit cards. |
 | Wise | Payments | 2011 | London, UK / Tallinn | Kristo Käärmann, Taavet Hinrikus | n/a | Public: LSE: WISE | Payment licence (multiple) | wise.com | Estonian-founded cross-border money transfer company. |
+| OSB Group | Bank | 1846 | Chatham, UK | n/a | n/a | Public: LSE: OSB | Banking licence (UK) | osb.co.uk | British specialist mortgage and savings bank. |
+| Paragon Bank | Bank | 1985 | Solihull, UK | n/a | n/a | Public: LSE: PAG | Banking licence (UK) | paragonbank.co.uk | British specialist lender and savings bank. |
+| Close Brothers | Bank | 1878 | London, UK | n/a | n/a | Public: LSE: CBG | Banking licence (UK) | closebrothers.com | British merchant bank and lender. |
+| Handelsbanken UK | Bank | 2002 | London, UK | n/a | n/a | Subsidiary of Handelsbanken | Banking licence (UK) | handelsbanken.co.uk | UK arm of Sweden's Handelsbanken. |
+| Al Rayan Bank | Bank | 2004 | London, UK | n/a | n/a | Subsidiary of Masraf Al Rayan | Islamic banking licence (UK) | alrayanbank.co.uk | British Islamic bank. |
+| The Bank of London | Bank | 2020 | London, UK | Anthony Watson | ~$180M | Private | Banking licence (UK) | thebankoflondon.com | British clearing and agency bank. |
+| GB Bank | Bank | 2017 | Newcastle, UK | n/a | ~$50M | Private | Banking licence (UK) | gbbank.co.uk | British property-development bank. |
+| Monument Bank | Bank | 2017 | London, UK | Mintoo Bhandari | ~$100M | Private | Banking licence (UK) | monument.co.uk | British bank for affluent clients. |
+| Recognise Bank | Bank | 2015 | London, UK | n/a | ~$50M | Private | Banking licence (UK) | recogniseprivatebank.co.uk | British SME bank. |
+| Hampden & Co | Bank | 2015 | Edinburgh, UK | n/a | ~$40M | Private | Banking licence (UK) | hampdenandco.com | British private bank. |
+| Cambridge & Counties Bank | Bank | 2012 | Leicester, UK | n/a | n/a | Private | Banking licence (UK) | ccbank.co.uk | British SME bank. |
+| Weatherbys Bank | Bank | 1743 | Wellingborough, UK | n/a | n/a | Private | Banking licence (UK) | weatherbys.co.uk | British private bank. |
+| Cynergy Bank | Bank | 2001 | London, UK | n/a | n/a | Private | Banking licence (UK) | cynergybank.co.uk | British business bank. |
+| Secure Trust Bank | Bank | 1952 | Solihull, UK | n/a | n/a | Public: LSE: STB | Banking licence (UK) | securetrustbank.com | British specialist bank. |
+| esure | Insurance | 2000 | Reigate, UK | Peter Wood | n/a | Private | Insurance licence (UK) | esure.com | British motor and home insurer. |
+| Hastings Direct | Insurance | 1997 | Bexhill, UK | n/a | n/a | Acquired by Sampo | Insurance licence (UK) | hastingsdirect.com | British digital motor insurer. |
+| Sabre Insurance | Insurance | 1982 | Dorking, UK | n/a | n/a | Public: LSE: SBRE | Insurance licence (UK) | sabre.co.uk | British motor insurer. |
+| LV= | Insurance | 1843 | Bournemouth, UK | n/a | n/a | Mutual | Insurance licence (UK) | lv.com | British mutual insurer. |
+| NFU Mutual | Insurance | 1910 | Stratford-upon-Avon, UK | n/a | n/a | Mutual | Insurance licence (UK) | nfumutual.co.uk | British rural insurer. |
+| AXA UK | Insurance | 1996 | London, UK | n/a | n/a | Subsidiary of AXA | Insurance licence (UK) | axa.co.uk | UK arm of AXA. |
+| Allianz UK | Insurance | 1905 | Guildford, UK | n/a | n/a | Subsidiary of Allianz | Insurance licence (UK) | allianz.co.uk | UK arm of Allianz. |
+| Zurich UK | Insurance | 1872 | Swindon, UK | n/a | n/a | Subsidiary of Zurich | Insurance licence (UK) | zurich.co.uk | UK arm of Zurich. |
+| Ageas UK | Insurance | 1990 | Eastleigh, UK | n/a | n/a | Subsidiary of Ageas | Insurance licence (UK) | ageas.co.uk | UK arm of Ageas. |
+| Markerstudy | Insurance | 2001 | Kent, UK | n/a | n/a | Private | Insurance licence (UK) | markerstudy.com | British motor insurance group. |
+| The AA | Roadside & insurance | 1905 | Basingstoke, UK | n/a | n/a | Private | Insurance licence (UK) | theaa.com | British roadside assistance and insurance group. |
+| RAC | Roadside & insurance | 1897 | Walsall, UK | n/a | n/a | Private | Insurance licence (UK) | rac.co.uk | British motoring and insurance group. |
+| BGL Group | Insurance | 1992 | Peterborough, UK | n/a | n/a | Private | Insurance brokerage (UK) | bglgroup.co.uk | British insurance and comparison group. |
+| Compare the Market | Comparison | 2004 | Peterborough, UK | n/a | n/a | Subsidiary of BGL | Comparison services (UK) | comparethemarket.com | British insurance and financial comparison site. |
+| Go.Compare | Comparison | 2006 | Newport, UK | n/a | n/a | Subsidiary of Future | Comparison services (UK) | gocompare.com | British comparison site. |
+| MoneySuperMarket | Comparison | 1993 | Ewloe, UK | Simon Nixon | n/a | Public: LSE: MONY | Comparison services (UK) | moneysupermarket.com | British financial comparison group. |
+| Confused.com | Comparison | 2002 | Cardiff, UK | n/a | n/a | Subsidiary of Admiral | Comparison services (UK) | confused.com | British insurance comparison site. |
+| Uswitch | Comparison | 2000 | London, UK | n/a | n/a | Private | Comparison services (UK) | uswitch.com | British home-services comparison site. |
+| Cleo | Fintech | 2016 | London, UK | Barney Hussey-Yeo | ~$100M | Private | Financial software (UK) | cleo.com | British AI money assistant app. |
+| Yolt | Fintech | 2016 | London, UK | n/a | n/a | Private | Open banking (UK) | yolt.com | British money management app. |
+| Snoop | Fintech | 2016 | London, UK | Jayne-Anne Gadhia | ~$20M | Private | Open banking (UK) | snoop.app | British money-saving app. |
+| HyperJar | Fintech | 2016 | London, UK | Mathew Megginson | ~$30M | Private | Payment licence (UK) | hyperjar.com | British money app for shared spending. |
+| GoHenry | Fintech | 2012 | Fleet, UK | Louise Hill, Dean Brauer | ~$100M | Acquired by Acorns | Payment licence (UK, US) | gohenry.com | British money app for children, now owned by Acorns. |
+| Nimbl | Fintech | 2013 | London, UK | n/a | n/a | Subsidiary of Crown Agents Bank | Payment services (UK) | nimbl.com | British prepaid card for children. |
 | Wahed | Robo-advisor | 2015 | London, UK / Kuala Lumpur | n/a | ~$100M | Private | Investment adviser (multiple) | wahed.com | Islamic robo-advisor operating in Malaysia and globally. |
 | Barclays | Bank | 1690 | London, UK | n/a | n/a | Public: LSE: BARC | Banking licence (UK) | barclays.co.uk | Major British universal bank and investment bank. |
 | HSBC | Bank | 1865 | London, UK | n/a | n/a | Public: LSE: HSBA | Banking licence (UK) | hsbc.com | Global British bank. |
@@ -1251,7 +1310,7 @@
 | London Stock Exchange | Exchange | 1801 | London, UK | n/a | n/a | Subsidiary of LSEG | Exchange authorisation (UK) | londonstockexchange.com | British stock exchange. |
 | London Metal Exchange | Exchange | 1877 | London, UK | n/a | n/a | Subsidiary of HKEX | Exchange authorisation (UK) | lme.com | World's largest metals exchange. |
 
-## WESTERN EUROPE — Germany (70)
+## WESTERN EUROPE — Germany (85)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Moss | Spend management | 2019 | Berlin, DE | n/a | ~$180M | n/a | n/a | moss.com | German corporate cards and spend management. |
@@ -1289,6 +1348,21 @@
 | Bitcoin.de | Crypto exchange | 2010 | Hamburg, DE | n/a | n/a | n/a | n/a | bitcoin.de | German cryptocurrency exchange. |
 | Nuri | Crypto banking | 2013 | Berlin, DE | n/a | ~$50M | n/a | n/a | nuri.com | German crypto banking, formerly Bitwala. |
 | BSDEX | Crypto exchange | 2019 | Stuttgart, DE | n/a | n/a | division of Börse Stuttgart | n/a | bsdex.de | German crypto exchange by Börse Stuttgart. |
+| Sparkasse KölnBonn | Bank | 1826 | Cologne, DE | n/a | n/a | Public-law | Banking licence (Germany) | sparkasse-koelnbonn.de | Largest German savings bank. |
+| Berliner Sparkasse | Bank | 1830 | Berlin, DE | n/a | n/a | Public-law | Banking licence (Germany) | berliner-sparkasse.de | Berlin savings bank. |
+| Hamburger Sparkasse | Bank | 1827 | Hamburg, DE | n/a | n/a | Public-law | Banking licence (Germany) | haspa.de | Hamburg savings bank. |
+| Frankfurter Sparkasse | Bank | 1822 | Frankfurt, DE | n/a | n/a | Public-law | Banking licence (Germany) | frankfurter-sparkasse.de | Frankfurt savings bank. |
+| Deutsche Apotheker- und Ärztebank | Bank | 1902 | Düsseldorf, DE | n/a | n/a | Cooperative | Banking licence (Germany) | apo-bank.de | German bank for health professionals. |
+| Sparda-Bank | Bank | 1899 | Frankfurt, DE | n/a | n/a | Cooperative | Banking licence (Germany) | sparda.de | German cooperative bank group. |
+| Wüstenrot & Württembergische | Financial group | 1999 | Stuttgart, DE | n/a | n/a | Public: XETRA: WUW | Banking and insurance (Germany) | wuestenrot.de | German building society and insurer. |
+| Gothaer | Insurance | 1820 | Cologne, DE | n/a | n/a | Mutual | Insurance licence (Germany) | gothaer.de | German mutual insurer. |
+| HUK-Coburg | Insurance | 1933 | Coburg, DE | n/a | n/a | Mutual | Insurance licence (Germany) | huk.de | German motor insurer. |
+| Nürnberger | Insurance | 1884 | Nuremberg, DE | n/a | n/a | Private | Insurance licence (Germany) | nuernberger.de | German insurer. |
+| Barmenia | Insurance | 1904 | Wuppertal, DE | n/a | n/a | Mutual | Insurance licence (Germany) | barmenia.de | German insurer. |
+| Flatex | Brokerage | 2006 | Frankfurt, DE | n/a | n/a | Public: XETRA: FTK | Brokerage licence (Germany) | flatex.com | German online broker. |
+| Tradegate | Exchange | 2001 | Berlin, DE | n/a | n/a | Private | Exchange authorisation (Germany) | tradegate.de | German retail trading venue. |
+| Elinvar | Wealthtech | 2015 | Berlin, DE | Chris Bartz, Mario Kellermann | ~$80M | Private | Wealth software (Germany) | elinvar.com | German wealth management technology platform. |
+| Finleap | Fintech | 2014 | Berlin, DE | n/a | ~$100M | Private | Fintech services (Germany) | finleap.com | German fintech company builder. |
 | KfW | Development bank | 1948 | Frankfurt, DE | n/a | n/a | State-owned | Development bank (Germany) | kfw.de | German state development bank. |
 | Landesbank Baden-Württemberg | Bank | 1999 | Stuttgart, DE | n/a | n/a | State-linked | Banking licence (Germany) | lbbw.de | German Landesbank. |
 | BayernLB | Bank | 1972 | Munich, DE | n/a | n/a | State-linked | Banking licence (Germany) | bayernlb.de | Bavarian state bank. |
@@ -1391,6 +1465,88 @@
 | Euronext | Exchange | 2000 | Paris, FR | n/a | n/a | Public: ENXTPA: ENX | Exchange authorisation (multiple) | euronext.com | Pan-European exchange operator. |
 | Banque de France | Central bank | 1800 | Paris, FR | n/a | n/a | Central bank | Central bank (France) | banque-france.fr | Central bank of France. |
 
+## WESTERN EUROPE — Italy (37)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Satispay | Mobile payments | 2013 | Milan, IT | Alberto Dalmasso, Dario Brignone | ~$20M | n/a | n/a | satispay.it | Italian mobile payment app for P2P and merchants. |
+| Nexi | Payment processor | 1939 | Milan, IT | n/a | n/a | Public: BIT: NEXI | n/a | nexi.com | Italian payment processing and banking tech. |
+| SIA | Payment processor | 1977 | Milan, IT | n/a | n/a | Acquired by Nexi (2021) | n/a | sia.it | Italian payment infrastructure, now part of Nexi. |
+| Moneyfarm | Robo-advisor | 2011 | Milan, IT | Giovanni Daprà, Paolo Galvani | ~$300M | n/a | n/a | moneyfarm.com | Italian digital wealth manager. |
+| Scalapay | BNPL | 2019 | Milan, IT | Simone Mancini, Massimiliano Spagnoli | ~$740M | n/a | n/a | scalapay.com | Italian buy now pay later for European retailers. |
+| Soisy | BNPL | 2016 | Milan, IT | n/a | ~$30M | n/a | n/a | soisy.com | Italian BNPL for ecommerce. |
+| Banca Popolare di Sondrio | Bank | 1871 | Sondrio, IT | n/a | n/a | Public: BIT: BPSO | Banking licence (Italy) | popso.it | Italian bank. |
+| Credito Emiliano | Bank | 1910 | Reggio Emilia, IT | n/a | n/a | Public: BIT: CE | Banking licence (Italy) | credem.it | Italian bank. |
+| Banca Ifis | Bank | 1983 | Mestre, IT | n/a | n/a | Public: BIT: IF | Banking licence (Italy) | bancaifis.it | Italian bank for trade receivables. |
+| Banca Progetto | Bank | 2015 | Milan, IT | n/a | n/a | Private | Banking licence (Italy) | bancaprogetto.it | Italian bank for SMEs. |
+| Iccrea Banca | Bank | 1963 | Rome, IT | n/a | n/a | Cooperative | Banking licence (Italy) | iccreabanca.it | Italian cooperative banking group. |
+| Cassa Depositi e Prestiti | Development bank | 1850 | Rome, IT | n/a | n/a | State-owned | Development bank (Italy) | cdp.it | Italian national promotion and development bank. |
+| Banca Etica | Bank | 1998 | Padua, IT | n/a | n/a | Cooperative | Banking licence (Italy) | bancaetica.it | Italian ethical bank. |
+| Banca Widiba | Bank | 2014 | Milan, IT | n/a | n/a | Subsidiary of MPS | Banking licence (Italy) | widiba.it | Italian digital bank. |
+| CheBanca! | Bank | 2008 | Milan, IT | n/a | n/a | Subsidiary of Mediobanca | Banking licence (Italy) | chebanca.it | Italian digital bank. |
+| Fabrick | Open banking | 2018 | Milan, IT | n/a | ~$40M | Private | Open banking (Italy) | fabrick.com | Italian open banking platform. |
+| Hype | Neobank | 2015 | Milan, IT | n/a | n/a | Subsidiary of Banca Sella | Payment licence (Italy) | hype.it | Italian digital banking app. |
+| BFF Banking Group | Bank | 1985 | Milan, IT | n/a | n/a | Public: BIT: BFF | Banking licence (Italy) | bff.com | Italian bank for public-sector receivables. |
+| Intesa Sanpaolo | Bank | 2007 | Turin, IT | n/a | n/a | Public: BIT: ISP | Banking licence (Italy) | intesasanpaolo.com | Largest bank in Italy. |
+| UniCredit | Bank | 1998 | Milan, IT | n/a | n/a | Public: BIT: UCG | Banking licence (Italy) | unicreditgroup.eu | Major Italian bank with CEE operations. |
+| Banco BPM | Bank | 2017 | Milan, IT | n/a | n/a | Public: BIT: BAMI | Banking licence (Italy) | bancobpm.it | Italian bank. |
+| BPER Banca | Bank | 1867 | Modena, IT | n/a | n/a | Public: BIT: BPE | Banking licence (Italy) | bper.it | Italian bank. |
+| Banca Monte dei Paschi di Siena | Bank | 1472 | Siena, IT | n/a | n/a | Public: BIT: BMPS | Banking licence (Italy) | mps.it | World's oldest surviving bank. |
+| Mediobanca | Investment bank | 1946 | Milan, IT | n/a | n/a | Public: BIT: MB | Banking licence (Italy) | mediobanca.com | Italian investment bank. |
+| FinecoBank | Bank | 1999 | Milan, IT | n/a | n/a | Public: BIT: FBK | Banking licence (Italy) | fineco.it | Italian direct bank and online broker. |
+| Banca Mediolanum | Bank | 1997 | Basiglio, IT | n/a | n/a | Public: BIT: BMED | Banking licence (Italy) | bancamediolanum.it | Italian bank and wealth manager. |
+| Banca Generali | Bank | 1998 | Trieste, IT | n/a | n/a | Public: BIT: BGN | Banking licence (Italy) | bancagenerali.it | Italian private banking and wealth manager. |
+| Illimity Bank | Neobank | 2018 | Milan, IT | Corrado Passera | n/a | Public: BIT: ILTY | Banking licence (Italy) | illimity.com | Italian digital bank for SMEs. |
+| Banca Sella | Bank | 1886 | Biella, IT | n/a | n/a | Private | Banking licence (Italy) | sella.it | Italian bank and fintech pioneer. |
+| Generali | Insurance | 1831 | Trieste, IT | n/a | n/a | Public: BIT: G | Insurance licence (multiple) | generali.com | Largest Italian insurer. |
+| UnipolSai | Insurance | 2014 | Bologna, IT | n/a | n/a | Subsidiary of Unipol | Insurance licence (Italy) | unipolsai.it | Largest Italian non-life insurer. |
+| Poste Vita | Insurance | 1999 | Rome, IT | n/a | n/a | Subsidiary of Poste Italiane | Insurance licence (Italy) | postevita.it | Italian life insurer of Poste Italiane. |
+| Reale Mutua | Insurance | 1828 | Turin, IT | n/a | n/a | Mutual | Insurance licence (Italy) | realemutua.it | Italian mutual insurer. |
+| Cattolica Assicurazioni | Insurance | 1896 | Verona, IT | n/a | n/a | Subsidiary of Generali | Insurance licence (Italy) | cattolica.it | Italian insurer. |
+| Azimut | Asset management | 1989 | Milan, IT | Pietro Giuliani | n/a | Public: BIT: AZM | Asset management (Italy) | azimut.it | Italian asset manager. |
+| Borsa Italiana | Exchange | 1808 | Milan, IT | n/a | n/a | Subsidiary of Euronext | Exchange authorisation (Italy) | borsaitaliana.it | Italian stock exchange. |
+| Banca d'Italia | Central bank | 1893 | Rome, IT | n/a | n/a | Central bank | Central bank (Italy) | bancaditalia.it | Central bank of Italy. |
+
+## WESTERN EUROPE — Netherlands (37)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Mambu | Core banking | 2011 | Amsterdam, NL | Frederik Pfisterer | ~$300M | n/a | n/a | mambu.com | German cloud banking platform. |
+| Adyen | Payment platform | 2006 | Amsterdam, NL | Pieter van der Does, Arnout Schuijff | n/a | Public: ENXTAM: ADYEN | n/a | adyen.com | Enterprise payments platform across online and in-store channels. |
+| Mollie | Payment gateway | 2004 | Amsterdam, NL | Adriaan Mol | ~$820M | n/a | n/a | mollie.com | European payment gateway for online businesses. |
+| MultiSafepay | Payment gateway | 1999 | Amsterdam, NL | n/a | n/a | n/a | n/a | multisafepay.com | Dutch payment gateway for ecommerce. |
+| Buckaroo | Payment gateway | 2004 | Utrecht, NL | n/a | n/a | n/a | n/a | buckaroo.nl | Dutch payment gateway and orchestration. |
+| Bunq | Neobank | 2012 | Amsterdam, NL | Ali Niknam | ~$100M | n/a | n/a | bunq.com | Dutch mobile bank with IBAN accounts. |
+| NIBC | Banking | 1945 | The Hague, NL | n/a | n/a | n/a | n/a | nibc.com | Dutch bank with fintech partnerships. |
+| Knab | Neobank | 2012 | Utrecht, NL | n/a | n/a | Acquired by BNP Paribas (2024) | n/a | knab.nl | Dutch online bank, owned by BNP Paribas. |
+| Pay. | Payment gateway | 2005 | Amsterdam, NL | n/a | n/a | n/a | n/a | pay.nl | Dutch payment gateway for ecommerce. |
+| BUX | Investing | 2014 | Amsterdam, NL / Budapest | Egbert Pronk | ~$100M | Private | Brokerage licence (multiple) | bux.com | Dutch-Hungarian commission-free investing app. |
+| De Nederlandsche Bank | Central bank | 1814 | Amsterdam, NL | n/a | n/a | Central bank | Central bank (Netherlands) | dnb.nl | Central bank of the Netherlands. |
+| SNS Bank | Bank | 1817 | Utrecht, NL | n/a | n/a | Subsidiary of de Volksbank | Banking licence (Netherlands) | snsbank.nl | Dutch retail bank. |
+| ASN Bank | Bank | 1960 | The Hague, NL | n/a | n/a | Subsidiary of de Volksbank | Banking licence (Netherlands) | asnbank.nl | Dutch sustainable bank. |
+| RegioBank | Bank | 1975 | Utrecht, NL | n/a | n/a | Subsidiary of de Volksbank | Banking licence (Netherlands) | regiobank.nl | Dutch community bank. |
+| Brand New Day | Pension & investing | 2005 | Amsterdam, NL | Kalo Bagijn, Thierry Schaap | n/a | Private | Pension provider (Netherlands) | brandnewday.nl | Dutch pension and investment provider. |
+| Peaks | Wealthtech | 2017 | Amsterdam, NL | n/a | ~$20M | Private | Investment adviser (Netherlands) | peaks.nl | Dutch micro-investing app. |
+| Amdax | Crypto services | 2019 | Amsterdam, NL | n/a | n/a | Private | Crypto licence (Netherlands) | amdax.com | Dutch crypto asset manager. |
+| Knaken | Crypto exchange | 2017 | Rotterdam, NL | n/a | n/a | Private | Crypto licence (Netherlands) | knaken.nl | Dutch cryptocurrency exchange. |
+| Flow Traders | Trading firm | 2004 | Amsterdam, NL | n/a | n/a | Public: ENXTAM: FLOW | Trading firm (Netherlands) | flowtraders.com | Dutch ETF market maker. |
+| Optiver | Trading firm | 1986 | Amsterdam, NL | n/a | n/a | Private | Trading firm (Netherlands) | optiver.com | Dutch proprietary trading firm and market maker. |
+| IMC | Trading firm | 1989 | Amsterdam, NL | n/a | n/a | Private | Trading firm (Netherlands) | imc.com | Dutch market-making firm. |
+| Payvision | Payments | 2002 | Amsterdam, NL | n/a | n/a | Private | Payment licence (Netherlands) | payvision.com | Dutch payment service provider. |
+| CCV Group | Payments | 1958 | Arnhem, NL | n/a | n/a | Private | Payment licence (Netherlands) | ccv.eu | Dutch payment and card-processing group. |
+| Silverflow | Payments | 2019 | Amsterdam, NL / London | Robert Kraal, Anne Willem de Vries | ~$20M | Private | Payment services (UK, Netherlands) | silverflow.com | Dutch-British card processing platform. |
+| ING Group | Bank | 1991 | Amsterdam, NL | n/a | n/a | Public: ENXTAM: INGA | Banking licence (Netherlands) | ing.com | Largest Dutch bank. |
+| ABN AMRO | Bank | 1824 | Amsterdam, NL | n/a | n/a | Public: ENXTAM: ABN | Banking licence (Netherlands) | abnamro.com | Major Dutch bank. |
+| Rabobank | Bank | 1898 | Utrecht, NL | n/a | n/a | Cooperative | Banking licence (Netherlands) | rabobank.com | Dutch cooperative bank and food/agri lender. |
+| de Volksbank | Bank | 2017 | Utrecht, NL | n/a | n/a | State-owned | Banking licence (Netherlands) | volksbank.nl | Dutch state-owned bank behind SNS and ASN. |
+| Triodos Bank | Bank | 1980 | Zeist, NL | n/a | n/a | Private | Banking licence (Netherlands) | triodos.com | Dutch sustainable bank. |
+| Van Lanschot Kempen | Private bank | 1737 | 's-Hertogenbosch, NL | n/a | n/a | Public: ENXTAM: VLK | Banking licence (Netherlands) | vanlanschotkempen.com | Oldest independent Dutch bank. |
+| Achmea | Insurance | 1995 | Zeist, NL | n/a | n/a | Cooperative | Insurance licence (Netherlands) | achmea.com | Largest Dutch insurer. |
+| ASR Nederland | Insurance | 2008 | Utrecht, NL | n/a | n/a | Public: ENXTAM: ASRNL | Insurance licence (Netherlands) | asrnl.com | Dutch insurer. |
+| NN Group | Insurance | 2014 | The Hague, NL | n/a | n/a | Public: ENXTAM: NN | Insurance licence (Netherlands) | nn-group.com | Dutch insurer, spun off from ING. |
+| Bitvavo | Crypto exchange | 2018 | Amsterdam, NL | Mark Nuvelstijn, Jelle Bijkersma | n/a | Private | Crypto licence (Netherlands) | bitvavo.com | Largest Dutch cryptocurrency exchange. |
+| Blockrise | Crypto platform | 2018 | Amsterdam, NL | n/a | n/a | Private | Crypto licence (Netherlands) | blockrise.com | Dutch crypto asset manager. |
+| iDEAL | Payments network | 2005 | Amsterdam, NL | n/a | n/a | Bank consortium | Payment network (Netherlands) | ideal.nl | Dutch online banking payment method. |
+| Payconiq | Payments network | 2015 | Amsterdam, NL / Brussels | n/a | n/a | Bank consortium | Payment network (Benelux) | payconiq.com | Benelux mobile payment platform. |
+
 ## WESTERN EUROPE — Switzerland (31)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1426,64 +1582,40 @@
 | True Wealth | Wealthtech | 2013 | Zurich, CH | n/a | ~$20M | Private | Investment adviser (Switzerland) | truewealth.ch | Swiss digital wealth manager. |
 | Selma Finance | Wealthtech | 2017 | Zurich, CH | n/a | ~$20M | Private | Investment adviser (Switzerland) | selma.io | Swiss robo-advisor. |
 
-## WESTERN EUROPE — Italy (25)
+## WESTERN EUROPE — Spain (29)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Satispay | Mobile payments | 2013 | Milan, IT | Alberto Dalmasso, Dario Brignone | ~$20M | n/a | n/a | satispay.it | Italian mobile payment app for P2P and merchants. |
-| Nexi | Payment processor | 1939 | Milan, IT | n/a | n/a | Public: BIT: NEXI | n/a | nexi.com | Italian payment processing and banking tech. |
-| SIA | Payment processor | 1977 | Milan, IT | n/a | n/a | Acquired by Nexi (2021) | n/a | sia.it | Italian payment infrastructure, now part of Nexi. |
-| Moneyfarm | Robo-advisor | 2011 | Milan, IT | Giovanni Daprà, Paolo Galvani | ~$300M | n/a | n/a | moneyfarm.com | Italian digital wealth manager. |
-| Scalapay | BNPL | 2019 | Milan, IT | Simone Mancini, Massimiliano Spagnoli | ~$740M | n/a | n/a | scalapay.com | Italian buy now pay later for European retailers. |
-| Soisy | BNPL | 2016 | Milan, IT | n/a | ~$30M | n/a | n/a | soisy.com | Italian BNPL for ecommerce. |
-| Intesa Sanpaolo | Bank | 2007 | Turin, IT | n/a | n/a | Public: BIT: ISP | Banking licence (Italy) | intesasanpaolo.com | Largest bank in Italy. |
-| UniCredit | Bank | 1998 | Milan, IT | n/a | n/a | Public: BIT: UCG | Banking licence (Italy) | unicreditgroup.eu | Major Italian bank with CEE operations. |
-| Banco BPM | Bank | 2017 | Milan, IT | n/a | n/a | Public: BIT: BAMI | Banking licence (Italy) | bancobpm.it | Italian bank. |
-| BPER Banca | Bank | 1867 | Modena, IT | n/a | n/a | Public: BIT: BPE | Banking licence (Italy) | bper.it | Italian bank. |
-| Banca Monte dei Paschi di Siena | Bank | 1472 | Siena, IT | n/a | n/a | Public: BIT: BMPS | Banking licence (Italy) | mps.it | World's oldest surviving bank. |
-| Mediobanca | Investment bank | 1946 | Milan, IT | n/a | n/a | Public: BIT: MB | Banking licence (Italy) | mediobanca.com | Italian investment bank. |
-| FinecoBank | Bank | 1999 | Milan, IT | n/a | n/a | Public: BIT: FBK | Banking licence (Italy) | fineco.it | Italian direct bank and online broker. |
-| Banca Mediolanum | Bank | 1997 | Basiglio, IT | n/a | n/a | Public: BIT: BMED | Banking licence (Italy) | bancamediolanum.it | Italian bank and wealth manager. |
-| Banca Generali | Bank | 1998 | Trieste, IT | n/a | n/a | Public: BIT: BGN | Banking licence (Italy) | bancagenerali.it | Italian private banking and wealth manager. |
-| Illimity Bank | Neobank | 2018 | Milan, IT | Corrado Passera | n/a | Public: BIT: ILTY | Banking licence (Italy) | illimity.com | Italian digital bank for SMEs. |
-| Banca Sella | Bank | 1886 | Biella, IT | n/a | n/a | Private | Banking licence (Italy) | sella.it | Italian bank and fintech pioneer. |
-| Generali | Insurance | 1831 | Trieste, IT | n/a | n/a | Public: BIT: G | Insurance licence (multiple) | generali.com | Largest Italian insurer. |
-| UnipolSai | Insurance | 2014 | Bologna, IT | n/a | n/a | Subsidiary of Unipol | Insurance licence (Italy) | unipolsai.it | Largest Italian non-life insurer. |
-| Poste Vita | Insurance | 1999 | Rome, IT | n/a | n/a | Subsidiary of Poste Italiane | Insurance licence (Italy) | postevita.it | Italian life insurer of Poste Italiane. |
-| Reale Mutua | Insurance | 1828 | Turin, IT | n/a | n/a | Mutual | Insurance licence (Italy) | realemutua.it | Italian mutual insurer. |
-| Cattolica Assicurazioni | Insurance | 1896 | Verona, IT | n/a | n/a | Subsidiary of Generali | Insurance licence (Italy) | cattolica.it | Italian insurer. |
-| Azimut | Asset management | 1989 | Milan, IT | Pietro Giuliani | n/a | Public: BIT: AZM | Asset management (Italy) | azimut.it | Italian asset manager. |
-| Borsa Italiana | Exchange | 1808 | Milan, IT | n/a | n/a | Subsidiary of Euronext | Exchange authorisation (Italy) | borsaitaliana.it | Italian stock exchange. |
-| Banca d'Italia | Central bank | 1893 | Rome, IT | n/a | n/a | Central bank | Central bank (Italy) | bancaditalia.it | Central bank of Italy. |
+| Openbank | Bank | 1995 | Madrid, ES | n/a | n/a | Subsidiary of Santander | Banking licence (Spain) | openbank.es | Spanish digital bank of Santander. |
+| EVO Banco | Bank | 2010 | Madrid, ES | n/a | n/a | Subsidiary of Bankinter | Banking licence (Spain) | evobanco.com | Spanish digital bank. |
+| WiZink | Bank | 2015 | Madrid, ES | n/a | n/a | Private | Banking licence (Spain, Portugal) | wizink.es | Iberian consumer credit bank. |
+| MyInvestor | Neobank | 2017 | Madrid, ES | n/a | ~$30M | Private | Banking licence (Spain) | myinvestor.es | Spanish digital bank and investing platform. |
+| Finizens | Robo-advisor | 2015 | Barcelona, ES | n/a | ~$20M | Private | Investment adviser (Spain) | finizens.com | Spanish robo-advisor. |
+| InbestMe | Robo-advisor | 2010 | Barcelona, ES | n/a | ~$10M | Private | Investment adviser (Spain) | inbestme.com | Spanish robo-advisor. |
+| Rebellion Pay | Neobank | 2016 | Madrid, ES | n/a | ~$20M | Private | Payment licence (Spain) | rebellionpay.com | Spanish digital banking app. |
+| Pecunpay | Payments | 2013 | Valencia, ES | n/a | n/a | Private | Payment licence (Spain) | pecunpay.com | Spanish payment and card platform. |
+| Bit2Me | Crypto exchange | 2014 | Madrid, ES | Leif Ferreira | ~$30M | Private | Crypto licence (Spain) | bit2me.com | Largest Spanish cryptocurrency exchange. |
+| Criptan | Crypto exchange | 2014 | Valencia, ES | n/a | ~$10M | Private | Crypto licence (Spain) | criptan.com | Spanish crypto exchange. |
+| Aplazame | BNPL | 2014 | Madrid, ES | n/a | ~$30M | Acquired by Klarna | Lending licence (Spain) | aplazame.com | Spanish buy now pay later platform. |
+| SeQura | BNPL | 2014 | Barcelona, ES | David Bäckström | ~$70M | Private | Lending licence (Spain) | sequra.com | Spanish buy now pay later platform. |
+| Moneytrans | Remittance | 1996 | Madrid, ES | n/a | n/a | Private | Money transmitter (Spain) | moneytrans.eu | Spanish remittance and payment network. |
+| Ibercaja | Bank | 1876 | Zaragoza, ES | n/a | n/a | Private | Banking licence (Spain) | ibercaja.es | Spanish savings bank. |
+| Cajamar | Bank | 1966 | Almería, ES | n/a | n/a | Cooperative | Banking licence (Spain) | cajamar.es | Spanish rural cooperative bank. |
+| Banco Santander | Bank | 1857 | Madrid, ES | n/a | n/a | Public: BME: SAN | Banking licence (Spain) | santander.com | Largest bank in the eurozone by market cap. |
+| BBVA | Bank | 1857 | Bilbao, ES | n/a | n/a | Public: BME: BBVA | Banking licence (Spain) | bbva.com | Major Spanish bank. |
+| CaixaBank | Bank | 2011 | Valencia, ES | n/a | n/a | Public: BME: CABK | Banking licence (Spain) | caixabank.com | Largest retail bank in Spain. |
+| Bankinter | Bank | 1965 | Madrid, ES | n/a | n/a | Public: BME: BKT | Banking licence (Spain) | bankinter.com | Spanish bank. |
+| Banco Sabadell | Bank | 1881 | Sabadell, ES | n/a | n/a | Public: BME: SAB | Banking licence (Spain) | bancsabadell.com | Spanish bank. |
+| Unicaja Banco | Bank | 2011 | Málaga, ES | n/a | n/a | Public: BME: UNI | Banking licence (Spain) | unicajabanco.es | Spanish bank. |
+| Abanca | Bank | 2011 | A Coruña, ES | n/a | n/a | Private | Banking licence (Spain) | abanca.com | Spanish bank. |
+| Kutxabank | Bank | 2011 | Bilbao, ES | n/a | n/a | Private | Banking licence (Spain) | kutxabank.com | Spanish Basque bank. |
+| Mapfre | Insurance | 1933 | Madrid, ES | n/a | n/a | Public: BME: MAP | Insurance licence (multiple) | mapfre.com | Largest Spanish insurer. |
+| Mutua Madrileña | Insurance | 1930 | Madrid, ES | n/a | n/a | Mutual | Insurance licence (Spain) | mutua.es | Spanish mutual insurer. |
+| VidaCaixa | Insurance | 1997 | Barcelona, ES | n/a | n/a | Subsidiary of CaixaBank | Insurance licence (Spain) | vidacaixa.es | Spanish life insurer and pension manager. |
+| Línea Directa | Insurance | 1994 | Tres Cantos, ES | n/a | n/a | Public: BME: LDA | Insurance licence (Spain) | lineadirecta.com | Spanish direct insurer. |
+| BME | Exchange | 1831 | Madrid, ES | n/a | n/a | Subsidiary of SIX | Exchange authorisation (Spain) | bme.es | Spanish stock exchange operator. |
+| Banco de España | Central bank | 1782 | Madrid, ES | n/a | n/a | Central bank | Central bank (Spain) | bde.es | Central bank of Spain. |
 
-## WESTERN EUROPE — Netherlands (24)
-| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Mambu | Core banking | 2011 | Amsterdam, NL | Frederik Pfisterer | ~$300M | n/a | n/a | mambu.com | German cloud banking platform. |
-| Adyen | Payment platform | 2006 | Amsterdam, NL | Pieter van der Does, Arnout Schuijff | n/a | Public: ENXTAM: ADYEN | n/a | adyen.com | Enterprise payments platform across online and in-store channels. |
-| Mollie | Payment gateway | 2004 | Amsterdam, NL | Adriaan Mol | ~$820M | n/a | n/a | mollie.com | European payment gateway for online businesses. |
-| MultiSafepay | Payment gateway | 1999 | Amsterdam, NL | n/a | n/a | n/a | n/a | multisafepay.com | Dutch payment gateway for ecommerce. |
-| Buckaroo | Payment gateway | 2004 | Utrecht, NL | n/a | n/a | n/a | n/a | buckaroo.nl | Dutch payment gateway and orchestration. |
-| Bunq | Neobank | 2012 | Amsterdam, NL | Ali Niknam | ~$100M | n/a | n/a | bunq.com | Dutch mobile bank with IBAN accounts. |
-| NIBC | Banking | 1945 | The Hague, NL | n/a | n/a | n/a | n/a | nibc.com | Dutch bank with fintech partnerships. |
-| Knab | Neobank | 2012 | Utrecht, NL | n/a | n/a | Acquired by BNP Paribas (2024) | n/a | knab.nl | Dutch online bank, owned by BNP Paribas. |
-| Pay. | Payment gateway | 2005 | Amsterdam, NL | n/a | n/a | n/a | n/a | pay.nl | Dutch payment gateway for ecommerce. |
-| BUX | Investing | 2014 | Amsterdam, NL / Budapest | Egbert Pronk | ~$100M | Private | Brokerage licence (multiple) | bux.com | Dutch-Hungarian commission-free investing app. |
-| Silverflow | Payments | 2019 | Amsterdam, NL / London | Robert Kraal, Anne Willem de Vries | ~$20M | Private | Payment services (UK, Netherlands) | silverflow.com | Dutch-British card processing platform. |
-| ING Group | Bank | 1991 | Amsterdam, NL | n/a | n/a | Public: ENXTAM: INGA | Banking licence (Netherlands) | ing.com | Largest Dutch bank. |
-| ABN AMRO | Bank | 1824 | Amsterdam, NL | n/a | n/a | Public: ENXTAM: ABN | Banking licence (Netherlands) | abnamro.com | Major Dutch bank. |
-| Rabobank | Bank | 1898 | Utrecht, NL | n/a | n/a | Cooperative | Banking licence (Netherlands) | rabobank.com | Dutch cooperative bank and food/agri lender. |
-| de Volksbank | Bank | 2017 | Utrecht, NL | n/a | n/a | State-owned | Banking licence (Netherlands) | volksbank.nl | Dutch state-owned bank behind SNS and ASN. |
-| Triodos Bank | Bank | 1980 | Zeist, NL | n/a | n/a | Private | Banking licence (Netherlands) | triodos.com | Dutch sustainable bank. |
-| Van Lanschot Kempen | Private bank | 1737 | 's-Hertogenbosch, NL | n/a | n/a | Public: ENXTAM: VLK | Banking licence (Netherlands) | vanlanschotkempen.com | Oldest independent Dutch bank. |
-| Achmea | Insurance | 1995 | Zeist, NL | n/a | n/a | Cooperative | Insurance licence (Netherlands) | achmea.com | Largest Dutch insurer. |
-| ASR Nederland | Insurance | 2008 | Utrecht, NL | n/a | n/a | Public: ENXTAM: ASRNL | Insurance licence (Netherlands) | asrnl.com | Dutch insurer. |
-| NN Group | Insurance | 2014 | The Hague, NL | n/a | n/a | Public: ENXTAM: NN | Insurance licence (Netherlands) | nn-group.com | Dutch insurer, spun off from ING. |
-| Bitvavo | Crypto exchange | 2018 | Amsterdam, NL | Mark Nuvelstijn, Jelle Bijkersma | n/a | Private | Crypto licence (Netherlands) | bitvavo.com | Largest Dutch cryptocurrency exchange. |
-| Blockrise | Crypto platform | 2018 | Amsterdam, NL | n/a | n/a | Private | Crypto licence (Netherlands) | blockrise.com | Dutch crypto asset manager. |
-| iDEAL | Payments network | 2005 | Amsterdam, NL | n/a | n/a | Bank consortium | Payment network (Netherlands) | ideal.nl | Dutch online banking payment method. |
-| Payconiq | Payments network | 2015 | Amsterdam, NL / Brussels | n/a | n/a | Bank consortium | Payment network (Benelux) | payconiq.com | Benelux mobile payment platform. |
-
-## WESTERN EUROPE — Ireland (17)
+## WESTERN EUROPE — Ireland (26)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Experian | Credit bureau | 1996 | Dublin, IE | n/a | n/a | Public: LSE: EXPN | n/a | experian.com | Irish-British credit bureau and analytics. |
@@ -1492,6 +1624,15 @@
 | Fexco | Payments | 1981 | Killorglin, IE | n/a | n/a | n/a | n/a | fexco.com | Irish payments and foreign exchange. |
 | Fire Financial Services | Payments | 2010 | Dublin, IE | n/a | ~$50M | n/a | n/a | fire.financial | Irish payments and banking platform. |
 | Prepaid Financial Services | Payments | 2004 | Dublin, IE | n/a | n/a | n/a | n/a | prepaidfinancialservices.com | Irish prepaid card programs. |
+| Davy | Wealth management | 1926 | Dublin, IE | n/a | n/a | Private | Wealth management (Ireland) | davy.ie | Irish wealth management and stockbroking firm. |
+| Goodbody | Brokers & wealth | 1877 | Dublin, IE | n/a | n/a | Private | Brokerage licence (Ireland) | goodbody.ie | Irish stockbroking and wealth firm. |
+| Cantor Fitzgerald Ireland | Brokerage | 1990 | Dublin, IE | n/a | n/a | Subsidiary of Cantor | Brokerage licence (Ireland) | cantorfitzgerald.ie | Irish brokerage arm of Cantor Fitzgerald. |
+| Umba | Neobank | 2018 | Dublin, IE | n/a | ~$20M | Private | Banking licence (Ireland) | umba.com | Irish digital bank for African markets. |
+| Circit | Regtech | 2017 | Dublin, IE | n/a | ~$15M | Private | Regtech services (Ireland) | circum.com | Irish audit-confirmation platform. |
+| AQMetrics | Regtech | 2013 | Maynooth, IE | n/a | ~$20M | Private | Regtech services (Ireland) | aqmetrics.com | Irish regulatory risk and compliance platform. |
+| MyComplianceOffice | Regtech | 2007 | Dublin, IE | n/a | n/a | Private | Regtech services (Ireland) | mycomplianceoffice.com | Irish compliance management software. |
+| Fintrax Group | Payments | 1985 | Dublin, IE | n/a | n/a | Subsidiary of Planet | Payment services (Ireland) | planetpayment.com | Irish tax-free shopping and payment group. |
+| Payzone | Payments | 1989 | Dublin, IE | n/a | n/a | Private | Payment licence (Ireland) | payzone.ie | Irish payment network and terminals. |
 | Allied Irish Banks | Bank | 1966 | Dublin, IE | n/a | n/a | Public: Euronext Dublin: AIBG | Banking licence (Ireland) | aib.ie | Largest bank in Ireland. |
 | Bank of Ireland | Bank | 1783 | Dublin, IE | n/a | n/a | Public: Euronext Dublin: BIRG | Banking licence (Ireland) | bankofireland.com | Major Irish bank. |
 | Permanent TSB | Bank | 1884 | Dublin, IE | n/a | n/a | Public: Euronext Dublin: PTSB | Banking licence (Ireland) | permanenttsb.ie | Irish retail bank. |
@@ -1503,6 +1644,56 @@
 | Irish Life | Insurance | 1939 | Dublin, IE | n/a | n/a | Subsidiary of Great-West Lifeco | Insurance licence (Ireland) | irishlife.ie | Largest Irish life insurer. |
 | FBD Insurance | Insurance | 1969 | Dublin, IE | n/a | n/a | Public: Euronext Dublin: FBD | Insurance licence (Ireland) | fbd.ie | Irish general insurer. |
 | Central Bank of Ireland | Central bank | 1943 | Dublin, IE | n/a | n/a | Central bank | Central bank (Ireland) | centralbank.ie | Central bank of Ireland. |
+
+## WESTERN EUROPE — Portugal (22)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Feedzai | Fraud prevention | 2011 | Coimbra, PT | Nuno Sebastião, Paulo Marques | ~$300M | n/a | n/a | feedzai.com | Portuguese AI fraud prevention platform. |
+| Banco de Portugal | Central bank | 1846 | Lisbon, PT | n/a | n/a | Central bank | Central bank (Portugal) | bportugal.pt | Central bank of Portugal. |
+| Banco CTT | Bank | 2016 | Lisbon, PT | n/a | n/a | Subsidiary of CTT | Banking licence (Portugal) | bancocctt.pt | Portuguese postal bank. |
+| Banco Best | Bank | 2002 | Lisbon, PT | n/a | n/a | Private | Banking licence (Portugal) | bancobest.pt | Portuguese online bank and broker. |
+| Banco Invest | Bank | 2000 | Lisbon, PT | n/a | n/a | Private | Banking licence (Portugal) | bancoinvest.pt | Portuguese investment bank. |
+| Crédito Agrícola | Bank | 1911 | Lisbon, PT | n/a | n/a | Cooperative | Banking licence (Portugal) | creditoagricola.pt | Portuguese cooperative agricultural bank. |
+| Banco Atlântico Europa | Bank | 2008 | Lisbon, PT | n/a | n/a | Private | Banking licence (Portugal) | atlanticoeuropa.pt | Portuguese bank. |
+| EasyPay | Payments | 2001 | Lisbon, PT | n/a | n/a | Private | Payment licence (Portugal) | easypay.pt | Portuguese payment gateway. |
+| Coverflex | Fintech | 2019 | Braga, PT | Miguel Santo Amaro | ~$40M | Private | Financial software (Portugal) | coverflex.com | Portuguese employee benefits and compensation platform. |
+| StudentFinance | Lending | 2019 | Lisbon, PT | n/a | ~$20M | Private | Lending services (Portugal) | studentfinance.com | Portuguese income-share financing for education. |
+| Utrust | Crypto payments | 2017 | Lisbon, PT | n/a | ~$20M | Private | Crypto services (Portugal) | utrust.com | Portuguese crypto payment gateway. |
+| Ageas Portugal | Insurance | 1990 | Lisbon, PT | n/a | n/a | Subsidiary of Ageas | Insurance licence (Portugal) | ageas.pt | Portuguese insurer of Ageas. |
+| Lusitânia | Insurance | 1985 | Lisbon, PT | n/a | n/a | Private | Insurance licence (Portugal) | lusitania.pt | Portuguese insurer. |
+| Médis | Health insurance | 1991 | Lisbon, PT | n/a | n/a | Subsidiary of Ageas | Insurance licence (Portugal) | medis.pt | Portuguese health insurer. |
+| Caixa Geral de Depósitos | Bank | 1876 | Lisbon, PT | n/a | n/a | State-owned | Banking licence (Portugal) | cgd.pt | Largest Portuguese bank. |
+| Millennium BCP | Bank | 1985 | Lisbon, PT | n/a | n/a | Public: Euronext Lisbon: BCP | Banking licence (Portugal) | millenniumbcp.pt | Largest private Portuguese bank. |
+| Novo Banco | Bank | 2014 | Lisbon, PT | n/a | n/a | Private | Banking licence (Portugal) | novobanco.pt | Portuguese bank spun out of Banco Espírito Santo. |
+| Banco BPI | Bank | 1981 | Porto, PT | n/a | n/a | Subsidiary of CaixaBank | Banking licence (Portugal) | bancobpi.pt | Portuguese bank. |
+| Banco Montepio | Bank | 1844 | Lisbon, PT | n/a | n/a | Mutual | Banking licence (Portugal) | bancomontepio.pt | Portuguese mutual bank. |
+| Fidelidade | Insurance | 1808 | Lisbon, PT | n/a | n/a | Subsidiary of Fosun | Insurance licence (Portugal) | fidelidade.pt | Largest Portuguese insurer. |
+| SIBS | Payments | 1983 | Lisbon, PT | n/a | n/a | Bank consortium | Payment network (Portugal) | sibs.pt | Portuguese payment network behind Multibanco and MB WAY. |
+| Euronext Lisbon | Exchange | 1769 | Lisbon, PT | n/a | n/a | Subsidiary of Euronext | Exchange authorisation (Portugal) | euronext.com | Portuguese stock exchange. |
+
+## WESTERN EUROPE — Belgium (20)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| National Bank of Belgium | Central bank | 1850 | Brussels, BE | n/a | n/a | Central bank | Central bank (Belgium) | nbb.be | Central bank of Belgium. |
+| Beobank | Bank | 1967 | Brussels, BE | n/a | n/a | Subsidiary of Crédit Mutuel | Banking licence (Belgium) | beobank.be | Belgian bank. |
+| Crelan | Bank | 1935 | Brussels, BE | n/a | n/a | Cooperative | Banking licence (Belgium) | crelan.be | Belgian cooperative bank. |
+| Nagelmackers | Bank | 1747 | Liège, BE | n/a | n/a | Private | Banking licence (Belgium) | nagelmackers.be | Oldest bank in Belgium. |
+| Degroof Petercam | Private bank | 1871 | Brussels, BE | n/a | n/a | Private | Banking licence (Belgium) | degroofpetercam.com | Belgian private bank and asset manager. |
+| Argenta | Bank | 1956 | Antwerp, BE | n/a | n/a | Cooperative | Banking licence (Belgium) | argenta.be | Belgian bank and insurer. |
+| Keytrade Bank | Bank | 1998 | Brussels, BE | n/a | n/a | Subsidiary of Crédit Agricole | Banking licence (Belgium) | keytradebank.be | Belgian online bank and broker. |
+| AXA Bank Belgium | Bank | 1924 | Brussels, BE | n/a | n/a | Subsidiary of AXA | Banking licence (Belgium) | axabank.be | Belgian bank of AXA. |
+| Triodos Belgium | Bank | 1999 | Brussels, BE | n/a | n/a | Subsidiary of Triodos | Banking licence (Belgium) | triodos.be | Belgian sustainable bank. |
+| vdk bank | Bank | 1926 | Ghent, BE | n/a | n/a | Private | Banking licence (Belgium) | vdkbank.be | Belgian ethical bank. |
+| Bank Delen | Private bank | 1936 | Antwerp, BE | n/a | n/a | Private | Banking licence (Belgium) | delen.be | Belgian private bank. |
+| DPAM | Asset management | 1992 | Brussels, BE | n/a | n/a | Private | Asset management (Belgium) | degroofpetercam.com | Belgian institutional asset manager. |
+| Isabel | Payments | 1995 | Brussels, BE | n/a | n/a | Bank consortium | Payment infrastructure (Belgium) | isabel.be | Belgian multibanking and payment platform. |
+| KBC Group | Bank | 1998 | Brussels, BE | n/a | n/a | Public: ENXTBR: KBC | Banking licence (Belgium) | kbc.be | Largest bank-insurer in Belgium. |
+| Belfius Bank | Bank | 2011 | Brussels, BE | n/a | n/a | State-owned | Banking licence (Belgium) | belfius.be | Belgian state-owned bank. |
+| BNP Paribas Fortis | Bank | 1822 | Brussels, BE | n/a | n/a | Subsidiary of BNP Paribas | Banking licence (Belgium) | bnpparibasfortis.be | Largest bank in Belgium. |
+| Ageas | Insurance | 1990 | Brussels, BE | n/a | n/a | Public: ENXTBR: AGS | Insurance licence (multiple) | ageas.com | Belgian international insurer. |
+| Ethias | Insurance | 2003 | Liège, BE | n/a | n/a | Mutual | Insurance licence (Belgium) | ethias.be | Belgian insurer for public-sector workers. |
+| Unifiedpost | Financial software | 2001 | La Hulpe, BE | Hans Leybaert | n/a | Public: ENXTBR: UPG | Financial software (Belgium) | unifiedpost.com | Belgian fintech platform for documents and payments. |
+| Itsme | Identity | 2016 | Brussels, BE | n/a | n/a | Joint venture | Identity services (Belgium) | itsme.be | Belgian digital identity app built by banks and telecoms. |
 
 ## WESTERN EUROPE — Greece (16)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
@@ -1524,24 +1715,6 @@
 | Eurolife FFH | Insurance | 2000 | Athens, GR | n/a | n/a | Private | Insurance licence (Greece) | eurolife.gr | Greek life insurer of Fairfax. |
 | Generali Hellas | Insurance | 1893 | Athens, GR | n/a | n/a | Subsidiary of Generali | Insurance licence (Greece) | generali.gr | Greek arm of Generali. |
 
-## WESTERN EUROPE — Spain (14)
-| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Banco Santander | Bank | 1857 | Madrid, ES | n/a | n/a | Public: BME: SAN | Banking licence (Spain) | santander.com | Largest bank in the eurozone by market cap. |
-| BBVA | Bank | 1857 | Bilbao, ES | n/a | n/a | Public: BME: BBVA | Banking licence (Spain) | bbva.com | Major Spanish bank. |
-| CaixaBank | Bank | 2011 | Valencia, ES | n/a | n/a | Public: BME: CABK | Banking licence (Spain) | caixabank.com | Largest retail bank in Spain. |
-| Bankinter | Bank | 1965 | Madrid, ES | n/a | n/a | Public: BME: BKT | Banking licence (Spain) | bankinter.com | Spanish bank. |
-| Banco Sabadell | Bank | 1881 | Sabadell, ES | n/a | n/a | Public: BME: SAB | Banking licence (Spain) | bancsabadell.com | Spanish bank. |
-| Unicaja Banco | Bank | 2011 | Málaga, ES | n/a | n/a | Public: BME: UNI | Banking licence (Spain) | unicajabanco.es | Spanish bank. |
-| Abanca | Bank | 2011 | A Coruña, ES | n/a | n/a | Private | Banking licence (Spain) | abanca.com | Spanish bank. |
-| Kutxabank | Bank | 2011 | Bilbao, ES | n/a | n/a | Private | Banking licence (Spain) | kutxabank.com | Spanish Basque bank. |
-| Mapfre | Insurance | 1933 | Madrid, ES | n/a | n/a | Public: BME: MAP | Insurance licence (multiple) | mapfre.com | Largest Spanish insurer. |
-| Mutua Madrileña | Insurance | 1930 | Madrid, ES | n/a | n/a | Mutual | Insurance licence (Spain) | mutua.es | Spanish mutual insurer. |
-| VidaCaixa | Insurance | 1997 | Barcelona, ES | n/a | n/a | Subsidiary of CaixaBank | Insurance licence (Spain) | vidacaixa.es | Spanish life insurer and pension manager. |
-| Línea Directa | Insurance | 1994 | Tres Cantos, ES | n/a | n/a | Public: BME: LDA | Insurance licence (Spain) | lineadirecta.com | Spanish direct insurer. |
-| BME | Exchange | 1831 | Madrid, ES | n/a | n/a | Subsidiary of SIX | Exchange authorisation (Spain) | bme.es | Spanish stock exchange operator. |
-| Banco de España | Central bank | 1782 | Madrid, ES | n/a | n/a | Central bank | Central bank (Spain) | bde.es | Central bank of Spain. |
-
 ## WESTERN EUROPE — Austria (9)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1555,30 +1728,6 @@
 | Wiener Börse | Exchange | 1771 | Vienna, AT | n/a | n/a | Private | Exchange authorisation (Austria) | wienerborse.at | Austrian stock exchange. |
 | Oesterreichische Nationalbank | Central bank | 1816 | Vienna, AT | n/a | n/a | Central bank | Central bank (Austria) | oenb.at | Central bank of Austria. |
 
-## WESTERN EUROPE — Portugal (9)
-| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Feedzai | Fraud prevention | 2011 | Coimbra, PT | Nuno Sebastião, Paulo Marques | ~$300M | n/a | n/a | feedzai.com | Portuguese AI fraud prevention platform. |
-| Caixa Geral de Depósitos | Bank | 1876 | Lisbon, PT | n/a | n/a | State-owned | Banking licence (Portugal) | cgd.pt | Largest Portuguese bank. |
-| Millennium BCP | Bank | 1985 | Lisbon, PT | n/a | n/a | Public: Euronext Lisbon: BCP | Banking licence (Portugal) | millenniumbcp.pt | Largest private Portuguese bank. |
-| Novo Banco | Bank | 2014 | Lisbon, PT | n/a | n/a | Private | Banking licence (Portugal) | novobanco.pt | Portuguese bank spun out of Banco Espírito Santo. |
-| Banco BPI | Bank | 1981 | Porto, PT | n/a | n/a | Subsidiary of CaixaBank | Banking licence (Portugal) | bancobpi.pt | Portuguese bank. |
-| Banco Montepio | Bank | 1844 | Lisbon, PT | n/a | n/a | Mutual | Banking licence (Portugal) | bancomontepio.pt | Portuguese mutual bank. |
-| Fidelidade | Insurance | 1808 | Lisbon, PT | n/a | n/a | Subsidiary of Fosun | Insurance licence (Portugal) | fidelidade.pt | Largest Portuguese insurer. |
-| SIBS | Payments | 1983 | Lisbon, PT | n/a | n/a | Bank consortium | Payment network (Portugal) | sibs.pt | Portuguese payment network behind Multibanco and MB WAY. |
-| Euronext Lisbon | Exchange | 1769 | Lisbon, PT | n/a | n/a | Subsidiary of Euronext | Exchange authorisation (Portugal) | euronext.com | Portuguese stock exchange. |
-
-## WESTERN EUROPE — Belgium (7)
-| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| KBC Group | Bank | 1998 | Brussels, BE | n/a | n/a | Public: ENXTBR: KBC | Banking licence (Belgium) | kbc.be | Largest bank-insurer in Belgium. |
-| Belfius Bank | Bank | 2011 | Brussels, BE | n/a | n/a | State-owned | Banking licence (Belgium) | belfius.be | Belgian state-owned bank. |
-| BNP Paribas Fortis | Bank | 1822 | Brussels, BE | n/a | n/a | Subsidiary of BNP Paribas | Banking licence (Belgium) | bnpparibasfortis.be | Largest bank in Belgium. |
-| Ageas | Insurance | 1990 | Brussels, BE | n/a | n/a | Public: ENXTBR: AGS | Insurance licence (multiple) | ageas.com | Belgian international insurer. |
-| Ethias | Insurance | 2003 | Liège, BE | n/a | n/a | Mutual | Insurance licence (Belgium) | ethias.be | Belgian insurer for public-sector workers. |
-| Unifiedpost | Financial software | 2001 | La Hulpe, BE | Hans Leybaert | n/a | Public: ENXTBR: UPG | Financial software (Belgium) | unifiedpost.com | Belgian fintech platform for documents and payments. |
-| Itsme | Identity | 2016 | Brussels, BE | n/a | n/a | Joint venture | Identity services (Belgium) | itsme.be | Belgian digital identity app built by banks and telecoms. |
-
 ## WESTERN EUROPE — Luxembourg (6)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1589,7 +1738,7 @@
 | Foyer Group | Insurance | 1922 | Luxembourg, LU | n/a | n/a | Private | Insurance licence (Luxembourg) | foyer.lu | Largest Luxembourg insurer. |
 | LuxSE | Exchange | 1928 | Luxembourg, LU | n/a | n/a | Private | Exchange authorisation (Luxembourg) | luxse.com | Luxembourg stock exchange and listings venue. |
 
-## NORTHERN EUROPE — Sweden (23)
+## NORTHERN EUROPE — Sweden (35)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Trustly | Payment gateway | 2008 | Stockholm, SE | Oscar Berglund, Carl von Essen | ~$200M | n/a | n/a | trustly.com | Open banking payment network across Europe. |
@@ -1611,10 +1760,102 @@
 | Cinnober | Trading infra | 1998 | Stockholm, SE | n/a | n/a | Acquired by Nasdaq (2019) | n/a | cinnober.com | Swedish trading technology, owned by Nasdaq. |
 | OMX | Exchange | 1980 | Stockholm, SE | n/a | n/a | division of Nasdaq | n/a | nasdaqomx.com | Nordic exchange and market technology. |
 | Klarna | BNPL | 2005 | Stockholm, SE | Sebastian Siemiatkowski, Niklas Adalberth, Victor Jacobsson | ~$5B | $7.5B (2024) | n/a | klarna.com | Swedish buy now pay later for online and in-store. |
+| Sveriges Riksbank | Central bank | 1668 | Stockholm, SE | n/a | n/a | Central bank | Central bank (Sweden) | riksbank.se | Oldest central bank in the world. |
+| Qliro | Fintech | 2014 | Stockholm, SE | n/a | n/a | Public: OMX: QLIRO | Payment licence (Sweden) | qliro.se | Swedish checkout and payment provider. |
+| Collector Bank | Bank | 1999 | Gothenburg, SE | n/a | n/a | Public: OMX: COLL | Banking licence (Sweden) | collector.se | Swedish bank for SMEs and consumers. |
+| Resurs Bank | Bank | 1977 | Helsingborg, SE | n/a | n/a | Public: OMX: RESURS | Banking licence (Sweden) | resurs.se | Swedish bank for retail finance. |
+| Nordax Bank | Bank | 2003 | Stockholm, SE | n/a | n/a | Private | Banking licence (Sweden) | nordax.se | Swedish consumer bank. |
+| TF Bank | Bank | 1987 | Borås, SE | n/a | n/a | Public: OMX: TFBANK | Banking licence (Sweden) | tfbank.se | Swedish consumer bank. |
+| Hoist Finance | Fintech | 1994 | Stockholm, SE | n/a | n/a | Public: OMX: HOFI | Lending services (Sweden) | hoistfinance.com | Swedish debt purchase and collection company. |
+| Intrum | Fintech | 1923 | Stockholm, SE | n/a | n/a | Public: OMX: INTRUM | Credit services (Sweden) | intrum.com | Swedish credit management company. |
+| Marginalen Bank | Bank | 2009 | Stockholm, SE | n/a | n/a | Private | Banking licence (Sweden) | marginalen.se | Swedish bank for businesses. |
+| ICA Banken | Bank | 2001 | Solna, SE | n/a | n/a | Subsidiary of ICA | Banking licence (Sweden) | icabanken.se | Swedish bank of the ICA grocery group. |
+| Ikano Bank | Bank | 1988 | Älmhult, SE | n/a | n/a | Private | Banking licence (Sweden) | ikanobank.se | Swedish consumer bank. |
+| Skandiabanken | Bank | 1994 | Stockholm, SE | n/a | n/a | Subsidiary of Skandia | Banking licence (Sweden) | skandia.se | Swedish digital bank of Skandia. |
 | Länsförsäkringar | Insurance | 1801 | Stockholm, SE | n/a | n/a | Mutual | Insurance licence (Sweden) | lansforsakringar.se | Swedish mutual insurer and bank. |
 | Folksam | Insurance | 1906 | Stockholm, SE | n/a | n/a | Mutual | Insurance licence (Sweden) | folksam.se | Swedish mutual insurer. |
 | If | Insurance | 1825 | Stockholm, SE | n/a | n/a | Subsidiary of Sampo | Insurance licence (Nordics) | if.se | Nordic non-life insurer. |
 | Nasdaq Nordic | Exchange | 2003 | Stockholm, SE | n/a | n/a | Subsidiary of Nasdaq | Exchange authorisation (Nordics) | nasdaqomxnordic.com | Nordic and Baltic exchange operator. |
+
+## NORTHERN EUROPE — Denmark (28)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Danske Bank | Banking | 1871 | Copenhagen, DK | n/a | n/a | Public: CPH: DANSKE | n/a | danskebank.com | Danish bank and financial group. |
+| MobilePay | Digital wallet | 2013 | Copenhagen, DK | n/a | n/a | division of Danske Bank | n/a | mobilepay.dk | Danish mobile payment app. |
+| Lunar | Neobank | 2014 | Aarhus, DK | Ken Villum Klausen | ~$250M | n/a | n/a | lunar.app | Danish neobank and financial platform. |
+| Pleo | Spend management | 2015 | Copenhagen, DK | Jeppe Rindom, Niccolo Mele | ~$350M | n/a | n/a | pleo.io | Danish corporate cards and spend management. |
+| Saxo Bank | Brokerage | 1992 | Copenhagen, DK | Lars Seier Christensen, Kim Fournais | n/a | n/a | n/a | saxobank.com | Danish investment bank and trading platform. |
+| Danmarks Nationalbank | Central bank | 1818 | Copenhagen, DK | n/a | n/a | Central bank | Central bank (Denmark) | nationalbanken.dk | Central bank of Denmark. |
+| Arbejdernes Landsbank | Bank | 1919 | Copenhagen, DK | n/a | n/a | Private | Banking licence (Denmark) | al-bank.dk | Danish bank. |
+| Spar Nord Bank | Bank | 1824 | Aalborg, DK | n/a | n/a | Public: OMX: SPNO | Banking licence (Denmark) | sparnord.dk | Danish regional bank. |
+| Ringkjøbing Landbobank | Bank | 1976 | Ringkøbing, DK | n/a | n/a | Public: OMX: RILBA | Banking licence (Denmark) | landbobanken.dk | Danish bank. |
+| Vestjysk Bank | Bank | 1873 | Holstebro, DK | n/a | n/a | Public: OMX: VJBA | Banking licence (Denmark) | vestjyskbank.dk | Danish regional bank. |
+| Lån & Spar Bank | Bank | 1880 | Copenhagen, DK | n/a | n/a | Private | Banking licence (Denmark) | lsb.dk | Danish bank. |
+| Tryg | Insurance | 1928 | Ballerup, DK | n/a | n/a | Public: OMX: TRYG | Insurance licence (Denmark) | tryg.com | Largest Danish non-life insurer. |
+| Topdanmark | Insurance | 1898 | Ballerup, DK | n/a | n/a | Public: OMX: TOP | Insurance licence (Denmark) | topdanmark.dk | Danish insurer. |
+| Alm. Brand | Insurance | 1792 | Copenhagen, DK | n/a | n/a | Public: OMX: ALMB | Insurance licence (Denmark) | almbrand.dk | Danish insurer. |
+| Codan | Insurance | 1916 | Copenhagen, DK | n/a | n/a | Subsidiary of RSA | Insurance licence (Denmark) | codan.dk | Danish insurer. |
+| PFA Pension | Pension fund | 1917 | Copenhagen, DK | n/a | n/a | Private | Pension fund (Denmark) | pfa.dk | Largest commercial pension provider in Denmark. |
+| Velliv | Pension fund | 1913 | Ballerup, DK | n/a | n/a | Private | Pension fund (Denmark) | velliv.dk | Danish pension provider. |
+| Danica Pension | Pension fund | 1990 | Copenhagen, DK | n/a | n/a | Subsidiary of Danske Bank | Pension fund (Denmark) | danicapension.dk | Danish pension provider of Danske Bank. |
+| Nasdaq Copenhagen | Exchange | 1620 | Copenhagen, DK | n/a | n/a | Subsidiary of Nasdaq | Exchange authorisation (Denmark) | nasdaqomxnordic.com | Danish stock exchange. |
+| Subaio | Fintech | 2015 | Aalborg, DK | n/a | ~$20M | Private | Financial software (Denmark) | subaio.com | Danish subscription-management fintech. |
+| Cardlay | Fintech | 2015 | Odense, DK | n/a | ~$30M | Private | Financial software (Denmark) | cardlay.com | Danish card and expense management platform. |
+| Aprila Bank | Neobank | 2016 | Copenhagen, DK | n/a | ~$60M | Private | Banking licence (Denmark) | aprila.com | Danish bank for small businesses. |
+| Kompasbank | Neobank | 2021 | Copenhagen, DK | n/a | ~$40M | Private | Banking licence (Denmark) | kompasbank.dk | Danish digital bank for SMEs. |
+| Danmarks Skibskredit | Bank | 1961 | Copenhagen, DK | n/a | n/a | Public: OMX: DSKBF | Banking licence (Denmark) | skibskredit.dk | Danish ship-finance institution. |
+| EKF | Export credit | 1922 | Copenhagen, DK | n/a | n/a | State-owned | Export credit agency (Denmark) | ekf.dk | Danish export credit agency. |
+| Nykredit | Bank | 1851 | Copenhagen, DK | n/a | n/a | Mutual | Banking licence (Denmark) | nykredit.com | Danish mortgage bank. |
+| Jyske Bank | Bank | 1967 | Silkeborg, DK | n/a | n/a | Public: OMX: JYSK | Banking licence (Denmark) | jyskebank.dk | Danish bank. |
+| Sydbank | Bank | 1970 | Aabenraa, DK | n/a | n/a | Public: OMX: SYDB | Banking licence (Denmark) | sydbank.dk | Danish bank. |
+
+## NORTHERN EUROPE — Norway (21)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| DNB | Banking | 1816 | Oslo, NO | n/a | n/a | Public: OSL: DNB | n/a | dnb.no | Norwegian bank and financial group. |
+| SpareBank 1 | Banking | 1996 | Oslo, NO | n/a | n/a | n/a | n/a | sparebank1.no | Norwegian bank alliance and fintech. |
+| Vipps | Digital wallet | 2015 | Oslo, NO | n/a | n/a | division of DNB | n/a | vipps.com | Norwegian mobile payment app. |
+| BankID | Identity | 2003 | Oslo, NO | n/a | n/a | n/a | n/a | bankid.no | Norwegian and Swedish digital identity. |
+| Instabank | Neobank | 2015 | Oslo, NO | n/a | ~$30M | n/a | n/a | instabank.no | Norwegian neobank and consumer finance. |
+| Norges Bank | Central bank | 1816 | Oslo, NO | n/a | n/a | Central bank | Central bank (Norway) | norges-bank.no | Central bank of Norway. |
+| Sparebanken Vest | Bank | 1823 | Bergen, NO | n/a | n/a | Public: OSE: SVEG | Banking licence (Norway) | sparebankenvest.no | Norwegian savings bank. |
+| Sparebanken Sør | Bank | 1824 | Kristiansand, NO | n/a | n/a | Public: OSE: SOR | Banking licence (Norway) | sparebankensør.no | Norwegian savings bank. |
+| SpareBank 1 SMN | Bank | 1823 | Trondheim, NO | n/a | n/a | Public: OSE: MING | Banking licence (Norway) | smn.no | Norwegian savings bank. |
+| Eika Gruppen | Bank alliance | 1997 | Oslo, NO | n/a | n/a | Alliance | Banking alliance (Norway) | eika.no | Norwegian local-bank alliance. |
+| KLP | Pension fund | 1949 | Oslo, NO | n/a | n/a | Mutual | Pension fund (Norway) | klp.no | Norway's largest pension provider. |
+| Sbanken | Bank | 2000 | Bergen, NO | n/a | n/a | Subsidiary of DNB | Banking licence (Norway) | sbanken.no | Norwegian digital bank owned by DNB. |
+| Bank Norwegian | Bank | 2007 | Fornebu, NO | n/a | n/a | Subsidiary of Nordax | Banking licence (Norway) | banknorwegian.no | Norwegian consumer bank. |
+| Komplett Bank | Bank | 2005 | Lysaker, NO | n/a | n/a | Private | Banking licence (Norway) | komplettbank.no | Norwegian consumer bank. |
+| Kraft Bank | Bank | 2005 | Stavanger, NO | n/a | n/a | Private | Banking licence (Norway) | kraftbank.no | Norwegian consumer bank. |
+| Pareto Bank | Bank | 1997 | Oslo, NO | n/a | n/a | Public: OSE: PARB | Banking licence (Norway) | paretobank.no | Norwegian bank for commercial real estate and shipping. |
+| Bits | Payments | 2014 | Oslo, NO | n/a | n/a | Bank consortium | Payment infrastructure (Norway) | bits.no | Norwegian instant payment infrastructure. |
+| Fremtind | Insurance | 2019 | Oslo, NO | n/a | n/a | Joint venture | Insurance licence (Norway) | fremtind.no | Norwegian insurer of SpareBank 1 and DNB. |
+| Oslo Børs | Exchange | 1819 | Oslo, NO | n/a | n/a | Subsidiary of Euronext | Exchange authorisation (Norway) | euronext.com | Norwegian stock exchange. |
+| Storebrand | Insurance | 1767 | Oslo, NO | n/a | n/a | Public: OSE: STB | Insurance licence (Norway) | storebrand.no | Norwegian life insurer and asset manager. |
+| Gjensidige | Insurance | 1816 | Oslo, NO | n/a | n/a | Public: OSE: GJF | Insurance licence (Norway) | gjensidige.no | Norwegian general insurer. |
+
+## NORTHERN EUROPE — Finland (19)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Invesdor | Crowdfunding | 2012 | Helsinki, FI | n/a | ~$20M | n/a | n/a | investdor.com | Finnish equity crowdfunding platform. |
+| OP Financial Group | Banking | 1902 | Helsinki, FI | n/a | n/a | n/a | n/a | op.fi | Finnish cooperative bank and fintech. |
+| Nordea | Banking | 1820 | Helsinki, FI | n/a | n/a | Public: STO: NDA FI | n/a | nordea.com | Nordic bank and financial group. |
+| Bank of Finland | Central bank | 1811 | Helsinki, FI | n/a | n/a | Central bank | Central bank (Finland) | suomenpankki.fi | Central bank of Finland. |
+| Aktia Bank | Bank | 1825 | Helsinki, FI | n/a | n/a | Public: OMX: AKTIA | Banking licence (Finland) | aktia.fi | Finnish bank. |
+| S-Pankki | Bank | 2007 | Helsinki, FI | n/a | n/a | Private | Banking licence (Finland) | s-pankki.fi | Finnish bank of the S Group. |
+| POP Pankki | Bank | 2008 | Helsinki, FI | n/a | n/a | Cooperative | Banking licence (Finland) | poppankki.fi | Finnish cooperative bank alliance. |
+| Oma Säästöpankki | Bank | 2009 | Seinäjoki, FI | n/a | n/a | Public: OMX: OMASP | Banking licence (Finland) | omasp.fi | Finnish savings bank. |
+| Ålandsbanken | Bank | 1919 | Mariehamn, FI | n/a | n/a | Public: OMX: ALBAV | Banking licence (Finland) | alandsbanken.fi | Finnish bank from Åland. |
+| LähiTapiola | Insurance | 1904 | Espoo, FI | n/a | n/a | Mutual | Insurance licence (Finland) | lahitapiola.fi | Largest Finnish non-life insurer. |
+| Fennia | Insurance | 1882 | Helsinki, FI | n/a | n/a | Mutual | Insurance licence (Finland) | fennia.fi | Finnish insurer. |
+| Basware | Financial software | 1985 | Espoo, FI | n/a | n/a | Public: OMX: BAS1V | Financial software (Finland) | basware.com | Finnish invoice automation and payments software. |
+| Enfuce | Fintech | 2016 | Espoo, FI | Denise Johansson, Monika Liikamaa | ~$30M | Private | Payment licence (Finland) | enfuce.com | Finnish card issuing and payment platform. |
+| Mash | Fintech | 2015 | Helsinki, FI | n/a | ~$30M | Private | Lending services (Finland) | mash.com | Finnish payments and lending platform. |
+| Saldo Bank | Neobank | 2021 | Helsinki, FI | n/a | ~$20M | Private | Banking licence (Finland) | saldobank.com | Finnish digital bank. |
+| Multitude | Fintech | 2005 | Helsinki, FI | Jorma Jokela | n/a | Public: OMX: MULTI | Lending licence (multiple) | multitude.com | Finnish consumer lending group across Europe. |
+| Nasdaq Helsinki | Exchange | 1912 | Helsinki, FI | n/a | n/a | Subsidiary of Nasdaq | Exchange authorisation (Finland) | nasdaqomxnordic.com | Finnish stock exchange. |
+| Sampo | Insurance | 1909 | Helsinki, FI | n/a | n/a | Public: OMX: SAMPO | Insurance licence (Nordics) | sampo.com | Nordic insurance group. |
+| Tietoevry | Financial software | 1968 | Helsinki, FI | n/a | n/a | Public: OMX: TIETO | Financial software (Finland) | tietoevry.com | Nordic IT and banking software provider. |
 
 ## NORTHERN EUROPE — Iceland (12)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
@@ -1631,38 +1872,6 @@
 | VÍS | Insurance | 1970 | Reykjavík, IS | n/a | n/a | Private | Insurance licence (Iceland) | vis.is | Icelandic insurer. |
 | Sjóvá | Insurance | 1918 | Reykjavík, IS | n/a | n/a | Public: Nasdaq Iceland: SJOVA | Insurance licence (Iceland) | sjova.is | Icelandic insurer. |
 | TM | Insurance | 1964 | Reykjavík, IS | n/a | n/a | Private | Insurance licence (Iceland) | tm.is | Icelandic insurer. |
-
-## NORTHERN EUROPE — Denmark (8)
-| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Danske Bank | Banking | 1871 | Copenhagen, DK | n/a | n/a | Public: CPH: DANSKE | n/a | danskebank.com | Danish bank and financial group. |
-| MobilePay | Digital wallet | 2013 | Copenhagen, DK | n/a | n/a | division of Danske Bank | n/a | mobilepay.dk | Danish mobile payment app. |
-| Lunar | Neobank | 2014 | Aarhus, DK | Ken Villum Klausen | ~$250M | n/a | n/a | lunar.app | Danish neobank and financial platform. |
-| Pleo | Spend management | 2015 | Copenhagen, DK | Jeppe Rindom, Niccolo Mele | ~$350M | n/a | n/a | pleo.io | Danish corporate cards and spend management. |
-| Saxo Bank | Brokerage | 1992 | Copenhagen, DK | Lars Seier Christensen, Kim Fournais | n/a | n/a | n/a | saxobank.com | Danish investment bank and trading platform. |
-| Nykredit | Bank | 1851 | Copenhagen, DK | n/a | n/a | Mutual | Banking licence (Denmark) | nykredit.com | Danish mortgage bank. |
-| Jyske Bank | Bank | 1967 | Silkeborg, DK | n/a | n/a | Public: OMX: JYSK | Banking licence (Denmark) | jyskebank.dk | Danish bank. |
-| Sydbank | Bank | 1970 | Aabenraa, DK | n/a | n/a | Public: OMX: SYDB | Banking licence (Denmark) | sydbank.dk | Danish bank. |
-
-## NORTHERN EUROPE — Norway (7)
-| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| DNB | Banking | 1816 | Oslo, NO | n/a | n/a | Public: OSL: DNB | n/a | dnb.no | Norwegian bank and financial group. |
-| SpareBank 1 | Banking | 1996 | Oslo, NO | n/a | n/a | n/a | n/a | sparebank1.no | Norwegian bank alliance and fintech. |
-| Vipps | Digital wallet | 2015 | Oslo, NO | n/a | n/a | division of DNB | n/a | vipps.com | Norwegian mobile payment app. |
-| BankID | Identity | 2003 | Oslo, NO | n/a | n/a | n/a | n/a | bankid.no | Norwegian and Swedish digital identity. |
-| Instabank | Neobank | 2015 | Oslo, NO | n/a | ~$30M | n/a | n/a | instabank.no | Norwegian neobank and consumer finance. |
-| Storebrand | Insurance | 1767 | Oslo, NO | n/a | n/a | Public: OSE: STB | Insurance licence (Norway) | storebrand.no | Norwegian life insurer and asset manager. |
-| Gjensidige | Insurance | 1816 | Oslo, NO | n/a | n/a | Public: OSE: GJF | Insurance licence (Norway) | gjensidige.no | Norwegian general insurer. |
-
-## NORTHERN EUROPE — Finland (5)
-| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Invesdor | Crowdfunding | 2012 | Helsinki, FI | n/a | ~$20M | n/a | n/a | investdor.com | Finnish equity crowdfunding platform. |
-| OP Financial Group | Banking | 1902 | Helsinki, FI | n/a | n/a | n/a | n/a | op.fi | Finnish cooperative bank and fintech. |
-| Nordea | Banking | 1820 | Helsinki, FI | n/a | n/a | Public: STO: NDA FI | n/a | nordea.com | Nordic bank and financial group. |
-| Sampo | Insurance | 1909 | Helsinki, FI | n/a | n/a | Public: OMX: SAMPO | Insurance licence (Nordics) | sampo.com | Nordic insurance group. |
-| Tietoevry | Financial software | 1968 | Helsinki, FI | n/a | n/a | Public: OMX: TIETO | Financial software (Finland) | tietoevry.com | Nordic IT and banking software provider. |
 
 ## CENTRAL & EASTERN EUROPE — Poland (27)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
@@ -1847,6 +2056,17 @@
 | 24/7 Card | Fintech | 2015 | Bratislava, SK | n/a | n/a | Private | Payment services (Slovakia) | 247card.com | Slovak fintech for card and payment services. |
 | Národná banka Slovenska | Central bank | 1993 | Bratislava, SK | n/a | n/a | Central bank | Central bank (Slovakia) | nbs.sk | Central bank of Slovakia. |
 
+## CENTRAL & EASTERN EUROPE — Albania (7)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Banka Kombëtare Tregtare | Bank | 1925 | Tirana, AL | n/a | n/a | Private | Banking licence (Albania) | bkt.com.al | Largest bank in Albania. |
+| Credins Bank | Bank | 1998 | Tirana, AL | n/a | n/a | Private | Banking licence (Albania) | bankacredins.com | Albanian bank. |
+| Raiffeisen Bank Albania | Bank | 1992 | Tirana, AL | n/a | n/a | Subsidiary of Raiffeisen | Banking licence (Albania) | raiffeisen.al | Albanian bank of Raiffeisen. |
+| Alpha Bank Albania | Bank | 1998 | Tirana, AL | n/a | n/a | Subsidiary of Alpha Bank | Banking licence (Albania) | alphabank.al | Albanian bank of Alpha Bank. |
+| Intesa Sanpaolo Bank Albania | Bank | 1957 | Tirana, AL | n/a | n/a | Subsidiary of Intesa | Banking licence (Albania) | intesasanpaolobank.al | Albanian bank of Intesa Sanpaolo. |
+| Bank of Albania | Central bank | 1992 | Tirana, AL | n/a | n/a | Central bank | Central bank (Albania) | bankofalbania.org | Central bank of Albania. |
+| Tirana Stock Exchange | Exchange | 1996 | Tirana, AL | n/a | n/a | Private | Exchange authorisation (Albania) | tse.com.al | Albanian securities exchange. |
+
 ## CENTRAL & EASTERN EUROPE — Kazakhstan (7)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1868,6 +2088,26 @@
 | Kompanion Bank | Bank | 2004 | Bishkek, KG | n/a | n/a | Private | Banking licence (Kyrgyzstan) | kompanion.kg | Kyrgyz bank for microfinance. |
 | National Bank of the Kyrgyz Republic | Central bank | 1991 | Bishkek, KG | n/a | n/a | Central bank | Central bank (Kyrgyzstan) | nbkr.kg | Central bank of Kyrgyzstan. |
 | Kyrgyz Stock Exchange | Exchange | 1995 | Bishkek, KG | n/a | n/a | Private | Exchange authorisation (Kyrgyzstan) | kse.kg | Kyrgyz stock exchange. |
+
+## CENTRAL & EASTERN EUROPE — Moldova (6)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Moldova Agroindbank | Bank | 1991 | Chișinău, MD | n/a | n/a | Public: BVM: AGRN | Banking licence (Moldova) | maib.md | Largest bank in Moldova. |
+| Victoriabank | Bank | 1989 | Chișinău, MD | n/a | n/a | Subsidiary of Banca Transilvania | Banking licence (Moldova) | victoriabank.md | Moldovan bank. |
+| FinComBank | Bank | 1993 | Chișinău, MD | n/a | n/a | Private | Banking licence (Moldova) | fincombank.com | Moldovan bank. |
+| Mobiasbanca | Bank | 1992 | Chișinău, MD | n/a | n/a | Subsidiary of Société Générale | Banking licence (Moldova) | mobiasbanca.md | Moldovan bank of Société Générale. |
+| ProCredit Bank Moldova | Bank | 2004 | Chișinău, MD | n/a | n/a | Subsidiary of ProCredit | Banking licence (Moldova) | procreditbank.md | Moldovan bank for SMEs. |
+| National Bank of Moldova | Central bank | 1991 | Chișinău, MD | n/a | n/a | Central bank | Central bank (Moldova) | bnm.md | Central bank of Moldova. |
+
+## CENTRAL & EASTERN EUROPE — North Macedonia (6)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Komercijalna Banka Skopje | Bank | 1955 | Skopje, MK | n/a | n/a | Subsidiary of NLB | Banking licence (North Macedonia) | kb.com.mk | Largest bank in North Macedonia. |
+| Stopanska Banka | Bank | 1944 | Skopje, MK | n/a | n/a | Subsidiary of NBG | Banking licence (North Macedonia) | stb.com.mk | Macedonian bank. |
+| NLB Banka Skopje | Bank | 2005 | Skopje, MK | n/a | n/a | Subsidiary of NLB | Banking licence (North Macedonia) | nlb.mk | Macedonian bank of NLB. |
+| Sparkasse Bank Makedonija | Bank | 2004 | Skopje, MK | n/a | n/a | Subsidiary of Erste | Banking licence (North Macedonia) | sparkasse.mk | Macedonian bank. |
+| National Bank of North Macedonia | Central bank | 1991 | Skopje, MK | n/a | n/a | Central bank | Central bank (North Macedonia) | nbrm.mk | Central bank of North Macedonia. |
+| Macedonian Stock Exchange | Exchange | 1995 | Skopje, MK | n/a | n/a | Private | Exchange authorisation (North Macedonia) | mse.com.mk | Macedonian stock exchange. |
 
 ## CENTRAL & EASTERN EUROPE — Serbia (6)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
@@ -1899,6 +2139,15 @@
 | National Bank of Tajikistan | Central bank | 1991 | Dushanbe, TJ | n/a | n/a | Central bank | Central bank (Tajikistan) | nbt.tj | Central bank of Tajikistan. |
 | Alif | Fintech | 2014 | Dushanbe, TJ | Abdullo Kurbanov | ~$30M | Private | Payment licence (Tajikistan) | alif.tj | Tajik digital wallet and fintech platform. |
 
+## CENTRAL & EASTERN EUROPE — Bosnia and Herzegovina (5)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Raiffeisen Bank BH | Bank | 1993 | Sarajevo, BA | n/a | n/a | Subsidiary of Raiffeisen | Banking licence (Bosnia) | raiffeisenbank.ba | Bosnian bank of Raiffeisen. |
+| Nova banka | Bank | 1999 | Banja Luka, BA | n/a | n/a | Private | Banking licence (Bosnia) | novabanka.com | Bosnian bank. |
+| ASA Banka | Bank | 2000 | Sarajevo, BA | n/a | n/a | Private | Banking licence (Bosnia) | asabanka.ba | Bosnian bank. |
+| Central Bank of Bosnia and Herzegovina | Central bank | 1997 | Sarajevo, BA | n/a | n/a | Central bank | Central bank (Bosnia) | cbbh.ba | Central bank of Bosnia and Herzegovina. |
+| Sarajevo Stock Exchange | Exchange | 2001 | Sarajevo, BA | n/a | n/a | Private | Exchange authorisation (Bosnia) | sase.ba | Bosnian stock exchange. |
+
 ## CENTRAL & EASTERN EUROPE — Georgia (5)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1907,6 +2156,15 @@
 | Liberty Bank | Bank | 1994 | Tbilisi, GE | n/a | n/a | Private | Banking licence (Georgia) | libertybank.ge | Georgian bank. |
 | Credo Bank | Bank | 1996 | Tbilisi, GE | n/a | n/a | Private | Banking licence (Georgia) | credobank.ge | Georgian microfinance-focused bank. |
 | ProCredit Bank Georgia | Bank | 1999 | Tbilisi, GE | n/a | n/a | Subsidiary of ProCredit | Banking licence (Georgia) | procreditbank.ge | Georgian bank of ProCredit. |
+
+## CENTRAL & EASTERN EUROPE — Montenegro (5)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Crnogorska komercijalna banka | Bank | 1997 | Podgorica, ME | n/a | n/a | Subsidiary of OTP | Banking licence (Montenegro) | ckb.me | Largest bank in Montenegro. |
+| Hipotekarna banka | Bank | 1998 | Podgorica, ME | n/a | n/a | Private | Banking licence (Montenegro) | hipotekarnabanka.com | Montenegrin bank. |
+| Prva banka Crne Gore | Bank | 1901 | Podgorica, ME | n/a | n/a | Private | Banking licence (Montenegro) | prvabanka.me | Oldest bank in Montenegro. |
+| Central Bank of Montenegro | Central bank | 2001 | Podgorica, ME | n/a | n/a | Central bank | Central bank (Montenegro) | cbcg.me | Central bank of Montenegro. |
+| Montenegro Stock Exchange | Exchange | 1993 | Podgorica, ME | n/a | n/a | Private | Exchange authorisation (Montenegro) | mnse.me | Montenegrin stock exchange. |
 
 ## CENTRAL & EASTERN EUROPE — Armenia (4)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
