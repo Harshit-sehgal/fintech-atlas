@@ -174,6 +174,33 @@ export default function HomePageClient({
         </Portal>
       </div>
 
+      {/* Sponsors — ten labelled slots (see @/data/sponsors), placed early so
+          they are seen above the fold-lines, not buried at the end. */}
+      <section className="rise mt-10" style={{ "--rise-delay": "200ms" } as React.CSSProperties}>
+        <div className="flex items-baseline justify-between gap-3 border-b border-[var(--border-color)] pb-1.5">
+          <h2 className="font-serif text-lg font-bold tracking-tight text-[var(--foreground)]">
+            Sponsors
+          </h2>
+          <Link href="/services" className="shrink-0 text-xs font-medium text-[var(--accent)]">
+            <span className="hl-link">Become a sponsor</span> <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+        <p className="mt-3 text-xs leading-relaxed text-[var(--muted-text)]">
+          Ten clearly-labelled slots. A sponsorship never affects a ranking or
+          rating —{" "}
+          <Link
+            href="/affiliate-disclosure"
+            className="text-[var(--accent)] underline underline-offset-2"
+          >
+            see how we disclose commercial ties
+          </Link>
+          .
+        </p>
+        <div className="mt-5">
+          <SponsorSlots />
+        </div>
+      </section>
+
       {/* Visual band — real brand marks, then the geographic distribution. */}
       <section className="rise mt-10" style={{ "--rise-delay": "260ms" } as React.CSSProperties}>
         <div className="flex items-baseline justify-between gap-3 border-b border-[var(--border-color)] pb-1.5">
@@ -228,33 +255,6 @@ export default function HomePageClient({
       </section>
 
       <MarkerRule className="mt-4" animate />
-
-      {/* Sponsors — ten labelled slots (see @/data/sponsors). Empty by default;
-          unfilled slots link to the services contact form. */}
-      <section className="rise mt-10" style={{ "--rise-delay": "340ms" } as React.CSSProperties}>
-        <div className="flex items-baseline justify-between gap-3 border-b border-[var(--border-color)] pb-1.5">
-          <h2 className="font-serif text-lg font-bold tracking-tight text-[var(--foreground)]">
-            Sponsors
-          </h2>
-          <Link href="/services" className="shrink-0 text-xs font-medium text-[var(--accent)]">
-            <span className="hl-link">Become a sponsor</span> <span aria-hidden="true">→</span>
-          </Link>
-        </div>
-        <p className="mt-3 text-xs leading-relaxed text-[var(--muted-text)]">
-          Ten clearly-labelled slots. A sponsorship never affects a ranking or
-          rating —{" "}
-          <Link
-            href="/affiliate-disclosure"
-            className="text-[var(--accent)] underline underline-offset-2"
-          >
-            see how we disclose commercial ties
-          </Link>
-          .
-        </p>
-        <div className="mt-5">
-          <SponsorSlots />
-        </div>
-      </section>
 
       {/* Latest guides — newest first (updatedAt desc). Kept as its own section
           (not a portal) so the newest entry leads the list. */}
