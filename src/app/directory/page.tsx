@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { companies } from "@/data";
+import { globalDirectorySummaries } from "@/generated/global-directory-summaries";
 import { indiaDirectorySummaries } from "@/generated/india-directory-summaries";
 import { pageMetadata } from "@/lib/shared-metadata";
 import { Breadcrumbs } from "@/components/breadcrumbs";
@@ -40,7 +41,7 @@ export const metadata: Metadata = pageMetadata({
   pathname: "/directory",
   title: "FinTech Directory",
   description:
-    "Two tiers of fintech profiles: curated editorial breakdowns of the companies that matter, plus the full research directory of India fintech companies.",
+    "Three tiers of fintech profiles: curated editorial breakdowns, the worldwide research directory, and the full research directory of India fintech companies.",
 });
 
 export default async function DirectoryPage() {
@@ -64,15 +65,16 @@ export default async function DirectoryPage() {
             The FinTech <span className="font-serif italic text-[var(--accent)]">Directory</span>
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--muted-text)]">
-            Every company on FinTech Atlas lives in one of two tiers. The curated
-            profiles are editorial breakdowns — reviews, pricing, availability,
-            ratings. The research directory is a data-driven index of Indian
-            fintech companies with funding, licences and verification notes.
+            Every company on FinTech Atlas lives in one of three tiers. The
+            curated profiles are editorial breakdowns — reviews, pricing,
+            availability, ratings. The research directories are data-driven
+            indexes: one worldwide, one India-specific, with funding,
+            licences and verification notes.
           </p>
         </header>
       </Reveal>
 
-      <div className="mt-8 grid gap-x-10 gap-y-8 md:grid-cols-2">
+      <div className="mt-8 grid gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
         <Reveal delay={0.1}>
           <Link
             href="/companies"
@@ -103,6 +105,38 @@ export default async function DirectoryPage() {
 
         <Reveal delay={0.15}>
           <Link
+            href="/global-directory"
+            data-placement="directory-global-research"
+            className="group flex h-full flex-col py-2 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <div className="shrink-0 text-[var(--accent)]">
+                <DirectoryIcon tier="research" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-[var(--foreground)]">
+                  <span className="hl-link">Global research directory</span>
+                </h2>
+                <p className="text-sm text-[var(--muted-text)]">
+                  {globalDirectorySummaries.length.toLocaleString()} companies
+                </p>
+              </div>
+            </div>
+            <p className="mt-4 max-w-lg text-sm leading-relaxed text-[var(--muted-text)]">
+              The data-driven index of fintech worldwide — payments, neobanks,
+              lending, infrastructure and more across every region — with
+              founding dates, funding, valuation and regulatory notes.
+              Searchable and filterable.
+            </p>
+            <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-[var(--accent-ink)]">
+              <span className="hl-link">Browse global research profiles</span>{" "}
+              <span className="transition-transform group-hover:translate-x-0.5">→</span>
+            </span>
+          </Link>
+        </Reveal>
+
+        <Reveal delay={0.2}>
+          <Link
             href="/india/directory"
             data-placement="directory-research"
             className="group flex h-full flex-col py-2 transition-colors"
@@ -132,7 +166,7 @@ export default async function DirectoryPage() {
         </Reveal>
       </div>
 
-      <Reveal delay={0.2}>
+      <Reveal delay={0.25}>
         <section className="mt-12">
           <MarkerRule color="green" />
           <h2 className="eyebrow mb-3 mt-6">Which tier should I use?</h2>
@@ -142,12 +176,12 @@ export default async function DirectoryPage() {
               — use curated profiles, which include pricing, reviews and ratings.
             </li>
             <li>
-              <span className="font-semibold text-[var(--foreground)]">Research the Indian market</span>{" "}
-              — use the research directory to discover companies by cluster and
-              category.
+              <span className="font-semibold text-[var(--foreground)]">Research a market or discover companies</span>{" "}
+              — use the research directories (global or India) to browse by
+              cluster and category, with funding and regulatory notes.
             </li>
             <li>
-              <span className="font-semibold text-[var(--foreground)]">You spot one name on both tiers</span>{" "}
+              <span className="font-semibold text-[var(--foreground)]">You spot one name on two tiers</span>{" "}
               — each profile links to its counterpart, so you can move between
               the editorial breakdown and the research profile.
             </li>
