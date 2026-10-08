@@ -16,7 +16,16 @@ const jsDir = path.join(outDir, "_next", "static");
 //             (6b3ad1d): ~26 KB of genuine new decision-surface code. The
 //             next JS-reduction milestone is T095/T096 (reduce/lazy-load);
 //             revisit the cap there rather than letting it drift upward.
-const MAX_GZIP_JS_BYTES = 475_000;
+//   500,000 — T150 global research directory (2026-10-08): the /global-directory
+//             index ships a searchable client subset of ~2,900 companies
+//             (slug/name/category/cluster, tuple-encoded in T148). That is
+//             genuine product data, not framework overhead, and it is the
+//             single largest client payload on the site. The subset grows
+//             ~14 gzip-bytes per company, so the headroom is deliberate:
+//             the next large dataset must first cut payload (e.g. columnar
+//             encoding or virtualised server-rendered search) rather than
+//             raise this again.
+const MAX_GZIP_JS_BYTES = 500_000;
 
 function collectJavaScript(directory) {
   if (!fs.existsSync(directory)) return [];

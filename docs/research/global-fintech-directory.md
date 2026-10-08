@@ -1,7 +1,7 @@
 # Global FinTech Company Directory (2026)
 
 > Compiled 2026-10-08 from public sources. A region-by-region financial encyclopedia of the world:
-> 2932 fintech companies and financial institutions across 12 regions, organised by country.
+> 3020 fintech companies and financial institutions across 12 regions, organised by country.
 > Columns: Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description.
 > Fields marked n/a could not be verified publicly; ~ marks approximate values.
 > Companies headquartered in India are indexed separately in the India research directory.
@@ -9,17 +9,17 @@
 ## Coverage stats
 | Metric | Value |
 | --- | --- |
-| Companies | 2932 |
-| Websites found | 2932 (100%) |
-| Founders identified | 680 (23%) |
-| Funding data | 748 (26%) |
-| Valuation/status | 2617 (89%) |
-| Regulatory data | 2353 (80%) |
+| Companies | 3020 |
+| Websites found | 3020 (100%) |
+| Founders identified | 744 (25%) |
+| Funding data | 811 (27%) |
+| Valuation/status | 2705 (90%) |
+| Regulatory data | 2441 (81%) |
 
 ## Contents
-- NORTH AMERICA — United States (475)
+- NORTH AMERICA — United States (533)
 - NORTH AMERICA — Canada (77)
-- LATIN AMERICA & CARIBBEAN — Brazil (75)
+- LATIN AMERICA & CARIBBEAN — Brazil (79)
 - LATIN AMERICA & CARIBBEAN — Mexico (55)
 - LATIN AMERICA & CARIBBEAN — Colombia (34)
 - LATIN AMERICA & CARIBBEAN — Argentina (33)
@@ -32,8 +32,8 @@
 - LATIN AMERICA & CARIBBEAN — Ecuador (9)
 - LATIN AMERICA & CARIBBEAN — Honduras (7)
 - LATIN AMERICA & CARIBBEAN — Panama (7)
+- LATIN AMERICA & CARIBBEAN — Puerto Rico (7)
 - LATIN AMERICA & CARIBBEAN — Nicaragua (6)
-- LATIN AMERICA & CARIBBEAN — Puerto Rico (6)
 - LATIN AMERICA & CARIBBEAN — Costa Rica (4)
 - LATIN AMERICA & CARIBBEAN — Dominican Republic (4)
 - LATIN AMERICA & CARIBBEAN — El Salvador (3)
@@ -43,11 +43,11 @@
 - LATIN AMERICA & CARIBBEAN — Jamaica (2)
 - LATIN AMERICA & CARIBBEAN — Bermuda (1)
 - LATIN AMERICA & CARIBBEAN — Trinidad and Tobago (1)
-- WESTERN EUROPE — United Kingdom (141)
+- WESTERN EUROPE — United Kingdom (156)
 - WESTERN EUROPE — Germany (85)
-- WESTERN EUROPE — France (62)
+- WESTERN EUROPE — France (64)
+- WESTERN EUROPE — Netherlands (39)
 - WESTERN EUROPE — Italy (37)
-- WESTERN EUROPE — Netherlands (37)
 - WESTERN EUROPE — Switzerland (31)
 - WESTERN EUROPE — Spain (29)
 - WESTERN EUROPE — Ireland (26)
@@ -135,10 +135,10 @@
 - SOUTH ASIA — Afghanistan (5)
 - SOUTH ASIA — Maldives (4)
 - SOUTHEAST ASIA — Indonesia (55)
-- SOUTHEAST ASIA — Singapore (46)
-- SOUTHEAST ASIA — Vietnam (43)
+- SOUTHEAST ASIA — Singapore (49)
+- SOUTHEAST ASIA — Vietnam (44)
 - SOUTHEAST ASIA — Philippines (37)
-- SOUTHEAST ASIA — Malaysia (35)
+- SOUTHEAST ASIA — Malaysia (36)
 - SOUTHEAST ASIA — Thailand (35)
 - SOUTHEAST ASIA — Myanmar (6)
 - SOUTHEAST ASIA — Cambodia (5)
@@ -146,7 +146,7 @@
 - SOUTHEAST ASIA — Laos (2)
 - EAST ASIA — China (59)
 - EAST ASIA — Japan (49)
-- EAST ASIA — Hong Kong (42)
+- EAST ASIA — Hong Kong (43)
 - EAST ASIA — South Korea (38)
 - EAST ASIA — Taiwan (30)
 - EAST ASIA — Mongolia (10)
@@ -163,7 +163,7 @@
 - GLOBAL — DEVELOPMENT BANKS & STANDARD SETTERS (23)
 - GLOBAL — DATA, RATINGS & MARKET INFRASTRUCTURE (19)
 
-## NORTH AMERICA — United States (475)
+## NORTH AMERICA — United States (533)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Stripe | Payment platform | 2010 | San Francisco, US | Patrick Collison, John Collison | ~$9B | $65B (2024) | n/a | stripe.com | Financial infrastructure platform for online payments, billing and payouts. |
@@ -560,6 +560,64 @@
 | Embroker | Insurtech | 2015 | San Francisco, US | Matt Miller | ~$100M | Private | Insurance brokerage (US) | embroker.com | US digital business insurance broker. |
 | Newfront | Insurance brokerage | 2017 | San Francisco, US | Spike Lipkin, Gordon Wintrob | ~$300M | Private | Insurance brokerage (US) | newfront.com | US technology-enabled insurance brokerage. |
 | AgentSync | Insurtech | 2018 | Denver, US | Niji Sabharwal | ~$100M | Private | Compliance software (US) | agentsync.io | US insurance producer licensing platform. |
+| Modern Treasury | Payments infrastructure | 2018 | San Francisco, US | Sam Aarons, Matt Marcus | ~$180M | Private | Payment services (US) | moderntreasury.com | US payment operations platform for money movement and reconciliation. |
+| Increase | Banking infrastructure | 2018 | San Francisco, US | n/a | ~$100M | Private | Banking services (US) | increase.com | US bank API offering accounts, cards and FedNow access. |
+| Moov | Payments infrastructure | 2017 | Cedar Falls, US | Wade Arnold | ~$130M | Private | Payment services (US) | moov.io | US payment APIs for ACH, cards and RTP. |
+| Finix | Payments | 2015 | San Francisco, US | Richie Serna, Sean Donovan | ~$200M | Private | Payment services (US) | finix.com | US payment infrastructure for software companies. |
+| Payrix | Payments | 2014 | Atlanta, US | n/a | n/a | Acquired by FIS | Payment services (US) | payrix.com | US embedded-payments platform for software platforms. |
+| Stax Payments | Payments | 2014 | Orlando, US | Sal Rehmetullah, Suneera Madhani | ~$245M | Private | Payment services (US) | staxpayments.com | US payment processing for small businesses. |
+| Infinicept | Payments | 2010 | Denver, US | n/a | ~$30M | Private | Payment services (US) | infinicept.com | US payfac-as-a-service platform. |
+| Exact Payments | Payments | 2015 | Scottsdale, US | n/a | ~$20M | Private | Payment services (US) | exactpayments.com | US embedded payment platform for software vendors. |
+| Method Financial | Financial data | 2020 | Austin, US | Jose Bethancourt | ~$50M | Private | Financial data (US) | methodfi.com | US liability and payments API for consumer debts. |
+| Astra | Payments | 2020 | San Francisco, US | n/a | ~$30M | Private | Payment services (US) | astra.finance | US payment-automation and card platform. |
+| Tilled | Payments | 2019 | Denver, US | Caleb Avery | ~$30M | Private | Payment services (US) | tilled.com | US payfac-as-a-service for vertical software. |
+| FastSpring | Payments | 2005 | Santa Barbara, US | n/a | n/a | Private | Payment services (US) | fastspring.com | US merchant of record for software and SaaS. |
+| Lemon Squeezy | Payments | 2020 | Remote, US | n/a | n/a | Acquired by Stripe | Payment services (US) | lemonsqueezy.com | US merchant of record for digital products, acquired by Stripe. |
+| Grasshopper Bank | Bank | 2019 | New York, US | n/a | ~$150M | Private | Banking licence (US) | grasshopper.bank | US digital bank for startups and small businesses. |
+| nbkc bank | Bank | 1998 | Overland Park, US | n/a | n/a | Private | Banking licence (US) | nbkc.com | US bank known for fintech partnerships. |
+| The Bancorp | Bank | 1999 | Wilmington, US | n/a | n/a | Public: NASDAQ: TBBK | Banking licence (US) | thebancorp.com | US bank specialising in fintech and prepaid programs. |
+| Pathward Financial | Bank | 1954 | Sioux Falls, US | n/a | n/a | Public: NASDAQ: CASH | Banking licence (US) | pathward.com | US bank for banking-as-a-service, formerly MetaBank. |
+| Coastal Community Bank | Bank | 1997 | Everett, US | n/a | n/a | Public: NASDAQ: CCB | Banking licence (US) | coastalbank.com | US community bank and fintech partner. |
+| WebBank | Bank | 1997 | Salt Lake City, US | n/a | n/a | Private | Industrial bank (US) | webbank.com | US industrial bank that originates fintech lending programs. |
+| Celtic Bank | Bank | 2001 | Salt Lake City, US | n/a | n/a | Private | Industrial bank (US) | celticbank.com | US industrial bank and SBA lender. |
+| Paymentus | Payments | 2004 | Atlanta, US | Dushyant Sharma | n/a | Public: NYSE: PAY | Payment services (US) | paymentus.com | US electronic bill payment platform for billers. |
+| Cantaloupe | Payments | 2010 | Malvern, US | n/a | n/a | Public: NASDAQ: CTLP | Payment services (US) | cantaloupe.com | US self-service commerce and unattended payments, formerly USA Technologies. |
+| Priority Technology | Payments | 2015 | Alpharetta, US | Tom Priore | n/a | Public: NASDAQ: PRTH | Payment services (US) | prioritycommerce.com | US integrated payments and banking platform. |
+| USIO | Payments | 1998 | San Antonio, US | n/a | n/a | Public: NASDAQ: USIO | Payment services (US) | usio.com | US payment facilitation and card issuing. |
+| Corpay | Payments | 2000 | Atlanta, US | n/a | n/a | Public: NYSE: CPAY | Payment services (US) | corpay.com | US business payments company, formerly Fleetcor. |
+| Coin Metrics | Crypto data | 2017 | Boston, US | Nic Carter, Tim Rice | ~$70M | Private | Crypto data (US) | coinmetrics.io | US crypto market and network data provider. |
+| Amberdata | Crypto data | 2013 | New York, US | Shawn Douglass | ~$30M | Private | Crypto data (US) | amberdata.io | US digital-asset data and analytics platform. |
+| NerdWallet | Comparison | 2009 | San Francisco, US | Tim Chen, Jacob Gibson | n/a | Public: NASDAQ: NRDS | Comparison services (US) | nerdwallet.com | US personal finance comparison platform. |
+| Credit Karma | Comparison | 2007 | San Francisco, US | Kenneth Lin, Ryan Graciano | n/a | Subsidiary of Intuit | Comparison services (US) | creditkarma.com | US credit score and financial recommendation platform. |
+| LendingTree | Comparison | 1996 | Charlotte, US | Doug Lebda | n/a | Public: NASDAQ: TREE | Comparison services (US) | lendingtree.com | US online lending marketplace. |
+| Bankrate | Comparison | 1976 | New York, US | n/a | n/a | Subsidiary of Red Ventures | Comparison services (US) | bankrate.com | US financial rates and comparison site. |
+| SmartAsset | Comparison | 2012 | New York, US | Michael Carvin, Philip Camilleri | ~$110M | Private | Comparison services (US) | smartasset.com | US financial advisor matching and calculators. |
+| The Zebra | Insurtech | 2012 | Austin, US | Adam Lyons, Joshua Dziabiak | ~$160M | Private | Insurance brokerage (US) | thezebra.com | US insurance comparison marketplace. |
+| Self Financial | Consumer credit | 2015 | Austin, US | James Garvey | ~$130M | Private | Lending services (US) | self.inc | US credit-building loans and secured cards. |
+| Brigit | Consumer finance | 2017 | New York, US | Zuben Mathews, Hamel Kothari | ~$150M | Private | Lending services (US) | brigit.com | US cash-advance and credit-building app. |
+| Tally | Consumer credit | 2015 | San Francisco, US | Jason Brown, Jasper Platz | ~$170M | Private | Lending licence (US) | tallysolutions.com | US automated credit-card debt payoff platform. |
+| Tomo | Mortgage | 2020 | Stamford, US | Greg Schwartz, Carey Armstrong | ~$110M | Private | Lending licence (US) | tomo.com | US digital mortgage lender. |
+| Lower | Mortgage | 2018 | New Albany, US | Dan Snyder | n/a | Private | Lending licence (US) | lower.com | US digital mortgage lender and title platform. |
+| Mission Lane | Consumer credit | 2018 | Richmond, US | n/a | ~$300M | Private | Lending licence (US) | missionlane.com | US credit card issuer for non-prime consumers. |
+| Novo | Neobank | 2018 | New York, US | Michael Rangel, Tyler McIntyre | ~$170M | Private | Banking services (US) | novo.co | US digital banking for small businesses. |
+| Lili | Neobank | 2019 | New York, US | Lilac Bar David, Liran Zelkha | ~$130M | Private | Banking services (US) | lili.co | US banking app for freelancers and self-employed. |
+| Found | Neobank | 2019 | San Francisco, US | Connor Dunn, Dylan Higgins | ~$150M | Private | Banking services (US) | found.com | US business banking for self-employed workers. |
+| Farther | Wealthtech | 2019 | New York, US | Taylor Matthews, Brad Genser | ~$120M | Private | Investment adviser (US) | farther.com | US technology-enabled wealth management firm. |
+| Range | Wealthtech | 2020 | New York, US | Fahad Hassan | ~$30M | Private | Investment adviser (US) | range.com | US financial planning and wealth platform. |
+| Facet | Wealthtech | 2016 | Cockeysville, US | Brent Weiss, Patrick McKenna | ~$100M | Private | Investment adviser (US) | facet.com | US flat-fee financial planning service. |
+| Origin | Wealthtech | 2017 | San Francisco, US | Matt Watson | ~$100M | Private | Investment adviser (US) | useorigin.com | US financial planning and investing platform. |
+| Vise | Wealthtech | 2016 | New York, US | Samir Vasavada, Runik Mehrotra | ~$130M | Private | Wealth software (US) | vise.com | US AI portfolio management for advisers. |
+| Savvy Wealth | Wealthtech | 2021 | New York, US | Ritik Malhotra | ~$30M | Private | Investment adviser (US) | savvywealth.com | US digital-first wealth management platform. |
+| CAIS | Wealthtech | 2009 | New York, US | Matt Brown | ~$100M | Private | Wealth platform (US) | caisgroup.com | US alternative investment marketplace for advisers. |
+| Allvue Systems | Wealth software | 2017 | Miami, US | n/a | n/a | Private | Financial software (US) | allvuesystems.com | US investment management software for private markets. |
+| Orion Advisor Solutions | Wealth software | 1999 | Omaha, US | n/a | n/a | Private | Wealth software (US) | orion.com | US wealth management technology platform. |
+| Nitrogen | Wealth software | 2011 | Auburn, US | Aaron Klein | ~$100M | Private | Wealth software (US) | nitrogenwealth.com | US risk-tolerance and portfolio analytics for advisers, formerly Riskalyze. |
+| Bold Penguin | Insurtech | 2015 | Columbus, US | Ilya Bodner | ~$60M | Private | Insurance software (US) | boldpenguin.com | US commercial insurance quoting platform. |
+| Federato | Insurtech | 2020 | San Francisco, US | William Steenbergen | ~$110M | Private | Insurance software (US) | federato.com | US risk-selection platform for insurers. |
+| Sixfold | Insurtech | 2019 | New York, US | Alex Schmelkin | ~$30M | Private | Insurance software (US) | sixfold.com | US AI underwriting platform for insurers. |
+| Swyfft | Insurtech | 2014 | Whitehouse Station, US | n/a | ~$50M | Private | Insurance licence (US) | swyfft.com | US data-driven home insurance MGA. |
+| Slide | Insurtech | 2022 | Tampa, US | Bruce Lucas | ~$100M | Private | Insurance licence (US) | slideinsurance.com | US coastal home insurer. |
+| Neptune Flood | Insurtech | 2013 | St. Petersburg, US | Jim Albert | ~$30M | Private | Insurance licence (US) | neptuneflood.com | US private flood insurance provider. |
 | JPMorgan Chase | Bank | 1799 | New York, US | n/a | n/a | Public: NYSE: JPM | Banking licence (US) | jpmorganchase.com | Largest bank in the United States and the world by market cap. |
 | Bank of America | Bank | 1904 | Charlotte, US | n/a | n/a | Public: NYSE: BAC | Banking licence (US) | bankofamerica.com | Major US bank with Merrill Lynch and BofA Securities. |
 | Wells Fargo | Bank | 1852 | San Francisco, US | n/a | n/a | Public: NYSE: WFC | Banking licence (US) | wellsfargo.com | Major US bank. |
@@ -723,10 +781,14 @@
 | TMX Group | Exchange | 2008 | Toronto, CA | n/a | n/a | Public: TSX: X | Exchange authorisation (Canada) | tmx.com | Operator of the Toronto Stock Exchange. |
 | Bank of Canada | Central bank | 1934 | Ottawa, CA | n/a | n/a | Central bank | Central bank (Canada) | bankofcanada.ca | Central bank of Canada. |
 
-## LATIN AMERICA & CARIBBEAN — Brazil (75)
+## LATIN AMERICA & CARIBBEAN — Brazil (79)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | ClearSale | Fraud prevention | 2001 | Sao Paulo, BR | n/a | n/a | Public: B3: CLSA3 | n/a | clearsale.com | Brazilian fraud prevention for ecommerce. |
+| CloudWalk | Payments | 2013 | São Paulo, BR | Luis Silva | ~$300M | Private | Payment institution (Brazil) | cloudwalk.com | Brazilian payment platform behind InfinitePay. |
+| Stark Bank | Banking infrastructure | 2018 | São Paulo, BR | Rafael Stark | ~$45M | Private | Banking services (Brazil) | starkbank.com | Brazilian banking and payments API for businesses. |
+| Nomad | Fintech | 2019 | São Paulo, BR | Lucas Vargas, Eduardo Haber | ~$60M | Private | Financial services (Brazil, US) | nomad.com.br | Brazilian platform for US dollar accounts and investing. |
+| Avenue | Fintech | 2018 | Rio de Janeiro, BR | Roberto Lee | ~$80M | Private | Financial services (Brazil, US) | avenue.us | Brazilian platform for US investing and dollar accounts. |
 | Nubank | Neobank | 2013 | São Paulo, BR | David Vélez, Cristina Junqueira, Edward Wible | ~$3.3B | Public: NYSE: NU | Brazilian banking licence, Mexican and Colombian licences | nubank.com.br | Largest digital bank outside Asia with cards, accounts, lending and investing across Latin America. |
 | Itaú Unibanco | Bank | 1945 | São Paulo, BR | n/a | n/a | Public: B3: ITUB4 | Banking licence (Brazil) | itau.com.br | Largest private bank in Brazil and Latin America. |
 | Banco Bradesco | Bank | 1943 | Osasco, BR | n/a | n/a | Public: B3: BBDC4 | Banking licence (Brazil) | bradesco.com.br | Major Brazilian private bank with retail, insurance and asset management. |
@@ -1087,6 +1149,17 @@
 | Yappy | Digital wallet | 2019 | Panama City, PA | n/a | n/a | Subsidiary of Banco General | Payment institution (Panama) | yappy.com.pa | Panamanian mobile wallet from Banco General. |
 | Nequi Panama | Digital wallet | 2020 | Panama City, PA | n/a | n/a | Subsidiary of Banco General | Payment institution (Panama) | nequi.com.pa | Panamanian mobile wallet. |
 
+## LATIN AMERICA & CARIBBEAN — Puerto Rico (7)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Banco Popular de Puerto Rico | Bank | 1893 | San Juan, PR | n/a | n/a | Subsidiary of Popular | Banking licence (Puerto Rico) | popular.com | Largest bank in Puerto Rico. |
+| FirstBank Puerto Rico | Bank | 1948 | San Juan, PR | n/a | n/a | Subsidiary of First BanCorp | Banking licence (Puerto Rico) | firstbankpr.com | Puerto Rican bank. |
+| Oriental Bank | Bank | 1960 | San Juan, PR | n/a | n/a | Public: NYSE: OFG | Banking licence (Puerto Rico) | orientalbank.com | Puerto Rican bank of OFG Bancorp. |
+| OFG Bancorp | Financial group | 1964 | San Juan, PR | n/a | n/a | Public: NYSE: OFG | Banking licence (Puerto Rico) | ofg.com | Puerto Rican financial holding company. |
+| Triple-S Management | Insurance | 1959 | San Juan, PR | n/a | n/a | Subsidiary of GuideWell | Insurance licence (Puerto Rico) | triplesalud.com | Largest Puerto Rican health insurer. |
+| FV Bank | Neobank | 2018 | San Juan, PR | n/a | n/a | Private | Banking licence (Puerto Rico) | fvbank.com | Puerto Rico-based digital bank for global clients. |
+| Evertec | Payments | 1989 | San Juan, PR | n/a | n/a | Public: NYSE: EVTC | Payment services (Puerto Rico, Latin America) | evertecinc.com | Puerto Rico-based payment processing and fintech across Latin America. |
+
 ## LATIN AMERICA & CARIBBEAN — Nicaragua (6)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1096,16 +1169,6 @@
 | Banco ProCredit Nicaragua | Bank | 2001 | Managua, NI | n/a | n/a | Subsidiary of ProCredit | Banking licence (Nicaragua) | bancoprocredit.com.ni | Nicaraguan bank for SMEs. |
 | Banco Central de Nicaragua | Central bank | 1960 | Managua, NI | n/a | n/a | Central bank | Central bank (Nicaragua) | bcn.gob.ni | Central bank of Nicaragua. |
 | Grupo Lafise | Financial group | 1985 | Managua, NI | n/a | n/a | Private | Banking licence (Central America) | lafise.com | Nicaraguan banking and remittance group. |
-
-## LATIN AMERICA & CARIBBEAN — Puerto Rico (6)
-| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Banco Popular de Puerto Rico | Bank | 1893 | San Juan, PR | n/a | n/a | Subsidiary of Popular | Banking licence (Puerto Rico) | popular.com | Largest bank in Puerto Rico. |
-| FirstBank Puerto Rico | Bank | 1948 | San Juan, PR | n/a | n/a | Subsidiary of First BanCorp | Banking licence (Puerto Rico) | firstbankpr.com | Puerto Rican bank. |
-| Oriental Bank | Bank | 1960 | San Juan, PR | n/a | n/a | Public: NYSE: OFG | Banking licence (Puerto Rico) | orientalbank.com | Puerto Rican bank of OFG Bancorp. |
-| OFG Bancorp | Financial group | 1964 | San Juan, PR | n/a | n/a | Public: NYSE: OFG | Banking licence (Puerto Rico) | ofg.com | Puerto Rican financial holding company. |
-| Triple-S Management | Insurance | 1959 | San Juan, PR | n/a | n/a | Subsidiary of GuideWell | Insurance licence (Puerto Rico) | triplesalud.com | Largest Puerto Rican health insurer. |
-| FV Bank | Neobank | 2018 | San Juan, PR | n/a | n/a | Private | Banking licence (Puerto Rico) | fvbank.com | Puerto Rico-based digital bank for global clients. |
 
 ## LATIN AMERICA & CARIBBEAN — Costa Rica (4)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
@@ -1165,7 +1228,7 @@
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Republic Financial Holdings | Financial group | 1837 | Port of Spain, TT | n/a | n/a | Public: TTSE: RFHL | Banking licence (Trinidad) | republictt.com | Trinidadian financial holding company. |
 
-## WESTERN EUROPE — United Kingdom (141)
+## WESTERN EUROPE — United Kingdom (156)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Thought Machine | Core banking | 2014 | London, UK | Paul Taylor | ~$500M | n/a | n/a | thoughtmachine.com | UK cloud-native core banking. |
@@ -1248,6 +1311,21 @@
 | HyperJar | Fintech | 2016 | London, UK | Mathew Megginson | ~$30M | Private | Payment licence (UK) | hyperjar.com | British money app for shared spending. |
 | GoHenry | Fintech | 2012 | Fleet, UK | Louise Hill, Dean Brauer | ~$100M | Acquired by Acorns | Payment licence (UK, US) | gohenry.com | British money app for children, now owned by Acorns. |
 | Nimbl | Fintech | 2013 | London, UK | n/a | n/a | Subsidiary of Crown Agents Bank | Payment services (UK) | nimbl.com | British prepaid card for children. |
+| Paddle | Payments | 2012 | London, UK | Christian Owens, Harrison Rose | ~$290M | Private | Payment services (UK) | paddle.com | British merchant of record for software companies. |
+| Ebury | Payments | 2009 | London, UK | Salvador García, Juan Lobato | n/a | Subsidiary of Santander | Payment licence (UK) | ebury.com | British cross-border payments and FX for businesses. |
+| WorldFirst | Payments | 2004 | London, UK | Jonathan Quin, Nick Robinson | n/a | Subsidiary of Ant Group | Payment licence (UK) | worldfirst.com | British international payments and FX platform. |
+| Atlantic Money | Payments | 2021 | London, UK | Neeraj Baid, Patrick Kavanagh | ~$10M | Private | Payment licence (UK) | atlantic.money | British flat-fee international money transfer. |
+| PensionBee | Wealthtech | 2014 | London, UK | Romi Savova | n/a | Public: LSE: PBEE | Pension provider (UK) | pensionbee.com | British online pension consolidation platform. |
+| Smart Pension | Pension | 2014 | London, UK | Andrew Evans, Will Wynne | ~$180M | Private | Pension provider (UK) | smartpension.co.uk | British workplace pension platform. |
+| Cushon | Wealthtech | 2017 | London, UK | Ben Pollard, Phil Hollingdale | ~$35M | Subsidiary of NatWest | Pension provider (UK) | cushon.com | British workplace savings and pension platform. |
+| Penfold | Pension | 2018 | London, UK | Chris Eastwood, Pete Hykin | ~$30M | Private | Pension provider (UK) | getpenfold.com | British digital pension for self-employed workers. |
+| Wagestream | Earned wage access | 2018 | London, UK | Peter Briffett, Portman Wills | ~$170M | Private | Financial services (UK) | wagestream.com | British earned wage access for employers. |
+| Hastee | Earned wage access | 2017 | London, UK | James Herbert | ~$270M | Private | Financial services (UK) | hastee.com | British on-demand pay platform. |
+| Tandem Bank | Bank | 2014 | Cardiff, UK | Ricky Knox, Michael Dooijes | ~$100M | Private | Banking licence (UK) | tandem.co.uk | British green-focused challenger bank. |
+| Wrisk | Insurtech | 2016 | London, UK | Niall Barton, Darius Kumana | ~$20M | Private | Insurance software (UK) | wrisk.co | British insurance technology platform. |
+| Humn | Insurtech | 2018 | London, UK | Mark Musselman | ~$30M | Private | Insurance software (UK) | humn.ai | British motor-fleet insurance data platform. |
+| Flock | Insurtech | 2015 | London, UK | Ed Leon Klinger, Antton Peña | ~$70M | Private | Insurance licence (UK) | flockcover.com | British connected-fleet and drone insurance. |
+| Inshur | Insurtech | 2016 | London, UK | Dan Bratshpis, David Daiches | ~$60M | Private | Insurance licence (UK, US) | inshur.com | British commercial insurance for gig drivers. |
 | Wahed | Robo-advisor | 2015 | London, UK / Kuala Lumpur | n/a | ~$100M | Private | Investment adviser (multiple) | wahed.com | Islamic robo-advisor operating in Malaysia and globally. |
 | Barclays | Bank | 1690 | London, UK | n/a | n/a | Public: LSE: BARC | Banking licence (UK) | barclays.co.uk | Major British universal bank and investment bank. |
 | HSBC | Bank | 1865 | London, UK | n/a | n/a | Public: LSE: HSBA | Banking licence (UK) | hsbc.com | Global British bank. |
@@ -1399,7 +1477,7 @@
 | C24 Bank | Neobank | 2020 | Frankfurt, DE | n/a | n/a | Subsidiary of Comdirect | Banking licence (Germany) | c24.de | German mobile bank. |
 | Bundesbank | Central bank | 1957 | Frankfurt, DE | n/a | n/a | Central bank | Central bank (Germany) | bundesbank.de | Central bank of Germany. |
 
-## WESTERN EUROPE — France (62)
+## WESTERN EUROPE — France (64)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Worldline | Payment processor | 1974 | Bezons, FR | n/a | n/a | Public: ENXTAM: WLN | n/a | worldline.com | European payments and transactional services. |
@@ -1435,6 +1513,8 @@
 | Kaiko | Crypto data | 2014 | Paris, FR | n/a | ~$100M | n/a | n/a | kaiko.com | French crypto market data provider. |
 | Alma | BNPL | 2018 | Paris, FR | Alexis Houssou, Jonathan Fitoussi | ~$250M | n/a | n/a | alma.com | French BNPL for online and in-store. |
 | Younited Credit | Lending | 2009 | Paris, FR | Charles Egly, Geoffroy Guigou | ~$500M | n/a | n/a | younited.com | European P2P lending and credit platform. |
+| Swile | Fintech | 2018 | Paris, FR | Loïc Soubeyrand | ~$500M | Private | Payment licence (France) | swile.co | French employee benefits and meal-voucher platform. |
+| Alan | Insurtech | 2016 | Paris, FR | Jean-Charles Samuelian, Charles Gorintin | ~$600M | Private | Insurance licence (France) | alan.com | French digital health insurer. |
 | BNP Paribas | Bank | 1848 | Paris, FR | n/a | n/a | Public: ENXTPA: BNP | Banking licence (France) | group.bnpparibas | Largest bank in France and the eurozone. |
 | Crédit Agricole | Bank | 1894 | Montrouge, FR | n/a | n/a | Public: ENXTPA: ACA | Banking licence (France) | credit-agricole.com | Largest French cooperative banking group. |
 | Société Générale | Bank | 1864 | Paris, FR | n/a | n/a | Public: ENXTPA: GLE | Banking licence (France) | societegenerale.com | Major French bank. |
@@ -1464,6 +1544,49 @@
 | Goodvest | Wealthtech | 2020 | Paris, FR | n/a | ~$20M | Private | Wealth management (France) | goodvest.fr | French sustainable investing platform. |
 | Euronext | Exchange | 2000 | Paris, FR | n/a | n/a | Public: ENXTPA: ENX | Exchange authorisation (multiple) | euronext.com | Pan-European exchange operator. |
 | Banque de France | Central bank | 1800 | Paris, FR | n/a | n/a | Central bank | Central bank (France) | banque-france.fr | Central bank of France. |
+
+## WESTERN EUROPE — Netherlands (39)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Mambu | Core banking | 2011 | Amsterdam, NL | Frederik Pfisterer | ~$300M | n/a | n/a | mambu.com | German cloud banking platform. |
+| Adyen | Payment platform | 2006 | Amsterdam, NL | Pieter van der Does, Arnout Schuijff | n/a | Public: ENXTAM: ADYEN | n/a | adyen.com | Enterprise payments platform across online and in-store channels. |
+| Mollie | Payment gateway | 2004 | Amsterdam, NL | Adriaan Mol | ~$820M | n/a | n/a | mollie.com | European payment gateway for online businesses. |
+| MultiSafepay | Payment gateway | 1999 | Amsterdam, NL | n/a | n/a | n/a | n/a | multisafepay.com | Dutch payment gateway for ecommerce. |
+| Buckaroo | Payment gateway | 2004 | Utrecht, NL | n/a | n/a | n/a | n/a | buckaroo.nl | Dutch payment gateway and orchestration. |
+| Bunq | Neobank | 2012 | Amsterdam, NL | Ali Niknam | ~$100M | n/a | n/a | bunq.com | Dutch mobile bank with IBAN accounts. |
+| NIBC | Banking | 1945 | The Hague, NL | n/a | n/a | n/a | n/a | nibc.com | Dutch bank with fintech partnerships. |
+| Knab | Neobank | 2012 | Utrecht, NL | n/a | n/a | Acquired by BNP Paribas (2024) | n/a | knab.nl | Dutch online bank, owned by BNP Paribas. |
+| Pay. | Payment gateway | 2005 | Amsterdam, NL | n/a | n/a | n/a | n/a | pay.nl | Dutch payment gateway for ecommerce. |
+| BUX | Investing | 2014 | Amsterdam, NL / Budapest | Egbert Pronk | ~$100M | Private | Brokerage licence (multiple) | bux.com | Dutch-Hungarian commission-free investing app. |
+| De Nederlandsche Bank | Central bank | 1814 | Amsterdam, NL | n/a | n/a | Central bank | Central bank (Netherlands) | dnb.nl | Central bank of the Netherlands. |
+| SNS Bank | Bank | 1817 | Utrecht, NL | n/a | n/a | Subsidiary of de Volksbank | Banking licence (Netherlands) | snsbank.nl | Dutch retail bank. |
+| ASN Bank | Bank | 1960 | The Hague, NL | n/a | n/a | Subsidiary of de Volksbank | Banking licence (Netherlands) | asnbank.nl | Dutch sustainable bank. |
+| RegioBank | Bank | 1975 | Utrecht, NL | n/a | n/a | Subsidiary of de Volksbank | Banking licence (Netherlands) | regiobank.nl | Dutch community bank. |
+| Brand New Day | Pension & investing | 2005 | Amsterdam, NL | Kalo Bagijn, Thierry Schaap | n/a | Private | Pension provider (Netherlands) | brandnewday.nl | Dutch pension and investment provider. |
+| Peaks | Wealthtech | 2017 | Amsterdam, NL | n/a | ~$20M | Private | Investment adviser (Netherlands) | peaks.nl | Dutch micro-investing app. |
+| Amdax | Crypto services | 2019 | Amsterdam, NL | n/a | n/a | Private | Crypto licence (Netherlands) | amdax.com | Dutch crypto asset manager. |
+| Knaken | Crypto exchange | 2017 | Rotterdam, NL | n/a | n/a | Private | Crypto licence (Netherlands) | knaken.nl | Dutch cryptocurrency exchange. |
+| Flow Traders | Trading firm | 2004 | Amsterdam, NL | n/a | n/a | Public: ENXTAM: FLOW | Trading firm (Netherlands) | flowtraders.com | Dutch ETF market maker. |
+| Optiver | Trading firm | 1986 | Amsterdam, NL | n/a | n/a | Private | Trading firm (Netherlands) | optiver.com | Dutch proprietary trading firm and market maker. |
+| IMC | Trading firm | 1989 | Amsterdam, NL | n/a | n/a | Private | Trading firm (Netherlands) | imc.com | Dutch market-making firm. |
+| Payvision | Payments | 2002 | Amsterdam, NL | n/a | n/a | Private | Payment licence (Netherlands) | payvision.com | Dutch payment service provider. |
+| CCV Group | Payments | 1958 | Arnhem, NL | n/a | n/a | Private | Payment licence (Netherlands) | ccv.eu | Dutch payment and card-processing group. |
+| Backbase | Banking software | 2003 | Amsterdam, NL | Jouk Pleiter, Gerbert Kaandorp | ~$150M | Private | Banking software (Netherlands) | backbase.com | Dutch digital banking engagement platform. |
+| Ohpen | Banking software | 2010 | Amsterdam, NL | Chris Zadeh | ~$100M | Private | Banking software (Netherlands) | ohpen.com | Dutch cloud core-banking platform. |
+| Silverflow | Payments | 2019 | Amsterdam, NL / London | Robert Kraal, Anne Willem de Vries | ~$20M | Private | Payment services (UK, Netherlands) | silverflow.com | Dutch-British card processing platform. |
+| ING Group | Bank | 1991 | Amsterdam, NL | n/a | n/a | Public: ENXTAM: INGA | Banking licence (Netherlands) | ing.com | Largest Dutch bank. |
+| ABN AMRO | Bank | 1824 | Amsterdam, NL | n/a | n/a | Public: ENXTAM: ABN | Banking licence (Netherlands) | abnamro.com | Major Dutch bank. |
+| Rabobank | Bank | 1898 | Utrecht, NL | n/a | n/a | Cooperative | Banking licence (Netherlands) | rabobank.com | Dutch cooperative bank and food/agri lender. |
+| de Volksbank | Bank | 2017 | Utrecht, NL | n/a | n/a | State-owned | Banking licence (Netherlands) | volksbank.nl | Dutch state-owned bank behind SNS and ASN. |
+| Triodos Bank | Bank | 1980 | Zeist, NL | n/a | n/a | Private | Banking licence (Netherlands) | triodos.com | Dutch sustainable bank. |
+| Van Lanschot Kempen | Private bank | 1737 | 's-Hertogenbosch, NL | n/a | n/a | Public: ENXTAM: VLK | Banking licence (Netherlands) | vanlanschotkempen.com | Oldest independent Dutch bank. |
+| Achmea | Insurance | 1995 | Zeist, NL | n/a | n/a | Cooperative | Insurance licence (Netherlands) | achmea.com | Largest Dutch insurer. |
+| ASR Nederland | Insurance | 2008 | Utrecht, NL | n/a | n/a | Public: ENXTAM: ASRNL | Insurance licence (Netherlands) | asrnl.com | Dutch insurer. |
+| NN Group | Insurance | 2014 | The Hague, NL | n/a | n/a | Public: ENXTAM: NN | Insurance licence (Netherlands) | nn-group.com | Dutch insurer, spun off from ING. |
+| Bitvavo | Crypto exchange | 2018 | Amsterdam, NL | Mark Nuvelstijn, Jelle Bijkersma | n/a | Private | Crypto licence (Netherlands) | bitvavo.com | Largest Dutch cryptocurrency exchange. |
+| Blockrise | Crypto platform | 2018 | Amsterdam, NL | n/a | n/a | Private | Crypto licence (Netherlands) | blockrise.com | Dutch crypto asset manager. |
+| iDEAL | Payments network | 2005 | Amsterdam, NL | n/a | n/a | Bank consortium | Payment network (Netherlands) | ideal.nl | Dutch online banking payment method. |
+| Payconiq | Payments network | 2015 | Amsterdam, NL / Brussels | n/a | n/a | Bank consortium | Payment network (Benelux) | payconiq.com | Benelux mobile payment platform. |
 
 ## WESTERN EUROPE — Italy (37)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
@@ -1505,47 +1628,6 @@
 | Azimut | Asset management | 1989 | Milan, IT | Pietro Giuliani | n/a | Public: BIT: AZM | Asset management (Italy) | azimut.it | Italian asset manager. |
 | Borsa Italiana | Exchange | 1808 | Milan, IT | n/a | n/a | Subsidiary of Euronext | Exchange authorisation (Italy) | borsaitaliana.it | Italian stock exchange. |
 | Banca d'Italia | Central bank | 1893 | Rome, IT | n/a | n/a | Central bank | Central bank (Italy) | bancaditalia.it | Central bank of Italy. |
-
-## WESTERN EUROPE — Netherlands (37)
-| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Mambu | Core banking | 2011 | Amsterdam, NL | Frederik Pfisterer | ~$300M | n/a | n/a | mambu.com | German cloud banking platform. |
-| Adyen | Payment platform | 2006 | Amsterdam, NL | Pieter van der Does, Arnout Schuijff | n/a | Public: ENXTAM: ADYEN | n/a | adyen.com | Enterprise payments platform across online and in-store channels. |
-| Mollie | Payment gateway | 2004 | Amsterdam, NL | Adriaan Mol | ~$820M | n/a | n/a | mollie.com | European payment gateway for online businesses. |
-| MultiSafepay | Payment gateway | 1999 | Amsterdam, NL | n/a | n/a | n/a | n/a | multisafepay.com | Dutch payment gateway for ecommerce. |
-| Buckaroo | Payment gateway | 2004 | Utrecht, NL | n/a | n/a | n/a | n/a | buckaroo.nl | Dutch payment gateway and orchestration. |
-| Bunq | Neobank | 2012 | Amsterdam, NL | Ali Niknam | ~$100M | n/a | n/a | bunq.com | Dutch mobile bank with IBAN accounts. |
-| NIBC | Banking | 1945 | The Hague, NL | n/a | n/a | n/a | n/a | nibc.com | Dutch bank with fintech partnerships. |
-| Knab | Neobank | 2012 | Utrecht, NL | n/a | n/a | Acquired by BNP Paribas (2024) | n/a | knab.nl | Dutch online bank, owned by BNP Paribas. |
-| Pay. | Payment gateway | 2005 | Amsterdam, NL | n/a | n/a | n/a | n/a | pay.nl | Dutch payment gateway for ecommerce. |
-| BUX | Investing | 2014 | Amsterdam, NL / Budapest | Egbert Pronk | ~$100M | Private | Brokerage licence (multiple) | bux.com | Dutch-Hungarian commission-free investing app. |
-| De Nederlandsche Bank | Central bank | 1814 | Amsterdam, NL | n/a | n/a | Central bank | Central bank (Netherlands) | dnb.nl | Central bank of the Netherlands. |
-| SNS Bank | Bank | 1817 | Utrecht, NL | n/a | n/a | Subsidiary of de Volksbank | Banking licence (Netherlands) | snsbank.nl | Dutch retail bank. |
-| ASN Bank | Bank | 1960 | The Hague, NL | n/a | n/a | Subsidiary of de Volksbank | Banking licence (Netherlands) | asnbank.nl | Dutch sustainable bank. |
-| RegioBank | Bank | 1975 | Utrecht, NL | n/a | n/a | Subsidiary of de Volksbank | Banking licence (Netherlands) | regiobank.nl | Dutch community bank. |
-| Brand New Day | Pension & investing | 2005 | Amsterdam, NL | Kalo Bagijn, Thierry Schaap | n/a | Private | Pension provider (Netherlands) | brandnewday.nl | Dutch pension and investment provider. |
-| Peaks | Wealthtech | 2017 | Amsterdam, NL | n/a | ~$20M | Private | Investment adviser (Netherlands) | peaks.nl | Dutch micro-investing app. |
-| Amdax | Crypto services | 2019 | Amsterdam, NL | n/a | n/a | Private | Crypto licence (Netherlands) | amdax.com | Dutch crypto asset manager. |
-| Knaken | Crypto exchange | 2017 | Rotterdam, NL | n/a | n/a | Private | Crypto licence (Netherlands) | knaken.nl | Dutch cryptocurrency exchange. |
-| Flow Traders | Trading firm | 2004 | Amsterdam, NL | n/a | n/a | Public: ENXTAM: FLOW | Trading firm (Netherlands) | flowtraders.com | Dutch ETF market maker. |
-| Optiver | Trading firm | 1986 | Amsterdam, NL | n/a | n/a | Private | Trading firm (Netherlands) | optiver.com | Dutch proprietary trading firm and market maker. |
-| IMC | Trading firm | 1989 | Amsterdam, NL | n/a | n/a | Private | Trading firm (Netherlands) | imc.com | Dutch market-making firm. |
-| Payvision | Payments | 2002 | Amsterdam, NL | n/a | n/a | Private | Payment licence (Netherlands) | payvision.com | Dutch payment service provider. |
-| CCV Group | Payments | 1958 | Arnhem, NL | n/a | n/a | Private | Payment licence (Netherlands) | ccv.eu | Dutch payment and card-processing group. |
-| Silverflow | Payments | 2019 | Amsterdam, NL / London | Robert Kraal, Anne Willem de Vries | ~$20M | Private | Payment services (UK, Netherlands) | silverflow.com | Dutch-British card processing platform. |
-| ING Group | Bank | 1991 | Amsterdam, NL | n/a | n/a | Public: ENXTAM: INGA | Banking licence (Netherlands) | ing.com | Largest Dutch bank. |
-| ABN AMRO | Bank | 1824 | Amsterdam, NL | n/a | n/a | Public: ENXTAM: ABN | Banking licence (Netherlands) | abnamro.com | Major Dutch bank. |
-| Rabobank | Bank | 1898 | Utrecht, NL | n/a | n/a | Cooperative | Banking licence (Netherlands) | rabobank.com | Dutch cooperative bank and food/agri lender. |
-| de Volksbank | Bank | 2017 | Utrecht, NL | n/a | n/a | State-owned | Banking licence (Netherlands) | volksbank.nl | Dutch state-owned bank behind SNS and ASN. |
-| Triodos Bank | Bank | 1980 | Zeist, NL | n/a | n/a | Private | Banking licence (Netherlands) | triodos.com | Dutch sustainable bank. |
-| Van Lanschot Kempen | Private bank | 1737 | 's-Hertogenbosch, NL | n/a | n/a | Public: ENXTAM: VLK | Banking licence (Netherlands) | vanlanschotkempen.com | Oldest independent Dutch bank. |
-| Achmea | Insurance | 1995 | Zeist, NL | n/a | n/a | Cooperative | Insurance licence (Netherlands) | achmea.com | Largest Dutch insurer. |
-| ASR Nederland | Insurance | 2008 | Utrecht, NL | n/a | n/a | Public: ENXTAM: ASRNL | Insurance licence (Netherlands) | asrnl.com | Dutch insurer. |
-| NN Group | Insurance | 2014 | The Hague, NL | n/a | n/a | Public: ENXTAM: NN | Insurance licence (Netherlands) | nn-group.com | Dutch insurer, spun off from ING. |
-| Bitvavo | Crypto exchange | 2018 | Amsterdam, NL | Mark Nuvelstijn, Jelle Bijkersma | n/a | Private | Crypto licence (Netherlands) | bitvavo.com | Largest Dutch cryptocurrency exchange. |
-| Blockrise | Crypto platform | 2018 | Amsterdam, NL | n/a | n/a | Private | Crypto licence (Netherlands) | blockrise.com | Dutch crypto asset manager. |
-| iDEAL | Payments network | 2005 | Amsterdam, NL | n/a | n/a | Bank consortium | Payment network (Netherlands) | ideal.nl | Dutch online banking payment method. |
-| Payconiq | Payments network | 2015 | Amsterdam, NL / Brussels | n/a | n/a | Bank consortium | Payment network (Benelux) | payconiq.com | Benelux mobile payment platform. |
 
 ## WESTERN EUROPE — Switzerland (31)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
@@ -2938,9 +3020,12 @@
 | Bank Woori Saudara | Bank | 1906 | Bandung, ID | n/a | n/a | Subsidiary of Woori | Banking licence (Indonesia) | bankwoorisaudara.co.id | Indonesian bank owned by Woori Financial. |
 | Bank Maybank Indonesia | Bank | 1959 | Jakarta, ID | n/a | n/a | Subsidiary of Maybank | Banking licence (Indonesia) | maybank.co.id | Indonesian arm of Maybank. |
 
-## SOUTHEAST ASIA — Singapore (46)
+## SOUTHEAST ASIA — Singapore (49)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Coda Payments | Payments | 2011 | Singapore, SG | Paul Leishman, Neil Davidson | ~$690M | Private | Payment licence (Singapore) | codapayments.com | Singapore cross-border payments for digital content and gaming. |
+| M-DAQ | Fintech | 2010 | Singapore, SG | Richard Koh | ~$200M | Private | Financial services (Singapore) | m-daq.com | Singapore FX and cross-border financial data platform. |
+| Fomo Pay | Payments | 2015 | Singapore, SG | Louis Liu, Zack Yang | ~$20M | Private | Payment licence (Singapore) | fomopay.com | Singapore digital payment and collection platform. |
 | DBS Bank | Bank | 1968 | Singapore, SG | n/a | n/a | Public: SGX: D05 | Banking licence (Singapore) | dbs.com.sg | Largest bank in Southeast Asia and a digital banking leader. |
 | OCBC Bank | Bank | 1932 | Singapore, SG | n/a | n/a | Public: SGX: O39 | Banking licence (Singapore) | ocbc.com | Singapore's oldest local bank. |
 | United Overseas Bank | Bank | 1935 | Singapore, SG | n/a | n/a | Public: SGX: U11 | Banking licence (Singapore) | uob.com.sg | Major Singaporean bank with regional retail and wholesale operations. |
@@ -2988,9 +3073,10 @@
 | Brankas | Open banking | 2016 | Singapore, SG | Todd Schweitzer, Husni Fuad | ~$30M | Private | Open banking (region) | brankas.com | Southeast Asian open banking and data API platform. |
 | Validus Capital | Lending | 2015 | Singapore, SG | n/a | n/a | Private | Lending licence (Singapore) | validus.sg | Singapore SME lending platform. |
 
-## SOUTHEAST ASIA — Vietnam (43)
+## SOUTHEAST ASIA — Vietnam (44)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| VNLIFE | Fintech | 2007 | Hanoi, VN | n/a | ~$250M | Private | Payment licence (Vietnam) | vnlife.vn | Vietnamese payments and fintech group behind VNPAY. |
 | Vietcombank | Bank | 1963 | Hanoi, VN | n/a | n/a | Public: HOSE: VCB | Banking licence (Vietnam) | vietcombank.com.vn | Largest bank in Vietnam by market value. |
 | BIDV | Bank | 1957 | Hanoi, VN | n/a | n/a | Public: HOSE: BID | Banking licence (Vietnam) | bidv.com.vn | Major Vietnamese state-owned bank. |
 | VietinBank | Bank | 1988 | Hanoi, VN | n/a | n/a | Public: HOSE: CTG | Banking licence (Vietnam) | vietinbank.vn | Major Vietnamese state-owned bank. |
@@ -3076,9 +3162,10 @@
 | Insular Life | Insurance | 1910 | Muntinlupa, PH | n/a | n/a | Cooperative | Insurance licence (Philippines) | insularlife.com.ph | Largest Filipino-owned life insurer. |
 | PhilHealth | Health insurance | 1995 | Pasig, PH | n/a | n/a | State-owned | State insurance (Philippines) | philhealth.gov.ph | Philippine national health insurance. |
 
-## SOUTHEAST ASIA — Malaysia (35)
+## SOUTHEAST ASIA — Malaysia (36)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Jirnexu | Fintech | 2012 | Kuala Lumpur, MY | Yuen Tuck Siew | ~$20M | Private | Financial comparison (Malaysia) | jirnexu.com | Malaysian financial comparison and customer-acquisition platform. |
 | Maybank | Bank | 1960 | Kuala Lumpur, MY | n/a | n/a | Public: Bursa: MAYBANK | Banking licence (Malaysia) | maybank.com | Largest bank in Malaysia. |
 | CIMB Group | Bank | 1974 | Kuala Lumpur, MY | n/a | n/a | Public: Bursa: CIMB | Banking licence (Malaysia) | cimb.com | Malaysian banking group across ASEAN. |
 | Public Bank | Bank | 1966 | Kuala Lumpur, MY | n/a | n/a | Public: Bursa: PBBANK | Banking licence (Malaysia) | publicbank.com.my | Malaysian bank with strong retail franchise. |
@@ -3301,7 +3388,7 @@
 | GMO Coin | Crypto exchange | 2016 | Tokyo, JP | n/a | n/a | Subsidiary of GMO | Crypto licence (Japan) | coin.z.com | Japanese crypto exchange of the GMO group. |
 | Tokyo Stock Exchange | Exchange | 1878 | Tokyo, JP | n/a | n/a | Subsidiary of JPX | Exchange authorisation (Japan) | jpx.co.jp | Japanese stock exchange, among the world's largest. |
 
-## EAST ASIA — Hong Kong (42)
+## EAST ASIA — Hong Kong (43)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | China Taiping Insurance | Insurance | 1929 | Hong Kong, HK / Beijing | n/a | n/a | Public: HKEX: 0966 | Insurance licence (China) | cntaiping.com | Chinese insurance group with global operations. |
@@ -3344,6 +3431,7 @@
 | Tiger Brokers | Brokerage | 2014 | Hong Kong, HK / Beijing | Wu Tianhua | n/a | Public: NASDAQ: TIGR | Brokerage licence (multiple) | tigerbrokers.com | Hong Kong-based global online brokerage. |
 | HashKey Group | Crypto exchange | 2018 | Hong Kong, HK | n/a | n/a | Private | Crypto licence (Hong Kong) | hashkey.com | Hong Kong regulated digital asset exchange and services. |
 | OSL | Crypto exchange | 2018 | Hong Kong, HK | n/a | n/a | Subsidiary of BC Technology | Crypto licence (Hong Kong) | osl.com | Hong Kong's first licensed digital asset platform. |
+| CompareAsiaGroup | Fintech | 2014 | Hong Kong, HK | Sam Allen | ~$110M | Private | Financial comparison (Asia) | compareasiagroup.com | Hong Kong-founded personal finance comparison group across Asia. |
 | FWD Group | Insurance | 2013 | Hong Kong, HK / Singapore | n/a | n/a | Private | Insurance licences (Asia) | fwd.com | Pan-Asian insurer. |
 | Hashkey | Crypto exchange | 2018 | Hong Kong, HK / Singapore | n/a | n/a | Private | Crypto licence (Hong Kong) | hashkey.com | Hong Kong-Singapore regulated crypto exchange. |
 
