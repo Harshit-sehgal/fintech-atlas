@@ -10,6 +10,9 @@ const excludedRoutes: Record<string, true> = {
   "404": true,
   "_not-found": true,
   bookmarks: true,
+  // Retired hub — redirects to /global-directory (noindex), so keep it out of
+  // the sitemap to protect the canonical destination.
+  directory: true,
 };
 
 /**
