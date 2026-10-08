@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/lib/theme-context";
 import { UiModeProvider } from "@/lib/ui-mode-context";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { SponsorBar } from "@/components/layout/sponsor-bar";
 import { BookmarksProvider } from "@/lib/bookmarks-context";
 import { ToastProvider } from "@/lib/toast-context";
 import StructuredDataLite from "@/components/SEO/StructuredDataLite";
@@ -152,6 +153,7 @@ export default function RootLayout({
             <ToastProvider>
               <BookmarksProvider>
                 <SiteHeader />
+                <SponsorBar />
                 <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">{children}</main>
                 <SiteFooter />
               </BookmarksProvider>
