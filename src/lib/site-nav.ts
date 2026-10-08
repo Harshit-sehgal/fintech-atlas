@@ -12,16 +12,15 @@ export interface NavItem {
   /**
    * One-line clarifier shown next to the label in the grouped "More" menu.
    *
-   * This exists because several surfaces legitimately answer the same question
-   * ("show me fintech companies"). The URL alone cannot explain the difference,
-   * so the menu carries the distinction instead of leaving the reader to guess:
+   * The global research directory is the single "companies" surface: it
+   * lists every tracked fintech and financial institution by region and
+   * country. The remaining browse entries are genuinely different views,
+   * not duplicates of it:
    *
- *   /companies          42 curated worldwide profiles
- *   /global-directory   research directory of firms worldwide
- *   /india/directory     full searchable list of Indian firms
- *   /directory          hub linking every tier together
- *   /categories         the same companies grouped by industry instead
- */
+   *   /global-directory  every tracked company, by region and country
+   *   /categories        the curated companies grouped by industry instead
+   *   /directory         hub linking the research and category surfaces
+   */
   description?: string;
 }
 
@@ -38,16 +37,19 @@ export interface NavGroup {
 }
 
 /**
- * Primary navigation — the six decision surfaces. Everything else lives in
+ * Primary navigation — the five decision surfaces. Everything else lives in
  * "More" so the bar stays calm and scannable (proven comparison-site pattern).
+ *
+ * "Directory" points at the global research directory, which is the single
+ * company-browsing surface — there is no separate "Companies" entry, because
+ * the curated profiles are already part of that directory.
  *
  * These stay short because they sit in a single horizontal row at every
  * breakpoint; the grouped menu below is where nuance lives.
  */
 export const primaryNav: NavItem[] = [
-  { href: "/india", label: "India" },
   { href: "/radar", label: "Radar" },
-  { href: "/companies", label: "Companies" },
+  { href: "/global-directory", label: "Directory" },
   { href: "/compare", label: "Compare" },
   { href: "/tools", label: "Tools" },
   { href: "/articles", label: "Guides" },
@@ -68,19 +70,9 @@ export const moreNavGroups: NavGroup[] = [
         description: "Payments, banking, lending and more",
       },
       {
-        href: "/global-directory",
-        label: "Global directory",
-        description: "Research directory of firms worldwide",
-      },
-      {
-        href: "/india/directory",
-        label: "India directory",
-        description: "Full searchable list of Indian firms",
-      },
-      {
         href: "/directory",
         label: "All directories",
-        description: "Curated profiles plus every research list",
+        description: "Hub linking the research and category surfaces",
       },
       {
         href: "/glossary",
@@ -155,7 +147,7 @@ export const moreNav: NavItem[] = moreNavGroups.flatMap((group) => group.items);
  */
 export const bottomNav: NavItem[] = [
   { href: "/", label: "Home" },
-  { href: "/companies", label: "Companies" },
+  { href: "/global-directory", label: "Directory" },
   { href: "/compare", label: "Compare" },
   { href: "/tools", label: "Tools" },
   { href: "/bookmarks", label: "Saved" },

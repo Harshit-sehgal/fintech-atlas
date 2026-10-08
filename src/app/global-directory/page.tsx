@@ -2,10 +2,7 @@ import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { canonicalUrl } from "@/lib/canonical-url";
 import { openGraphImage } from "@/lib/shared-metadata";
-import {
-  globalDirectoryCount,
-  globalDirectoryClusters,
-} from "@/generated/global-directory";
+import { globalDirectoryCount } from "@/generated/global-directory";
 import { GlobalDirectoryClient } from "./client";
 
 export const metadata: Metadata = generateDirectoryMetadata();
@@ -43,34 +40,21 @@ export default function GlobalDirectoryPage() {
           Global FinTech Directory
         </h1>
         <p className="mt-4 text-[var(--fg-dim)]">
-          {globalDirectoryCount.toLocaleString()} fintech companies worldwide
-          across {globalDirectoryClusters.length} research clusters — founders,
+          {globalDirectoryCount.toLocaleString()} fintech companies and
+          financial institutions, organised by region and country — founders,
           funding raised, valuations, regulatory notes, and websites, compiled
-          from public sources. Search by name or category, filter by cluster,
-          and open a profile for the full record.
+          from public sources. Search, or open a region and expand a country.
         </p>
       </header>
 
       <GlobalDirectoryClient />
 
-      <section className="mt-16 border-t border-[var(--border-color)] pt-8">
-        <h2 className="text-lg font-semibold">Clusters covered</h2>
-        <ul className="mt-4 grid gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-3">
-          {globalDirectoryClusters.map((cluster) => (
-            <li key={cluster.name} className="flex items-baseline justify-between gap-3 text-sm">
-              <span className="text-[var(--fg-dim)]">{cluster.name}</span>
-              <span className="shrink-0 text-xs text-[var(--muted-text)]">{cluster.count}</span>
-            </li>
-          ))}
-        </ul>
-        <p className="mt-6 text-xs leading-relaxed text-[var(--muted-text)]">
-          Research-only data compiled from public sources. Fields marked
-          &ldquo;n/a&rdquo; could not be publicly verified; &ldquo;~&rdquo;
-          marks approximate values. Companies headquartered in India are
-          indexed separately in the India research directory. See the
-          companion research file in the project repository for methodology.
-        </p>
-      </section>
+      <p className="mt-10 max-w-2xl text-xs leading-relaxed text-[var(--muted-text)]">
+        Research-only data compiled from public sources. Fields marked
+        &ldquo;n/a&rdquo; could not be publicly verified; &ldquo;~&rdquo; marks
+        approximate values. See the companion research file in the project
+        repository for methodology and source dates.
+      </p>
     </div>
   );
 }
