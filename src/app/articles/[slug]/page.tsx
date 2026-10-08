@@ -12,6 +12,7 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { CorrectionReportLink } from "@/components/ui/correction-report-link";
 import { Highlight } from "@/components/ui/highlight";
+import { EntityLinkedText } from "@/components/entity-linked-text";
 
 export function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
@@ -47,7 +48,14 @@ function formatDate(iso: string): string {
   });
 }
 
-function Block({ block }: { block: ArticleBlock }) {
+function Block({
+  block,
+  usedEntities,
+}: {
+  block: ArticleBlock;
+  /** Shared across blocks so each entity links once per page. */
+  usedEntities: Set<string>;
+}) {
   switch (block.type) {
     case "h2":
       return (
@@ -61,7 +69,9 @@ function Block({ block }: { block: ArticleBlock }) {
           {block.items.map((item, i) => (
             <li key={i} className="flex items-start gap-2">
               <span className="mt-1.5 shrink-0 h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-              <span>{item}</span>
+              <span>
+                <EntityLinkedText text={item} usedEntities={usedEntities} />
+              </span>
             </li>
           ))}
         </ul>
@@ -103,7 +113,9 @@ function Block({ block }: { block: ArticleBlock }) {
       );
     default:
       return (
-        <p className="mt-4 text-sm leading-relaxed text-[var(--muted-text)]">{block.text}</p>
+        <p className="mt-4 text-sm leading-relaxed text-[var(--muted-text)]">
+          <EntityLinkedText text={block.text} usedEntities={usedEntities} />
+        </p>
       );
   }
 }
@@ -145,6 +157,11 @@ export default async function ArticlePage({
     { name: article.title, href: `/articles/${article.slug}` },
   ];
 
+  // Inline entity linking: one shared set per page so
+  // each company and glossary term links on its first
+  // prose occurrence only.
+  const linkedEntities = new Set<string>();
+
   return (
     <div className="relative mx-auto max-w-3xl px-5 py-20 md:py-28">
       <GridBackdrop />
@@ -177,7 +194,7 @@ export default async function ArticlePage({
 
       <div className="mt-8">
         {article.body.map((block, i) => (
-          <Block key={i} block={block} />
+          <Block key={i} block={block} usedEntities={linkedEntities} />
         ))}
       </div>
 

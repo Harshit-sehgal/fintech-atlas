@@ -11,6 +11,7 @@ import {
   glossaryItemListSchema,
   sanitiseJsonLd,
 } from "@/components/SEO/schemas";
+import { EntityLinkedText } from "@/components/entity-linked-text";
 
 const description =
   "Plain-language definitions of the FinTech terms used on this site — UPI and payment aggregators to FEMA, FIRCs, and RBI licences.";
@@ -124,7 +125,12 @@ export default function GlossaryPage() {
                       </div>
 
                       <p className="mt-2 max-w-3xl text-sm font-medium leading-relaxed text-[var(--foreground)]">{g.short}</p>
-                      <p className="mt-2 max-w-3xl text-sm leading-relaxed text-[var(--muted-text)]">{g.long}</p>
+                      <p className="mt-2 max-w-3xl text-sm leading-relaxed text-[var(--muted-text)]">
+                        <EntityLinkedText
+                          text={g.long}
+                          excludeSlugs={new Set([g.slug])}
+                        />
+                      </p>
 
                       {g.related.length > 0 && (
                         <div className="mt-3 text-xs text-[var(--muted-text)]">
