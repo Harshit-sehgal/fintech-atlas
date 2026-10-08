@@ -1,7 +1,7 @@
 # Global FinTech Company Directory (2026)
 
 > Compiled 2026-10-08 from public sources. A region-by-region financial encyclopedia of the world:
-> 3020 fintech companies and financial institutions across 12 regions, organised by country.
+> 3061 fintech companies and financial institutions across 12 regions, organised by country.
 > Columns: Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description.
 > Fields marked n/a could not be verified publicly; ~ marks approximate values.
 > Companies headquartered in India are indexed separately in the India research directory.
@@ -9,20 +9,20 @@
 ## Coverage stats
 | Metric | Value |
 | --- | --- |
-| Companies | 3020 |
-| Websites found | 3020 (100%) |
-| Founders identified | 744 (25%) |
-| Funding data | 811 (27%) |
-| Valuation/status | 2705 (90%) |
-| Regulatory data | 2441 (81%) |
+| Companies | 3061 |
+| Websites found | 3061 (100%) |
+| Founders identified | 775 (25%) |
+| Funding data | 844 (28%) |
+| Valuation/status | 2746 (90%) |
+| Regulatory data | 2482 (81%) |
 
 ## Contents
-- NORTH AMERICA — United States (533)
+- NORTH AMERICA — United States (542)
 - NORTH AMERICA — Canada (77)
 - LATIN AMERICA & CARIBBEAN — Brazil (79)
-- LATIN AMERICA & CARIBBEAN — Mexico (55)
+- LATIN AMERICA & CARIBBEAN — Mexico (57)
+- LATIN AMERICA & CARIBBEAN — Argentina (34)
 - LATIN AMERICA & CARIBBEAN — Colombia (34)
-- LATIN AMERICA & CARIBBEAN — Argentina (33)
 - LATIN AMERICA & CARIBBEAN — Chile (27)
 - LATIN AMERICA & CARIBBEAN — Peru (21)
 - LATIN AMERICA & CARIBBEAN — Uruguay (13)
@@ -43,32 +43,32 @@
 - LATIN AMERICA & CARIBBEAN — Jamaica (2)
 - LATIN AMERICA & CARIBBEAN — Bermuda (1)
 - LATIN AMERICA & CARIBBEAN — Trinidad and Tobago (1)
-- WESTERN EUROPE — United Kingdom (156)
-- WESTERN EUROPE — Germany (85)
-- WESTERN EUROPE — France (64)
+- WESTERN EUROPE — United Kingdom (162)
+- WESTERN EUROPE — Germany (86)
+- WESTERN EUROPE — France (66)
 - WESTERN EUROPE — Netherlands (39)
 - WESTERN EUROPE — Italy (37)
 - WESTERN EUROPE — Switzerland (31)
-- WESTERN EUROPE — Spain (29)
+- WESTERN EUROPE — Spain (30)
 - WESTERN EUROPE — Ireland (26)
 - WESTERN EUROPE — Portugal (22)
 - WESTERN EUROPE — Belgium (20)
 - WESTERN EUROPE — Greece (16)
-- WESTERN EUROPE — Austria (9)
+- WESTERN EUROPE — Austria (10)
 - WESTERN EUROPE — Luxembourg (6)
-- NORTHERN EUROPE — Sweden (35)
+- NORTHERN EUROPE — Sweden (38)
 - NORTHERN EUROPE — Denmark (28)
 - NORTHERN EUROPE — Norway (21)
 - NORTHERN EUROPE — Finland (19)
 - NORTHERN EUROPE — Iceland (12)
-- CENTRAL & EASTERN EUROPE — Poland (27)
+- CENTRAL & EASTERN EUROPE — Poland (28)
 - CENTRAL & EASTERN EUROPE — Czechia (19)
 - CENTRAL & EASTERN EUROPE — Romania (15)
 - CENTRAL & EASTERN EUROPE — Hungary (14)
+- CENTRAL & EASTERN EUROPE — Estonia (12)
 - CENTRAL & EASTERN EUROPE — Ukraine (11)
 - CENTRAL & EASTERN EUROPE — Uzbekistan (11)
 - CENTRAL & EASTERN EUROPE — Croatia (9)
-- CENTRAL & EASTERN EUROPE — Estonia (9)
 - CENTRAL & EASTERN EUROPE — Bulgaria (8)
 - CENTRAL & EASTERN EUROPE — Lithuania (8)
 - CENTRAL & EASTERN EUROPE — Slovakia (8)
@@ -87,8 +87,8 @@
 - CENTRAL & EASTERN EUROPE — Latvia (4)
 - CENTRAL & EASTERN EUROPE — Turkmenistan (4)
 - CENTRAL & EASTERN EUROPE — Azerbaijan (3)
-- MIDDLE EAST — United Arab Emirates (29)
-- MIDDLE EAST — Saudi Arabia (25)
+- MIDDLE EAST — United Arab Emirates (30)
+- MIDDLE EAST — Saudi Arabia (26)
 - MIDDLE EAST — Turkey (23)
 - MIDDLE EAST — Israel (20)
 - MIDDLE EAST — Jordan (12)
@@ -98,9 +98,9 @@
 - MIDDLE EAST — Qatar (9)
 - MIDDLE EAST — Oman (8)
 - MIDDLE EAST — Bahrain (2)
-- AFRICA — Nigeria (32)
-- AFRICA — South Africa (28)
-- AFRICA — Kenya (24)
+- AFRICA — Nigeria (35)
+- AFRICA — South Africa (30)
+- AFRICA — Kenya (25)
 - AFRICA — Egypt (13)
 - AFRICA — Ivory Coast (13)
 - AFRICA — Tunisia (10)
@@ -136,7 +136,7 @@
 - SOUTH ASIA — Maldives (4)
 - SOUTHEAST ASIA — Indonesia (55)
 - SOUTHEAST ASIA — Singapore (49)
-- SOUTHEAST ASIA — Vietnam (44)
+- SOUTHEAST ASIA — Vietnam (46)
 - SOUTHEAST ASIA — Philippines (37)
 - SOUTHEAST ASIA — Malaysia (36)
 - SOUTHEAST ASIA — Thailand (35)
@@ -145,7 +145,7 @@
 - SOUTHEAST ASIA — Brunei (2)
 - SOUTHEAST ASIA — Laos (2)
 - EAST ASIA — China (59)
-- EAST ASIA — Japan (49)
+- EAST ASIA — Japan (50)
 - EAST ASIA — Hong Kong (43)
 - EAST ASIA — South Korea (38)
 - EAST ASIA — Taiwan (30)
@@ -163,7 +163,7 @@
 - GLOBAL — DEVELOPMENT BANKS & STANDARD SETTERS (23)
 - GLOBAL — DATA, RATINGS & MARKET INFRASTRUCTURE (19)
 
-## NORTH AMERICA — United States (533)
+## NORTH AMERICA — United States (542)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Stripe | Payment platform | 2010 | San Francisco, US | Patrick Collison, John Collison | ~$9B | $65B (2024) | n/a | stripe.com | Financial infrastructure platform for online payments, billing and payouts. |
@@ -618,6 +618,15 @@
 | Swyfft | Insurtech | 2014 | Whitehouse Station, US | n/a | ~$50M | Private | Insurance licence (US) | swyfft.com | US data-driven home insurance MGA. |
 | Slide | Insurtech | 2022 | Tampa, US | Bruce Lucas | ~$100M | Private | Insurance licence (US) | slideinsurance.com | US coastal home insurer. |
 | Neptune Flood | Insurtech | 2013 | St. Petersburg, US | Jim Albert | ~$30M | Private | Insurance licence (US) | neptuneflood.com | US private flood insurance provider. |
+| Akoya | Financial data | 2018 | Andover, US | n/a | n/a | Private | Financial data (US) | akoya.com | US consented-data network backed by major banks and brokers. |
+| Orum | Payments infrastructure | 2020 | New York, US | Stephany Kirkpatrick | ~$80M | Private | Payment services (US) | orum.io | US real-time money-movement API. |
+| Uplift | BNPL | 2006 | San Francisco, US | Brian Barth | n/a | Acquired by Upgrade | Lending licence (US, CA) | uplift.com | US buy now pay later for travel, acquired by Upgrade. |
+| Upgrade | Neobank | 2017 | San Francisco, US | Renaud Laplanche | ~$600M | Private | Banking services (US) | upgrade.com | US consumer credit and mobile banking platform. |
+| Petal | Consumer credit | 2016 | New York, US | Jason Gross, Andrew Endicott | ~$300M | Acquired by Empower | Lending licence (US) | petalcard.com | US credit cards for people without credit history. |
+| Copper Banking | Fintech | 2019 | Seattle, US | Eddie Behringer, Stefan Berglund | ~$50M | Private | Banking services (US) | copperbanking.com | US banking and financial education for teens. |
+| Goalsetter | Fintech | 2016 | New York, US | Tanya Van Court | ~$25M | Private | Banking services (US) | goalsetter.co | US savings and financial-literacy app for families. |
+| Clair | Earned wage access | 2019 | New York, US | Nico Simko | ~$50M | Private | Financial services (US) | getclair.com | US earned-wage access platform for employers. |
+| Tala | Consumer credit | 2011 | Santa Monica, US | Shivani Siroya | ~$400M | Private | Lending services (multiple) | tala.com | US-founded mobile lending platform for underserved markets. |
 | JPMorgan Chase | Bank | 1799 | New York, US | n/a | n/a | Public: NYSE: JPM | Banking licence (US) | jpmorganchase.com | Largest bank in the United States and the world by market cap. |
 | Bank of America | Bank | 1904 | Charlotte, US | n/a | n/a | Public: NYSE: BAC | Banking licence (US) | bankofamerica.com | Major US bank with Merrill Lynch and BofA Securities. |
 | Wells Fargo | Bank | 1852 | San Francisco, US | n/a | n/a | Public: NYSE: WFC | Banking licence (US) | wellsfargo.com | Major US bank. |
@@ -864,9 +873,11 @@
 | BRB | Bank | 1966 | Brasília, BR | n/a | n/a | Public: B3: BSLI3 | Banking licence (Brazil) | brb.com.br | Bank of Brasília with retail and public-sector lending. |
 | Banpará | Bank | 1961 | Belém, BR | n/a | n/a | State-owned | State-owned bank (Brazil) | banpara.com.br | State-owned development bank of Pará. |
 
-## LATIN AMERICA & CARIBBEAN — Mexico (55)
+## LATIN AMERICA & CARIBBEAN — Mexico (57)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Kavak | Fintech & marketplace | 2016 | Mexico City, MX | Carlos García Ottati, Loreanne García | ~$1.6B | Private | Lending services (Mexico) | kavak.com | Mexican used-car marketplace with consumer financing. |
+| Flink | Neobank | 2016 | Mexico City, MX | Sergio Jiménez Amozurrutia | ~$30M | Private | Banking licence (Mexico) | flink.com.mx | Mexican digital banking platform. |
 | BBVA México | Bank | 1932 | Mexico City, MX | n/a | n/a | Subsidiary of BBVA | Banking licence (Mexico) | bbva.mx | Largest bank in Mexico, formerly Bancomer. |
 | Banorte | Bank | 1899 | Monterrey, MX | n/a | n/a | Public: BMV: GFNORTE | Banking licence (Mexico) | banorte.com | Major Mexican bank and financial group. |
 | Santander México | Bank | 1932 | Mexico City, MX | n/a | n/a | Public: BMV: SANMEX | Banking licence (Mexico) | santander.com.mx | Mexican subsidiary of Banco Santander. |
@@ -923,6 +934,44 @@
 | Seguros Monterrey | Insurance | 1942 | Mexico City, MX | n/a | n/a | Subsidiary of New York Life | Insurance licence (Mexico) | segurosmonterrey.com | Mexican life insurer owned by New York Life. |
 | Sura México | Insurance | 2007 | Mexico City, MX | n/a | n/a | Subsidiary of Grupo Sura | Insurance licence (Mexico) | sura.com.mx | Mexican pension and insurance arm of Grupo Sura. |
 
+## LATIN AMERICA & CARIBBEAN — Argentina (34)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Pomelo | Card issuing | 2021 | Buenos Aires, AR | Gastón Irigoyen, Hernán Corral | ~$100M | Private | Card services (Argentina, Brazil) | pomelo.com | Argentine card-issuing and payments infrastructure. |
+| Ualá | Neobank | 2017 | Buenos Aires, AR / Mexico City | Pierpaolo Barbieri | ~$500M | Private | Banking licence (Mexico, Argentina) | uala.com | Argentine-Mexican neobank with cards, payments and investing. |
+| Mercado Pago Argentina | Payments | 2003 | Buenos Aires, AR | n/a | n/a | Subsidiary of MercadoLibre | Payment institution (Argentina) | mercadopago.com.ar | Argentine payments arm of MercadoLibre. |
+| Naranja X | Neobank | 1985 | Córdoba, AR | n/a | n/a | Private | Banking licence (Argentina) | naranjax.com | Argentine card and consumer finance company. |
+| Brubank | Neobank | 2017 | Buenos Aires, AR | Juan Bruchou | n/a | Private | Banking licence (Argentina) | brubank.com | Argentine fully digital bank. |
+| Banco Galicia | Bank | 1905 | Buenos Aires, AR | n/a | n/a | Public: BYMA: GGAL | Banking licence (Argentina) | galicia.ar | Largest private bank in Argentina by assets. |
+| Banco Santander Argentina | Bank | 1968 | Buenos Aires, AR | n/a | n/a | Public: BYMA: SAN | Banking licence (Argentina) | santander.com.ar | Argentine subsidiary of Banco Santander. |
+| BBVA Argentina | Bank | 1996 | Buenos Aires, AR | n/a | n/a | Public: BYMA: BBAR | Banking licence (Argentina) | bbva.com.ar | Argentine bank, formerly Banco Francés. |
+| Banco Macro | Bank | 1978 | Buenos Aires, AR | n/a | n/a | Public: BYMA: BMA | Banking licence (Argentina) | macro.com.ar | Argentine private bank with nationwide reach. |
+| Banco Supervielle | Bank | 1887 | Buenos Aires, AR | n/a | n/a | Public: BYMA: SUPV | Banking licence (Argentina) | supervielle.com.ar | Argentine bank with retail and corporate services. |
+| Banco Nación | Bank | 1891 | Buenos Aires, AR | n/a | n/a | State-owned | State-owned bank (Argentina) | bna.com.ar | Largest state-owned bank in Argentina. |
+| Banco Provincia | Bank | 1822 | La Plata, AR | n/a | n/a | State-owned | State-owned bank (Argentina) | bancoprovincia.com.ar | State-owned bank of Buenos Aires province. |
+| Banco Ciudad | Bank | 1878 | Buenos Aires, AR | n/a | n/a | State-owned | State-owned bank (Argentina) | bancociudad.com.ar | Municipal bank of Buenos Aires. |
+| Banco Hipotecario | Bank | 1886 | Buenos Aires, AR | n/a | n/a | Public: BYMA: BHIP | Banking licence (Argentina) | hipotecario.com.ar | Argentine mortgage and retail bank. |
+| Banco Credicoop | Bank | 1979 | Buenos Aires, AR | n/a | n/a | Cooperative | Cooperative bank (Argentina) | credicoop.coop.ar | Argentine cooperative bank. |
+| BIND | Investment bank | 2018 | Buenos Aires, AR | n/a | n/a | Private | Brokerage licence (Argentina) | bind.com.ar | Argentine digital investment bank and broker. |
+| Wilobank | Neobank | 2017 | Buenos Aires, AR | n/a | n/a | Private | Banking licence (Argentina) | wilobank.com | Argentine digital bank, first licensed in the country. |
+| Rebanking | Neobank | 2019 | Buenos Aires, AR | n/a | n/a | Private | Banking licence (Argentina) | rebanking.com.ar | Argentine digital bank for SMBs. |
+| Buenbit | Crypto exchange | 2018 | Buenos Aires, AR | Federico Ogue, Matías Fernández | ~$30M | Private | Crypto exchange (Argentina) | buenbit.com | Argentine crypto exchange and wallet. |
+| Ripio | Crypto platform | 2013 | Buenos Aires, AR | Sebastián Serrano, Luciana Gruszka | ~$100M | Private | Crypto exchange (Argentina, Brazil) | ripio.com | Argentine crypto exchange and wallet across Latin America. |
+| SatoshiTango | Crypto exchange | 2014 | Buenos Aires, AR | n/a | n/a | Private | Crypto exchange (Argentina) | satoshitango.com | Argentine cryptocurrency exchange and custody. |
+| Lemon Cash | Crypto wallet | 2019 | Buenos Aires, AR | Marcelo Cavazzoli, Borja Martel | ~$40M | Private | Crypto services (Argentina) | lemon.me | Argentine crypto wallet with peso and card features. |
+| Belo | Crypto wallet | 2020 | Buenos Aires, AR | Manuel Beaudroit | ~$30M | Private | Crypto services (Argentina) | belo.app | Argentine crypto wallet for cross-border payments. |
+| MODO | Digital wallet | 2020 | Buenos Aires, AR | n/a | n/a | Bank consortium | Payment institution (Argentina) | modo.com.ar | Argentine mobile wallet built by major banks. |
+| Personal Pay | Digital wallet | 2021 | Buenos Aires, AR | n/a | n/a | Subsidiary of Telecom Argentina | Payment institution (Argentina) | personalpay.com.ar | Argentine mobile wallet and prepaid card from Telecom. |
+| TAP | Payments | 2019 | Buenos Aires, AR | n/a | n/a | Private | Payment institution (Argentina) | tap.com.ar | Argentine payments and collections platform. |
+| Payway | Payments | 2001 | Buenos Aires, AR | n/a | n/a | Private | Payment institution (Argentina) | payway.com.ar | Argentine payment gateway and merchant services. |
+| Prisma | Payments | 1991 | Buenos Aires, AR | n/a | n/a | Private | Payment institution (Argentina) | prisma.com.ar | Argentine card network and payments company. |
+| OCA | Payments | 1966 | Buenos Aires, AR | n/a | n/a | Private | Payment institution (Argentina) | oca.com.ar | Argentine payment and logistics network. |
+| Fiserv Argentina | Payments | 1991 | Buenos Aires, AR | n/a | n/a | Subsidiary of Fiserv | Payment institution (Argentina) | fiserv.com.ar | Argentine payments processing of Fiserv. |
+| Geopagos | Payments infrastructure | 2010 | Buenos Aires, AR | n/a | ~$40M | Private | Payment services (Argentina) | geopagos.com | Latin American payment acceptance infrastructure provider. |
+| Naranja Digital | Digital wallet | 2019 | Córdoba, AR | n/a | n/a | Subsidiary of Naranja X | Payment institution (Argentina) | naranjax.com | Argentine digital wallet of Naranja X. |
+| Banco del Sol | Bank | 2019 | Buenos Aires, AR | n/a | n/a | Joint venture | Banking licence (Argentina) | bancodelsol.com | Argentine digital bank venture of Banco Macro and BIND. |
+| BYMA | Exchange | 2016 | Buenos Aires, AR | n/a | n/a | Private | Exchange authorisation (Argentina) | byma.com.ar | Argentine securities exchange and market infrastructure. |
+
 ## LATIN AMERICA & CARIBBEAN — Colombia (34)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -960,43 +1009,6 @@
 | Grupo Sura | Financial group | 1944 | Medellín, CO | n/a | n/a | Public: BVC: GRUPOSURA | Insurance and pension licences (Colombia) | gruposura.com | Colombian financial group with insurance and pensions. |
 | Protección | Pension fund | 1994 | Bogotá, CO | n/a | n/a | Subsidiary of Grupo Sura | Pension licence (Colombia) | proteccion.com.co | Largest Colombian pension fund manager. |
 | Positiva | Insurance | 1994 | Bogotá, CO | n/a | n/a | Subsidiary of Grupo Aval | Insurance licence (Colombia) | positivaseguros.com | Colombian insurer of Grupo Aval. |
-
-## LATIN AMERICA & CARIBBEAN — Argentina (33)
-| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Ualá | Neobank | 2017 | Buenos Aires, AR / Mexico City | Pierpaolo Barbieri | ~$500M | Private | Banking licence (Mexico, Argentina) | uala.com | Argentine-Mexican neobank with cards, payments and investing. |
-| Mercado Pago Argentina | Payments | 2003 | Buenos Aires, AR | n/a | n/a | Subsidiary of MercadoLibre | Payment institution (Argentina) | mercadopago.com.ar | Argentine payments arm of MercadoLibre. |
-| Naranja X | Neobank | 1985 | Córdoba, AR | n/a | n/a | Private | Banking licence (Argentina) | naranjax.com | Argentine card and consumer finance company. |
-| Brubank | Neobank | 2017 | Buenos Aires, AR | Juan Bruchou | n/a | Private | Banking licence (Argentina) | brubank.com | Argentine fully digital bank. |
-| Banco Galicia | Bank | 1905 | Buenos Aires, AR | n/a | n/a | Public: BYMA: GGAL | Banking licence (Argentina) | galicia.ar | Largest private bank in Argentina by assets. |
-| Banco Santander Argentina | Bank | 1968 | Buenos Aires, AR | n/a | n/a | Public: BYMA: SAN | Banking licence (Argentina) | santander.com.ar | Argentine subsidiary of Banco Santander. |
-| BBVA Argentina | Bank | 1996 | Buenos Aires, AR | n/a | n/a | Public: BYMA: BBAR | Banking licence (Argentina) | bbva.com.ar | Argentine bank, formerly Banco Francés. |
-| Banco Macro | Bank | 1978 | Buenos Aires, AR | n/a | n/a | Public: BYMA: BMA | Banking licence (Argentina) | macro.com.ar | Argentine private bank with nationwide reach. |
-| Banco Supervielle | Bank | 1887 | Buenos Aires, AR | n/a | n/a | Public: BYMA: SUPV | Banking licence (Argentina) | supervielle.com.ar | Argentine bank with retail and corporate services. |
-| Banco Nación | Bank | 1891 | Buenos Aires, AR | n/a | n/a | State-owned | State-owned bank (Argentina) | bna.com.ar | Largest state-owned bank in Argentina. |
-| Banco Provincia | Bank | 1822 | La Plata, AR | n/a | n/a | State-owned | State-owned bank (Argentina) | bancoprovincia.com.ar | State-owned bank of Buenos Aires province. |
-| Banco Ciudad | Bank | 1878 | Buenos Aires, AR | n/a | n/a | State-owned | State-owned bank (Argentina) | bancociudad.com.ar | Municipal bank of Buenos Aires. |
-| Banco Hipotecario | Bank | 1886 | Buenos Aires, AR | n/a | n/a | Public: BYMA: BHIP | Banking licence (Argentina) | hipotecario.com.ar | Argentine mortgage and retail bank. |
-| Banco Credicoop | Bank | 1979 | Buenos Aires, AR | n/a | n/a | Cooperative | Cooperative bank (Argentina) | credicoop.coop.ar | Argentine cooperative bank. |
-| BIND | Investment bank | 2018 | Buenos Aires, AR | n/a | n/a | Private | Brokerage licence (Argentina) | bind.com.ar | Argentine digital investment bank and broker. |
-| Wilobank | Neobank | 2017 | Buenos Aires, AR | n/a | n/a | Private | Banking licence (Argentina) | wilobank.com | Argentine digital bank, first licensed in the country. |
-| Rebanking | Neobank | 2019 | Buenos Aires, AR | n/a | n/a | Private | Banking licence (Argentina) | rebanking.com.ar | Argentine digital bank for SMBs. |
-| Buenbit | Crypto exchange | 2018 | Buenos Aires, AR | Federico Ogue, Matías Fernández | ~$30M | Private | Crypto exchange (Argentina) | buenbit.com | Argentine crypto exchange and wallet. |
-| Ripio | Crypto platform | 2013 | Buenos Aires, AR | Sebastián Serrano, Luciana Gruszka | ~$100M | Private | Crypto exchange (Argentina, Brazil) | ripio.com | Argentine crypto exchange and wallet across Latin America. |
-| SatoshiTango | Crypto exchange | 2014 | Buenos Aires, AR | n/a | n/a | Private | Crypto exchange (Argentina) | satoshitango.com | Argentine cryptocurrency exchange and custody. |
-| Lemon Cash | Crypto wallet | 2019 | Buenos Aires, AR | Marcelo Cavazzoli, Borja Martel | ~$40M | Private | Crypto services (Argentina) | lemon.me | Argentine crypto wallet with peso and card features. |
-| Belo | Crypto wallet | 2020 | Buenos Aires, AR | Manuel Beaudroit | ~$30M | Private | Crypto services (Argentina) | belo.app | Argentine crypto wallet for cross-border payments. |
-| MODO | Digital wallet | 2020 | Buenos Aires, AR | n/a | n/a | Bank consortium | Payment institution (Argentina) | modo.com.ar | Argentine mobile wallet built by major banks. |
-| Personal Pay | Digital wallet | 2021 | Buenos Aires, AR | n/a | n/a | Subsidiary of Telecom Argentina | Payment institution (Argentina) | personalpay.com.ar | Argentine mobile wallet and prepaid card from Telecom. |
-| TAP | Payments | 2019 | Buenos Aires, AR | n/a | n/a | Private | Payment institution (Argentina) | tap.com.ar | Argentine payments and collections platform. |
-| Payway | Payments | 2001 | Buenos Aires, AR | n/a | n/a | Private | Payment institution (Argentina) | payway.com.ar | Argentine payment gateway and merchant services. |
-| Prisma | Payments | 1991 | Buenos Aires, AR | n/a | n/a | Private | Payment institution (Argentina) | prisma.com.ar | Argentine card network and payments company. |
-| OCA | Payments | 1966 | Buenos Aires, AR | n/a | n/a | Private | Payment institution (Argentina) | oca.com.ar | Argentine payment and logistics network. |
-| Fiserv Argentina | Payments | 1991 | Buenos Aires, AR | n/a | n/a | Subsidiary of Fiserv | Payment institution (Argentina) | fiserv.com.ar | Argentine payments processing of Fiserv. |
-| Geopagos | Payments infrastructure | 2010 | Buenos Aires, AR | n/a | ~$40M | Private | Payment services (Argentina) | geopagos.com | Latin American payment acceptance infrastructure provider. |
-| Naranja Digital | Digital wallet | 2019 | Córdoba, AR | n/a | n/a | Subsidiary of Naranja X | Payment institution (Argentina) | naranjax.com | Argentine digital wallet of Naranja X. |
-| Banco del Sol | Bank | 2019 | Buenos Aires, AR | n/a | n/a | Joint venture | Banking licence (Argentina) | bancodelsol.com | Argentine digital bank venture of Banco Macro and BIND. |
-| BYMA | Exchange | 2016 | Buenos Aires, AR | n/a | n/a | Private | Exchange authorisation (Argentina) | byma.com.ar | Argentine securities exchange and market infrastructure. |
 
 ## LATIN AMERICA & CARIBBEAN — Chile (27)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
@@ -1228,7 +1240,7 @@
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Republic Financial Holdings | Financial group | 1837 | Port of Spain, TT | n/a | n/a | Public: TTSE: RFHL | Banking licence (Trinidad) | republictt.com | Trinidadian financial holding company. |
 
-## WESTERN EUROPE — United Kingdom (156)
+## WESTERN EUROPE — United Kingdom (162)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Thought Machine | Core banking | 2014 | London, UK | Paul Taylor | ~$500M | n/a | n/a | thoughtmachine.com | UK cloud-native core banking. |
@@ -1326,6 +1338,12 @@
 | Humn | Insurtech | 2018 | London, UK | Mark Musselman | ~$30M | Private | Insurance software (UK) | humn.ai | British motor-fleet insurance data platform. |
 | Flock | Insurtech | 2015 | London, UK | Ed Leon Klinger, Antton Peña | ~$70M | Private | Insurance licence (UK) | flockcover.com | British connected-fleet and drone insurance. |
 | Inshur | Insurtech | 2016 | London, UK | Dan Bratshpis, David Daiches | ~$60M | Private | Insurance licence (UK, US) | inshur.com | British commercial insurance for gig drivers. |
+| Monese | Neobank | 2015 | London, UK | Norris Koppel | ~$200M | Private | Payment licence (UK) | monese.com | British digital banking for migrants and expats. |
+| Crowdcube | Crowdfunding | 2011 | Exeter, UK | Darren Westlake, Luke Lang | ~$100M | Private | Crowdfunding platform (UK) | crowdcube.com | British equity crowdfunding platform. |
+| Seedrs | Crowdfunding | 2012 | London, UK | Jeff Lynn | ~$70M | Subsidiary of Republic | Crowdfunding platform (UK) | seedrs.com | British equity crowdfunding platform, now part of Republic. |
+| Wombat | Wealthtech | 2016 | London, UK | Kane Harrison, Sam Gordon | ~$20M | Private | Investment adviser (UK) | wombatinvest.com | British themed and fractional investing app. |
+| Vestd | Fintech | 2016 | London, UK | Ifty Nasir | ~$10M | Private | Financial software (UK) | vestd.com | British equity and share-scheme management platform. |
+| Salary Finance | Earned wage access | 2015 | London, UK | Asesh Sarkar, Dan Cobley | ~$150M | Private | Financial services (UK, US) | salaryfinance.com | British-US salary-linked savings and loans platform. |
 | Wahed | Robo-advisor | 2015 | London, UK / Kuala Lumpur | n/a | ~$100M | Private | Investment adviser (multiple) | wahed.com | Islamic robo-advisor operating in Malaysia and globally. |
 | Barclays | Bank | 1690 | London, UK | n/a | n/a | Public: LSE: BARC | Banking licence (UK) | barclays.co.uk | Major British universal bank and investment bank. |
 | HSBC | Bank | 1865 | London, UK | n/a | n/a | Public: LSE: HSBA | Banking licence (UK) | hsbc.com | Global British bank. |
@@ -1388,7 +1406,7 @@
 | London Stock Exchange | Exchange | 1801 | London, UK | n/a | n/a | Subsidiary of LSEG | Exchange authorisation (UK) | londonstockexchange.com | British stock exchange. |
 | London Metal Exchange | Exchange | 1877 | London, UK | n/a | n/a | Subsidiary of HKEX | Exchange authorisation (UK) | lme.com | World's largest metals exchange. |
 
-## WESTERN EUROPE — Germany (85)
+## WESTERN EUROPE — Germany (86)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Moss | Spend management | 2019 | Berlin, DE | n/a | ~$180M | n/a | n/a | moss.com | German corporate cards and spend management. |
@@ -1441,6 +1459,7 @@
 | Tradegate | Exchange | 2001 | Berlin, DE | n/a | n/a | Private | Exchange authorisation (Germany) | tradegate.de | German retail trading venue. |
 | Elinvar | Wealthtech | 2015 | Berlin, DE | Chris Bartz, Mario Kellermann | ~$80M | Private | Wealth software (Germany) | elinvar.com | German wealth management technology platform. |
 | Finleap | Fintech | 2014 | Berlin, DE | n/a | ~$100M | Private | Fintech services (Germany) | finleap.com | German fintech company builder. |
+| Naga | Brokerage | 2015 | Hamburg, DE | Yasin Sebastian Qureshi, Christoph Brück | n/a | Public: XETRA: N4G | Brokerage licence (Germany) | naga.com | German social trading and investing platform. |
 | KfW | Development bank | 1948 | Frankfurt, DE | n/a | n/a | State-owned | Development bank (Germany) | kfw.de | German state development bank. |
 | Landesbank Baden-Württemberg | Bank | 1999 | Stuttgart, DE | n/a | n/a | State-linked | Banking licence (Germany) | lbbw.de | German Landesbank. |
 | BayernLB | Bank | 1972 | Munich, DE | n/a | n/a | State-linked | Banking licence (Germany) | bayernlb.de | Bavarian state bank. |
@@ -1477,7 +1496,7 @@
 | C24 Bank | Neobank | 2020 | Frankfurt, DE | n/a | n/a | Subsidiary of Comdirect | Banking licence (Germany) | c24.de | German mobile bank. |
 | Bundesbank | Central bank | 1957 | Frankfurt, DE | n/a | n/a | Central bank | Central bank (Germany) | bundesbank.de | Central bank of Germany. |
 
-## WESTERN EUROPE — France (64)
+## WESTERN EUROPE — France (66)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Worldline | Payment processor | 1974 | Bezons, FR | n/a | n/a | Public: ENXTAM: WLN | n/a | worldline.com | European payments and transactional services. |
@@ -1515,6 +1534,8 @@
 | Younited Credit | Lending | 2009 | Paris, FR | Charles Egly, Geoffroy Guigou | ~$500M | n/a | n/a | younited.com | European P2P lending and credit platform. |
 | Swile | Fintech | 2018 | Paris, FR | Loïc Soubeyrand | ~$500M | Private | Payment licence (France) | swile.co | French employee benefits and meal-voucher platform. |
 | Alan | Insurtech | 2016 | Paris, FR | Jean-Charles Samuelian, Charles Gorintin | ~$600M | Private | Insurance licence (France) | alan.com | French digital health insurer. |
+| Defacto | Lending | 2021 | Paris, FR | Morgan O'hana, Jordane Giuly | ~$200M | Private | Lending licence (France) | getdefacto.com | French embedded lending API for platforms. |
+| Indy | Financial software | 2016 | Lyon, FR | Cédric Doré | ~$80M | Private | Financial software (France) | indy.fr | French automated accounting for freelancers. |
 | BNP Paribas | Bank | 1848 | Paris, FR | n/a | n/a | Public: ENXTPA: BNP | Banking licence (France) | group.bnpparibas | Largest bank in France and the eurozone. |
 | Crédit Agricole | Bank | 1894 | Montrouge, FR | n/a | n/a | Public: ENXTPA: ACA | Banking licence (France) | credit-agricole.com | Largest French cooperative banking group. |
 | Société Générale | Bank | 1864 | Paris, FR | n/a | n/a | Public: ENXTPA: GLE | Banking licence (France) | societegenerale.com | Major French bank. |
@@ -1664,7 +1685,7 @@
 | True Wealth | Wealthtech | 2013 | Zurich, CH | n/a | ~$20M | Private | Investment adviser (Switzerland) | truewealth.ch | Swiss digital wealth manager. |
 | Selma Finance | Wealthtech | 2017 | Zurich, CH | n/a | ~$20M | Private | Investment adviser (Switzerland) | selma.io | Swiss robo-advisor. |
 
-## WESTERN EUROPE — Spain (29)
+## WESTERN EUROPE — Spain (30)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Openbank | Bank | 1995 | Madrid, ES | n/a | n/a | Subsidiary of Santander | Banking licence (Spain) | openbank.es | Spanish digital bank of Santander. |
@@ -1682,6 +1703,7 @@
 | Moneytrans | Remittance | 1996 | Madrid, ES | n/a | n/a | Private | Money transmitter (Spain) | moneytrans.eu | Spanish remittance and payment network. |
 | Ibercaja | Bank | 1876 | Zaragoza, ES | n/a | n/a | Private | Banking licence (Spain) | ibercaja.es | Spanish savings bank. |
 | Cajamar | Bank | 1966 | Almería, ES | n/a | n/a | Cooperative | Banking licence (Spain) | cajamar.es | Spanish rural cooperative bank. |
+| Fintonic | Financial software | 2012 | Madrid, ES | Lupina Iturriaga | ~$50M | Private | Financial services (Spain) | fintonic.com | Spanish personal finance and loans app. |
 | Banco Santander | Bank | 1857 | Madrid, ES | n/a | n/a | Public: BME: SAN | Banking licence (Spain) | santander.com | Largest bank in the eurozone by market cap. |
 | BBVA | Bank | 1857 | Bilbao, ES | n/a | n/a | Public: BME: BBVA | Banking licence (Spain) | bbva.com | Major Spanish bank. |
 | CaixaBank | Bank | 2011 | Valencia, ES | n/a | n/a | Public: BME: CABK | Banking licence (Spain) | caixabank.com | Largest retail bank in Spain. |
@@ -1797,10 +1819,11 @@
 | Eurolife FFH | Insurance | 2000 | Athens, GR | n/a | n/a | Private | Insurance licence (Greece) | eurolife.gr | Greek life insurer of Fairfax. |
 | Generali Hellas | Insurance | 1893 | Athens, GR | n/a | n/a | Subsidiary of Generali | Insurance licence (Greece) | generali.gr | Greek arm of Generali. |
 
-## WESTERN EUROPE — Austria (9)
+## WESTERN EUROPE — Austria (10)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Bitpanda | Crypto exchange | 2014 | Vienna, AT | Eric Demuth, Paul Klanschek | ~$500M | $4B (2021) | n/a | bitpanda.com | Austrian crypto and asset trading app. |
+| wikifolio | Wealthtech | 2011 | Vienna, AT | Andreas Kern | ~$30M | Private | Investment services (Austria) | wikifolio.com | Austrian platform for investing in published strategies. |
 | Erste Group | Bank | 1819 | Vienna, AT | n/a | n/a | Public: WBAG: EBS | Banking licence (Austria) | erstegroup.com | Largest Austrian bank with CEE reach. |
 | Raiffeisen Bank International | Bank | 1986 | Vienna, AT | n/a | n/a | Public: WBAG: RBI | Banking licence (Austria) | rbinternational.com | Austrian bank active across Central and Eastern Europe. |
 | BAWAG Group | Bank | 2007 | Vienna, AT | n/a | n/a | Public: WBAG: BG | Banking licence (Austria) | bawaggroup.at | Austrian retail and business bank. |
@@ -1820,7 +1843,7 @@
 | Foyer Group | Insurance | 1922 | Luxembourg, LU | n/a | n/a | Private | Insurance licence (Luxembourg) | foyer.lu | Largest Luxembourg insurer. |
 | LuxSE | Exchange | 1928 | Luxembourg, LU | n/a | n/a | Private | Exchange authorisation (Luxembourg) | luxse.com | Luxembourg stock exchange and listings venue. |
 
-## NORTHERN EUROPE — Sweden (35)
+## NORTHERN EUROPE — Sweden (38)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Trustly | Payment gateway | 2008 | Stockholm, SE | Oscar Berglund, Carl von Essen | ~$200M | n/a | n/a | trustly.com | Open banking payment network across Europe. |
@@ -1854,6 +1877,9 @@
 | ICA Banken | Bank | 2001 | Solna, SE | n/a | n/a | Subsidiary of ICA | Banking licence (Sweden) | icabanken.se | Swedish bank of the ICA grocery group. |
 | Ikano Bank | Bank | 1988 | Älmhult, SE | n/a | n/a | Private | Banking licence (Sweden) | ikanobank.se | Swedish consumer bank. |
 | Skandiabanken | Bank | 1994 | Stockholm, SE | n/a | n/a | Subsidiary of Skandia | Banking licence (Sweden) | skandia.se | Swedish digital bank of Skandia. |
+| Brite Payments | Payments | 2019 | Stockholm, SE | Lena Hackelöer | ~$70M | Private | Payment licence (Sweden) | britepayments.com | Swedish account-to-account instant payments provider. |
+| Kivra | Fintech | 2010 | Stockholm, SE | n/a | ~$100M | Private | Financial services (Sweden) | kivra.se | Swedish digital mailbox for invoices and official post. |
+| Fortnox | Financial software | 2001 | Växjö, SE | n/a | n/a | Public: OMX: FNOX | Financial software (Sweden) | fortnox.se | Swedish cloud accounting and invoicing software. |
 | Länsförsäkringar | Insurance | 1801 | Stockholm, SE | n/a | n/a | Mutual | Insurance licence (Sweden) | lansforsakringar.se | Swedish mutual insurer and bank. |
 | Folksam | Insurance | 1906 | Stockholm, SE | n/a | n/a | Mutual | Insurance licence (Sweden) | folksam.se | Swedish mutual insurer. |
 | If | Insurance | 1825 | Stockholm, SE | n/a | n/a | Subsidiary of Sampo | Insurance licence (Nordics) | if.se | Nordic non-life insurer. |
@@ -1955,7 +1981,7 @@
 | Sjóvá | Insurance | 1918 | Reykjavík, IS | n/a | n/a | Public: Nasdaq Iceland: SJOVA | Insurance licence (Iceland) | sjova.is | Icelandic insurer. |
 | TM | Insurance | 1964 | Reykjavík, IS | n/a | n/a | Private | Insurance licence (Iceland) | tm.is | Icelandic insurer. |
 
-## CENTRAL & EASTERN EUROPE — Poland (27)
+## CENTRAL & EASTERN EUROPE — Poland (28)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | PKO Bank Polski | Bank | 1919 | Warsaw, PL | n/a | n/a | Public: WSE: PKO | Banking licence (Poland) | pkobp.pl | Largest bank in Poland. |
@@ -1985,6 +2011,7 @@
 | Grupa PFR | Development fund | 2016 | Warsaw, PL | n/a | n/a | State-owned | Development fund (Poland) | pfr.pl | Polish development fund and state investor. |
 | Warsaw Stock Exchange | Exchange | 1817 | Warsaw, PL | n/a | n/a | Public: WSE: GPW | Exchange authorisation (Poland) | gpw.pl | Largest stock exchange in Central and Eastern Europe. |
 | National Bank of Poland | Central bank | 1945 | Warsaw, PL | n/a | n/a | Central bank | Central bank (Poland) | nbp.pl | Central bank of Poland. |
+| Zonda | Crypto exchange | 2014 | Warsaw, PL | n/a | n/a | Private | Crypto services (Poland) | zondacrypto.com | Polish cryptocurrency exchange, formerly BitBay. |
 
 ## CENTRAL & EASTERN EUROPE — Czechia (19)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
@@ -2046,6 +2073,22 @@
 | Budapest Stock Exchange | Exchange | 1990 | Budapest, HU | n/a | n/a | Private | Exchange authorisation (Hungary) | bse.hu | Hungarian stock exchange. |
 | Magyar Nemzeti Bank | Central bank | 1924 | Budapest, HU | n/a | n/a | Central bank | Central bank (Hungary) | mnb.hu | Central bank of Hungary. |
 
+## CENTRAL & EASTERN EUROPE — Estonia (12)
+| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Swedbank Estonia | Bank | 1991 | Tallinn, EE | n/a | n/a | Subsidiary of Swedbank | Banking licence (Estonia) | swedbank.ee | Estonian bank of Swedbank. |
+| SEB Estonia | Bank | 1992 | Tallinn, EE | n/a | n/a | Subsidiary of SEB | Banking licence (Estonia) | seb.ee | Estonian bank of SEB. |
+| LHV Pank | Bank | 1998 | Tallinn, EE | n/a | n/a | Public: Nasdaq Tallinn: LHV | Banking licence (Estonia) | lhv.ee | Estonian bank and broker. |
+| Luminor | Bank | 2017 | Tallinn, EE | n/a | n/a | Private | Banking licence (Estonia, Latvia, Lithuania) | luminor.lv | Baltic bank formed from Nordea and DNB operations. |
+| Coop Pank | Bank | 1992 | Tallinn, EE | n/a | n/a | Public: Nasdaq Tallinn: CPA1T | Banking licence (Estonia) | cooppank.ee | Estonian bank. |
+| Bigbank | Bank | 1992 | Tallinn, EE | n/a | n/a | Private | Banking licence (Estonia) | bigbank.ee | Estonian bank for consumer lending. |
+| Veriff | Identity verification | 2015 | Tallinn, EE | Kaarel Kotkas | ~$100M | Private | Regtech services (Estonia) | veriff.com | Estonian identity verification platform. |
+| Xolo | Fintech | 2015 | Tallinn, EE | n/a | ~$30M | Private | Financial software (Estonia) | xolo.io | Estonian digital company formation and accounting. |
+| Montonio | Payments | 2018 | Tallinn, EE | n/a | ~$30M | Private | Payment licence (Estonia) | montonio.com | Estonian payments and financing platform. |
+| Wallester | Card issuing | 2016 | Tallinn, EE | n/a | n/a | Private | Payment licence (Estonia) | wallester.com | Estonian card issuing and payment platform. |
+| Tuum | Banking software | 2015 | Tallinn, EE | n/a | ~$60M | Private | Banking software (Estonia) | tuumplatform.com | Estonian core banking platform for banks and fintechs. |
+| Iute | Consumer finance | 2008 | Tallinn, EE | n/a | n/a | Public: OMX: IUTE | Lending licence (Estonia) | iutecredit.com | Estonian consumer finance group across the Balkans. |
+
 ## CENTRAL & EASTERN EUROPE — Ukraine (11)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -2088,19 +2131,6 @@
 | Keks Pay | Digital wallet | 2019 | Zagreb, HR | n/a | n/a | Subsidiary of Erste | Payment services (Croatia) | kekspay.hr | Croatian mobile payment app from Erste. |
 | Croatia osiguranje | Insurance | 1884 | Zagreb, HR | n/a | n/a | Private | Insurance licence (Croatia) | croatia-osiguranje.hr | Largest Croatian insurer. |
 | Zagreb Stock Exchange | Exchange | 1907 | Zagreb, HR | n/a | n/a | Private | Exchange authorisation (Croatia) | zse.hr | Croatian stock exchange. |
-
-## CENTRAL & EASTERN EUROPE — Estonia (9)
-| Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Swedbank Estonia | Bank | 1991 | Tallinn, EE | n/a | n/a | Subsidiary of Swedbank | Banking licence (Estonia) | swedbank.ee | Estonian bank of Swedbank. |
-| SEB Estonia | Bank | 1992 | Tallinn, EE | n/a | n/a | Subsidiary of SEB | Banking licence (Estonia) | seb.ee | Estonian bank of SEB. |
-| LHV Pank | Bank | 1998 | Tallinn, EE | n/a | n/a | Public: Nasdaq Tallinn: LHV | Banking licence (Estonia) | lhv.ee | Estonian bank and broker. |
-| Luminor | Bank | 2017 | Tallinn, EE | n/a | n/a | Private | Banking licence (Estonia, Latvia, Lithuania) | luminor.lv | Baltic bank formed from Nordea and DNB operations. |
-| Coop Pank | Bank | 1992 | Tallinn, EE | n/a | n/a | Public: Nasdaq Tallinn: CPA1T | Banking licence (Estonia) | cooppank.ee | Estonian bank. |
-| Bigbank | Bank | 1992 | Tallinn, EE | n/a | n/a | Private | Banking licence (Estonia) | bigbank.ee | Estonian bank for consumer lending. |
-| Veriff | Identity verification | 2015 | Tallinn, EE | Kaarel Kotkas | ~$100M | Private | Regtech services (Estonia) | veriff.com | Estonian identity verification platform. |
-| Xolo | Fintech | 2015 | Tallinn, EE | n/a | ~$30M | Private | Financial software (Estonia) | xolo.io | Estonian digital company formation and accounting. |
-| Montonio | Payments | 2018 | Tallinn, EE | n/a | ~$30M | Private | Payment licence (Estonia) | montonio.com | Estonian payments and financing platform. |
 
 ## CENTRAL & EASTERN EUROPE — Bulgaria (8)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
@@ -2279,9 +2309,10 @@
 | PASHA Bank | Bank | 2007 | Baku, AZ | n/a | n/a | Private | Banking licence (Azerbaijan) | pashabank.az | Azerbaijani bank. |
 | Bank Respublika | Bank | 1992 | Baku, AZ | n/a | n/a | Private | Banking licence (Azerbaijan) | bankrespublika.az | Azerbaijani bank. |
 
-## MIDDLE EAST — United Arab Emirates (29)
+## MIDDLE EAST — United Arab Emirates (30)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Ziina | Payments | 2020 | Dubai, AE | Faisal Toukan | ~$30M | Private | Payment licence (UAE) | ziina.com | UAE peer-to-peer payments app for consumers and businesses. |
 | First Abu Dhabi Bank | Bank | 2017 | Abu Dhabi, AE | n/a | n/a | Public: ADX: FAB | Banking licence (UAE) | bankfab.com | Largest bank in the UAE. |
 | Emirates NBD | Bank | 2007 | Dubai, AE | n/a | n/a | Public: DFM: EMIRATESNBD | Banking licence (UAE) | emiratesnbd.com | Major UAE bank and digital banking leader. |
 | Abu Dhabi Commercial Bank | Bank | 1985 | Abu Dhabi, AE | n/a | n/a | Public: ADX: ADCB | Banking licence (UAE) | adcb.com | UAE bank. |
@@ -2312,9 +2343,10 @@
 | Oman Insurance | Insurance | 1975 | Dubai, AE | n/a | n/a | Subsidiary of Sukoon | Insurance licence (UAE) | omaninsurance.ae | UAE general insurer known as Sukoon. |
 | Daman Health | Insurance | 2009 | Abu Dhabi, AE | n/a | n/a | Private | Insurance licence (UAE) | damanhealth.ae | UAE health insurer. |
 
-## MIDDLE EAST — Saudi Arabia (25)
+## MIDDLE EAST — Saudi Arabia (26)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| HALA | Fintech | 2018 | Riyadh, SA | Maher Loubieh | ~$20M | Private | Payment licence (Saudi Arabia) | hala.finance | Saudi payments and wallet platform. |
 | Tamara | BNPL | 2020 | Riyadh, SA | Abdulmajeed Al-Sulaiman | ~$500M | Private | Lending licence (Saudi Arabia) | tamara.co | Saudi buy now pay later platform. |
 | Lean Technologies | Open banking | 2019 | Riyadh, SA / Dubai | Hisham Al-Falih | ~$100M | Private | Open banking (Saudi Arabia) | leantech.io | Saudi open banking and payments platform. |
 | Al Rajhi Bank | Bank | 1957 | Riyadh, SA | n/a | n/a | Public: TADAWUL: 1120 | Islamic banking licence (Saudi Arabia) | alrajhibank.com.sa | Largest Islamic bank in the world. |
@@ -2480,7 +2512,7 @@
 | PayTabs | Payments | 2014 | Manama, BH / Dubai | Abdulaziz Al Jouf | ~$30M | Private | Payment licence (Saudi Arabia, UAE) | paytabs.com | Middle East payment processing company. |
 | Rain | Crypto exchange | 2017 | Manama, BH / Dubai | Abdullah Almoaiqel | ~$60M | Private | Crypto licence (UAE, Bahrain) | rain.com | Middle East cryptocurrency exchange. |
 
-## AFRICA — Nigeria (32)
+## AFRICA — Nigeria (35)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Flutterwave | Payments | 2016 | Lagos, NG | Olugbenga Agboola, Iyinoluwa Aboyeji | ~$500M | Private | Payment licences (multiple) | flutterwave.com | Nigerian payments technology company across Africa. |
@@ -2515,8 +2547,11 @@
 | AXA Mansard | Insurance | 2004 | Lagos, NG | n/a | n/a | Subsidiary of AXA | Insurance licence (Nigeria) | axamansard.com | Nigerian insurer of AXA. |
 | aiico Insurance | Insurance | 1963 | Lagos, NG | n/a | n/a | Public: NGX: AIICO | Insurance licence (Nigeria) | aiicoplc.com | Nigerian life insurer. |
 | Jumia | E-commerce & payments | 2012 | Lagos, NG | Sacha Poignonnec, Jérémy Hodara | n/a | Public: NYSE: JMIA | Payment services (multiple) | jumia.com | Pan-African e-commerce group with JumiaPay. |
+| Moove | Fintech | 2019 | Lagos, NG | Ladi Delano, Jide Odunsi | ~$400M | Private | Lending services (multiple) | moove.io | Nigerian vehicle-financing platform for ride-hailing drivers. |
+| Lidya | Lending | 2017 | Lagos, NG | Tunde Kehinde, Ercin Eksin | ~$40M | Private | Lending licence (Nigeria) | lidya.co | Nigerian lending platform for small businesses. |
+| Carbon | Neobank | 2012 | Lagos, NG | Chijioke Dozie, Ngozi Dozie | ~$30M | Private | Lending licence (Nigeria) | getcarbon.co | Nigerian digital bank and consumer lender. |
 
-## AFRICA — South Africa (28)
+## AFRICA — South Africa (30)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Standard Bank | Bank | 1862 | Johannesburg, ZA | n/a | n/a | Public: JSE: SBK | Banking licence (South Africa) | standardbank.com | Largest bank in Africa by assets. |
@@ -2547,8 +2582,10 @@
 | OUTsurance | Insurance | 1998 | Centurion, ZA | n/a | n/a | Public: JSE: OUT | Insurance licence (South Africa) | outsurance.co.za | South African direct insurer. |
 | Naked Insurance | Insurtech | 2016 | Johannesburg, ZA | Alex Thomson, Sumarie Greybe | ~$40M | Private | Insurance licence (South Africa) | naked.insure | South African AI-driven digital insurer. |
 | Bidvest Bank | Bank | 2000 | Johannesburg, ZA | n/a | n/a | Subsidiary of Bidvest | Banking licence (South Africa) | bidvestbank.co.za | South African bank. |
+| Lulalend | Lending | 2014 | Cape Town, ZA | Trevor Gosling, Neil Welman | ~$100M | Private | Lending licence (South Africa) | lula.co.za | South African digital lender for small businesses. |
+| Retail Capital | Lending | 2005 | Cape Town, ZA | n/a | n/a | Acquired by TymeBank | Lending licence (South Africa) | retailcapital.co.za | South African alternative business funding, acquired by TymeBank. |
 
-## AFRICA — Kenya (24)
+## AFRICA — Kenya (25)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | M-Pesa | Mobile money | 2007 | Nairobi, KE | n/a | n/a | Subsidiary of Safaricom | Payment licence (Kenya) | safaricom.co.ke | Africa's pioneering mobile money service. |
@@ -2575,6 +2612,7 @@
 | CIC Insurance | Insurance | 1968 | Nairobi, KE | n/a | n/a | Public: NSE: CIC | Insurance licence (Kenya) | cic.co.ke | Kenyan cooperative insurer. |
 | Airtel Money | Mobile money | 2012 | Nairobi, KE (regional) | n/a | n/a | Subsidiary of Airtel | Payment licence (multiple) | airtel.africa | Airtel's mobile money service across Africa. |
 | Bank of Africa Kenya | Bank | 1984 | Nairobi, KE | n/a | n/a | Subsidiary of Bank of Africa | Banking licence (Kenya) | boakenya.com | Kenyan bank of the Moroccan Bank of Africa group. |
+| Sun King | Fintech | 2007 | Nairobi, KE | n/a | ~$300M | Private | Lending services (multiple) | sungking.com | Kenyan-founded solar-pay-go financing across Africa and Asia. |
 
 ## AFRICA — Egypt (13)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
@@ -3073,10 +3111,12 @@
 | Brankas | Open banking | 2016 | Singapore, SG | Todd Schweitzer, Husni Fuad | ~$30M | Private | Open banking (region) | brankas.com | Southeast Asian open banking and data API platform. |
 | Validus Capital | Lending | 2015 | Singapore, SG | n/a | n/a | Private | Lending licence (Singapore) | validus.sg | Singapore SME lending platform. |
 
-## SOUTHEAST ASIA — Vietnam (44)
+## SOUTHEAST ASIA — Vietnam (46)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | VNLIFE | Fintech | 2007 | Hanoi, VN | n/a | ~$250M | Private | Payment licence (Vietnam) | vnlife.vn | Vietnamese payments and fintech group behind VNPAY. |
+| Finhay | Wealthtech | 2017 | Hanoi, VN | Nghiêm Xuân Huy | ~$30M | Private | Investment services (Vietnam) | finhay.vn | Vietnamese micro-investing platform. |
+| Fundiin | BNPL | 2019 | Ho Chi Minh City, VN | n/a | ~$10M | Private | Lending services (Vietnam) | fundiin.vn | Vietnamese pay-later platform with no-card instalments. |
 | Vietcombank | Bank | 1963 | Hanoi, VN | n/a | n/a | Public: HOSE: VCB | Banking licence (Vietnam) | vietcombank.com.vn | Largest bank in Vietnam by market value. |
 | BIDV | Bank | 1957 | Hanoi, VN | n/a | n/a | Public: HOSE: BID | Banking licence (Vietnam) | bidv.com.vn | Major Vietnamese state-owned bank. |
 | VietinBank | Bank | 1988 | Hanoi, VN | n/a | n/a | Public: HOSE: CTG | Banking licence (Vietnam) | vietinbank.vn | Major Vietnamese state-owned bank. |
@@ -3335,7 +3375,7 @@
 | Mininglamp | Regtech | 2014 | Beijing, CN | n/a | n/a | Private | AI software (China) | mininglamp.com | Chinese enterprise data intelligence for finance and government. |
 | Didi Finance | Fintech | 2016 | Beijing, CN | n/a | n/a | Subsidiary of Didi | Financial licences (China) | didiglobal.com | Chinese ride-hailing company's financial services arm. |
 
-## EAST ASIA — Japan (49)
+## EAST ASIA — Japan (50)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Bitcoin.com | Crypto platform | 2015 | Tokyo, JP | n/a | n/a | n/a | n/a | bitcoin.com | Crypto news, wallet and exchange portal. |
@@ -3387,6 +3427,7 @@
 | bitbank | Crypto exchange | 2014 | Tokyo, JP | n/a | ~$30M | Private | Crypto licence (Japan) | bitbank.cc | Japanese cryptocurrency exchange. |
 | GMO Coin | Crypto exchange | 2016 | Tokyo, JP | n/a | n/a | Subsidiary of GMO | Crypto licence (Japan) | coin.z.com | Japanese crypto exchange of the GMO group. |
 | Tokyo Stock Exchange | Exchange | 1878 | Tokyo, JP | n/a | n/a | Subsidiary of JPX | Exchange authorisation (Japan) | jpx.co.jp | Japanese stock exchange, among the world's largest. |
+| Kyash | Digital wallet | 2014 | Tokyo, JP | Shinichi Takamiya | ~$90M | Private | Payment licence (Japan) | kyash.co | Japanese mobile banking and payment app. |
 
 ## EAST ASIA — Hong Kong (43)
 | Company | Category | Founded | HQ | Founders | Funding raised | Valuation/Status | Regulatory | Website | Description |

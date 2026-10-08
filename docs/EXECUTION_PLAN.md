@@ -816,14 +816,16 @@ India directory, with GA4 search/analytics plumbing added alongside.
 | T149 | Google Analytics 4 + article OG + GSC | ✅ done — env-gated GA4 (`NEXT_PUBLIC_GA_MEASUREMENT_ID`) rendered as literal `<head>` scripts so the CSP generator hashes the inline bootstrap; CSP adds GTM/GA origins only when configured; `trackEvent` gains a `window.gtag` branch; articles emit og:type=article with publishedTime/modifiedTime/authors/section; `google-site-verification` meta emitted when set; Privacy Notice updated to disclose the optional cookie-based configuration |
 | T150 | Expand to 2,932 | ✅ done — ~233 more companies (Nordics, UK peer banks/insurers/comparison sites, Benelux/Iberia/Italy/Germany/Ireland institutions, Moldova, Albania, North Macedonia, Bosnia, Montenegro, US alt asset managers and cyber insurtechs) |
 | T151 | Expand to 3,020 + raise JS cap | ✅ done — ~88 more companies (US payments infra and partner banks, comparison sites, UK/EU fintech, Singapore/Vietnam/Brazil additions); compressed-JS cap raised 475,000 → 500,000 with a documented rationale (the client search subset is now ~3,000 genuinely searchable records, growing ~14 gzip-bytes each) |
+| T152 | Expand to 3,061 + restore coverage gate | ✅ done — ~41 more companies (US infrastructure/consumer-finance, UK/EU fintech, Middle East, Africa, Japan, LatAm); fixed `directory-parse.ts` to split rows on *unescaped* pipes so `\|` in a cell no longer corrupts the column count; added tests for the shared parser, the curated↔research bridges, the GA component, GA/GSC config and the `gtag` event path — **628** unit tests (77 files), branch coverage **75.2%** ≥ the 75% gate; Playwright **126/126** |
 
-Verification: typecheck + eslint clean, **608** unit tests green, and a full
-static export passing every postbuild gate — compressed-JS budget
-473,049/500,000 across 46 assets, structured-data over 17,811 JSON-LD blocks in
-**5,925** HTML files, internal-link verification across all files, title audit
-at 5,923 pages under 65 chars, and the description gate across all 5,925 pages.
-The directory now indexes **3,020** companies across **145** country/thematic
-clusters in 12 regions.
+Verification: typecheck + eslint clean, **628** unit tests green with the 75%
+branch gate satisfied, **126** Playwright tests green, and a full static export
+passing every postbuild gate — compressed-JS budget 473,473/500,000 across 46
+assets, structured-data over 17,934 JSON-LD blocks in **5,966** HTML files,
+internal-link verification across all files, title audit at 5,964 pages under
+65 chars, and the description gate across all 5,966 pages. The directory now
+indexes **3,061** companies across **145** country/thematic clusters in 12
+regions.
 
 Constraint recorded: the compressed-JS subset grows ~14 gzip-bytes per company.
 The next large dataset must first cut payload (columnar encoding or virtualised

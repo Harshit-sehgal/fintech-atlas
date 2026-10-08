@@ -47,7 +47,10 @@ function parseRowCells(line: string): string[] | null {
   if (!line.startsWith("|") || !line.endsWith("|")) return null;
   const cells = line
     .slice(1, -1)
-    .split("|")
+    // Split on unescaped pipes only, so `\|` inside a cell survives as data
+    // rather than being consumed as a delimiter (which would shift/overflow
+    // the column count and silently drop the row).
+    .split(/(?<!\\)\|/)
     .map((cell) => cell.replace(/\\\|/g, "|").trim());
   if (cells.length !== 10) return null;
   // Table header and separator rows share the ten-cell shape; so does

@@ -67,4 +67,18 @@ describe("analytics helpers", () => {
       props: { url: "https://wise.com", placement: "body" },
     });
   });
+
+  it("falls back to the gtag global when plausible is absent", () => {
+    const gtag = vi.fn();
+    vi.stubGlobal("window", { gtag });
+
+    trackEvent("tool_start", { tool: "calculator" });
+
+    expect(gtag).toHaveBeenCalledWith("event", "tool_start", { tool: "calculator" });
+  });
+
+  it("is a no-op when neither analytics global is present", () => {
+    vi.stubGlobal("window", {});
+    expect(() => trackEvent("compare_view")).not.toThrow();
+  });
 });
