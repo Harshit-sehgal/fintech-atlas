@@ -55,23 +55,23 @@ export function HomeHero({
     <section data-placement="home-hero" className="relative mx-auto max-w-5xl px-5 pb-14 pt-14 md:pb-28 md:pt-32">
       <div className="mx-auto max-w-3xl text-center">
         <p className="mb-5 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
-          FinTech Atlas · India payment decisions, compared
+          FinTech Atlas · the world&rsquo;s fintech, in one directory
         </p>
 
         <h1 className="text-balance text-4xl font-semibold leading-[1.08] tracking-tight text-[var(--foreground)] sm:text-5xl md:text-6xl">
-          Compare payment gateways &{" "}
-          <em className="font-serif italic text-[var(--accent)]">international</em> payments for India
+          Make sense of the companies reshaping{" "}
+          <em className="font-serif italic text-[var(--accent)]">finance</em>
         </h1>
 
         <p className="mx-auto mt-5 max-w-xl text-pretty text-base leading-relaxed text-[var(--muted-text)] sm:text-lg">
-          Calculate real fees, settlement amounts and provider differences
-          before choosing — {companySummaries.length} company profiles, every
-          jargon term explained in plain English.
+          Explore a global directory of banks, neobanks, payments and fintech —
+          compare services, calculate real fees, and get every term explained in
+          plain English.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm">
-          <Link href="/compare" className="btn-primary">Compare payment gateways</Link>
-          <Link href="/tools/calculator" className="btn-ghost">Calculate gateway fees</Link>
+          <Link href="/global-directory" className="btn-primary">Explore the directory</Link>
+          <Link href="/compare" className="btn-ghost">Compare providers</Link>
         </div>
       </div>
 

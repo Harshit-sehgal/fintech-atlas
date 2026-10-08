@@ -820,17 +820,15 @@ India directory, with GA4 search/analytics plumbing added alongside.
 | T153 | Coverage above 90% on every metric | ✅ done — branch-focused tests across the URL-filter/saved-search/saved-hub/watchlist/compare/fuzzy/matchmaker/partner/digest helpers, GA+GSC config/components, toast/bookmarks/ui-mode contexts, the shared parser, the investment calculators and the RBI event/review/parse pipeline; fixed a latent `makeEventId` signed-32-bit formatting bug the tests exposed. **827 tests / 107 files; statements 94.12%, branches 90.08%, functions 94.58%, lines 95.48%** |
 | T154 | Clear the CI audit gate | ✅ done — `npm audit --production --audit-level=high` was failing on a high advisory; `npm audit fix` bumped `source-map-js` to 1.2.2 (0 production vulnerabilities). This was the sole cause of the failing `verify` check on PR #75 |
 | T155 | Cover the live fetchers + wire deploy analytics | ✅ done — `fetch-rbi-pa`/`fetch-rbi-coa` refactored to injectable `runRbiPaFetch`/`runRbiCoaFetch` and fully covered alongside `runRatesFetch`; deploy workflow bakes `NEXT_PUBLIC_GA_MEASUREMENT_ID` + `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` from repository Variables. **Coverage: statements 96.31%, branches 92.39%, functions 95.41%, lines 97.36%** |
+| T156 | Consolidate nav + rebuild directory as an atlas | ✅ done — primary nav is Radar · Directory · Compare · Tools · Guides (India and curated Companies entries removed); `/global-directory` regrouped region → country → collapsible list with "See all" and in-place match highlighting; `/directory` hub rebuilt around the single index; reusable `directory-groups`, `Disclosure`, `HighlightedText` primitives; extension seams documented in AGENTS.md |
+| T157 | Reposition the homepage global-first | ✅ done — homepage title/description/hero now lead with the global directory ("FinTech Atlas — Global FinTech Directory & Tools"); the India-hub intent card and section CTAs point at the directory; the "India-First Providers" section becomes "Featured Providers". India remains an editorial content niche (its articles, tools and hub still exist) but is no longer a top-level menu or homepage positioning. **Note:** this supersedes the India-first positioning in §7 for the homepage; India-specific *content* stays. |
 
-Verification: typecheck + eslint clean, **827** unit tests green with the 75%
-branch gate satisfied, **126** Playwright tests green, and a full static export
-passing every postbuild gate — compressed-JS budget 473,473/500,000 across 46
-assets, structured-data over 17,934 JSON-LD blocks in **5,966** HTML files,
-internal-link verification across all files, title audit at 5,964 pages under
-65 chars, and the description gate across all 5,966 pages. The directory now
-indexes **3,061** companies across **145** country/thematic clusters in 12
-regions.
-
-Tracked in PR #75 (`feat/global-directory-analytics` → `main`).
+Verification: typecheck + eslint clean, **850** unit tests green (all four
+coverage metrics above 90%, branches ≥92%), **126** Playwright tests green, and
+a full static export passing every postbuild gate — compressed-JS budget
+~475,000/500,000 across 46 assets, structured-data across 5,966 HTML files,
+internal-link verification, the title audit and the description gate. The
+directory indexes **3,061** companies across **145** country/thematic clusters.
 
 Constraint recorded: the compressed-JS subset grows ~14 gzip-bytes per company.
 The next large dataset must first cut payload (columnar encoding or virtualised
