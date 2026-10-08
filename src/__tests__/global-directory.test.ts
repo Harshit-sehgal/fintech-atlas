@@ -68,21 +68,21 @@ describe("global directory (generated from research markdown)", () => {
   it("summaries mirror the full records they link to", () => {
     expect(globalDirectorySummaries).toHaveLength(freshRecords.length);
     const bySlug = new Map(globalDirectoryRecords.map((r) => [r.slug, r]));
-    for (const summary of globalDirectorySummaries) {
-      const record = bySlug.get(summary.slug);
-      expect(record, `summary for unknown slug ${summary.slug}`).toBeDefined();
-      expect(summary.name).toBe(record!.name);
-      expect(globalDirectoryCategoryNames[summary.categoryIndex]).toBe(record!.category);
-      expect(globalDirectoryClusterNames[summary.clusterIndex]).toBe(record!.cluster);
+    for (const [slug, name, categoryIndex, clusterIndex] of globalDirectorySummaries) {
+      const record = bySlug.get(slug);
+      expect(record, `summary for unknown slug ${slug}`).toBeDefined();
+      expect(name).toBe(record!.name);
+      expect(globalDirectoryCategoryNames[categoryIndex]).toBe(record!.category);
+      expect(globalDirectoryClusterNames[clusterIndex]).toBe(record!.cluster);
     }
   });
 
   it("pooled cluster names cover every cluster index", () => {
-    for (const summary of globalDirectorySummaries) {
-      expect(summary.clusterIndex).toBeGreaterThanOrEqual(0);
-      expect(summary.clusterIndex).toBeLessThan(globalDirectoryClusterNames.length);
-      expect(summary.categoryIndex).toBeGreaterThanOrEqual(0);
-      expect(summary.categoryIndex).toBeLessThan(globalDirectoryCategoryNames.length);
+    for (const [, , categoryIndex, clusterIndex] of globalDirectorySummaries) {
+      expect(clusterIndex).toBeGreaterThanOrEqual(0);
+      expect(clusterIndex).toBeLessThan(globalDirectoryClusterNames.length);
+      expect(categoryIndex).toBeGreaterThanOrEqual(0);
+      expect(categoryIndex).toBeLessThan(globalDirectoryCategoryNames.length);
     }
     expect(new Set(globalDirectoryClusterNames)).toEqual(
       new Set(globalDirectoryClusters.map((c) => c.name)),
@@ -92,17 +92,10 @@ describe("global directory (generated from research markdown)", () => {
     );
   });
 
-  it("keeps heavy research payloads out of the client subset", () => {
+  it("keeps the client subset to a compact 4-field tuple", () => {
     for (const summary of globalDirectorySummaries) {
-      expect(summary).not.toHaveProperty("founded");
-      expect(summary).not.toHaveProperty("hq");
-      expect(summary).not.toHaveProperty("founders");
-      expect(summary).not.toHaveProperty("funding");
-      expect(summary).not.toHaveProperty("valuationOrStatus");
-      expect(summary).not.toHaveProperty("licences");
-      expect(summary).not.toHaveProperty("website");
-      expect(summary).not.toHaveProperty("description");
-      expect(summary).not.toHaveProperty("cluster");
+      expect(Array.isArray(summary)).toBe(true);
+      expect(summary).toHaveLength(4);
     }
   });
 

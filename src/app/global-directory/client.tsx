@@ -17,15 +17,15 @@ const PAGE_SIZE = 50;
 
 /** Download the current (filtered) global directory view as CSV. */
 function exportGlobalDirectoryCsv(
-  rowsIn: ReadonlyArray<{ slug: string; name: string; categoryIndex: number; clusterIndex: number }>,
+  rowsIn: ReadonlyArray<readonly [string, string, number, number]>,
 ): void {
   downloadCsv("fintech-atlas-global-directory.csv", [
     ["Name", "Category", "Cluster", "Profile URL"],
-    ...rowsIn.map((s) => [
-      s.name,
-      globalDirectoryCategoryNames[s.categoryIndex] ?? "",
-      globalDirectoryClusterNames[s.clusterIndex] ?? "",
-      `${SITE_URL}/global-directory/${s.slug}`,
+    ...rowsIn.map(([slug, name, categoryIndex, clusterIndex]) => [
+      name,
+      globalDirectoryCategoryNames[categoryIndex] ?? "",
+      globalDirectoryClusterNames[clusterIndex] ?? "",
+      `${SITE_URL}/global-directory/${slug}`,
     ]),
   ]);
 }
@@ -81,14 +81,14 @@ export function GlobalDirectoryClient() {
 
   const filtered = useMemo(() => {
     const q = query.trim();
-    return globalDirectorySummaries.filter((summary) => {
-      if (clusterIndex > 0 && summary.clusterIndex !== clusterIndex - 1) return false;
+    return globalDirectorySummaries.filter(([, name, recCategory, recCluster]) => {
+      if (clusterIndex > 0 && recCluster !== clusterIndex - 1) return false;
       if (!q) return true;
-      const clusterName = globalDirectoryClusterNames[summary.clusterIndex] ?? "";
-      const categoryName = globalDirectoryCategoryNames[summary.categoryIndex] ?? "";
+      const clusterName = globalDirectoryClusterNames[recCluster] ?? "";
+      const categoryName = globalDirectoryCategoryNames[recCategory] ?? "";
       // Fuzzy match: tolerates typos and partial words; exact
       // substrings still rank highest.
-      return fuzzyMatchAny([summary.name, categoryName, clusterName], q);
+      return fuzzyMatchAny([name, categoryName, clusterName], q);
     });
   }, [query, clusterIndex]);
 
@@ -169,20 +169,20 @@ export function GlobalDirectoryClient() {
       </p>
 
       <ul className="mt-6 grid gap-4 border-t border-[var(--border-color)] sm:grid-cols-2 lg:grid-cols-3">
-        {pageItems.map((summary) => (
-          <li key={summary.slug}>
+        {pageItems.map(([slug, name, categoryIndex, clusterIndex]) => (
+          <li key={slug}>
             <Link
-              href={`/global-directory/${summary.slug}`}
+              href={`/global-directory/${slug}`}
               className="box-card flex h-full flex-col gap-1 p-5"
             >
               <span className="hl-link font-semibold text-[var(--foreground)]">
-                {summary.name}
+                {name}
               </span>
               <span className="text-sm text-[var(--fg-dim)]">
-                {globalDirectoryCategoryNames[summary.categoryIndex]}
+                {globalDirectoryCategoryNames[categoryIndex]}
               </span>
               <span className="mt-1 w-fit font-mono text-[11px] uppercase tracking-wider text-[var(--muted-text)]">
-                {globalDirectoryClusterNames[summary.clusterIndex]}
+                {globalDirectoryClusterNames[clusterIndex]}
               </span>
             </Link>
           </li>
