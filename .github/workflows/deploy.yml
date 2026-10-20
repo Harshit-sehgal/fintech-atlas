@@ -64,7 +64,7 @@ jobs:
           path: out
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
   # Optional live verification. Set DEPLOY_URL in repository/environment
   # variables only after a real HTTPS origin is available. The job is skipped
